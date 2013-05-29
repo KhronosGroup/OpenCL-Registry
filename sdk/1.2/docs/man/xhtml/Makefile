@@ -157,6 +157,7 @@ HTMLFILES = \
 	clGetSupportedImageFormats.html \
 	clIcdGetPlatformIDsKHR.html \
 	cl_image_format.html \
+	cl_image_desc.html \
 	cl_khr_3d_image_writes.html \
 	cl_khr_dx9_media_sharing.html \
 	cl_khr_d3d10_sharing.html \
@@ -245,7 +246,6 @@ HTMLFILES = \
 	hadd.html \
 	hypot.html \
 	ilogb.html \
-	imageDescriptor.html \
 	imageFunctions.html \
 	integerClamp.html \
 	integerFunctions.html \
