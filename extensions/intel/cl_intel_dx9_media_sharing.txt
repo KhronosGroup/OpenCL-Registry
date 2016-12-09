@@ -1,0 +1,726 @@
+Name String
+
+   cl_intel_dx9_media_sharing
+
+Contributors
+
+    Ben Asbaugh, Intel
+
+Contact
+
+    Ben Asbaugh, Intel (ben.ashbaugh 'at' intel.com)
+
+IP Status
+
+    TBD
+
+Version
+
+    Version 6, October 18, 2011
+
+Number
+
+    OpenCL Extension #14
+
+Status
+
+    Final Draft
+
+Extension Type
+
+    OpenCL platform extension
+
+Dependencies
+
+    OpenCL 1.0 is required and a DirectX 9 implementation supporting 
+    sharing of surfaces with OpenCL is required.  This extension is written 
+    against revision 48 of the OpenCL 1.0 specification.
+
+    This extension is modified by cl_intel_packed_yuv.
+
+Overview
+
+    The goal of this extension is to provide interoperability between 
+    OpenCL and DirectX 9, specifically DirectX 9 media surfaces.  This 
+    is designed to function analogously to the OpenGL interoperability as 
+    defined in the OpenCL 1.0 specification and accompanying extensions.
+
+New Procedures and Functions
+
+    cl_int clGetDeviceIDsFromDX9INTEL(
+        cl_platform_id platform,
+        cl_dx9_device_source_intel dx9_device_source,
+        void *dx9_object,
+        cl_dx9_device_set_intel dx9_device_set,
+        cl_uint num_entries, 
+        cl_device_id *devices, 
+        cl_uint *num_devices)
+
+    cl_mem  clCreateFromDX9MediaSurfaceINTEL(
+        cl_context context,
+        cl_mem_flags flags,
+        IDirect3DSurface9 *resource,
+        HANDLE shared_handle,
+        UINT plane,
+        cl_int *errcode_ret)
+
+    cl_int  clEnqueueAcquireDX9ObjectsINTEL(
+        cl_command_queue command_queue,
+        cl_uint num_objects,
+        const cl_mem *mem_objects,
+        cl_uint num_events_in_wait_list,
+        const cl_event *event_wait_list,
+        cl_event *event)
+
+    cl_int clEnqueueReleaseDX9ObjectsINTEL(
+        cl_command_queue command_queue,
+        cl_uint num_objects,
+        cl_mem *mem_objects,
+        cl_uint num_events_in_wait_list,
+        const cl_event *event_wait_list,
+        cl_event *event)
+
+New Tokens
+
+    Accepted as a DirectX 9 device source in the <dx9_device_source> 
+    parameter of clGetDeviceIDsFromDX9INTEL:
+
+        CL_D3D9_DEVICE_INTEL                   0x4022
+        CL_D3D9EX_DEVICE_INTEL                 0x4070
+        CL_DXVA_DEVICE_INTEL                   0x4071
+
+    Accepted as a set of DirectX 9 devices in the <dx9_device_set> parameter
+    of clGetDeviceIDsFromDX9INTEL:
+
+        CL_PREFERRED_DEVICES_FOR_DX9_INTEL     0x4024
+        CL_ALL_DEVICES_FOR_DX9_INTEL           0x4025
+
+    Accepted as a property name in the <properties> parameter of
+    clCreateContext and clCreateContextFromType:
+
+        CL_CONTEXT_D3D9_DEVICE_INTEL           0x4026
+        CL_CONTEXT_D3D9EX_DEVICE_INTEL         0x4072
+        CL_CONTEXT_DXVA_DEVICE_INTEL           0x4073
+
+    Accepted as the property being queried in the <param_name> 
+    parameter of clGetMemObjectInfo:
+
+        CL_MEM_DX9_RESOURCE_INTEL              0x4027
+        CL_MEM_DX9_SHARED_HANDLE_INTEL         0x4074
+
+    Accepted as the property being queried in the <param_name> 
+    parameter of clGetImageInfo:
+
+        CL_IMAGE_DX9_PLANE_INTEL               0x4075
+
+    Returned in the <param_value> parameter of clGetEventInfo when
+    <param_name> is CL_EVENT_COMMAND_TYPE:
+
+        CL_COMMAND_ACQUIRE_DX9_OBJECTS_INTEL   0x402A
+        CL_COMMAND_RELEASE_DX9_OBJECTS_INTEL   0x402B
+
+    Returned by clCreateContext and clCreateContextFromType if the DirectX 9
+    device specified for interoperability is not compatible with the devices
+    against which the context is to be created:
+
+        CL_INVALID_DX9_DEVICE_INTEL            -1010
+
+    Returned by clCreateFromDX9MediaSurfaceINTEL when <resource> is not a DirectX 
+    9 resource of the required type, by clGetMemObjectInfo when <param_name> 
+    is CL_MEM_DX9_RESOURCE_INTEL or CL_MEM_DX9_SHARED_HANDLE_INTEL when <memobj> 
+    was not created from a DirectX 9 resource, and from clGetImageInfo when
+    <param_name> is CL_IMAGE_DX9_PLANE_INTEL and <image> was not created from
+    a DirectX 9 resource:
+
+        CL_INVALID_DX9_RESOURCE_INTEL          -1011
+
+    Returned by clEnqueueAcquireDX9ObjectsINTEL when any of <mem_objects> are
+    currently acquired by OpenCL:
+
+        CL_DX9_RESOURCE_ALREADY_ACQUIRED_INTEL -1012
+
+    Returned by clEnqueueReleaseDX9ObjectsINTEL when any of <mem_objects> are
+    not currently acquired by OpenCL:
+
+        CL_DX9_RESOURCE_NOT_ACQUIRED_INTEL     -1013
+
+Additions to Chapter 4 of the OpenCL 1.0 Specification
+
+    In section 4.3, replace the description of <properties> under
+    clCreateContext with:
+
+   "<properties> specifies a list of context property names and their
+    corresponding values.  Each property is followed immediately by the
+    corresponding desired value.  The list is terminated with zero.  
+    If a property is not specified in <properties>, then its default 
+    value (listed in table 4.4) is used (it is said to be specified
+    implicitly). If <properties> is NULL or empty (points to a list
+    whose first value is zero), all attributes take on their default
+    values."
+
+    Replace existing table 4.4 with:
+
+   "--------------------------------------------------------------------------------------
+    cl_context_properties          Value type     Default value  Description
+    ---------------------          ----------     -------------  -----------
+    CL_CONTEXT_PLATFORM            cl_platform_id          NULL  Specifies the cl_platform_id 
+                                                                 on which to create the OpenCL
+                                                                 context.
+
+    CL_CONTEXT_D3D9_DEVICE_INTEL   IDirect3DDevice9*       NULL  Specifies an 
+                                                                 IDirect3DDevice9*
+                                                                 to use for DirectX 9
+                                                                 interoperabilty."
+
+    CL_CONTEXT_D3D9EX_DEVICE_INTEL IDirect3DDevice9Ex*     NULL  Specifies an 
+                                                                 IDirect3DDevice9Ex*
+                                                                 to use for DirectX 9
+                                                                 interoperabilty."
+
+    CL_CONTEXT_DXVA_DEVICE_INTEL   IDXVAHD_Device*         NULL  Specifies an 
+                                                                 IDXVAHD_Device*
+                                                                 to use for DirectX 9
+                                                                 interoperabilty."
+    --------------------------------------------------------------------------------------"
+
+    Add to the list of errors for clCreateContext:
+
+   "* CL_INVALID_DX9_DEVICE_INTEL if any of the values of the properties 
+      CL_CONTEXT_D3D9_DEVICE_INTEL, CL_CONTEXT_D3D9EX_DEVICE_INTEL, or 
+      CL_CONTEXT_DXVA_DEVICE_INTEL are non-NULL and do not specify a valid
+      DirectX 9 device with which the cl_device_ids against which this context 
+      is to be created may interoperate.
+
+    * CL_INVALID_OPERATION if DirectX 9 interoperability is specified by 
+      setting CL_CONTEXT_D3D9_DEVICE_INTEL, CL_CONTEXT_D3D9EX_DEVICE_INTEL, or
+      CL_CONTEXT_DXVA_DEVICE_INTEL to a non-NULL value, and interoperability 
+      with any other graphics API is also specified."
+
+    Add to the list of errors for clCreateContextFromType the same new
+    errors described above for clCreateContext.
+
+Additions to Chapter 5 of the OpenCL 1.0 Specification
+
+    5.2.9 Memory Object Queries
+
+    Change the last paragraph before table 5.8 to read:
+
+   "clGetMemObjectInfo returns CL_SUCCESS if the function is executed successfully.  
+    Otherwise it returns one of the following errors:
+
+      * CL_INVALID_VALUE if <param_name> is not valid, or if the size in bytes 
+        specified by <param_value_size> is less than the size of the return type as 
+        described in table 5.8 and <param_value> is not NULL.
+
+      * CL_INVALID_MEM_OBJECT if <memobj> is a not a valid memory object.
+
+      * CL_INVALID_DX9_RESOURCE_INTEL if <param_name> is CL_MEM_DX9_RESOURCE_INTEL
+        or CL_MEM_DX9_SHARED_HANDLE_INTEL and <memobj> was not created from a 
+        DirectX 9 resource using clCreateFromDX9MediaSurfaceIntel."
+
+    Extend table 5.8 to include the following entries:
+
+    ------------------------------------------------------------------------------
+    cl_mem_info                 Return type          Info. returned in param_value
+    -----------                 ---------------      -----------------------------
+    CL_MEM_DX9_RESOURCE_INTEL   IDirect3DResource9*  If <memobj> was created from a
+                                                     DirectX 9 resource using
+                                                     clCreateFromDX9MediaSurfaceINTEL,
+                                                     returns the <resource> argument 
+                                                     specified when <memobj> was 
+                                                     created.
+
+    CL_MEM_DX9_SHARED_HANDLE_INTEL HANDLE            If <memobj> was created from a
+                                                     DirectX 9 resource using
+                                                     clCreateFromDX9MediaSurfaceINTEL,
+                                                     returns the <shared_handle> 
+                                                     argument specified when <memobj> 
+                                                     was created.
+    -----------------------------------------------------------------------
+
+    Change the last paragraph before table 5.9 to read
+
+   "clGetImageInfo returns CL_SUCCESS if the function is executed successfully.  
+    Otherwise it returns one of the following errors:
+
+      * CL_INVALID_VALUE if <param_name> is not valid, or if the size in bytes 
+        specified by <param_value_size> is less than the size of the return type as 
+        described in table 5.9 and <param_value> is not NULL.
+
+      * CL_INVALID_MEM_OBJECT if <image> is a not a valid image object. 
+
+      * CL_INVALID_DX9_RESOURCE_INTEL if <param_name> is CL_IMAGE_DX9_PLANE_INTEL
+        and <image> was not created from a DirectX 9 resource using 
+        clCreateFromDX9MediaSurfaceINTEL."
+
+    Extend table 5.9 to include the following entry:
+
+    -----------------------------------------------------------------------
+    cl_image_info              Return type     Info. returned in param_value
+    -------------              -----------     -----------------------------
+    CL_IMAGE_DX9_PLANE_INTEL   UINT            If <image> was created using 
+                                               clCreateFromDX9MediaSurfaceINTEL,
+                                               returns the <plane> argument
+                                               specified when <image> was 
+                                               created.
+    -----------------------------------------------------------------------
+
+
+    5.7 Event Objects
+
+    Add to Table 5.15 in the "Info returned in <param_value>" column
+    for cl_event_info CL_EVENT_COMMAND_TYPE:
+
+      CL_COMMAND_ACQUIRE_DX9_OBJECTS_INTEL
+      CL_COMMAND_RELEASE_DX9_OBJECTS_INTEL
+
+Add new section 9.13
+
+    9.13 Sharing Memory Objects with DirectX 9 Media Resources
+
+    This section discusses OpenCL functions that allow applications to use
+    DirectX 9 media resources as OpenCL memory objects. This allows efficient 
+    sharing of data between OpenCL and DirectX 9. The OpenCL API may be 
+    used to execute kernels that read and/or write memory objects that are 
+    also DirectX 9 resources.  An OpenCL image object may be created from 
+    a DirectX 9 media surface resource. OpenCL memory objects may be created 
+    from DirectX 9 objects if and only if the OpenCL context has been created 
+    from a DirectX 9 device.
+
+    9.13.1 Querying OpenCL Devices Corresponding to DirectX 9 Devices
+
+    The OpenCL devices corresponding to a DirectX 9 device may be queried.  
+    The OpenCL devices corresponding to a DirectX 9 device will be a subset 
+    of the OpenCL devices corresponding to the adapter against which the 
+    DirectX 9 device was created.
+
+    The OpenCL devices corresponding to a DirectX 9 device may be queried 
+    using the function
+
+        cl_int clGetDeviceIDsFromDX9INTEL(
+            cl_platform_id platform,
+            cl_dx9_device_source_intel dx9_device_source,
+            void *dx9_object,
+            cl_dx9_device_set_intel dx9_device_set,
+            cl_uint num_entries, 
+            cl_device_id *devices, 
+            cl_uint *num_devices)
+
+    <platform> refers to the platform ID returned by clGetPlatformIDs.
+
+    <dx9_device_source> specifies the type of <dx9_object>, and must be 
+    one of the values shown in table 9.13.1.1.
+
+    <dx9_object> specifies the object whose corresponding OpenCL devices
+    are being queried.  The type of <dx9_object> must be as specified in
+    table 9.13.1.1.
+
+    <dx9_device_set> specifies the set of devices to return and must be
+    one of the values shown in table 9.13.1.2.
+
+    <num_entries> is the number of cl_device_id entries that can be added to 
+    <devices>. If <devices> is not NULL then <num_entries> must be greater than 
+    zero.
+
+    <devices> returns a list of OpenCL devices found. The cl_device_id values 
+    returned in <devices> can be used to identify a specific OpenCL device. 
+    If <devices> is NULL, this argument is ignored. The number of 
+    OpenCL devices returned is the minimum of the value specified by 
+    <num_entries> and the number of OpenCL devices corresponding to 
+    <dx9_object>.
+
+    <num_devices> returns the number of OpenCL devices available that 
+    correspond to <dx9_object>.  If <num_devices> is NULL, this argument 
+    is ignored.
+
+    clGetDeviceIDsFromDX9INTEL returns CL_SUCCESS if the function is executed 
+    successfully.  Otherwise it may return:
+
+      * CL_INVALID_PLATFORM if <platform> is not a valid platform, 
+
+      * CL_INVALID_VALUE if <dx9_device_source> is not a valid value, 
+        <dx9_device_set> is not a valid value,  <num_entries> is equal 
+        to zero and <devices> is not NULL, or if both <num_devices> 
+        and <devices> are NULL.
+
+      * CL_DEVICE_NOT_FOUND if no OpenCL devices that correspond to  
+        <dx9_object> were found.
+
+    --------------------------------------------------------------------
+    cl_dx9_device_source_intel       Type of <dx9_object> 
+    ---------------------------      --------------------
+    CL_D3D9_DEVICE_INTEL             IDirect3DDevice9 *
+
+    CL_D3D9EX_DEVICE_INTEL           IDirect3DDevice9Ex *
+
+    CL_DXVA_DEVICE_INTEL             IDXVAHD_Device *
+    --------------------------------------------------------------------
+    Table 9.13.1.1: Types used to specify the object whose corresponding 
+    OpenCL devices are being queried by clGetDeviceIDsFromDX9INTEL.
+
+    --------------------------------------------------------------------
+    cl_dx9_device_set_intel               Devices returned in <devices>
+    ------------------------              -----------------------------
+    CL_PREFERRED_DEVICES_FOR_DX9_INTEL    The OpenCL devices associated with
+                                          the specified DirectX 9 object.
+
+    CL_ALL_DEVICES_FOR_DX9_INTEL          All OpenCL devices which may 
+                                          interoperate with the specified
+                                          DirectX 9 object.  Performance of
+                                          sharing data on these devices may 
+                                          be considerably less than on the 
+                                          preferred devices.
+    --------------------------------------------------------------------
+    Table 9.13.1.2: Sets of devices queriable using 
+    clGetDeviceIDsFromDX9INTEL.
+
+    9.13.2 Lifetime of Shared Resources
+
+    An OpenCL memory object created from a DirectX 9 resource remains 
+    valid as long as the corresponding DirectX 9 resource has not been 
+    deleted.  If the DirectX 9 resource is deleted through the DirectX 
+    9 API, subsequent use of the OpenCL memory object will result 
+    in undefined behavior, including but not limited to possible OpenCL 
+    errors, data corruption, and program termination.
+
+    The successful creation of a cl_context against a DirectX 9 device 
+    specified via the context create parameter CL_CONTEXT_D3D9_DEVICE_INTEL,
+    CL_CONTEXT_D3D9EX_DEVICE_INTEL, or CL_CONTEXT_DXVA_DEVICE_INTEL will 
+    increment the internal DirectX reference count on the specified DirectX 9
+    device.  The internal DirectX reference count on that DirectX 9 device 
+    will be decremented when the OpenCL reference count on the returned 
+    OpenCL context drops to zero.
+
+    The OpenCL context and corresponding command-queues are dependent on 
+    the existence of the DirectX 9 device from which the OpenCL context 
+    was created.  If the DirectX 9 device is deleted through the DirectX 9
+    API, subsequent use of the OpenCL context will result in undefined 
+    behavior, including but not limited to possible OpenCL errors, data 
+    corruption, and program termination.
+
+    9.13.4 Sharing DirectX 9 Media Surface Resources as OpenCL Image Objects
+
+    The function
+
+    cl_mem  clCreateFromDX9MediaSurfaceINTEL(
+        cl_context context,
+        cl_mem_flags flags,
+        IDirect3DSurface9 *resource,
+        HANDLE shared_handle,
+        UINT plane,
+        cl_int *errcode_ret)
+
+    creates an OpenCL 2D image object from a DirectX 9 media surface or a 
+    plane of a DirectX 9 media surface.
+
+    <context> is a valid OpenCL context created from a DirectX 9 device.
+
+    <flags> is a bit-field that is used to specify usage information.
+    Refer to table 5.3 for a description of <flags>. Only 
+    CL_MEM_READ_ONLY, CL_MEM_WRITE_ONLY and CL_MEM_READ_WRITE values
+    specified in table 5.3 can be used.
+
+    <resource> is a pointer to the DirectX 9 surface to share.  This 
+    surface must be a stand-alone surface which exports the interface
+    IDirect3DResource9, and not a level of an IDirect3DTexture9 or a
+    face of a level of an IDirect3DCubeTexture9.
+
+    <shared_handle> is the shared handle of the <resource> used to share 
+    the surface between devices.  If the <shared_handle> is NULL, the 
+    <resource> is still valid but there may be a performance improvement 
+    by providing a <shared_handle>.
+
+    <plane> is the plane of <resource> to share, for planar surface 
+    formats.
+
+    <errcode_ret> will return an appropriate error code. If
+    <errcode_ret> is NULL, no error code is returned.
+
+    clCreateFromDX9MediaSurfaceINTEL returns a valid non-zero OpenCL 2D image
+    object and <errcode_ret> is set to CL_SUCCESS if the OpenCL 2D image 
+    object is created successfully.  Otherwise, it returns a NULL value 
+    with one of the following error values returned in <errcode_ret>:
+
+      * CL_INVALID_CONTEXT if <context> is not a valid context.
+
+      * CL_INVALID_VALUE if values specified in <flags> are not valid
+        or if <plane> is not a valid plane of <resource>.
+
+      * CL_INVALID_DX9_RESOURCE_INTEL if <resource> is not a DirectX 9
+        surface created in D3DPOOL_DEFAULT, if a cl_mem from 
+        <resource> and <plane> has already been created, or if <context> 
+        was not created against the same DirectX 9 device from which 
+        <resource> was created.
+
+      * CL_INVALID_IMAGE_FORMAT_DESCRIPTOR if the DirectX 9 texture
+        format of <resource> is not listed in table 9.13.4.1.
+
+      * CL_OUT_OF_HOST_MEMORY if there is a failure to allocate resources
+        required by the OpenCL implementation on the host.
+
+    The width and height of the returned OpenCL 2D image object are 
+    determined by the width and height of the <plane> of <resource>.  The 
+    channel type and order of the returned OpenCL 2D image object is 
+    determined by the format and <plane> of <resource> by table 9.13.4.1.
+    
+    This call will increment the internal DirectX reference count on 
+    <resource>.  The internal DirectX reference count on <resource> 
+    will be decremented when the OpenCL reference count on the returned 
+    OpenCL memory object drops to zero.
+
+    ------------------------------------------------------------------
+    DirectX 9 Format                 cl_channel_order  cl_channel_type    
+    ------------------------------   ----------------  ---------------
+    D3DFMT_R32F                      CL_R              CL_FLOAT
+    D3DFMT_R16F                      CL_R              CL_HALF_FLOAT
+    D3DFMT_L16                       CL_R              CL_UNORM_INT16
+    D3DFMT_A8                        CL_A              CL_UNORM_INT8
+    D3DFMT_L8                        CL_R              CL_UNORM_INT8
+
+    D3DFMT_G32R32F                   CL_RG             CL_FLOAT
+    D3DFMT_G16R16F                   CL_RG             CL_HALF_FLOAT
+    D3DFMT_G16R16                    CL_RG             CL_UNORM_INT16
+    D3DFMT_A8L8                      CL_RG             CL_UNORM_INT8
+
+    D3DFMT_A32B32G32R32F             CL_RGBA           CL_FLOAT
+    D3DFMT_A16B16G16R16F             CL_RGBA           CL_HALF_FLOAT
+    D3DFMT_A16B16G16R16              CL_RGBA           CL_UNORM_INT16
+    D3DFMT_A8B8G8R8                  CL_RGBA           CL_UNORM_INT8
+    D3DFMT_X8B8G8R8                  CL_RGBA           CL_UNORM_INT8
+    D3DFMT_A8R8G8B8                  CL_BGRA           CL_UNORM_INT8
+    D3DFMT_X8R8G8B8                  CL_BGRA           CL_UNORM_INT8
+
+    MAKEFOURCC(?N?,?V?,?1?,?2?),Plane0    CL_R         CL_UNORM_INT8
+    MAKEFOURCC(?N?,?V?,?1?,?2?),Plane1    CL_RG        CL_UNORM_INT8
+
+    MAKEFOURCC(?Y?,?V?,?1?,?2?),Plane0    CL_R         CL_UNORM_INT8
+    MAKEFOURCC(?Y?,?V?,?1?,?2?),Plane1    CL_R         CL_UNORM_INT8
+    MAKEFOURCC(?Y?,?V?,?1?,?2?),Plane2    CL_R         CL_UNORM_INT8
+    ------------------------------------------------------------------
+    Table 9.13.4.1: List of DirectX 9 and corresponding OpenCL Image 
+    Formats.  
+
+    For the NV12 surface format, plane 0 corresponds to the Y channel 
+    data and plane 1 corresponds to the UV channel data.  For the YV12 
+    surface format, plane 0 corresponds to the Y channel data, plane 1 
+    corresponds to the V channel data, and plane 2 corresponds to the
+    U channel data.
+
+    9.13.5 Querying properties of memory objects created from
+           DirectX 9 resources.
+
+    Properties of media objects created from DirectX 9 resources may be queried 
+    using clGetMemObjectInfo and clGetImageInfo with <param_name> 
+    CL_MEM_DX9_RESOURCE_INTEL, CL_MEM_DX9_SHARED_HANDLE_INTEL, and 
+    CL_IMAGE_DX9_PLANE_INTEL as described in section 5.2.9.
+
+    9.13.6 Sharing memory objects created from DirectX 9 resources between
+           DirectX 9 and OpenCL contexts
+
+    The function
+
+        cl_int  clEnqueueAcquireDX9ObjectsINTEL(
+            cl_command_queue command_queue,
+            cl_uint num_objects,
+            const cl_mem *mem_objects,
+            cl_uint num_events_in_wait_list,
+            const cl_event *event_wait_list,
+            cl_event *event)
+
+    is used to acquire OpenCL memory objects that have been created from
+    DirectX 9 resources.  The DirectX 9 objects are acquired by the 
+    OpenCL context associated with <command_queue> and can therefore be 
+    used by all command-queues associated with the OpenCL context.
+
+    OpenCL memory objects created from DirectX 9 resources must be 
+    acquired before they can be used by any OpenCL commands queued to 
+    a command-queue.  If an OpenCL memory object created from a DirectX 9
+    resource is used while it is not currently acquired by OpenCL, the call 
+    attempting to use that OpenCL memory object will return
+    CL_DX9_RESOURCE_NOT_ACQUIRED_INTEL.
+
+    clEnqueueAcquireDX9ObjectsINTEL provides the synchronization guarantee 
+    that any DirectX 9 calls made before clEnqueueAcquireDX9ObjectsINTEL is 
+    called will complete executing before <event> reports completion
+    and before the execution of any subsequent OpenCL work issued in 
+    <command_queue> begins.
+
+    <command_queue> is a valid command-queue.
+
+    <num_objects> is the number of memory objects to be acquired in
+    <mem_objects>.
+
+    <mem_objects> is a pointer to a list of OpenCL memory objects that 
+    were created from DirectX 9 resources.
+
+    <event_wait_list> and <num_events_in_wait_list> specify events that
+    need to complete before this particular command can be executed. If
+    <event_wait_list> is NULL, then this particular command does not
+    wait on any event to complete. If <event_wait_list> is NULL,
+    <num_events_in_wait_list> must be 0. If <event_wait_list> is not
+    NULL, the list of events pointed to by <event_wait_list> must be
+    valid and <num_events_in_wait_list> must be greater than 0. The
+    events specified in <event_wait_list> act as synchronization points.
+
+    <event> returns an event object that identifies this particular 
+    command and can be used to query or queue a wait for this
+    particular command to complete. <event> can be NULL in which case it
+    will not be possible for the application to query the status of this
+    command or queue a wait for this command to complete.
+
+    clEnqueueAcquireDX9ObjectsINTEL returns CL_SUCCESS if the function is
+    executed successfully. If <num_objects> is 0 and <mem_objects> is
+    NULL then the function does nothing and returns CL_SUCCESS. Otherwise it
+    returns one of the following errors:
+
+      * CL_INVALID_VALUE if <num_objects> is zero and <mem_objects> is
+        not a NULL value or if <num_objects> > 0 and <mem_objects> is
+        NULL.
+
+      * CL_INVALID_MEM_OBJECT if memory objects in <mem_objects> are not
+        valid OpenCL memory objects or if memory objects in <mem_objects> 
+        have not been created from DirectX 9 resources.
+
+      * CL_INVALID_COMMAND_QUEUE if <command_queue> is not a valid
+        command-queue.
+
+      * CL_INVALID_CONTEXT if the context associated with <command_queue> 
+        was not created from a DirectX 9 device.
+
+      * CL_DX9_RESOURCE_ALREADY_ACQUIRED_INTEL if memory objects in
+        <mem_objects> have previously been acquired using 
+        clEnqueueAcquireDX9ObjectsINTEL but have not been released 
+        using clEnqueueReleaseDX9ObjectsINTEL.
+
+      * CL_INVALID_EVENT_WAIT_LIST if <event_wait_list> is NULL and
+        <num_events_in_wait_list> > 0, or <event_wait_list> is not NULL
+        and <num_events_in_wait_list> is 0, or if event objects in
+        <event_wait_list> are not valid events.
+
+      * CL_OUT_OF_HOST_MEMORY if there is a failure to allocate resources
+        required by the OpenCL implementation on the host.
+
+    The function
+
+        cl_int clEnqueueReleaseDX9ObjectsINTEL(
+            cl_command_queue command_queue,
+            cl_uint num_objects,
+            const cl_mem *mem_objects,
+            cl_uint num_events_in_wait_list,
+            const cl_event *event_wait_list,
+            cl_event *event)
+
+    is used to release OpenCL memory objects that have been created from
+    DirectX 9 resources. The DirectX 9 objects are released by the 
+    OpenCL context associated with <command_queue>.
+
+    OpenCL memory objects created from DirectX 9 resources which have
+    been acquired by OpenCL must be released by OpenCL before they may be 
+    accessed by DirectX 9.  Accessing a DirectX 9 resource while its 
+    corresponding OpenCL memory object is acquired is in error and will 
+    result in undefined behavior, including but not limited to possible 
+    OpenCL errors, data corruption, and program termination.
+
+    clEnqueueReleaseDX9ObjectsINTEL provides the synchronization guarantee
+    that any calls to DirectX 9 made after the call to 
+    clEnqueueReleaseDX9ObjectsINTEL will not start executing until after
+    all events in <event_wait_list> are complete and all work already
+    submitted to <command_queue> completes execution.
+
+    <num_objects> is the number of memory objects to be released in
+    <mem_objects>.
+
+    <mem_objects> is a pointer to a list of OpenCL memory objects that 
+    were created from DirectX 9 resources.
+
+    <event_wait_list> and <num_events_in_wait_list> specify events that
+    need to complete before this particular command can be executed. If
+    <event_wait_list> is NULL, then this particular command does not
+    wait on any event to complete. If <event_wait_list> is NULL,
+    <num_events_in_wait_list> must be 0. If <event_wait_list> is not
+    NULL, the list of events pointed to by <event_wait_list> must be
+    valid and <num_events_in_wait_list> must be greater than 0. The
+    events specified in <event_wait_list> act as synchronization points.
+
+    <event> returns an event object that identifies this particular 
+    command and can be used to query or queue a wait for this
+    particular command to complete. <event> can be NULL in which case it
+    will not be possible for the application to query the status of this
+    command or queue a wait for this command to complete.
+
+    clEnqueueReleaseDX9ObjectsINTEL returns CL_SUCCESS if the function
+    is executed successfully. If <num_objects> is 0 and <mem_objects> is
+    NULL the function does nothing and returns CL_SUCCESS. Otherwise it
+    returns one of the following errors:
+
+      * CL_INVALID_VALUE if <num_objects> is zero and <mem_objects> is
+        not a NULL value or if <num_objects> > 0 and <mem_objects> is
+        NULL.
+
+      * CL_INVALID_MEM_OBJECT if memory objects in <mem_objects> are not
+        valid OpenCL memory objects or if memory objects in <mem_objects> 
+        have not been created from DirectX 9 resources.
+
+      * CL_INVALID_COMMAND_QUEUE if <command_queue> is not a valid
+        command-queue.
+
+      * CL_INVALID_CONTEXT if the context associated with <command_queue> 
+        was not created from a DirectX 9 device.
+
+      * CL_DX9_RESOURCE_NOT_ACQUIRED_INTEL if memory objects in
+        <mem_objects> have not previously been acquired using
+        clEnqueueAcquireDX9ObjectsINTEL, or have already been released 
+        using clEnqueueReleaseDX9ObjectsINTEL since the last time that 
+        they were acquired.
+
+      * CL_INVALID_EVENT_WAIT_LIST if <event_wait_list> is NULL and
+        <num_events_in_wait_list> > 0, or <event_wait_list> is not NULL
+        and <num_events_in_wait_list> is 0, or if event objects in
+        <event_wait_list> are not valid events.
+
+      * CL_OUT_OF_HOST_MEMORY if there is a failure to allocate resources
+        required by the OpenCL implementation on the host.
+
+Interactions with cl_intel_packed_yuv:
+
+    If cl_intel_packed_yuv is present, additional formats are available
+    in table 9.13.4.1:
+
+    ------------------------------------------------------------------
+    DirectX 9 Format                 cl_channel_order  cl_channel_type    
+    ------------------------------   ----------------  ---------------
+    D3DFMT_YUY2                      CL_YUYV_INTEL     CL_UNORM_INT8
+    D3DFMT_UYVY                      CL_UYVY_INTEL     CL_UNORM_INT8
+    MAKEFOURCC(?Y?,?V?,?Y?,?U?)      CL_YVYU_INTEL     CL_UNORM_INT8
+    MAKEFOURCC(?V?,?Y?,?U?,?Y?)      CL_VYUY_INTEL     CL_UNORM_INT8    
+    ------------------------------------------------------------------
+    Table 9.13.4.1: List of DirectX 9 and corresponding OpenCL Image 
+    Formats.
+
+Issues
+
+    1) Should we use an enumerant to describe which plane of a planar YUV 
+       image we want to share or an integer?
+
+    CLOSED: An integer is sufficient.
+
+    2) How should the API for this extension interact / coexist with
+       other D3D9 interop extensions?  Should it?
+
+    CLOSED: There are no other INTEL supported extensions for D3D9 interop.
+
+Revision History
+
+    Version 6, 2011/10/18 (Ben Ashbaugh) ? Bugfix, need to use the FOURCC
+        code for YVYU and VYUY instead of G8R8_G8B8 and R8G8_B8G8.
+    Version 5, 2011/10/03 (Ben Ashbaugh) ? Final cleanup.  Renamed 
+        enumerants and entry points DX9 vs. D3D9.
+    Version 4, 2011/09/06 (Ben Ashbaugh) ? Updated table of D3D formats,
+        removed paragraph about channel swizzling.
+    Version 3, 2011/07/29 (Ben Ashbaugh) ? Added enumerant values.
+    Version 2, 2011/07/20 (Ben Ashbaugh) ? Since this will be an Intel
+        vendor extension, added the INTEL suffix to all entry points and
+        enumerants added by this extension.
+    Version 1, 2011/05/20 (Ben Ashbaugh) - Initial version after the Bremen
+        Khronos face-to-face.  This version only contains functionality
+        necessary to interoperate with Direct3D 9 media surfaces.

@@ -1,0 +1,149 @@
+Name
+
+    CL_QCOM_ANDROID_NATIVE_BUFFER_HOST_PTR
+
+Name Strings
+
+    cl_qcom_android_native_buffer_host_ptr
+
+Contact
+
+    hosseins at quicinc dot com
+    ssusheel at quicinc dot com
+
+
+Contributors
+
+    Hossein Mohtasham, QUALCOMM Innovation Center Inc.
+    Sushmita Susheelendra, QUALCOMM Innovation Center Inc.
+    Balaji Calidas, QUALCOMM
+
+Status
+
+    ?
+
+Number
+
+    OpenCL Extension #32
+
+Extension Type
+
+    OpenCL device extension
+
+Dependencies
+
+    OpenCL 1.1 or later is required.
+    cl_qcom_ext_host_ptr is required.
+    Android OS is required.
+
+    This extension is written against the OpenCL 1.1 specification. This extension provides
+    functionality, beyond and above the cl_qcom_ion_host_ptr extension, to create buffer/image
+    directly from Android native buffers.
+
+Overview
+
+    This extension extends the functionality provided by clCreateBuffer, clCreateImage2D,
+    and clCreateImage. It allows applications to pass an Android ANativeWindowBuffer (ANB),
+    aka graphics buffer, that is based on ION memory allocator to these functions so that
+    it can be mapped to the device's address space. Using this extension, we can avoid having
+    to copy data back and forth between the graphic buffer and the device. This extension is
+    for 2D images only; clCreateImage will fail out with CL_INVALID_VALUE if anything other
+    than a 2D image is specified.
+
+IP Status
+
+    No known IP claims.
+
+New Tokens
+
+    Accepted by the <host_ptr> argument of clCreateBuffer, clCreateImage2D:
+
+        typedef struct _cl_mem_android_native_buffer_host_ptr
+        {
+            // Type of external memory allocation.
+            // Must be CL_MEM_ANB_HOST_PTR_QCOM for Android Native Buffers.
+            cl_mem_ext_host_ptr   ext_host_ptr;
+
+            // Host pointer to the Android Native Buffer (ANativeBuffer*)
+            void*                 anb_ptr;
+
+        } cl_mem_android_native_buffer_host_ptr;
+
+    Used together with CL_MEM_EXT_HOST_PTR_QCOM:
+
+        CL_MEM_ANDROID_NATIVE_BUFFER_HOST_PTR_QCOM                   0x40C6
+
+Additions to Chapter 5.2.1 of the OpenCL 1.1 Specification
+(Creating Buffer Objects)
+
+        When CL_MEM_EXT_HOST_PTR_QCOM is enabled in the <flags> argument, then <host_ptr> is
+        interpreted as a pointer to cl_mem_ext_host_ptr. When <host_ptr>->allocation_type is
+        equal to CL_MEM_ANDROID_NATIVE_BUFFER_HOST_PTR_QCOM then <host_ptr> can also be
+        interpreted as a pointer to cl_mem_android_native_buffer_host_ptr.
+
+        In addition to that, the application must also initialize the following struct fields:
+        * <host_ptr>->host_cache_policy can be equal to CL_MEM_HOST_UNCACHED_QCOM or
+        CL_MEM_HOST_WRITEBACK_QCOM.
+        * <host_ptr>->anb_ptr must be the host virtual pointer associated with the ANativeBuffer.
+
+        The caching policy provided in ext_host_ptr.host_cache_policy must be the same policy
+        the GraphicBuffer is created with. Any mismatch will result in undefined behavior.
+
+        Only Buffers and 2D images are supported. Use of other image types will result in undefined behavior.
+
+        The application is responsible for maintaining the consistency of image attributes,
+        i.e. format, width, height, and pitch, between the OpenCL image and the Android native buffer
+        (aka graphics buffer). Also, if an OpenCL buffer is created from a native buffer, the
+        application is responsible for making sure that the size of the buffer matches the actual
+        linear size of the native buffer; creating a buffer with a size different than the passed-in
+        native buffer will result in undefined behavior.
+
+        The application is responsible for ensuring that the underlying native buffer is not released
+        while the cl object is in use. Proper synchronization between different APIs that share the
+        underlying buffer is to be handled by the application.
+
+
+Sample Code
+
+    /*    Using the extension for CL buffer objects   */
+
+    cl_mem                                 buffer_object            = NULL;
+    size_t                                 buffer_size_in_bytes     = 0;
+    cl_mem_android_native_buffer_host_ptr  myANBmem                 = {0};
+
+
+    // Create an OpenCL buffer object that uses myANBmem as its data store.
+    myANBmem.ext_host_ptr.allocation_type    = CL_MEM_ANDROID_NATIVE_BUFFER_HOST_PTR_QCOM;
+    myANBmem.ext_host_ptr.host_cache_policy  = CL_MEM_HOST_CACHED_QCOM;
+    myANBmem.ion_hostptr                     = gb->getNativeBuffer(); // the hostptr to a native buffer and gb is an Android GraphicBuffer
+
+    buffer_size_in_bytes = gb->getHeight() * gb->getStride();
+
+    buffer_object = clCreateBuffer(context, CL_MEM_USE_HOST_PTR | CL_MEM_EXT_HOST_PTR_QCOM, buffer_size_in_bytes, &myANBmem, &errcode);
+
+
+    /*    Using the extension for CL image objects   */
+
+    cl_mem                                 image_object             = NULL;
+    cl_mem_android_native_buffer_host_ptr  myANBmem                 = {0};
+
+
+    // Create an OpenCL image object that uses myANBmem as its data store.
+    myANBmem.ext_host_ptr.allocation_type    = CL_MEM_ANDROID_NATIVE_BUFFER_HOST_PTR_QCOM;
+    myANBmem.ext_host_ptr.host_cache_policy  = CL_MEM_HOST_WRITEBACK_QCOM;
+    myANBmem.anb_ptr                     = gb->getNativeBuffer(); // the hostptr to a native buffer and gb is an Android GraphicBuffer
+
+    imgw = gb->getWidth();
+    imgh = gb->getHeight();
+    row_pitch = gb->getStride();
+    image_format = {CL_RGBA, CL_UNSIGNED_INT8}; // pick any CL format as long as it is consistent with the graphics buffer width and stride.
+
+    image_object = clCreateImage2D(context, CL_MEM_USE_HOST_PTR|CL_MEM_EXT_HOST_PTR_QCOM, &image_fmt, imgw, imgh, row_pitch, &myANBmem, &errcode);
+
+Issues
+
+    None.
+
+Revision History
+
+    Revision 1, 2014/06/05: Initial version.

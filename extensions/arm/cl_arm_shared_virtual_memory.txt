@@ -1,0 +1,218 @@
+Name
+
+    ARM_shared_virtual_memory
+
+Name Strings
+
+    cl_arm_shared_virtual_memory
+
+Contributors
+
+    Robert Elliott, ARM
+    Mats Petersson, ARM
+
+Contact
+
+    Robert Elliott, ARM (robert.elliott 'at' ARM.com)
+
+IP Status
+
+    No claims or disclosures are known to exist.
+
+Version
+
+    Revision: #1, Mar 15th, 2016
+
+Number
+
+    OpenCL Extension #40
+
+Status
+
+    Complete.
+
+Extension Type
+
+    OpenCL device extension
+
+Dependencies
+
+    Requires OpenCL version 1.2 or later.
+
+Overview
+
+    This extension enables the shared virtual memory features in
+    versions prior to 2.0 as described in OpenCL version 2.0 section
+    3.
+
+    The C11 style atomics provided in OpenCL C version 2.0 is also
+    supported, with the exception that generic address space is not
+    supported. For these functions, address space specific variants
+    have been provided.
+
+    Memory allocated through clSVMAllocARM can be used as host_ptr
+    passed to clCreateImage and clCreateBuffer, as per 5.6.1 in the
+    OpenCL 2.0 specification.
+
+Header File
+
+    cl_ext.h
+
+New Types
+
+    Atomic types according to OpenCL C version 2.0 section:
+    Memory order 6.13.11.3
+    Memory scope 6.13.11.4
+    Atomic integer and floating-point types 6.13.11.6
+
+New host types
+
+    The following types are added to allow the arguments to the
+    functions described below. Bitfield types are using the same
+    bit values as their CL 2.0 counterparts. The cl_kernel_exec_info_arm
+    type uses the new tokens CL_KERNEL_EXEC_INFO_SVM_PTRS_ARM and
+    CL_KERNEL_EXEC_INFO_SVM_FINE_GRAIN_SYSTEM_ARM.
+
+    typedef cl_bitfield cl_svm_mem_flags_arm;
+    typedef cl_uint     cl_kernel_exec_info_arm;
+    typedef cl_bitfield cl_device_svm_capabilities_arm;
+
+New Procedures and Functions
+
+    Built-in Function
+
+    Atomic C11 functions as per OpenCL C version 2.0 section 6.13.11.
+    Program scope variables and generic address space are not
+    supported.
+
+    Examples that should work:
+
+       kernel nuclear_reactor()
+       {
+              local volatile atomic_int destMemory;
+              int value = 42;
+              int old_value = atomic_fetch_max( &destMemory, value );
+       }
+
+       kernel nuclear_reactor(global atomic_int *destMemory)
+       {
+              int value = 42;
+              int oldValue = atomic_fetch_max( destMemory, value );
+       }
+
+    The following is not expected to work:
+
+       global atomic_int globalAtomic;
+
+       kernel nuclear_reactor()
+       {
+              int value = 42;
+              int old_value = atomic_fetch_max( &globalAtomic, value );
+       }
+
+       /* This is an example showing exolicit need for generic
+          addresss space by mixing local and global in the same atomic
+          call. */
+       kernel nuclear_reactor(global atomic_int *destMemory, int choice)
+       {
+              local atomic_int localMemory;
+              int value = 42;
+              int oldValue = atomic_fetch_max( (choice) ? destMemory : &localMemory,
+                                                value );
+       }
+
+       To make this example work:
+
+       /* This is an example showing exolicit need for generic
+          addresss space by mixing local and global in the same atomic
+          call. */
+       kernel nuclear_reactor(global atomic_int *destMemory, int choice)
+       {
+              local atomic_int localMemory;
+              int value = 42;
+
+              int oldValue;
+
+              if (choice)
+                 oldValue =  atomic_fetch_max( destMemory, value );
+              else
+                 oldValue = atomic_fetch_max( &localMemory, value );
+       }
+
+
+Description
+
+    See OpenCL C version 2.0 section 6.13.11. Note however that
+    generic address space is not supported, so the are supported for
+    the private, local and global address spaces.
+
+    To enable this functionality, the compiler option '-cl-arm-svm'
+    should be passed as an option to the relevant clBuildProgram
+    or clCompileProgram call.
+
+    Driver functions
+
+    The following new functions are added to allow shared virtual
+    memory to be allocated, deallocated and accessed. For
+    description see OpenCL 2.0 section 5.6.
+
+    clEnqueueSVMMapARM
+    clEnqueueSVMUnmapARM
+    clSVMAllocARM
+    clSVMFreeARM
+    clEnqueueSVMFreeARM
+    clEnqueueSVMMemcpyARM
+    clEnqueueSVMMemFillARM
+
+    Functions for kernels and their arguments are added, as per OpenCL
+    version 2.0 section 5.9.2.
+
+    clSetKernelArgSVMPointerARM
+    clSetKernelExecInfoARM
+
+    Changes to existing functions:
+    The clGetDeviceInfo function now accepts an additional enumeration
+    to get the SVM capabilities: CL_DEVICE_SVM_CAPABILITIES_ARM, see
+    section 4.2 of OpenCL version 2.0.
+
+    The clGetMemObjectInfo will accept a param_name of
+    CL_MEM_USES_SVM_POINTER_ARM, as per section 5.5.5 of OpenCL
+    version 2.0.
+
+    The clGetEventInfo function to respond to CL_EVENT_COMMAND_TYPE
+    with a CL_COMMAND_SVM_xxx_ARM as per section 5.11 of OpenCL version
+    2.0. Note that if the driver is built as a CL2.0 driver, the value
+    returned by clGetEventInfo will be the one described in te CL2.0
+    specification even when using the extension calls.
+
+New Tokens
+
+    The following new attributes and properties are added:
+
+    To be used by clGetDeviceInfo
+    #define CL_DEVICE_SVM_CAPABILITIES_ARM                  0x40B6
+
+    #define CL_MEM_USES_SVM_POINTER_ARM                     0x40B7
+
+    To be used by clSetKernelExecInfoARM:
+    #define CL_KERNEL_EXEC_INFO_SVM_PTRS_ARM                0x40B8
+    #define CL_KERNEL_EXEC_INFO_SVM_FINE_GRAIN_SYSTEM_ARM   0x40B9
+
+    To be used by clGetEventInfo:
+    #define CL_COMMAND_SVM_FREE_ARM                         0x40BA
+    #define CL_COMMAND_SVM_MEMCPY_ARM                       0x40BB
+    #define CL_COMMAND_SVM_MEMFILL_ARM                      0x40BC
+    #define CL_COMMAND_SVM_MAP_ARM                          0x40BD
+    #define CL_COMMAND_SVM_UNMAP_ARM                        0x40BE
+
+    Flag values returned by clGetDeviceInfo with
+    CL_DEVICE_SVM_CAPABILITIES_ARM as the param_name.
+
+    #define CL_DEVICE_SVM_COARSE_GRAIN_BUFFER_ARM           (1 << 0)
+    #define CL_DEVICE_SVM_FINE_GRAIN_BUFFER_ARM             (1 << 1)
+    #define CL_DEVICE_SVM_FINE_GRAIN_SYSTEM_ARM             (1 << 2)
+    #define CL_DEVICE_SVM_ATOMICS_ARM                       (1 << 3)
+
+    Flag values used by clSVMAllocARM:
+    #define CL_MEM_SVM_FINE_GRAIN_BUFFER_ARM                (1 << 10)
+    #define CL_MEM_SVM_ATOMICS_ARM                          (1 << 11)

@@ -1,0 +1,370 @@
+Name String
+
+    cl_intel_subgroups_short
+
+Contributors
+
+    Ben Ashbaugh, Intel
+    Felix J Degrood, Intel
+    Biju George, Intel
+    Raun M Krisch, Intel
+    Konstantin A Pyjov, Intel
+    Insoo Woo, Intel
+
+Contact
+
+    Ben Ashbaugh, Intel (ben.ashbaugh 'at' intel.com)
+
+Version
+
+    Version 1, October 20, 2016
+
+Number
+
+    OpenCL Extension #48
+
+Status
+
+    Final Draft
+
+Dependencies
+
+    OpenCL 1.2 and support for cl_intel_subgroups is required. This extension is written
+    against revision 29 of the OpenCL 2.0 API specification, against revision 33 of the
+    OpenCL 2.0 OpenCL C specification, against revision 32 of the OpenCL 2.0 Extension
+    specification, and against version 4 of the cl_intel_subgroups specification.
+
+Overview
+
+    The goal of this extension is to allow programmers to improve the performance of
+    applications operating on 16-bit data types by extending the subgroup functions
+    described in the cl_intel_subgroups extension to support 16-bit integer data types
+    (shorts and ushorts).  Specifically, the extension:
+
+        * Extends the subgroup broadcast function to allow 16-bit integer values to be
+          broadcast from one work item to all other work items in the subgroup.
+
+        * Extends the subgroup scan and reduction functions to operate on 16-bit integer
+          data types.
+
+        * Extends the Intel subgroup shuffle functions to allow arbitrarily exchanging
+          16-bit integer values among work items in the subgroup.
+
+        * Extends the Intel subgroup block read and write functions to allow reading
+          and writing 16-bit integer data from images and buffers.
+
+New OpenCL C Functions
+
+    Add <short> and <ushort> to the list of supported data types for the subgroup
+    broadcast, scan, and reduction functions:
+
+        short      intel_sub_group_broadcast( short x, uint sub_group_local_id );
+        ushort     intel_sub_group_broadcast( ushort x, uint sub_group_local_id )
+
+        For the sub_group_reduce, sub_group_scan_exclusive, and
+        sub_group_scan_inclusive functions, <op> is <add>, <min>, or <max>.
+
+        short      intel_sub_group_reduce_<op>( short x );
+        short      intel_sub_group_scan_exclusive_<op>( short x );
+        short      intel_sub_group_scan_inclusive_<op>( short x );
+        ushort     intel_sub_group_reduce_<op>( ushort x );
+        ushort     intel_sub_group_scan_exclusive_<op>( ushort x );
+        ushort     intel_sub_group_scan_inclusive_<op>( ushort x );
+
+    Add <short>, <short2>, <short4>, <short8>, <short16>, <ushort>, <ushort2>,
+    <ushort4>, <ushort8>, and <ushort16> to the list of data types supported by
+    the sub_group_shuffle, sub_group_shuffle_down, sub_group_shuffle_up, and
+    sub_group_suffle_xor functions:
+
+        <gentype> intel_sub_group_shuffle( <gentype> data, uint c );
+        <gentype> intel_sub_group_shuffle_down(
+                      <gentype> current, <gentype> next, uint delta );
+        <gentype> intel_sub_group_shuffle_up(
+                      <gentype> previous, <gentype> current, uint delta );
+        <gentype> intel_sub_group_shuffle_xor( <gentype> data, uint value );
+
+    Add <ushort> variants of the subgroup block read and write functions:
+
+        ushort     intel_sub_group_block_read_us( const __global ushort* p );
+        ushort2    intel_sub_group_block_read_us2( const __global ushort* p );
+        ushort4    intel_sub_group_block_read_us4( const __global ushort* p );
+        ushort8    intel_sub_group_block_read_us8( const __global ushort* p );
+        ushort     intel_sub_group_block_read_us( image2d_t image, int2 byte_coord );
+        ushort2    intel_sub_group_block_read_us2( image2d_t image, int2 byte_coord );
+        ushort4    intel_sub_group_block_read_us4( image2d_t image, int2 byte_coord );
+        ushort8    intel_sub_group_block_read_us8( image2d_t image, int2 byte_coord );
+
+        void       intel_sub_group_block_write_us( __global ushort* p, ushort data );
+        void       intel_sub_group_block_write_us2( __global ushort* p, ushort2 data );
+        void       intel_sub_group_block_write_us4( __global ushort* p, ushort4 data );
+        void       intel_sub_group_block_write_us8( __global ushort* p, ushort8 data );
+        void       intel_sub_group_block_write_us( image2d_t image, int2 byte_coord, ushort data );
+        void       intel_sub_group_block_write_us2( image2d_t image, int2 byte_coord, ushort2 data );
+        void       intel_sub_group_block_write_us4( image2d_t image, int2 byte_coord, ushort4 data );
+        void       intel_sub_group_block_write_us8( image2d_t image, int2 byte_coord, ushort8 data );
+
+    For naming consistency, also adds suffixed aliases of the <uint> subgroup block read
+    and write functions described in the cl_intel_subgroups extension:
+
+        uint       intel_sub_group_block_read_ui( const __global uint* p );
+        uint2      intel_sub_group_block_read_ui2( const __global uint* p );
+        uint4      intel_sub_group_block_read_ui4( const __global uint* p );
+        uint8      intel_sub_group_block_read_ui8( const __global uint* p );
+        uint       intel_sub_group_block_read_ui( image2d_t image, int2 byte_coord );
+        uint2      intel_sub_group_block_read_ui2( image2d_t image, int2 byte_coord );
+        uint4      intel_sub_group_block_read_ui4( image2d_t image, int2 byte_coord );
+        uint8      intel_sub_group_block_read_ui8( image2d_t image, int2 byte_coord );
+
+        void       intel_sub_group_block_write_ui( __global uint* p, uint data );
+        void       intel_sub_group_block_write_ui2( __global uint* p, uint2 data );
+        void       intel_sub_group_block_write_ui4( __global uint* p, uint4 data );
+        void       intel_sub_group_block_write_ui8( __global uint* p, uint8 data );
+        void       intel_sub_group_block_write_ui( image2d_t image, int2 byte_coord, uint data );
+        void       intel_sub_group_block_write_ui2( image2d_t image, int2 byte_coord, uint2 data );
+        void       intel_sub_group_block_write_ui4( image2d_t image, int2 byte_coord, uint4 data );
+        void       intel_sub_group_block_write_ui8( image2d_t image, int2 byte_coord, uint8 data );
+
+Additions to Section 6.13.15 - "Work Group Functions" of the OpenCL 2.0 C Specification:
+
+    Add <short> and <ushort> to the list of supported data types for the subgroup
+    broadcast, scan, and reduction functions:
+
+   "----------------------------------------------------------------------------------------
+    Function                                    Description
+    ------------------------------------------  --------------------------------------------
+    <gentype> sub_group_broadcast(              Broadcasts the value of x for the work item
+                  <gentype> x,                  identified by sub_group_local_id (value
+                  uint sub_group_local_id )     returned by get_sub_group_local_id) to all
+    short     intel_sub_group_broadcast(        work items in the subgroup.
+                  short x,                      sub_group_local_id must be the same value
+                  uint sub_group_local_id )     for all work items in the subgroup.
+    ushort    intel_sub_group_broadcast(
+                  ushort x,
+                  uint sub_group_local_id )
+
+    <gentype> sub_group_reduce_<op>(            Returns the result of the reduction operation
+                  <gentype> x )                 specified by <op> for all values x specified
+    short     intel_sub_group_reduce_<op>(      by work items in a subgroup.
+                  short x )
+    ushort    intel_sub_group_reduce_<op>(
+                  ushort x )
+
+    <gentype> sub_group_scan_exclusive_<op>(    Does an exclusive scan operation specified by
+                  <gentype> x )                 <op> of all values specified by work items
+    short  intel_sub_group_scan_exclusive_<op>( in a subgroup.  The scan results are
+                  short x )                     returned for each work item.
+    ushort intel_sub_group_scan_exclusive_<op>(
+                  ushort x )                    The scan order is defined by increasing
+                                                sub_group_local_id within the subgroup.
+
+    <gentype> sub_group_scan_inclusive_<op>(    Does an inclusive scan operation specified by
+                  <gentype> x )                 <op> of all values specified by work items
+    short  intel_sub_group_scan_inclusive_<op>( in a subgroup.  The scan results are
+                  short x )                     returned for each work item
+    ushort intel_sub_group_scan_inclusive_<op>(
+                  ushort x )                    The scan order is defined by increasing
+                                                sub_group_local_id within the subgroup.
+    ----------------------------------------------------------------------------------------"
+
+Additions to Section 6.13.X - "Sub Group Shuffle Functions" of the OpenCL 2.0 C Specification,
+which was added by the cl_intel_subgroups Extension:
+
+    Add <short>, <short2>, <short4>, <short8>, <short16>, <ushort>, <ushort2>,
+    <ushort4>, <ushort8>, and <ushort16> to the list of data types supported by
+    the sub_group_shuffle, sub_group_shuffle_down, sub_group_shuffle_up, and
+    sub_group_suffle_xor functions:
+
+   "The OpenCL C programming language implements the following built-in functions to allow
+    data to be exchanged among work items in a subgroup.  These built-in functions need not
+    be encountered by all work items in a subgroup executing the kernel.  For these
+    functions, <gentype> is <float>, <float2>, <float4>, <float8>, <float16>, <short>,
+    <short2>, <short4>, <short8>, <short16>, <ushort>, <ushort2>, <ushort4>, <ushort8>,
+    <ushort16>, <int>, <int2>, <int4>, <int8>, <int16>, <uint>, <uint2>, <uint4>, <uint8>,
+    <uint16>, <long>, or <ulong>.
+
+    If cl_khr_fp16 is supported, <gentype> also includes <half>.
+    If cl_khr_fp64 or doubles are supported, <gentype> also includes <double>."
+
+Modifications to Section 6.13.X "Sub Group Read and Write Functions" of the OpenCL 2.0 C
+Specification, which was added by the cl_intel_subgroups Extension:
+
+    Add suffixed aliases of the previously un-suffixed 32-bit block read and write functions.
+    There is no change to the description or behavior of these functions:
+
+   "---------------------------------------------------------------------------------------
+    Function                                   Description
+    ----------------------------------------   ------------------------------------------
+    uint  intel_sub_group_block_read(          Reads 1, 2, 4, or 8 uints of data for each
+              const __global uint* p )         work item in the subgroup from the specified
+    uint2 intel_sub_group_block_read2(         pointer as a block operation...
+              const __global uint* p )
+    uint4 intel_sub_group_block_read4(
+              const __global uint* p )
+    uint8 intel_sub_group_block_read8(
+              const __global uint* p )
+    uint  intel_sub_group_block_read_ui(
+              const __global uint* p )
+    uint2 intel_sub_group_block_read_ui2(
+              const __global uint* p )
+    uint4 intel_sub_group_block_read_ui4(
+              const __global uint* p )
+    uint8 intel_sub_group_block_read_ui8(
+              const __global uint* p )
+
+    uint  intel_sub_group_block_read(          Reads 1, 2, 4, or 8 uints of data for each
+              image2d_t image,                 work item in the subgroup from the specified
+              int2 byte_coord )                image at the specified coordinate as a block
+    uint2 intel_sub_group_block_read2(         operation...
+              image2d_t image,
+              int2 byte_coord )
+    uint4 intel_sub_group_block_read4(
+              image2d_t image,
+              int2 byte_coord )
+    uint8 intel_sub_group_block_read8(
+              image2d_t image,
+              int2 byte_coord )
+    uint  intel_sub_group_block_read_ui(
+              image2d_t image,
+              int2 byte_coord )
+    uint2 intel_sub_group_block_read_ui2(
+              image2d_t image,
+              int2 byte_coord )
+    uint4 intel_sub_group_block_read_ui4(
+              image2d_t image,
+              int2 byte_coord )
+    uint8 intel_sub_group_block_read_ui8(
+              image2d_t image,
+              int2 byte_coord )
+
+    void  intel_sub_group_block_write(         Writes 1, 2, 4, or 8 uints of data for each
+              __global uint* p, uint data )    work item in the subgroup to the specified
+    void  intel_sub_group_block_write2(        pointer as a block operation...
+              __global uint* p, uint2 data )
+    void  intel_sub_group_block_write4(
+              __global uint* p, uint4 data )
+    void  intel_sub_group_block_write8(
+              __global uint* p, uint8 data )
+    void  intel_sub_group_block_write_ui(
+              __global uint* p, uint data )
+    void  intel_sub_group_block_write_ui2(
+              __global uint* p, uint2 data )
+    void  intel_sub_group_block_write_ui4(
+              __global uint* p, uint4 data )
+    void  intel_sub_group_block_write_ui8(
+              __global uint* p, uint8 data )
+
+    void  intel_sub_group_block_write(         Writes 1, 2, 4, or 8 uints of data for each
+              image2d_t image,                 work item in the subgroup to the specified
+              int2 byte_coord, uint data )     image at the specified coordinate as a block
+    void  intel_sub_group_block_write2(        operation...
+              image2d_t image,
+              int2 byte_coord, uint2 data )
+    void  intel_sub_group_block_write4(
+              image2d_t image,
+              int2 byte_coord, uint4 data )
+    void  intel_sub_group_block_write8(
+              image2d_t image,
+              int2 byte_coord, uint8 data )
+    void  intel_sub_group_block_write_ui(
+              image2d_t image,
+              int2 byte_coord, uint data )
+    void  intel_sub_group_block_write_ui2(
+              image2d_t image,
+              int2 byte_coord, uint2 data )
+    void  intel_sub_group_block_write_ui4(
+              image2d_t image,
+              int2 byte_coord, uint4 data )
+    void  intel_sub_group_block_write_ui8(
+              image2d_t image,
+              int2 byte_coord, uint8 data )
+    --------------------------------------------------------------------------------------"
+
+    Also, add <ushort> variants of the block read and write functions.  In the descriptions
+    of these functions, the "note below describing out-of-bounds behavior" is in the
+    cl_intel_subgroups extension specification:
+
+   "--------------------------------------------------------------------------------------
+    Function                                   Description
+    ----------------------------------------   -------------------------------------------
+    ushort   intel_sub_group_block_read_us(    Reads 1, 2, 4, or 8 ushorts of data for each
+               const __global ushort* p )      work item in the subgroup from the specified
+    ushort2  intel_sub_group_block_read_us2(   pointer as a block operation.
+               const __global ushort* p )      The data is read strided, so the first
+    ushort4  intel_sub_group_block_read4(      value read is:
+               const __global ushort* p )        p[ sub_group_local_id ]
+    ushort8  intel_sub_group_block_read_us8(   and the second value read is:
+               const __global ushort* p )        p[ sub_group_local_id + max_sub_group_size ]
+                                               etc.
+                                               p must be aligned to a 32-bit (4-byte)
+                                               boundary.
+
+                                               There is no defined out-of-range behavior
+                                               for these functions.
+
+    ushort  intel_sub_group_block_read_us(     Reads 1, 2, 4, or 8 ushorts of data for each
+              image2d_t image,                 work item in the subgroup from the specified
+              int2 byte_coord )                image at the specified coordinate as a block
+    ushort2 intel_sub_group_block_read_us2(    operation.  Note that the coordinate is a
+              image2d_t image,                 byte coordinate, not an image element
+              int2 byte_coord )                coordinate.  Also note that the image data
+    ushort4 intel_sub_group_block_read_us4(    is read without format conversion, so each
+              image2d_t image,                 work item may read multiple image elements
+              int2 byte_coord )                (for images with element size smaller than
+    ushort8 intel_sub_group_block_read_us8(    16-bits).
+              image2d_t image,
+              int2 byte_coord )                The data is read row-by-row, so the first
+                                               value read is from the row specified in the
+                                               y-component of the provided byte_coord, the
+                                               second value is read from the y-component
+                                               of the provided byte_coord plus one, etc.
+
+                                               Please see the note below describing out-of-
+                                               bounds behavior for these functions.
+
+    void  intel_sub_group_block_write_us(      Writes 1, 2, 4, or 8 ushorts of data for each
+              __global ushort* p,              work item in the subgroup to the specified
+              ushort data )                    pointer as a block operation.
+    void  intel_sub_group_block_write_us2(     The data is written strided, so the first
+              __global ushort* p,              value is written to:
+              ushort2 data )                     p[ sub_group_local_id ]
+    void  intel_sub_group_block_write_us4(     and the second value is written to:
+              __global ushort* p,                p[ sub_group_local_id + max_sub_group_size ]
+              ushort4 data )                   etc.
+    void  intel_sub_group_block_write_us8(     p must be aligned to a 128-bit (16-byte)
+              __global ushort* p,              boundary.
+              ushort8 data )
+                                               There is no defined out-of-range behavior
+                                               for these functions.
+
+    void  intel_sub_group_block_write_us(      Writes 1, 2, 4, or 8 ushorts of data for
+              image2d_t image,                 each work item in the subgroup to the specified
+              int2 byte_coord, ushort data )   image at the specified coordinate as a block
+    void  intel_sub_group_block_write_us2(     operation.  Note that the coordinate is a
+              image2d_t image,                 byte coordinate, not an image element
+              int2 byte_coord, ushort2 data )  coordinate.  Unlike the image block read
+    void  intel_sub_group_block_write_us4(     function, which may read from any arbitrary
+              image2d_t image,                 byte offset, the x-component of the byte
+              int2 byte_coord, ushort4 data )  coordinate for the image block write
+    void  intel_sub_group_block_write_us8(     functions must be a multiple of four; in
+              image2d_t image,                 other words, the write must begin at 32-bit
+              int2 byte_coord, ushort8 data )  boundary.  There is no restriction on the
+                                               y-component of the coordinate.  Also, note that
+                                               the image data is written without format
+                                               conversion, so each work item may write
+                                               multiple image elements (for images with
+                                               element size smaller than 16-bits).
+
+                                               The data is written row-by-row, so the first
+                                               value written is from the row specified by
+                                               the y-component of the provided byte_coord,
+                                               the second value is written from the y-
+                                               component of the provided byte_coord plus
+                                               one, etc.
+
+                                               Please see the note below describing out-of-
+                                               bounds behavior for these functions.
+    --------------------------------------------------------------------------------------"
+
+Revision History
+
+    Version 1 (2016/10/20): First public revision.

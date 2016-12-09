@@ -1,0 +1,914 @@
+Name String
+
+    cl_khr_d3d10_sharing
+
+Contact
+
+   Mike Houston, Advanced Micro Devices, Inc. ( michael.houston 'at' amd.com )
+   Christopher Cameron, NVIDIA Corporation ( chcameron 'at' nvidia.com )
+
+Contributors
+
+   Christopher Cameron   (Nvidia)
+   Ben Gaster            (AMD)
+   Michael Gold          (Nvidia)
+   Mike Houston          (AMD)
+   John Kessenich        (Intel)
+   Christopher Lamb      (Nvidia)
+   Victor Odintsov       (AMD)
+   Ofer Rosenberg        (Intel)
+
+Version
+
+    Version 9, March 31, 2010
+
+Number
+
+    OpenCL Extension #6
+
+Status
+
+    Complete. Version 7 approved by the OpenCL Working Group.
+    Ratified by the Khronos Promoters, February 26, 2010.
+
+Extension Type
+
+    OpenCL platform extension
+
+Dependencies
+
+    OpenCL 1.0 is required. This extension is written against the OpenCL
+    1.0-rev48 Specification.
+
+    A Direct3D 10 implementation supporting sharing of buffer and
+    texture objects with OpenCL is required.
+
+Overview
+
+    The goal of this extension is to provide interoperability between
+    OpenCL and Direct3D 10.  This is designed to function analogously to
+    the OpenGL interoperability as defined in the OpenCL 1.0
+    specification and accompanying extensions.
+
+Header File
+
+    Interfaces for this extension are provided in cl_d3d10.h .
+
+New Procedures and Functions
+
+    cl_int clGetDeviceIDsFromD3D10KHR(
+        cl_platform_id platform,
+        cl_d3d10_device_source_khr d3d_device_source,
+        void *d3d_object,
+        cl_d3d10_device_set_khr d3d_device_set,
+        cl_uint num_entries, 
+        cl_device_id *devices, 
+        cl_uint *num_devices)
+
+    cl_mem  clCreateFromD3D10BufferKHR(
+        cl_context context,
+        cl_mem_flags flags,
+        ID3D10Buffer *resource,
+        cl_int *errcode_ret)
+
+    cl_mem  clCreateFromD3D10Texture2DKHR(
+        cl_context context,
+        cl_mem_flags flags,
+        ID3D10Texture2D *resource,
+        UINT subresource,
+        cl_int *errcode_ret)
+
+    cl_mem  clCreateFromD3D10Texture3DKHR(
+        cl_context context,
+        cl_mem_flags flags,
+        ID3D10Texture3D *resource,
+        UINT subresource,
+        cl_int *errcode_ret)
+
+    cl_int  clEnqueueAcquireD3D10ObjectsKHR(
+        cl_command_queue command_queue,
+        cl_uint num_objects,
+        const cl_mem *mem_objects,
+        cl_uint num_events_in_wait_list,
+        const cl_event *event_wait_list,
+        cl_event *event)
+
+    cl_int clEnqueueReleaseD3D10ObjectsKHR(
+        cl_command_queue command_queue,
+        cl_uint num_objects,
+        cl_mem *mem_objects,
+        cl_uint num_events_in_wait_list,
+        const cl_event *event_wait_list,
+        cl_event *event)
+
+New Tokens
+
+    Accepted as a Direct3D 10 device source in the <d3d_device_source> 
+    parameter of clGetDeviceIDsFromD3D10KHR:
+
+        CL_D3D10_DEVICE_KHR                            0x4010
+        CL_D3D10_DXGI_ADAPTER_KHR                      0x4011
+
+    Accepted as a set of Direct3D 10 devices in the <d3d_device_set> parameter
+    of clGetDeviceIDsFromD3D10KHR:
+
+        CL_PREFERRED_DEVICES_FOR_D3D10_KHR             0x4012
+        CL_ALL_DEVICES_FOR_D3D10_KHR                   0x4013
+
+    Accepted as a property name in the <properties> parameter of
+    clCreateContext and clCreateContextFromType:
+
+        CL_CONTEXT_D3D10_DEVICE_KHR                    0x4014
+
+    Accepted as a property name in the <param_name> parameter of
+    clGetContextInfo:
+
+        CL_CONTEXT_D3D10_PREFER_SHARED_RESOURCES_KHR   0x402C
+
+    Accepted as the property being queried in the <param_name> 
+    parameter of clGetMemObjectInfo:
+
+        CL_MEM_D3D10_RESOURCE_KHR                      0x4015
+
+    Accepted as the property being queried in the <param_name> 
+    parameter of clGetImageInfo:
+
+        CL_IMAGE_D3D10_SUBRESOURCE_KHR                 0x4016
+
+    Returned in the <param_value> parameter of clGetEventInfo when
+    <param_name> is CL_EVENT_COMMAND_TYPE:
+
+        CL_COMMAND_ACQUIRE_D3D10_OBJECTS_KHR           0x4017
+        CL_COMMAND_RELEASE_D3D10_OBJECTS_KHR           0x4018
+
+    Returned by clCreateContext and clCreateContextFromType if the Direct3D 10
+    device specified for interoperability is not compatible with the devices
+    against which the context is to be created:
+
+        CL_INVALID_D3D10_DEVICE_KHR                    -1002
+
+    Returned by clCreateFromD3D10BufferKHR when <resource> is not a Direct3D 10
+    buffer object, and by clCreateFromD3D10Texture2DKHR and
+    clCreateFromD3D10Texture3DKHR when <resource> is not a Direct3D 10 texture
+    object.
+
+        CL_INVALID_D3D10_RESOURCE_KHR                  -1003
+
+    Returned by clEnqueueAcquireD3D10ObjectsKHR when any of <mem_objects> are
+    currently acquired by OpenCL
+
+        CL_D3D10_RESOURCE_ALREADY_ACQUIRED_KHR         -1004
+
+    Returned by clEnqueueReleaseD3D10ObjectsKHR when any of <mem_objects> are
+    not currently acquired by OpenCL
+
+        CL_D3D10_RESOURCE_NOT_ACQUIRED_KHR             -1005
+
+Additions to Chapter 4 of the OpenCL 1.0 Specification
+
+    In section 4.3, replace the description of <properties> under
+    clCreateContext with:
+
+   "<properties> specifies a list of context property names and their
+    corresponding values.  Each property is followed immediately by the
+    corresponding desired value.  The list is terminated with zero.  
+    If a property is not specified in <properties>, then its default 
+    value (listed in table 4.4) is used (it is said to be specified
+    implicitly). If <properties> is NULL or empty (points to a list
+    whose first value is zero), all attributes take on their default
+    values."
+
+    Replace existing table 4.4 with:
+
+   "--------------------------------------------------------------------------------------
+    cl_context_properties       Value type     Default value  Description
+    ---------------------       ----------     -------------  -----------
+    CL_CONTEXT_PLATFORM         cl_platform_id          NULL  Specifies the cl_platform_id 
+                                                              on whic to create the OpenCL
+                                                              context.
+    CL_CONTEXT_D3D10_DEVICE_KHR ID3D10Device*           NULL  Specifies the ID3D10Device*
+                                                              to use for Direct3D 10 
+                                                              interoperabilty."
+    --------------------------------------------------------------------------------------"
+
+    Add to the list of errors for clCreateContext:
+
+   "* CL_INVALID_D3D10_DEVICE_KHR if the value of the property 
+      CL_CONTEXT_D3D10_DEVICE_KHR is non-NULL and does not specify a valid
+      Direct3D 10 device with which the cl_device_ids against which this context 
+      is to be created may interoperate.
+
+    * CL_INVALID_OPERATION if Direct3D 10 interoperability is specified by 
+      setting CL_INVALID_D3D10_DEVICE_KHR to a non-NULL value, and 
+      interoperability with another graphics API is also specified."
+
+    Add to the list of errors for clCreateContextFromType the same new
+    errors described above for clCreateContext.
+
+    Add the following row to table 4.5:
+
+   "--------------------------------------------------------------------------------------
+    cl_context_info         Return Type   Information returned in param_value
+    ---------------------   -----------   -----------------------------------
+    CL_CONTEXT_D3D10_PREFER_SHARED_RESOURCES_KHR 
+                            cl_bool       Returns CL_TRUE if Direct3D 10 resources
+                                          created as shared by setting MiscFlags to 
+                                          include D3D10_RESOURCE_MISC_SHARED will perform
+                                          faster when shared with OpenCL, compared with 
+                                          resources which have not set this flag.  
+                                          Otherwise returns CL_FALSE."
+    --------------------------------------------------------------------------------------"
+
+Additions to Chapter 5 of the OpenCL 1.0 Specification
+
+    5.2.9 Memory Object Queries
+
+    Change the last paragraph before table 5.8 to read
+
+   "clGetMemObjectInfo returns CL_SUCCESS if the function is executed successfully.  
+    Otherwise it returns one of the following errors:
+
+      * CL_INVALID_VALUE if <param_name> is not valid, or if the size in bytes 
+        specified by <param_value_size> is less than the size of the return type as 
+        described in table 5.8 and <param_value> is not NULL.
+
+      * CL_INVALID_MEM_OBJECT if <memobj> is a not a valid memory object.
+
+      * CL_INVALID_D3D10_RESOURCE_KHR if <param_name> is CL_MEM_D3D10_RESOURCE_KHR
+        and  <memobj> was not created by the function clCreateFromD3D10BufferKHR, 
+        clCreateFromD3D10Texture2DKHR, or
+        clCreateFromD3D10Texture3DKHR."
+
+    Extend table 5.8 to include the following entry.
+
+    cl_mem_info                Return type      Info. returned in param_value
+    -----------                ---------------  -----------------------------
+    CL_MEM_D3D10_RESOURCE_KHR  ID3D10Resource*  If <memobj> was created using 
+                                                clCreateFromD3D10BufferKHR, 
+                                                clCreateFromD3D10Texture2DKHR, or
+                                                clCreateFromD3D10Texture3DKHR, 
+                                                returns the <resource> argument
+                                                specified when <memobj> was 
+                                                created.
+
+    Change the last paragraph before table 5.9 to read
+
+   "clGetImageInfo returns CL_SUCCESS if the function is executed successfully.  
+    Otherwise it returns one of the following errors:
+
+      * CL_INVALID_VALUE if <param_name> is not valid, or if the size in bytes 
+        specified by <param_value_size> is less than the size of the return type as 
+        described in table 5.9 and <param_value> is not NULL.
+
+      * CL_INVALID_MEM_OBJECT if <image> is a not a valid image object. 
+
+      * CL_INVALID_D3D10_RESOURCE_KHR if <param_name> is CL_MEM_D3D10_SUBRESOURCE_KHR
+        and  <image> was not created by the function clCreateFromD3D10Texture2DKHR or
+        clCreateFromD3D10Texture3DKHR."
+
+    Extend table 5.9 to include the following entry.
+
+    cl_image_info                   Return type      Info. returned in param_value
+    -------------                   ---------------  -----------------------------
+    CL_IMAGE_D3D10_SUBRESOURCE_KHR  ID3D10Resource*  If <image> was created using 
+                                                     clCreateFromD3D10Texture2DKHR, or
+                                                     clCreateFromD3D10Texture3DKHR, 
+                                                     returns the <subresource> argument
+                                                     specified when <image> was 
+                                                     created.
+
+    5.7 Event Objects
+
+    Add to Table 5.15 in the "Info returned in <param_value>" column
+    for cl_event_info CL_EVENT_COMMAND_TYPE:
+
+      CL_COMMAND_ACQUIRE_D3D10_OBJECTS_KHR
+      CL_COMMAND_RELEASE_D3D10_OBJECTS_KHR
+
+Add new section 9.13
+
+    9.13 Sharing Memory Objects with Direct3D 10 Resources
+
+    This section discusses OpenCL functions that allow applications to use
+    Direct3D 10 resources as OpenCL memory objects. This allows efficient 
+    sharing of data between OpenCL and Direct3D 10. The OpenCL API may be 
+    used to execute kernels that read and/or write memory objects that are 
+    also Direct3D 10 resources.  An OpenCL image object may be created from 
+    a Direct3D 10 texture resource.  An OpenCL buffer object may 
+    be created from a Direct3D 10 buffer resource.  OpenCL memory objects 
+    may be created from Direct3D 10 objects if and only if the OpenCL context 
+    has been created from a Direct3D 10 device.
+
+    9.13.1 Querying OpenCL Devices Corresponding to Direct3D 10 Devices
+
+    The OpenCL devices corresponding to a Direct3D 10 device may be queried.  
+    The OpenCL devices corresponding to a DXGI adapter may also be 
+    queried.  The OpenCL devices corresponding to a Direct3D 10 device will
+    be a subset of the OpenCL devices corresponding to the DXGI adapter
+    against which the Direct3D 10 device was created.
+
+    The OpenCL devices corresponding to a Direct3D 10 device or a DXGI device 
+    may be queried using the function
+
+        cl_int clGetDeviceIDsFromD3D10KHR(
+            cl_platform_id platform,
+            cl_d3d10_device_source_khr d3d_device_source,
+            void *d3d_object,
+            cl_d3d10_device_set_khr d3d_device_set,
+            cl_uint num_entries, 
+            cl_device_id *devices, 
+            cl_uint *num_devices)
+
+    <platform> refers to the platform ID returned by clGetPlatformIDs.
+
+    <d3d_device_source> specifies the type of <d3d_object>, and must be 
+    one of the values shown in table 9.13.1.1.
+
+    <d3d_object> specifies the object whose corresponding OpenCL devices
+    are being queried.  The type of <d3d_object> must be as specified in
+    table 9.13.1.1.
+
+    <cl_device_set> specifies the set of devices to return, and must be
+    one of the values shown in table 9.13.1.2.
+
+    <num_entries> is the number of cl_device_id entries that can be added to 
+    <devices>. If <devices> is not NULL then <num_entries> must be greater than 
+    zero.
+
+    <devices> returns a list of OpenCL devices found. The cl_device_id values 
+    returned in <devices> can be used to identify a specific OpenCL device. 
+    If <devices> is NULL, this argument is ignored. The number of 
+    OpenCL devices returned is the mininum of the value specified by 
+    <num_entries> and the number of OpenCL devices corresponding to 
+    <d3d_object>.
+
+    <num_devices> returns the number of OpenCL devices available that 
+    correspond to <d3d_object>.  If <num_devices> is NULL, this argument 
+    is ignored.
+
+    clGetDeviceIDsFromD3D10KHR returns CL_SUCCESS if the function is executed 
+    successfully.  Otherwise it may return
+
+      * CL_INVALID_PLATFORM if <platform> is not a valid platform, 
+
+      * CL_INVALID_VALUE if <d3d_device_source> is not a valid value, 
+        <d3d_device_set> is not a valid value,  <num_entries> is equal 
+        to zero and <devices> is not NULL, or if both <num_devices> 
+        and <devices> are NULL.
+
+      * CL_DEVICE_NOT_FOUND if no OpenCL devices that correspond to  
+        <d3d_object> were found.
+
+    --------------------------------------------------------------------
+    cl_d3d_device_source_khr         Type of <d3d_object> 
+    ------------------------         --------------------
+    CL_D3D10_DEVICE_KHR              ID3D10Device *
+    CL_D3D10_DXGI_ADAPTER_KHR        IDXGIAdapter *
+    --------------------------------------------------------------------
+    Table 9.13.1.1: Types used to specify the object whose corresponding 
+    OpenCL devices are being queried by clGetDeviceIDsFromD3D10KHR.
+
+    --------------------------------------------------------------------
+    cl_d3d_device_set_khr                Devices returned in <devices>
+    ------------------------             -----------------------------
+    CL_PREFERRED_DEVICES_FOR_D3D10_KHR   The OpenCL devices associated with
+                                         the specified Direct3D object.
+
+    CL_ALL_DEVICES_FOR_D3D10_KHR         All OpenCL devices which may 
+                                         interoperate with the specified
+                                         Direct3D object.  Performance of
+                                         sharing data on these devices may 
+                                         be considerably less than on the 
+                                         preferred devices.
+    --------------------------------------------------------------------
+    Table 9.13.1.2: Sets of devices queriable using 
+    clGetDeviceIDsFromD3D10KHR.
+
+    9.13.2 Lifetime of Shared Objects
+
+    An OpenCL memory object created from a Direct3D 10 resource remains 
+    valid as long as the corresponding Direct3D 10 resource has not been 
+    deleted.  If the Direct3D 10 resource is deleted through the Direct3D 
+    10 API, subsequent use of the OpenCL memory object will result 
+    in undefined behavior, including but not limited to possible OpenCL 
+    errors, data corruption, and program termination.
+
+    The successful creation of a cl_context against a Direct3D 10 device 
+    specified via the context create parameter CL_CONTEXT_D3D10_DEVICE_KHR
+    will increment the internal Direct3D reference count on the specified
+    Direct3D 10 device.  The internal Direct3D reference count on that
+    Direct3D 10 device will be decremented when the OpenCL reference 
+    count on the returned OpenCL context drops to zero.
+
+    The OpenCL context and corresponding command-queues are dependent on 
+    the existence of the Direct3D 10 device from which the OpenCL context 
+    was created.  If the Direct3D 10 device is deleted through the Direct3D 10 
+    API, subsequent use of the OpenCL context will result in undefined 
+    behavior, including but not limited to possible OpenCL errors, data 
+    corruption, and program termination.
+
+    9.13.3 Sharing Direct3D 10 Buffer Resources as OpenCL Buffer Objects
+
+    The function
+
+        cl_mem  clCreateFromD3D10BufferKHR(
+            cl_context context,
+            cl_mem_flags flags,
+            ID3D10Buffer *resource,
+            int *errcode_ret)
+
+    creates an OpenCL buffer object from a Direct3D 10 buffer.
+
+    <context> is a valid OpenCL context created from a Direct3D 10 device.
+
+    <flags> is a bit-field that is used to specify usage information.
+    Refer to table 5.3 for a description of <flags>. Only
+    CL_MEM_READ_ONLY, CL_MEM_WRITE_ONLY and CL_MEM_READ_WRITE values
+    specified in table 5.3 can be used.
+
+    <resource> is a pointer to the Direct3D 10 buffer to share.
+
+    <errcode_ret> will return an appropriate error code. If
+    <errcode_ret> is NULL, no error code is returned.
+
+    clCreateFromD3D10BufferKHR returns a valid non-zero OpenCL buffer object
+    and <errcode_ret> is set to CL_SUCCESS if the buffer object is
+    created successfully.  Otherwise, it returns a NULL value with one of
+    the following error values returned in <errcode_ret>:
+
+      * CL_INVALID_CONTEXT if <context> is not a valid context.
+
+      * CL_INVALID_VALUE if values specified in <flags> are not valid.
+
+      * CL_INVALID_D3D10_RESOURCE_KHR if <resource> is not a Direct3D 10 
+        buffer resource, if <resource> was created with the D3D10_USAGE 
+        flag D3D10_USAGE_IMMUTABLE, if a cl_mem from <resource> has already 
+        been created using clCreateFromD3D10BufferKHR, or if <context> 
+        was not created against the same Direct3D 10 device from which 
+        <resource> was created.
+
+      * CL_OUT_OF_HOST_MEMORY if there is a failure to allocate resources
+        required by the OpenCL implementation on the host.
+
+    The size of the returned OpenCL buffer object is the same as the 
+    size of <resource>.
+    
+    This call will increment the internal Direct3D reference count on 
+    <resource>.  The internal Direct3D reference count on <resource> 
+    will be decremented when the OpenCL reference count on the returned 
+    OpenCL memory object drops to zero.
+
+    9.13.4 Sharing Direct3D 10 Texture and Resources as OpenCL Image
+           Objects
+
+    The function
+
+        cl_mem  clCreateFromD3D10Texture2DKHR(
+            cl_context context,
+            cl_mem_flags flags,
+            ID3D10Texture2D *resource,
+            UINT subresource,
+            int *errcode_ret)
+
+    creates an OpenCL 2D image object from a subresource of a Direct3D 
+    10 2D texture.
+
+    <context> is a valid OpenCL context created from a Direct3D 10 device.
+
+    <flags> is a bit-field that is used to specify usage information.
+    Refer to table 5.3 for a description of <flags>. Only
+    CL_MEM_READ_ONLY, CL_MEM_WRITE_ONLY and CL_MEM_READ_WRITE values
+    specified in table 5.3 can be used.
+
+    <resource> is a pointer to the Direct3D 10 2D texture to share.
+
+    <subresource> is the subresource of <resource> to share.    
+
+    <errcode_ret> will return an appropriate error code. If
+    <errcode_ret> is NULL, no error code is returned.
+
+    clCreateFromD3D10Texture2DKHR returns a valid non-zero OpenCL image
+    object and <errcode_ret> is set to CL_SUCCESS if the image object is
+    created successfully.  Otherwise, it returns a NULL value with one 
+    of the following error values returned in <errcode_ret>:
+
+      * CL_INVALID_CONTEXT if <context> is not a valid context.
+
+      * CL_INVALID_VALUE if values specified in <flags> are not valid or if
+        <subresource> is not a valid subresource index for <resource>.
+
+      * CL_INVALID_D3D10_RESOURCE_KHR if <resource> is not a Direct3D 10 
+        texture resource, if <resource> was created with the D3D10_USAGE flag
+        D3D10_USAGE_IMMUTABLE, if <resource> is a multisampled 
+        texture, if a cl_mem from subresource <subresource> of <resource> has 
+        already been created using clCreateFromD3D10Texture2DKHR, 
+        or if <context> was not created against the same Direct3D 10 device 
+        from which <resource> was created.
+
+      * CL_INVALID_IMAGE_FORMAT_DESCRIPTOR if the Direct3D 10 texture
+        format of <resource> is not listed in table 9.13.4.1.
+
+      * CL_OUT_OF_HOST_MEMORY if there is a failure to allocate resources
+        required by the OpenCL implementation on the host.
+
+    The width and height of the returned OpenCL 2D image object are 
+    determined by the width and height of subresource <subresource> 
+    of <resource>.  The channel type and order of the returned 
+    OpenCL 2D image object is determined by the format of <resource>
+    by table 9.13.4.1.
+
+    This call will increment the internal Direct3D reference count on 
+    <resource>.  The internal Direct3D reference count on <resource> 
+    will be decremented when the OpenCL reference count on the returned 
+    OpenCL memory object drops to zero.
+
+    The function
+
+        cl_mem  clCreateFromD3D10Texture3DKHR(
+            cl_context context,
+            cl_mem_flags flags,
+            ID3D10Texture3D *resource,
+            UINT subresource,
+            int *errcode_ret)
+
+    creates an OpenCL 3D image object from a subresource of a Direct3D 
+    10 3D texture.
+
+    <context> is a valid OpenCL context created from a Direct3D 10 device.
+
+    <flags> is a bit-field that is used to specify usage information.
+    Refer to table 5.3 for a description of <flags>. Only 
+    CL_MEM_READ_ONLY, CL_MEM_WRITE_ONLY and CL_MEM_READ_WRITE values
+    specified in table 5.3 can be used.
+
+    <resource> is a pointer to the Direct3D 10 3D texture to share.
+
+    <subresource> is the subresource of <resource> to share.    
+
+    <errcode_ret> will return an appropriate error code. If
+    <errcode_ret> is NULL, no error code is returned.
+
+    clCreateFromD3D10Texture3DKHR returns a valid non-zero OpenCL image
+    object and <errcode_ret> is set to CL_SUCCESS if the image object is
+    created successfully.  Otherwise, it returns a NULL value with one 
+    of the following error values returned in <errcode_ret>:
+
+      * CL_INVALID_CONTEXT if <context> is not a valid context.
+
+      * CL_INVALID_VALUE if values specified in <flags> are not valid or if
+        <subresource> is not a valid subresource index for <resource>.
+
+      * CL_INVALID_D3D10_RESOURCE_KHR if <resource> is not a Direct3D 10 
+        texture resource, if <resource> was created with the D3D10_USAGE flag 
+        D3D10_USAGE_IMMUTABLE, if a cl_mem from subresource <subresource> of 
+        <resource> has already been created using clCreateFromD3D10Texture3DKHR, 
+        or if <context> was not created against the same Direct3D 10 device 
+        from which <resource> was created.
+
+      * CL_INVALID_IMAGE_FORMAT_DESCRIPTOR if the Direct3D 10 texture 
+        format of <resource> is not listed in table 9.13.4.1.
+
+      * CL_OUT_OF_HOST_MEMORY if there is a failure to allocate resources
+        required by the OpenCL implementation on the host.
+
+    The width, height, and depth of the return OpenCL 3D image object 
+    are determined by the width, height, and depth of subresource 
+    <subresource> of <resource>.  The channel type and order of the 
+    returned OpenCL 3D image object is determined by the format of <resource>
+    by table 9.13.4.1.
+
+    This call will increment the internal Direct3D reference count on 
+    <resource>.  The internal Direct3D reference count on <resource> 
+    will be decremented when the OpenCL reference count on the returned 
+    OpenCL memory object drops to zero.
+
+    ------------------------------------------------------------------
+    DXGI Format                      cl_channel_order  cl_channel_type    
+    ------------------------------   ----------------  ---------------
+    DXGI_FORMAT_R32G32B32A32_FLOAT   CL_RGBA           CL_FLOAT
+    DXGI_FORMAT_R32G32B32A32_UINT    CL_RGBA           CL_UNSIGNED_INT32
+    DXGI_FORMAT_R32G32B32A32_SINT    CL_RGBA           CL_SIGNED_INT32
+    DXGI_FORMAT_R16G16B16A16_FLOAT   CL_RGBA           CL_HALF_FLOAT
+    DXGI_FORMAT_R16G16B16A16_UNORM   CL_RGBA           CL_UNORM_INT16
+    DXGI_FORMAT_R16G16B16A16_UINT    CL_RGBA           CL_UNSIGNED_INT16
+    DXGI_FORMAT_R16G16B16A16_SNORM   CL_RGBA           CL_SNORM_INT16
+    DXGI_FORMAT_R16G16B16A16_SINT    CL_RGBA           CL_SIGNED_INT16
+    DXGI_FORMAT_R8G8B8A8_UNORM       CL_RGBA           CL_UNORM_INT8
+    DXGI_FORMAT_R8G8B8A8_UINT        CL_RGBA           CL_UNSIGNED_INT8
+    DXGI_FORMAT_R8G8B8A8_SNORM       CL_RGBA           CL_SNORM_INT8
+    DXGI_FORMAT_R8G8B8A8_SINT        CL_RGBA           CL_SIGNED_INT8
+    DXGI_FORMAT_R32G32_FLOAT         CL_RG             CL_FLOAT
+    DXGI_FORMAT_R32G32_UINT          CL_RG             CL_UNSIGNED_INT32
+    DXGI_FORMAT_R32G32_SINT          CL_RG             CL_SIGNED_INT32
+    DXGI_FORMAT_R16G16_FLOAT         CL_RG             CL_HALF_FLOAT
+    DXGI_FORMAT_R16G16_UNORM         CL_RG             CL_UNORM_INT16
+    DXGI_FORMAT_R16G16_UINT          CL_RG             CL_UNSIGNED_INT16
+    DXGI_FORMAT_R16G16_SNORM         CL_RG             CL_SNORM_INT16
+    DXGI_FORMAT_R16G16_SINT          CL_RG             CL_SIGNED_INT16
+    DXGI_FORMAT_R8G8_UNORM           CL_RG             CL_UNORM_INT8
+    DXGI_FORMAT_R8G8_UINT            CL_RG             CL_UNSIGNED_INT8
+    DXGI_FORMAT_R8G8_SNORM           CL_RG             CL_SNORM_INT8
+    DXGI_FORMAT_R8G8_SINT            CL_RG             CL_SIGNED_INT8
+    DXGI_FORMAT_R32_FLOAT            CL_R              CL_FLOAT
+    DXGI_FORMAT_R32_UINT             CL_R              CL_UNSIGNED_INT32
+    DXGI_FORMAT_R32_SINT             CL_R              CL_SIGNED_INT32
+    DXGI_FORMAT_R16_FLOAT            CL_R              CL_HALF_FLOAT
+    DXGI_FORMAT_R16_UNORM            CL_R              CL_UNORM_INT16
+    DXGI_FORMAT_R16_UINT             CL_R              CL_UNSIGNED_INT16
+    DXGI_FORMAT_R16_SNORM            CL_R              CL_SNORM_INT16
+    DXGI_FORMAT_R16_SINT             CL_R              CL_SIGNED_INT16
+    DXGI_FORMAT_R8_UNORM             CL_R              CL_UNORM_INT8
+    DXGI_FORMAT_R8_UINT              CL_R              CL_UNSIGNED_INT8
+    DXGI_FORMAT_R8_SNORM             CL_R              CL_SNORM_INT8
+    DXGI_FORMAT_R8_SINT              CL_R              CL_SIGNED_INT8
+    ------------------------------------------------------------------
+    Table 9.13.4.1: List of Direct3D 10 and corresponding OpenCL Image 
+    Formats
+
+    9.13.5 Querying Direct3D properties of memory objects created from
+           Direct3D 10 resources.
+
+    Properties of Direct3D 10 objects may be queried using clGetMemObjectInfo
+    and clGetImageInfo with <param_name> CL_MEM_D3D10_RESOURCE_KHR and
+    CL_IMAGE_D3D10_SUBRESOURCE_KHR as described in section 5.2.9.
+
+    9.13.6 Sharing memory objects created from Direct3D 10 resources between
+           Direct3D 10 and OpenCL contexts
+
+    The function
+
+        cl_int  clEnqueueAcquireD3D10ObjectsKHR(
+            cl_command_queue command_queue,
+            cl_uint num_objects,
+            const cl_mem *mem_objects,
+            cl_uint num_events_in_wait_list,
+            const cl_event *event_wait_list,
+            cl_event *event)
+
+    is used to acquire OpenCL memory objects that have been created from
+    Direct3D 10 resources.  The Direct3D 10 objects are acquired by the 
+    OpenCL context associated with <command_queue> and can therefore be 
+    used by all command-queues associated with the OpenCL context.
+
+    OpenCL memory objects created from Direct3D 10 resources must be 
+    acquired before they can be used by any OpenCL commands queued to 
+    a command-queue.  If an OpenCL memory object created from a Direct3D 10 
+    resource is used while it is not currently acquired by OpenCL, the call 
+    attempting to use that OpenCL memory object will return
+    CL_D3D10_RESOURCE_NOT_ACQUIRED_KHR.
+
+    clEnqueueAcquireD3D10ObjectsKHR provides the synchronization guarantee 
+    that any Direct3D 10 calls made before clEnqueueAcquireD3D10ObjectsKHR is 
+    called will complete executing before <event> reports completion
+    and before the execution of any subsequent OpenCL work issued in 
+    <command_queue> begins.
+
+    <command_queue> is a valid command-queue.
+
+    <num_objects> is the number of memory objects to be acquired in
+    <mem_objects>.
+
+    <mem_objects> is a pointer to a list of OpenCL memory objects that 
+    were created from Direct3D 10 resources.
+
+    <event_wait_list> and <num_events_in_wait_list> specify events that
+    need to complete before this particular command can be executed. If
+    <event_wait_list> is NULL, then this particular command does not
+    wait on any event to complete. If <event_wait_list> is NULL,
+    <num_events_in_wait_list> must be 0. If <event_wait_list> is not
+    NULL, the list of events pointed to by <event_wait_list> must be
+    valid and <num_events_in_wait_list> must be greater than 0. The
+    events specified in <event_wait_list> act as synchronization points.
+
+    <event> returns an event object that identifies this particular 
+    command and can be used to query or queue a wait for this
+    particular command to complete. <event> can be NULL in which case it
+    will not be possible for the application to query the status of this
+    command or queue a wait for this command to complete.
+
+    clEnqueueAcquireD3D10ObjectsKHR returns CL_SUCCESS if the function is
+    executed successfully. If <num_objects> is 0 and <mem_objects> is
+    NULL then the function does nothing and returns CL_SUCCESS. Otherwise it
+    returns one of the following errors:
+
+      * CL_INVALID_VALUE if <num_objects> is zero and <mem_objects> is
+        not a NULL value or if <num_objects> > 0 and <mem_objects> is
+        NULL.
+
+      * CL_INVALID_MEM_OBJECT if memory objects in <mem_objects> are not
+        valid OpenCL memory objects or if memory objects in <mem_objects> 
+        have not been created from Direct3D 10 resources.
+
+      * CL_INVALID_COMMAND_QUEUE if <command_queue> is not a valid
+        command-queue.
+
+      * CL_INVALID_CONTEXT if context associated with <command_queue> was
+        not created from an Direct3D 10 context.
+
+      * CL_D3D10_RESOURCE_ALREADY_ACQUIRED_KHR if memory objects in
+        <mem_objects> have previously been acquired using 
+        clEnqueueAcquireD3D10ObjectsKHR but have not been released 
+        using clEnqueueReleaseD3D10ObjectsKHR.
+
+      * CL_INVALID_EVENT_WAIT_LIST if <event_wait_list> is NULL and
+        <num_events_in_wait_list> > 0, or <event_wait_list> is not NULL
+        and <num_events_in_wait_list> is 0, or if event objects in
+        <event_wait_list> are not valid events.
+
+      * CL_OUT_OF_HOST_MEMORY if there is a failure to allocate resources
+        required by the OpenCL implementation on the host.
+
+    The function
+
+        cl_int clEnqueueReleaseD3D10ObjectsKHR(
+            cl_command_queue command_queue,
+            cl_uint num_objects,
+            const cl_mem *mem_objects,
+            cl_uint num_events_in_wait_list,
+            const cl_event *event_wait_list,
+            cl_event *event)
+
+    is used to release OpenCL memory objects that have been created from
+    Direct3D 10 resources. The Direct3D 10 objects are released by the 
+    OpenCL context associated with <command_queue>.
+
+    OpenCL memory objects created from Direct3D 10 resources which have
+    been acquired by OpenCL must be released by OpenCL before they may be 
+    accessed by Direct3D 10.  Accessing a Direct3D 10 resource while its 
+    corresponding OpenCL memory object is acquired is in error and will 
+    result in undefined behavior, including but not limited to possible 
+    OpenCL errors, data corruption, and program termination.
+
+    clEnqueueReleaseD3D10ObjectsKHR provides the synchronization guarantee
+    that any calls to Direct3D 10 made after the call to 
+    clEnqueueReleaseD3D10ObjectsKHR will not start executing until after
+    all events in <event_wait_list> are complete and all work already
+    submitted to <command_queue> completes execution.
+
+    <num_objects> is the number of memory objects to be released in
+    <mem_objects>.
+
+    <mem_objects> is a pointer to a list of OpenCL memory objects that 
+    were created from Direct3D 10 resources.
+
+    <event_wait_list> and <num_events_in_wait_list> specify events that
+    need to complete before this particular command can be executed. If
+    <event_wait_list> is NULL, then this particular command does not
+    wait on any event to complete. If <event_wait_list> is NULL,
+    <num_events_in_wait_list> must be 0. If <event_wait_list> is not
+    NULL, the list of events pointed to by <event_wait_list> must be
+    valid and <num_events_in_wait_list> must be greater than 0. The
+    events specified in
+
+    <event> returns an event object that identifies this particular 
+    command and can be used to query or queue a wait for this
+    particular command to complete. <event> can be NULL in which case it
+    will not be possible for the application to query the status of this
+    command or queue a wait for this command to complete.
+
+    clEnqueueReleaseD3D10ObjectsKHR returns CL_SUCCESS if the function
+    is executed successfully. If <num_objects> is 0 and <mem_objects> is
+    NULL the function does nothing and returns CL_SUCCESS. Otherwise it
+    returns one of the following errors:
+
+      * CL_INVALID_VALUE if <num_objects> is zero and <mem_objects> is
+        not a NULL value or if <num_objects> > 0 and <mem_objects> is
+        NULL.
+
+      * CL_INVALID_MEM_OBJECT if memory objects in <mem_objects> are not
+        valid OpenCL memory objects or if memory objects in <mem_objects> 
+        have not been created from Direct3D 10 resources.
+
+      * CL_INVALID_COMMAND_QUEUE if <command_queue> is not a valid
+        command-queue.
+
+      * CL_INVALID_CONTEXT if context associated with <command_queue> was
+        not created from a Direct3D 10 device.
+
+      * CL_D3D10_RESOURCE_NOT_ACQUIRED_KHR if memory objects in
+        <mem_objects> have not previously 
+        clEnqueueAcquireD3D10ObjectsKHR, or have been released using
+        clEnqueueReleaseD3D10ObjectsKHR since the last time that they 
+        were acquired.
+
+      * CL_INVALID_EVENT_WAIT_LIST if <event_wait_list> is NULL and
+        <num_events_in_wait_list> > 0, or <event_wait_list> is not NULL
+        and <num_events_in_wait_list> is 0, or if event objects in
+        <event_wait_list> are not valid events.
+
+      * CL_OUT_OF_HOST_MEMORY if there is a failure to allocate resources
+        required by the OpenCL implementation on the host.
+
+Issues
+
+ 1) Should this extension be KHR or EXT?
+
+    PROPOSED: KHR. If this extension is to be approved by Khronos then
+    it should be KHR, otherwise EXT. Not all platforms can support this
+    extension, but that is also true of OpenGL interop.
+
+    RESOLVED: KHR.
+
+ 2) Requiring SharedHandle on ID3D10Resource
+
+    Requiring this can largely simplify things at the DDI level and make
+    some implementations faster. However, the DirectX spec only defines
+    the shared handle for a subset of the resources we would like to
+    support:
+
+        D3D10_RESOURCE_MISC_SHARED
+
+        Enables the sharing of resource data between two or more Direct3D
+        devices. The only resources that can be shared are 2D
+        non-mipmapped textures.
+
+    PROPOSED A: add wording to the spec about some implementations needing
+    the resource setup as shared:
+
+    "Some implementations may require the resource to be shared on the
+    D3D10 side of the API"
+
+    If we do that, do we need another enum to describe this failure case?
+
+    PROPOSED B: required that all implementations support both shared
+    and non-shared resources.  The restrictions prohibiting multisample
+    textures and the flag D3D10_USAGE_IMMUTABLE guarantee software
+    access to all shareable resources.
+
+    RESOLVED: Require that implementations support both 
+    D3D10_RESOURCE_MISC_SHARED being set and not set.  Add the query
+    for CL_CONTEXT_D3D10_PREFER_SHARED_RESOURCES_KHR to determine on a 
+    per-context basis which method will be faster.
+
+ 3) Texture1D support
+
+    There is not a matching CL type, so do we want to
+    support this and map to buffer or Texture2D? If so the command might
+    correspond to the 2D / 3D versions:
+
+        cl_mem  clCreateFromD3D10Texture1D(cl_context context,
+                                           cl_mem_flags flags,
+                                           ID3D10Texture2D *resource,
+                                           UINT subresource,
+                                           int *errcode_ret)
+
+    RESOLVED: We will not add support for ID3D10Texture1D objects unless
+    a corresponding OpenCL 1D Image type is created.
+
+ 4) CL/D3D10 queries
+
+    The GL interop has clGetGLObjectInfo and clGetGLTextureInfo. It is  
+    unclear if these are needed on the D3D10 interop side since the 
+    D3D10 spec makes these queries trivial on the D3D10 object itself. 
+    Also, not all of the sematics of the GL call map across.
+
+    PROPOSED: Add the clGetMemObjectInfo and clGetImageInfo parameter
+    names CL_MEM_D3D10_RESOURCE_KHR and CL_IMAGE_D3D10_SUBRESOURCE_KHR to 
+    query the D3D10 resource from which a cl_mem was created.  From this
+    data, any D3D10 side information may be queried using the D3D10 API.  
+
+    RESOLVED: We will use clGetMemObjectInfo and clGetImageInfo to 
+    access this information.
+
+Revision History
+
+    Version 9, 2010/03/31 (Jon Leech) - cleanup for publication. Update
+    Status and Header File fields with final approved information. Fix
+    clEnqueueReleaseExternalObjectsKHR->clEnqueueReleaseD3D10ObjectsKHR
+    typo.
+
+    Version 8, 2010/02/08 (Christopher Cameron) - fix typos and add
+    enumerant values.
+
+    Version 7, 2009/12/14 (Christopher Cameron) - resolve issue 2 by 
+    adding CL_CONTEXT_D3D10_PREFER_SHARED_RESOURCES_KHR query.
+
+    Version 6, 2009/12/01 (Christopher Cameron) - clarify error
+    codes and behavior of clContextCreate with CL_CONTEXT_D3D10_DEVICE.
+
+    Version 5, 2009/11/30 (Christopher Cameron) - clarify object 
+    lifetime, add KHR decoration to symbols, clarify size and format of 
+    shared objects, clarify acquire/release semantics mark issues as 
+    resolved.
+
+    Version 4, 2009/11/23 (Christopher Cameron) - add synchronization 
+    guarantees for clEnqueueAcquireD3D10Objects and 
+    clEnqueueReleaseD3D10Objects.
+
+    Version 3, 2009/11/20 (Christopher Cameron) - add device/adapter
+    query function clGetDeviceIDsFromD3D10KHR.  Add prohibition on 
+    D3D10_USAGE_IMMUTABLE and multisample textures to guarantee a 
+    consistent image format (e.g, how should a 2x multisampled texture
+    appear to OpenCL), add support for querying 
+    CL_MEM_D3D10_RESOURCE_KHR and CL_IMAGE_D3D10_SUBRESOURCE_KHR.  Add
+    image format conversion table.  Minor tweaks of names, formatting.
+    Change extension name to cl_khr_d3d10_sharing to match OpenGL.
+
+    Version 2, 2009/09/08 (Jon Leech) - tweak spec to match CL extension
+    template structurally, some minor reformatting and reflowing of
+    text. Move clCreateFromD3D10Texture1D from the New Functions section
+    into issue 3. Update section numbering to be against OpenCL 1.0 rev
+    47.
+
+    Version 1, 2009/08/31 (Michael Houston) - initial extension
+    specification based on discussion in bug 3663.

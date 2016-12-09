@@ -1,0 +1,96 @@
+Name String
+
+    cl_intel_d3d11_nv12_media_sharing
+
+Contributors
+
+    Krzysztof Laskowski, Intel
+    Ben Ashbaugh, Intel
+    Eric L Palmer, Intel
+
+Contact
+
+    Krzysztof Laskowski, Intel (krzysztof.laskowski 'at' intel.com)
+
+Version
+
+    Version 4, June 25, 2014
+
+Number
+
+    OpenCL Extension #31
+
+Status
+
+    Complete
+
+Extension Type
+
+    OpenCL platform extension
+
+Dependencies
+
+    OpenCL 1.2 with cl_khr_d3d11_sharing extension support is required 
+    and a D3D11 implementation supporting sharing of surfaces with 
+    OpenCL is required. This extension is written against revision 19 
+    of the OpenCL 1.2 Extension specification.
+
+Overview
+
+    The goal of this extension is to extend the interoperability between 
+    OpenCL and D3D11 with planar surface formats for media applications.  
+    This is designed to reuse existing D3D11 interoperability infrastructure
+    defined in the OpenCL 1.2 specification.
+
+Additions to chapter 9.11.7.4 of the OpenCL 1.2 Extension Specification
+
+    Replace the description of CL_INVALID_D3D11_RESOURCE_KHR 
+    error value under clCreateFromD3D11Texture2DKHR with:
+
+    "CL_INVALID_D3D11_RESOURCE_KHR if <resource> is not a Direct3D 11 texture 
+    resource, if <resource> was created with the D3D11_USAGE flag 
+    D3D11_USAGE_IMMUTABLE, if <resource> is a multisampled texture, if a cl_mem from  
+    subresource <subresource> of <resource> has already been created using 
+    clCreateFromD3D11Texture2DKHR, if <resource> format is a planar format and 
+    <resource> was not created with the D3D11_RESOURCE_MISC_FLAG flag 
+    D3D11_RESOURCE_MISC_SHARED, or if <context> was not created against the same 
+    Direct3D 11 device from which <resource> was created."
+
+    Add the following to the section above the table 9.11.3:
+
+    "Sharing of arrays of NV12 surfaces is supported.
+    For NV12 surface format <subresource> is defined as follows:
+        <subresource> = Plane + (ArraySlice * 2),
+    where Plane = 0 corresponds to the luminance (Y) channel data and Plane = 1 
+    corresponds to the  chrominance (UV) channel data and the ArraySlice is the 
+    zero-based index for the array level to address."
+
+    Add the following to table 9.11.3:
+
+   "-----------------------------------------------------------------------
+                 DXGI format                  CL image format
+                                        (cl_channel_order, cl_channel_type)    
+    ---------------------------------   -----------------------------------
+    
+    DXGI_FORMAT_NV12, Plane 0           CL_R, CL_UNORM_INT8
+    DXGI_FORMAT_NV12, Plane 1           CL_RG, CL_UNORM_INT8
+    -----------------------------------------------------------------------"
+
+Issues
+
+    - There is a limitation regarding using of ID3D11DeviceContext::CopySubresourceRegion
+      method not allowing to copy Y and UV portions of the NV12 planar surface
+      independently. This is the only known method that would allow for sharing
+      of NV12 textures without D3D11_RESOURCE_MISC_SHARED flag via a staging resource.
+      Therefore this functionality is disabled and only sharing of resources 
+      created with D3D11_RESOURCE_MISC_SHARED flag will be supported.
+
+Revision History
+
+    Version 1, 2013/11/11 (Krzysztof Laskowski) - Initial version.
+    Version 2, 2013/12/12 (Krzysztof Laskowski) - Added description for sharing of arrayed NV12 
+                                                  surfaces
+    Version 3, 2014/28/05 (Krzysztof Laskowski) - Added explanation that sharing of arrays of
+                                                  NV12 surfaces is supported.
+    Version 4, 2014/25/06 (Krzysztof Laskowski) - Marked as complete.
+

@@ -1,0 +1,280 @@
+Name Strings
+
+    cl_amd_bus_addressable_memory
+
+
+Contributors
+
+    Pierre Boudier
+    Graham Sellers
+    Benedikt Kessler
+    Ofer Rosenberg
+
+Contact
+
+    Brian Sumner, AMD (Brian.Sumner 'at' amd.com)
+
+IP Status
+
+    No known IP issues.
+    
+Version
+
+    Version 1.2, Nov 3, 2011
+    
+Number
+    
+    OpenCL Extension #25
+    
+Status
+
+    Draft
+
+Extension Type
+
+    OpenCL platform extension
+    
+Dependencies
+
+    OpenCL 1.1 is required
+
+Overview
+
+    This extension defines an API that allows improved control of the
+    physical memory used by the graphics device
+
+    It allows to share a memory allocated by the Graphics driver to be used
+    by other device on the bus by exposing a write-only bus address. One
+    example of application would be a video capture device which would DMA
+    into the GPU memory
+
+    It also offers the reverse operation of specifying a buffer allocated on
+    another device to be used for write access by the GPU
+
+    Table and Chapter numbers mentioned below match OpenCL 1.1 Rev 44
+
+New Procedures and Functions
+
+        cl_int clEnqueueWaitSignalAMD(cl_command_queue command_queue,
+                     cl_mem mem_object, uint value, cl_uint num_events,
+                     const cl_event *event_wait_list, cl_event *event);
+
+        cl_int clEnqueueWriteSignalAMD(cl_command_queue command_queue,
+                     cl_mem mem_object, uint value, cl_ulong offset,
+                     cl_uint num_events, const cl_event *event_wait_list,
+                     cl_event *event);
+
+        cl_int clEnqueueMakeBuffersResidentAMD(cl_command_queue command_queue,
+                     cl_uint num_mem_objects, cl_mem* mem_objects,
+                     cl_bool blocking_make_resident,
+                     cl_bus_address_amd * bus_addresses, cl_uint num_events,
+                     const cl_event *event_wait_list, cl_event *event);
+
+New Types
+
+    typedef struct _cl_bus_address_amd
+
+New Tokens
+
+    Accepted by the <flags> parameter of clCreateBuffer.
+
+        CL_MEM_BUS_ADDRESSABLE_AMD               (1<<30)
+        CL_MEM_EXTERNAL_PHYSICAL_AMD             (1<<31)
+
+
+    New command types for the events returned by the above functions
+
+        CL_COMMAND_WAIT_SIGNAL_AMD                0x4080
+        CL_COMMAND_WRITE_SIGNAL_AMD               0x4081
+        CL_COMMAND_MAKE_BUFFERS_RESIDENT_AMD      0x4082
+
+Additions to Table 5.4 (List of supported cl_mem_flags values)
+
+        cl_mem_flags                |  Description
+        ----------------------------------------------------------------------
+        CL_MEM_BUS_ADDRESSABLE_AMD  | This flag specifies that the application
+                                    | wants the OpenCL implementation to
+                                    | create a buffer that can be accessed by
+                                    | remote device DMA.
+                                    |
+                                    | CL_MEM_BUS_ADDRESSABLE_AMD,
+                                    | CL_MEM_ALLOC_HOST_PTR and
+                                    | CL_MEM_USE_HOST_PTR
+                                    | are mutually exclusive.
+                                    |
+        CL_MEM_EXTERNAL_PHYSICAL_AMD| This flag specifies that the application
+                                    | wants the OpenCL implementation to
+                                    | create a buffer from an already
+                                    | allocated memory on remote device
+                                    |
+                                    | CL_MEM_EXTERNAL_PHYSICAL_AMD,
+                                    | CL_MEM_ALLOC_HOST_PTR,
+                                    | CL_MEM_COPY_HOST_PTR and
+                                    | CL_MEM_USE_HOST_PTR
+                                    | are mutually exclusive.
+                                    |
+                                    | CL_MEM_EXTERNAL_PHYSICAL_AMD,
+                                    | CL_MEM_READ_WRITE and CL_MEM_READ_ONLY
+                                    | are mutually exclusive.
+
+Additions to section 5.2.1 (Creating Buffer Objects)
+     
+    This extension defines two new flags passed to clCreateBuffer:
+    CL_MEM_BUS_ADDRESSABLE_AMD & CL_MEM_EXTERNAL_PHYSICAL_AMD, used to create
+    OpenCL buffers which are used to communicate with a remote device.
+
+    In addition, the extension defines the following structure which provides
+    the bus address information:
+
+    typedef struct _cl_bus_address_amd
+    { 
+         cl_long surfbusaddress;
+         cl_long signalbusaddress
+    }cl_bus_address_amd;
+
+    There are two types of buffer objects that can be created:
+
+    1. A buffer object which represents a buffer created on the device's
+       memory, which can be shared with a remote device, to be shared with
+       the remote device.
+       This buffer is created using CL_MEM_BUS_ADDRESSABLE_AMD.
+
+       The application may initialize this memory by adding the mem flag
+       CL_MEM_COPY_HOST_PTR, and providing data in host_ptr. Otherwise, the
+       buffer content are undefined.
+
+       The application is required to make buffers resident before accessing
+       them from remote device. Using these buffers without making them
+       resident will lead to undefined behavior (especially, the addresses
+       for other Buffers may become invalid). See next section for making
+       buffers resident.
+
+
+    2. A write only buffer object which represents a remote buffer, located on
+       the remote device. There is no actual memory allocation on the device in
+       this case.  This buffer is created using CL_MEM_EXTERNAL_PHYSICAL_AMD. A
+       kernel running on the device can only write to this buffer.
+
+       When creating a buffer using CL_MEM_EXTERNAL_PHYSICAL_AMD, the application
+       is required to pass the cl_bus_address_amd struct to host_ptr argument
+       of clCreateBuffer.
+       <surfbusaddress> will contain the page aligned physical starting address
+       of the backing store preallocated by the application on a remote device.
+       <signalbusaddress> will contain the page aligned physical starting
+       address of preallocated signaling surface.
+       Both bus addresses must have been allocated from the same device and
+       memory pool.  Failure will occur if multiple buffers are created for the
+       same <surfbusaddress>.
+
+    Map/unmap and read operations are not supported for external physical memory.
+    Sub buffers are not supported for both bus addressable memory and external
+    physical memory.
+
+    The following errors are added to clCreateBuffer:
+
+    CL_MEM_OBJECT_ALLOCATION_FAILURE is generated if the <flag> parameter of
+    clCreateBuffer is CL_MEM_EXTERNAL_PHYSICAL_AMD, and the remote bus address
+    cannot be mapped to the device address space.
+
+    CL_INVALID_HOST_PTR is generated if the <flag> parameter of clCreateBuffer
+    is CL_MEM_EXTERNAL_PHYSICAL_AMD and the <surfbusaddress> or
+    <markerbusaddress> parameter of clCreateBuffer are 0 or not page aligned.
+
+    CL_OUT_OF_HOST_MEMORY is generated if if the <flag> parameter of
+    clCreateBuffer is CL_BUS_ADDRESSABLE_MEMORY_AMD, and no memory can be
+    allocated with a valid bus address.
+
+    CL_OUT_OF_RESOURCES if bus addressable memory is already used by another
+    application or context
+
+
+New section 5.4.4 (Making buffers resident)
+
+    The application requires the bus address in order to access the buffers
+    from a remote device. As the OS may rearrange buffers to make space for
+    other memory allocation, we must make the buffers resident before trying
+    to access them on remote device.
+
+    The following API is used to make buffers resident:
+
+    cl_int clEnqueueMakeBuffersResidentAMD(cl_command_queue command_queue,
+                                           cl_uint num_mem_objects,
+                                           const cl_mem *mem_objects
+                                           cl_bus_address_amd * bus_addresses,
+                                           cl_bool blocking_make_resident,
+                                           cl_uint num_events_in_wait_list,
+                                           const cl_event *event_wait_list,
+                                           cl_event *event);
+
+    The memory objects passed need to be buffers created with
+    CL_MEM_BUS_ADDRESSABLE_AMD flag.
+
+    clEnqueueMakeBuffersResidentAMD return CL_SUCCESS if the function is
+    executed successfully. Otherwise, it returns one of the following errors:
+
+    CL_INVALID_OPERATION is generated if any of the pointer parameters
+    of clEnqueueMakeBuffersResidentAMD are NULL (and count is > 0).
+
+    CL_INVALID_OPERATION is generated if any of the mem_objects passed to
+    clEnqueueMakeBuffersResidentAMD was not a valid cl_mem object created with
+    CL_BUS_ADDRESSABLE_MEMORY_AMD flag.
+
+    CL_OUT_OF_HOST_MEMORY is generated if any of the mem_objects passed to
+    clEnqueueMakeBuffersResidentAMD could not be made resident so that the
+    buffer or signal bus addresses will be returned as 0.
+
+
+New section 5.4.5 (Memory Object Synchronization)
+
+    The following API is used to synchronize with the remote device. This
+    Synchronization enables the device to know when the other device finished
+    writing to the buffer/s.
+
+    cl_int clEnqueueWaitSignalAMD(cl_command_queue command_queue,
+                                  cl_mem buffer,
+                                  uint value,
+                                  cl_uint num_events,
+                                  const cl_event *event_wait_list,
+                                  cl_event *event);
+
+    This command instructs the OpenCL to wait until <value> is written to
+    <buffer> before issuing the next command.
+
+    cl_int clEnqueueWriteSignalAMD(cl_command_queue command_queue,
+                                   cl_mem buffer,
+                                   uint value,
+                                   cl_ulong offset,
+                                   cl_uint num_events,
+                                   const cl_event *event_wait_list,
+                                   cl_event *event);
+
+    This command instructs the OpenCL to write <value> to the signal address +
+    <offset> of <buffer> (which must be a buffer created with
+    CL_MEM_EXTERNAL_PHYSICAL_AMD). This should be done after a write operation
+    by the device into that buffer is complete.  Consecutive marker values must
+    keep increasing.
+
+    These commands return CL_SUCCESS if the function is executed successfully.
+    Otherwise, it returns one of the following errors:
+
+    CL_INVALID_MEM_OBJECT is generated if the <buffer> parameter of
+    clEnqueueWaitSignalAMD or clEnqueueWriteSignalAMD is not a valid buffer
+
+    CL_INVALID_COMMAND_QUEUE is generated if the <command_queue> parameter of
+    clEnqueueWaitSignalAMD or clEnqueueWriteSignalAMD is not a valid command
+    queue.
+
+    CL_INVALID_MEM_OBJECT  is generated if the <buffer> parameter of
+    clEnqueueWaitSignalAMD does not represent a buffer allocated with
+    CL_MEM_BUS_ADDRESSABLE_AMD
+
+    CL_INVALID_MEM_OBJECT is generated if the <buffer> parameter of
+    clEnqueueWriteSignalAMD does not represent a buffer defined as
+    CL_EXTERNAL_PHYSICAL_MEMORY_AMD
+
+    CL_INVALID_BUFFER_SIZE is generated if the <offset> parameter of
+    clEnqueueWriteSignalAMD would lead to a write beyond the size of <buffer>
+
+    CL_INVALID_VALUE is generated if the signal address used by
+    clEnqueueWriteSignalAMD or clEnqueueWaitSignalAMD of <buf> is invalid
+    (for example 0)

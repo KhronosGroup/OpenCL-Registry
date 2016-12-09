@@ -1,0 +1,316 @@
+Name String
+
+    cl_intel_motion_estimation
+
+Contributors
+
+    Nico Galoppo, Intel
+    Craig Hansen-Sturm, Intel
+    Yejun Guo, Intel
+    Ben Ashbaugh, Intel
+
+Contact
+
+    Ben Ashbaugh, Intel (ben.ashbaugh 'at' intel.com)
+
+IP Status
+
+    TBD
+
+Version
+
+    Version 2, March 18, 2016
+
+Number
+
+    OpenCL Extension #23
+
+Status
+
+    Final draft
+
+Dependencies
+
+    OpenCL 1.2 and support for the cl_intel_accelerator extension is required.
+    This extension is written against revision 19 of the OpenCL 1.2 
+    specification and against version 2 of the cl_intel_accelerator extension
+    specification.
+
+Overview
+
+    This document describes an OpenCL extension to expose basic motion estimation
+    capabilities. There are two key parts of this extension: The first is a 
+    built-in kernel for frame-based motion estimation that is exposed using the
+    built-in kernel infrastructure added to OpenCL 1.2. The second is the ability
+    to create motion estimation accelerators, which can be used to control 
+    behavior of the motion estimation engine. The motion estimation accelerators 
+    use the framework described in the cl_intel_accelerator extension.
+
+New Procedures and Functions
+
+    None
+
+New Tokens
+
+    Accepted as the <accelerator_type> parameter of clCreateAcceleratorINTEL:
+
+        CL_ACCELERATOR_TYPE_MOTION_ESTIMATION_INTEL 0x0
+
+    Accepted as values for fields of the cl_motion_estimation_desc_intel structure:
+
+        Accepted values for <mb_block_type>:
+
+        CL_ME_MB_TYPE_16x16_INTEL                   0x0
+        CL_ME_MB_TYPE_8x8_INTEL                     0x1
+        CL_ME_MB_TYPE_4x4_INTEL                     0x2
+        
+        Accepted values for <subpixel_mode>:
+
+        CL_ME_SUBPIXEL_MODE_INTEGER_INTEL           0x0
+        CL_ME_SUBPIXEL_MODE_HPEL_INTEL              0x1
+        CL_ME_SUBPIXEL_MODE_QPEL_INTEL              0x2
+        
+        Accepted values for <sad_adjust_mode>:
+
+        CL_ME_SAD_ADJUST_MODE_NONE_INTEL            0x0
+        CL_ME_SAD_ADJUST_MODE_HAAR_INTEL            0x1
+        
+        Accepted values for <search_path_type>:
+
+        CL_ME_SEARCH_PATH_RADIUS_2_2_INTEL          0x0
+        CL_ME_SEARCH_PATH_RADIUS_4_4_INTEL          0x1
+        CL_ME_SEARCH_PATH_RADIUS_16_12_INTEL        0x5
+        
+New Types
+
+    Accepted as a type pointed to by <accelerator_desc> for 
+    clCreateAcceleratorINTEL, and pointed to by <param_value> for
+    clGetAcceleratorInfoINTEL:
+
+        typedef struct _cl_motion_estimation_desc_intel {
+            cl_uint     mb_block_type;
+            cl_uint     subpixel_mode;
+            cl_uint     sad_adjust_mode;
+            cl_uint     search_path_type;
+        } cl_motion_estimation_desc_intel;
+
+Modifications to Section 5.XX.1 - "Creating Accelerator Objects" in the
+cl_intel_accelerator specification:
+
+    Add a table of accelerator types, immediately following the description of
+    <accelerator_type>:
+
+   "----------------------------------------------------------------------------
+    cl_accelerator_type_intel  Description
+    -------------------------  -----------
+    CL_ACCELERATOR_TYPE_       Create a basic full-frame motion estimation
+    MOTION_ESTIMATION_INTEL    accelerator
+    ----------------------------------------------------------------------------"
+
+    Add a table of accelerator descriptors, immediately following the 
+    description of <descriptor>:
+
+   "----------------------------------------------------------------------------
+    Descriptor Type                  Description
+    ---------------                  -----------
+    cl_motion_estimation_desc_intel  Used to represent the configuration state 
+                                     of basic full-frame motion estimation 
+                                     accelerators
+    ----------------------------------------------------------------------------"
+
+Add a new sub-section "Motion Estimation Accelerators" to Section 5.XX.3 - 
+"Accelerator Descriptors" in the cl_intel_accelerator specification:
+
+   "The cl_motion_estimation_desc_intel descriptor structure is used to create
+    an accelerator to control behavior of the motion estimation engine. This 
+    motion estimation descriptor structure is defined as:
+
+    typedef struct _cl_motion_estimation_desc_intel {
+        cl_uint     mb_block_type;
+        cl_uint     subpixel_mode;
+        cl_uint     sad_adjust_mode;
+        cl_uint     search_path_type;
+    } cl_motion_estimation_desc_intel;
+
+    <mb_block_type> describes the size of the blocks (partitioning mode) 
+    considered by the motion estimator. A frame is first divided into 
+    macroblocks of size 16x16, and then may be sub-divided into blocks 
+    of size 8x8 or 4x4, or retained as 16x16 blocks. This field influences 
+    the size of the output image(s) and buffer(s) of the motion estimation 
+    algorithms defined in this extension. Valid values are described in the 
+    table below. 
+    
+    ----------------------------------------------------------------------------
+    Type                                   Description
+    ----                                   -----------
+    CL_ME_MB_TYPE_16x16_INTEL              Each block is of size 16x16 pixels
+    CL_ME_MB_TYPE_8x8_INTEL                Each block is of size 8x8 pixels
+    CL_ME_MB_TYPE_4x4_INTEL                Each block is of size 4x4 pixels
+    ----------------------------------------------------------------------------
+    
+    <subpixel_mode> defines the search precision (and hence, the precision of 
+    the returned motion vectors). Valid values are described in the table below. 
+    
+    ----------------------------------------------------------------------------
+    Type                                   Description
+    ----                                   -----------
+    CL_ME_SUBPIXEL_MODE_INTEGER_INTEL      Integer pixel mode searching
+    CL_ME_SUBPIXEL_MODE_HPEL_INTEL         Half-pixel mode searching
+    CL_ME_SUBPIXEL_MODE_QPEL_INTEL         Quarter-pixel mode searching
+    ----------------------------------------------------------------------------
+    
+    <sad_adjust_mode> specifies distortion measure adjustment used for the motion 
+    search SAD (Sum of Absolute Difference) comparison. Valid values are
+    described in the table below.
+    
+    ----------------------------------------------------------------------------
+    Type                                   Description
+    ----                                   -----------
+    CL_ME_SAD_ADJUST_MODE_NONE_INTEL       Non-adjusted SAD
+    CL_ME_SAD_ADJUST_MODE_HAAR_INTEL       Haar transformed SATD (frequency space)
+    ----------------------------------------------------------------------------
+    
+    <search_path_type> specifies the search path and search radius when matching 
+    blocks in the neighborhood of each pixel block. Currently, all search 
+    algorithms match the source block with pixel blocks in the reference 
+    area exhaustively within a [Rx, Ry] radius from the center of the co-located
+    source macroblock in the reference frame that the block belongs to,
+    optionally offset by a predicted motion vector.
+    
+    ----------------------------------------------------------------------------
+    Flag                                   Description
+    ----                                   -----------
+    CL_ME_SEARCH_PATH_RADIUS_2_2_INTEL     Exhaustive search within 
+                                           [+/-2, +/-2] radius
+    CL_ME_SEARCH_PATH_RADIUS_4_4_INTEL     Exhaustive search within 
+                                           [+/-4, +/-4] radius
+    CL_ME_SEARCH_PATH_RADIUS_16_12_INTEL   Exhaustive search within 
+                                           [+/-16, +/-12] radius
+    ----------------------------------------------------------------------------"
+
+Add a new sub-section "Using Motion Estimation Accelerators" to Section 5.XX.4 - 
+"Using Accelerators" in the cl_intel_accelerator specification:
+
+   "Motion estimation accelerators control behavior of the motion estimation
+    engine and are used by motion estimation kernels.  The
+    cl_intel_motion_estimation extension adds a built-in kernel for basic 
+    motion estimation.  This section describes the motion estimation built-in 
+    kernel and how to set the motion estimation accelerator as an argument to 
+    the motion estimation built-in kernel.
+
+    The motion estimation built-in kernel uses the built-in kernel functionality
+    added in OpenCL 1.2. After creating the motion estimation built-in kernel, 
+    the motion estimation accelerator can be set as a kernel argument to control 
+    the motion estimation engine.
+
+    There is currently no OpenCL C type for motion estimation accelerators, and
+    motion estimation accelerators can only be used with the motion estimation
+    built-in kernel.
+    
+    The kernel
+    
+        __kernel void block_motion_estimate_intel(
+            accelerator_intel_t accelerator,
+            __read_only  image2d_t src_image,
+            __read_only  image2d_t ref_image,
+            __global short2 * prediction_motion_vector_buffer,
+            __global short2 * motion_vector_buffer,
+            __global ushort * residuals);
+    
+    computes motion vectors by comparing a 2d source image with a 2d reference 
+    image, producing an output field of motion vectors. The algorithm searches 
+    for the best match of each pixel block in the source image by searching a 
+    region of the reference image, centered on the coordinates of that pixel 
+    block in the source image.
+    
+    The starting search coordinate may optionally be offset by a prediction
+    motion vector. Additionally, the kernel may optionally return a vector 
+    field of per-pixel-block best-match distortion (SAD) values.
+    
+    When enqueuing this kernel, the <global_work_size> and <global_work_offset> 
+    determine the region of interest (ROI) of the input frame in pixels. The
+    <global_work_offset> determines the offset to the start of the region of
+    interest. The <global_work_size> determines the width and height of the 
+    region of interest. The amount of data written to the <motion_vector_buffer>
+    is dependent on the size of the region of interest and the partitioning 
+    mode specified by the accelerator.
+    
+    <accelerator> must be a valid accelerator object created by 
+    clCreateAcceleratorINTEL.  For the block_motion_estimate_intel kernel, the
+    type of the accelerator must be CL_ACCELERATOR_TYPE_MOTION_ESTIMATION_INTEL.
+    
+    <src_image> is the input source image, typically representing 8-bit luminance 
+    information. The <image_channel_order> and <image_data_type> of <src_image>
+    are restricted as follows:
+    
+    ----------------------------------------------------------------------------
+    Channel Order              Src Channel Data Type
+    -------------              ---------------------
+    CL_R                       CL_UNORM_INT8
+    ----------------------------------------------------------------------------
+    
+    <ref_image> is the input reference image, typically representing 8-bit 
+    luminance information. The <image_channel_order> and <image_data_type> of
+    <ref_image> must match src_image, as follows:
+    
+    ----------------------------------------------------------------------------
+    Channel Order              Ref Channel Data Type
+    -------------              ---------------------
+    CL_R                       CL_UNORM_INT8
+    ----------------------------------------------------------------------------
+    
+    <motion_vector_buffer> is the output motion vector buffer, representing a 
+    vector field of pixel block motion vectors, stored linearly in row-major 
+    order. The elements of this buffer describe a motion vector for the 
+    corresponding pixel block, with its x/y components packed as two 16-bit 
+    integer values. Each component is encoded as a S13.2 fixed point value 
+    (two's complement). The precision is specified by the <subpixel_mode> 
+    of the <accelerator>. The size of the returned data is determined by the
+    <mb_block_type> of the <accelerator>. The <motion_vector_buffer> needs to 
+    be sized that it fits the results of all pixel blocks of the source image, 
+    i.e. the number of full or partial 16x16 source pixel macroblocks times the 
+    number of returned motion vectors per source block (1, 4, or 16).
+     
+    <prediction_motion_vector_buffer> is an optional input buffer representing a 
+    vector field of prediction motion vectors, stored linearly in row-major 
+    order. When provided, this buffer must contain one prediction motion vector
+    for each full or partial 16x16 pixel macroblock in the region of interest. 
+    The prediction motion vector is used to offset the default search center 
+    for each 16x16 pixel block search window. The default search center is the
+    center of the co-located source macroblock in the reference frame.  Note 
+    that in feedback algorithms, where the output <motion_vector_buffer> of one
+    frame is used as the input <prediction_motion_buffer> for the next frame, 
+    the output buffer may need to be downsampled. The 
+    <prediction_motion_vector_buffer> argument is optional and may be set to 
+    NULL, in which case the prediction motion vectors are implied to be (0,0).
+    
+    <residuals> is an optional output buffer representing a field of residuals 
+    or "distortion values", one for each returned motion vector, stored linearly
+    in row-major order. These "residuals of the compensated image" represent the 
+    sum-of-absolute-differences (SAD) between the source frame pixel block and 
+    the best-match reference frame pixel block that produced the returned motion
+    vector. The <sad_adjust_mode> of the <accelerator> determines whether plain 
+    SAD or SATD (Haar-adjusted) values are returned. The <rediduals> argument is
+    optional and may be set to NULL, in which case residual information is not 
+    returned.    
+    
+    The motion estimation built-in kernels are queued for execution by the host 
+    application using clEnqueueNDRangeKernel(). This function will return the 
+    usual error codes, augmented with the following specific error codes for 
+    this kernel:
+    
+      * CL_INVALID_WORK_DIMENSION if <work_dim> is not 2. This built-in kernel 
+        requires a 2D ND-range.
+      * CL_INVALID_WORK_GROUP_SIZE if <local_work_size> is not NULL. This 
+        built-in kernel requires the work-group size to be set by the runtime.
+      * CL_INVALID_IMAGE_SIZE if the region of interest defined by the
+        <global_work_size> and <global_work_offset> exceed the dimensions of 
+        the <src_image> or <ref_image>.
+      * CL_INVALID_IMAGE_FORMAT_DESCRIPTOR  if the <src_image> or <ref_image>
+        kernel arguments do not meet the image format restrictions described
+        above."
+    
+Revision History
+
+    Version 1 - Initial Revision
+    Version 2 - Formatting and minor bug fixes.

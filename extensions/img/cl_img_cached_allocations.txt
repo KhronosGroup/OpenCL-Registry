@@ -1,0 +1,96 @@
+Name
+
+    IMG_cached_allocations
+
+Name Strings
+
+    cl_img_cached_allocations
+
+Contributors
+
+    Jeremy Kemp
+
+Contacts
+
+    Jeremy Kemp, Imagination Technologies (jeremy.kemp 'at' imgtec.com)
+
+Status
+
+    Unapproved.
+
+Version
+
+    Revision: #3, Nov 6, 2014
+
+Number
+
+    OpenCL Extension #44
+
+Dependencies
+
+    Requires OpenCL version 1.2 or later.
+
+    This extension is written against the wording of the OpenCL 1.2
+    Specification.
+
+Overview
+
+    This extension extends the functionality provided by
+    clCreateBuffer and clCreateImage to allow the OpenCL
+    implementation to allocate memory on the device which
+    is also cached on the host CPU.
+
+Glossary
+
+    None
+
+New Types
+
+    None
+
+New Procedures and Functions
+
+    None
+
+New Tokens
+
+    CL_MEM_USE_UNCACHED_CPU_MEMORY_IMG           (1 << 26)
+
+    CL_MEM_USE_CACHED_CPU_MEMORY_IMG           (1 << 27)
+
+Additions to Chapter 5 of the OpenCL 1.2 Specification (Memory Objects)
+
+    In Table 5.3, page 69, add the following text as a new row in the table:
+
+    "CL_MEM_USE_UNCACHED_CPU_MEMORY_IMG
+
+      If this flag is specified it means that the application wants the
+      OpenCL implementation to allocate memory on the device so that it
+      is not cached when accessed on the host."
+
+    In Table 5.3, page 69, add the following text as a new row in the table:
+
+    "CL_MEM_USE_CACHED_CPU_MEMORY_IMG
+
+      If this flag is specified it means that the application wants the
+      OpenCL implementation to allocate memory on the device so that it
+      is cached when accessed on the host."
+
+Issues
+
+    1.  This extension may or may not improve performance; it depends on the
+        specific use-case. It is most likely to improve performance in cases
+        where the buffer or image is mapped using clEnqueueMapBuffer/Image
+        and some processing is then performed on the host-side. Whether the
+        allocation flag improves performance depends on whether the overhead
+        of cache flushes is greater than the performance gain  from cached
+        memory accessing when doing the host-side processing. It's recommended
+        to apply the flag on case-by-case basis to see if it improves your
+        use-case.
+
+Revision History
+
+#2    - Update overview section to say that the extension also supports images.
+        Add more detail to the overview section.
+
+#1    - Initial revision.

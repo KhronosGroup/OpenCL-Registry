@@ -1,0 +1,203 @@
+Name Strings
+
+    cl_intel_packed_yuv
+
+Contributors
+
+    Ben Ashbaugh, Intel
+
+Contact
+
+    Ben Ashbaugh, Intel (ben.ashbaugh 'at' intel.com)
+
+Version
+
+    Version 1, July 14, 2016
+
+Number
+
+    OpenCL Extension #42
+
+Status
+
+    Final Draft
+
+Dependencies
+
+    OpenCL 1.2 is required.  This extension is written against revision
+    19 of the OpenCL 1.2 specification.
+
+Overview
+
+    The purpose of this extension is to provide OpenCL support for packed
+    YUV images.
+
+New Procedures and Functions
+
+    None
+
+New Tokens
+
+    Accepted as <image_channel_order> of cl_image_format:
+
+       CL_YUYV_INTEL                               0x4076
+       CL_UYVY_INTEL                               0x4077
+       CL_YVYU_INTEL                               0x4078
+       CL_VYUY_INTEL                               0x4079
+
+Additions to Chapter 5 of the OpenCL 1.2 Specification:
+
+    In section 5.3.1.2 "Image Descriptor", add a sentence to the
+    end of the description of <image_width>:
+
+   "<image_width> is...  If the image is a packed YUV image, <image_width>
+    is the width of the Y data and must be even."
+
+    Add to table 5.6 "List of supported Image Channel Order Values" in
+    section 5.3.1.1 "Image Format Descriptor":
+
+   "CL_YUYV_INTEL, CL_UYVY_INTEL, CL_YVYU_INTEL, CL_VYUY_INTEL.  This format
+    can only be used if channel data type = CL_UNORM_INT8."
+
+    Add to section 5.3.1.1 "Image Format Descriptor" after the memory layout
+    descriptions for CL_RGBA image formats:
+
+   "The only supported <image_channel_data_type> for packed YUV images is
+    CL_UNORM_INT8.
+
+    The memory layout of a packed YUV image when <image_channel_order> is
+    CL_YUYV_INTEL is:
+
+        +---------+---------+---------+---------+
+        |    Y    |    U    |    Y    |    V    |   ...
+        | Pixel N | Pixel N |Pixel N+1| Pixel N |
+        +---------+---------+---------+---------+
+    Byte ->  0         1         2         3
+    Offset
+
+    The memory layout of a packed YUV image when <image_channel_order> is
+    CL_UYVY_INTEL is:
+
+        +---------+---------+---------+---------+
+        |    U    |    Y    |    V    |    Y    |   ...
+        | Pixel N | Pixel N | Pixel N |Pixel N+1|
+        +---------+---------+---------+---------+
+    Byte ->  0         1         2         3
+    Offset
+
+    The memory layout of a packed YUV image when <image_channel_order> is
+    CL_YVYU_INTEL is:
+
+        +---------+---------+---------+---------+
+        |    Y    |    V    |    Y    |    U    |   ...
+        | Pixel N | Pixel N |Pixel N+1| Pixel N |
+        +---------+---------+---------+---------+
+    Byte ->  0         1         2         3
+    Offset
+
+    The memory layout of a packed YUV image when <image_channel_order> is
+    CL_VYUY_INTEL is:
+
+        +---------+---------+---------+---------+
+        |    V    |    Y    |    U    |    Y    |   ...
+        | Pixel N | Pixel N | Pixel N |Pixel N+1|
+        +---------+---------+---------+---------+
+    Byte ->  0         1         2         3
+    Offset
+
+    Add a new Table 5.x "Additional Required Image Formats for Read-Only
+    2D Images" to section 5.3.2.1 "Minimum List of Supported Image Formats":
+
+   "--------------------------------------------------------------------
+    image_num_channels    image_channel_order    image_channel_data_type
+    ------------------    -------------------    -----------------------
+    2                     CL_YUYV_INTEL          CL_UNORM_INT8
+
+    2                     CL_UYVY_INTEL          CL_UNORM_INT8
+
+    2                     CL_YVYU_INTEL          CL_UNORM_INT8
+
+    2                     CL_VYUY_INTEL          CL_UNORM_INT8
+    --------------------------------------------------------------------"
+
+    In section 5.3.3 "Reading, Writing, and Copying Image Objects", add a
+    sentence to the end of the descriptions of <origin> and <region> under
+    clEnqueueReadImage and clEnqueueWriteImage:
+
+   "<origin> defines... If <image> is a packed YUV image, the x value given
+    by <origin>[0] indexes Y data in the image and must be even.
+
+    <region> defines... If <image> is a packed YUV image, the width value
+    given by <origin>[0] describes Y data image and must be even."
+
+    Add a sentence to the end of the descriptions of <src_origin>,
+    <dst_origin>, and <region> under clEnqueueCopyImage:
+
+   "<src_origin> defines... If <src_image> is a packed YUV image, the x
+    value given by <src_origin>[0] indexes Y data in <src_image> and must
+    be even.
+
+    <dst_origin> defines... If <dst_image> is a 2D image object, the z
+    value given by <dst_origin>[2] must be 0.  If <dst_image> is a packed
+    YUV image, the x value given by <dst_origin>[0] indexes Y data in
+    <dst_image> and must be even.
+
+    <region> defines... If <src_image> or <dst_image> is a packed YUV
+    image, the <width> value given by <region>[0] describes Y data and
+    must be even."
+
+    In section 5.3.5 "Copying between Image and Buffer Objects", add a
+    sentence to the end of the descriptions of <src_origin> and <region>
+    for clEnqueueCopyImageToBuffer:
+
+   "<src_origin> defines... If <src_image> is a packed YUV image, the x
+    value given by <origin>[0] indexes Y data in the image and must be
+    even.
+
+    <region> defines... If <src_image> is a packed YUV image, the width
+    value given by <origin>[0] describes Y data and must be even."
+
+    Add a sentence to the end of the descriptions of <dst_origin> and
+    <region> for clEnqueueCopyBufferToImage:
+
+   "<dst_origin> defines... If <dst_image> is a packed YUV image, the x
+    value given by <origin>[0] indexes Y data in the image and must be
+    even.
+
+    <region> defines... If <dst_image> is a packed YUV image, the width
+    value given by <region>[0] describes Y data and must be even."
+
+    In section 5.3.6 "Mapping Image Objects", add a sentence to the end
+    of the descriptions of <origin> and <region> for clEnqueueMapImage:
+
+   "<origin> defines... If <image> is a packed YUV image, the x value
+    given by <origin>[0] describes Y data and must be even.
+
+    <region> defines... If <image> is a packed YUV image, the width
+    value given by <region>[0] describes Y data and must be even."
+
+Additions to Chapter 6 of the OpenCL 1.2 Specification:
+
+    In section 6.12.14.1.1 "Determining the border color", add the
+    packed YUV formats to the second bullet describing the cases where
+    the border color is (0.0f, 0.0f, 0.0f, 1.0f):
+
+   "  * If image channel order is CL_R, CL_RG, CL_RGB, CL_LUMINANCE,
+        CL_YUYV_INTEL, CL_UYVY_INTEL, CL_YVYU_INTEL, or CL_VYUY_INTEL,
+        the border color is (0.0f, 0.0f, 0.0f, 1.0f)."
+
+    Add to the un-numbered table in section 6.12.14.6 "Mapping image
+    channels to color values returned by read_image and color values
+    passed to write_image to image channels":
+
+   "--------------------------------------------------------------
+                                     float4, int4 or unsigned int4
+    Channel Order                       components of channel data
+    -----------------------------    -----------------------------
+    CL_YUYV_INTEL, CL_UYVY_INTEL,                 ( V, Y, U, 1.0 )
+    CL_YVYU_INTEL, CL_VYUY_INTEL
+    --------------------------------------------------------------"
+
+Revision History
+
+    Version 1 - Initial Revision

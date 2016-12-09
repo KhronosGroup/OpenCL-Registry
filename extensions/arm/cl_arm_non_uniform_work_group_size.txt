@@ -1,0 +1,115 @@
+Name
+
+    ARM_non_uniform_work_group_size
+
+Name Strings
+
+    cl_arm_non_uniform_work_group_size
+
+Contributors
+
+    Scott Moyers, ARM
+    Robert Elliott, ARM
+
+Contact
+
+    Robert Elliott, ARM (robert.elliott 'at' ARM.com)
+
+IP Status
+
+    No claims or disclosures are known to exist.
+
+Version
+
+    Revision: #1, Jun 5th, 2015
+
+Number
+
+    OpenCL Extension #39
+
+Status
+
+    Complete.
+
+Extension Type
+
+    OpenCL device extension
+
+Dependencies
+
+    Requires OpenCL version 1.0 or later.
+
+Overview
+
+    This extension provides a way to enqueue kernels with local work-group
+    sizes that are not integer factors of the global work-group size in
+    OpenCL C 1.x languages.
+
+    Such work-groups are referred to in the OpenCL 2.0 specification as
+    non-uniform work-groups.
+
+    To enable this extension the option -cl-arm-non-uniform-work-group-size
+    must be provided in the options string when building a program from
+    source using clBuildProgram. Kernels created from such a program will
+    be able to be enqueued via clEnqueueNDRangeKernel with a non-uniform
+    local work-group size.
+
+    This feature is enabled by default in OpenCL C 2.0. See section 5.10
+    of the OpenCL 2.0 API specification. This section also details how kernels
+    that are enqueued with non-uniform work-group sizes are divided into work
+    groups.
+
+    The built in function get_local_size() for kernels that have been built
+    with this extension will take on the OpenCL 2.0 behaviour. See
+    section 6.13.1 of the OpenCL 2.0 C specification for details.
+
+Header File
+
+    cl_ext.h
+
+Glossary
+
+    No new terminology is introduced by this extension.
+
+New Types
+
+    None
+
+New Procedures and Functions
+
+    None
+
+New Tokens
+
+    None
+
+Interactions with other extensions
+
+    None
+
+Sample Code
+
+        const char *source[] = { "kernel void example( void ){}\n" };
+
+        cl_program program = clCreateProgramWithSource( context, 1, source,
+                                                        NULL, NULL );
+
+        clBuildProgram( program, 0, NULL, "-cl-arm-non-uniform-work-group-size",
+                        NULL, NULL );
+
+        cl_kernel kernel = clCreateKernel( program, "example", NULL );
+
+        size_t global_work_size = 10;
+        size_t local_work_size = 9;
+        err = clEnqueueNDRangeKernel( queue, kernel, 1, NULL,
+                                      &global_work_size, &local_work_size,
+                                      0, NULL, NULL );
+        assert( CL_SUCCESS == err );
+
+Conformance Tests
+
+    None
+
+Revision History
+
+    Revision: #1, Jun 5th, 2015 - Initial revision

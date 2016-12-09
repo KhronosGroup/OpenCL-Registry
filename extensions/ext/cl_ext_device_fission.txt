@@ -1,0 +1,495 @@
+Name Strings
+
+    cl_ext_device_fission
+
+Contributors
+
+    Greg Bellows, IBM
+    Ben Gaster, AMD
+    Aaftab Munshi, Apple
+    Ian Ollmann, Apple
+    Ofer Rosenberg, Intel
+    Brian Watt, IBM
+
+Contact
+
+    Ian Ollmann, iano 'at' apple 'dot' com
+
+IP Status
+
+    No known IP issues
+
+Version
+
+    Version 1, June 9, 2010
+
+Number
+
+    OpenCL Extension #11
+
+Status
+
+    Approved by all contributors
+
+Extension Type
+
+    OpenCL device extension
+
+Dependencies
+
+    None
+
+Overview
+
+    This extension provides an interface for sub-dividing an OpenCL device
+    into multiple sub-devices.  There are a number of cases in which a typical 
+    user would like to subdivide a device:
+    
+    1. To reserve part of the device for use for high priority / 
+       latency-sensitive tasks 
+    2. To more directly control the assignment of work to individual compute 
+       units
+    3. To subdivide compute devices along some shared hardware feature like a 
+       cache
+
+    Typically these are areas where some level of additional control is required
+    to get optimal performance beyond that provided by standard OpenCL 1.1 APIs.
+    Proper use of this interface assumes some detailed knowledge of the devices 
+    in question.
+
+Header File
+
+    Extension interfaces and constants defined in cl_ext.h
+
+New Procedures and Functions
+    cl_int clReleaseDeviceEXT( cl_device_id device );
+
+    cl_int clRetainDeviceEXT( cl_device_id device );
+
+    cl_int clCreateSubDevicesEXT( 
+        cl_device_id in_device,
+        const cl_device_partition_property_ext * properties,
+        cl_uint num_entries,
+        cl_device_id *out_devices,
+        cl_uint *num_devices );
+
+New Types
+
+    The following new types have been added for declaring device
+    partitionining properties.
+
+    typedef cl_bitfield cl_device_partition_property_ext;
+    
+New Tokens
+
+    Accepted as a property name in the <properties> parameter of
+    clCreateSubDeviceEXT:
+
+        CL_DEVICE_PARTITION_EQUALLY_EXT                 0x4050
+        CL_DEVICE_PARTITION_BY_COUNTS_EXT               0x4051
+        CL_DEVICE_PARTITION_BY_NAMES_EXT                0x4052
+        CL_DEVICE_PARTITION_BY_AFFINITY_DOMAIN_EXT      0x4053
+    
+    Accepted as a property name, when accompanying the
+    CL_DEVICE_PARITION_BY_AFFINITY_DOMAIN_EXT property, in the <properties> 
+    parameter of clCreateSubDeviceEXT:
+
+        CL_AFFINITY_DOMAIN_L1_CACHE_EXT                 0x1
+        CL_AFFINITY_DOMAIN_L2_CACHE_EXT                 0x2
+        CL_AFFINITY_DOMAIN_L3_CACHE_EXT                 0x3
+        CL_AFFINITY_DOMAIN_L4_CACHE_EXT                 0x4
+        CL_AFFINITY_DOMAIN_NUMA_EXT                     0x10
+        CL_AFFINITY_DOMAIN_NEXT_FISSIONABLE_EXT         0x100
+
+    Accepted as a property being queried in the <param_name> argument of
+    clGetDeviceInfo:
+
+        CL_DEVICE_PARENT_DEVICE_EXT                     0x4054
+        CL_DEVICE_PARITION_TYPES_EXT                    0x4055
+        CL_DEVICE_AFFINITY_DOMAINS_EXT                  0x4056
+        CL_DEVICE_REFERENCE_COUNT_EXT                   0x4057
+        CL_DEVICE_PARTITION_STYLE_EXT                   0x4058
+
+    Accepted as the property list terminator in the <properties> parameter of
+    clCreateSubDeviceEXT:
+
+        CL_PROPERTIES_LIST_END_EXT                      0x0
+
+    Accepted as the partition counts list terminator in the <properties>
+    parameter of clCreateSubDeviceEXT:
+
+        CL_PARTITION_BY_COUNTS_LIST_END_EXT             0x0
+
+    Accepted as the partition names list terminator in the <properties>
+    parameter of clCreateSubDeviceEXT:
+
+        CL_PARTITION_BY_NAMES_LIST_END_EXT              -1
+
+    Returned by clCreateSubDevicesEXT when the indicated partition scheme is
+    supported by the implementation, but the implementation can not further
+    partition the device in this way.
+
+        CL_DEVICE_PARTITION_FAILED_EXT                  -1057
+
+    Returned by clCreateSubDevicesEXT when the total number of compute units
+    requested exceeds CL_DEVICE_MAX_COMPUTE_UNITS, or the number of compute
+    units for any one sub-device is less than 1.
+
+        CL_INVALID_PARTITION_COUNT_EXT                  -1058
+
+    Returned by clCreateSubDevicesEXT when a compute unit name appearing in a
+    name list following CL_DEVICE_PARTITION_BY_NAMES_EXT is not in range.
+
+        CL_INVALID_PARTITION_NAME_EXT                   -1059
+
+
+Additions to Section 4.2 (Querying Devices)
+
+       cl_int clReleaseDeviceEXT( cl_device_id device );
+
+    clReleaseDeviceEXT decrements the <device> reference count. After the 
+    reference count reaches zero, the object shall be destroyed and associated 
+    resources released for reuse by the system. 
+    
+    clReleaseDeviceEXT returns CL_SUCCESS if the function is executed 
+    successfully or the device is a root level device. It returns 
+    CL_INVALID_DEVICE if the <device> is not a valid device.
+
+        cl_int clRetainDeviceEXT( cl_device_id device );
+
+    clRetainDeviceEXT increments the <device> reference count. 
+    
+    clReleaseDeviceEXT returns CL_SUCCESS if the function is executed 
+    successfully or the device is a root level device. It returns 
+    CL_INVALID_DEVICE if the <device> is not a valid device.
+
+    CAUTION: Since root level devices are generally returned by a clGet call 
+    (clGetDeviceIDs) and not a clCreate call, the user generally does not own a 
+    reference count for root level devices. The reference count attached to a 
+    device retured from clGetDeviceIDs is owned by the implementation. 
+    Developers need to be careful when releasing cl_device_ids to always balance
+    clCreateSubDevicesEXT or clRetainDeviceEXT with each call to 
+    clReleaseDeviceEXT for the device. By convention, software layers that own 
+    a reference count should be themselves responsible for releasing it.
+
+        typedef cl_bitfield cl_device_partition_property_ext;
+        cl_int clCreateSubDevicesEXT( 
+                            cl_device_id in_device,
+                            const cl_device_partition_property_ext * properties,
+                            cl_uint num_entries,
+                            cl_device_id *out_devices,
+                            cl_uint *num_devices );
+
+    clCreateSubDevicesEXT creates an array of sub-devices that each reference a 
+    nonintersecting set of compute units within <in_device>, according to a 
+    partition scheme given by the <cl_device_partition_property_ext> list. The 
+    output sub-devices may be used in every way that the root device can be 
+    used, including building programs, further calls to clCreateSubDevicesEXT 
+    and creating command queues. They may also be used within any context 
+    created using the in_device or parent/ancestor thereof. When a command 
+    queue is created against a sub-device, the commands enqueued on that queue 
+    are executed only on the sub-device.
+    
+    in_device - The device to be partitioned 
+
+    num_entries - The number of cl_device_ids that will fit in the array pointed
+        to by <out_devices>. If <out_devices> is not NULL, <num_entries> must be
+        greater than zero.  
+    
+    out_devices - On output, the array pointed to by <out_devices> will contain 
+        up to <num_entries> sub-devices. If the <out_devices> argument is NULL, 
+        it is ignored. The number of cl_device_ids returned is the minimum of 
+        <num_entries> and the number of devices created by the partition scheme.
+    
+    num_devices - On output, the number of devices that the <in_device> may be 
+        partitioned in to according to the partitioning scheme given by 
+        <properties>. If num_devices is NULL, it is ignored.
+
+    properties - A zero terminated list of device fission {property-value, 
+        cl_int[]} pairs that describe how to partition the device into 
+        sub-devices.  <properties> may not be NULL. Only one of 
+        CL_DEVICE_PARTITION_EQUALLY_EXT, CL_DEVICE_PARTITION_BY_COUNTS_EXT, 
+        CL_DEVICE_PARTITION_BY_NAMES_EXT or 
+        CL_DEVICE_PARTITION_BY_AFFINITY_DOMAIN_EXT may be used in the same 
+        properties list. Available properties are:
+
+        CL_DEVICE_PARTITION_EQUALLY_EXT - Split the aggregate device into as 
+            many smaller aggregate devices as can be created, each containing N
+            compute units. The value N is passed as the value accompanying this 
+            property.  If N does not divide evenly into 
+            CL_DEVICE_MAX_COMPUTE_UNITS then the remaining compute units are 
+            not used.
+
+            Example: To divide a device containing 16 compute units into two 
+            sub-devices, each containing 8 compute units, pass:
+
+                { CL_DEVICE_PARTITION_EQUALLY_EXT, 8, 
+                  CL_PROPERTIES_LIST_END_EXT }
+    
+        CL_DEVICE_PARTITION_BY COUNTS_EXT - This property is followed by a 
+            CL_PARTITION_BY_COUNTS_LIST_END_EXT terminated list of compute unit 
+            counts. For each non-zero count M in the list, a sub-device is 
+            created with M compute units in it.  
+            CL_PARTITION_BY_COUNTS_LIST_END_EXT is defined to be 0.
+
+            Example: to split a four compute unit device into two sub-devices, 
+            each containing two compute units, pass:
+
+                { CL_DEVICE_PARTITION_BY_COUNTS_EXT, 
+                  2, 2, CL_PARTITION_BY_COUNTS_LIST_END_EXT,
+                  CL_PROPERTIES_LIST_END_EXT }
+
+            The first 2 means put two compute units in the first sub-device. The
+            second 2 means put two compute units in the second sub-device. 
+            CL_PARTITION_BY_COUNTS_LIST_END_EXT terminates the list of 
+            sub-devices.  CL_PROPERTIES_LIST_END_EXT terminates the list of 
+            properties.  The total number of compute units specified may not 
+            exceed the number of compute units in the device.
+
+        CL_DEVICE_PARTITION_BY NAMES_EXT - This property is followed by a list 
+            of compute unit names. Each list starts with a 
+            CL_PARTITION_BY_NAMES_LIST_END_EXT terminated list of compute unit 
+            names.  Compute unit names are integers that count up from zero to 
+            the number of compute units less one. 
+            CL_PARTITION_BY_NAMES_LIST_END_EXT is defined to be -1. Only 
+            one sub-device may be created at a time with this selector. An 
+            individual compute unit name may not appear more than once in the 
+            sub-device description.
+
+            Example: To create a three compute unit sub-device using compute 
+            units, { 0, 1, 3 }, pass:
+    
+                { CL_DEVICE_PARTITION_BY NAMES_EXT,
+                  0, 1, 3, CL_PARTITION_BY_NAMES_LIST_END_EXT,
+                  CL_PROPERTIES_LIST_END_EXT }
+
+            The meaning of these numbers are, in order:
+              0 the name of the first compute unit in the sub-device
+              1 the name of the second compute unit in the sub-device
+              3 the name of the third compute unit in the sub-device
+              CL_PROPERTIES_LIST_END_EXT list terminator for the list of 
+                  properties
+
+        CL_DEVICE_PARTITION_BY_AFFINITY_DOMAIN_EXT - Split the device into 
+            smaller aggregate devices containing one or more compute units 
+            that all share part of a cache hierarchy. The value accompanying 
+            this property may be drawn from the following CL_AFFINITY_DOMAIN 
+            list: 
+        
+            CL_AFFINITY_DOMAIN_NUMA_EXT - Split the device into sub-devices 
+                comprised of compute units that share a NUMA band.
+
+            CL_AFFINITY_DOMAIN_L4_CACHE_EXT - Split the device into sub-devices 
+                comprised of compute units that share a level 4 data cache.
+
+            CL_AFFINITY_DOMAIN_L3_CACHE_EXT - Split the device into sub-devices 
+                comprised of compute units that share a level 3 data cache.
+
+            CL_AFFINITY_DOMAIN_L2_CACHE_EXT - Split the device into sub-devices 
+                comprised of compute units that share a level 2 data cache.
+
+            CL_AFFINITY_DOMAIN_L1_CACHE_EXT - Split the device into sub-devices 
+                comprised of compute units that share a level 1 data cache.
+
+            CL_AFFINITY_DOMAIN_NEXT_FISSIONABLE_EXT - Split the device along the
+                next fissionable CL_AFFINITY_DOMAIN.  The implementation shall 
+                find the first level along which the device or sub-device may be
+                further subdivided in the order NUMA, L4, L3, L2, L1, and 
+                fission the device into sub-devices comprised of compute units 
+                that share memory sub-systems at this level. The user may 
+                determine what happened by calling 
+                clGetDeviceInfo(CL_DEVICE_PARTITION_STYLE_EXT) on the 
+                sub-devices.
+
+            Example: To split a non-NUMA device along the outermost cache level 
+            (if any), pass:
+
+                { CL_DEVICE_PARTITION_BY_AFFINITY_DOMAIN_EXT, 
+                  CL_AFFINITY_DOMAIN_NEXT_FISSIONABLE_EXT, 
+                  CL_PROPERTIES_LIST_END_EXT }
+
+        CL_PROPERTIES_LIST_END_EXT - A list terminator for a properties list.
+
+    The following values may be returned by clCreateSubDevicesEXT:
+    
+    CL_SUCCESS - The command succeeded.
+
+    CL_INVALID_VALUE - The properties key is unknown, or the indicated partition
+        style (CL_DEVICE_PARTITION_BY_AFFINITY_DOMAIN_EXT, 
+        CL_DEVICE_PARTITION_EQUALLY_EXT, CL_DEVICE_PARTITION_BY NAMES_EXT or 
+        CL_DEVICE_PARTITION_BY COUNTS_EXT) is not supported for this device by 
+        the implementation. On an OpenCL 1.1 implementation, these cases return 
+        CL_INVALID_PROPERTY instead, to be consistent with clCreateContext 
+        behavior.
+
+    CL_INVALID_VALUE - num_entries is zero and out_devices is not NULL, or both 
+        out_devices and num_devices are NULL.
+
+    CL_DEVICE_PARTITION_FAILED_EXT - The indicated partition scheme is supported
+        by the implementation, but the implementation can not further partition 
+        the device in this way. For example, 
+        CL_DEVICE_PARTITION_BY_AFFINITY_DOMAIN_EXT was requested, but all 
+        compute units in in_device share the same cache at the level requested.
+
+    CL_INVALID_PARTITION_COUNT_EXT - The total number of compute units requested
+        exceeds CL_DEVICE_MAX_COMPUTE_UNITS, or the number of compute units for 
+        any one sub-device is less than 1, or the number of sub-devices 
+        requested exceeds CL_DEVICE_MAX_COMPUTE_UNITS.
+
+    CL_INVALID_PARTITION_NAME_EXT - A compute unit name appearing in a name list
+        following CL_DEVICE_PARTITION_BY NAMES_EXT is not in the range 
+        [-1, number of compute units - 1].
+
+    CL_INVALID_DEVICE - The in_device is not a valid device. The in_device is 
+        not a device in context.
+
+
+Clarification of Behavior of Existing Functions with Sub-Devices (Normative)
+
+    In a style consistent with retain / release behavior of other OpenCL 
+    objects, if a new object is created that references a cl_device_id, or 
+    comes to reference it through an API such as clBuildProgram, the 
+    cl_device_id shall be prevented from being destroyed until such time as 
+    the new object no longer needs it.
+
+
+Changes to Section 4.2 (Querying Devices)
+
+    clGetDeviceIDs - Only root level devices shall be returned by this function.
+        Devices returned by this function should not contain compute units that 
+        alias compute units on another returned in the same function call. 
+        Compute units in root level devices shall not alias compute units in 
+        other root level devices.
+
+    clGetDeviceInfo - If the device is a sub-device created by 
+        clCreateSubDevicesEXT, then the value returned for 
+        CL_DEVICE_MAX_COMPUTE_UNITS is the number of compute units in the 
+        sub-device. The CL_DEVICE_VENDOR_ID may be different from the parent 
+        device CL_DEVICE_VENDOR_ID, but should be the same for all devices and 
+        sub-devices that can share a binary executable, such as that returned 
+        from clGetProgramInfo(CL_PROGRAM_BINARIES). Other selectors such as 
+        CL_DEVICE_GLOBAL_MEM_CACHE_SIZE may optionally change value to better 
+        reflect the behavior of the sub-device in an implementation defined 
+        manner.
+
+        The following selectors are added for clGetDeviceInfo:
+
+        CL_DEVICE_PARENT_DEVICE_EXT - a selector to get the cl_device_id for 
+            the parent cl_device_id to which the sub-device belongs. 
+            (Sub-division can be multi-level.) If the device is a root level 
+            device, then it will return NULL.  
+        
+        CL_DEVICE_PARTITION_TYPES_EXT - a selector to get a list of supported 
+            partition types for partitioning a device. The return type is an 
+            array of cl_device partition property ext values drawn from the 
+            following list:
+
+            CL_DEVICE_PARTITION_BY_AFFINITY_DOMAIN_EXT
+            CL_DEVICE_PARTITION_BY COUNTS_EXT
+            CL_DEVICE_PARTITION_BY NAMES_EXT
+            CL_DEVICE_PARTITION_EQUALLY_EXT 
+            
+            The implementation shall return at least one property from the above
+            list.  However, when a partition style is found within this list, 
+            the partition style is not required to work in every case. For 
+            example, a device might support partitioning by affinity domain, but
+            not along NUMA domains.
+
+        CL_DEVICE_AFFINITY_DOMAINS_EXT - a selector to get a list of supported 
+            affinity domains for partitioning the device using the 
+            CL_DEVICE_PARTITION_BY_AFFINITY_DOMAIN_EXT partition style. The 
+            return type is an array of cl_device_partition_property_ext values. 
+            The values shall come from the list:
+
+            CL_AFFINITY_DOMAIN_L1_CACHE_EXT 
+            CL_AFFINITY_DOMAIN_L2_CACHE_EXT 
+            CL_AFFINITY_DOMAIN_L3_CACHE_EXT 
+            CL_AFFINITY_DOMAIN_L4_CACHE_EXT 
+            CL_AFFINITY_DOMAIN_NUMA_EXT
+
+            If no partition style is supported then the size of the returned 
+            array is zero.  Even though a device has a NUMA, or particular 
+            cache level, an implementation may elect not to provide fissioning 
+            at that level.  
+        
+        CL_DEVICE_REFERENCE_COUNT_EXT Return the device 
+            reference count.  The return type is cl_uint. If the device is a 
+            root level device, a reference count of 1 is returned.
+
+        CL_DEVICE_PARTITION_STYLE_EXT - a selector to get the 
+            cl_device_partition_property_ext list used to create the sub-device.
+            If the device is a root level device then a list consisting of 
+            { CL_PROPERTIES_LIST_END_EXT} is returned. If the property on device
+            creation was (CL_DEVICE_PARTITION BY_AFFINITY_DOMAIN_EXT, 
+            CL_AFFINITY_DOMAIN_NEXT_FISSIONABLE) then 
+            CL_AFFINITY_DOMAIN_NEXT_FISSIONABLE will be replaced by the symbol 
+            representing the actual CL_AFFINITY DOMAIN used 
+            (e.g. CL_AFFINITY_DOMAIN_NUMA). The returned value is an array of 
+            cl_device_partition_property_ext. The length of the array is 
+            obtained from the size returned by the param size value ret 
+            parameter to the function.
+
+Changes to Section 4.3 (Contexts)
+
+    clCreateContext - The new cl_context only owns a reference to the devices 
+        explicitly passed to it at creation. It does not reference sub-devices 
+        of those devices unless they were also passed in the device list at 
+        creation time.
+
+    clCreateContextFromType - Only root level devices are used to create the 
+        context.  The context does not reference sub-devices created from those 
+        devices.
+
+    clGetContextInfo - Only the device list passed into clCreateContext is 
+        returned by CL_CONTEXT_DEVICES.  Additional sub-devices usable in the 
+        context, because their parent devices were used to create the devices, 
+        are not returned here.
+
+Changes to Section 5.1 (Command Queues)
+
+    clCreateCommandQueue - This call will return CL_INVALID_DEVICE if the device
+        or one of its ancestors was not used to create the context. On success,
+        the cl_command_queue that is created for a sub-device will attempt to 
+        execute any work enqueued on it on just the sub-device.
+
+    clGetCommandQueueInfo - If the command queue was created with a sub-device,
+        the sub-device is returned for the CL_QUEUE_DEVICE selector.
+
+Changes to Section 5.4.1 (Creating Program Objects)
+
+    clCreateProgramWithBinary - This call will return CL_INVALID_DEVICE if a 
+        device or one of its ancestors was not used to create the programs 
+        context.
+
+Changes to Section 5.4.2 (Building Program Executables)
+
+    clBuildProgram - This call will return CL_INVALID_DEVICE if the device or 
+        one of its ancestors was not used to create the programs context.  
+        clBuildProgram must be called for each device or sub-device that will 
+        be used with the program. This function will return CL_INVALID_DEVICE 
+        if the device was not used to create the program and the program was 
+        created with clCreateProgramWithBinary.  Implementations should 
+        eliminate redundant compilation where devices and sub-devices can share
+        a common binary.
+
+Changes to Section 5.4.5 (Program Object Queries)
+
+    clGetProgramInfo - Behavior depends on how the program was created:
+
+        clCreateProgramWithSource - CL_PROGRAM_DEVICES returns the union of the 
+            set of devices used to create the cl_context to which the program 
+            belongs and the set of devices for which clBuildProgram() has 
+            succeeded on this program.
+        
+        clCreateProgramWithBinary - CL_PROGRAM_DEVICES returns the union of the 
+            set of devices used to create the program and the set of devices 
+            for which clBuildProgram() has succeeded on this program.  
+        
+        In each case, CL_PROGRAM_BINARIES and CL_PROGRAM_BINARY_SIZES returns 
+        the same list in the same order, except that pointers to compiled 
+        binaries or their sizes are returned instead, respectively. The user is 
+        responsible for preventing the obvious race condition here, in which 
+        clBuildProgram() succeeds on more devices between when 
+        CL_PROGRAM_DEVICES, CL_PROGRAM_BINARIES and CL_PROGRAM_BINARY SIZES are 
+        requested.
+

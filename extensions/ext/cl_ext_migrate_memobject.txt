@@ -1,0 +1,171 @@
+Name Strings
+
+    cl_ext_migrate_memobject
+    
+Contributors
+    Yariv Aridor
+    Greg Bellows
+    Aaftab Munshi
+    Barry Minor
+    Ian Ollmann
+    Amit Rao
+    Ofer Rosenberg
+
+Contact
+
+    Greg Bellows, gbello 'at' us 'dot. ibm 'dot' com
+
+IP Status
+
+    No known IP issues
+
+Version
+
+    Version 1, June 8, 2010
+
+Number
+
+    OpenCL Extension #10
+
+Status
+
+    Approved by contributing members
+
+Extension Type
+
+    OpenCL device extension
+
+Dependencies
+
+    None
+
+Overview
+
+    This extension defines a mechanism for assigning which device an OpenCL 
+    memory object resides.
+
+Header File
+
+    Extension interfaces and constants defined in cl_ext.h
+
+New Procedures and Functions
+
+    cl_int clEnqueueMigrateMemObjectEXT(
+        cl_command_queue command_queue,
+        cl_uint num_mem_objects,
+        const cl_mem *mem_objects, 
+        cl_mem_migration_flags_ext flags, 
+        cl_uint num_events_in_wait_list, 
+        const cl_event *event_wait_list, 
+        cl_event *event);
+
+New Types
+
+    typedef cl_bitfield cl_mem_migration_flags_ext;
+
+New Tokens
+
+    Besides a value of zero, the following cl_mem_migration_flags_ext values are
+    allowed:
+
+        CL_MIGRATE_MEM_OBJECT_HOST_EXT                  0x1
+
+    Returned in the <param_value> parameter of the clGetEventInfo when
+    <param_name> is CL_EVENT_COMMAND_TYPE:
+
+        CL_COMMAND_MIGRATE_MEM_OBJECT_EXT               0x4040
+
+
+Additions to Section 5.2 (Memory Objects, Buffers, Images...)
+
+    "clEnqueueMigrateMemObjectEXT provides the application with a way to 
+    indicate which device a set of memory objects should be associated. 
+    Typically, memory objects are implicitly migrated to a device for which 
+    enqueued commands, using the memory object, are targeted. 
+    clEnqueueMigrateMemObjectEXT allows this migration to be explicitly 
+    performed ahead of the dependent commands. This permits an application to 
+    overlap the placement of memory objects with other unrelated operations. 
+    Once the OpenCL event, returned from clEnqueueMigrateMemObject, has been 
+    marked CL_COMPLETE the memory objects specified in mem_objects have been 
+    successfully migrated to the device associated with command_queue. The 
+    migrated memory object shall remain resident on the device until another 
+    command is enqueued that either implicitly or explicitly migrates it away. 
+    As well, clEnqueueMigrateMemObjectEXT can be used to direct the initial 
+    placement of a memory object, after creation, possibly avoiding the initial 
+    overhead of instantiating the object on the first enqueued command to use 
+    it.
+
+    The user is responsible for managing the event dependencies, associated 
+    with this command, in order to avoid overlapping access to memory objects. 
+    Improperly specified event dependencies passed to clEnqueueMigrateMemObject 
+    could result in undefined results.
+
+        cl_int clEnqueueMigrateMemObjectEXT(cl_command_queue command_queue,
+                                            cl_uint num_mem_objects, 
+                                            const cl_mem *mem_objects, 
+                                            cl_mem_migration_flags_ext flags, 
+                                            cl_uint num_events_in_wait_list, 
+                                            const cl_event *event_wait_list, 
+                                            cl_event *event);
+
+    <command_queue> is a valid command queue. The specified set of memory 
+    objects in <mem_objects> will be migrated to the OpenCL device associated 
+    with <command_queue> or to the application host if the 
+    CL_MIGRATE_MEM_OBJECT_HOST_EXT flag has been specified.
+
+    <num_mem_objects> is the number of memory objects specified in the 
+    mem_objects argument.
+
+    <mem_objects> is a pointer to a list of valid memory objects.
+
+    <flags> is a bitfield that is used to specify migration options. Table 2.1 
+    describes the possible values for flags:
+
+    --------------------------------------------------------------------
+    flags                             description
+    -----------		                    ----------------------------------
+    CL_MIGRATE_MEM_OBJECT_HOST_EXT    This flag specifies that the specified 
+                                      set of memory objects are to be migrated 
+                                      to the host, regardless of the target 
+                                      command queue.
+    --------------------------------------------------------------------
+          Table 2.1 - Supported cl_mem_migration_flags_ext flags
+
+    <event_wait_list> and <num_events_in_wait_list> specify events that need to 
+    complete before this particular command can be executed. If 
+    <event_wait_list> is NULL, then this particular command does not wait on 
+    any event to complete. If <event_wait_list> is NULL,
+    <num_events_in_wait_list> must be 0. If <event_wait_list> is not NULL, the 
+    list of events pointed to by <event_wait_list> must be valid and
+    <num_events_in_wait_list> must be greater than 0. The events specified in
+    <event_wait_list> act as synchronization points. The context associated with
+    events in <event_wait_list> and <command_queue> must be the same.
+
+    <event> returns an event object that identifies this particular command and 
+    can be used to query or queue a wait for this particular command to 
+    complete. <event> can be NULL in which case it will not be possible for the 
+    application to query the status of this command or queue a wait for this 
+    command to complete.
+
+    clEnqueueMigrateMemObjectEXT returns CL_SUCCESS if the operation was
+    successfully queued. Otherwise, it returns one of the following errors:
+
+    - CL_INVALID_COMMAND_QUEUE if <command_queue> is not a valid command queue.
+    - CL_INVALID_CONTEXT if the context associated with <command_queue> and
+      memory objects in <mem_objects> are not the same or if the context 
+      associated with <command_queue> and events in <event_wait_list> are not 
+      the same.
+    - CL_INVALID_VALUE if <num_mem_objects> is zero.
+    - CL_INVALID_VALUE if <mem_objects> is NULL.
+    - CL_INVALID_VALUE if flags is not 0 or CL_MIGRATE_MEM_OBJECT_HOST_EXT.
+    - CL_INVALID_MEM_OBJECT if <mem_objects> contains an invalid memory object.
+    - CL_MEM_OBJECT_ALLOCATION_FAILURE if there is a failure to allocate memory 
+      for the specified set of memory objects in <mem_objects>.
+    - CL_OUT_OF_RESOURCES if there is a failure to allocate resources required 
+      by the OpenCL implementation on the device.
+    - CL_OUT_OF_HOST_MEMORY if there is a failure to allocate resources 
+      required by the OpenCL implementation on the host.
+    - CL_INVALID_EVENT_WAIT_LIST if <event_wait_list> is NULL and
+      <num_events_in_wait_list> > 0, or <event_wait_list> is not NULL and
+      <num_events_in_wait_list> is 0, or if event objects in <event_wait_list> 
+      are not valid events. "

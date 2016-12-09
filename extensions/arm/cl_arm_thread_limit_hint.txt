@@ -1,0 +1,126 @@
+Name
+
+    ARM_thread_limit_hint
+
+Name Strings
+
+    cl_arm_thread_limit_hint
+
+Contributors
+
+    Robert Elliott, ARM
+
+Contact
+
+    Robert Elliott, ARM (robert.elliott 'at' ARM.com)
+
+IP Status
+
+    No claims or disclosures are known to exist.
+
+Version
+
+    Revision: #2, Feb 23rd, 2015
+
+Number
+
+    OpenCL Extension #41
+
+Status
+
+    Complete.
+
+Extension Type
+
+    OpenCL device extension
+
+Dependencies
+
+    Requires OpenCL version 1.0 or later.
+
+Overview
+
+    This extension provides a way for an application to provide a hint for the
+    maximum threads to run concurrently on a compute unit. This results in a
+    limit in the threads used by a kernel instance on some devices and results
+    in a lower pressure on caches.
+
+Header File
+
+    No host changes needed.
+
+Glossary
+
+    No new terminology is introduced by this extension.
+
+New Types
+
+    None
+
+New Procedures and Functions
+
+    The new kernel qualifier
+
+      __attribute__((arm_thread_limit_hint(N)))
+
+    Description
+
+      The attribute can be specified as part of the declaration of a kernel and
+      provides a hint to the implementation that using fewer threads is desired.
+
+      The hint must be the value 64, 128 or 256, and the hint cannot be provided
+      without an explicit size.
+
+      If the hint is larger than the maximum workgroup size supported by the
+      kernel for that device, it is not honored.
+
+      If the hint is smaller than the requested workgroup size for the kernel-
+      instance, it is not honored.
+
+      If the hint is not honored, a warning will be produced on context_notify.
+
+      The hint will be honored on architectures which support this feature.
+
+New Tokens
+
+    OpenCL kernel code now has access to:
+
+      #pragma OPENCL EXTENSION cl_arm_thread_limit_hint : enable
+      The define cl_arm_thread_limit_hint is also present
+
+Interactions with other extensions
+
+    None
+
+Issues
+
+    None
+
+Sample Code
+
+    The following is a basic example of use, nothing else is required for
+    the extension to function:
+
+      // Check for extension and define a throttle value if it is present. This
+      // is portable to drivers or devices without support for the extension.
+      #ifdef cl_arm_thread_limit_hint
+        #pragma OPENCL EXTENSION cl_arm_thread_limit_hint : enable
+        #define THROTTLE_ATTRIBUTE __attribute__((arm_thread_limit_hint(64)))
+      #else
+        #define THROTTLE_ATTRIBUTE
+      #endif
+
+      kernel THROTTLE_ATTRIBUTE void throttled_kernel( global int* in, global int *out )
+      {
+        // Kernel body ...
+      }
+
+Conformance Tests
+
+    None
+
+Revision History
+
+    Revision: #1, Feb 2nd, 2015 - Initial revision
+    Revision: #2, Feb 23rd, 2015 - Tidied up some of the language, added _hint
+                  to the extension to be more consistent with other extensions.

@@ -1,0 +1,151 @@
+Name Strings
+
+    cl_ext_atomic_counters_32
+
+    #pragma OPENCL EXTENSION cl_ext_atomic_counters_32 : enable
+
+Contributors
+
+    Benedict Gaster, AMD
+    German Andryeyev, AMD
+    Ofer Rosenberg, AMD
+    Aaftab Munshi, Apple
+    Robert Elliott, ARM
+
+Contact
+
+    Benedict Gaster, benedict 'dot' gaster 'at' amd 'dot' com
+
+IP Status
+
+    No known IP issues
+
+Version
+
+    Version 5, May 26, 2011
+
+Number
+
+    OpenCL Extension #12
+
+Status
+
+    Approved by contributing members
+
+Extension Type
+
+    OpenCL device extensions
+
+Dependencies
+
+    None
+
+Overview
+
+    This extension adds support in the OpenCL C language for 32-bit atomic
+    counters.
+    Atomic counter is a device-level counter that can be added / decremented
+    by work-items in a work-group or across work-groups executing a kernel,
+    where the atomicity of the operation is guaranteed.
+    The access to the counter is done only via add/dec built-in functions,
+    and as such no two workitems will see the same value returned in the case
+    that a given kernel only increments or decrements the counter.
+
+    This feature is highly useful for produce/consume to unordered queues.
+
+Header File
+
+    None
+
+New Procedures and Functions
+
+    None
+
+New Tokens
+
+    CL_DEVICE_MAX_ATOMIC_COUNTERS_EXT = 0x4032
+
+
+Additions to Chapter 4.2 of the OpenCL 1.1 Specification
+
+    An additional device query is added to table 4.3 (OpenCL Device Queries)
+    and is defined as follows:
+
+    CL_DEVICE_INFO                    | Return Type |  Description
+    --------------------------------------------------------------------------
+    CL_DEVICE_MAX_ATOMIC_COUNTERS_EXT | cl_uint     | Max number of atomic
+                                                    | counters that can be
+                                                    | used by a kernel.
+                                                    | The minimum value is 8.
+
+
+
+Additions to Chapter 6.1.3 of the OpenCL 1.1 Specification
+
+    An additional data type is added to table 6.3 (Other Built-in Data Types)
+    and is defined as follows:
+
+    Type         | Description
+    ---------------------------------------------------------------------------
+    counter32_t  | A 32-bit atomic counter. Refer to section 6.11.XX (Atomic 
+	             | Counter Functions) below for a detailed description of this
+                 | type.
+
+    Variables declared to be of type counter32_t can only be specified as
+    arguments to a kernel or a non-kernel function. These types cannot be
+    used in any expression evaluation, or have values assigned to it inside
+    a kernel or a function. These types cannot be used to declare local
+    variables or as the return type of a function.
+    A counter32_t argument to a function cannot be modified.
+
+
+Additions to Chapter 6.11 of the OpenCL 1.1 Specification
+
+    Add a new section named “Atomic Counter Functions”, as follows:
+
+    6.11.XX Atomic Counter Functions
+    Atomic counter is a device-level counter that can be added / decremented
+    by different workitems, where the atomicity of the operation is
+    guaranteed.
+
+    The access to the counter is done only via atomic inc/dec built-in
+    functions, which return the old value of the counter. The inc/dec
+    operation has a global scope across all workitems, and as such no two
+    workitems will see the same value returned in the case that a given kernel
+    only increments or decrements the counter, unless the counter overflows
+    and then the behavior is undefined.
+
+    Atomic counter cannot be assigned directly to a variable or a pointer, or
+    used in any expression evaluation. In addition, the same counter cannot be
+    incremented and decremented inside a single kernel.
+
+    The Host initializes the atomic counter by passing a buffer object as an
+    argument to the kernel. The counter initial value is taken from the first
+    4 bytes of the buffer object. During the run of the kernel, the global
+    buffer is not updated by the atomic operations done on the counter. At the
+    end of the kernel’s run, the updated value of the counter is written to
+    the buffer object.
+
+    The following table describes the list of built-in atomic counter
+    functions that can be used to increment and decrement a value of type
+    counter64_t.
+
+
+    Function                             | Description
+    --------------------------------------------------------------------------
+    uint atomic_inc(counter32_t counter) | Read the value (referred to as old)
+                                         | of counter. Compute (old + 1) and
+                                         | update counter to this value. The
+                                         | function returns old.
+    --------------------------------------------------------------------------
+    uint atomic_dec(counter32_t counter) | Read the value (referred to as old)
+                                         | of counter. Compute (old - 1) and
+                                         | update counter to this value. The
+                                         | function returns old
+
+
+
+
+Interactions with other extensions
+
+    None

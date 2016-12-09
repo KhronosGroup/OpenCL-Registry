@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook MathML Module V1.1b1//EN"
+              "http://www.oasis-open.org/docbook/xml/mathml/1.1CR1/dbmathml.dtd">
+
+<refentry>
+    <refentryinfo>
+        <keywordset>
+            <keyword>clEnqueueSVMMigrateMem</keyword>
+        </keywordset>
+    </refentryinfo>
+
+    <refmeta>
+        <refentrytitle>
+            clEnqueueSVMMigrateMem
+        </refentrytitle>
+
+        <refmiscinfo>
+            <copyright>
+                <year>2007-2013</year>
+                <holder>The Khronos Group Inc.
+ Permission is hereby granted, free of charge, to any person obtaining a
+copy of this software and/or associated documentation files (the
+"Materials"), to deal in the Materials without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Materials, and to
+permit persons to whom the Materials are furnished to do so, subject to
+the condition that this copyright notice and permission notice shall be included
+in all copies or substantial portions of the Materials.</holder>
+            </copyright>
+        </refmiscinfo>
+        <manvolnum>3</manvolnum>
+    </refmeta>
+
+<!-- ================================ SYNOPSIS -->
+
+    <refnamediv id="clEnqueueSVMMigrateMem">
+        <refname>
+            clEnqueueSVMMigrateMem
+        </refname>
+
+        <refpurpose>
+            Enqueues a command to indicate which device a set of ranges of SVM allocations should be associated with.
+        </refpurpose>
+    </refnamediv>
+
+    <refsynopsisdiv xmlns:xlink="http://www.w3.org/1999/xlink"><title></title>
+        <funcsynopsis>
+            <funcprototype>
+                <funcdef>
+                    <link xlink:href="scalarDataTypes.html">cl_int</link>
+                    <function>clEnqueueSVMMigrateMem</function>
+                </funcdef>
+
+                <paramdef>
+                    <link xlink:href="abstractDataTypes.html">cl_command_queue</link>
+                    <parameter>command_queue</parameter>
+                </paramdef>
+
+                <paramdef>
+                    <link xlink:href="scalarDataTypes.html">cl_uint</link>
+                    <parameter>num_svm_pointers</parameter>
+                </paramdef>
+
+                <paramdef>const
+                    <link xlink:href="scalarDataTypes.html">void</link>
+                    <parameter>**svm_pointers</parameter>
+                </paramdef>
+
+                <paramdef>const
+                    <link xlink:href="scalarDataTypes.html">size_t</link>
+                    <parameter>*sizes</parameter>
+                </paramdef>
+
+                <paramdef>const
+                    <link xlink:href="enums.html">cl_mem_migration_flags</link>
+                    <parameter>flags</parameter>
+                </paramdef>
+
+                <paramdef>
+                    <link xlink:href="scalarDataTypes.html">cl_uint</link>
+                    <parameter>num_events_in_wait_list</parameter>
+                </paramdef>
+
+                <paramdef>const
+                    <link xlink:href="abstractDataTypes.html">cl_event</link>
+                    <parameter>*event_wait_list</parameter>
+                </paramdef>
+
+                <paramdef>
+                    <link xlink:href="abstractDataTypes.html">cl_event</link>
+                    <parameter>*event</parameter>
+                </paramdef>
+
+            </funcprototype>
+        </funcsynopsis>
+    </refsynopsisdiv>
+
+<!-- ================================ PARAMETERS -->
+
+    <refsect1 id="parameters">
+        <title>Parameters</title>
+        <variablelist>
+            <varlistentry>
+                <term> <varname> command_queue </varname> </term>
+                <listitem>
+                    <para>
+                        A valid host command queue. The specified set of allocation ranges will be
+                        migrated to the OpenCL device associated with <varname>command_queue</varname>.
+                    </para>
+               </listitem>
+            </varlistentry>
+
+            <varlistentry>
+                <term> <varname>num_svm_pointers</varname> </term>
+                <listitem>
+                    <para>
+                        The number of pointers in the specified 
+                        <varname>svm_pointers</varname> array, and the number
+                        of sizes in the <varname>sizes</varname> 
+                        array, if <varname>sizes</varname> is not NULL.
+                    </para>
+               </listitem>
+            </varlistentry>
+
+            <varlistentry>
+                <term> <varname>svm_pointers</varname> </term>
+                <listitem>
+                    <para>
+                        A pointer to an array of pointers. Each pointer in this array must be within an
+                        allocation produced by a call to 
+                        <citerefentry><refentrytitle>clSVMAlloc</refentrytitle></citerefentry>.
+                    </para>
+                </listitem>
+            </varlistentry>
+
+            <varlistentry>
+                <term> <varname>sizes</varname> </term>
+                <listitem>
+                    <para>
+                        An array of sizes. The pair <varname>svm_pointers</varname>[i] 
+                        and <varname>sizes</varname>[i] together define the starting address
+                        and number of bytes in a range to be migrated. 
+                        <varname>sizes</varname> may be NULL indicating that every
+                        allocation containing any <varname>svm_pointer</varname>[i] 
+                        is to be migrated. Also, if <varname>sizes</varname>[i] is zero, then the entire
+                        allocation containing <varname>svm_pointer</varname>[i] is migrated.
+                    </para>
+               </listitem>
+            </varlistentry>
+
+            <varlistentry>
+                <term> <varname>flags</varname> </term>
+                <listitem>
+                    <para>
+                        A bit-field that is used to specify migration options. 
+                        Table 5.12 describes the possible
+                        values for <varname>flags</varname>.
+                    </para>
+               </listitem>
+            </varlistentry>
+
+            <varlistentry>
+                <term>
+                    <varname>
+                        event_wait_list
+                    ,</varname>
+                    <varname>
+                        num_events_in_wait_list
+                    </varname>
+                </term>
+
+                <listitem>
+                    <para>
+                      Specify events that need to complete before this particular
+                      command can be executed. If <varname>event_wait_list</varname>
+                      is NULL, then this particular command does not wait on any
+                      event to complete. If <varname>event_wait_list</varname> is
+                      NULL, <varname>num_events_in_wait_list</varname> must be 0. If
+                      <varname>event_wait_list</varname> is not NULL, the list of events
+                      pointed to by <varname>event_wait_list</varname> must be valid
+                      and <varname>num_events_in_wait_list</varname> must be greater
+                      than 0. The events specified in <varname>event_wait_list</varname>
+                      act as synchronization points. The context associated with events in
+                      <varname>event_wait_list</varname> and <varname>command_queue</varname> must
+                      be the same. The memory associated with <varname>event_wait_list</varname>
+                      can be reused or freed after the function returns.
+                    </para>
+               </listitem>
+            </varlistentry>
+
+            <varlistentry>
+                <term> <varname> event </varname> </term>
+                <listitem>
+                    <para>
+                      Returns an event object that identifies this particular write
+                      command and can be used to query or queue a wait for this particular
+                      command to complete. <varname>event</varname> can be NULL in
+                      which case it will not be possible for the application to query the
+                      status of this command or queue another command that waits for this command to complete.
+                      If the <varname>event_wait_list</varname>
+                      and the <varname>event</varname> arguments are not NULL, the
+                      <varname>event</varname> argument should not refer to an element of the
+                      <varname>event_wait_list</varname> array.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsect1>
+
+<!-- ================================ NOTES  -->
+
+     <refsect1 id="notes"><title>Notes</title>
+        <para>
+            Enqueues a command to indicate which device a 
+            set of ranges of SVM allocations should be
+            associated with. Once the event returned by 
+            <function>clEnqueueSVMMigrateMem</function> 
+            has become <constant>CL_COMPLETE</constant>, the 
+            ranges specified by <varname>svm pointers</varname> and <varname>sizes</varname> 
+            have been successfully migrated to the device 
+            associated with <varname>command queue</varname>.
+        </para>
+
+        <para>
+            The user is responsible for managing the event dependencies associated with this command in
+            order to avoid overlapping access to SVM allocations. Improperly specified event dependencies
+            passed to <function>clEnqueueSVMMigrateMem</function> could result in undefined
+            results.
+        </para>
+    </refsect1>
+
+<!-- ================================ ERRORS  -->
+
+    <refsect1 id="errors"><title>Errors</title>
+        <para>
+          <function>clEnqueueSVMMigrateMem</function> returns <errorname>CL_SUCCESS</errorname> if
+          the function is executed successfully. Otherwise, it returns one of the following errors.
+        </para>
+
+        <itemizedlist mark="disc">
+            <listitem>
+              <errorname>CL_INVALID_COMMAND_QUEUE</errorname> if <varname>command_queue</varname>
+              is not a valid host command-queue.
+            </listitem>
+
+            <listitem>
+              <errorname>CL_INVALID_CONTEXT</errorname> if the context associated with
+              <varname>command_queue</varname> and events in
+              <varname>event_wait_list</varname> are not the same.
+            </listitem>
+
+            <listitem>
+              <errorname>CL_INVALID_VALUE</errorname> if <varname>num_svm_pointers</varname> 
+              is zero or <varname>svm_pointers</varname> is NULL.
+            </listitem>
+
+            <listitem>
+              <errorname>CL_INVALID_VALUE</errorname> if 
+                <varname>sizes</varname>[i] is non-zero 
+                range [<varname>svm_pointers</varname>[i],
+                <varname>svm_pointers</varname>[i]+<varname>sizes</varname>[i]) 
+                is not contained within an existing 
+                <citerefentry><refentrytitle>clSVMAlloc</refentrytitle></citerefentry> 
+                allocation.
+            </listitem>
+
+            <listitem>
+              <errorname>CL_INVALID_EVENT_WAIT_LIST</errorname>
+              if <varname>event_wait_list</varname> is NULL and
+              <varname>num_events_in_wait_list</varname> &gt; 0,
+              or <varname>event_wait_list</varname> is not NULL and
+              <varname>num_events_in_wait_list</varname> is 0, or if event objects in
+              <varname>event_wait_list</varname> are not valid events.
+            </listitem> 
+
+            <listitem>
+              <errorname>CL_OUT_OF_RESOURCES</errorname> if there is a failure to allocate
+              resources required by the OpenCL implementation on the device.
+            </listitem>
+
+            <listitem>
+              <errorname>CL_OUT_OF_HOST_MEMORY</errorname> if there is a failure to allocate
+              resources required by the OpenCL implementation on the host.
+            </listitem>
+        </itemizedlist>
+    </refsect1>
+
+<!-- ================================ EXAMPLE  -->
+<!-- DO NOT DELETE IN CASE AN EXAMPLE IS ADDED IN THE FUTURE -->
+<!--
+    <refsect2 id="example1">
+        <title>
+            Example
+        </title>
+
+        <informaltable frame="none">
+            <tgroup cols="1" align="left" colsep="0" rowsep="0">
+                <colspec colname="col1" colnum="1" />
+                <tbody>
+                    <row>
+                        <entry>
+                            Example goes here - it will be set in "code" type with white space preserved.
+                        </entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </informaltable>
+    </refsect2>
+-->
+
+<!-- ================================ SPECIFICATION  -->
+<!-- Set the "uri" attribute in the <olink /> element to the "named destination" for the PDF page
+-->
+    <refsect1 id="specification"><title>Specification</title>
+        <para>
+            <imageobject>
+                <imagedata fileref="pdficon_small1.gif" format="gif" />
+            </imageobject>
+
+            <olink uri="clEnqueueSVMMigrateMem">OpenCL Specification</olink>
+        </para>
+    </refsect1>
+
+<!-- ================================ ALSO SEE  -->
+
+    <refsect1 id="seealso"><title>Also see</title>
+        <para>
+            <citerefentry href="sharedVirtualMemory"><refentrytitle>Shared Virtual Memory Functions</refentrytitle></citerefentry>
+        </para>
+    </refsect1>
+
+<!-- ================================ COPYRIGHT  -->
+<!-- Content included from copyright.inc.xsl -->
+
+    <refsect3 id="Copyright"><title></title>
+        <imageobject>
+                <imagedata fileref="KhronosLogo.jpg" format="jpg" />
+        </imageobject>
+        <para />
+    </refsect3>
+
+ <!-- 30-Oct-2015, API ver 2.1 rev 19 -->
+</refentry>
+

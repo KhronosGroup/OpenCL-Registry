@@ -1,0 +1,902 @@
+Name String
+
+    cl_intel_advanced_motion_estimation
+
+Contributors
+
+    Biju George
+    James Holland
+    RaghuKrishnan Embar
+    Adam Herr
+    Tomasz Olejniczak
+    Scott Pillow
+    Ben Ashbaugh
+
+Contact
+   
+    Biju George (biju.george 'at' intel.com)
+
+IP Status
+
+    TBD
+
+Version
+
+    Version 2, February 15, 2016
+
+Number
+
+    OpenCL Extension TBD
+
+Status
+
+    Final Draft
+
+Extension Type
+
+    OpenCL platform extension
+
+Dependencies
+
+    OpenCL 1.2
+    cl_intel_accelerator version 1
+    cl_intel_motion_estimation version 1
+
+Overview
+
+    This document presents the advanced motion estimation extension for OpenCL. This 
+    extension builds upon the cl_intel_motion_estimation extension by providing block-
+    based estimation and greater control over the estimation algorithm. 
+
+    This extension reuses the set of host-callable functions and "motion estimation 
+    accelerator objects" defined in the cl_intel_motion_estimation extension version 1.
+    This extension depends on the OpenCL 1.2 built-in kernel infrastructure and on the 
+    cl_intel_accelerator extension version 1, which provides an abstraction for domain-
+    specific acceleration in the OpenCL runtime. 
+ 
+New Procedures and Functions
+
+    None
+
+New Tokens
+
+    Accepted as arguments to clGetDeviceInfo
+
+    CL_DEVICE_ME_VERSION_INTEL                                      0x407E
+
+    Accepted as flags passed to the kernel:
+       
+    CL_ME_CHROMA_INTRA_PREDICT_ENABLED_INTEL                        0x1
+    CL_ME_LUMA_INTRA_PREDICT_ENABLED_INTEL                          0x2
+
+    CL_ME_SKIP_BLOCK_TYPE_16x16_INTEL                               0x0
+    CL_ME_SKIP_BLOCK_TYPE_8x8_INTEL                                 0x4
+
+    CL_ME_COST_PENALTY_NONE_INTEL                                   0x0
+    CL_ME_COST_PENALTY_LOW_INTEL                                    0x1
+    CL_ME_COST_PENALTY_NORMAL_INTEL                                 0x2
+    CL_ME_COST_PENALTY_HIGH_INTEL                                   0x3
+
+    CL_ME_COST_PRECISION_QPEL_INTEL                                 0x0
+    CL_ME_COST_PRECISION_HEL_INTEL                                  0x1
+    CL_ME_COST_PRECISION_PEL_INTEL                                  0x2
+    CL_ME_COST_PRECISION_DPEL_INTEL                                 0x3
+
+    Valid intra-search predictor mode constants:
+    
+    CL_ME_LUMA_PREDICTOR_MODE_VERTICAL_INTEL                        0x0
+    CL_ME_LUMA_PREDICTOR_MODE_HORIZONTAL_INTEL                      0x1
+    CL_ME_LUMA_PREDICTOR_MODE_DC_INTEL                              0x2
+    CL_ME_LUMA_PREDICTOR_MODE_DIAGONAL_DOWN_LEFT_INTEL              0x3
+
+    CL_ME_LUMA_PREDICTOR_MODE_DIAGONAL_DOWN_RIGHT_INTEL             0x4
+    CL_ME_LUMA_PREDICTOR_MODE_PLANE_INTEL                           0x4
+    CL_ME_LUMA_PREDICTOR_MODE_VERTICAL_RIGHT_INTEL                  0x5
+    CL_ME_LUMA_PREDICTOR_MODE_HORIZONTAL_DOWN_INTEL                 0x6    
+    CL_ME_LUMA_PREDICTOR_MODE_VERTICAL_LEFT_INTEL                   0x7
+    CL_ME_LUMA_PREDICTOR_MODE_HORIZONTAL_UP_INTEL                   0x8
+
+    CL_ME_CHROMA_PREDICTOR_MODE_DC_INTEL                            0x0
+    CL_ME_CHROMA_PREDICTOR_MODE_HORIZONTAL_INTEL                    0x1
+    CL_ME_CHROMA_PREDICTOR_MODE_VERTICAL_INTEL                      0x2
+    CL_ME_CHROMA_PREDICTOR_MODE_PLANE_INTEL                         0x3
+
+    Valid constant values returned by clGetDeviceInfo:
+
+    CL_ME_VERSION_ADVANCED_VER_1_INTEL                              0x1
+    CL_ME_VERSION_ADVANCED_VER_2_INTEL                              0x2
+
+    Valid macroblock type constants:
+
+    CL_ME_MB_TYPE_16x16_INTEL                                       0x0
+    CL_ME_MB_TYPE_8x8_INTEL                                         0x1
+    CL_ME_MB_TYPE_4x4_INTEL                                         0x2
+
+Valid skip mode constants:
+
+    CL_ME_FORWARD_INPUT_MODE_INTEL                                  0x1
+    CL_ME_BACKWARD_INPUT_MODE_INTEL                                 0x2
+    CL_ME_BIDIRECTION_INPUT_MODE_INTEL                              0x3
+
+Valid bidirectional weight constants:
+
+    CL_ME_BIDIR_WEIGHT_QUARTER_INTEL                                0x10
+    CL_ME_BIDIR_WEIGHT_THIRD_INTEL                                  0x15
+    CL_ME_BIDIR_WEIGHT_HALF_INTEL                                   0x20
+    CL_ME_BIDIR_WEIGHT_TWO_THIRD_INTEL                              0x2B
+    CL_ME_BIDIR_WEIGHT_THREE_QUARTER_INTEL                          0x30
+
+New Types
+
+    None
+
+Additions to Chapter 4 of the OpenCL Specification:
+
+    Modify the description of function clGetDeviceInfo
+
+    Table 4.3 must be extended to include the following enumeration constants:
+
+    cl_device_info             Return Type      Description
+    --------------             -----------      ---------------
+    CL_DEVICE_ME_VERSION_INTEL  cl_uint         The motion estimation API version number
+                                                supported by the device and driver.
+
+    This extension requires a minimum motion estimation device version number of
+    CL_ME_VERSION_ADVANCED_VER_1_INTEL.
+
+    The cl_intel_motion_estimation extension defines a motion estimation accelerator
+    object. This object is used without modification in this extension.
+
+    The tokens defined in the "New Tokens" section of the cl_intel_motion_estimation
+    extension are used by this extension. 
+
+    This extension includes two new built-in kernels for block-based motion estimation. 
+    The second built-in kernel is supported only for devices that report a motion estimation
+    device version number of CL_ME_VERSION_ADVANCED_VER_2_INTEL. A program object for one or
+    both kernels is obtained via clCreateProgramWithBuiltInKernels, passing the kernel name
+    as a string to the kernel_names argument. A kernel object is obtained from this program
+    by calling the clCreateKernel function passing the kernel name as a string to the 
+    kernel_names argument. 
+
+    Each kernel operates on 16x16 pixel blocks (macroblocks) on the source and 
+    reference images. The number of macroblocks (MBs) in a given image is determined by
+    number of 16x16 regions that evenly divide the global_work_size[0] (width) and
+    global_work_size[1] (height) arguments passed to the clEnqueNDRangeKernel function. If
+    the image dimensions are not evenly divisible by 16, a partial MB is defined for the 
+    remaining pixels. The kernel references macroblocks sequentially using contiguous 
+    row-major ordering. For example, a 128x128 source image would have the following 
+    macroblock ordering:
+  
+    -------------------------
+    | 0| 1| 2| 3| 4| 5| 6| 7|
+    +--+--+--+--+--+--+--+--+
+    | 8| 9|10|11|12|13|14|15|
+    +--+--+--+--+--+--+--+--+
+    |16|17|18|19|20|21|22|23|
+    +--+--+--+--+--+--+--+--+
+    |24|25|26|27|28|29|30|31|
+    +--+--+--+--+--+--+--+--+
+    |32|33|34|35|36|37|38|39|
+    +--+--+--+--+--+--+--+--+
+    |40|41|42|43|44|45|46|47|
+    +--+--+--+--+--+--+--+--+
+    |48|49|50|51|52|53|54|55|
+    +--+--+--+--+--+--+--+--+
+    |56|57|58|59|60|61|62|63|
+    -------------------------
+
+    The data-layout of the kernel's input and output arrays are based on this ordering and 
+    require a specific data layout per macroblock as described below. 
+
+    Inter-prediction is the process of determining the best inter-frame motion vectors 
+    that describe the transform from a 2D reference image to another 2D source image. This
+    is done by searching for temporal patterns, usually in adjacent frames in a video
+    sequence. The estimation algorithm operates on 16x16 macroblocks, with either 4x4, 
+    8x8 or 16x16 sub-block sizes. Each of these sub-block sizes has a corresponding 
+    number of motion vectors within a given macroblock: 
+
+    Sub-block Size     MVs per MB
+    --------------     --------------
+    4x4                16
+    8x8                 4
+    16x16               1
+ 
+    The algorithm searches for the best match of each pixel block in the source image by
+    searching an image region in the reference image, centered on the coordinates of that
+    pixel block in the source image. This center coordinate can be offset by a set of 
+    prediction motion vectors (MVs). The predictor_motion_vector_buffer argument is used 
+    to define up to eight prediction MVs per macroblock. The count_motion_vector_buffer 
+    argument is used to configure the number of actual prediction motion vectors used 
+    within each macroblock. 
+
+    A cost function scheme can be specified for motion search. Distortion for a MV is 
+    computed as a sum of the SAD and the MV cost penalty. Cost penalty is computed based 
+    on the distance between the computed MV and a specific cost-center. This cost-center
+    is specified as the first predictor motion vector configured for a given MB. The 
+    search_cost_penalty argument specifies the cost penalty function and can be configured
+    for low, normal or high penalty. The search_cost_precision argument is used to 
+    configure the range of the cost function by specifying the precision of control 
+    points at which the cost penalties are applied to quarter, half, full, or double pixel
+    precision. The cost penalties at in-between control points are linearly interpolated.
+    Generally, a low penalty can be used when using low quantization parameter values
+    during encoding and a high penalty can be used when using high quantization parameter
+    values during encoding.
+
+    Search results are populated in the search_motion_vector_buffer array. This array
+    contains a set of best-search motion vectors per MB; the number of MVs per MB is 
+    determined by the sub-block size. It is also possible to obtain the SAD-adjusted
+    residual values corresponding to the best search MVs via the array specified via the
+    search_residuals argument.  
+
+    The kernel can perform skip-checks to produce distortion values based on the skip-
+    check MVs specified for each macroblock. Skip-checks may be configured with either 8x8
+    or 16x16 sub-block sizes, via the skip_block_type argument. The 
+    skip_motion_vector_buffer is used to configure multiple sets of skip-check MVs per
+    MB. The number of vectors in each set is determined by the sub-block size:
+
+    Sub-block Size     MVs per MB
+    --------------     --------------
+    8x8                4
+    16x16              1
+
+    Results are obtained via the skip_residuals argument as SAD-adjusted distortion values
+    corresponding to each skip-check MV defined for each macroblock. 
+
+    Intra-prediction describes the transform from previous adjacent macroblocks to 
+    subsequent macroblocks within the same 2D source frame by searching for spatial
+    patterns and produces the predictor modes from previous adjacent macroblocks within
+    the same frame. The kernel may be configured to report the intra-prediction modes via
+    the  intra_search_prediction_modes_buffer argument. This array contains, for each
+    macroblock, a record containing the predictor mode constants for 1 16x16, 4 8x8 and 16
+    4x4 luma blocks. There is also a predictor mode entry reserved for an 8x8 chroma 
+    block. Residual values derived during intra-prediction process are accessible via the
+    intra_search_residuals argument.  
+ 
+    The first kernel
+
+    block_advanced_motion_estimate_check_intel(
+         accelerator_intel_t   accelerator,
+         __read_only image2d_t src_image,
+         __read_only image2d_t ref_image,
+         uint                  flags,
+         uint                  skip_block_type,
+         uint                  search_cost_penalty,
+         uchar                 search_cost_precision,
+     __global short2           *count_motion_vector_buffer,
+     __global short2           *predictor_motion_vector_buffer,
+     __global short2           *skip_motion_vector_buffer,
+     __global short2           *search_motion_vector_buffer,
+     __global char             *intra_search_predictor_modes,
+     __global ushort           *search_residuals,
+     __global ushort           *skip_residuals,
+     __global ushort          *intra_residuals );
+
+    defines a kernel that provides various block-based motion estimation computations.
+    There are three basic use cases for this kernel:
+
+    1.) Perform inter-prediction motion estimation on the source and reference images to
+    obtain the best search motion vectors and their associated distortion values. 
+
+    2.) Perform skip-checks on the source and reference images by providing a set of
+    motion vectors, then obtain the corresponding distortion values. 
+ 
+    3.) Perform intra-prediction computations to obtain the best-search prediction modes 
+    between adjacent macroblocks and associated residual values. 
+
+    This kernel can be set up to do some or all of these operations in a single enqueue.     
+
+    block_advanced_motion_estimate_check_intel arguments:
+
+    accelerator is a valid accelerator object created by clCreateAcceleratorINTEL, where
+    the type of the accelerator must be CL_ACCELERATOR_TYPE_MOTION_ESTIMATION_INTEL. 
+    Refer to the cl_intel_motion_estimation extension for a detailed description of 
+    configuring accelerator object with the cl_motion_estimation_desc_intel structure.
+
+    src_image is the input source image, typically representing 8-bit luminance
+    information. Currently, the image_channel_order and the image_data_type of src_image
+    are restricted as follows:
+
+    Channel Order      Src Channel Data Type
+    --------------     ---------------------
+    CL_R               CL_UNORM_INT8
+
+    Additional formats will be support by future extensions. The host program is 
+    responsible for populating the tiled image using the clEnqueueWriteImage or other
+    appropriate API function.
+
+    ref_image is the input reference image, representing 8-bit luminance information. 
+    image_channel_order and the image_data_type must match src_image, as follows:
+    
+    Channel Order      Src Channel Data Type
+    --------------     ---------------------
+    CL_R               CL_UNORM_INT8
+
+    Additional formats will be support by future extensions. The host program is
+    responsible for populating the tiled image using the clEnqueueWriteImage or other
+    appropriate API function function.
+
+    flags defines any optional modes or behaviors used in computing motion estimation,
+    skip check and/or intra-prediction algorithms. Currently supported are: 
+
+    Type                                      Description
+    --------------------------------------    -----------
+    CL_ME_LUMA_INTRA_PREDICT_ENABLED_INTEL    Enabled Luma-based intra-prediction.
+
+    The following additional token are reserved for future support:  
+
+    Type                                      Description
+    --------------------------------------    -----------
+    CL_ME_CHROMA_INTRA_PREDICT_ENABLED_INTEL  Enabled chroma- based intra-prediction.
+
+    skip_block_type flag specifies the sub-block size used in evaluating skip checks. The 
+    specified sub-block size will determine the data layout of the 
+    skip_motion_vector_buffer array: 
+
+    Type                       Sub-block size   MVs per MB entry
+    ---------------------      ---------------  ----------------
+    CL_ME_MB_TYPE_16x16_INTEL  16x16            1
+    CL_ME_MB_TYPE_8x8_INTEL    8x8              4 
+
+    search_cost_penalty defines the cost function scheme used in computing cost penalties.
+
+    Type                                      Description
+    --------------------------------------    -----------
+    CL_ME_COST_PENALTY_NONE_INTEL             penalty is zero
+    CL_ME_COST_PENALTY_LOW_INTEL              penalty for low motion
+    CL_ME_COST_PENALTY_NORMAL_INTEL           penalty for normal motion
+    CL_ME_COST_PENALTY_HIGH_INTEL             penalty for high motion
+    
+    search_cost_precision defines the pixel precision of the cost penalty calculations. If
+    the search_cost_penalty flag is set to CL_ME_COST_PENALTY_NONE_INTEL, this argument
+    is ignored. Possible values are:
+
+    Type                                      Description
+    --------------------------------------    -----------
+    CL_ME_COST_PRECISION_QPEL_INTEL           quarter pixel
+    CL_ME_COST_PRECISION_HPEL_INTEL           half pixel
+    CL_ME_COST_PRECISION_PEL_INTEL            full pixel
+    CL_ME_COST_PRECISION_DPEL_INTEL           double pixel
+
+    count_motion_vector_buffer defines the number of predictor motion vectors and skip-
+    check motion vectors defined for each macroblock. The buffer contains an array of
+    short integer pairs, one pair per MB. The indices of the array correspond to the
+    contiguous row-major block layout of the input frame. The first value in each pair
+    defines the number of predictor motion vectors for a given MB; this value defines the
+    range of valid entries for the MB contained within the predictor_motion_vector_buffer
+    array. The second value in each pair defines the number of skip-check motion vectors
+    for the MB; this value defines the range of valid entries in the 
+    skip_motion_vector_buffer array. All size values must be between 0 and 8 inclusive; 
+    size values greater than 8 result in undefined behavior. 
+
+    predictor_motion_vector_buffer defines an input array of signed short integer 
+    predictor MVs with quarter-pixel resolution. The array is partitioned into clusters of
+    8 motion vectors per MB in contiguous row-major ordering. The buffer layout assumes
+    the maximum size of 8 predictor MVs per MB even if the count_motion_vector_buffer
+    array specifies a smaller predictor count. If the value of the search_cost_penalty
+    argument does not equal CL_ME_COST_PENALTY_NONE_INTEL, the first predictor MV for
+    each MB is used as the cost center for cost penalty calculations. If the array passed
+    to count_motion_vector_buffer argument specifies a predictor size of zero for all
+    macroblocks this argument can be NULL.
+
+    skip_motion_vector_buffer defines an input array of signed short integer skip-check
+    MVs. The array is partitioned into clusters of 8 sets of motion vectors per MB, in
+    contiguous row-major ordering. The value of skip_block_type determines the number of
+    MVs for each of the 8 entries: 
+
+    Value of skip_block_type    Number MVs in each entry    
+    -------------------------   ---------------------------
+    CL_ME_MB_TYPE_16x16_INTEL   1 MVs per entry
+    CL_ME_MB_TYPE_8x8_INTEL     4 MVs per entry
+
+    The buffer layout assumes the maximum size of 8 MV entries per MB, even if the 
+    count_motion_vector_buffer array specifies a smaller skip-check count. If the array
+    passed to count_motion_vector_buffer specifies a skip-check size of zero for all macro
+    blocks, no skip check computation is performed and this argument can be NULL. 
+
+    search_motion_vector_buffer defines an output array of signed short integers pairs 
+    defining the best search motion vectors per macro block. The array contains 1, 4 or 16 
+    motion vectors per MB in contiguous row-major ordering. The number of vectors per MB
+    is determined by the value of mb_block_type specified during the creation of the
+    accelerator object: 
+
+    Value of mb_block_type       Number of MVs    
+    ----------------------       --------------
+    CL_ME_MB_TYPE_16x16_INTEL     1 MVs per MB
+    CL_ME_MB_TYPE_8x8_INTEL       4 MVs per MB
+    CL_ME_MB_TYPE_4x4_INTEL      16 MVs per MB
+
+    intra_search_prediction_modes_buffer specifies an output buffer containing a sequence
+    of signed chars describing the predictor modes used during motion estimation. The
+    array is divided into a sequence of 22 bytes per MB in contiguous row-major ordering.
+    Each entry in the array has the following form:
+
+    struct search_predictor_modes
+    {
+        char luma_16x16_block;
+        char luma_8x8_block[4];
+        char luma_4x4_block[16];
+        char chroma_8x8_block; 
+    };
+
+    The luma_16x16_block, luma_8x8_block and luma_4x4_block fields contain valid values
+    only when the CL_ME_LUMA_INTRA_PREDICT_ENABLED_INTEL flag is set.
+
+    Each value in the luma_8x8_block and luma_4x4_block arrays contains one of the
+    following constants:
+
+    CL_ME_LUMA_PREDICTOR_MODE_VERTICAL_INTEL            
+    CL_ME_LUMA_PREDICTOR_MODE_HORIZONTAL_INTEL        
+    CL_ME_LUMA_PREDICTOR_MODE_DC_INTEL
+    CL_ME_LUMA_PREDICTOR_MODE_DIAGONAL_DOWN_LEFT_INTEL
+    CL_ME_LUMA_PREDICTOR_MODE_DIAGONAL_DOWN_RIGHT_INTEL
+    CL_ME_LUMA_PREDICTOR_MODE_VERTICAL_RIGHT_INTEL
+    CL_ME_LUMA_PREDICTOR_MODE_HORIZONTAL_DOWN_INTEL
+    CL_ME_LUMA_PREDICTOR_MODE_VERTICAL_LEFT_INTEL
+    CL_ME_LUMA_PREDICTOR_MODE_HORIZONTAL_UP_INTEL
+
+    The value of luma_16x16_block contains one of the following constants:
+
+    CL_ME_LUMA_PREDICTOR_MODE_VERTICAL_INTEL             
+    CL_ME_LUMA_PREDICTOR_MODE_HORIZONTAL_INTEL            
+    CL_ME_LUMA_PREDICTOR_MODE_DC_INTEL        
+    CL_ME_LUMA_PREDICTOR_MODE_PLANE_INTEL    
+
+    The chroma_8x8_block field only contain valid values if the 
+    CL_ME_CHROMA_INTRA_PREDICT_ENABLED_INTEL flag is set. If enabled, the chroma_8x8_block 
+    contains one of the following constants:
+
+    CL_ME_CHROMA_PREDICTOR_MODE_VERTICAL_INTEL             
+    CL_ME_CHROMA_PREDICTOR_MODE_HORIZONTAL_INTEL            
+    CL_ME_CHROMA_PREDICTOR_MODE_DC_INTEL        
+    CL_ME_CHROMA_PREDICTOR_MODE_PLANE_INTEL    
+
+    This argument can be NULL.
+
+    search_residuals defines an output buffer containing vectors of unsigned short SAD-
+    adjusted values corresponding to the best search motion vectors populated in the 
+    search_motion_vector_buffer array. The array is divided into one vector per MB in 
+    contiguous row-major block ordering. Each vector contains 1, 4, or 16 components
+    depending on the value of mb_block_type specified during the creation of the 
+    accelerator object: 
+
+    Value of mb_block_type     Vector Size    
+    -------------------------  -------------
+    CL_ME_MB_TYPE_16x16_INTEL    1
+    CL_ME_MB_TYPE_8x8_INTEL      4
+    CL_ME_MB_TYPE_4x4_INTEL     16
+
+    This argument can be NULL.
+
+    skip_residuals defines an output buffer containing vectors of unsigned short SAD-
+    adjusted values corresponding to the skip-check MVs defined by 
+    skip_motion_vector_buffer. The array is partitioned into clusters of 8 sets of 
+    residual values per MB, in contiguous row-major ordering. The value of skip_block_type
+    determines the number of values in each of the 8 entries: 
+
+    Value of skip_block_type    Number MVs in each entry    
+    ------------------------    ------------------------
+    CL_ME_MB_TYPE_16x16_INTEL   1 residual per entry
+    CL_ME_MB_TYPE_8x8_INTEL     4 residuals per entry
+
+    The buffer layout assumes the maximum size of 8 residual values per MB, however the
+    number of valid residual entries corresponds to the skip-check MV count specified in 
+    count_motion_vector_buffer for each MB. This argument can be NULL.
+
+    intra_search_residuals defines an output buffer of unsigned short SAD-adjusted vectors
+    that correspond to the residual values used during intra-prediction. The buffer
+    contains 4 values per MB in contiguous row-major ordering using the following layout:
+
+    struct intra_search_residuals
+    {
+        short luma_16x16_block_residual;
+        short luma_8x8_block_residual;
+        short luma_4x4_block_residual;
+        short chroma_8x8_block_residual; 
+    };
+
+    The chroma_8x8_block_residuals value is only valid if the 
+    CL_ME_CHROMA_INTRA_PREDICT_ENABLED flag is set. This argument can be NULL.
+
+    The second built-in kernel extends upon the functionality provided by the first 
+    kernel by additionally supporting bidirectional skip checks and minor additional 
+    control over the estimation algorithm. The additional control includes the 
+    ability to perform skip checks on a different set of source and reference frames
+    as used for motion search, and the option to specify a pair of scalar counts for
+    input search predictors and skip motion vectors globally for all macro-blocks in
+    the frame instead of having to specify such counts on a per macroblock basis. This
+    kernel is only supported for devices that report a motion estimation device version
+    number of CL_ME_VERSION_ADVANCED_VER_2_INTEL.
+
+    The second kernel
+
+    block_advanced_motion_estimate_bidirectional_check_intel(
+        accelerator_intel_t    accelerator,
+        __read_only image2d_t  src_search_image,
+        __read_only image2d_t  ref_search_image,                                  
+        __read_only image2d_t  src_check_image,                                                   
+        __read_only image2d_t  ref0_check_image,                                                  
+        __read_only image2d_t  ref1_check_image,                                                  
+        uint                   flags,                                         
+        uint                   search_cost_penalty,                                               
+        uint                   search_cost_precision,                                             
+        short2                 count_global,                                                      
+        uchar                  bidir_weight,                             
+    __global short2 *          count_motion_vector_buffer,                             
+    __global short2 *          prediction_motion_vector_buffer,                              
+    __global char             *skip_input_mode_buffer,                                            
+    __global short2 *          skip_motion_vector_buffer,                              
+    __global short2           *search_motion_vector_buffer,                                       
+    __global char             *intra_search_predictor_modes,                                      
+    __global ushort           *search_residuals,                                                  
+    __global ushort *          skip_residuals,                       
+    __global ushort *          intra_residuals );
+    
+    defines a kernel that provides various block-based motion estimation computations.
+    There are three basic use cases for this kernel:
+    
+    1.) Perform unidirectional inter-prediction motion estimation on the source and
+    reference images to obtain the best search motion vectors and their associated 
+    distortion values. 
+    
+    2.) Perform unidirectional or bidirectional skip-checks on the source and 
+    reference images by providing a set of motion vectors, then obtain the 
+    corresponding distortion values.
+ 
+    3.) Perform intra-prediction computations to obtain the best-search prediction
+    modes between adjacent macroblocks and associated residual values. 
+
+    This kernel can be set up to do some or all of these operations in a single 
+    enqueue.         
+    
+    The kernel can perform unidirectional or bidirectional skip-checks to produce
+    distortion values based on the input skip-check motion vectors specified for 
+    each sub-block in the macroblock. Skip-checks for each motion vector for a 
+    sub-block may be independently configured for either     unidirectional or 
+    bidirectional skip-checks by means of the skip_input_mode_buffer argument. 
+    A sub-block configured for bidirectional skip-check will have two component
+    input motion vectors; one specifying a rectangular region in the forward 
+    reference frame and the other in the backward     reference frame. A 
+    bidir_weight argument is additionally specified for sub-blocks configured 
+    for bidirectional skip checks. The effective reference     region is a 
+    weighted blend of the forward and backward reference region as specified by
+    the bidirectional skip motion vector and bidir_weight arguments. If a motion
+    vector is configured for bidirectional skip check, then the ref0_check_image
+    argument is taken as the forward reference image     and ref1_check_image is
+    taken as the backward reference image, else only ref0_check_image is taken 
+    as the single reference image. Skip-checks may be     configured with either 
+    8x8 or 16x16 sub-block sizes, via the flags argument. The 
+    skip_motion_vector_buffer is used to configure up to four sets of bidirectional 
+    skip-check MVs pairs per MB. The number of vectors in each set is determined 
+    by the sub-block size:
+    
+    Sub-block Size    Bidirectional MV pairs per MB
+    --------------    -----------------------------
+         8x8                    4
+        16x16                   1
+
+    Results are obtained via the skip_residuals argument as SAD-adjusted distortion
+    values corresponding to each skip-check MV defined for each macroblock. 
+    
+    block_advanced_motion_estimate_bidirectional_check_intel arguments:    
+    
+    accelerator is a valid accelerator object created by clCreateAcceleratorINTEL,
+    where the type of the accelerator must be 
+    CL_ACCELERATOR_TYPE_MOTION_ESTIMATION_INTEL.
+    Refer to the cl_intel_motion_estimation extension for a detailed description 
+    of configuring accelerator object with the cl_motion_estimation_desc_intel 
+    structure.
+    
+    src_search_image is the input source image for motion search operations, 
+    typically representing 8-bit luminance information. Currently, the 
+    image_channel_order and the image_data_type of src_search_image are 
+    restricted as follows:
+        
+    Channel Order     Src Channel Data Type
+    -------------     ---------------------
+    CL_R              CL_UNORM_INT8
+    
+    Additional formats will be support by future extensions. The host program 
+    is responsible for populating the tiled image using the clEnqueueWriteImage 
+    function or other appropriate API function.
+    
+    ref_search_image is the input reference image for motion search operations, 
+    representing 8-bit luminance information. The image_channel_order and the 
+    image_data_type must match src_search_image. The host program is responsible 
+    for populating the tiled image using the clEnqueueWriteImage function or other
+    appropriate API function.
+    
+    src_check_image is the input source image for skip checks operations, 
+    typically representing 8-bit luminance information. It has the same 
+    restrictions as src_search_image. The host program is responsible for 
+    populating the tiled image using the clEnqueueWriteImage function or other
+    appropriate API function.
+    
+    ref0_check_image is the input forward reference image for unidirectional 
+    and bidirectional skip check operations, representing 8-bit luminance
+    information. The image_channel_order and the image_data_type must match 
+    src_check_image. The host program is responsible for populating the tiled
+    image using the clEnqueueWriteImage function or other
+    appropriate API function.
+    
+    ref1_check_image is the input backward reference image for bidirectional
+    skip check operations, representing 8-bit luminance information. The 
+    image_channel_order and the image_data_type must match src_check_image. 
+    If bidirectional skip checks are not used then, this must be set to
+    the same image as ref0_check_image. The host program is responsible for
+    populating the tiled image using the clEnqueueWriteImage function or other
+    appropriate API function.
+    
+    flags defines any optional modes or behaviors used in computing motion 
+    estimation, skip check and/or intra-prediction algorithms. 
+    Currently     supported are: 
+    
+    Type                                  Description
+    ----                                   -----------
+    CL_ME_SKIP_BLOCK_TYPE_16x16_INTEL      Specifies a 16x16
+                                           skip check sub-block
+                                           type.
+      
+    CL_ME_SKIP_BLOCK_TYPE_8x8_INTEL        Specifies a 8x8
+                                           skip check sub-block
+                                           type.  
+    
+    CL_ME_LUMA_INTRA_PREDICT_ENABLED_INTEL Enables Luma-
+                                           based intra-
+                                           prediction
+    
+    The following additional token is reserved for future support:  
+    
+    Type                                     Description
+    ----                                      -----------
+    CL_ME_CHROMA_INTRA_PREDICT_ENABLED_INTEL  Enables chroma-based intra-
+                                              prediction.
+    
+    The CL_ME_SKIP_BLOCK_TYPE_16x16_INTEL flag cannot be set along with 
+    CL_ME_SKIP_BLOCK_TYPE_8x8_INTEL as skip checks can either be configured
+    for a 16x16 sub-block size or an 8x8 sub-block size. The behavior is
+    undefined if both flags are set.
+    
+    search_cost_penalty defines the cost function scheme used in computing 
+    cost penalties. 
+    Refer to the description of argument search_cost_penalty in the first 
+    built-in kernel block_advanced_motion_estimate_check_intel for details.
+    
+    search_cost_precision defines the pixel precision of the cost penalty 
+    calculations. 
+    Refer to the description of argument search_cost_precision in the first 
+    built-in kernel block_advanced_motion_estimate_check_intel for details.
+    
+    count_global can be used to specify the scalar counts of predictor 
+    motion vectors and skip-check motion vectors globally for all 
+    macroblocks. This can be used in lieu of setting the 
+    count_motion_vector_buffer if the number of predictor motion vectors
+    and skip-check motion vectors are uniform for all macro-blocks. 
+    It is specified as a pair of short integers. The first value in the 
+    pair is the count of predictor MVs and the second value is the count
+    of skip check MVs. If either value is -1, then the corresponding count
+    is taken from the per macroblock entry for each macroblock as 
+    specified in count_motion_vector_buffer.
+    
+    count_motion_vector_buffer defines the number of predictor motion 
+    vectors and skip-check motion vectors defined for each macroblock. 
+    The buffer contains an array of short integer pairs, one pair per 
+    MB. The indices of the array correspond to the contiguous row-major
+    block layout of the input frame. The first value in each pair 
+    defines the number of predictor motion vectors for a given MB; this
+    value defines the range of valid entries for the MB contained within
+    the predictor_motion_vector_buffer array. This value is used only if
+    the predictor count in count_global is -1. The second value in each 
+    pair defines the number of skip-check motion vectors for the MB; 
+    this value defines the range of valid entries in the 
+    skip_motion_vector_buffer array. This value is used only if the 
+    skip-check MV count in count_global is -1. All size values must be
+    between 0 and 4 inclusive; size values greater than 4 result in 
+    undefined behavior. If both the pair values in count_global is -1,
+    then this argument can be NULL.
+    
+    bidir_weight defined the implicit bidirectional weight to be used
+    when performing bidirectional skip checks. This is used to obtain 
+    the weighted reference pixels from the forward and backward blocks. 
+    
+    There are 5 possible weights: 
+    
+    Weight        Description
+    ------        -----------
+    CL_ME_BIDIR_WEIGHT_QUARTER_INTEL          quarter distance from 
+                                              forward and three-
+                                              quarters from 
+                                              backward
+
+    CL_ME_BIDIR_WEIGHT_THIRD_INTEL            one-third distance
+                                              from forward and two-
+                                              thirds from backward
+    
+    CL_ME_BIDIR_WEIGHT_HALF_INTEL             half distance from 
+                                              forward and backward
+    
+    CL_ME_BIDIR_WEIGHT_TWO_THIRD_INTEL        two-third distance
+                                              from forward and one-
+                                              quarters from
+                                              backward
+    
+    CL_ME_BIDIR_WEIGHT_THREE_QUARTER_INTEL    quarter distance from 
+                                              forward and three-
+                                              quarters from 
+                                              backward
+    
+    predictor_motion_vector_buffer defines an input array of signed 
+    short integer predictor MVs with quarter-pixel resolution. The array
+    is  partitioned into clusters of 4 motion vectors per MB in 
+    contiguous row-major ordering. The buffer layout assumes the maximum
+    size of 4 predictor MVs per MB even if the count_motion_vector_buffer 
+    array specifies a smaller predictor count. If the value of the 
+    search_cost_penalty argument does not equal 
+    CL_ME_COST_PENALTY_NONE_INTEL, the first predictor MV for each MB is
+    used as the cost center for cost penalty calculations. If the array
+    passed to count_motion_vector_buffer argument specifies a predictor 
+    size of zero for all macroblocks this argument can be NULL.
+    
+    skip_input_mode_buffer defines an input array of unsigned char 
+    integers defining the skip modes for each macroblock. The indices of
+    the     array     correspond to the contiguous row-major block layout
+    of the input frame. There is one unsigned char integer per macroblock.
+    The following     2-bit skip mode enumeration values are defined for
+    each macroblock sub-block:
+    
+    Skip Mode Enumeration                 Description
+    ---------------------                 -----------
+    CL_ME_FORWARD_INPUT_MODE_INTEL        Unidirectional skip MV 
+                                          from forward frame
+
+    CL_ME_BACKWARD_INPUT_MODE_INTEL       Unidirectional skip MV 
+                                          from backward frame
+
+    CL_ME_BIRECTIONAL_INPUT_MODE_INTEL    Bidirectional skip MV
+                                          from forward and 
+                                          backward frames
+    
+    The format of each macroblock unsigned char entry depends on the
+    skip block type specified in the flags parameter.
+    
+    Skip Block Type    Format
+    ---------------    ------
+    CL_ME_SKIP_BLOCK_TYPE_16x16_INTEL     1 2-bit skip mode 
+                                          enumeration value for
+                                          one sub-block
+    CL_ME_SKIP_BLOCK_TYPE_8x8_INTEL       4 2-bit skip modes 
+                                          enumeration values (one
+                                          for each sub-block 
+                                          component MV) packed
+                                          into successive two
+                                          bits of char
+    
+    skip_motion_vector_buffer defines an input array of pairs of signed
+    short integer skip-check MVs – one component MV for the forward 
+    reference image and the other component MV for the backward reference
+    image. The buffer layout assumes the MVs for both the forward and 
+    backward reference images are specified. If unidirectional forward 
+    or backward check is specified for a skip-check sub-block, then the
+    corresponding backward or forward component of the MV pair will 
+    be ignored. The array is partitioned into clusters of 4 sets of 
+    bidirectional pairs motion vectors per MB, in contiguous row-major 
+    ordering. The value of skip_block_type determines the number of pairs
+    of MVs for each of the 4 entries: 
+    
+    Value of skip_block_type         Number MV pairs in each entry 
+    ----------------------           ---------------------------
+    CL_ME_MB_TYPE_16x16_INTEL        1 MV forward/backward pair
+    per entry
+    CL_ME_MB_TYPE_8x8_INTEL          4 MV forward/backward pairs 
+    per MB
+    
+    The buffer layout assumes the maximum size of 4 MV pair entries per MB, 
+    even if the count_motion_vector_buffer array specifies a smaller skip-
+    check count. If the array passed to count_motion_vector_buffer specifies
+    a skip-check size of zero for all macro blocks, no skip check 
+    computation is performed and this argument can be NULL. 
+        
+    search_motion_vector_buffer defines an output array of signed short 
+    integers pairs defining the best search motion vectors per macro block.    
+    Refer to the description of argument search_motion_vector_buffer in 
+    the first built-in kernel block_advanced_motion_estimate_check_intel
+    for details.
+ 
+    
+    intra_search_prediction_modes_buffer specifies an output buffer 
+    containing a sequence of signed chars describing the predictor modes 
+    used during motion estimation.
+    Refer to the description of argument intra_search_prediction_modes in 
+    the first built-in kernel block_advanced_motion_estimate_check_intel
+    for details.
+
+    
+    search_residuals defines an output buffer containing vectors of 
+    unsigned short SAD-adjusted values corresponding to the best 
+    search motion vectors populated in the search_motion_vector_buffer 
+    array.
+    Refer to the description of argument search_residuals in the first 
+    built-in kernel block_advanced_motion_estimate_check_intel for 
+    details.
+    
+    skip_residuals defines an output buffer containing vectors of 
+    unsigned short SAD-adjusted values corresponding to the skip-check
+    MVs defined by skip_motion_vector_buffer. The array is partitioned
+    into clusters of 4 sets of residual values per MB, in contiguous
+    row-major ordering. The value of skip_block_type determines
+    the number of values in each of the 4 entries: 
+    
+    Value of skip_block_type     Number MVs in each entry 
+    ----------------------  ---------------------------
+    CL_ME_MB_TYPE_16x16_INTEL       1 residual per entry
+    CL_ME_MB_TYPE_8x8_INTEL         4 residuals per entry
+    
+    The buffer layout assumes the maximum size of 4 residual values 
+    per MB, however the number of valid residual entries corresponds
+    to the skip-check MV count specified in count_motion_vector_buffer 
+    for each MB. This argument can be NULL.
+    
+    intra_search_residuals defines an output buffer of unsigned short 
+    SAD-adjusted vectors that correspond to the residual values used 
+    during intra-prediction.
+    Refer to the description of argument intra_search_residuals in the
+    first built-in kernel block_advanced_motion_estimate_check_intel
+    for details.
+
+    
+    This kernel is queued for execution using clEnqueueNDRangeKernel(). Several arguments 
+    passed to this function are specific for this kernel:
+
+    For both built-in kernels:
+
+    work_dim must be 2.
+
+    global_work_size represents the height and width of the area of interest to be
+    processed. 
+
+    global_work_offset specifies the top-left point of the area of interest. 
+
+    local_work_size must NULL.
+
+    The count and layout of macroblocks processed in the frame is based on the arguments 
+    passed to the global_work_size and global_work_offset argument and not on the 
+    dimensions of the input and reference images. The client must ensure that the data 
+    layout of all arrays passed as arguments define the correct number of macroblocks. 
+    The height and width dimensions of the area of interest specified by global_work_size
+    and global_work_offset must be less than or equal to the width and height of the 
+    source image. 
+
+    The clEnqueueNDRangeKernel function returns the usual error codes, augmented with the
+    following specific error codes for this kernel:
+    
+    - CL_INVALID_WORK_DIMENSION if work_dim is not 2. This built-in kernel requires a 2D 
+      ND-range.
+
+    - CL_INVALID_WORK_GROUP_SIZE if local_work_size is not NULL. 
+    
+    - CL_INVALID_WORK_GROUP_SIZE if the respective values of global_work_size[0] and 
+      global_work_size[1] exceed the width and/or height of input images.
+
+    - CL_INVALID_IMAGE_FORMAT_DESCRIPTOR if an image object passed as an argument does not
+      have a supported format, as listed above.    
+
+    - CL_INVALID_IMAGE_FORMAT if the image objects passed to src_image and ref_image
+      arguments do not contain matching formats and sizes. 
+
+    - CL_INVALID_GLOBAL_OFFSET if the respective values of global_work_offset[0] and 
+      global_work_offset[1] exceed the width and/or height of input images.
+
+    - CL_INVALID_KERNEL_ARGS if predictor_motion_vector_buffer is NULL and one or more 
+      predictor MV sizes passed to count_motion_vector_buffer are greater than 0.   
+
+    - CL_INVALID_KERNEL_ARGS if skip_motion_vector_buffer is NULL and one or more but
+      skip-check MV sizes passed to count_motion_vector_buffer are greater than 0.
+
+    - CL_INVALID_BUFFER_SIZE if any of the cl_mem objects passed as arguments has a size
+      less than the expected size. 
+
+Interactions with Other Extensions
+
+    The advanced motion estimation extension is based on the cl_intel_accelerator and 
+    cl_intel_motion_estimation  extensions, and is defined in terms of additions to the
+    base accelerator and motion extension documents.
+

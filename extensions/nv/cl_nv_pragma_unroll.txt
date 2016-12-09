@@ -1,0 +1,128 @@
+Name
+
+    Loop unroll pragma extension
+
+Name Strings
+
+    cl_nv_pragma_unroll
+
+Number
+
+    OpenCL Extension #19
+
+Dependencies
+  
+    OpenCL 1.0 is required
+
+Contributors
+
+    Jian-Zhong Wang
+    Bastiaan Aarts
+    Vinod Grover
+
+Overview
+    
+    This extension extends the OpenCL C language with a hint that
+    allows loops to be unrolled. This pragma must be used for a loop
+    and can be used to specify full unrolling or partial unrolling by
+    a certain amount. This is a hint and the compiler may ignore this
+    pragma for any reason.
+
+Goals
+
+    The principal goal of the pragma unroll is to improve the
+    performance of loops via unrolling. Typically this enables other
+    optimizations or improves instruction level parallelism of a
+    thread.
+
+Details
+
+    A user may specify that a loop in the source program be
+    unrolled. This is done via a pragma. The syntax of this pragma is
+    as follows
+
+        #pragma unroll [unroll-factor]
+
+    The pragma unroll may optionally specify an unroll factor. The
+    pragma must be placed immediately before the loop and only applies
+    to that loop.
+
+    If unroll factor is not specified then the compiler will try to do
+    complete or full unrolling of the loop. If a loop unroll factor is
+    specified the compiler will perform partial loop unrolling. The
+    loop factor, if specified, must be a compile time non negative
+    integer constant.
+
+    A loop unroll factor of 1 means that the compiler should not
+    unroll the loop.
+
+    A complete unroll specification has no effect if the trip count of
+    the loop is not compile-time computable.
+
+Examples    
+
+    This sections lists a few examples illustrating valid and invalid
+    uses.
+
+    - Complete unrolling example
+
+         #pragma unroll
+         for (int i = 0; i < 32; i++) {
+            ...
+         }
+        
+      This example full unrolling is requested from the compiler. Note
+      that, since the trip count is known to be 32 the compiler will
+      most likely honor this request. In the following example, the
+      trip count is not known so unrolling pragma will be ignored.
+      
+         #pragma unroll
+         for (int i = 0; i < n; i++) {
+            ...
+         }
+        
+    - no unrolling example
+
+         #pragma unroll 1
+         for (int i = 0; i < 64; i++) {
+             ...
+         }
+
+
+    - partial unrolling example
+
+        #pragma unroll 4
+        for (int i = 0; i < n; i++) {
+           ...
+        }
+
+      Note that, in this example the trip count is not knownt at
+      compile time, but a partial unroll factor of 4 is valid.
+
+    - invalid unroll pragma usage
+
+       The following examples describe some invalid uses of loop
+       unrolling pragmas.
+
+        #pragma unroll -1
+        for (...) {
+          ...
+        }
+
+        This is invalid because the loop unroll factor is negative.
+
+        #pragma unroll
+        if (...) {
+           ...
+        }
+
+        This is invalid because the pragma is used on a non loop
+        construct
+
+        #pragma unroll x+1
+        for (...) {
+           ...
+        }
+
+        This is invalid since the loop unroll factor is not a
+        compile-time known value.

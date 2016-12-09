@@ -1,0 +1,339 @@
+Name Strings
+
+    cl_khr_icd
+
+Contributors
+
+    Christopher Cameron
+    Benedict Gaster
+    Michael Houston
+    John Kessenich
+    Christopher Lamb
+    Laurent Morichetti
+    Aftab Munshi
+    Ofer Rosenberg
+
+IP Status
+
+    No known claims.
+
+Version
+
+    Version 7, March 2, 2010
+
+Number
+
+    OpenCL Extension #5
+
+Status
+
+    Ratified by the Khronos Promoters, January 29, 2010
+
+Extension Type
+
+    OpenCL platform extension
+
+Dependencies
+
+    OpenCL 1.0 is required.
+
+Overview
+
+    This extension defines a simple mechanism through which the Khronos
+    installable client driver loader (ICD Loader) may expose multiple 
+    separate vendor installable client drivers (Vendor ICDs) for
+    OpenCL.  An application written against the ICD Loader will be able to 
+    access all cl_platform_ids exposed by all vendor implementations 
+    with the ICD Loader acting as a demultiplexor.
+
+Inferring Vendors From Function Calls from Arguments
+
+    At every OpenCL function call, the ICD Loader infers the Vendor ICD 
+    function to call from the arguments to the function.  An object is 
+    said to be ICD compatible if it is of the following structure:
+
+    struct _cl_<object>
+    {
+        struct _cl_icd_dispatch *dispatch;
+        // ... remainder of internal data
+    };
+
+    <object> is one of platform_id, device_id, context, command_queue,
+    mem, program, kernel, event, or sampler.
+
+    The structure _cl_icd_dispatch is a function pointer dispatch 
+    table which is used to direct calls to a particular vendor 
+    implementation.  All objects created from ICD compatible objects
+    must be ICD compatible.
+
+    A link to source code which defines the entries in the function
+    table structure _cl_icd_dispatch is available in the Sample 
+    Code section of this document.  The order of the functions in
+    _cl_icd_dispatch is determined by the ICD Loader's source.  The ICD
+    Loader's source's _cl_icd_dispatch table is to be appended to only.
+
+    Functions which do not have an argument from which the vendor
+    implementation may be inferred are ignored, with the exception
+    of clGetExtensionFunctionAddress which is described below.
+
+ICD Data
+
+    A Vendor ICD is defined by two pieces of data.
+    
+    The Vendor ICD library specifies a library which contains the 
+    OpenCL entrypoints for the vendor's OpenCL implementation.  The 
+    vendor ICD's library file name should include the vendor name, or 
+    a vendor-specific implementation identifier.
+    
+    The Vendor ICD extension suffix is a short string which specifies 
+    the default suffix for extensions implemented only by that vendor.  
+    See Additions to Chapter 9 for details on the mechanism through 
+    which this is accomplished.  The vendor suffix string is optional.
+
+ICD Loader Vendor Enumeration on Windows
+
+    To enumerate Vendor ICDs on Windows, the ICD Loader scans
+    the values in the registry key
+    HKEY_LOCAL_MACHINE\SOFTWARE\Khronos\OpenCL\Vendors
+    For each value in this key which has DWORD data set to 0, the ICD
+    Loader opens the dynamic link library specified by the name of
+    the value using LoadLibraryA.
+ 
+    For example, if the registry contains the following value
+      [HKEY_LOCAL_MACHINE\SOFTWARE\Khronos\OpenCL\Vendors]
+      "c:\\vendor a\\vndra_ocl.dll"=dword:00000000
+    then the ICD will open the library "c:\vendor a\vndra_ocl.dll"
+ 
+ICD Loader Vendor Enumeration on Linux
+
+    To enumerate vendor ICDs on Linux, the ICD Loader scans
+    the files the path /etc/OpenCL/vendors.  For each
+    file in this path, the ICD Loader opens the file as a text
+    file.  The expected format for the file is a single line of
+    text which specifies the Vendor ICD's library.  The ICD 
+    Loader will attempt to open that file as a shared object
+    using dlopen().   Note that the library specified may be an
+    absolute path or just a file name.
+
+    For example, if the following file exists
+        /etc/OpenCL/vendors/VendorA.icd
+    and contains the text
+        libVendorAOpenCL.so
+    then the ICD Loader will load the library "libVendorAOpenCL.so"
+
+Adding a Vendor Library
+
+    Upon successfully loading a Vendor ICD's library, the 
+    ICD Loader queries the following functions from the library:
+    clIcdGetPlatformIDsKHR, clGetPlatformInfo, and 
+    clGetExtensionFunctionAddress.  If any of these functions
+    are not present then the ICD Loader will close and ignore 
+    the library.
+
+    Next the ICD Loader queries available ICD-enabled 
+    platforms in the library using clIcdGetPlatformIDsKHR.
+    For each of these platforms, the ICD Loader queries the
+    platform's extension string to verify that cl_khr_icd is
+    supported, then queries the platform's Vendor ICD extension
+    suffix using clGetPlatformInfo with the value 
+    CL_PLATFORM_ICD_SUFFIX_KHR.
+
+    If any of these steps fail, the ICD Loader will ignore the 
+    Vendor ICD and continue on to the next.
+
+New Procedures and Functions
+
+    cl_int clIcdGetPlatformIDsKHR(
+        cl_uint num_entries,
+        cl_platform_id *platforms,
+        cl_uint *num_platforms);
+
+New Tokens
+
+    Accepted as <param_name> to the function clGetPlatformInfo
+
+        CL_PLATFORM_ICD_SUFFIX_KHR          0x0920
+
+    Returned by clGetPlatformIDs when no platforms are found
+
+        CL_PLATFORM_NOT_FOUND_KHR            -1001
+
+
+Additions to Chapter 4 of the OpenCL 1.0.48 Specification
+
+    In section 4.1, replace the description of the return values of
+    clGetPlatformIDs with:
+
+   "clGetPlatformIDs returns CL_SUCCESS if the function is executed
+    successfully and there are a non zero number of platforms available.
+    It returns CL_PLATFORM_NOT_FOUND_KHR if zero platforms are 
+    available.  It returns CL_INVALID_VALUE if <num_entries> is 
+    equal to zero and <platforms> is not NULL or if both <num_platforms>
+    and <platforms> are NULL."
+
+    In section 4.1, add the following after the description of
+    clGetPlatforms:
+
+   "The list of platforms accessible through the Khronos ICD Loader
+    can be obtained using the following function
+
+    cl_int clIcdGetPlatformIDsKHR(
+        cl_uint num_entries,
+        cl_platform_id *platforms,
+        cl_uint *num_platforms);
+
+    <num_entries> is the number of cl_platform_id entries that can be
+    added to <platforms>.  If <platforms> is not NULL, then 
+    <num_entries> must be greater than zero.
+
+    <platforms> returns a list of OpenCL platforms available for access
+    through the Khronos ICD Loader.  The cl_platform_id values returned in
+    <platform> are ICD compatible and can be used to identify a 
+    specific OpenCL platform.  If the <platforms> argument is NULL,
+    then this argument is ignored.  The number of OpenCL platforms 
+    returned is the minimum of the value specified by num_entries or
+    the number of OpenCL platforms available.
+
+    <num_platforms> returns the number of OpenCL platforms available.
+    If <num_platforms> is NULL, then this argument is ignored.
+
+    clIcdGetPlatformIDsKHR returns CL_SUCCESS if the function is executed
+    successfully and there are a non zero number of platforms available.
+    It returns CL_PLATFORM_NOT_FOUND_KHR if zero platforms are 
+    available.  It returns CL_INVALID_VALUE if <num_entries> is 
+    equal to zero and <platforms> is not NULL or if both <num_platforms>
+    and <platforms> are NULL."
+
+    Add the following to table 4.1:
+
+   "--------------------------------------------------------------------
+    cl_platform_info            Return Type Description
+    ----------------            ----------- ----------------------------
+    CL_PLATFORM_ICD_SUFFIX_KHR  char[]      Then function name suffix 
+                                            used to identify extension 
+                                            functions to be directed to
+                                            this platform by the ICD
+                                            Loader."
+
+Additions to Chapter 9 of the OpenCL 1.0.48 Specification
+
+    Add the following paragraph to the end of Section 9.2:
+
+   "For functions supported by the ICD Loader,
+    clGetExtensionFunctionAddress will return the function pointer of
+    the ICD Loader implementation. For extension functions which the ICD
+    Loader is unaware of, the function clGetExtensionFunctionAddress
+    will determine the vendor implementation to return based on the
+    string passed in. The ICD Loader will return the result from
+    querying clGetExtensionFunctionAddress on the vendor ICD enumerated
+    by the ICD Loader whose ICD suffix is a suffix of the function name
+    being queried. If no such vendor exists or the suffix of the
+    function is KHR or EXT then clGetExtensionFunctionAddress will
+    return NULL."
+
+Interactions with other extensions
+
+    None.
+
+Issues
+
+    1. Some OpenCL functions do not take an object argument from which 
+    their vendor library may be identified (e.g, clUnloadCompiler), 
+    how will they be handled?
+
+    RESOLVED: Such functions will be a NOOP for all calls through the
+    ICD.
+
+    2. How are OpenCL extension to be handled?
+
+    RESOLVED: OpenCL extension functions may be added to the ICD as 
+    soon as they are implemented by any vendor.  The suffix mechanism 
+    provides access for vendor extensions which are not yet added to 
+    the ICD.
+
+    3: How will the ICD handle a NULL cl_platform_id?
+
+    RESOLVED: The NULL platform is not supported by the ICD.
+
+    4. There exists no mechanism to unload the ICD, should there be
+    one?
+
+    RESOLVED: As there is no standard mechanism for unloading a vendor
+    implementation, do not add one for the ICD.
+
+Sample Code
+    
+    The official source for the ICD. This is currently available
+    only to Khronos members from our internal Subversion
+    repository under /repos/OpenCL/trunk/icd/
+
+    An abbreviated version of the _cl_icd_dispatch structure is
+    as follows.
+
+    struct _cl_icd_dispatch
+    {
+        CL_API_ENTRY cl_int (CL_API_CALL *clGetPlatformIDs)(
+            cl_uint          num_entries,
+            cl_platform_id * platforms,
+            cl_uint *        num_platforms) CL_API_SUFFIX__VERSION_1_0;
+
+        CL_API_ENTRY cl_int (CL_API_CALL *clGetPlatformInfo)(
+            cl_platform_id   platform, 
+            cl_platform_info param_name,
+            size_t           param_value_size, 
+            void *           param_value,
+            size_t *         param_value_size_ret) CL_API_SUFFIX__VERSION_1_0;
+
+        /* ...continues... */
+    }
+
+    As an example of this mechanism in action, consider the function
+    clCreateCommandQueue.  The implementation of this function in the
+    ICD Loader is as follows
+
+    cl_command_queue clCreateCommandQueue(
+        cl_context                     context, 
+        cl_device_id                   device, 
+        cl_command_queue_properties    properties,
+        cl_int *                       errcode_ret) 
+    {
+        return context->dispatch->clCreateCommandQueue(
+            context, 
+            device, 
+            properties,
+            errcode_ret);
+    }
+
+Conformance Tests
+
+    A vendor supports cl_khr_icd if conformance may be run successfully
+    on their platform through the ICD Loader.
+
+Revision History
+
+    Version 7, 2010/03/02 (Jon Leech) - fix typos for
+    clGetExtensionFunctionAddress (public bug 258), reflow a paragraph
+    with very long lines.
+
+    Version 6, 2010/02/17 (Jon Leech) - remove URLs pointing to
+    resources available only to Khronos members, since this
+    was causing confusion to outside readers of the extension
+    spec.
+
+    Version 5, 2009/12/08 (Christopher Cameron) - Clarify language
+    of ICD Loader versus Vendor ICD, update Linux enumeration to
+    reflect bug and email discussion.
+
+    Version 4, 2009/11/10 (Christopher Cameron) - Fix typos.
+
+    Version 3, 2009/11/05 (Christopher Cameron) - update Linux and
+    Windows enumeration to use directories and registry values.
+    Change suffix information to come from platform query.  Add 
+    error code for clGetPlatformIDs when there are no platforms.
+
+    Version 2, 2009/11/02 (Christopher Cameron) - update Linux 
+    enumeration to use INI file format.  Some cleanup of sections.
+    Update on ICD unload function.
+
+    Version 1, 2009/09/20 (Christopher Cameron) - initial extension
+    specification (see also Khronos bug 5391)

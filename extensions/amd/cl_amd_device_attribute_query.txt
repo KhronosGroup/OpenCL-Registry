@@ -1,0 +1,128 @@
+Name Strings
+
+    cl_amd_device_attribute_query
+
+Contributors
+
+    Benedict Gaster, AMD
+    Laurent Morichetti, AMD
+    Ben Sander, AMD
+
+Contact
+
+    Brian Sumner (brian 'dot' sumner 'at' amd 'dot' com)
+
+IP Status
+
+    No known claims.
+
+Version
+
+    Version 3, March 27, 2015
+
+Number
+
+    OpenCL Extension #7
+
+Status
+
+    Complete, shipping as part of ATi Stream SDK 3.1
+
+Extension Type
+
+    OpenCL device extension.
+
+Dependencies
+
+    OpenCL 1.2 is required.
+
+Overview
+
+    This extension provides a means to query AMD specific device attributes.
+
+    Implementers should note that the enum
+    CL_DEVICE_SIMD_PER_COMPUTE_UNIT_AMD has the same numeric value, 0x4040,
+    as the enum CL_COMMAND_MIGRATE_MEM_OBJECT_EXT from the OpenCL 1.1
+    extension cl_ext_migrate_memobject, but this is not expected to cause
+    any application problems.
+
+New Tokens
+
+    Accepted as the <param_name> parameter of clGetDeviceInfo.
+
+    Return the offset in nano-seconds between an event timestamp and Epoch:
+
+        CL_DEVICE_PROFILING_TIMER_OFFSET_AMD            0x4036
+
+    Return the topology for the device:
+
+        CL_DEVICE_TOPOLOGY_AMD                          0x4037
+
+    Return the SKU board name for the device:
+
+        CL_DEVICE_BOARD_NAME_AMD                        0x4038
+
+    Return the global free memory in KBytes for the device:
+
+        CL_DEVICE_GLOBAL_FREE_MEMORY_AMD                0x4039
+
+    Return number of SIMD (Single Instruction Multiple Data) units per compute
+    unit that execute in parallel:
+
+        CL_DEVICE_SIMD_PER_COMPUTE_UNIT_AMD             0x4040
+
+    Return the maximum number of work items from the same work group that can
+    be executed by a SIMD in parellel:
+
+        CL_DEVICE_SIMD_WIDTH_AMD                        0x4041
+
+    Return the number of instructions that a SIMD can execute in parallel:
+
+        CL_DEVICE_SIMD_INSTRUCTION_WIDTH_AMD            0x4042
+
+    Return the number of workitems per wavefront:
+
+        CL_DEVICE_WAVEFRONT_WIDTH_AMD                   0x4043
+
+    Return the number of global memory channels:
+
+        CL_DEVICE_GLOBAL_MEM_CHANNELS_AMD               0x4044
+
+    Return the number of banks in each global memory channel:
+
+        CL_DEVICE_GLOBAL_MEM_CHANNEL_BANKS_AMD          0x4045
+
+    Return the width in bytes of each of global memory bank:
+
+        CL_DEVICE_GLOBAL_MEM_CHANNEL_BANK_WIDTH_AMD     0x4046
+
+    Return the local memory size in bytes per CU:
+
+        CL_DEVICE_LOCAL_MEM_SIZE_PER_COMPUTE_UNIT_AMD   0x4047
+
+    Return the number of banks of local memory:
+
+        CL_DEVICE_LOCAL_MEM_BANKS_AMD                   0x4048
+
+    Return 1 if thread trace is supported, 0 otherwise:
+
+        CL_DEVICE_THREAD_TRACE_SUPPORTED_AMD            0x4049
+
+    Return the core engine GFXIP major version:
+
+        CL_DEVICE_GFXIP_MAJOR_AMD                       0x404A
+
+    Return the core engine GFXIP minor version:
+
+        CL_DEVICE_GFXIP_MINOR_AMD                       0x404B
+
+    Return the number of available async queues:
+
+        CL_DEVICE_AVAILABLE_ASYNC_QUEUES_AMD            0x404C
+
+Revision History
+
+    Version 1, 2010/03/26 (Laurent Morichetti) - initial extension specification.
+    Version 2, 2015/03/08 (Brian Sumner) - update query list
+    Version 3, 2015/03/27 (Jon Leech) - add Overview note about benign reuse
+        of enum from cl_ext_migrate_memobject (Bug 13603).

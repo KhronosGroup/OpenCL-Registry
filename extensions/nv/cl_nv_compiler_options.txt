@@ -1,0 +1,58 @@
+Name
+
+    NV_compiler_options
+
+Name Strings
+
+    cl_nv_compiler_options
+
+Number
+
+    OpenCL Extension #17
+
+Dependencies
+
+    OpenCL 1.0 is required
+
+Contributors
+
+    Cyril Zeller
+    Joshua Newman
+
+Overview
+
+    This extension allows the programmer to pass options to the PTX assembler
+    allowing greater control over code generation.
+
+Details
+
+    Section 5.4.3 of the OpenCL 1.0 specification lists compiler options that
+    can be passed to clBuildProgram. This extension adds the following
+    options:
+
+    -cl-nv-maxrregcount <N>
+        Passed on to ptxas as --maxrregcount <N>
+            N is a positive integer.
+        Specify the maximum number of registers that GPU functions can use.
+        Until a function-specific limit, a higher value will generally increase
+        the performance of individual GPU threads that execute this function.
+        However, because thread registers are allocated from a global register
+        pool on each GPU, a higher value of this option will also reduce the
+        maximum thread block size, thereby reducing the amount of thread
+        parallelism. Hence, a good maxrregcount value is the result of a
+        trade-off.
+        If this option is not specified, then no maximum is assumed. Otherwise
+        the specified value will be rounded to the next multiple of 4 registers
+        until the GPU specific maximum of 128 registers.
+
+    -cl-nv-opt-level <N>
+        Passed on to ptxas as --opt-level <N>
+            N is a positive integer, or 0 (no optimization).
+        Specify optimization level.
+        Default value:  3.
+
+    -cl-nv-verbose
+        Passed on to ptxas as --verbose
+        Enable verbose mode.
+        Output will be reported in the build log (accessible through the
+        callback parameter to clBuildProgram).

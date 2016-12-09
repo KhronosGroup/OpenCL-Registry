@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook MathML Module V1.1b1//EN"
+              "http://www.oasis-open.org/docbook/xml/mathml/1.1CR1/dbmathml.dtd">
+
+<refentry>
+    <refentryinfo>
+        <keywordset>
+            <keyword>clCloneKernel</keyword>
+        </keywordset>
+    </refentryinfo>
+
+    <refmeta>
+        <refentrytitle>clCloneKernel</refentrytitle>
+
+        <refmiscinfo>
+            <copyright>
+                <year>2007-2013</year>
+                <holder>The Khronos Group Inc.
+ Permission is hereby granted, free of charge, to any person obtaining a
+copy of this software and/or associated documentation files (the
+"Materials"), to deal in the Materials without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Materials, and to
+permit persons to whom the Materials are furnished to do so, subject to
+the condition that this copyright notice and permission notice shall be included
+in all copies or substantial portions of the Materials.</holder>
+            </copyright>
+        </refmiscinfo>
+        <manvolnum>3</manvolnum>
+    </refmeta>
+
+<!-- ================================ SYNOPSIS -->
+
+    <refnamediv id="clCloneKernel">
+        <refname>clCloneKernel</refname>
+
+        <refpurpose>
+            Make a shallow copy of the kernel object.
+        </refpurpose>
+    </refnamediv>
+
+    <refsynopsisdiv xmlns:xlink="http://www.w3.org/1999/xlink"><title></title>
+        <funcsynopsis>
+            <funcprototype>
+                <funcdef>
+                    <link xlink:href="abstractDataTypes.html">cl_kernel</link>
+                    <function>
+                        clCloneKernel
+                    </function>
+                </funcdef>
+
+                <paramdef><link xlink:href="abstractDataTypes.html">cl_kernel</link><parameter>source_kernel</parameter></paramdef>
+                <paramdef><link xlink:href="scalarDataTypes.html">cl_int</link><parameter>*errcode_ret</parameter></paramdef>
+
+            </funcprototype>
+        </funcsynopsis>
+    </refsynopsisdiv>
+
+<!-- ================================ PARAMETERS -->
+
+    <refsect1 id="parameters">
+      <title>Parameters</title>
+      <variablelist>
+
+        <varlistentry>
+          <term><varname>source_kernel</varname> </term>
+          <listitem>
+            <para><!-- this corrects a probable typo in the 2.1 spec, replace "with not" with "will not" -->
+                A valid <type>cl_kernel</type> object that will be copied. 
+                <varname>source_kernel</varname> will not be
+                modified in any way by this function.
+            </para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term> <varname>errcode_ret</varname> </term>
+          <listitem>
+            <para>
+                Assigned an appropriate error code. If <varname>errcode_ret</varname> 
+                is <code>NULL</code>, no error code is returned.
+            </para>
+          </listitem>
+        </varlistentry>
+>
+      </variablelist>
+    </refsect1>
+
+
+<!-- ================================ DESCRIPTION  -->
+
+    <refsect1 id="description"><title>Description</title>
+        <para>
+            Makes a shallow copy of the kernel object, 
+            its arguments and any information passed to
+            the kernel object using 
+            <citerefentry><refentrytitle>clSetKernelExecInfo</refentrytitle></citerefentry>. 
+            If the kernel object was ready to be enqueued
+            before copying it, the clone of the kernel 
+            object is ready to enqueue.
+        </para>
+    </refsect1>
+
+
+<!-- ================================ NOTES  -->
+
+    <refsect1 id="notes"><title>Notes</title>
+        <para>
+            The returned kernel object is an exact copy of 
+            <varname>source_kernel</varname>, with one caveat: the reference
+            count on the returned kernel object is set as if it had been returned by 
+            <citerefentry><refentrytitle>clCreateKernel</refentrytitle></citerefentry> . 
+            The reference count of <varname>source_kernel</varname> will not be changed.
+        </para>
+
+        <para>
+            The resulting kernel will be in the same state as if 
+            <citerefentry><refentrytitle>clCreateKernel</refentrytitle></citerefentry> 
+            is called to create the
+            resultant kernel with the same arguments as those used to create 
+            <varname>source_kernel</varname>, the latest call to
+            <citerefentry><refentrytitle>clSetKernelArg</refentrytitle></citerefentry> 
+            or 
+            <citerefentry><refentrytitle>clSetKernelArgSVMPointer</refentrytitle></citerefentry> 
+            for each argument index applied to kernel and
+            the last call to 
+            <citerefentry><refentrytitle>clSetKernelExecInfo</refentrytitle></citerefentry>
+            for each value of the param name parameter are applied to
+            the new kernel object.
+        </para>
+
+        <para>
+            All arguments of the new kernel object must be intact and it may be correctly used in the same
+            situations as kernel except those that assume a pre-existing reference count. Setting arguments on
+            the new kernel object will not affect <varname>source_kernel</varname> except insofar as the argument points to a
+            shared underlying entity and in that situation behavior is as if two kernel objects had been
+            created and the same argument applied to each. Only the data stored in the kernel object is
+            copied; data referenced by the kernel’s arguments are not copied. For example, if a buffer or
+            pointer argument is set on a kernel object, the pointer is copied but the underlying memory
+            allocation is not.
+        </para>
+    </refsect1>
+
+<!-- ================================ ERRORS  -->
+
+    <refsect1 id="errors"><title>Errors</title>
+        <para>
+            Returns a valid non-zero kernel object and 
+            <varname>errcode_ret</varname> is set to 
+            <constant>CL_SUCCESS</constant> if
+            the kernel is successfully copied. Otherwise 
+            it returns a NULL value with one of the following
+            error values returned in 
+            <varname>errcode_ret</varname>:
+        </para>
+
+        <itemizedlist mark="disc">
+            <listitem>
+              <errorname>CL_INVALID_KERNEL</errorname> if 
+              <varname>kernel</varname> is not a valid kernel object.
+            </listitem>
+
+            <listitem>
+              <errorname>CL_OUT_OF_RESOURCES</errorname> 
+              if there is a failure to allocate resources required by the
+              OpenCL implementation on the device.
+            </listitem>
+
+            <listitem>
+              <errorname>CL_OUT_OF_HOST_MEMORY</errorname> 
+              if there is a failure to allocate resources required by the
+              OpenCL implementation on the host
+            </listitem>
+        </itemizedlist>
+    </refsect1>
+
+<!-- ================================ EXAMPLE  -->
+<!-- DO NOT DELETE IN CASE AN EXAMPLE IS ADDED IN THE FUTURE -->
+<!--
+    <refsect2 id="example1">
+        <title>
+            Example
+        </title>
+
+        <informaltable frame="none">
+            <tgroup cols="1" align="left" colsep="0" rowsep="0">
+                <colspec colname="col1" colnum="1" />
+                <tbody>
+                    <row>
+                        <entry>
+                            Example goes here - it will be set in "code" type with white space preserved.
+                        </entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </informaltable>
+    </refsect2>
+-->
+
+<!-- ================================ SPECIFICATION  -->
+<!-- Set the "uri" attribute in the <olink /> element to the "named destination" for the PDF page
+-->
+    <refsect1 id="specification"><title>Specification</title>
+        <para>
+            <imageobject>
+                <imagedata fileref="pdficon_small1.gif" format="gif" />
+            </imageobject>
+
+            <olink uri="clCloneKernel">OpenCL Specification</olink>
+        </para>
+    </refsect1>
+
+<!--  ================================ ALSO SEE  -->
+
+    <refsect1 id="seealso"><title>Also see</title>
+        <para>
+            <citerefentry><refentrytitle>clSetKernelExecInfo</refentrytitle></citerefentry>
+        </para>
+    </refsect1>
+
+<!-- ============================== COPYRIGHT -->
+<!-- Content included from copyright.inc.xsl -->
+
+    <refsect3 id="Copyright"><title></title>
+        <imageobject>
+                <imagedata fileref="KhronosLogo.jpg" format="jpg" />
+        </imageobject>
+        <para />
+    </refsect3>
+
+ <!-- 29-Oct-2015, API ver 2.1 rev 19 -->
+</refentry>
+

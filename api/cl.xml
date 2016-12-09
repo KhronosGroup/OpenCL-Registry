@@ -1,0 +1,1152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<registry>
+    <comment>
+Copyright (c) 2013-2016 The Khronos Group Inc.
+
+Permission is hereby granted, free of charge, to any person obtaining a
+copy of this software and/or associated documentation files (the
+"Materials"), to deal in the Materials without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Materials, and to
+permit persons to whom the Materials are furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be included
+in all copies or substantial portions of the Materials.
+
+THE MATERIALS ARE PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+MATERIALS OR THE USE OR OTHER DEALINGS IN THE MATERIALS.
+
+------------------------------------------------------------------------
+
+This file, cl.xml, is the OpenCL API Registry spec file. At present it only
+contains OpenCL enumerant reservations and definitions, and extension number
+reservations. It is (probably) not syntactically valid XML at this time, and
+has no formal schema defined.
+    </comment>
+
+    <!-- SECTION: OpenCL enumerant (token) definitions. -->
+
+    <!-- There are a variety of namespaces corresponding to different
+         parameter types, including bitmasks in their own namespaces -->
+
+    <enums namespace="CL" start="0" end="-999" group="ErrorCodes" vendor="Khronos" comment="Error codes start at 0 and decrease">
+        <enum value="0"           name="CL_SUCCESS"/>
+        <enum value="-1"          name="CL_DEVICE_NOT_FOUND"/>
+        <enum value="-2"          name="CL_DEVICE_NOT_AVAILABLE"/>
+        <enum value="-3"          name="CL_COMPILER_NOT_AVAILABLE"/>
+        <enum value="-4"          name="CL_MEM_OBJECT_ALLOCATION_FAILURE"/>
+        <enum value="-5"          name="CL_OUT_OF_RESOURCES"/>
+        <enum value="-6"          name="CL_OUT_OF_HOST_MEMORY"/>
+        <enum value="-7"          name="CL_PROFILING_INFO_NOT_AVAILABLE"/>
+        <enum value="-8"          name="CL_MEM_COPY_OVERLAP"/>
+        <enum value="-9"          name="CL_IMAGE_FORMAT_MISMATCH"/>
+        <enum value="-10"         name="CL_IMAGE_FORMAT_NOT_SUPPORTED"/>
+        <enum value="-11"         name="CL_BUILD_PROGRAM_FAILURE"/>
+        <enum value="-12"         name="CL_MAP_FAILURE"/>
+        <enum value="-13"         name="CL_MISALIGNED_SUB_BUFFER_OFFSET"/>
+        <enum value="-14"         name="CL_EXEC_STATUS_ERROR_FOR_EVENTS_IN_WAIT_LIST"/>
+        <enum value="-15"         name="CL_COMPILE_PROGRAM_FAILURE"/>
+        <enum value="-16"         name="CL_LINKER_NOT_AVAILABLE"/>
+        <enum value="-17"         name="CL_LINK_PROGRAM_FAILURE"/>
+        <enum value="-18"         name="CL_DEVICE_PARTITION_FAILED"/>
+        <enum value="-19"         name="CL_KERNEL_ARG_INFO_NOT_AVAILABLE"/>
+            <unused start="-20" end="-29" comment="Reserved for Khronos"/>
+        <enum value="-30"         name="CL_INVALID_VALUE"/>
+        <enum value="-31"         name="CL_INVALID_DEVICE_TYPE"/>
+        <enum value="-32"         name="CL_INVALID_PLATFORM"/>
+        <enum value="-33"         name="CL_INVALID_DEVICE"/>
+        <enum value="-34"         name="CL_INVALID_CONTEXT"/>
+        <enum value="-35"         name="CL_INVALID_QUEUE_PROPERTIES"/>
+        <enum value="-36"         name="CL_INVALID_COMMAND_QUEUE"/>
+        <enum value="-37"         name="CL_INVALID_HOST_PTR"/>
+        <enum value="-38"         name="CL_INVALID_MEM_OBJECT"/>
+        <enum value="-39"         name="CL_INVALID_IMAGE_FORMAT_DESCRIPTOR"/>
+        <enum value="-40"         name="CL_INVALID_IMAGE_SIZE"/>
+        <enum value="-41"         name="CL_INVALID_SAMPLER"/>
+        <enum value="-42"         name="CL_INVALID_BINARY"/>
+        <enum value="-43"         name="CL_INVALID_BUILD_OPTIONS"/>
+        <enum value="-44"         name="CL_INVALID_PROGRAM"/>
+        <enum value="-45"         name="CL_INVALID_PROGRAM_EXECUTABLE"/>
+        <enum value="-46"         name="CL_INVALID_KERNEL_NAME"/>
+        <enum value="-47"         name="CL_INVALID_KERNEL_DEFINITION"/>
+        <enum value="-48"         name="CL_INVALID_KERNEL"/>
+        <enum value="-49"         name="CL_INVALID_ARG_INDEX"/>
+        <enum value="-50"         name="CL_INVALID_ARG_VALUE"/>
+        <enum value="-51"         name="CL_INVALID_ARG_SIZE"/>
+        <enum value="-52"         name="CL_INVALID_KERNEL_ARGS"/>
+        <enum value="-53"         name="CL_INVALID_WORK_DIMENSION"/>
+        <enum value="-54"         name="CL_INVALID_WORK_GROUP_SIZE"/>
+        <enum value="-55"         name="CL_INVALID_WORK_ITEM_SIZE"/>
+        <enum value="-56"         name="CL_INVALID_GLOBAL_OFFSET"/>
+        <enum value="-57"         name="CL_INVALID_EVENT_WAIT_LIST"/>
+        <enum value="-58"         name="CL_INVALID_EVENT"/>
+        <enum value="-59"         name="CL_INVALID_OPERATION"/>
+        <enum value="-60"         name="CL_INVALID_GL_OBJECT"/>
+        <enum value="-61"         name="CL_INVALID_BUFFER_SIZE"/>
+        <enum value="-62"         name="CL_INVALID_MIP_LEVEL"/>
+        <enum value="-63"         name="CL_INVALID_GLOBAL_WORK_SIZE"/>
+        <enum value="-64"         name="CL_INVALID_PROPERTY"/>
+        <enum value="-65"         name="CL_INVALID_IMAGE_DESCRIPTOR"/>
+        <enum value="-66"         name="CL_INVALID_COMPILER_OPTIONS"/>
+        <enum value="-67"         name="CL_INVALID_LINKER_OPTIONS"/>
+        <enum value="-68"         name="CL_INVALID_DEVICE_PARTITION_COUNT"/>
+            <unused start="-69" end="-999" comment="Reserved for Khronos"/>
+    </enums>
+
+    <enums namespace="CL" start="-1000" end="-1001" group="ErrorCodes" vendor="Khronos" comment="Extension error codes start at -1000 and decrease">
+        <enum value="-1000"       name="CL_INVALID_GL_SHAREGROUP_REFERENCE_KHR"/>
+        <enum value="-1001"       name="CL_PLATFORM_NOT_FOUND_KHR"/>
+    </enums>
+
+    <enums namespace="CL" start="-1002" end="-1017" group="ErrorCodes" vendor="NVIDIA" comment="Allocated per Bug 5782">
+        <enum value="-1002"       name="CL_INVALID_D3D10_DEVICE_KHR"/>
+        <enum value="-1002"       name="CL_INVALID_D3D10_DEVICE_NV"/>
+        <enum value="-1003"       name="CL_INVALID_D3D10_RESOURCE_KHR"/>
+        <enum value="-1003"       name="CL_INVALID_D3D10_RESOURCE_NV"/>
+        <enum value="-1004"       name="CL_D3D10_RESOURCE_ALREADY_ACQUIRED_KHR"/>
+        <enum value="-1004"       name="CL_D3D10_RESOURCE_ALREADY_ACQUIRED_NV"/>
+        <enum value="-1005"       name="CL_D3D10_RESOURCE_NOT_ACQUIRED_KHR"/>
+        <enum value="-1005"       name="CL_D3D10_RESOURCE_NOT_ACQUIRED_NV"/>
+        <enum value="-1006"       name="CL_INVALID_D3D11_DEVICE_KHR"/>
+        <enum value="-1006"       name="CL_INVALID_D3D11_DEVICE_NV"/>
+        <enum value="-1007"       name="CL_INVALID_D3D11_RESOURCE_KHR"/>
+        <enum value="-1007"       name="CL_INVALID_D3D11_RESOURCE_NV"/>
+        <enum value="-1008"       name="CL_D3D11_RESOURCE_ALREADY_ACQUIRED_KHR"/>
+        <enum value="-1008"       name="CL_D3D11_RESOURCE_ALREADY_ACQUIRED_NV"/>
+        <enum value="-1009"       name="CL_D3D11_RESOURCE_NOT_ACQUIRED_KHR"/>
+        <enum value="-1009"       name="CL_D3D11_RESOURCE_NOT_ACQUIRED_NV"/>
+        <enum value="-1010"       name="CL_INVALID_D3D9_DEVICE_NV"/>
+        <enum value="-1010"       name="CL_INVALID_DX9_DEVICE_INTEL"/>
+        <enum value="-1010"       name="CL_INVALID_DX9_MEDIA_ADAPTER_KHR"/>
+        <enum value="-1011"       name="CL_INVALID_D3D9_RESOURCE_NV"/>
+        <enum value="-1011"       name="CL_INVALID_DX9_MEDIA_SURFACE_KHR"/>
+        <enum value="-1011"       name="CL_INVALID_DX9_RESOURCE_INTEL"/>
+        <enum value="-1012"       name="CL_D3D9_RESOURCE_ALREADY_ACQUIRED_NV"/>
+        <enum value="-1012"       name="CL_DX9_MEDIA_SURFACE_ALREADY_ACQUIRED_KHR"/>
+        <enum value="-1012"       name="CL_DX9_RESOURCE_ALREADY_ACQUIRED_INTEL"/>
+        <enum value="-1013"       name="CL_D3D9_RESOURCE_NOT_ACQUIRED_NV"/>
+        <enum value="-1013"       name="CL_DX9_MEDIA_SURFACE_NOT_ACQUIRED_KHR"/>
+        <enum value="-1013"       name="CL_DX9_RESOURCE_NOT_ACQUIRED_INTEL"/>
+            <unused start="-1014" end="-1017"/>
+    </enums>
+
+    <enums namespace="CL" start="-1018" end="-1024" group="ErrorCodes" vendor="AMD" comment="Allocated per Bugs 6071,6075">
+            <!-- To be named AMD atomic counters extension - see bug 6071/6075 -->
+        <enum value="-1018"       name="CL_INVALID_PROPERTY_EXT"/>
+        <enum value="-1019"       name="CL_DEVICE_PARTITION_FAILED_EXT"/>
+        <enum value="-1020"       name="CL_INVALID_PARTITION_COUNT_EXT"/>
+            <!-- To be named AMD D3D9 extension - see bug 6071 -->
+        <enum value="-1021"       name="CL_INVALID_D3D9_DEVICE_AMD"/>
+        <enum value="-1022"       name="CL_INVALID_D3D9_RESOURCE_AMD"/>
+        <enum value="-1023"       name="CL_D3D9_RESOURCE_ALREADY_ACQUIRED_AMD"/>
+        <enum value="-1024"       name="CL_D3D9_RESOURCE_NOT_ACQUIRED_AMD"/>
+    </enums>
+
+    <enums namespace="CL" start="-1025" end="-1056" group="ErrorCodes" vendor="IBM" comment="Allocated per Bug 6261">
+            <unused start="-1025" end="-1056"/>
+    </enums>
+
+    <enums namespace="CL" start="-1057" end="-1091" group="ErrorCodes" vendor="Apple" comment="Allocated for cl_ext_device_fission and by email request from Ian Ollman 2010/07/08">
+        <enum value="-1057"       name="CL_DEVICE_PARTITION_FAILED_EXT"/>
+        <enum value="-1058"       name="CL_INVALID_PARTITION_COUNT_EXT"/>
+        <enum value="-1059"       name="CL_INVALID_PARTITION_NAME_EXT"/>
+            <unused start="-1060" end="-1091"/>
+    </enums>
+
+    <enums namespace="CL" start="-1092" end="-1093" group="ErrorCodes" vendor="Khronos" comment="Allocated per Bug 10490">
+        <enum value="-1092"       name="CL_EGL_RESOURCE_NOT_ACQUIRED_KHR"/>
+        <enum value="-1093"       name="CL_INVALID_EGL_OBJECT_KHR"/>
+    </enums>
+
+    <enums namespace="CL" start="-1094" end="-1101" group="ErrorCodes" vendor="Intel" comment="Allocated per Bug 11132">
+        <enum value="-1094"       name="CL_INVALID_ACCELERATOR_INTEL"/>
+        <enum value="-1095"       name="CL_INVALID_ACCELERATOR_TYPE_INTEL"/>
+        <enum value="-1096"       name="CL_INVALID_ACCELERATOR_DESCRIPTOR_INTEL"/>
+        <enum value="-1097"       name="CL_ACCELERATOR_TYPE_NOT_SUPPORTED_INTEL"/>
+        <enum value="-1098"       name="CL_INVALID_VA_API_MEDIA_ADAPTER_INTEL"/>
+        <enum value="-1099"       name="CL_INVALID_VA_API_MEDIA_SURFACE_INTEL"/>
+        <enum value="-1100"       name="CL_VA_API_MEDIA_SURFACE_ALREADY_ACQUIRED_INTEL"/>
+        <enum value="-1101"       name="CL_VA_API_MEDIA_SURFACE_NOT_ACQUIRED_INTEL"/>
+    </enums>
+
+    <enums namespace="CL" start="-1102" end="-9999" group="ErrorCodes" vendor="Khronos" comment="RESERVED FOR FUTURE ALLOCATIONS BY KHRONOS">
+            <unused start="-1102" end="-9999"/>
+    </enums>
+
+    <enums namespace="CL" group="cl_bool" vendor="Khronos" comment="Boolean values">
+        <enum value="0"           name="CL_FALSE"/>
+        <enum value="1"           name="CL_TRUE"/>
+        <enum value="CL_TRUE"     name="CL_BLOCKING"/>
+        <enum value="CL_FALSE"    name="CL_NON_BLOCKING"/>
+    </enums>
+
+    <enums namespace="CL" group="MiscNumbers" vendor="Multiple" comment="Tokens whose numeric value is intrinsically meaningful">
+        <enum value="0x0"         name="CL_PROPERTIES_LIST_END_EXT"/>
+        <enum value="0x0"         name="CL_PARTITION_BY_COUNTS_LIST_END_EXT"/>
+        <enum value="0x0"         name="CL_DEVICE_PARTITION_BY_COUNTS_LIST_END"/>
+        <enum value="-1"          name="CL_PARTITION_BY_NAMES_LIST_END_EXT"/>
+        <enum value="-1"          name="CL_PARTITION_BY_NAMES_LIST_END_INTEL"/>
+    </enums>
+
+    <enums namespace="CL" group="cl_affinity_domain_ext" vendor="IBM" comment="Property names for CL_DEVICE_PARTITION_BY_AFFINITY_DOMAIN_EXT. This is not a bitfield.">
+        <enum value="0x1"         name="CL_AFFINITY_DOMAIN_L1_CACHE_EXT"/>
+        <enum value="0x2"         name="CL_AFFINITY_DOMAIN_L2_CACHE_EXT"/>
+        <enum value="0x3"         name="CL_AFFINITY_DOMAIN_L3_CACHE_EXT"/>
+        <enum value="0x4"         name="CL_AFFINITY_DOMAIN_L4_CACHE_EXT"/>
+        <enum value="0x10"        name="CL_AFFINITY_DOMAIN_NUMA_EXT"/>
+        <enum value="0x100"       name="CL_AFFINITY_DOMAIN_NEXT_FISSIONABLE_EXT"/>
+    </enums>
+
+    <enums namespace="CL" group="cl_build_status" vendor="Khronos" comment="New values decrease">
+        <enum value="0"           name="CL_BUILD_SUCCESS"/>
+        <enum value="-1"          name="CL_BUILD_NONE"/>
+        <enum value="-2"          name="CL_BUILD_ERROR"/>
+        <enum value="-3"          name="CL_BUILD_IN_PROGRESS"/>
+            <unused start="-4" end="-9999"/>
+    </enums>
+
+    <enums namespace="CL" group="clCommandExecutionStatus" vendor="Khronos">
+        <enum value="0x0"         name="CL_COMPLETE"/>
+        <enum value="0x1"         name="CL_RUNNING"/>
+        <enum value="0x2"         name="CL_SUBMITTED"/>
+        <enum value="0x3"         name="CL_QUEUED"/>
+            <unused start="0x4" end="9999"/>
+    </enums>
+
+    <enums namespace="CL" group="cl_device_mem_cache_type" vendor="Khronos">
+        <enum value="0x0"         name="CL_NONE"/>
+        <enum value="0x1"         name="CL_READ_ONLY_CACHE"/>
+        <enum value="0x2"         name="CL_READ_WRITE_CACHE"/>
+            <unused start="0x3" end="9999"/>
+    </enums>
+
+    <enums namespace="CL" group="cl_compiler_mode_altera" vendor="Altera">
+        <enum value="0x0"         name="CL_CONTEXT_COMPILER_MODE_OFFLINE_ALTERA"/>
+        <enum value="0x1"         name="CL_CONTEXT_COMPILER_MODE_OFFLINE_CREATE_EXE_LIBRARY_ALTERA"/>
+        <enum value="0x2"         name="CL_CONTEXT_COMPILER_MODE_OFFLINE_USE_EXE_LIBRARY_ALTERA"/>
+        <enum value="0x3"         name="CL_CONTEXT_COMPILER_MODE_PRELOADED_BINARY_ONLY_ALTERA"/>
+            <unused start="0x4" end="9999"/>
+    </enums>
+
+    <enums namespace="CL" group="cl_device_local_mem_type" vendor="Khronos">
+        <enum value="0x1"         name="CL_LOCAL"/>
+        <enum value="0x2"         name="CL_GLOBAL"/>
+            <unused start="0x3" end="9999"/>
+    </enums>
+
+    <enums namespace="CL" group="cl_program_binary_type" vendor="Khronos">
+        <enum value="0x0"         name="CL_PROGRAM_BINARY_TYPE_NONE"/>
+        <enum value="0x1"         name="CL_PROGRAM_BINARY_TYPE_COMPILED_OBJECT"/>
+        <enum value="0x2"         name="CL_PROGRAM_BINARY_TYPE_LIBRARY"/>
+        <enum value="0x4"         name="CL_PROGRAM_BINARY_TYPE_EXECUTABLE"/>
+            <unused start="0x5" end="9999"/>
+    </enums>
+
+    <enums namespace="CL" group="cl_accelerator_type_intel" vendor="Intel" comment="cl_intel_motion_estimation extension">
+        <enum value="0x0"         name="CL_ACCELERATOR_TYPE_MOTION_ESTIMATION_INTEL"/>
+            <unused start="0x1" end="9999"/>
+    </enums>
+
+    <enums namespace="CL" group="cl_device_type" vendor="Khronos" type="bitmask">
+        <enum value="(1 << 0)"    name="CL_DEVICE_TYPE_DEFAULT"/>
+        <enum value="(1 << 1)"    name="CL_DEVICE_TYPE_CPU"/>
+        <enum value="(1 << 2)"    name="CL_DEVICE_TYPE_GPU"/>
+        <enum value="(1 << 3)"    name="CL_DEVICE_TYPE_ACCELERATOR"/>
+        <enum value="(1 << 4)"    name="CL_DEVICE_TYPE_CUSTOM"/>
+            <unused start="1<<5" end="1<<31"/>
+        <enum value="0xFFFFFFFF"  name="CL_DEVICE_TYPE_ALL"/>
+    </enums>
+
+    <enums namespace="CL" group="cl_device_fp_config" vendor="Khronos" type="bitmask">
+        <enum value="(1 << 0)"    name="CL_FP_DENORM"/>
+        <enum value="(1 << 1)"    name="CL_FP_INF_NAN"/>
+        <enum value="(1 << 2)"    name="CL_FP_ROUND_TO_NEAREST"/>
+        <enum value="(1 << 3)"    name="CL_FP_ROUND_TO_ZERO"/>
+        <enum value="(1 << 4)"    name="CL_FP_ROUND_TO_INF"/>
+        <enum value="(1 << 5)"    name="CL_FP_FMA"/>
+        <enum value="(1 << 6)"    name="CL_FP_SOFT_FLOAT"/>
+        <enum value="(1 << 7)"    name="CL_FP_CORRECTLY_ROUNDED_DIVIDE_SQRT"/>
+            <unused start="1<<8" end="1<<31"/>
+    </enums>
+
+    <enums namespace="CL" group="cl_device_exec_capabilities" vendor="Khronos" type="bitmask">
+        <enum value="(1 << 0)"    name="CL_EXEC_KERNEL"/>
+        <enum value="(1 << 1)"    name="CL_EXEC_NATIVE_KERNEL"/>
+            <unused start="1<<2" end="1<<31"/>
+    </enums>
+
+    <enums namespace="CL" group="cl_device_svm_capabilities" vendor="Khronos" type="bitmask">
+        <enum value="(1 << 0)"    name="CL_DEVICE_SVM_COARSE_GRAIN_BUFFER"/>
+        <enum value="(1 << 1)"    name="CL_DEVICE_SVM_FINE_GRAIN_BUFFER"/>
+        <enum value="(1 << 2)"    name="CL_DEVICE_SVM_FINE_GRAIN_SYSTEM"/>
+        <enum value="(1 << 3)"    name="CL_DEVICE_SVM_ATOMICS"/>
+            <unused start="1<<4" end="1<<31"/>
+    </enums>
+
+    <enums namespace="CL" group="cl_command_queue_properties" vendor="Khronos" type="bitmask">
+        <enum value="(1 << 0)"    name="CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE"/>
+        <enum value="(1 << 1)"    name="CL_QUEUE_PROFILING_ENABLE"/>
+            <unused start="1<<2" end="1<<30"/>
+        <enum value="(1 << 31)"   name="CL_QUEUE_THREAD_LOCAL_EXEC_ENABLE_INTEL"/>
+    </enums>
+
+    <enums namespace="CL" group="cl_queue_priority_khr" vendor="Khronos" type="bitmask">
+        <enum value="(1<<0)"    name="CL_QUEUE_PRIORITY_HIGH_KHR"/>
+        <enum value="(1<<1)"    name="CL_QUEUE_PRIORITY_MED_KHR"/>
+        <enum value="(1<<2)"    name="CL_QUEUE_PRIORITY_LOW_KHR"/>
+            <unused start="1<<3" end="1="<<31"/>
+    </enums>
+
+    <enums namespace="CL" group="cl_queue_priority_khr" vendor="Khronos" type="bitmask">
+        <enum value="(1<<0)"    name="CL_QUEUE_PRIORITY_HIGH_KHR"/>
+        <enum value="(1<<1)"    name="CL_QUEUE_PRIORITY_MED_KHR"/>
+        <enum value="(1<<2)"    name="CL_QUEUE_PRIORITY_LOW_KHR"/>
+            <unused start="1<<3" end="1<<31"/>
+    </enums>
+
+    <enums namespace="CL" group="cl_mem_flags" vendor="Khronos" type="bitmask">
+        <enum value="(1 << 0)"    name="CL_MEM_READ_WRITE"/>
+        <enum value="(1 << 1)"    name="CL_MEM_WRITE_ONLY"/>
+        <enum value="(1 << 2)"    name="CL_MEM_READ_ONLY"/>
+        <enum value="(1 << 3)"    name="CL_MEM_USE_HOST_PTR"/>
+        <enum value="(1 << 4)"    name="CL_MEM_ALLOC_HOST_PTR"/>
+        <enum value="(1 << 5)"    name="CL_MEM_COPY_HOST_PTR"/>
+            <unused start="1<<6" comment="reserved"/>
+        <enum value="(1 << 7)"    name="CL_MEM_HOST_WRITE_ONLY"/>
+        <enum value="(1 << 8)"    name="CL_MEM_HOST_READ_ONLY"/>
+        <enum value="(1 << 9)"    name="CL_MEM_HOST_NO_ACCESS"/>
+        <enum value="(1 << 10)"   name="CL_MEM_SVM_FINE_GRAIN_BUFFER"/>
+        <enum value="(1 << 11)"   name="CL_MEM_SVM_ATOMICS"/>
+        <enum value="(1 << 12)"   name="CL_MEM_KERNEL_READ_AND_WRITE"/>
+            <unused start="1<<13" end="1<<23"/>
+            <!-- 1 << (24,25) reserved for Intel (bug 16049) -->
+        <enum value="(1 << 26)"   name="CL_MEM_USE_UNCACHED_CPU_MEMORY_IMG"/>
+        <enum value="(1 << 27)"   name="CL_MEM_USE_CACHED_CPU_MEMORY_IMG"/>
+            <!-- 1 << 28 reserved for IMG (bug 12428) -->
+        <enum value="(1 << 29)"   name="CL_MEM_EXT_HOST_PTR_QCOM"/>
+        <enum value="(1 << 30)"   name="CL_MEM_BUS_ADDRESSABLE_AMD"/>
+        <enum value="(1 << 31)"   name="CL_MEM_EXTERNAL_MEMORY_AMD"/>
+    </enums>
+
+    <enums namespace="CL" group="cl_map_flags" vendor="Khronos" type="bitmask">
+        <enum value="(1 << 0)"    name="CL_MAP_READ"/>
+        <enum value="(1 << 1)"    name="CL_MAP_WRITE"/>
+        <enum value="(1 << 2)"    name="CL_MAP_WRITE_INVALIDATE_REGION"/>
+            <unused start="1<<3" end="1<<31"/>
+    </enums>
+
+    <enums namespace="CL" group="cl_mem_migration_flags" vendor="Khronos" type="bitmask">
+        <enum value="(1 << 0)"    name="CL_MIGRATE_MEM_OBJECT_HOST_EXT"/>
+        <enum value="(1 << 0)"    name="CL_MIGRATE_MEM_OBJECT_HOST"/>
+        <enum value="(1 << 1)"    name="CL_MIGRATE_MEM_OBJECT_CONTENT_UNDEFINED"/>
+            <unused start="1<<2" end="1<<31"/>
+    </enums>
+
+    <enums namespace="CL" group="cl_device_affinity_domain" vendor="Khronos" type="bitmask">
+        <enum value="(1 << 0)"    name="CL_DEVICE_AFFINITY_DOMAIN_NUMA"/>
+        <enum value="(1 << 1)"    name="CL_DEVICE_AFFINITY_DOMAIN_L4_CACHE"/>
+        <enum value="(1 << 2)"    name="CL_DEVICE_AFFINITY_DOMAIN_L3_CACHE"/>
+        <enum value="(1 << 3)"    name="CL_DEVICE_AFFINITY_DOMAIN_L2_CACHE"/>
+        <enum value="(1 << 4)"    name="CL_DEVICE_AFFINITY_DOMAIN_L1_CACHE"/>
+        <enum value="(1 << 5)"    name="CL_DEVICE_AFFINITY_DOMAIN_NEXT_PARTITIONABLE"/>
+            <unused start="1<<6" end="1<<31"/>
+    </enums>
+
+    <enums namespace="CL" group="cl_kernel_arg_type_qualifer" vendor="Khronos" type="bitmask">
+        <enum value="0"           name="CL_KERNEL_ARG_TYPE_NONE"/>
+        <enum value="(1 << 0)"    name="CL_KERNEL_ARG_TYPE_CONST"/>
+        <enum value="(1 << 1)"    name="CL_KERNEL_ARG_TYPE_RESTRICT"/>
+        <enum value="(1 << 2)"    name="CL_KERNEL_ARG_TYPE_VOLATILE"/>
+            <unused start="1<<3" end="1<<31"/>
+    </enums>
+
+    <enums namespace="CL" group="cl_motion_estimation_desc_intel.mb_block_type" vendor="Intel" type="bitmask">
+        <enum value="0x0"         name="CL_ME_MB_TYPE_16x16_INTEL"/>
+        <enum value="0x1"         name="CL_ME_MB_TYPE_8x8_INTEL"/>
+        <enum value="0x2"         name="CL_ME_MB_TYPE_4x4_INTEL"/>
+            <unused start="0x4" end="0x80000000"/>
+    </enums>
+
+    <enums namespace="CL" group="cl_motion_estimation_desc_intel.subpixel_mode" vendor="Intel" type="bitmask">
+        <enum value="0x0"         name="CL_ME_SUBPIXEL_MODE_INTEGER_INTEL"/>
+        <enum value="0x1"         name="CL_ME_SUBPIXEL_MODE_HPEL_INTEL"/>
+        <enum value="0x2"         name="CL_ME_SUBPIXEL_MODE_QPEL_INTEL"/>
+            <unused start="0x4" end="0x80000000"/>
+    </enums>
+
+    <enums namespace="CL" group="cl_motion_estimation_desc_intel.sad_adjust_mode" vendor="Intel" type="bitmask">
+        <enum value="0x0"         name="CL_ME_SAD_ADJUST_MODE_NONE_INTEL"/>
+        <enum value="0x1"         name="CL_ME_SAD_ADJUST_MODE_HAAR_INTEL"/>
+            <unused start="0x2" end="0x80000000"/>
+    </enums>
+
+    <enums namespace="CL" group="cl_motion_estimation_desc_intel.search_path_type" vendor="Intel" type="bitmask">
+        <enum value="0x0"         name="CL_ME_SEARCH_PATH_RADIUS_2_2_INTEL"/>
+        <enum value="0x1"         name="CL_ME_SEARCH_PATH_RADIUS_4_4_INTEL"/>
+            <unused start="0x2"/>
+        <enum value="0x5"         name="CL_ME_SEARCH_PATH_RADIUS_16_12_INTEL"/>
+            <unused start="0x8" end="0x80000000"/>
+    </enums>
+
+    <enums namespace="CL" group="cl_arm_device_svm_capabilities.flags" vendor="ARM" type="bitmask">
+        <enum value="(1 << 0)"    name="CL_DEVICE_SVM_COARSE_GRAIN_BUFFER_ARM"/>
+        <enum value="(1 << 1)"    name="CL_DEVICE_SVM_FINE_GRAIN_BUFFER_ARM"/>
+        <enum value="(1 << 2)"    name="CL_DEVICE_SVM_FINE_GRAIN_SYSTEM_ARM"/>
+        <enum value="(1 << 3)"    name="CL_DEVICE_SVM_ATOMICS_ARM"/>
+            <unused start="0x10" end="0x80000000"/>
+    </enums>
+
+    <enums namespace="CL" group="cl_arm_svm_alloc.flags" vendor="ARM" type="bitmask">
+        <enum value="(1 << 10)"   name="CL_MEM_SVM_FINE_GRAIN_BUFFER_ARM"/>
+        <enum value="(1 << 11)"   name="CL_MEM_SVM_ATOMICS_ARM"/>
+            <unused start="0x4" end="0x80000000"/>
+    </enums>
+
+    <enums namespace="CL" group="cl_intel_driver_diagnostics" vendor="Intel" type="bitmask">
+        <enum value="(1 << 0)"    name="CL_CONTEXT_DIAGNOSTICS_LEVEL_GOOD_INTEL"/>
+        <enum value="(1 << 1)"    name="CL_CONTEXT_DIAGNOSTICS_LEVEL_BAD_INTEL"/>
+        <enum value="(1 << 2)"    name="CL_CONTEXT_DIAGNOSTICS_LEVEL_NEUTRAL_INTEL"/>
+    </enums>
+
+    <enums namespace="CL" group="cl_intel_advanced_motion_estimation.flags" vendor="Intel" type="bitmask">
+        <enum value="0x1"         name="CL_ME_CHROMA_INTRA_PREDICT_ENABLED_INTEL"/>
+        <enum value="0x2"         name="CL_ME_LUMA_INTRA_PREDICT_ENABLED_INTEL"/>
+    </enums>
+
+    <enums namespace="CL" group="cl_intel_advanced_motion_estimation.search_cost_penalty" vendor="Intel">
+        <enum value="0x0"         name="CL_ME_COST_PENALTY_NONE_INTEL"/>
+        <enum value="0x1"         name="CL_ME_COST_PENALTY_LOW_INTEL"/>
+        <enum value="0x2"         name="CL_ME_COST_PENALTY_NORMAL_INTEL"/>
+        <enum value="0x3"         name="CL_ME_COST_PENALTY_HIGH_INTEL"/>
+    </enums>
+
+    <enums namespace="CL" group="cl_intel_advanced_motion_estimation.search_cost_precision" vendor="Intel">
+        <enum value="0x0"         name="CL_ME_COST_PRECISION_QPEL_INTEL"/>
+        <enum value="0x1"         name="CL_ME_COST_PRECISION_HEL_INTEL"/>
+        <enum value="0x2"         name="CL_ME_COST_PRECISION_PEL_INTEL"/>
+        <enum value="0x3"         name="CL_ME_COST_PRECISION_DPEL_INTEL"/>
+    </enums>
+
+    <enums namespace="CL" group="cl_intel_advanced_motion_estimation.intra_search_prediction_modes_buffer.luma_block" vendor="Intel">
+        <enum value="0x0"         name="CL_ME_LUMA_PREDICTOR_MODE_VERTICAL_INTEL"/>
+        <enum value="0x1"         name="CL_ME_LUMA_PREDICTOR_MODE_HORIZONTAL_INTEL"/>
+        <enum value="0x2"         name="CL_ME_LUMA_PREDICTOR_MODE_DC_INTEL"/>
+        <enum value="0x3"         name="CL_ME_LUMA_PREDICTOR_MODE_DIAGONAL_DOWN_LEFT_INTEL"/>
+        <enum value="0x4"         name="CL_ME_LUMA_PREDICTOR_MODE_DIAGONAL_DOWN_RIGHT_INTEL"/>
+        <enum value="0x4"         name="CL_ME_LUMA_PREDICTOR_MODE_PLANE_INTEL"/>
+        <enum value="0x5"         name="CL_ME_LUMA_PREDICTOR_MODE_VERTICAL_RIGHT_INTEL"/>
+        <enum value="0x6"         name="CL_ME_LUMA_PREDICTOR_MODE_HORIZONTAL_DOWN_INTEL"/>
+        <enum value="0x7"         name="CL_ME_LUMA_PREDICTOR_MODE_VERTICAL_LEFT_INTEL"/>
+        <enum value="0x8"         name="CL_ME_LUMA_PREDICTOR_MODE_HORIZONTAL_UP_INTEL"/>
+    </enums>
+
+    <enums namespace="CL" group="cl_intel_advanced_motion_estimation.intra_search_prediction_modes_buffer.chroma_block" vendor="Intel">
+        <enum value="0x0"         name="CL_ME_CHROMA_PREDICTOR_MODE_DC_INTEL"/>
+        <enum value="0x1"         name="CL_ME_CHROMA_PREDICTOR_MODE_HORIZONTAL_INTEL"/>
+        <enum value="0x2"         name="CL_ME_CHROMA_PREDICTOR_MODE_VERTICAL_INTEL"/>
+        <enum value="0x3"         name="CL_ME_CHROMA_PREDICTOR_MODE_PLANE_INTEL"/>
+    </enums>
+
+    <enums namespace="CL" group="cl_intel_advanced_motion_estimation.skip_block_type" vendor="Intel">
+        <enum value="0x0"         name="CL_ME_MB_TYPE_16x16_INTEL"/>
+        <enum value="0x1"         name="CL_ME_MB_TYPE_8x8_INTEL"/>
+        <enum value="0x2"         name="CL_ME_MB_TYPE_4x4_INTEL"/>
+    </enums>
+
+    <enums namespace="CL" group="cl_intel_advanced_motion_estimation.device_me_version" vendor="Intel">
+        <enum value="0x1"         name="CL_ME_VERSION_ADVANCED_VER_1_INTEL"/>
+    </enums>
+
+    <enums namespace="CL" start="0x0900" end="0x09FF" group="cl_platform_info" vendor="Khronos">
+        <enum value="0x0900"      name="CL_PLATFORM_PROFILE"/>
+        <enum value="0x0901"      name="CL_PLATFORM_VERSION"/>
+        <enum value="0x0902"      name="CL_PLATFORM_NAME"/>
+        <enum value="0x0903"      name="CL_PLATFORM_VENDOR"/>
+        <enum value="0x0904"      name="CL_PLATFORM_EXTENSIONS"/>
+        <enum value="0x0905"      name="CL_PLATFORM_HOST_TIMER_RESOLUTION"/>
+            <unused start="0x0906" end="0x091F" comment="Reserved to Khronos"/>
+        <enum value="0x0920"      name="CL_PLATFORM_ICD_SUFFIX_KHR"/>
+            <unused start="0x0921" end="0x09FF" comment="Vendor extensions"/>
+    </enums>
+
+    <enums namespace="CL" start="0x1000" end="0x107F" group="cl_device_info" vendor="Khronos">
+        <enum value="0x1000"      name="CL_DEVICE_TYPE"/>
+        <enum value="0x1001"      name="CL_DEVICE_VENDOR_ID"/>
+        <enum value="0x1002"      name="CL_DEVICE_MAX_COMPUTE_UNITS"/>
+        <enum value="0x1003"      name="CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS"/>
+        <enum value="0x1004"      name="CL_DEVICE_MAX_WORK_GROUP_SIZE"/>
+        <enum value="0x1005"      name="CL_DEVICE_MAX_WORK_ITEM_SIZES"/>
+        <enum value="0x1006"      name="CL_DEVICE_PREFERRED_VECTOR_WIDTH_CHAR"/>
+        <enum value="0x1007"      name="CL_DEVICE_PREFERRED_VECTOR_WIDTH_SHORT"/>
+        <enum value="0x1008"      name="CL_DEVICE_PREFERRED_VECTOR_WIDTH_INT"/>
+        <enum value="0x1009"      name="CL_DEVICE_PREFERRED_VECTOR_WIDTH_LONG"/>
+        <enum value="0x100A"      name="CL_DEVICE_PREFERRED_VECTOR_WIDTH_FLOAT"/>
+        <enum value="0x100B"      name="CL_DEVICE_PREFERRED_VECTOR_WIDTH_DOUBLE"/>
+        <enum value="0x100C"      name="CL_DEVICE_MAX_CLOCK_FREQUENCY"/>
+        <enum value="0x100D"      name="CL_DEVICE_ADDRESS_BITS"/>
+        <enum value="0x100E"      name="CL_DEVICE_MAX_READ_IMAGE_ARGS"/>
+        <enum value="0x100F"      name="CL_DEVICE_MAX_WRITE_IMAGE_ARGS"/>
+        <enum value="0x1010"      name="CL_DEVICE_MAX_MEM_ALLOC_SIZE"/>
+        <enum value="0x1011"      name="CL_DEVICE_IMAGE2D_MAX_WIDTH"/>
+        <enum value="0x1012"      name="CL_DEVICE_IMAGE2D_MAX_HEIGHT"/>
+        <enum value="0x1013"      name="CL_DEVICE_IMAGE3D_MAX_WIDTH"/>
+        <enum value="0x1014"      name="CL_DEVICE_IMAGE3D_MAX_HEIGHT"/>
+        <enum value="0x1015"      name="CL_DEVICE_IMAGE3D_MAX_DEPTH"/>
+        <enum value="0x1016"      name="CL_DEVICE_IMAGE_SUPPORT"/>
+        <enum value="0x1017"      name="CL_DEVICE_MAX_PARAMETER_SIZE"/>
+        <enum value="0x1018"      name="CL_DEVICE_MAX_SAMPLERS"/>
+        <enum value="0x1019"      name="CL_DEVICE_MEM_BASE_ADDR_ALIGN"/>
+        <enum value="0x101A"      name="CL_DEVICE_MIN_DATA_TYPE_ALIGN_SIZE"/>
+        <enum value="0x101B"      name="CL_DEVICE_SINGLE_FP_CONFIG"/>
+        <enum value="0x101C"      name="CL_DEVICE_GLOBAL_MEM_CACHE_TYPE"/>
+        <enum value="0x101D"      name="CL_DEVICE_GLOBAL_MEM_CACHELINE_SIZE"/>
+        <enum value="0x101E"      name="CL_DEVICE_GLOBAL_MEM_CACHE_SIZE"/>
+        <enum value="0x101F"      name="CL_DEVICE_GLOBAL_MEM_SIZE"/>
+        <enum value="0x1020"      name="CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE"/>
+        <enum value="0x1021"      name="CL_DEVICE_MAX_CONSTANT_ARGS"/>
+        <enum value="0x1022"      name="CL_DEVICE_LOCAL_MEM_TYPE"/>
+        <enum value="0x1023"      name="CL_DEVICE_LOCAL_MEM_SIZE"/>
+        <enum value="0x1024"      name="CL_DEVICE_ERROR_CORRECTION_SUPPORT"/>
+        <enum value="0x1025"      name="CL_DEVICE_PROFILING_TIMER_RESOLUTION"/>
+        <enum value="0x1026"      name="CL_DEVICE_ENDIAN_LITTLE"/>
+        <enum value="0x1027"      name="CL_DEVICE_AVAILABLE"/>
+        <enum value="0x1028"      name="CL_DEVICE_COMPILER_AVAILABLE"/>
+        <enum value="0x1029"      name="CL_DEVICE_EXECUTION_CAPABILITIES"/>
+        <enum value="0x102A"      name="CL_DEVICE_QUEUE_PROPERTIES"/>
+        <enum value="0x102A"      name="CL_DEVICE_QUEUE_ON_HOST_PROPERTIES"/>
+        <enum value="0x102B"      name="CL_DEVICE_NAME"/>
+        <enum value="0x102C"      name="CL_DEVICE_VENDOR"/>
+        <enum value="0x102D"      name="CL_DRIVER_VERSION"/>
+        <enum value="0x102E"      name="CL_DEVICE_PROFILE"/>
+        <enum value="0x102F"      name="CL_DEVICE_VERSION"/>
+        <enum value="0x1030"      name="CL_DEVICE_EXTENSIONS"/>
+        <enum value="0x1031"      name="CL_DEVICE_PLATFORM"/>
+        <enum value="0x1032"      name="CL_DEVICE_DOUBLE_FP_CONFIG"/>
+        <enum value="0x1033       name="CL_DEVICE_HALF_FP_CONFIG"/>
+        <enum value="0x1034"      name="CL_DEVICE_PREFERRED_VECTOR_WIDTH_HALF"/>
+        <enum value="0x1035"      name="CL_DEVICE_HOST_UNIFIED_MEMORY"/>
+        <enum value="0x1036"      name="CL_DEVICE_NATIVE_VECTOR_WIDTH_CHAR"/>
+        <enum value="0x1037"      name="CL_DEVICE_NATIVE_VECTOR_WIDTH_SHORT"/>
+        <enum value="0x1038"      name="CL_DEVICE_NATIVE_VECTOR_WIDTH_INT"/>
+        <enum value="0x1039"      name="CL_DEVICE_NATIVE_VECTOR_WIDTH_LONG"/>
+        <enum value="0x103A"      name="CL_DEVICE_NATIVE_VECTOR_WIDTH_FLOAT"/>
+        <enum value="0x103B"      name="CL_DEVICE_NATIVE_VECTOR_WIDTH_DOUBLE"/>
+        <enum value="0x103C"      name="CL_DEVICE_NATIVE_VECTOR_WIDTH_HALF"/>
+        <enum value="0x103D"      name="CL_DEVICE_OPENCL_C_VERSION"/>
+        <enum value="0x103E"      name="CL_DEVICE_LINKER_AVAILABLE"/>
+        <enum value="0x103F"      name="CL_DEVICE_BUILT_IN_KERNELS"/>
+        <enum value="0x1040"      name="CL_DEVICE_IMAGE_MAX_BUFFER_SIZE"/>
+        <enum value="0x1041"      name="CL_DEVICE_IMAGE_MAX_ARRAY_SIZE"/>
+        <enum value="0x1042"      name="CL_DEVICE_PARENT_DEVICE"/>
+        <enum value="0x1043"      name="CL_DEVICE_PARTITION_MAX_SUB_DEVICES"/>
+        <enum value="0x1044"      name="CL_DEVICE_PARTITION_PROPERTIES"/>
+        <enum value="0x1045"      name="CL_DEVICE_PARTITION_AFFINITY_DOMAIN"/>
+        <enum value="0x1046"      name="CL_DEVICE_PARTITION_TYPE"/>
+        <enum value="0x1047"      name="CL_DEVICE_REFERENCE_COUNT"/>
+        <enum value="0x1048"      name="CL_DEVICE_PREFERRED_INTEROP_USER_SYNC"/>
+        <enum value="0x1049"      name="CL_DEVICE_PRINTF_BUFFER_SIZE"/>
+        <enum value="0x104A"      name="CL_DEVICE_IMAGE_PITCH_ALIGNMENT"/>
+        <enum value="0x104B"      name="CL_DEVICE_IMAGE_BASE_ADDRESS_ALIGNMENT"/>
+        <enum value="0x104C"      name="CL_DEVICE_MAX_READ_WRITE_IMAGE_ARGS"/>
+        <enum value="0x104D"      name="CL_DEVICE_MAX_GLOBAL_VARIABLE_SIZE"/>
+        <enum value="0x104E"      name="CL_DEVICE_QUEUE_ON_DEVICE_PROPERTIES"/>
+        <enum value="0x104F"      name="CL_DEVICE_QUEUE_ON_DEVICE_PREFERRED_SIZE"/>
+        <enum value="0x1050"      name="CL_DEVICE_QUEUE_ON_DEVICE_MAX_SIZE"/>
+        <enum value="0x1051"      name="CL_DEVICE_MAX_ON_DEVICE_QUEUES"/>
+        <enum value="0x1052"      name="CL_DEVICE_MAX_ON_DEVICE_EVENTS"/>
+        <enum value="0x1053"      name="CL_DEVICE_SVM_CAPABILITIES"/>
+        <enum value="0x1054"      name="CL_DEVICE_GLOBAL_VARIABLE_PREFERRED_TOTAL_SIZE"/>
+        <enum value="0x1055"      name="CL_DEVICE_MAX_PIPE_ARGS"/>
+        <enum value="0x1056"      name="CL_DEVICE_PIPE_MAX_ACTIVE_RESERVATIONS"/>
+        <enum value="0x1057"      name="CL_DEVICE_PIPE_MAX_PACKET_SIZE"/>
+        <enum value="0x1058"      name="CL_DEVICE_PREFERRED_PLATFORM_ATOMIC_ALIGNMENT"/>
+        <enum value="0x1059"      name="CL_DEVICE_PREFERRED_GLOBAL_ATOMIC_ALIGNMENT"/>
+        <enum value="0x105A"      name="CL_DEVICE_PREFERRED_LOCAL_ATOMIC_ALIGNMENT"/>
+        <enum value="0x105B"      name="CL_DEVICE_IL_VERSION"/>
+        <enum value="0x105C"      name="CL_DEVICE_MAX_NUM_SUB_GROUPS"/>
+        <enum value="0x105D"      name="CL_DEVICE_SUB_GROUP_INDEPENDENT_FORWARD_PROGRESS"/>
+            <unused start="0x105E" end="0x107F" comment="Reserved for cl_device_info"/>
+        <enum value="0x1080"      name="CL_CONTEXT_REFERENCE_COUNT"/>
+        <enum value="0x1081"      name="CL_CONTEXT_DEVICES"/>
+        <enum value="0x1082"      name="CL_CONTEXT_PROPERTIES"/>
+        <enum value="0x1083"      name="CL_CONTEXT_NUM_DEVICES"/>
+        <enum value="0x1084"      name="CL_CONTEXT_PLATFORM"/>
+        <enum value="0x1085"      name="CL_CONTEXT_INTEROP_USER_SYNC"/>
+        <enum value="0x1086"      name="CL_DEVICE_PARTITION_EQUALLY"/>
+        <enum value="0x1087"      name="CL_DEVICE_PARTITION_BY_COUNTS"/>
+        <enum value="0x1088"      name="CL_DEVICE_PARTITION_BY_AFFINITY_DOMAIN"/>
+            <unused start="0x1089" end="0x108F" comment="Reserved for cl_device_partition_property"/>
+        <enum value="0x1090"      name="CL_QUEUE_CONTEXT"/>
+        <enum value="0x1091"      name="CL_QUEUE_DEVICE"/>
+        <enum value="0x1092"      name="CL_QUEUE_REFERENCE_COUNT"/>
+        <enum value="0x1093"      name="CL_QUEUE_PROPERTIES"/>
+        <enum value="0x1094"      name="CL_QUEUE_SIZE"/>
+        <enum value="0x1095"      name="CL_QUEUE_DEVICE_DEFAULT"/>
+        <enum value="0x1096"      name="CL_QUEUE_PRIORITY_KHR"/>
+        <enum value="0x1097"      name="CL_QUEUE_THROTTLE_KHR"/>
+            <unused start="0x1098" end="0x109F" comment="Reserved for cl_command_queue_info"/>
+            <unused start="0x10A0" end="0x10AF" comment="Reserved for core API tokens"/>
+        <enum value="0x10B0"      name="CL_R"/>
+        <enum value="0x10B1"      name="CL_A"/>
+        <enum value="0x10B2"      name="CL_RG"/>
+        <enum value="0x10B3"      name="CL_RA"/>
+        <enum value="0x10B4"      name="CL_RGB"/>
+        <enum value="0x10B5"      name="CL_RGBA"/>
+        <enum value="0x10B6"      name="CL_BGRA"/>
+        <enum value="0x10B7"      name="CL_ARGB"/>
+        <enum value="0x10B8"      name="CL_INTENSITY"/>
+        <enum value="0x10B9"      name="CL_LUMINANCE"/>
+        <enum value="0x10BA"      name="CL_Rx"/>
+        <enum value="0x10BB"      name="CL_RGx"/>
+        <enum value="0x10BC"      name="CL_RGBx"/>
+        <enum value="0x10BD"      name="CL_DEPTH"/>
+        <enum value="0x10BE"      name="CL_DEPTH_STENCIL"/>
+        <enum value="0x10BF"      name="CL_sRGB"/>
+        <enum value="0x10C0"      name="CL_sRGBx"/>
+        <enum value="0x10C1"      name="CL_sRGBA"/>
+        <enum value="0x10C2"      name="CL_sBGRA"/>
+            <unused start="0x10C3" end="0x10CF" comment="Reserved for cl_channel_order"/>
+        <enum value="0x10D0"      name="CL_SNORM_INT8"/>
+        <enum value="0x10D1"      name="CL_SNORM_INT16"/>
+        <enum value="0x10D2"      name="CL_UNORM_INT8"/>
+        <enum value="0x10D3"      name="CL_UNORM_INT16"/>
+        <enum value="0x10D4"      name="CL_UNORM_SHORT_565"/>
+        <enum value="0x10D5"      name="CL_UNORM_SHORT_555"/>
+        <enum value="0x10D6"      name="CL_UNORM_INT_101010"/>
+        <enum value="0x10D7"      name="CL_SIGNED_INT8"/>
+        <enum value="0x10D8"      name="CL_SIGNED_INT16"/>
+        <enum value="0x10D9"      name="CL_SIGNED_INT32"/>
+        <enum value="0x10DA"      name="CL_UNSIGNED_INT8"/>
+        <enum value="0x10DB"      name="CL_UNSIGNED_INT16"/>
+        <enum value="0x10DC"      name="CL_UNSIGNED_INT32"/>
+        <enum value="0x10DD"      name="CL_HALF_FLOAT"/>
+        <enum value="0x10DE"      name="CL_FLOAT"/>
+        <enum value="0x10DF"      name="CL_UNORM_INT24"/>
+        <enum value="0x10E0"      name="CL_UNORM_INT_101010_2"/>
+            <unused start="0x10E1" end="0x10EF" comment="Reserved for cl_channel_type"/>
+        <enum value="0x10F0"      name="CL_MEM_OBJECT_BUFFER"/>
+        <enum value="0x10F1"      name="CL_MEM_OBJECT_IMAGE2D"/>
+        <enum value="0x10F2"      name="CL_MEM_OBJECT_IMAGE3D"/>
+        <enum value="0x10F3"      name="CL_MEM_OBJECT_IMAGE2D_ARRAY"/>
+        <enum value="0x10F4"      name="CL_MEM_OBJECT_IMAGE1D"/>
+        <enum value="0x10F5"      name="CL_MEM_OBJECT_IMAGE1D_ARRAY"/>
+        <enum value="0x10F6"      name="CL_MEM_OBJECT_IMAGE1D_BUFFER"/>
+            <unused start="0x10F7" end="0x10FF" comment="Reserved for cl_mem_object_type"/>
+        <enum value="0x1100"      name="CL_MEM_TYPE"/>
+        <enum value="0x1101"      name="CL_MEM_FLAGS"/>
+        <enum value="0x1102"      name="CL_MEM_SIZE"/>
+        <enum value="0x1103"      name="CL_MEM_HOST_PTR"/>
+        <enum value="0x1104"      name="CL_MEM_MAP_COUNT"/>
+        <enum value="0x1105"      name="CL_MEM_REFERENCE_COUNT"/>
+        <enum value="0x1106"      name="CL_MEM_CONTEXT"/>
+        <enum value="0x1107"      name="CL_MEM_ASSOCIATED_MEMOBJECT"/>
+        <enum value="0x1108"      name="CL_MEM_OFFSET"/>
+        <enum value="0x1109"      name="CL_MEM_USES_SVM_POINTER"/>
+            <unused start="0x110A" end="0x110F" comment="Reserved for cl_mem_info"/>
+        <enum value="0x1110"      name="CL_IMAGE_FORMAT"/>
+        <enum value="0x1111"      name="CL_IMAGE_ELEMENT_SIZE"/>
+        <enum value="0x1112"      name="CL_IMAGE_ROW_PITCH"/>
+        <enum value="0x1113"      name="CL_IMAGE_SLICE_PITCH"/>
+        <enum value="0x1114"      name="CL_IMAGE_WIDTH"/>
+        <enum value="0x1115"      name="CL_IMAGE_HEIGHT"/>
+        <enum value="0x1116"      name="CL_IMAGE_DEPTH"/>
+        <enum value="0x1117"      name="CL_IMAGE_ARRAY_SIZE"/>
+        <enum value="0x1118"      name="CL_IMAGE_BUFFER"/>
+        <enum value="0x1119"      name="CL_IMAGE_NUM_MIP_LEVELS"/>
+        <enum value="0x111A"      name="CL_IMAGE_NUM_SAMPLES"/>
+            <unused start="0x111B" end="0x111F" comment="Reserved for cl_image_info"/>
+        <enum value="0x1120"      name="CL_PIPE_PACKET_SIZE"/>
+        <enum value="0x1121"      name="CL_PIPE_MAX_PACKETS"/>
+            <unused start="0x1122" end="0x112F" comment="Reserved for cl_pipe_info"/>
+        <enum value="0x1130"      name="CL_ADDRESS_NONE"/>
+        <enum value="0x1131"      name="CL_ADDRESS_CLAMP_TO_EDGE"/>
+        <enum value="0x1132"      name="CL_ADDRESS_CLAMP"/>
+        <enum value="0x1133"      name="CL_ADDRESS_REPEAT"/>
+        <enum value="0x1134"      name="CL_ADDRESS_MIRRORED_REPEAT"/>
+            <unused start="0x1135" end="0x113F" comment="Reserved for cl_addressing_mode"/>
+        <enum value="0x1140"      name="CL_FILTER_NEAREST"/>
+        <enum value="0x1141"      name="CL_FILTER_LINEAR"/>
+            <unused start="0x1142" end="0x114F" comment="Reserved for cl_filter_mode"/>
+        <enum value="0x1150"      name="CL_SAMPLER_REFERENCE_COUNT"/>
+        <enum value="0x1151"      name="CL_SAMPLER_CONTEXT"/>
+        <enum value="0x1152"      name="CL_SAMPLER_NORMALIZED_COORDS"/>
+        <enum value="0x1153"      name="CL_SAMPLER_ADDRESSING_MODE"/>
+        <enum value="0x1154"      name="CL_SAMPLER_FILTER_MODE"/>
+        <enum value="0x1155"      name="CL_SAMPLER_MIP_FILTER_MODE"/>
+        <enum value="0x1156"      name="CL_SAMPLER_LOD_MIN"/>
+        <enum value="0x1157"      name="CL_SAMPLER_LOD_MAX"/>
+            <unused start="0x1158" end="0x115F" comment="Reserved for cl_sampler_info"/>
+        <enum value="0x1160"      name="CL_PROGRAM_REFERENCE_COUNT"/>
+        <enum value="0x1161"      name="CL_PROGRAM_CONTEXT"/>
+        <enum value="0x1162"      name="CL_PROGRAM_NUM_DEVICES"/>
+        <enum value="0x1163"      name="CL_PROGRAM_DEVICES"/>
+        <enum value="0x1164"      name="CL_PROGRAM_SOURCE"/>
+        <enum value="0x1165"      name="CL_PROGRAM_BINARY_SIZES"/>
+        <enum value="0x1166"      name="CL_PROGRAM_BINARIES"/>
+        <enum value="0x1167"      name="CL_PROGRAM_NUM_KERNELS"/>
+        <enum value="0x1168"      name="CL_PROGRAM_KERNEL_NAMES"/>
+        <enum value="0x1169"      name="CL_PROGRAM_IL"/>
+            <unused start="0x116A" end="0x117F" comment="Reserved for cl_program_info"/>
+            <unused start="0x1180" comment="Reserved for cl_program_build_info"/>
+        <enum value="0x1181"      name="CL_PROGRAM_BUILD_STATUS"/>
+        <enum value="0x1182"      name="CL_PROGRAM_BUILD_OPTIONS"/>
+        <enum value="0x1183"      name="CL_PROGRAM_BUILD_LOG"/>
+        <enum value="0x1184"      name="CL_PROGRAM_BINARY_TYPE"/>
+        <enum value="0x1185"      name="CL_PROGRAM_BUILD_GLOBAL_VARIABLE_TOTAL_SIZE"/>
+            <unused start="0x1186" end="0x118F" comment="Reserved for cl_program_build_info"/>
+        <enum value="0x1190"      name="CL_KERNEL_FUNCTION_NAME"/>
+        <enum value="0x1191"      name="CL_KERNEL_NUM_ARGS"/>
+        <enum value="0x1192"      name="CL_KERNEL_REFERENCE_COUNT"/>
+        <enum value="0x1193"      name="CL_KERNEL_CONTEXT"/>
+        <enum value="0x1194"      name="CL_KERNEL_PROGRAM"/>
+        <enum value="0x1195"      name="CL_KERNEL_ATTRIBUTES"/>
+        <enum value="0x1196"      name="CL_KERNEL_ARG_ADDRESS_QUALIFIER"/>
+        <enum value="0x1197"      name="CL_KERNEL_ARG_ACCESS_QUALIFIER"/>
+        <enum value="0x1198"      name="CL_KERNEL_ARG_TYPE_NAME"/>
+        <enum value="0x1199"      name="CL_KERNEL_ARG_TYPE_QUALIFIER"/>
+        <enum value="0x119A"      name="CL_KERNEL_ARG_NAME"/>
+        <enum value="0x119B"      name="CL_KERNEL_ARG_ADDRESS_GLOBAL"/>
+        <enum value="0x119C"      name="CL_KERNEL_ARG_ADDRESS_LOCAL"/>
+        <enum value="0x119D"      name="CL_KERNEL_ARG_ADDRESS_CONSTANT"/>
+        <enum value="0x119E"      name="CL_KERNEL_ARG_ADDRESS_PRIVATE"/>
+            <unused start="0x119F" comment="Reserved for cl_kernel_arg_address_qualifier"/>
+        <enum value="0x11A0"      name="CL_KERNEL_ARG_ACCESS_READ_ONLY"/>
+        <enum value="0x11A1"      name="CL_KERNEL_ARG_ACCESS_WRITE_ONLY"/>
+        <enum value="0x11A2"      name="CL_KERNEL_ARG_ACCESS_READ_WRITE"/>
+        <enum value="0x11A3"      name="CL_KERNEL_ARG_ACCESS_NONE"/>
+            <unused start="0x11A4" end="0x11AF" comment="Reserved for cl_kernel_arg_access_qualifier"/>
+        <enum value="0x11B0"      name="CL_KERNEL_WORK_GROUP_SIZE"/>
+        <enum value="0x11B1"      name="CL_KERNEL_COMPILE_WORK_GROUP_SIZE"/>
+        <enum value="0x11B2"      name="CL_KERNEL_LOCAL_MEM_SIZE"/>
+        <enum value="0x11B3"      name="CL_KERNEL_PREFERRED_WORK_GROUP_SIZE_MULTIPLE"/>
+        <enum value="0x11B4"      name="CL_KERNEL_PRIVATE_MEM_SIZE"/>
+        <enum value="0x11B5"      name="CL_KERNEL_GLOBAL_WORK_SIZE"/>
+        <enum value="0x11B6"      name="CL_KERNEL_EXEC_INFO_SVM_PTS"/>
+        <enum value="0x11B7"      name="CL_KERNEL_EXEC_INFO_SVM_FINE_GRAIN_SYSTEM"/>
+        <enum value="0x11B8"      name="CL_KERNEL_LOCAL_SIZE_FOR_SUB_GROUP_COUNT"/>
+        <enum value="0x11B9"      name="CL_KERNEL_MAX_NUM_SUB_GROUPS"/>
+        <enum value="0x11BA"      name="CL_KERNEL_COMPILE_NUM_SUB_GROUPS"/>
+            <unused start="0x11BB" end="0x11CF" comment="Reserved for cl_kernel_info / cl_kernel_work_group_info / cl_kernel_exec_info / cl_kernel_sub_group_info"/>
+        <enum value="0x11D0"      name="CL_EVENT_COMMAND_QUEUE"/>
+        <enum value="0x11D1"      name="CL_EVENT_COMMAND_TYPE"/>
+        <enum value="0x11D2"      name="CL_EVENT_REFERENCE_COUNT"/>
+        <enum value="0x11D3"      name="CL_EVENT_COMMAND_EXECUTION_STATUS"/>
+        <enum value="0x11D4"      name="CL_EVENT_CONTEXT"/>
+            <unused start="0x11D5" end="0x11EF" comment="Reserved for cl_event_info"/>
+        <enum value="0x11F0"      name="CL_COMMAND_NDRANGE_KERNEL"/>
+        <enum value="0x11F1"      name="CL_COMMAND_TASK"/>
+        <enum value="0x11F2"      name="CL_COMMAND_NATIVE_KERNEL"/>
+        <enum value="0x11F3"      name="CL_COMMAND_READ_BUFFER"/>
+        <enum value="0x11F4"      name="CL_COMMAND_WRITE_BUFFER"/>
+        <enum value="0x11F5"      name="CL_COMMAND_COPY_BUFFER"/>
+        <enum value="0x11F6"      name="CL_COMMAND_READ_IMAGE"/>
+        <enum value="0x11F7"      name="CL_COMMAND_WRITE_IMAGE"/>
+        <enum value="0x11F8"      name="CL_COMMAND_COPY_IMAGE"/>
+        <enum value="0x11F9"      name="CL_COMMAND_COPY_IMAGE_TO_BUFFER"/>
+        <enum value="0x11FA"      name="CL_COMMAND_COPY_BUFFER_TO_IMAGE"/>
+        <enum value="0x11FB"      name="CL_COMMAND_MAP_BUFFER"/>
+        <enum value="0x11FC"      name="CL_COMMAND_MAP_IMAGE"/>
+        <enum value="0x11FD"      name="CL_COMMAND_UNMAP_MEM_OBJECT"/>
+        <enum value="0x11FE"      name="CL_COMMAND_MARKER"/>
+        <enum value="0x11FF"      name="CL_COMMAND_ACQUIRE_GL_OBJECTS"/>
+        <enum value="0x1200"      name="CL_COMMAND_RELEASE_GL_OBJECTS"/>
+        <enum value="0x1201"      name="CL_COMMAND_READ_BUFFER_RECT"/>
+        <enum value="0x1202"      name="CL_COMMAND_WRITE_BUFFER_RECT"/>
+        <enum value="0x1203"      name="CL_COMMAND_COPY_BUFFER_RECT"/>
+        <enum value="0x1204"      name="CL_COMMAND_USER"/>
+        <enum value="0x1205"      name="CL_COMMAND_BARRIER"/>
+        <enum value="0x1206"      name="CL_COMMAND_MIGRATE_MEM_OBJECTS"/>
+        <enum value="0x1207"      name="CL_COMMAND_FILL_BUFFER"/>
+        <enum value="0x1208"      name="CL_COMMAND_FILL_IMAGE"/>
+        <enum value="0x1209"      name="CL_COMMAND_SVM_FREE"/>
+        <enum value="0x120A"      name="CL_COMMAND_SVM_MEMCPY"/>
+        <enum value="0x120B"      name="CL_COMMAND_SVM_MEMFILL"/>
+        <enum value="0x120C"      name="CL_COMMAND_SVM_MAP"/>
+        <enum value="0x120D"      name="CL_COMMAND_SVM_UNMAP"/>
+            <unused start="0x120E" end="0x121A" comment="Reserved for cl_command_types"/>
+        <enum value="0x1220"      name="CL_BUFFER_CREATE_TYPE_REGION"/>
+            <unused start="0x1221" end="0x127F" comment="Reserved for cl_buffer_create_type"/>
+        <enum value="0x1280"      name="CL_PROFILING_COMMAND_QUEUED"/>
+        <enum value="0x1281"      name="CL_PROFILING_COMMAND_SUBMIT"/>
+        <enum value="0x1282"      name="CL_PROFILING_COMMAND_START"/>
+        <enum value="0x1283"      name="CL_PROFILING_COMMAND_END"/>
+        <enum value="0x1284"      name="CL_PROFILING_COMMAND_COMPLETE"/>
+            <unused start="0x1285" end="0x128F" comment="Reserved for cl_profiling_info"/>
+            <unused start="0x1290" end="0x1FFF" comment="Reserved for core API tokens"/>
+    </enums>
+
+    <enums namespace="CL" start="0x2000" end="0x201F" vendor="Khronos" comment="Reserved for interop with other APIs">
+        <enum value="0x2000"      name="CL_GL_OBJECT_BUFFER"/>
+        <enum value="0x2001"      name="CL_GL_OBJECT_TEXTURE2D"/>
+        <enum value="0x2002"      name="CL_GL_OBJECT_TEXTURE3D"/>
+        <enum value="0x2003"      name="CL_GL_OBJECT_RENDERBUFFER"/>
+        <enum value="0x2004"      name="CL_GL_TEXTURE_TARGET"/>
+        <enum value="0x2005"      name="CL_GL_MIPMAP_LEVEL"/>
+        <enum value="0x2006"      name="CL_CURRENT_DEVICE_FOR_GL_CONTEXT_KHR"/>
+        <enum value="0x2007"      name="CL_DEVICES_FOR_GL_CONTEXT_KHR"/>
+        <enum value="0x2008"      name="CL_GL_CONTEXT_KHR"/>
+        <enum value="0x2009"      name="CL_EGL_DISPLAY_KHR"/>
+        <enum value="0x200A"      name="CL_GLX_DISPLAY_KHR"/>
+        <enum value="0x200B"      name="CL_WGL_HDC_KHR"/>
+        <enum value="0x200C"      name="CL_CGL_SHAREGROUP_KHR"/>
+        <enum value="0x200D"      name="CL_COMMAND_GL_FENCE_SYNC_OBJECT_KHR"/>
+        <enum value="0x200E"      name="CL_GL_OBJECT_TEXTURE2D_ARRAY"/>
+        <enum value="0x200F"      name="CL_GL_OBJECT_TEXTURE1D"/>
+        <enum value="0x2010"      name="CL_GL_OBJECT_TEXTURE1D_ARRAY"/>
+        <enum value="0x2011"      name="CL_GL_OBJECT_TEXTURE_BUFFER"/>
+        <enum value="0x2012"      name="CL_GL_NUM_SAMPLES"/>
+            <unused start="0x2013" end="0x201F" comment="Reserved for OpenGL interop"/>
+        <enum value="0x2020"      name="CL_ADAPTER_D3D9_KHR"/>
+        <enum value="0x2021"      name="CL_ADAPTER_D3D9EX_KHR"/>
+        <enum value="0x2022"      name="CL_ADAPTER_DXVA_KHR"/>
+        <enum value="0x2023"      name="CL_PREFERRED_DEVICES_FOR_DX9_MEDIA_ADAPTER_KHR"/>
+        <enum value="0x2024"      name="CL_ALL_DEVICES_FOR_DX9_MEDIA_ADAPTER_KHR"/>
+        <enum value="0x2025"      name="CL_CONTEXT_ADAPTER_D3D9_KHR"/>
+        <enum value="0x2026"      name="CL_CONTEXT_ADAPTER_D3D9EX_KHR"/>
+        <enum value="0x2027"      name="CL_CONTEXT_ADAPTER_DXVA_KHR"/>
+        <enum value="0x2028"      name="CL_MEM_DX9_MEDIA_ADAPTER_TYPE_KHR"/>
+        <enum value="0x2029"      name="CL_MEM_DX9_MEDIA_SURFACE_INFO_KHR"/>
+        <enum value="0x202A"      name="CL_IMAGE_DX9_MEDIA_PLANE_KHR"/>
+        <enum value="0x202B"      name="CL_COMMAND_ACQUIRE_DX9_MEDIA_SURFACES_KHR"/>
+        <enum value="0x202C"      name="CL_COMMAND_RELEASE_DX9_MEDIA_SURFACES_KHR"/>
+        <enum value="0x202D"      name="CL_COMMAND_ACQUIRE_EGL_OBJECTS_KHR"/>
+        <enum value="0x202E"      name="CL_COMMAND_RELEASE_EGL_OBJECTS_KHR"/>
+        <enum value="0x202F"      name="CL_COMMAND_EGL_FENCE_SYNC_OBJECT_KHR"/>
+        <enum value="0x2030"      name="CL_CONTEXT_MEMORY_INITIALIZE_KHR"/>
+        <enum value="0x2031"      name="CL_DEVICE_TERMINATE_CAPABILITY_KHR"/>
+        <enum value="0x2032"      name="CL_CONTEXT_TERMINATE_KHR"/>
+        <enum value="0x2033"      name="CL_KERNEL_MAX_SUB_GROUP_SIZE_FOR_NDRANGE"/>
+        <enum value="0x2033"      name="CL_KERNEL_MAX_SUB_GROUP_SIZE_FOR_NDRANGE_KHR"/>
+        <enum value="0x2034"      name="CL_KERNEL_SUB_GROUP_COUNT_FOR_NDRANGE"/>
+        <enum value="0x2034"      name="CL_KERNEL_SUB_GROUP_COUNT_FOR_NDRANGE_KHR"/>
+            <unused start="0x2035" end="0x2FFF" comment="Reserved to Khronos for interop"/>
+    </enums>
+
+    <enums namespace="CL" start="0x3000" end="0x3FFF" vendor="Khronos" comment="Platform IDs. Allocate individually.">
+            <unused start="0x3000"/>
+        <enum value="0x3001" name="CL_PLATFORM_NVIDIA" comment="Allocated to NVIDIA per clamb@nvidia.com 2009/05/26"/>
+            <unused start="0x3002" end="0x3FFF"/>
+    </enums>
+
+    <enums namespace="CL" start="0x4000" end="0x400F" vendor="NVIDIA" comment="Per Bug 5673">
+        <enum value="0x4000"      name="CL_DEVICE_COMPUTE_CAPABILITY_MAJOR_NV"/>
+        <enum value="0x4001"      name="CL_DEVICE_COMPUTE_CAPABILITY_MINOR_NV"/>
+        <enum value="0x4002"      name="CL_DEVICE_REGISTERS_PER_BLOCK_NV"/>
+        <enum value="0x4003"      name="CL_DEVICE_WARP_SIZE_NV"/>
+        <enum value="0x4004"      name="CL_DEVICE_GPU_OVERLAP_NV"/>
+        <enum value="0x4005"      name="CL_DEVICE_KERNEL_EXEC_TIMEOUT_NV"/>
+        <enum value="0x4006"      name="CL_DEVICE_INTEGRATED_MEMORY_NV"/>
+            <unused start="0x4007" end="0x400F"/>
+    </enums>
+
+    <enums namespace="CL" start="0x4010" end="0x402F" vendor="NVIDIA" comment="Per Bug 5782">
+        <enum value="0x4010"      name="CL_D3D10_DEVICE_NV"/>
+        <enum value="0x4011"      name="CL_D3D10_DXGI_ADAPTER_NV"/>
+        <enum value="0x4012"      name="CL_PREFERRED_DEVICES_FOR_D3D10_NV"/>
+        <enum value="0x4013"      name="CL_ALL_DEVICES_FOR_D3D10_NV"/>
+        <enum value="0x4014"      name="CL_CONTEXT_D3D10_DEVICE_NV"/>
+        <enum value="0x4015"      name="CL_MEM_D3D10_RESOURCE_NV"/>
+        <enum value="0x4016"      name="CL_IMAGE_D3D10_SUBRESOURCE_NV"/>
+        <enum value="0x4017"      name="CL_COMMAND_ACQUIRE_D3D10_OBJECTS_NV"/>
+        <enum value="0x4018"      name="CL_COMMAND_RELEASE_D3D10_OBJECTS_NV"/>
+        <enum value="0x4010"      name="CL_D3D10_DEVICE_KHR"/>
+        <enum value="0x4011"      name="CL_D3D10_DXGI_ADAPTER_KHR"/>
+        <enum value="0x4012"      name="CL_PREFERRED_DEVICES_FOR_D3D10_KHR"/>
+        <enum value="0x4013"      name="CL_ALL_DEVICES_FOR_D3D10_KHR"/>
+        <enum value="0x4014"      name="CL_CONTEXT_D3D10_DEVICE_KHR"/>
+        <enum value="0x4015"      name="CL_MEM_D3D10_RESOURCE_KHR"/>
+        <enum value="0x4016"      name="CL_IMAGE_D3D10_SUBRESOURCE_KHR"/>
+        <enum value="0x4017"      name="CL_COMMAND_ACQUIRE_D3D10_OBJECTS_KHR"/>
+        <enum value="0x4018"      name="CL_COMMAND_RELEASE_D3D10_OBJECTS_KHR"/>
+        <enum value="0x4019"      name="CL_D3D11_DEVICE_KHR"/>
+        <enum value="0x401A"      name="CL_D3D11_DXGI_ADAPTER_KHR"/>
+        <enum value="0x401B"      name="CL_PREFERRED_DEVICES_FOR_D3D11_KHR"/>
+        <enum value="0x401C"      name="CL_ALL_DEVICES_FOR_D3D11_KHR"/>
+        <enum value="0x401D"      name="CL_CONTEXT_D3D11_DEVICE_KHR"/>
+        <enum value="0x401E"      name="CL_MEM_D3D11_RESOURCE_NV"/>
+        <enum value="0x401F"      name="CL_IMAGE_D3D11_SUBRESOURCE_NV"/>
+        <enum value="0x4020"      name="CL_COMMAND_ACQUIRE_D3D11_OBJECTS_NV"/>
+        <enum value="0x4021"      name="CL_COMMAND_RELEASE_D3D11_OBJECTS_NV"/>
+        <enum value="0x4022"      name="CL_D3D9_DEVICE_INTEL"/>
+        <enum value="0x4024"      name="CL_PREFERRED_DEVICES_FOR_D3D9_INTEL"/>
+        <enum value="0x4025"      name="CL_ALL_DEVICES_FOR_D3D9_INTEL"/>
+        <enum value="0x4026"      name="CL_CONTEXT_D3D9_DEVICE_INTEL"/>
+        <enum value="0x4027"      name="CL_MEM_D3D9_RESOURCE_INTEL"/>
+        <enum value="0x402A"      name="CL_COMMAND_ACQUIRE_D3D9_OBJECTS_INTEL"/>
+        <enum value="0x402B"      name="CL_COMMAND_RELEASE_D3D9_OBJECTS_INTEL"/>
+        <enum value="0x4019"      name="CL_D3D11_DEVICE_NV"/>
+        <enum value="0x401A"      name="CL_D3D11_DXGI_ADAPTER_NV"/>
+        <enum value="0x401B"      name="CL_PREFERRED_DEVICES_FOR_D3D11_NV"/>
+        <enum value="0x401C"      name="CL_ALL_DEVICES_FOR_D3D11_NV"/>
+        <enum value="0x401D"      name="CL_CONTEXT_D3D11_DEVICE_NV"/>
+        <enum value="0x401E"      name="CL_MEM_D3D11_RESOURCE_NV"/>
+        <enum value="0x401F"      name="CL_IMAGE_D3D11_SUBRESOURCE_NV"/>
+        <enum value="0x4020"      name="CL_COMMAND_ACQUIRE_D3D11_OBJECTS_NV"/>
+        <enum value="0x4021"      name="CL_COMMAND_RELEASE_D3D11_OBJECTS_NV"/>
+        <enum value="0x4022"      name="CL_D3D9_DEVICE_NV"/>
+        <enum value="0x4023"      name="CL_D3D9_ADAPTER_NAME_NV"/>
+        <enum value="0x4024"      name="CL_PREFERRED_DEVICES_FOR_D3D9_NV"/>
+        <enum value="0x4025"      name="CL_ALL_DEVICES_FOR_D3D9_NV"/>
+        <enum value="0x4026"      name="CL_CONTEXT_D3D9_DEVICE_NV"/>
+        <enum value="0x4027"      name="CL_MEM_D3D9_RESOURCE_NV"/>
+        <enum value="0x4028"      name="CL_IMAGE_D3D9_FACE_NV"/>
+        <enum value="0x4029"      name="CL_IMAGE_D3D9_LEVEL_NV"/>
+        <enum value="0x402A"      name="CL_COMMAND_ACQUIRE_D3D9_OBJECTS_NV"/>
+        <enum value="0x402B"      name="CL_COMMAND_RELEASE_D3D9_OBJECTS_NV"/>
+        <enum value="0x402C"      name="CL_CONTEXT_D3D10_PREFER_SHARED_RESOURCES_KHR"/>
+        <enum value="0x402D"      name="CL_CONTEXT_D3D11_PREFER_SHARED_RESOURCES_KHR"/>
+            <unused start="0x402D" end="0x402F"/>
+    </enums>
+
+    <enums namespace="CL" start="0x4030" end="0x403F" vendor="AMD" comment="Per Bug 6075">
+            <!-- Note that an unnamed AMD D3D9 extension was intended to use some enums in this range, but was never shipped or published. See bug 6071. -->
+            <!-- To be named AMD atomic counters extension - see bug 6071/6075 -->
+        <!-- <enum value="0x4030"      name="CL_DEVICE_PARENT_DEVICE_EXT"/> -->
+        <!-- <enum value="0x4031"      name="CL_DEVICE_PARTITION_STYLE_EXT"/> -->
+        <!-- <enum value="0x4032"      name="CL_DEVICE_MAX_ATOMIC_COUNTERS_EXT"/> -->
+            <unused start="0x4033" end="0x4035"/>
+        <enum value="0x4036"      name="CL_DEVICE_PROFILING_TIMER_OFFSET_AMD"/>
+        <enum value="0x4037"      name="CL_DEVICE_TOPOLOGY_AMD"/>
+        <enum value="0x4038"      name="CL_DEVICE_BOARD_NAME_AMD"/>
+        <enum value="0x4039"      name="CL_DEVICE_GLOBAL_FREE_MEMORY_AMD"/>
+            <unused start="0x403A" end="0x403F"/>
+    </enums>
+
+    <enums namespace="CL" start="0x4040" end="0x404F" vendor="AMD" comment="Per Bug 6261 (IBM), then Bug 13603 giving control to AMD">
+        <enum value="0x4040"      name="CL_COMMAND_MIGRATE_MEM_OBJECT_EXT" comment="From cl_ext_migrate_memobject. Benign collision with the following enum."/>
+        <enum value="0x4040"      name="CL_DEVICE_SIMD_PER_COMPUTE_UNIT_AMD"/>
+        <enum value="0x4041"      name="CL_DEVICE_SIMD_WIDTH_AMD"/>
+        <enum value="0x4042"      name="CL_DEVICE_SIMD_INSTRUCTION_WIDTH_AMD"/>
+        <enum value="0x4043"      name="CL_DEVICE_WAVEFRONT_WIDTH_AMD"/>
+        <enum value="0x4044"      name="CL_DEVICE_GLOBAL_MEM_CHANNELS_AMD"/>
+        <enum value="0x4045"      name="CL_DEVICE_GLOBAL_MEM_CHANNEL_BANKS_AMD"/>
+        <enum value="0x4046"      name="CL_DEVICE_GLOBAL_MEM_CHANNEL_BANK_WIDTH_AMD"/>
+        <enum value="0x4047"      name="CL_DEVICE_LOCAL_MEM_SIZE_PER_COMPUTE_UNIT_AMD"/>
+        <enum value="0x4048"      name="CL_DEVICE_LOCAL_MEM_BANKS_AMD"/>
+        <enum value="0x4049"      name="CL_DEVICE_THREAD_TRACE_SUPPORTED_AMD"/>
+        <enum value="0x404A"      name="CL_DEVICE_GFXIP_MAJOR_AMD"/>
+        <enum value="0x404B"      name="CL_DEVICE_GFXIP_MINOR_AMD"/>
+        <enum value="0x404C"      name="CL_DEVICE_AVAILABLE_ASYNC_QUEUES_AMD"/>
+            <unused start="0x404D" end="0x404F"/>
+    </enums>
+
+    <enums namespace="CL" start="0x4050" end="0x405F" vendor="Apple">
+        <enum value="0x4050"      name="CL_DEVICE_PARTITION_EQUALLY_EXT"/>
+        <enum value="0x4051"      name="CL_DEVICE_PARTITION_BY_COUNTS_EXT"/>
+        <enum value="0x4052"      name="CL_DEVICE_PARTITION_BY_NAMES_EXT"/>
+        <enum value="0x4052"      name="CL_DEVICE_PARTITION_BY_NAMES_INTEL"/>
+        <enum value="0x4053"      name="CL_DEVICE_PARTITION_BY_AFFINITY_DOMAIN_EXT"/>
+        <enum value="0x4054"      name="CL_DEVICE_PARENT_DEVICE_EXT"/>
+        <enum value="0x4055"      name="CL_DEVICE_PARTITION_TYPES_EXT"/>
+        <enum value="0x4056"      name="CL_DEVICE_AFFINITY_DOMAINS_EXT"/>
+        <enum value="0x4057"      name="CL_DEVICE_REFERENCE_COUNT_EXT"/>
+        <enum value="0x4058"      name="CL_DEVICE_PARTITION_STYLE_EXT"/>
+            <unused start="0x4059" end="0x405F"/>
+    </enums>
+
+    <enums namespace="CL" start="0x4060" end="0x406F" vendor="IBM" comment="Per Bug 6470">
+            <unused start="0x4060" end="0x406F"/>
+    </enums>
+
+    <enums namespace="CL" start="0x4070" end="0x407F" vendor="Intel" comment="Per Bug 7836">
+        <enum value="0x4070"      name="CL_D3D9EX_DEVICE_INTEL"/>
+        <enum value="0x4071"      name="CL_DXVA9_DEVICE_INTEL"/>
+        <enum value="0x4072"      name="CL_CONTEXT_D3D9EX_DEVICE_INTEL"/>
+        <enum value="0x4073"      name="CL_CONTEXT_DXVA9_DEVICE_INTEL"/>
+        <enum value="0x4074"      name="CL_MEM_D3D9_SHAREHANDLE_INTEL"/>
+        <enum value="0x4075"      name="CL_IMAGE_D3D9_PLANE_INTEL"/>
+        <enum value="0x4076"      name="CL_YUYV_INTEL"/>
+        <enum value="0x4077"      name="CL_UYVY_INTEL"/>
+        <enum value="0x4078"      name="CL_YVYU_INTEL"/>
+        <enum value="0x4079"      name="CL_VYUY_INTEL"/>
+            <unused start="0x407A" end="0x407D"/>
+        <enum value="0x407E"      name="CL_DEVICE_ME_VERSION_INTEL"/>
+            <unused start="0x407F"/>
+    </enums>
+
+    <enums namespace="CL" start="0x4080" end="0x408F" vendor="AMD" comment="Per Bug 8211">
+        <enum value="0x4080"      name="CL_COMMAND_WAIT_SIGNAL_AMD"/>
+        <enum value="0x4081"      name="CL_COMMAND_WRITE_SIGNAL_AMD"/>
+        <enum value="0x4082"      name="CL_COMMAND_MAKE_BUFFERS_RESIDENT_AMD"/>
+            <unused start="0x4083" end="0x408F"/>
+    </enums>
+
+    <enums namespace="CL" start="0x4090" end="0x409F" vendor="Intel" comment="Per kevin.smith@intel.com 2013/04/11">
+        <enum value="0x4090"      name="CL_ACCELERATOR_DESCRIPTOR_INTEL"/>
+        <enum value="0x4091"      name="CL_ACCELERATOR_REFERENCE_COUNT_INTEL"/>
+        <enum value="0x4092"      name="CL_ACCELERATOR_CONTEXT_INTEL"/>
+        <enum value="0x4093"      name="CL_ACCELERATOR_TYPE_INTEL"/>
+        <enum value="0x4094"      name="CL_VA_API_DISPLAY_INTEL"/>
+        <enum value="0x4095"      name="CL_PREFERRED_DEVICES_FOR_VA_API_INTEL"/>
+        <enum value="0x4096"      name="CL_ALL_DEVICES_FOR_VA_API_INTEL"/>
+        <enum value="0x4097"      name="CL_CONTEXT_VA_API_DISPLAY_INTEL"/>
+        <enum value="0x4098"      name="CL_MEM_VA_API_MEDIA_SURFACE_INTEL"/>
+        <enum value="0x4099"      name="CL_IMAGE_VA_API_PLANE_INTEL"/>
+        <enum value="0x409A"      name="CL_COMMAND_ACQUIRE_VA_API_MEDIA_SURFACES_INTEL"/>
+        <enum value="0x409B"      name="CL_COMMAND_RELEASE_VA_API_MEDIA_SURFACES_INTEL"/>
+            <unused start="0x409C" end="0x409F"/>
+    </enums>
+
+    <enums namespace="CL" start="0x40A0" end="0x40AF" vendor="Qualcomm" comment="Per Bug 10214">
+        <enum value="0x40A0"      name="CL_DEVICE_EXT_MEM_PADDING_IN_BYTES_QCOM"/>
+        <enum value="0x40A1"      name="CL_DEVICE_PAGE_SIZE_QCOM"/>
+        <enum value="0x40A2"      name="CL_IMAGE_ROW_ALIGNMENT_QCOM"/>
+        <enum value="0x40A3"      name="CL_IMAGE_SLICE_ALIGNMENT_QCOM"/>
+        <enum value="0x40A4"      name="CL_MEM_HOST_UNCACHED_QCOM"/>
+        <enum value="0x40A5"      name="CL_MEM_HOST_WRITEBACK_QCOM"/>
+        <enum value="0x40A6"      name="CL_MEM_HOST_WRITETHROUGH_QCOM"/>
+        <enum value="0x40A7"      name="CL_MEM_HOST_WRITE_COMBINING_QCOM"/>
+        <enum value="0x40A8"      name="CL_MEM_ION_HOST_PTR_QCOM"/>
+            <unused start="0x40A9" end="0x40AF"/>
+    </enums>
+
+    <enums namespace="CL" start="0x40B0" end="0x40BF" vendor="ARM" comment="Per Bug 10337">
+        <enum value="0x40B0"      name="CL_PRINTF_CALLBACK_ARM"/>
+        <enum value="0x40B1"      name="CL_PRINTF_BUFFERSIZE_ARM"/>
+            <unused start="0x40B2" end="0x40B5"/>
+        <enum value="0x40B6"      name="CL_DEVICE_SVM_CAPABILITIES_ARM"/>
+        <enum value="0x40B7"      name="CL_MEM_USES_SVM_POINTER_ARM"/>
+        <enum value="0x40B8"      name="CL_KERNEL_EXEC_INFO_SVM_PTRS_ARM"/>
+        <enum value="0x40B9"      name="CL_KERNEL_EXEC_INFO_SVM_FINE_GRAIN_SYSTEM_ARM"/>
+        <enum value="0x40BA"      name="CL_COMMAND_SVM_FREE_ARM"/>
+        <enum value="0x40BB"      name="CL_COMMAND_SVM_MEMCPY_ARM"/>
+        <enum value="0x40BC"      name="CL_COMMAND_SVM_MEMFILL_ARM"/>
+        <enum value="0x40BD"      name="CL_COMMAND_SVM_MAP_ARM"/>
+        <enum value="0x40BE"      name="CL_COMMAND_SVM_UNMAP_ARM"/>
+            <unused start="0x40BF"/>
+    </enums>
+
+    <enums namespace="CL" start="0x40C0" end="0x40CF" vendor="Qualcomm" comment="Per Bug 10726">
+            <unused start="0x40C0" end="0x40C5"/>
+        <enum value="0x40C6"      name="CL_MEM_ANDROID_NATIVE_BUFFER_HOST_PTR_QCOM"/>
+            <unused start="0x40C7" end="0x40CF"/>
+    </enums>
+
+    <enums namespace="CL" start="0x40D0" end="0x40DF" vendor="IMG" comment="Per Bug 11287">
+        <enum value="0x40D0"      name="CL_NV21"/>
+        <enum value="0x40D1"      name="CL_YV12"/>
+        <enum value="0x40D2"      name="CL_COMMAND_ACQUIRE_GRALLOC_OBJECTS_IMG"/>
+        <enum value="0x40D3"      name="CL_COMMAND_RELEASE_GRALLOC_OBJECTS_IMG"/>
+        <enum value="0x40D4"      name="CL_GRALLOC_RESOURCE_NOT_ACQUIRED_IMG"/>
+        <enum value="0x40D5"      name="CL_INVALID_GRALLOC_OBJECT_IMG"/>
+            <unused start="0x40D6" end="0x40DF"/>
+    </enums>
+
+    <enums namespace="CL" start="0x40E0" end="0x40EF" vendor="Khronos SPIR WG" comment="Per Bugs 11309,11310">
+        <enum value="0x40E0"      name="CL_DEVICE_SPIR_VERSIONS"/>
+        <enum value="0x40E1"      name="CL_PROGRAM_BINARY_TYPE_INTERMEDIATE"/>
+            <unused start="0x40E2" end="0x40EF"/>
+    </enums>
+
+    <enums namespace="CL" start="0x40F0" end="0x40FF" vendor="Altera" comment="Per Bug 11642">
+        <enum value="0x40F0"      name="CL_CONTEXT_COMPILER_MODE_ALTERA"/>
+        <enum value="0x40F1"      name="CL_CONTEXT_PROGRAM_EXE_LIBRARY_ROOT_ALTERA"/>
+        <enum value="0x40F2"      name="CL_CONTEXT_OFFLINE_DEVICE_ALTERA"/>
+        <enum value="0x40F3"      name="CL_DEVICE_CORE_TEMPERATURE_ALTERA"/>
+            <unused start="0x40F4" end="0x40FF"/>
+    </enums>
+
+    <enums namespace="CL" start="0x4100" end="0x410F" vendor="Intel" comment="Per bug 12258.">
+            <unused start="0x4100" end="0x4103"/>
+        <enum value="0x4104"      name="CL_DEVICE_SIMULTANEOUS_INTEROPS_INTEL"/>
+        <enum value="0x4105"      name="CL_DEVICE_NUM_SIMULTANEOUS_INTEROPS_INTEL"/>
+        <enum value="0x4106"      name="CL_CONTEXT_SHOW_DIAGNOSTICS_INTEL"/>
+        <enum value="0x4107"      name="CL_EGL_YUV_PLANE_INTEL"/>
+        <enum value="0x4108"      name="CL_DEVICE_SUB_GROUP_SIZES_INTEL"/>
+        <enum value="0x4109"      name="CL_KERNEL_SPILL_MEM_SIZE_INTEL"/>
+        <enum value="0x410A"      name="CL_KERNEL_COMPILE_SUB_GROUP_SIZE_INTEL"/>
+            <unused start="0x410B" end="0x410F"/>
+    </enums>
+
+    <enums namespace="CL" start="0x4110" end="0x411F" vendor="Qualcomm" comment="Per Bug 13929">
+            <unused start="0x4110" end="0x411F"/>
+    </enums>
+
+    <enums namespace="CL" start="0x4120" end="0x412F" vendor="AMD" comment="Per Bug 14890">
+            <unused start="0x4120" end="0x412F"/>
+    </enums>
+
+    <enums namespace="CL" start="0x4130" end="0x415F" vendor="Qualcomm" comment="Per Bugs 15602,15760">
+            <unused start="0x4130" end="0x415F"/>
+    </enums>
+
+    <enums namespace="CL" start="0x4160" end="0x416F" vendor="Intel" comment="Per bug 16049.">
+            <unused start="0x4160" end="0x416F"/>
+    </enums>
+
+    <enums namespace="CL" start="0x4170" end="0x417F" vendor="Intel" comment="Per bug 16067.">
+            <unused start="0x4170" end="0x417F"/>
+    </enums>
+
+    <enums namespace="CL" start="0x4180" end="0x4FFF" comment="Reserved for vendor extensions. Allocate in groups of 16.">
+            <unused start="0x4180" end="0x4FFF"/>
+    </enums>
+
+    <enums namespace="CL" start="0x10000" end="0x10FFF" vendor="Khronos" comment="Experimental range for internal development only. Do not allocate.">
+        <!-- Khronos will never assign values in this range, and vendors
+             should never ship using values in this range. It is intended
+             purely for internal development. -->
+            <unused start="0x10000" end="0x10FFF" comment="Reserved"/>
+    </enums>
+
+    <enums namespace="CL" start="0x10000000" end="0x100000FF" vendor="Apple" comment="Legacy assignment before current enum allocation policy">
+            <unused start="0x10000000" end="0x100000FF"/>
+    </enums>
+
+    <!-- SECTION: OpenCL extension interface definitions (TBD) -->
+    <extension number="1" name="cl_khr_gl_sharing"/>
+    <extension number="2" name="cl_nv_d3d9_sharing"/>
+    <extension number="3" name="cl_nv_d3d10_sharing"/>
+    <extension number="4" name="cl_nv_d3d11_sharing"/>
+    <extension number="5" name="cl_khr_icd"/>
+    <extension number="6" name="cl_khr_d3d10_sharing"/>
+    <extension number="7" name="cl_amd_device_attribute_query"/>
+    <extension number="8" name="cl_amd_fp64"/>
+    <extension number="9" name="cl_amd_media_ops"/>
+    <extension number="10" name="cl_ext_migrate_memobject"/>
+    <extension number="11" name="cl_ext_device_fission"/>
+    <extension number="12" name="cl_ext_atomic_counters_32"/>
+    <extension number="13" name="cl_ext_atomic_counters_64"/>
+    <extension number="14" name="cl_intel_dx9_media_sharing"/>
+    <extension number="15" name="cl_amd_media_ops2"/>
+    <extension number="16" name="cl_intel_thread_local_exec"/>
+    <extension number="17" name="cl_nv_compiler_options"/>
+    <extension number="18" name="cl_nv_device_attribute_query"/>
+    <extension number="19" name="cl_nv_pragma_unroll"/>
+    <extension number="20" name="cl_intel_device_partition_by_names"/>
+    <extension number="21" name="cl_qcom_ext_host_ptr"/>
+    <extension number="22" name="cl_qcom_ion_host_ptr"/>
+    <extension number="23" name="cl_intel_motion_estimation"/>
+    <extension number="24" name="cl_intel_accelerator"/>
+    <extension number="25" name="cl_amd_bus_addressable_memory"/>
+    <extension number="26" name="cl_arm_core_id"/>
+    <extension number="27" name="cl_arm_printf"/>
+    <extension number="28" name="cl_altera_live_object_tracking"/>
+    <extension number="29" name="cl_altera_device_temperature"/>
+    <extension number="30" name="cl_altera_compiler_mode"/>
+    <extension number="31" name="cl_intel_d3d11_nv12_media_sharing"/>
+    <extension number="32" name="cl_qcom_android_native_buffer_host_ptr"/>
+    <extension number="33" name="cl_intel_advanced_motion_estimation"/>
+    <extension number="34" name="cl_intel_simultaneous_sharing"/>
+    <extension number="35" name="cl_intel_subgroups"/>
+    <extension number="36" name="cl_intel_va_api_media_sharing"/>
+    <extension number="37" name="cl_intel_egl_image_yuv"/>
+    <extension number="38" name="cl_arm_import_memory"/>
+    <extension number="39" name="cl_arm_non_uniform_work_group_size"/>
+    <extension number="40" name="cl_arm_shared_virtual_memory"/>
+    <extension number="41" name="cl_arm_thread_limit_hint"/>
+    <extension number="42" name="cl_intel_packed_yuv"/>
+    <extension number="43" name="cl_intel_required_subgroup_size"/>
+    <extension number="44" name="cl_img_cached_allocations"/>
+    <extension number="45" name="cl_img_use_gralloc_ptr"/>
+    <extension number="46" name="cl_img_yuv_image"/>
+    <extension number="47" name="cl_intel_driver_diagnostics"/>
+    <extension number="48" name="cl_intel_subgroups_short"/>
+        <!-- Next free extension number is assigned sequentially here -->
+</registry>

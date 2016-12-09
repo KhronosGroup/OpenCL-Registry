@@ -1,0 +1,111 @@
+Name Strings
+
+    cl_intel_device_partition_by_names
+
+Contributors
+
+    Yariv Aridor (Intel)
+    
+    Evgeny Fiksman (Intel)
+    
+    Doron Singer(Intel)
+
+Contact
+
+    Yariv.Aridor(at)Intel.Com
+
+IP Status
+
+    N/A
+
+Version
+
+    Version 2, August 15, 2013
+   
+Number
+
+    OpenCL Extension #20
+
+Status
+
+    Complete. 
+
+Extension Type
+
+    OpenCL device extension
+
+Dependencies
+
+    OpenCL 1.2 is required
+
+Overview
+
+    This extension allows the user to create non-overlapping sub-devices containing specific
+    compute units. CL_DEVICE_PARTITION_BY_NAMES_INTEL is a
+    cl_device_partition_property that is followed by a list of compute unit
+    names, teminated by CL_PARTITION_BY_NAMES_LIST_END_INTEL Compute unit
+    names are integers that count up from zero to the number of compute
+    units minus one. Only one sub-device may be created at a time with this
+    selector. An individual compute unit name may not appear more than once
+    in the sub-device description. A sub-device created with
+    CL_DEVICE_PARTITION_BY_NAMES_INTEL cannot be further sub-divided. A
+    sub-device created with another partitioning mode cannot be further
+    sub-divided by CL_DEVICE_PARTITION_BY_NAMES_INTEL.
+    Sub-devices created by different calls to clCreatesubDevices using CL_DEVICE_PARTITION_BY_NAMES_INTEL
+    cannot overlap. An attempt to create a command queue on a sub-device which overlaps with a sub-device 
+    for which a command queue already exists will fail with CL_OUT_OF_RESOURCES.
+
+    Example: To create a three compute unit sub-device using compute units,
+    { 0, 1, 3 }, pass:
+    
+    { CL_DEVICE_PARTITION_BY NAMES_INTEL, 0, 1, 3, CL_PARTITION_BY_NAMES_LIST_END_INTEL, CL_PROPERTIES_LIST_END }
+
+    The meaning of these numbers are, in order:
+    0 the name of the first compute unit in the sub-device
+    1 the name of the second compute unit in the sub-device
+    3 the name of the third compute unit in the sub-device
+    CL_PROPERTIES_LIST_END list terminator for the list of properties
+
+Header File
+
+    cl_ext.h
+
+New Procedures and Functions
+
+    None
+
+New Tokens
+
+    CL_DEVICE_PARTITION_BY_NAMES_INTEL          0x4052
+    CL_PARTITION_BY_NAMES_LIST_END_INTEL        -1
+
+Additions to Chapter NNN / Appendix AAA of the OpenCL <version> Specification
+
+    Add CL_DEVICE_PARTITION_BY_NAMES_INTEL to table 4.4 in chapter 4.3
+    (Partitioning a device), with the explanation in the overview.
+
+Interactions with other extensions
+
+    None
+
+Issues
+
+    N/A
+
+Sample Code
+
+    cl_device_id                     subdevice_id;
+    cl_uint                          num_entries  = 1;
+    cl_uint                          num_devices  = 1;
+    cl_device_partition_property properties[] = {CL_DEVICE_PARTITION_BY_NAMES_INTEL, 0, CL_PARTITION_BY_NAMES_LIST_END_INTEL, 0};
+
+    err = clCreateSubDevices(device, properties, num_entries, &subdevice_id, &num_devices);
+
+Conformance Tests
+
+    N/A
+
+Revision History
+
+    Revision 1, March 25, 2012. Yariv Aridor.  First revision.
+    Revision 2, August 15, 2013. Doron Singer. Expand on the overlap restriction. 

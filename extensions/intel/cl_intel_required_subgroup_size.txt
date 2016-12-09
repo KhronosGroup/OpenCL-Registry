@@ -1,0 +1,129 @@
+Name String
+
+    cl_intel_required_subgroup_size
+
+Contributors
+
+    Ben Ashbaugh, Intel
+
+Contact
+
+    Ben Ashbaugh, Intel (ben.ashbaugh 'at' intel.com)
+
+Version
+
+    Version 1, July 14, 2016
+
+Number
+
+    OpenCL Extension #43
+
+Status
+
+    Final Draft
+
+Dependencies
+
+    Support for OpenCL 2.1, cl_khr_subgroups, or cl_intel_subgroups is required.
+
+    This extension is written against revision 23 of the OpenCL 2.1 API
+    specification, against revision 30 of the OpenCL 2.0 OpenCL C specification,
+    against version 31 of the OpenCL 2.0 Extensions specification, and against
+    version 3 of the cl_intel_subgroups specification.
+
+Overview
+
+    The goal of this extension is to allow programmers to optionally specify
+    the required subgroup size for a kernel function.  This information is
+    important for the correctness of many subgroup algorithms, and in some cases
+    may be used by the compiler to generate more optimal code.
+
+New API Enums
+
+    Accepted as the <param_name> parameter of clGetDeviceInfo:
+
+        CL_DEVICE_SUB_GROUP_SIZES_INTEL                 0x4108
+
+    Accepted as the <param_name> parameter of clGetKernelWorkGroupInfo:
+
+        CL_KERNEL_SPILL_MEM_SIZE_INTEL                  0x4109
+
+    Accepted as the <param_name> parameter of clGetKernelSubGroupInfo and/or
+    clGetKernelSubGroupInfoKHR:
+
+        CL_KERNEL_COMPILE_SUB_GROUP_SIZE_INTEL          0x410A
+
+New OpenCL C Optional Attribute Qualifiers
+
+    Optional __kernel qualifier:
+
+        __attribute__((intel_reqd_sub_group_size(<int>)))
+
+Add to Table 4.3 - "OpenCL Device Queries":
+
+   "--------------------------------------------------------------------------------------
+    cl_device_info                   Return Type  Description
+    -------------------------------  -----------  ----------------------------------------
+    CL_DEVICE_SUB_GROUP_SIZES_INTEL  size_t[]     Returns the set of subgroup sizes
+                                                  supported by the device.
+    --------------------------------------------------------------------------------------"
+
+Add to Table 5.21 - "clGetKernelWorkGroupInfo parameter queries":
+
+   "--------------------------------------------------------------------------------------
+    cl_kernel_work_group_info  Return Type  Description
+    -------------------------  -----------  ----------------------------------------------
+    CL_KERNEL_SPILL_MEM_       cl_ulong     Returns the amount of spill memory used by
+    SIZE_INTEL                              a kernel.  The meaning  of this value will
+                                            vary from implementation-to-implementation,
+                                            however a return value of 0 will always
+                                            indicate that compiler was able to compile
+                                            the kernel to fit into the device's register
+                                            file without spilling registers to memory.
+    --------------------------------------------------------------------------------------"
+
+Add to Table 5.22 - "clGetKernelSubGroupInfo parameter queries" in the OpenCL 2.1 API
+spec, to the table in Section 9.17.2.1 for clGetKernelSubGroupInfoKHR in the OpenCL
+2.0 Extensions spec, and to the table describing the changes to Section 5.9.3 for
+clGetKernelSubGroupInfoKHR in the cl_intel_subgroups spec:
+
+   "--------------------------------------------------------------------------------------
+    cl_kernel_sub_group_info  Input Type  Return Type  Description
+    ------------------------  ----------  -----------  -----------------------------------
+    CL_KERNEL_COMPILE_        ignored     size_t       Returns the subgroup size specified
+    SUB_GROUP_SIZE_INTEL                               by the __attribute__((
+                                                       intel_reqd_sub_group_size(<int>)))
+                                                       qualifier.  Refer to section 6.7.2.
+
+                                                       If the subgroup size is not
+                                                       specified using the above attribute
+                                                       qualifier then 0 is returned.
+    --------------------------------------------------------------------------------------"
+
+Add to Section 6.7.2 - "Optional Attribute Qualifiers"
+
+   "The optional __attribute__((intel_reqd_sub_group_size(<int>))) can be used to indicate
+    that the kernel must be compiled and executed with the specified subgroup size.  When
+    this attribute is present, get_max_sub_group_size() is guaranteed to return the
+    specified integer value.  This is important for the correctness of many subgroup
+    algorithms, and in some cases may be used by the compiler to generate more optimal
+    code.
+
+    Note that there is no guarantee for the value of get_sub_group_size() even when this
+    attribute is present, particularly when the work-group size is not evenly divisible by
+    the required subgroup size.
+
+    Note as well that some devices may support a limited number of subgroup sizes, and
+    that some devices may not support all language constructs with all subgroup sizes.
+    This means that some kernels may fail compilation with one required subgroup size and
+    succeed with another required subgroup size, even if both subgroup sizes are supported
+    by the device.
+
+    Finally, note that requiring one subgroup size (particularly, a larger subgroup size)
+    may require more spill memory than another subgroup size, and may negatively impact
+    application performance."
+
+Revision History
+
+    Version 1 - Initial Revision
+

@@ -1,0 +1,86 @@
+Name
+
+    ARM_core_id
+
+Name Strings
+
+    cl_arm_core_id
+
+Contributors
+
+    Robert Elliott
+    Hui Chen
+
+Contacts
+
+    Robert Elliott, ARM (robert.elliott 'at' ARM.com)
+
+Status
+
+    Shipping.
+
+Version
+
+    Revision: #1, April 2nd, 2013
+
+Number
+
+    OpenCL Extension #26
+
+Dependencies
+
+    Requires OpenCL version 1.0 or later.
+
+Overview
+
+    This extension provides a built-in function which returns the physical core
+    id (OpenCL Compute Unit) that a work-group is running on. This value is
+    uniform for a work-group.
+
+    This value can be used for a core-specific cache or atomic pool where the
+    storage is required to be in global memory and persistent (but not ordered)
+    between work-groups. This does not provide any additional ordering on top
+    of the existing guarantees between workgroups, nor does it provide any
+    guarantee of concurrent execution.
+
+    The extension string cl_arm_core_id is returned for devices and platforms
+    which support this extension.
+
+Glossary
+
+    No new terminology is introduced by this extension.
+
+New Types
+
+    None
+
+New Procedures and Functions
+
+    Built-in Function
+
+      uint arm_get_core_id( void )
+
+    Description
+
+      Returns a uint that represents the physical core id, in the range 0 to
+      CL_DEVICE_MAX_COMPUTE_UNITS-1
+
+    Example
+
+      // Host code, size pool based on required_instance_size * number_of_compute_units
+      size_t required_instance_size = 1024; 
+      cl_mem core_pool = clCreateBuffer( ctx, CL_MEM_READ_WRITE, required_instance_size * CL_DEVICE_MAX_COMPUTE_UNITS, NULL, NULL );
+
+      // Device/Kernel code, select memory instance
+      kernel void test( global char *per_core_pool, global char *input, uint required_instance_size  )
+      {
+        global char *core_pool_instance = per_core_pool[ arm_get_core_id() * required_instance_size ];
+        ...
+      }
+
+New Tokens
+
+    OpenCL kernel code Now has access to:
+
+      #pragma OPENCL EXTENSION cl_arm_core_id : enable
+      The define cl_arm_core_id is also present

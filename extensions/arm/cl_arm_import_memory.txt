@@ -1,0 +1,314 @@
+Name
+
+    ARM_import_memory
+
+Name Strings
+
+    cl_arm_import_memory
+    cl_arm_import_memory_host
+    cl_arm_import_memory_dma_buf
+
+    cl_arm_import_memory will be reported if at least one of the other extension
+    strings is also reported.
+
+Contributors
+
+    Robert Elliott, ARM
+    Vatsalya Prasad, ARM
+
+Contact
+
+    Robert Elliott, ARM (robert.elliott 'at' ARM.com)
+    Vatsalya Prasad, ARM (vatsalya.prasad 'at' ARM.com)
+
+IP Status
+
+    No claims or disclosures are known to exist.
+
+Version
+
+    Revision: #4, August 4th, 2015
+
+Number
+
+    OpenCL Extension #38
+
+Status
+
+    Complete.
+
+Extension Type
+
+    OpenCL device extension
+
+Dependencies
+
+    Requires OpenCL version 1.0 or later. Requires OpenCL 1.2 for host access
+    cl_mem_flags use when importing, as these were introduced in OpenCL 1.2.
+
+Overview
+
+    This extension adds a new function that allows for direct memory import into
+    OpenCL via the clImportMemoryARM function.
+
+    Memory imported through this interface will be mapped into the device's page
+    tables directly, providing zero copy access. It will never fall back to copy
+    operations and aliased buffers, instead producing an error when mapping is
+    not possible.
+
+    Types of memory supported for import are specified as additional extension
+    strings.
+
+Header File
+
+    cl_ext.h
+
+Glossary
+
+    No new terminology is introduced by this extension.
+
+New Types
+
+    None
+
+New Procedures and Functions
+
+    The new function
+
+      cl_mem clImportMemoryARM( cl_context context,
+                                cl_mem_flags flags,
+                                const cl_import_properties_arm *properties,
+                                void *memory,
+                                size_t size,
+                                cl_int *errorcode_ret );
+
+    Description
+
+      Given a suitable pointer to an external memory allocation <memory> this
+      function will map the memory into the device page tables.
+
+      The flags argument provides standard OpenCL memory object flags.
+
+      Valid <flags> are:
+        * CL_MEM_READ_WRITE, CL_MEM_WRITE_ONLY, CL_MEM_READ_ONLY
+        * CL_MEM_HOST_WRITE_ONLY, CL_MEM_HOST_READ_ONLY, CL_MEM_HOST_NO_ACCESS -
+          where the host flags are only hints and only apply from OpenCL 1.2
+          onwards.
+        * CL_MEM_USE_HOST_PTR - this flag has no effect, it is ignored.
+
+      The properties argument provides a list of key value pairs, with a zero
+      terminator. properties can be NULL or point to a single zero value if the
+      default behaviour is desired.
+
+      Valid <properties> are:
+        * CL_IMPORT_TYPE_ARM
+      Valid values for CL_IMPORT_TYPE_ARM are:
+        * CL_IMPORT_TYPE_HOST_ARM - this is the default
+        * CL_IMPORT_TYPE_DMA_BUF_ARM
+      If <properties> is NULL, default values are taken.
+
+      Valid <memory> pointer is dependent on the TYPE passed in properties.
+
+    Errors
+
+      CL_INVALID_CONTEXT on invalid context.
+
+      CL_INVALID_VALUE on invalid flag input.
+
+      CL_INVALID_VALUE when invalid properties are passed.
+
+      CL_INVALID_VALUE if memory is NULL.
+
+      CL_INVALID_OPERATION when host virtual pages in the range of <memory> to
+      <memory>+<size> are not mapped in the userspace address space. This does
+      _not_ include cases where physical pages are not allocated. For specific
+      behaviour see documentation for those memory types.
+
+      Futher error information may be reported via the cl_context callback
+      function.
+
+New memory import types
+
+    Linux DMA_BUF memory type - CL_IMPORT_TYPE_DMA_BUF_ARM
+
+      If the extension string cl_arm_import_memory_dma_buf is exposed then
+      importing from DMA_BUF file handles is supported.
+
+      DMA_BUF memory coherency can be complicated by devices not part of the
+      normal coherency domain for the CPU and GPU. It is the
+      responsibility of the application to ensure that memory is up to date and
+      that the CPU has a valid view (i.e. it has no stale data in cache) before
+      the OpenCL command using the resource is able to run. This is achieved,
+      either by not Enqueueing the workload, or by using a user event to prevent
+      the command being executed. Before the worklload executes the application
+      must ensure other drivers or devices operating on the resource have
+      synchronised with main memory and the CPU.
+
+      DMA_BUF allocation modes supersede the memory flag argument. For example,
+      if a DMA allocation is originally created with read only flag, if passed to
+      clImportMemoryARM with the READ_WRITE flag, the more restrictive READ_ONLY
+      will take precidence.
+
+      See also, the code example below.
+
+
+    Host process memory type - CL_IMPORT_TYPE_HOST_ARM
+
+      If the extension string cl_arm_import_memory_host is exposed then importing
+      from normal process allocations (such as malloc) is supported.
+
+      If the host OS is linux and oversubscription of VA is allowed, then this
+      function will commit and pin physical pages for the VA range. This may
+      cause larger physical allocations than the application typically provokes
+      if memory is sparsely used. In this case sub-ranges of the host allocation
+      should be passed to the import function individually.
+
+      It is the application's responsibility to align for the datatype being
+      accessed. Though the application is free to provide allocations without
+      any specific alignment. When Alignment is less than a page size then whole
+      pages touched by addresses in the range of <memory> to <memory>+<size>
+      will be mapped into the device. If the page is already mapped by another
+      unaligned import, an error will occur.
+
+      This method is recommended to be used when interoperating with an existing
+      host library which performs its own allocation and cannot be passed
+      handles to mapped OpenCL buffers.
+
+      See also, the code example below.
+
+
+New Tokens
+
+    None
+
+Interactions with other extensions
+
+    This extension produces cl_mem allocations which are compatible with all
+    other uses of cl_mem in the standard API.
+
+    This extension also provides a alternative to image import via EGL.
+
+Sample Code
+
+    CL_IMPORT_TYPE_DMA_BUF_ARM
+
+      #define WIDTH  1024
+      #define HEIGHT 512
+
+      // Create buffer to be used as a hardware texture with graphics APIs (can also
+      // include video/camera use flags here)
+      int dma_buf_handle = get_dma_buf_handle_from_exporter_kernel_module( ..., WIDTH * HEIGHT * 2 );
+
+      cl_int error = CL_SUCCESS;
+      cl_mem buffer = clImportMemoryARM( ctx,
+                                         CL_MEM_READ_WRITE,
+                                         { CL_IMPORT_TYPE_ARM, CL_IMPORT_TYPE_DMA_BUF_ARM, 0 },
+                                         &dma_buf_handle
+                                         WIDTH * HEIGHT * 2,
+                                         &error );
+
+      if( error == CL_SUCCESS )
+      {
+          // Use <buffer> as you would any other cl_mem buffer
+      }
+
+
+    CL_IMPORT_TYPE_HOST_ARM
+
+      #define WIDTH  1024
+      #define HEIGHT 512
+
+      // tightly packed buffer we will treat as RGB565
+      char *buffer = malloc( WIDTH * HEIGHT * 2 );
+
+      // The type CL_IMPORT_TYPE_HOST_ARM can be omitted as it is the default
+      cl_int error = CL_SUCCESS;
+      cl_mem buffer = clImportMemoryARM( ctx,
+                                         CL_MEM_READ_WRITE,
+                                         NULL,
+                                         buffer,
+                                         WIDTH * HEIGHT * 2,
+                                         &error );
+
+      if( error == CL_SUCCESS )
+      {
+          // Use <buffer> as you would any other cl_mem buffer
+      }
+
+Issues
+
+    1. Should we have properties to pass in type?
+    A: Yes, added cl_import_properties_arm and associated flags
+
+    2. How does the application select coherency behaviour?
+    A: Same flags as the coherency extension, cl_mem_flags passed HOST_ALLOC
+       will result in a buffer suitable for frequent sharing.
+
+    3. How does alignment and page alignment for import work?
+    A: dma_buf allocations are page aligned and multiple of page sizes. Host
+       allocations are mapped to the nearest page with padding either side.
+
+    4. What is the default if we don't support TYPE_HOST_ARM? Ideally the
+       shortest form is for malloc import.
+    A: The type is exposed, but we don't expose the extension string. Attempts
+       to use TYPE_HOST_ARM return CL_INVALID_OPERATION.
+
+    5. Host allocations are always outer shared on CPU (and already mapped) so
+       we just do the mapping into GPU to select coherency. How does this fall
+       out for dma_api allocations?
+    A: We follow the same coherency options for dma_api allocations, the only
+       issue is that other devices in the system may not be coherent. This is an
+       application problem, as it has to perform the necessary coherency steps
+       for other non-GPU devices. The GPU driver will handle this once caches
+       of devices that aren't coherent have been flushed.
+
+       Note that with dma_api memory, the act of using it with a command
+       requires that the GPU caches are flushed before the GPU can access that
+       memory region. Other than the CPU and GPU masters with dma_api memory
+       access are not part of the coherency domain.
+       Cache maintenance when dma_api memory may be coming from non-coherent
+       sources vs the optimal path with IO/full coherent CPU and GPU are not
+       detectable with the current dma_api design, and so it's recommended that
+       malloc memory is used when just communicating between CPU and GPU.
+
+       If malloc memory is being used with a non-coherent device outside of the
+       visibility of the GPU driver, GPU caches may contain stale data. This
+       behaviour model is not guaranteed to be supported. Note: this may work
+       today as the GPU agressively flushes caches due to graphics workloads.
+
+    6. What happens if dma_api pages are mapped into the CPU and then this is
+       imported using TYPE_HOST_ARM?
+    A: Undefined.
+
+    7. What happens if two unaligned allocations are imported which share a
+       page, but request different memory flags?
+    A: This is considered an application bug, it must choose the same memory
+       flags. An error will be returned.
+
+    8. What guarantees are given to have the same VA, as in SVM.
+    A: For this functionality the SVM import extension should be used.
+
+    9: Image support and image properties?
+    A: This works through clCreateImage (you can pass it a buffer object).
+       This feature is available as part of the CL2 functionality which allows
+       the same memory to be referenced as an image.
+
+    10: Hardware alignment for images? Specify bytes for most but require app
+        to manage?
+        We have no more than component alignment other than for packed formats.
+    A:  This should be exposed in CL_DEVICE_IMAGE_BASE_ADDRESS_ALIGNMENT as a
+        start. We can relax rules if needed for interop with host image
+        manipulation libraries later.
+
+Conformance Tests
+
+    None
+
+Revision History
+
+    Revision: #1, Apr 27th, 2015 - Initial revision
+    Revision: #2, Apr 28th, 2015 - Added properties field to avoid type
+                                   inferrence. Added Issues section.
+    Revision: #3, May 5th, 2015  - Added image support info in Issues.
+    Revision: #4, Aug 4th, 2015  - Revised based on implementation and design
+                                   changes made during review.

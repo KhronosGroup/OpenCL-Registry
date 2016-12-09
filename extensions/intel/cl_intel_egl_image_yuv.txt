@@ -1,0 +1,126 @@
+Name String
+
+    cl_intel_egl_image_yuv
+
+Contributors
+
+    Ben Ashbaugh, Intel
+    Pawel Wilma, Intel
+    Bartosz Sochacki, Intel
+
+Contact
+
+    Pawel Wilma, Intel (pawel.wilma 'at' intel.com)
+
+Version
+
+    Version 1.0, June 03, 2015
+
+Number
+
+    OpenCL Extension #37
+
+Status
+
+    Final Draft
+
+Extension Type
+
+    OpenCL platform extension
+
+Dependencies
+
+    OpenCL 1.2 is required and cl_khr_egl_image implementation supporting
+    sharing of images between EGL and OpenCL is required.  This extension
+    is written against revision 26 of the OpenCL 2.0 extension specification
+    and revision 26 of OpenCL 2.0 specification.
+
+Overview
+
+    The goal of this extension is to increase interoperability between OpenCL
+    and EGL by introducing support for planar YUV images. Specifically, this
+    extension adds the ability to create OpenCL memory objects representing
+    individual planes of an EGL planar YUV image.
+
+
+New Tokens
+
+    Accepted as property in <properties> parameter of function clCreateFromEGLImageKHR
+    and as <param_name> parameter of function clGetImageInfo
+
+        CL_EGL_YUV_PLANE_INTEL                   0x4107
+
+Additions to Chapter 9 of the OpenCL 2.0 Extension Specification
+
+    In section 9.19.4, replace the description of <properties> under
+    clCreateFromEGLImageKHR with:
+
+    "<properties> specifies a list of property names and their corresponding
+    values. Each property name is immediately followed by the corresponding
+    desired value. The list is terminated with 0. <properties> can be NULL.
+    Supported property names and values:
+
+    ----------------------------------------------------------------------------------------
+    Property name             Property value     Description
+    -----------------------   --------------     -----------
+    CL_EGL_YUV_PLANE_INTEL    -1,0,1,...         Defines plane from planar YUV image to be
+                                                 used as OpenCL image source. If the value
+                                                 specified for this property name is not
+                                                 valid the function returns error code
+                                                 CL_INVALID_VALUE. Default value is -1 which
+                                                 represents all planes of the image.
+    ----------------------------------------------------------------------------------------"
+
+    At the end of section 9.19.4 add following description:
+
+    "Supported planar YUV formats
+
+    ------------------------------------------------------------------
+    Format    Plane                  cl_channel_order  cl_channel_type
+    ------    --------------------   ----------------  ---------------
+    NV12      0                      CL_R              CL_UNORM_INT8
+    NV12      1                      CL_RG             CL_UNORM_INT8
+    ------------------------------------------------------------------
+    Table 9.19.4.1: List of planar YUV formats and corresponding OpenCL
+    Image Formats.
+
+    For the NV12 surface format, plane 0 corresponds to the Y channel
+    data and plane 1 corresponds to the UV channel data.
+
+    In case of creating OpenCL image based on Y-plane from NV12 image
+    the <properties> could be defined in following way:
+
+    cl_egl_image_properties_khr properties[]  =
+    {
+        CL_EGL_YUV_PLANE_INTEL, 0,
+        CL_NONE
+    };
+
+    cl_mem image = clCreateFromEGLImageKHR( context, display, egl_image,
+                                            flags, properties, &error_code );"
+
+Additions to Chapter 5 of the OpenCL2.0 Specification
+
+    Add to the list of errors for clGetImageInfo:
+        * CL_INVALID_EGL_OBJECT_KHR if <param_name> is CL_EGL_YUV_PLANE_INTEL
+          and <image> was not created by the function clCreateFromEGLImageKHR.
+
+    Extend table 5.10 to include the following entry:
+
+    -------------------------------------------------------------------------
+    cl_image_info          Return type    Info. returned in <param_value>
+    -------------          -----------    -----------------------------------
+    CL_EGL_YUV_PLANE_INTEL cl_int         If <image> was created using
+                                          clCreateFromEGLImageKHR, returns
+                                          the value of CL_EGL_YUV_PLANE_INTEL
+                                          property from <properties> argument
+                                          specified when <image> was created.
+    -------------------------------------------------------------------------
+
+Issues
+
+    None
+
+Revision History
+
+    Version 1.0 (2015, June 03): First public revision.

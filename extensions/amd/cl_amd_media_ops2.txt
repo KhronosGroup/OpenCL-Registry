@@ -1,0 +1,157 @@
+Name Strings
+
+    cl_amd_media_ops2
+
+    #pragma OPENCL EXTENSION cl_amd_media_ops2 : enable
+
+Contributors
+
+
+Version
+
+    
+
+Number
+
+    OpenCL Extension #15
+
+Status
+
+    ?
+
+Extension Type
+
+    OpenCL compiler directive for extensions
+
+Dependencies
+
+    None
+
+Overview
+
+    The directive when enabled adds the following built-in functions to
+    the OpenCL language.
+
+    Note: typen denote open scalar type { n = 1 } and vector types
+          { n = 2, 4, 8, 16 }.
+
+    Build-in Function  
+      uintn  amd_msad (uintn src0, uintn src1, uintn src2)  
+    Description
+      uchar4 src0u8 = as_uchar4(src0.s0);
+      uchar4 src1u8 = as_uchar4(src1.s0);
+      dst.s0 = src2.s0 + 
+               ((src1u8.s0 == 0) ? 0 : abs(src0u8.s0 - src1u8.s0)) +
+               ((src1u8.s1 == 0) ? 0 : abs(src0u8.s1 - src1u8.s1)) +
+               ((src1u8.s2 == 0) ? 0 : abs(src0u8.s2 - src1u8.s2)) +
+               ((src1u8.s3 == 0) ? 0 : abs(src0u8.s3 - src1u8.s3));
+      similar operation applied to other components of the vectors
+
+    Build-in Function  
+      ulongn amd_qsad (ulongn src0, uintn src1, ulongn src2)  
+    Description
+      uchar8 src0u8 = as_uchar8(src0.s0);
+      ushort4 src2u16 = as_ushort4(src2.s0);
+      ushort4 dstu16;
+      dstu16.s0 = amd_sad(as_uint(src0u8.s0123), src1.s0, src2u16.s0);
+      dstu16.s1 = amd_sad(as_uint(src0u8.s1234), src1.s0, src2u16.s1);
+      dstu16.s2 = amd_sad(as_uint(src0u8.s2345), src1.s0, src2u16.s2);
+      dstu16.s3 = amd_sad(as_uint(src0u8.s3456), src1.s0, src2u16.s3);
+      dst.s0 = as_uint2(dstu16);
+      similar operation applied to other components of the vectors
+
+    Build-in Function  
+      ulongn amd_mqsad (ulongn src0, uintn src1, ulongn src2)  
+    Description
+      uchar8 src0u8 = as_uchar8(src0.s0);
+      ushort4 src2u16 = as_ushort4(src2.s0);
+      ushort4 dstu16;
+      dstu16.s0 = amd_msad(as_uint(src0u8.s0123), src1.s0, src2u16.s0);
+      dstu16.s1 = amd_msad(as_uint(src0u8.s1234), src1.s0, src2u16.s1);
+      dstu16.s2 = amd_msad(as_uint(src0u8.s2345), src1.s0, src2u16.s2);
+      dstu16.s3 = amd_msad(as_uint(src0u8.s3456), src1.s0, src2u16.s3);
+      dst.s0 = as_uint2(dstu16);
+      similar operation applied to other components of the vectors
+
+    Build-in Function  
+      uintn  amd_sadw (uintn src0, uintn src1, uintn src2)  
+    Description
+      ushort2 src0u16 = as_ushort2(src0.s0);
+      ushort2 src1u16 = as_ushort2(src1.s0);
+      dst.s0 = src2.s0 + 
+               abs(src0u16.s0 - src1u16.s0) +
+               abs(src0u16.s1 - src1u16.s1);
+      similar operation applied to other components of the vectors
+
+    Build-in Function  
+      uintn  amd_sadd (uintn src0, uintn src1, uintn src2)  
+    Description
+      dst.s0 = src2.s0 +  abs(src0.s0 - src1.s0);
+      similar operation applied to other components of the vectors
+
+    Built-in Function:
+      uintn amd_bfm (uintn src0, uintn src1) 
+    Description
+      dst.s0 = ((1 << (src0.s0 & 0x1f)) - 1) << (src1.s0 & 0x1f);
+      similar operation applied to other components of the vectors
+
+    Built-in Function:
+      uintn amd_bfe (uintn src0, uintn src1, uintn src2) 
+    Description
+      NOTE: operator >> below represent logical right shift
+      offset = src1.s0 & 31;
+      width = src2.s0 & 31;
+      if width = 0
+          dst.s0 = 0;
+      else if (offset + width) < 32
+          dst.s0 = (src0.s0 << (32 - offset - width)) >> (32 - width);
+      else
+          dst.s0 = src0.s0 >> offset;
+      similar operation applied to other components of the vectors
+
+    Built-in Function:
+       intn amd_bfe (intn src0, uintn src1, uintn src2) 
+    Description
+      NOTE: operator >> below represent arithmetic right shift
+      offset = src1.s0 & 31;
+      width = src2.s0 & 31;
+      if width = 0
+          dst.s0 = 0;
+      else if (offset + width) < 32
+          dst.s0 = src0.s0 << (32-offset-width) >> 32-width;
+      else
+          dst.s0 = src0.s0 >> offset;
+      similar operation applied to other components of the vectors
+
+    Built-in Function:
+       intn amd_median3 (intn src0, intn src1, intn src2) 
+       uintn amd_median3 (uintn src0, uintn src1, uintn src2) 
+       floatn amd_median3 (floatn src0, floatn src1, floattn src2) 
+    Description
+       returns median of src0, src1, and src2
+
+    Built-in Function:
+       intn amd_min3 (intn src0, intn src1, intn src2) 
+       uintn amd_min3 (uintn src0, uintn src1, uintn src2) 
+       floatn amd_min3 (floatn src0, floatn src1, floattn src2) 
+    Description
+       returns min of src0, src1, and src2
+
+    Built-in Function:
+       intn amd_max3 (intn src0, intn src1, intn src2) 
+       uintn amd_max3 (uintn src0, uintn src1, uintn src2) 
+       floatn amd_max3 (floatn src0, floatn src1, floattn src2) 
+    Description
+       returns max of src0, src1, and src2
+
+Header File
+
+    None
+
+New Types
+
+    None
+
+New Procedures and Functions
+
+    None

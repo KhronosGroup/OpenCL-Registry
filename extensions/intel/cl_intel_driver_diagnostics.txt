@@ -1,0 +1,185 @@
+Name Strings
+
+    cl_intel_driver_diagnostics
+
+Contributors
+
+    Michal Mrozek, Intel
+    Mateusz Hoppe, Intel
+    Adam Lake, Intel
+    Ben Ashbaugh, Intel
+    Tim Bauer, Intel
+    Tom Craver, Intel
+    Eric Palmer, Intel
+    Bartosz Dunajski, Intel
+
+Contact
+
+    Michal Mrozek, Intel (michal.mrozek 'at' intel.com)
+
+Version
+
+    Version 1, July 25, 2016
+
+Number
+
+    OpenCL Extenstion #47
+
+Status
+
+    Final Draft
+
+Dependencies
+
+    Support for OpenCL 1.2 is required.
+
+    This spec is written against revision 19 of the OpenCL 1.2 specification.
+
+Overview
+
+    The OpenCL specification allows registering a callback function during
+    OpenCL context creation that will be called whenever there is an error.
+    This extension extends this mechanism by allowing the driver to pass
+    additional strings containing diagnostic information. The diagnostic
+    messages can help to understand how the driver works and can provide
+    guidance to modify an application to improve performance.
+
+New Types
+
+    Add the following new type to describe the types of diagnostic messages
+    that will be passed through the context callback:
+
+        typedef cl_bitfield cl_diagnostic_verbose_level_intel;
+
+New API Enums
+
+    Accepted as a property name in the <properties> parameter of
+    clCreateContext and clCreateContextFromType:
+
+        CL_CONTEXT_SHOW_DIAGNOSTICS_INTEL           0x4106
+
+    The value for the property CL_CONTEXT_SHOW_DIAGNOSTICS_INTEL is a bitfield
+    of type cl_diagnostic_verbose_level_intel that controls the types of
+    diagnostic messages that are reported.  Valid bits in this bitfield are:
+
+        CL_CONTEXT_DIAGNOSTICS_LEVEL_BAD_INTEL      0x2
+
+        Messages under bad verbose level report cases that may result in
+        degraded performance.
+
+        CL_CONTEXT_DIAGNOSTICS_LEVEL_GOOD_INTEL     0x1
+
+        Messages under good verbose level report good use cases to verify that
+        that the driver is used properly and optimally.
+
+        CL_CONTEXT_DIAGNOSTICS_LEVEL_NEUTRAL_INTEL  0x4
+
+        Messages under neutral verbose level report cases that may or may not
+        have performance implications. Additionally, neutral diagnostic
+        messages may inform developers about specific internal driver
+        properties.
+
+Additions to Chapter 4 of the OpenCL 1.2 Specification
+
+    Add a row describing CL_CONTEXT_DRIVER_DIAGNOSTICS_INTEL to Table 4.5 -
+    "List of supported properties by clCreateContext":
+
+   "----------------------------------------------------------------------------
+    cl_context_properties   Property Value      Description
+    enum
+    ---------------------   ------------------  --------------------------------
+    CL_CONTEXT_DRIVER_      cl_diagnostics_     Specifies whether the caller
+    DIAGNOSTICS_INTEL       verbose_level_      wants to receive diagnostic
+                            intel               information from the driver.
+                                                If CL_CONTEXT_DRIVER_
+                                                DIAGNOSTICS_INTEL is not
+                                                specified or set to zero then
+                                                driver diagnostics strings will
+                                                not be provided. Since this
+                                                value is a bitset, multiple
+                                                diagnostic message types may be
+                                                requested. If this value is set
+                                                to a nonzero value then a
+                                                callback function must be
+                                                provided to clCreateContext.
+    ---------------------------------------------------------------------------"
+
+    Also, replace the description of pfn_notify in Section 4.4 - "Contexts"
+    with:
+
+   "<pfn_notify> is a callback function that can be registered by the
+    application. This callback function will be used by the OpenCL
+    implementation to report information on errors during context creation as
+    well as errors that occur at runtime in this context. Additionally if
+    CL_CONTEXT_DRIVER_DIAGNOSTICS_INTEL is set to a nonzero value via context
+    creation <properties>, then this callback function will be used by the
+    OpenCL implementation to report diagnostic information. This callback
+    function may be called asynchronously by the OpenCL implementation. It is
+    the application's responsibility to ensure that the callback function is
+    thread-safe. The parameters to this callback function are:
+
+    *   <errinfo> is a pointer to an error string or diagnostic information.
+    *   <private_info> and <cb> represent a pointer to binary data that is
+        returned by the OpenCL implementation that can be used to log
+        additional information helpful in debugging the error or analyzing the
+        diagnostic information.
+    *   <user_data> is a pointer to user supplied data.
+
+    If <pfn_notify> is NULL, no callback function is registered.
+
+    NOTE: There are a number of cases where error notifications need to be
+    delivered due to an error that occurs outside a context. Such notifications
+    may not be delivered through the pfn_notify callback.  Where these
+    notifications go is implementation-defined."
+
+    Add to the list of errors for clCreateContext and clCreateContextFromType:
+
+   "*   CL_INVALID_PROPERTY if property CL_CONTEXT_SHOW_DIAGNOSTICS_INTEL is
+        set to a nonzero value and <pfn_notify> is NULL."
+
+Interactions with other extensions
+
+    None
+
+Issues
+
+    1.  How this mechanism work together with current error callback mechanism?
+
+    RESOLVED: When driver diagnostics are enabled error strings are still
+    reported with callback mechanism.
+
+    2.  When will callback be called?
+
+    RESOLVED: Callbacks with diagnostic messages will be called in the same
+    moment given action occurs in the driver, it means that multiple diagnostic
+    strings may be provided from one API call.
+
+Sample Code
+
+    void CL_CALLBACK NotifyFunction(
+        const char * pDiagnosticInfo,
+        const void * pPrivateData,
+        size_t SizeOfPrivateData,
+        void* pUserData )
+    {
+        printf("%s\n", pDiagnosticInfo);
+    }
+
+    int main()
+    {
+        ...
+        cl_context_properties properties[] = {
+                CL_CONTEXT_DRIVER_DIAGNOSTICS_INTEL,
+                CL_CONTEXT_DIAGNOSTICS_LEVEL_BAD_INTEL,
+                0
+            };
+        ...
+        myContext = clCreateContext(properties, 1, &deviceID,
+            NotifyFunction, NULL, NULL);
+        ...
+    }
+
+Revision History
+
+    Version 1 - Initial Revision
+

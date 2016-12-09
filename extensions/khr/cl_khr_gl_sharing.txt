@@ -1,0 +1,543 @@
+Name Strings
+
+    cl_khr_gl_sharing
+
+Version
+
+    Version 15, March 10, 2010
+
+Number
+
+    OpenCL Extension #1
+
+Status
+
+    Complete. Version 10 approved by the OpenCL Working Group.
+    Ratified by the Khronos Promoters, August 28, 2009.
+
+Extension Type
+
+    OpenCL platform extension
+
+Dependencies
+
+    OpenCL 1.0 is required. This extension is written against the OpenCL
+    1.0 revision 47 specification draft.
+
+    An OpenGL implementation supporting buffer objects and sharing of
+    texture and buffer object images with OpenCL is required.
+
+    This extension is included in the OpenCL 1.0 specification as
+    section 9.11 for reference purposes. However, the normative version
+    of the extension, as approved by the OpenCL Working Group, will
+    always be the separate cl_khr_gl_sharing.txt document in the Khronos
+    API Registry.
+
+Overview
+
+    OpenCL defines how to share image data with texture and buffer
+    objects in a parallel OpenGL implementation, but does not define how
+    the association between an OpenCL context and an OpenGL context or
+    share group is established. This extension defines optional
+    attributes to OpenCL context creation routines which associate a GL
+    context or share group object with a newly created OpenGL context.
+
+Header File
+
+    This extension's interfaces are defined in cl_gl.h .
+
+New Types
+
+    typedef cl_uint cl_gl_context_info;
+
+New Procedures and Functions
+
+    cl_int clGetGLContextInfoKHR(const cl_context_properties *properties,
+				 cl_gl_context_info param_name,
+				 size_t param_value_size,
+				 void *param_value,
+				 size_t *param_value_size_ret);
+
+New Tokens
+
+    Returned by clCreateContext, clCreateContextFromType, and
+    clGetGLContextInfoKHR when an invalid OpenGL context or share group
+    object handle is specified in <properties>:
+
+	CL_INVALID_GL_SHAREGROUP_REFERENCE_KHR	-1000
+
+    Accepted as the <param_name> argument of clGetGLContextInfoKHR:
+
+	CL_CURRENT_DEVICE_FOR_GL_CONTEXT_KHR	0x2006
+	CL_DEVICES_FOR_GL_CONTEXT_KHR		0x2007
+
+    Accepted as an attribute name in the 'properties' argument of
+    clCreateContext and clCreateContextFromType:
+
+	CL_GL_CONTEXT_KHR			0x2008
+	CL_EGL_DISPLAY_KHR			0x2009
+	CL_GLX_DISPLAY_KHR			0x200A
+	CL_WGL_HDC_KHR				0x200B
+	CL_CGL_SHAREGROUP_KHR			0x200C
+
+Additions to Chapter 4 of the OpenCL 1.0 Specification
+
+    In section 4.3, replace the description of <properties> under
+    clCreateContext on page 38 with:
+
+   "<properties> points to an <attribute list>, which is a array of
+    ordered <attribute name, value> pairs terminated with zero. If an
+    attribute is not specified in <properties>, then its default value
+    (listed in table 4.4) is used (it is said to be specified
+    implicitly). If <properties> is NULL or empty (points to a list
+    whose first value is zero), all attributes take on their default
+    values.
+
+    If the CL_CONTEXT_PLATFORM attribute is not specified, or is
+    specified with the default value of NULL, the selected platform is
+    implementation-defined.
+
+    Other attributes control sharing of OpenCL memory objects with
+    OpenGL buffer, texture, and renderbuffer objects as described in
+    section 9.12. Depending on the platform-specific API used to bind
+    OpenGL contexts to the window system, the following attributes may
+    be set to identify an OpenGL context:
+
+      * When the CGL binding API is supported, the attribute
+	CL_CGL_SHAREGROUP_KHR should be set to a CGLShareGroup handle to
+	a CGL share group object.
+
+      * When the EGL binding API is supported, the attribute
+	CL_GL_CONTEXT_KHR should be set to an EGLContext handle to an
+	OpenGL ES or OpenGL context, and the attribute
+	CL_EGL_DISPLAY_KHR should be set to the EGLDisplay handle of the
+	display used to create the OpenGL ES or OpenGL context.
+
+      * When the GLX binding API is supported, the attribute
+	CL_GL_CONTEXT_KHR should be set to a GLXContext handle to an
+	OpenGL context, and the attribute CL_GLX_DISPLAY_KHR should be
+	set to the Display handle of the X Window System display used to
+	create the OpenGL context.
+
+      * When the WGL binding API is supported, the attribute
+	CL_GL_CONTEXT_KHR should be set to an HGLRC handle to an OpenGL
+	context, and the attribute CL_WGL_HDC_KHR should be set to the
+	HDC handle of the display used to create the OpenGL context.
+
+    Memory objects created in the context so specified may be shared
+    with the specified OpenGL or OpenGL ES context (as well as with any
+    other OpenGL contexts on the share list of that context, according
+    to the description of sharing in the GLX 1.4 and EGL 1.4
+    Specifications, and the WGL documentation for OpenGL implementations
+    on Microsoft Windows), or with the explicitly identified OpenGL
+    share group for CGL. If no OpenGL or OpenGL ES context or share
+    group is specified in the attribute list, then memory objects may
+    not be shared, and calling any of the commands in section 9.12 will
+    result in a CL_INVALID_GL_SHAREGROUP_REFERENCE_KHR error."
+
+    Replace existing table 4.4 with:
+
+   "-------------------------------------------------------------------------
+    Attribute Name	    Allowed Values	Description
+    (cl_context		    (default value
+    properties enum)	    is in *bold*)
+    ---------------------   ------------------	-----------------------------
+    CL_CONTEXT_PLATFORM     *NULL*,		Specifies the platform to
+			    cl_platform_id	create the OpenCL context on
+			    pointer
+    CL_GL_CONTEXT_KHR	    *0*,		OpenGL context to associate
+			    OpenGL context	the OpenCL context with
+			    handle
+    CL_CGL_SHAREGROUP_KHR   *0*,		CGL share group to associate
+			    CGL share group	the OpenCL context with
+			    handle
+    CL_EGL_DISPLAY_KHR	    *EGL_NO_DISPLAY*,	EGLDisplay an OpenGL context
+			    EGLDisplay handle	was created with respect to
+    CL_GLX_DISPLAY_KHR	    *None*		X Display an OpenGL context
+			    X Display handle	was created with respect to
+    CL_WGL_HDC_KHR	    *0*,		HDC an OpenGL context
+			    HDC handle		was created with respect to
+    ------------------------------------------------------------------------
+	Table 4.4: Context creation attributes"
+
+    Add to the list of errors for clCreateContext:
+
+   "* CL_INVALID_GL_SHAREGROUP_REFERENCE_KHR if a context was specified
+      by any of the following means:
+
+      * A context was specified for an EGL-based OpenGL ES or OpenGL
+	implementation by setting the attributes CL_GL_CONTEXT_KHR and
+	CL_EGL_DISPLAY_KHR
+      * A context was specified for a GLX-based OpenGL implementation by
+	setting the attributes CL_GL_CONTEXT_KHR and CL_GLX_DISPLAY_KHR
+      * A context was specified for a WGL-based OpenGL implementation by
+	setting the attributes CL_GL_CONTEXT_KHR and CL_WGL_HDC_KHR
+
+    and any of the following conditions hold:
+
+      * The specified display and context attributes do not identify a
+	valid OpenGL or OpenGL ES context
+      * The specified context does not support buffer and renderbuffer
+	objects.
+      * The specified context is not compatible with the OpenCL context
+	being created (for example, it exists in a physically distinct
+	address space, such as another hardware device; or it does not
+	support sharing data with OpenCL due to implementation
+	restrictions).
+
+    * CL_INVALID_GL_SHAREGROUP_REFERENCE_KHR if a share group was
+      specified for a CGL-based OpenGL implementation by setting the
+      attribute CL_CGL_SHAREGROUP_KHR, and the specified share group
+      does not identify a valid CGL share group object.
+
+    * CL_INVALID_OPERATION if a context or share group object was
+      specified for one of CGL, EGL, GLX, or WGL and any of the
+      following conditions hold:
+
+      * The OpenGL implementation does not support the window-system
+	binding API for which a context or share group objects was
+	specified.
+      * More than one of the attributes CL_CGL_SHAREGROUP_KHR,
+	CL_EGL_DISPLAY_KHR, CL_GLX_DISPLAY_KHR, and CL_WGL_HDC_KHR is
+	set to a non-default value.
+      * Both of the attributes CL_CGL_SHAREGROUP_KHR and
+	CL_GL_CONTEXT_KHR are set to non-default values.
+      * Any of the devices specified in the <devices> argument cannot
+	support OpenCL objects which share the data store of an OpenGL
+	object, as described in section 9.12."
+
+    Replace the description of <properties> under
+    clCreateContextFromType with:
+
+   "<properties> points to an attribute list whose format and valid
+    contents are identical to the <properties> argument of
+    clCreateContext."
+
+    Add to the list of errors for clCreateContextFromType the same new
+    errors described above for clCreateContext.
+
+Additions to Section 9.12 (Sharing Memory Objects...) of the OpenCL 1.0
+Specification
+
+    Add new section 9.12.7:
+
+   "9.12.7 Querying devices corresponding to OpenGL contexts
+
+    OpenCL device(s) corresponding to an OpenGL context may be queried.
+    Such a device may not always exist (for example, if an OpenGL
+    context is specified on a GPU not supporting OpenCL command queues,
+    but which does support shared CL/GL objects), and if it does exist,
+    may change over time. When such a device does exist, acquiring and
+    releasing shared CL/GL objects may be faster on a command queue
+    corresponding to this device than on command queues corresponding to
+    other devices available to an OpenCL context. To query the currently
+    corresponding device, use the function
+
+	cl_int clGetGLContextInfoKHR(const cl_context_properties *properties,
+				     cl_gl_context_info param_name,
+				     size_t param_value_size,
+				     void *param_value,
+				     size_t *param_value_size_ret);
+
+    <properties> points to an attribute list whose format and valid
+    contents are identical to the <properties> argument of
+    clCreateContext. <properties> must identify a single valid GL
+    context or GL share group object.
+
+    <param_name> is a constant that specifies the GL context information
+    to query, and must be one of the values shown in table 9.ctxprop.
+
+    <param_value> is a pointer to memory where the result of the query
+    is returned as described in table 9.ctxprop. If <param_value> is
+    NULL, it is ignored.
+
+    <param_value_size> specifies the size in bytes of memory pointed to
+    by <param_value>. This size must be greater than or equal to the
+    size of the return type described in table 9.ctxprop.
+
+    <param_value_size_ret> returns the actual size in bytes of data
+    being queried by <param_value>. If <param_value_size_ret> is NULL,
+    it is ignored.
+
+    --------------------------------------------------------------------
+    param_name,
+    return type		    info. returned in param_value
+    -----------		    --------------------------------------------
+    CL_CURRENT_DEVICE_FOR_GL_CONTEXT_KHR,
+    cl_device_id	    CL device currently associated with the
+			    specified OpenGL context
+
+    CL_DEVICES_FOR_GL_CONTEXT_KHR,
+    cl_device_id[]	    List of all CL devices which may be
+			    associated with the specified OpenGL context
+    --------------------------------------------------------------------
+    Table 9.ctxprop: GL context information that can be queried with
+    clGetGLContextInfoKHR
+
+    clGetGLContextInfoKHR returns CL_SUCCESS if the function is executed
+    successfully. If no device(s) exist corresponding to <param_name>,
+    the call will not fail, but the value of <param_value_size_ret> will
+    be zero.
+
+    clGetGLContextInfoKHR returns CL_INVALID_GL_SHAREGROUP_REFERENCE_KHR
+    if a context was specified by any of the following means:
+      * A context was specified for an EGL-based OpenGL ES or OpenGL
+	implementation by setting the attributes CL_GL_CONTEXT_KHR and
+	CL_EGL_DISPLAY_KHR
+      * A context was specified for a GLX-based OpenGL implementation by
+	setting the attributes CL_GL_CONTEXT_KHR and CL_GLX_DISPLAY_KHR
+      * A context was specified for a WGL-based OpenGL implementation by
+	setting the attributes CL_GL_CONTEXT_KHR and CL_WGL_HDC_KHR
+    and any of the following conditions hold:
+      * The specified display and context attributes do not identify a
+	valid OpenGL or OpenGL ES context
+      * The specified context does not support buffer and renderbuffer
+	objects.
+      * The specified context is not compatible with the OpenCL context
+	being created (for example, it exists in a physically distinct
+	address space, such as another hardware device; or it does not
+	support sharing data with OpenCL due to implementation
+	restrictions).
+
+    clGetGLContextInfoKHR returns CL_INVALID_GL_SHAREGROUP_REFERENCE_KHR
+    if a share group was specified for a CGL-based OpenGL implementation
+    by setting the attribute CL_CGL_SHAREGROUP_KHR, and the specified
+    share group does not identify a valid CGL share group object.
+
+    clGetGLContextInfoKHR returns CL_INVALID_OPERATION if a context was
+    specified as described above and any of the following conditions
+    hold:
+      * A context or share group object was specified for one of CGL,
+	EGL, GLX, or WGL and the OpenGL implementation does not support
+	that window-system binding API.
+      * More than one of the attributes CL_CGL_SHAREGROUP_KHR,
+	CL_EGL_DISPLAY_KHR, CL_GLX_DISPLAY_KHR, and CL_WGL_HDC_KHR is
+	set to a non-default value.
+      * Both of the attributes CL_CGL_SHAREGROUP_KHR and
+	CL_GL_CONTEXT_KHR are set to non-default values.
+      * Any of the devices specified in the <devices> argument cannot
+	support OpenCL objects which share the data store of an OpenGL
+	object, as described in section 9.12.
+
+    clGetGLContextInfoKHR returns CL_INVALID_VALUE if an attribute name
+    other than CL_GL_CONTEXT_KHR, CL_CGL_SHAREGROUP_KHR,
+    CL_EGL_DISPLAY_KHR, CL_GLX_DISPLAY_KHR, or CL_WGL_HDC_KHR (as
+    described in table 4.4) is specified in <properties>, or if the same
+    property name is specified more than once.
+
+    Additionally, clGetGLContextInfoKHR returns CL_INVALID_VALUE if
+    <param_name> is not one of the values listed in table 9.ctxprop, or
+    if the size in bytes specified by <param_value_size> is less than
+    the size of the return type shown in table 9.ctxprop, and
+    <param_value> is not a NULL value."
+
+Issues
+
+ 1) How should the OpenGL context be identified when creating an
+    associated OpenCL context?
+
+    RESOLVED: by using a (display,context handle) attribute pair to
+    identify an arbitrary OpenGL or OpenGL ES context with respect to
+    one of the window-system binding layers EGL, GLX, or WGL, or a share
+    group handle to identify a CGL share group. If a context is
+    specified, it need not be current to the thread calling
+    clCreateContext*.
+
+    A previously suggested approach would use a single boolean attribute
+    CL_USE_GL_CONTEXT_KHR to allow creating a context associated with the
+    currently bound OpenGL context. This may still be implemented as a
+    separate extension, and might allow more efficient Acquire/Release
+    behavior in the special case where they are being executed in the
+    same thread as the bound GL context used to create the CL context.
+
+ 2) What should the format of an attribute list be?
+
+    After considerable discussion in bug 4340, we think we can live with
+    a list of <attribute name,value> pairs terminated by zero. The list
+    is passed as 'cl_context_properties *properties', where
+    cl_context_properties is typedefed to be 'intptr_t' in cl.h.
+
+    This effectively allows encoding all scalar integer, pointer, and
+    handle values in the host API into the argument list and is
+    analogous to the structure and type of EGL attribute lists. NULL
+    attribute lists are also allowed. Again as for EGL, any attributes
+    not explicitly passed in the list will take on a defined default
+    value that does something reasonable.
+
+    Experience with EGL, GLX, and WGL has shown attribute lists to be a
+    sufficiently flexible and general mechanism to serve the needs of
+    management calls such as context creation. It is not completely
+    general (encoding floating-point and non-scalar attribute values is
+    not straightforward), and other approaches were suggested in bug
+    4340 such as opaque attribute lists with getter/setter methods, or
+    arrays of varadic structures.
+
+ 3) What's the behavior of an associated OpenGL or OpenCL context when
+    using resources defined by the other associated context, and that
+    context is destroyed?
+
+    RESOLVED: As described in section 9.12, OpenCL objects place a
+    reference on the data store underlying the corresponding GL object
+    when they're created. The GL name corresponding to that data store
+    may be deleted, but the data store itself remains so long as any CL
+    object has a reference to it.
+
+    However, destroying all GL contexts in the share group corresponding
+    to a CL context results in implementation-dependent behavior when
+    using a corresponding CL object, up to and including program
+    termination.
+
+ 4) How about sharing with D3D?
+
+    Sharing between D3D and OpenCL should use the same attribute list
+    mechanism, though obviously with different parameters, and be
+    exposed as a similar parallel OpenCL extension. There may be an
+    interaction between that extension and this one since it's not yet
+    clear if it will be possible to create a CL context simultaneously
+    sharing GL and D3D objects.
+
+ 5) Under what conditions will context creation fail due to sharing?
+
+    RESOLVED: Several cross-platform failure conditions are described
+    (GL context or CGL share group doesn't exist, GL context doesn't
+    support types of GL objects required by the section 9.12 interfaces,
+    GL context implementation doesn't allow sharing), but additional
+    failures may result due to implementation-dependent reasons and
+    should be added to this extension as such failures are discovered.
+    Sharing between OpenCL and OpenGL requires integration at the driver
+    internals level.
+
+ 6) What command queues can clEnqueueAcquire/ReleaseGLObjects be placed
+    on?
+
+    RESOLVED: All command queues. This restriction is enforced at
+    context creation time. If any device passed to context creation
+    cannot support shared CL/GL objects, context creation will fail with
+    a CL_INVALID_OPERATION error.
+
+ 7) How can applications determine which command queue to place an
+    Acquire/Release on?
+
+    RESOLVED: The clGetGLContextInfoKHR returns either the CL device
+    currently corresponding to a specified GL context (typically the
+    display it's running on), or a list of all the CL devices the
+    specified context might run on (potentially useful in multiheaded /
+    "virtual screen" environments). This command is not simply placed in
+    section 9.12 because it relies on the same property-list method of
+    specifying a GL context introduced by this extension.
+
+    If no devices are returned, it means that the GL context exists on
+    an older GPU not capable of running OpenCL, but still capable of
+    sharing objects between GL running on that GPU and CL running
+    elsewhere.
+
+ 8) What is the meaning of the CL_DEVICES_FOR_GL_CONTEXT_KHR query?
+
+    RESOLVED: the list of all CL devices that may ever be associated
+    with a specific GL context. On platforms such as MacOS X,
+    the "virtual screen" concept allows multiple GPUs to back a single
+    virtual display. Similar functionality might be implemented on other
+    windowing systems, such as a transparent heterogenous multiheaded X
+    server. Therefore the exact meaning of this query is interpreted
+    relative to the binding layer API in use.
+
+ 9) Miscellaneous issues during syncing of version 12 with the OpenCL
+    1.0 revision 47 spec language and the minor changes Affie made
+    including this extension as section 9.11 of that spec:
+
+    - rev47 spec numbers table 9.ctxprop as "9.7" but this may depends
+      on the core spec revision.
+    - rev47 spec uses 'cl_context' as the return type for
+      clGetGLContextInfoKHR param names, but cl_device_id /
+      cl_device_id[] are the proper types.
+    - rev47 spec omits the paragraph describing CL_SUCCESS return from
+      clGetGLContextInfoKHR.
+
+Sample Code
+
+    None yet.
+
+Conformance Tests
+
+    None yet. The conformance suite's GL/CL interop testing will
+    probably make use of this extension in time.
+
+Revision History
+
+    Version 15, 2010/03/10 (Jon Leech) - Add missing "Header File"
+    section now that the extension headers have been published.
+
+    Version 14, 2009/12/02 (Jon Leech) - Add missing "New Types" section
+    with cl_gl_context_info type definition (public bug 239).
+
+    Version 13, 2009/10/02 (Jon Leech) - Fix typo (CL_CONTEXT_PROPERTY
+    -> CL_CONTEXT_PLATFORM) and list a default value of NULL for this
+    attribute in table 4.4.
+
+    Version 12, 2009/10/01 (Jon Leech) - Change value for
+    CL_INVALID_GL_SHAREGROUP_REFERENCE_KHR from -63 to -1000, to be in a
+    new range of extension error codes instead of in the core API error
+    codes. Sync up spec language with movement of Appendix B to Section
+    9.12 of the latest 1.0 specification update and modify existing
+    table 4.4 instead of adding a new table. Moved clGetGLContextInfoKHR
+    into a new subsection 9.12.7 and added the same INVALID_VALUE error
+    for badly formed attribute lists (repeated properties) as
+    clCreateContext, to encourage consistent treatment of attribute
+    lists everywhere they're used. Reduced number of quote marks around
+    new spec language.
+
+    Version 11, 2009/09/02 (Jon Leech) - Fix capitalization of the name
+    string. Note that this is not purely a cosmetic change.
+    Implementations should not ship with the Version 10 and earlier
+    capitalization. Update status to note approval by the Promoters.
+
+    Version 10, 2009/08/27 (Jon Leech) - Add 'const' attribute to
+    clGetGLContextInfoKHR <properties> parameter.
+
+    Version 9, 2009/07/06 (Jon Leech) - Fix minor typos. Assign
+    enumerant values. Change CL_INVALID_GL_CONTEXT_KHR error to
+    CL_INVALID_GL_SHAREGROUP_REFERENCE_KHR so it can apply to either
+    contexts or share group objects. Expand full text of error conditions
+    for clGetGLContextInfoKHR. Resolve all issues still marked
+    UNRESOLVED with the currently defined behaviors. Rename
+    CL_CURRENT_DEVICE_FOR_GL_CONTEXT_KHR and
+    CL_DEVICES_FOR_GL_CONTEXT_KHR to drop "DISPLAY" and remove the
+    Apple-specific CGL_ prefix.
+
+    Version 8, 2009/06/15 (Jon Leech) - remove unused OpenCL context
+    argument from clGetGLContextInfoKHR and fix type of param_name
+    argument, based on discussion in bug 4340. Fix minor typos.
+
+    Version 7, 2009/04/27 (Jon Leech) - add "extension type", fill in a
+    few more fields from the prototype extension template, and tag this
+    as a platform extension.
+
+    Version 6, 2009/04/21 (Jon Leech) - add CGL share group to attribute
+    list, expand errors section, rename CL_INVALID_CONTEXT to
+    CL_INVALID_GL_CONTEXT_KHR, fix some minor spec language errors.
+    Change extension name from use_gl_context to gl_sharing.
+
+    Version 5, 2009/04/20 (Jon Leech) - add new functions & tokens to
+    the summary section at the top. Add KHR suffix to tokens for
+    specifying WGL/GLX/EGL context attributes. No functionality
+    changes relative to version 4.
+
+    Version 4, 2009/04/13 (Jon Leech) - add error on context creation if
+    an unrecognized attribute name is specified. Replace
+    clGetCurrentGLDevice with clGetGLContextInfoKHR based on equivalent
+    Apple functionality. Update issue 7 and add issues 8/9.
+
+    Version 3, 2009/03/24 (Jon Leech) - add error on context creation if
+    devices not supporting GL sharing are specified. Resolve issues 3
+    and 6 as agreed in discussion last week. Add issue 7 for which
+    command queues an Acquire/Release should be placed on and add
+    proposed clGetCurrentGLDevice query.
+
+    Version 2, 2009/02/17 (Jon Leech) - revise proposal to identify the
+    OpenGL context using an explicit handle, rather than using the
+    currently bound context. Revised issues 1 and 3 to match, and added
+    issue 6 suggesting changes to the "base" GL interop interace in
+    Appendix B.
+
+    Version 1, 2009/01/29 (Jon Leech) - initial extension specification
+    based on discussion in bug 4340.

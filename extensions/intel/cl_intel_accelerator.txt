@@ -1,0 +1,357 @@
+Name String
+
+    cl_intel_accelerator
+
+Contributors
+
+    Nico Galoppo, Intel
+    Craig Hansen-Sturm, Intel
+    Yejun Guo, Intel
+    Ben Ashbaugh, Intel
+
+Contact
+
+    Ben Ashbaugh, Intel (ben.ashbaugh 'at' intel.com)
+
+IP Status
+
+    TBD
+
+Version
+
+    Version 2, February 12, 2016
+
+Number
+
+    OpenCL Extension #24
+
+Status
+
+    Final Draft
+
+Dependencies
+
+    OpenCL 1.2 is required.  This extension is written against revision 19 of
+    the OpenCL 1.2 specification.
+
+Overview
+
+    The accelerator extension consists of a unified set of OpenCL runtime APIs to
+    create, query, and manage the lifetime of objects which represent 
+    acceleration processors, engines, or algorithms. Accelerator object instances 
+    are referenced with the generic cl_accelerator_intel type by the runtime API, 
+    but they are always associated with a specific acceleration engine type, which 
+    is assigned by the application at accelerator object creation time. Descriptors 
+    are used to assign acceleration engine-specific properties to the accelerator 
+    objects. This mechanism of specialized creation with generic referencing is 
+    analogous to the way image objects are managed in the OpenCL 1.2 runtime API 
+    via generic cl_mem referencing but specialized descriptor-based creation with 
+    clCreateImage(). 
+    
+    Each accelerator object is assigned a unique type id.  Vendors are freely 
+    encouraged to define new accelerator types and ids.  This base extension 
+    provides a unified mechanism for the creation and lifetime management of new 
+    accelerator types, but the semantics and creation descriptors of these types 
+    are to be defined in acceleration engine-specific extensions.
+    
+    Accelerator objects can be supplied to kernels as arguments. Unless an 
+    extension defines a new OpenCL C language type for the engine-specific 
+    accelerator (e.g. accelerator_t), accelerator objects can only be used in 
+    conjunction with built-in kernels. If an extension does define such a new 
+    type, or if it provides a mechanism to access accelerator data within 
+    kernels, then accelerator objects can act as regular kernel arguments as 
+    well.
+
+New Procedures and Functions
+
+    cl_accelerator_intel clCreateAcceleratorINTEL(
+        cl_context                   context,
+        cl_accelerator_type_intel    accelerator_type,
+        size_t                       descriptor_size,
+        const void*                  descriptor,
+        cl_int*                      errcode_ret)
+    
+    cl_int clRetainAcceleratorINTEL(
+        cl_accelerator_intel         accelerator)
+    
+    cl_int clReleaseAcceleratorINTEL(
+        cl_accelerator_intel         accelerator)
+    
+    cl_int clGetAcceleratorInfoINTEL(
+        cl_accelerator_intel         accelerator,
+        cl_accelerator_info_intel    param_name,
+        size_t                       param_value_size,
+        void*                        param_value,
+        size_t*                      param_value_size_ret)
+        
+New Tokens
+
+    Accepted as the <param_name> parameter of clGetAcceleratorInfoINTEL:
+
+        CL_ACCELERATOR_DESCRIPTOR_INTEL          0x4090
+        CL_ACCELERATOR_REFERENCE_COUNT_INTEL     0x4091
+        CL_ACCELERATOR_CONTEXT_INTEL             0x4092
+        CL_ACCELERATOR_TYPE_INTEL                0x4093
+
+    Returned by clSetKernelArg when <arg_value> is not a valid accelerator
+    object, and by clRetainAccelerator, clReleaseAccelerator, and
+    clGetAcceleratorInfo when <accelerator> is not a valid accelerator
+    object: 
+
+        CL_INVALID_ACCELERATOR_INTEL            -1094
+
+    Returned by clSetKernelArg when <arg_value> is not an accerator object
+    of the correct type, and by clCreateAccelerator when <accelerator_type>
+    is not a valid accelerator type:
+
+        CL_INVALID_ACCELERATOR_TYPE_INTEL       -1095
+
+    Returned by clCreateAccelerator when values described by <descriptor>
+    are not valid, or if a combination of values is not valid:
+
+        CL_INVALID_ACCELERATOR_DESCRIPTOR_INTEL -1096
+
+    Returned by clCreateAccelerator when <accelerator_type> is a valid
+    accelerator type, but it not supported by any device in <context>.
+
+        CL_ACCELERATOR_TYPE_NOT_SUPPORTED_INTEL -1097
+
+New Types 
+
+    Parameter type of clRetainAcceleratorINTEL, clReleaseAcceleratorINTEL, 
+    clGetAcceleratorInfoINTEL and a return type of clCreateAcceleratorINTEL:
+
+        typedef struct _cl_accelerator_intel* cl_accelerator_intel;
+
+    Parameter type of accelerator_type for clCreateAcceleratorINTEL:
+
+        typedef cl_uint cl_accelerator_type_intel;
+
+    Parameter type of param_name for clGetAcceleratorInfoINTEL:
+
+        typedef cl_uint cl_accelerator_info_intel;
+                
+Changes to Section 5.7.2 - "Setting Kernel Arguments" of the OpenCL 1.2 
+specification:
+
+    Add to the paragraph describing the argument value parameter to 
+    clSetKernelArg:
+
+   "... If the argument is an accelerator object, the <arg_value> entry must 
+    be a pointer to the accelerator object."
+
+    Add to the paragraph describing the argument size parameter to 
+    clSetKernelArg:
+
+   "... If the argument is an accelerator object, the <arg_size> value must 
+    be equal to sizeof(cl_accelerator_intel)."
+
+    Add to the list of error codes for clSetKernelArg:
+
+   "  * CL_INVALID_ACCELERATOR_INTEL for an argument declared to be an 
+        accelerator object when the specified <arg_value> is not a valid 
+        accelerator object.
+      * CL_INVALID_ARG_SIZE ... or if the argument is an accelerator object and
+        <arg_size> != sizeof(cl_accelerator_intel).
+      * CL_INVALID_ACCELERATOR_TYPE_INTEL for an argument declared to be an
+        accelerator object when the accelerator type of the specified <arg_value> 
+        does not match the specific accelerator type required for the kernel 
+        argument."
+
+Add a new Section 5.XX - "Accelerator Objects":
+
+   "Accelerator objects represent the programmable state of an acceleration 
+    processor, engine, or algorithm.  Accelerator objects can be supplied to 
+    kernels as arguments. Unless an extension defines a new OpenCL C language 
+    type for the engine-specific accelerator (e.g. accelerator_t), accelerator 
+    objects can only be used in conjunction with built-in kernels. In this 
+    section, we discuss how accelerator objects are created and managed using 
+    OpenCL runtime API functions."
+
+Add a new Section 5.XX.1 - "Creating Accelerator Objects":
+
+   "The function
+
+        cl_accelerator_intel clCreateAcceleratorINTEL(
+            cl_context                       context,
+            cl_accelerator_type_intel        accelerator_type,
+            size_t                           descriptor_size,
+            const void*                      descriptor,
+            cl_int*                          errcode_ret)
+
+    creates an accelerator object. The accelerator object will be created with a 
+    reference count of one. Accelerator objects created with this function have 
+    semantics defined by the parameter <accelerator_type>, which are defined and 
+    described by extensions external to this document.  
+
+    <context> must be a valid OpenCL context.
+
+    <accelerator_type> specifies the type of accelerator object created. The type 
+    constants are defined by acceleration engine-specific extensions.  It is 
+    encouraged that extensions follow the naming scheme of
+    CL_ACCELERATOR_TYPE_{name}_INTEL where {name} is a descriptive acceleration 
+    engine string. 
+
+    <descriptor_size> is a value which specifies of the size, in bytes, of the 
+    immediately following descriptor structure.
+
+    <descriptor> is a pointer to a structure that defines the parameter set of 
+    the accelerator object.  This parameter set describes the configurable state 
+    of the underlying object.  The actual structure supplied must be consistent 
+    with <accelerator_type>.  The descriptor structures are defined by
+    acceleration engine-specific extensions.  It is encouraged that extensions 
+    follow the naming scheme of cl_{name}_desc_INTEL where {name} is a 
+    descriptive acceleration engine string.
+
+    <errcode_ret> will return an appropriate error code. If errcode_ret is NULL, 
+    then no error value will be returned.  
+
+    clCreateAcceleratorINTEL returns a valid non-zero accelerator object, and 
+    <errcode_ret> is set to CL_SUCCESS if the accelerator object is created 
+    successfully. Otherwise, it returns a NULL value with one of the following 
+    error values returned in <errcode_ret>:
+
+      * CL_INVALID_CONTEXT if <context> is not a valid context.
+      * CL_INVALID_ACCELERATOR_TYPE_INTEL if <accelerator_type> is not a valid
+        accelerator type.
+      * CL_INVALID_ACCELERATOR_DESCRIPTOR_INTEL if values specified in 
+        <descriptor> are not valid (or a combination of values is not valid),
+        if <descriptor_size> does not match the required size for the specified
+        <accelerator_type>, or if <descriptor> is NULL. 
+      * CL_ACCELERATOR_TYPE_NOT_SUPPORTED_INTEL if <accelerator_type> is not 
+        supported by any device in <context>.
+      * CL_INVALID_OPERATION if none of the devices in the context support 
+        accelerator objects.
+      * CL_OUT_OF_RESOURCES if there is a failure to allocate resources required 
+        by the OpenCL implementation on the device.
+      * CL_OUT_OF_HOST_MEMORY if there is a failure to allocate resources required
+        by the OpenCL implementation on the host.
+
+    The function
+
+        cl_int clRetainAcceleratorINTEL(
+            cl_accelerator_intel    accelerator)
+
+    increments the <accelerator> reference count. clCreateAcceleratorINTEL performs
+    an implicit retain.  
+
+    clRetainAcceleratorINTEL returns CL_SUCCESS if the function is executed 
+    successfully. Otherwise, it returns one of the following errors:
+
+      * CL_INVALID_ACCELERATOR_INTEL if <accelerator> is a not a valid accelerator
+        object.
+      * CL_OUT_OF_RESOURCES if there is a failure to allocate resources required 
+        by the OpenCL implementation on the device.
+      * CL_OUT_OF_HOST_MEMORY if there is a failure to allocate resources required
+        by the OpenCL implementation on the host.
+
+    The function
+
+        cl_int clReleaseAcceleratorINTEL(
+            cl_accelerator_intel    accelerator)
+
+    decrements the <accelerator> reference count.   The accelerator object is 
+    deleted after the reference count becomes zero and commands queued for 
+    execution on a command-queue(s) that reference <accelerator> have finished. 
+
+    clReleaseAcceleratorINTEL returns CL_SUCCESS if the function is executed 
+    successfully. Otherwise, it returns one of the following errors:
+
+      * CL_INVALID_ACCELERATOR_INTEL if <accelerator> is a not a valid accelerator
+        object.
+      * CL_OUT_OF_RESOURCES if there is a failure to allocate resources required 
+        by the OpenCL implementation on the device.
+      * CL_OUT_OF_HOST_MEMORY if there is a failure to allocate resources required
+        by the OpenCL implementation on the host.
+    
+Add a new Section 5.XX.2 - "Accelerator Queries"
+
+    The function
+
+        cl_int clGetAcceleratorInfoINTEL(
+            cl_accelerator_intel        accelerator,
+            cl_accelerator_info_intel   param_name,
+            size_t                      param_value_size,
+            void*                       param_value,
+            size_t*                     param_value_size_ret)
+
+    returns information about the accelerator object.
+
+    <accelerator> specifies the accelerator object being queried.
+
+    <param_name> specifies the information to query. The list of supported
+    param_name types and the information returned in <param_value> by 
+    clGetAcceleratorInfo is described in the table below.
+
+    <param_value> is a pointer to memory where the appropriate result being 
+    queried is returned. If <param_value> is NULL, it is ignored.
+
+    <param_value_size> is used to specify the size in bytes of the memory 
+    pointed to by <param_value>.  This size is dependent on the param_name, and 
+    must be greater than or equal to the size of return type as described in 
+    the table below.
+
+    ----------------------------------------------------------------------------
+    cl_accelerator_info_intel             Return type Description
+    -------------------------             ----------- --------------------------
+    CL_ACCELERATOR_DESCRIPTOR_INTEL                   Return the complete 
+                                                      descriptor structure 
+                                                      supplied when the 
+                                                      accelerator was created.
+                                                      Refer to the external 
+                                                      extension document where 
+                                                      the descriptor is defined.
+
+    CL_ACCELERATOR_REFERENCE_COUNT_INTEL  cl_uint     Return the reference count 
+                                                      associated with the 
+                                                      accelerator
+
+    CL_ACCELERATOR_CONTEXT_INTEL          cl_context  Return the context 
+                                                      specified when the 
+                                                      accelerator was created.
+
+    CL_ACCELERATOR_TYPE_INTEL             cl_uint      Return the accelerator 
+                                                      type specified when the 
+                                                      accelerator was created.  
+                                                      Refer to the external 
+                                                      extension document 
+                                                      where the descriptor is 
+                                                      defined.
+    ----------------------------------------------------------------------------
+
+    <param_value_size_ret> returns the actual size in bytes of data queried by 
+    <param_value>.  If <param_value_size_ret> is NULL, it is ignored.
+
+    clGetAcceleratorInfoINTEL returns CL_SUCCESS if the function is executed 
+    successfully. Otherwise, it returns one of the following errors:
+
+      * CL_INVALID_VALUE if <param_name> is not valid, or if size in bytes 
+        specified by param_value_size is less than the size of return type as 
+        described in the table above and <param_value> is not NULL.
+      * CL_INVALID_ACCELERATOR_INTEL if <accelerator> is a not a valid accelerator 
+        object.
+      * CL_OUT_OF_RESOURCES if there is a failure to allocate resources required 
+        by the OpenCL implementation on the device.
+      * CL_OUT_OF_HOST_MEMORY if there is a failure to allocate resources required
+        by the OpenCL implementation on the host."
+
+Add a new Section 5.XX.3 - "Accelerator Descriptors"
+
+   "Descriptors are defined by acceleration engine-specific extensions."
+
+Add a new Section 5.XX.4 - "Using Accelerators"
+
+   "Accelerator semantics and usage are defined by acceleration engine-specific 
+    extensions."
+
+Interactions with other extensions
+
+    All follow-on/external accelerator extension documents extend this base 
+    accelerator document and will use the host-side functions defined within 
+    this document.   
+    
+Revision History
+
+    Version 1 - Initial Revision
+    Version 2 - Formatting and minor error condition bug fixes.
+

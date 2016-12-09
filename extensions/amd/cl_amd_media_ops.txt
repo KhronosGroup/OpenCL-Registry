@@ -1,0 +1,148 @@
+Name Strings
+
+    cl_amd_media_ops
+
+    #pragma OPENCL EXTENSION cl_amd_media_ops : enable
+
+Contributors
+
+    Benedict Gaster, AMD
+    Michael Houston, AMD
+    Giduthuri Radha, AMD
+    Micah Villmow, AMD
+    Bixia Zheng, AMD
+
+Version
+
+    Version 1, March 28, 2010
+
+Number
+
+    OpenCL Extension #9
+
+Status
+
+    Complete, shipping as part of ATi Stream SDK 2.1
+
+Extension Type
+
+    OpenCL compiler directive for extensions
+
+Dependencies
+
+    None
+
+Overview
+
+    The directive when enabled adds the following built-in functions to
+    the OpenCL language.
+    
+    Note: typen denote opencl scalar type {n = 1} and vector types {n =
+    4, 8, 16}.
+ 
+    Build-in Function   
+      uint  amd_pack(float4 src)
+    Description
+      dst =   ((((uint)src.s0) & 0xff)      )
+            + ((((uint)src.s1) & 0xff) <<  8)
+            + ((((uint)src.s2) & 0xff) << 16)
+            + ((((uint)src.s3) & 0xff) << 24)
+    
+    Build-in Function      
+      floatn  amd_unpack3(unitn src)
+    Description
+      dst.s0 = (float)((src.s0 >> 24) & 0xff)
+      similar operation applied to other components of the vectors
+    
+    Build-in Function   
+      floatn   amd_unpack2 (unitn src)
+    Description
+      dst.s0 = (float)((src.s0 >> 16) & 0xff)
+      similar operation applied to other components of the vectors
+    
+    Build-in Function 
+      floatn   amd_unpack1 (unitn src)
+    Description
+      dst.s0 = (float)((src.s0 >> 8) & 0xff)
+      similar operation applied to other components of the vectors
+    
+    Build-in Function   
+      floatn   amd_unpack0 (unitn src)
+    Description
+      dst.s0 = (float)(src.s0 & 0xff)
+      similar operation applied to other components of the vectors
+    
+    Build-in Function   
+      uintn  amd_bitalign (uintn src0, uintn src1, uintn src2)
+    Description
+      dst.s0 =  (uint) (((((long)src0.s0) << 32) | (long)src1.s0) >> (src2.s0 & 31))
+      similar operation applied to other components of the vectors.
+    
+     
+    Build-in Function
+      uintn  amd_bytealign (uintn src0, uintn src1, uintn src2)
+    Description
+      dst.s0 =  (uint) (((((long)src0.s0) << 32) | (long)src1.s0) >> ((src2.s0 & 3)*8))
+      similar operation applied to other components of the vectors
+    
+    Build-in Function   
+      uintn  amd_lerp (uintn src0, uintn src1, uintn src2)
+    Description
+      dst.s0 = (((((src0.s0 >>  0) & 0xff) + ((src1.s0 >>  0) & 0xff) + ((src2.s0 >>  0) & 1)) >> 1) <<  0) +
+               (((((src0.s0 >>  8) & 0xff) + ((src1.s0 >>  8) & 0xff) + ((src2.s0 >>  8) & 1)) >> 1) <<  8) +
+               (((((src0.s0 >> 16) & 0xff) + ((src1.s0 >> 16) & 0xff) + ((src2.s0 >> 16) & 1)) >> 1) << 16) +
+               (((((src0.s0 >> 24) & 0xff) + ((src1.s0 >> 24) & 0xff) + ((src2.s0 >> 24) & 1)) >> 1) << 24);
+      similar operation applied to other components of the vectors
+    
+    Build-in Function  
+      uintn  amd_sad (uintn src0, uintn src1, uintn src2)  
+    Description
+      dst.s0 = src2.s0 + 
+               abs(((src0.s0 >>  0) & 0xff) - ((src1.s0 >>  0) & 0xff)) +
+               abs(((src0.s0 >>  8) & 0xff) - ((src1.s0 >>  8) & 0xff)) +
+               abs(((src0.s0 >> 16) & 0xff) - ((src1.s0 >> 16) & 0xff)) +
+               abs(((src0.s0 >> 24) & 0xff) - ((src1.s0 >> 24) & 0xff));
+      similar operation applied to other components of the vectors
+    
+    Build-in Function   
+      uintn  amd_sadhi (uintn src0, uintn src1n, uintn src2)
+    Description
+      dst.s0 = src2.s0 + 
+               (abs(((src0.s0 >>  0) & 0xff) - ((src1.s0 >>  0) & 0xff)) << 16) +
+               (abs(((src0.s0 >>  8) & 0xff) - ((src1.s0 >>  8) & 0xff)) << 16) +
+               (abs(((src0.s0 >> 16) & 0xff) - ((src1.s0 >> 16) & 0xff)) << 16) +
+               (abs(((src0.s0 >> 24) & 0xff) - ((src1.s0 >> 24) & 0xff)) << 16);
+      similar operation applied to other components of the vectors
+    
+    Build-in Function   
+      uint  amd_sad4(uint4 src0, uint4 src1, uint src2)
+    Description
+      dst   = src2   + 
+               abs(((src0.s0 >>  0) & 0xff) - ((src1.s0 >>  0) & 0xff)) +
+               abs(((src0.s0 >>  8) & 0xff) - ((src1.s0 >>  8) & 0xff)) +
+               abs(((src0.s0 >> 16) & 0xff) - ((src1.s0 >> 16) & 0xff)) +
+               abs(((src0.s0 >> 24) & 0xff) - ((src1.s0 >> 24) & 0xff)) +
+               abs(((src0.s1 >>  0) & 0xff) - ((src1.s0 >>  0) & 0xff)) +
+               abs(((src0.s1 >>  8) & 0xff) - ((src1.s1 >>  8) & 0xff)) +
+               abs(((src0.s1 >> 16) & 0xff) - ((src1.s1 >> 16) & 0xff)) +
+               abs(((src0.s1 >> 24) & 0xff) - ((src1.s1 >> 24) & 0xff)) +
+               abs(((src0.s2 >>  0) & 0xff) - ((src1.s2 >>  0) & 0xff)) +
+               abs(((src0.s2 >>  8) & 0xff) - ((src1.s2 >>  8) & 0xff)) +
+               abs(((src0.s2 >> 16) & 0xff) - ((src1.s2 >> 16) & 0xff)) +
+               abs(((src0.s2 >> 24) & 0xff) - ((src1.s2 >> 24) & 0xff)) +
+               abs(((src0.s3 >>  0) & 0xff) - ((src1.s3 >>  0) & 0xff)) +
+               abs(((src0.s3 >>  8) & 0xff) - ((src1.s3 >>  8) & 0xff)) +
+               abs(((src0.s3 >> 16) & 0xff) - ((src1.s3 >> 16) & 0xff)) +
+               abs(((src0.s3 >> 24) & 0xff) - ((src1.s3 >> 24) & 0xff));
+    
+Header File
+
+    None
+
+New Types
+
+    None
+
+New Procedures and Functions
+
+    None

@@ -1,0 +1,60 @@
+
+<!-- for inclusion with the relevant functions -->
+
+<bridgehead>Multiple Host Threads</bridgehead>
+
+<para>
+    <!-- from the spec's glossary --> An OpenCL API call is considered to be
+    <emphasis>thread-safe</emphasis> if the internal state as managed by OpenCL remains
+    consistent when called simultaneously by multiple <emphasis>host</emphasis> threads.
+    OpenCL API calls that are <emphasis>thread-safe</emphasis> allow an application to
+    call these functions in multiple <emphasis>host</emphasis> threads without having to
+    implement mutual exclusion across these <emphasis>host</emphasis> threads i.e. they
+    are also re-entrant-safe.
+</para>
+
+<para>
+    <!-- section A.2 --> 
+    All OpenCL API calls are thread-safe except those that modify the state of cl_kernel objects:
+    <citerefentry><refentrytitle>clSetKernelArg</refentrytitle></citerefentry>, 
+    <citerefentry><refentrytitle>clSetKernelArgSVMPointer</refentrytitle></citerefentry>, 
+    <citerefentry><refentrytitle>clSetKernelExecInfo</refentrytitle></citerefentry> and 
+    <citerefentry><refentrytitle>clCloneKernel</refentrytitle></citerefentry>.
+</para>
+
+<para>
+    <citerefentry><refentrytitle>clSetKernelArg</refentrytitle></citerefentry> , 
+    <citerefentry><refentrytitle>clSetKernelArgSVMPointer</refentrytitle></citerefentry>, 
+    <citerefentry><refentrytitle>clSetKernelExecInfo</refentrytitle></citerefentry> and 
+    <citerefentry><refentrytitle>clCloneKernel</refentrytitle></citerefentry> 
+    are safe to call from any host thread, and safe to call re-entrantly so long as concurrent calls to any
+    combination of these API calls operate on different cl_kernel objects. The state of the cl_kernel
+    object is undefined if 
+    <citerefentry><refentrytitle>clSetKernelArg</refentrytitle></citerefentry>, 
+    <citerefentry><refentrytitle>clSetKernelArgSVMPointer</refentrytitle></citerefentry>, 
+    <citerefentry><refentrytitle>clSetKernelExecInfo</refentrytitle></citerefentry> or
+    <citerefentry><refentrytitle>clCloneKernel</refentrytitle></citerefentry> 
+    are called from multiple host threads on the same cl_kernel object at the same
+    time. Please note that there are additional limitations as to which OpenCL APIs may be called
+    from OpenCL callback functions -- please see section 5.11.
+</para>
+
+<para>
+    The behavior of OpenCL APIs called from an interrupt or signal handler is 
+    implementation-defined.
+</para>
+
+<para>
+    <!-- section A.2, footnote --> There is an inherent race condition in the
+    design of OpenCL that occurs between setting a kernel argument and using the kernel
+    with 
+    <citerefentry><refentrytitle>clEnqueueNDRangeKernel</refentrytitle></citerefentry>.
+    Another host thread might change the kernel arguments between when a host thread sets the
+    kernel arguments and then enqueues the kernel, causing the wrong kernel arguments
+    to be enqueued. Rather than attempt to share <type>cl_kernel</type> objects among multiple host
+    threads, applications are strongly encouraged to make additional <type>cl_kernel</type> objects
+    for kernel functions for each host thread.
+</para>
+
+<!-- 27-Oct-2015, API ver 2.1 rev. 19 -->
+

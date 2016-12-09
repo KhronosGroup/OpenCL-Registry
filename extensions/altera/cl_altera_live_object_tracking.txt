@@ -1,0 +1,259 @@
+Name Strings
+
+   cl_altera_live_object_tracking
+
+Contributors
+
+   David Neto, Altera Corporation
+
+Contact
+
+   Michael Kinsner, mkinsner 'at' altera 'dot' com
+
+IP Status
+
+   No known IP issues.
+
+Version
+
+   Version 0, May 6, 2013.
+
+Number
+
+   TBD
+
+Status
+
+   Complete
+   Shipping with Altera SDK for OpenCL, version 13.0
+
+Extension Type
+
+   OpenCL platform extension
+
+Dependencies
+
+   OpenCL 1.0 is required.
+   This document is written against revision 48 of the OpenCL 1.0 specification.
+
+Overview
+
+   This extension specifies an API for debugging OpenCL API object
+   leaks in user applications.  It provides a mechanism for tracking
+   all live API objects, and for enumerating them on demand.
+
+   The OpenCL runtime API generates and uses many kinds of objects
+   such as contexts, programs, kernels, memory objects, command queues,
+   and events.
+
+   It is very easy for an application to lose track of what objects it
+   has created but not yet fully released.  Forgetting to fully release
+   an object after use may result in undesirable behaviour, such as
+   increased memory use or even command scheduler lockup.  This problem
+   gets much worse when new objects leak each time through an application
+   loop.
+
+   This extension defines two runtime API methods.  
+   
+   The first method specifies a future interest in enumerating all the
+   live objects in the runtime API.  Live object tracking is a debugging
+   feature which may increase memory use and runtime of the application.
+   So it should be explicitly requested.
+
+   Ideally, the request to begin tracking live objects should occur as
+   early as possible in the program, so that no leaked objects escape
+   undetected.
+
+   The second method requests an enumeration of those objects via a callback
+   mechanism.
+
+
+Header File
+
+   Externsion interfaces are defined in cl_ext.h
+
+New Procedures and Functions
+
+   void clTrackLiveObjectsAltera( cl_platform_id platform );
+
+   void clReportLiveObjectsAltera(
+      cl_platform_id platform,
+      void (CL_CALLBACK * report_fn)(
+         void* /* user_data */,
+         void* /* obj_ptr */,
+         const char* /* type_name */,
+         cl_uint /* refcount */ 
+         ),
+      void* user_data
+      );
+
+Additions to Chapter 5 of the OpenCL 1.0 (v48) Specification
+
+   Add a new section 5.11 "Debugging API object leaks"
+
+      The OpenCL runtime API generates and uses many kinds of objects
+      such as contexts, programs, kernels, memory objects, command queues,
+      and events.
+
+      An application may lose track of what objects it has created but
+      not yet fully released, i.e. the set of live objects.  We say an
+      object has "leaked" when it remains live after its last intended
+      use.  Leaking objects may increase application memory use and
+      runtime, or even cause the OpenCL command scheduler to lockup.
+
+      This section defines two methods for tracking the live OpenCL objects
+      in an application.
+
+      The function
+
+         void clTrackLiveObjectsAltera( cl_platform_id platform )
+
+      registers a future interest in enumerating all the live objects
+      in the runtime API.  Registering such an interest may itself
+      increase memory use and runtime, which is why is must be explicitly
+      requested.  
+      
+      Behaviour is unspecified if the clTrackLiveObjectsAltera method
+      is called before the the first call to clGetPlatformIDs.
+
+      The function
+
+         void clReportLiveObjectsAltera(
+            cl_platform_id platform,
+            void (CL_CALLBACK * report_fn)(
+               void* /* user_data */,
+               void* /* obj_ptr */,
+               const char* /* type_name */,
+               cl_uint /* refcount */ 
+               ),
+            void* user_data
+            )
+
+      requests an enumeration of all live objects in the runtime.  The enumeration
+      is performed by calling the callback function once for each live object
+      in some implementation-defined sequence (i.e. not concurrently).
+
+      The arguments to clReportLiveObjectsAltera are as follows:
+
+         platform is the platform for which live objects are being tracked.
+
+         report_fn is a callback function.  
+             It is called for every live object in the runtime.  
+             The arguments to the callback function are:
+               
+                user_data is the user_data argument specified to
+                  clReportLiveObjectsAltera
+
+                obj_ptr is a pointer to the live object, cast to type void*.
+                  (Note that all OpenCL API objects tracked are type-defined
+                  in the OpenCL API header files to be pointers to
+                  implementation-defined structs.)
+
+                type_name is a C string corresponding to the OpenCL API object
+                  type.  For example, a leaked cl_mem object will have 
+                  "cl_mem" as its type string.
+                  
+                refcount is an instantaneous reference count for the object.
+                  Consider it to be immediately stale.
+
+         user_data is a pointer to user supplied data.
+
+
+Implementation and usage notes
+
+   In Altera's platform implementation, more recently created objects
+   are enumerated earlier than older objects.  
+
+   Also, the runtime may cause some objects to automatically retain
+   other objects, so reference counts may be higher than apparent from
+   host program source code.
+
+   It is an artifact of Altera's platform implementation that sometimes
+   cl_event objects my be enumerated even when they have a reference
+   count of 0.  These remain in the system and do occupy resources
+   until they are released when the command scheduler makes further
+   forward progress.
+
+   Generally speaking, the strategy for fixing a leak is to find the
+   first object in the enumeration which has a non-zero reference count,
+   and stop leaking it (i.e. release it immediately after its last
+   intended use).
+
+Issues
+
+   1. The information conveyed by the callback is imprecise.  For example, 
+      at best you might only determine what type of object is leaking,
+      but not where it was created.  It would be highly useful to add
+      host source file and line number information to the callback.
+      The callback API therefore is a strong candidate for further evolution.
+
+
+Sample Code
+
+   Example for finding an event leak.
+
+      #include <CL/opencl.h>
+      #include <assert.h>
+      #include <stdio.h>
+      #define CHECK(X) assert(CL_SUCCESS == (X))
+
+      #ifdef cl_altera_live_object_tracking
+      // Define the callback used to enumerate each live OpenCL API object.
+      #ifdef __cplusplus
+      extern "C"
+      #endif
+      static void CL_CALLBACK show_live_obj(
+         void *user_data,
+         void* object,
+         const char* type_name,
+         cl_uint refcount )
+      {
+         // We didn't need the user_data context in this example.
+         // But maybe we could have used it to provide a logger object,
+         // or an output file descriptor.
+         user_data = user_data; 
+
+         printf(" Live %s object: %p refcount %u\n", type_name, object, refcount );
+      }
+      #endif
+
+      int main(...) {
+         cl_platform platform = 0;
+         cl_device_id device = 0;
+
+         CHECK( clGetPlatformIDs(1,&platform,0) );
+
+         #ifdef cl_altera_live_object_tracking
+         // I want to list the live objects later.
+         // Register this interest very soon after getting the platform handle.
+         if ( debug_leaks ) clTrackLiveObjectsAltera(platform);
+         #endif
+
+         ...
+
+         for ( int i = 0; i < 10 ;  i++ ) {
+            // We leak these events, but don't know it until we use
+            // the live object tracking and enumeration APIs.
+            cl_event leaked_event, another;
+            clEnqueueTask(..., &leaked_event );
+            clEnqueueReadBuffer(..., 1, &leaked_event, &another );
+            // The events are not released!
+         }
+
+         // Request an enumeration of all the live objects.
+         // We should see 20 leaked cl_event objects.
+         #ifdef cl_altera_live_object_tracking
+         if ( debug_leaks ) clReportLiveObjectsAltera( platform, show_live_obj, 0 );
+         #endif
+
+         ...
+      }
+
+Conformance Tests
+
+   None.
+
+Revision History
+
+   Version 0, 2013-05-06 - Initial revision.
+      Documents the behaviours in the Altera SDK for OpenCL, version 13.0.

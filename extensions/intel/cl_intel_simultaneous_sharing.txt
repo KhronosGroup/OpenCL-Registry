@@ -1,0 +1,232 @@
+Name String
+
+    cl_intel_simultaneous_sharing
+
+Contributors
+
+    Krzysztof Laskowski, Intel
+    Bartosz Sochacki, Intel
+    Eric L Palmer, Intel
+    Ben Ashbaugh, Intel
+    Adam T Lake, Intel
+
+Contact
+
+    Krzysztof Laskowski, Intel (krzysztof.laskowski 'at' intel.com)
+
+Version
+
+    Version 7, October 14, 2014
+
+Number
+
+    OpenCL Extension #34
+
+Status
+
+    Complete
+
+Extension Type
+
+    OpenCL platform extension
+
+Dependencies
+
+    OpenCL 1.2. This extension is written against revision 19 of the 
+    OpenCL 1.2 Specification and revision 19 of the OpenCL 1.2 Extension 
+    Specification.
+
+Overview
+
+    Currently OpenCL 1.2 Extension Spec forbids to specify interoperability 
+    with multiple graphics APIs at clCreateContext or clCreateContextFromType 
+    time and defines that CL_INVALID_OPERATION should be returned in such
+    cases as noted e.g. in chapters dedicated to sharing memory objects with 
+    Direct3D 10 and Direct3D 11.
+
+    The goal of this extension is to relax the restrictions and allow to
+    specify simultaneously these combinations of interoperabilities that are
+    supported by a given OpenCL device.
+
+New Tokens
+
+    Accepted as a property being queried in the <param_name> parameter
+    of clGetDeviceInfo:
+    
+        CL_DEVICE_SIMULTANEOUS_INTEROPS_INTEL        0x4104
+        CL_DEVICE_NUM_SIMULTANEOUS_INTEROPS_INTEL    0x4105
+
+Additions to chapter 4 of the OpenCL 1.2 Specification
+
+    4.2 Querying Devices
+
+    Extend table 4.3 to include the following entry:
+
+    --------------------------------------------------------------------------
+    cl_device_info             Return Type  Description
+    --------------             -----------  -----------
+    CL_DEVICE_NUM_SIMULTANEOUS cl_uint      Number of supported combinations 
+    _INTEROPS_INTEL                         of graphics API interoperabilities 
+                                            that can be enabled simultaneously 
+                                            within the same context.
+
+                                            The minimum value is 1.
+                                            
+    CL_DEVICE_SIMULTANEOUS     cl_uint[]    List of <n> combinations of context
+    _INTEROPS_INTEL                         property names describing graphic APIs
+                                            that the device can interoperate with
+                                            simultaneously by specifying the
+                                            combination in the <properties>
+                                            parameter of clCreateContext and
+                                            clCreateContextFromType.
+
+                                            Each combination is a set of 2
+                                            or more property names and is
+                                            terminated with zero. 
+
+                                            <n> is the value returned by the 
+                                            query for 
+                                            CL_DEVICE_NUM_SIMULTANEOUS_INTEROPS_INTEL. 
+    --------------------------------------------------------------------------
+        
+    4.4 Contexts
+   
+    Add to the list of errors for clCreateContext:
+
+    "CL_INVALID_OPERATION if a combination of interoperabilities with multiple graphics 
+    APIs is specified which is not on the list of valid combinations returned by 
+    the query for CL_DEVICE_SIMULTANEOUS_INTEROPS_INTEL."
+
+    Add to the list of errors for clCreateContextFromType the same new errors 
+    described above for clCreateContext.
+
+Additions to section 9.6.4 of the OpenCL 1.2 Extension Specification
+
+    Replace the section about CL_CONTEXT_INTEROP_USER_SYNC property support with:
+
+    "OpenCL / OpenGL sharing does not support the CL_CONTEXT_INTEROP_USER_SYNC property 
+    defined in table 4.5. Specifying this property when creating a context with OpenCL /
+    OpenGL sharing will return an appropriate error or be ignored for OpenGL sharing if
+    sharing with another graphics API supporting the CL_CONTEXT_INTEROP_USER_SYNC 
+    property is also specified."
+
+    Replace the description of CL_INVALID_PROPERTY error code with:
+
+    "errcode_ret returns CL_INVALID_PROPERTY if an attribute name other than those 
+    specified in table 4.5 or if CL_CONTEXT_INTEROP_USER_SYNC is specified in properties
+    and there is no graphics API interoperability specified that supports it."
+
+Additions to section 9.9.5 of the OpenCL 1.2 Extension Specification
+
+    Remove the following description of CL_INVALID_PROPERTY error code:
+
+    "CL_INVALID_OPERATION if Direct3D 10 interoperability is specified by setting 
+    CL_INVALID_D3D10_DEVICE_KHR to a non-NULL value, and interoperability with another 
+    graphics API is also specified."
+
+Additions to section 9.11.5 of the OpenCL 1.2 Extension Specification
+
+    Remove the following description of CL_INVALID_PROPERTY error code:
+
+    "CL_INVALID_OPERATION if Direct3D 11 interoperability is specified by setting 
+    CL_INVALID_D3D11_DEVICE_KHR to a non-NULL value, and interoperability with another 
+    graphics API is also specified."
+
+Additions to cl_intel_dx9_media_sharing extension specification:
+
+    Remove the following description of CL_INVALID_PROPERTY error code:
+
+    "CL_INVALID_OPERATION if DirectX 9 interoperability is specified by setting   
+    CL_CONTEXT_D3D9_DEVICE_INTEL, CL_CONTEXT_D3D9EX_DEVICE_INTEL, or
+    CL_CONTEXT_DXVA_DEVICE_INTEL to a non-NULL value, and interoperability with any 
+    other graphics API is also specified."
+
+Example Usage
+
+    cl_uint  SimInteropsNum;
+    cl_uint* SimInterops;
+    size_t   SimInteropsSize;
+    
+    clGetDeviceInfo( deviceID, 
+                     CL_DEVICE_NUM_SIMULTANEOUS_INTEROPS_INTEL, 
+                     sizeof( SimInteropsNum ), 
+                     &SimInteropsNum, 
+                     NULL );
+    clGetDeviceInfo( deviceID, 
+                     CL_DEVICE_SIMULTANEOUS_INTEROPS_INTEL, 
+                     0, 
+                     NULL, 
+                     &SimInteropsSize );
+    SimInterops = new cl_uint[ SimInteropsSize / sizeof( cl_uint ) ];
+    clGetDeviceInfo( deviceID, 
+                     CL_DEVICE_SIMULTANEOUS_INTEROPS_INTEL, 
+                     SimInteropsSize, 
+                     SimInterops, 
+                     NULL );
+    
+    bool SimInteropsCheck[] = { false, false, false };
+    bool GLD3D11SimInteropSupported = false;
+    cl_uint property = 0;
+    
+    for( int i = 0; i < SimInteropsNum; i++ )
+    {
+        SimInteropsCheck[0] = false;
+        SimInteropsCheck[1] = false;
+        SimInteropsCheck[2] = false;
+        do
+        {
+            property = *SimInterops++;
+            if( property == CL_GL_CONTEXT_KHR )
+                SimInteropsCheck[0] = true;
+            if( property == CL_WGL_HDC_KHR )
+                SimInteropsCheck[1] = true;
+            if( property == CL_CONTEXT_D3D11_DEVICE_KHR )
+                SimInteropsCheck[2] = true;
+        }
+        while( property != 0 );
+            
+        if( SimInteropsCheck[0] && SimInteropsCheck[1] && SimInteropsCheck[2] )
+        {
+            GLD3D11SimInteropSupported = true;
+            printf("This device supports GL and D3D11 simultaneous sharing.\n");
+            break;
+        }
+    }
+    if( !GLD3D11SimInteropSupported )
+    {
+        printf("This device doesn't support GL and D3D11 simultaneous sharing.\n");
+    }
+
+Issues
+
+    - It might be good to enumerate changes to all chapters talking about sharing 
+      with each graphics API. However this is troublesome because the restriction 
+      for the interops being mutually exclusive is not consistent throughout specs. 
+      The restriction exists in chapters about sharing with Direct3D 10, Direct3D 11 
+      and DX9 Media Intel vendor extension but is not explicitly stated in chapters 
+      about sharing with OpenGL and DX9 Media KHR extension. 
+
+      RESOLVED: Added description of all changes explicitly.
+
+Revision History
+
+    Version 1, 2014/07/28 (Krzysztof Laskowski) - Initial version.
+    Version 2, 2014/07/29 (Krzysztof Laskowski) - Changed minimum value of
+                                                  CL_DEVICE_NUM_SIMULTANEOUS_INTEROPS_INTEL
+                                                  to 1.
+                                                  Added section about usage of
+                                                  CL_CONTEXT_INTEROP_USER_SYNC.
+    Version 3, 2014/09/29 (Krzysztof Laskowski) - Added numerical values for the new tokens.
+    Version 4, 2014/10/02 (Krzysztof Laskowski) - Rephrased the description of CL_DEVICE
+                                                  _SIMULTANEOUS_INTEROPS_INTEL.
+    Version 5, 2014/10/06 (Krzysztof Laskowski) - Added description of changes
+                                                  to OpenGL, D3D10, D3D11 and Intel DX9 
+                                                  Media sharing specifications.
+                                                  Removed redundant paragraphs from 
+                                                  the description of CL_DEVICE_SIMULTANEOUS_
+                                                  INTEROPS_INTEL.
+    Version 6, 2014/10/09 (Krzysztof Laskowski) - Added Example Usage section.
+    Version 7, 2014/10/14 (Krzysztof Laskowski) - Moved Issues section to the bottom.
+                                                  Marked as complete.
+
+

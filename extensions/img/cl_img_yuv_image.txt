@@ -1,0 +1,101 @@
+Name
+
+    IMG_yuv_image
+
+Name Strings
+
+    cl_img_yuv_image
+
+Contributors
+
+    James Laverack
+    Rob Quill
+
+Contacts
+
+    James Laverack, Imagination Technoligies (james.laverack 'at' imgtec.com)
+    Rob Quill, Imagination Technoligies (robert.quill 'at' imgtec.com)
+
+Status
+
+    Approved.
+
+Version
+
+    Revision: #2, August 8th, 2016
+
+Number
+
+    OpenCL Extension #46
+
+Dependencies
+
+    Requires OpenCL version 1.2 or later.
+
+    This extension is written against the wording of the OpenCL 1.2
+    Specification.
+
+Overview
+
+    This extension provides new image formats to read YUV images, such
+    as those provided by cameras on mobile devices.
+
+New Tokens
+
+    New image channel order enums:
+
+    CL_NV21_IMG                         0x40D0
+    CL_YV12_IMG                         0x40D1
+
+Additions to Chapter 5 of the OpenCL 1.2 Specification (Image Objects)
+
+    In Section 5.3.1, page 93, append the following to the list of error
+    conditions for clCreateImage:
+
+    "CL_INVALID_IMAGE_SIZE if the image_channel_order is CL_NV21_IMG or CL_YV12_IMG
+     and image dimensions specified in image_desc are not supported for for
+     all devices in context."
+
+    "CL_INVALID_VALUE if the image_channel_order is CL_NV21_IMG or CL_YV12_IMG and
+     the image_desc is not CL_MEM_OBJECT_IMAGE2D."
+
+    In Section 5.3.1.1, page 94, add the following to Table 5.6:
+
+    "CL_NV21_IMG, CL_YV12_IMG. This format can only be used if channel
+     data type = CL_UNORM_INT8"
+
+    In Section 5.3.3, page 102, append the following to the list of error
+    conditions for clEnqueueReadImage and clEnququWriteImage:
+
+    "CL_INVALID_VALUE if image_channel_order is CL_NV21_IMG or CL_YV12_IMG and the region
+     is not the full size of the image and/or the origin is not (0, 0)."
+
+    In Section 5.3.4, page 108, append the following to the list of error
+    conditions for clEnqueueFillImage:
+
+    "CL_IMAGE_FORMAT_NOT_SUPPORTED if image_channel_order is CL_NV21_IMG or
+     CL_YV12_IMG."
+
+    In Section 5.3.6, page 116, append the following to the list of error
+    conditions for clEnqueueMapImage:
+
+    "CL_INVALID_VALUE if image_channel_order is CL_NV21_IMG or CL_YV12_IMG and the region
+     is not the full size of the image and/or the origin is not (0, 0)."
+
+Additions to Chapter 8 of the OpenCL 1.2 Specification (Addressing and Filter Modes)
+
+    In Section 8.2, page 335, replace the first paragraph of the Note with the following
+    text:
+
+    "If the sampler is specified as using unnormalized coordinates (floating-point or integer
+     coordinates), filter mode set to CLK_FILTER_NEAREST and addressing mode set to one of the
+     following modes - CLK_ADDRESS_NONE, CLK_ADDRESS_CLAMP_TO_EDGE or
+     CLK_ADDRESS_CLAMP, and image_channel_order is not CL_NV21_IMG or CL_YV12_IMG then the location
+     of the image element in the image given by (i, j, k) in section 8.2 will be computed
+     without any loss of precision."
+
+Revision History
+
+#1    - Initial revision.
+
+#2    - Replace CL_NV21 and CL_YV12 with CL_NV21_IMG and CL_YV12_IMG respectively.

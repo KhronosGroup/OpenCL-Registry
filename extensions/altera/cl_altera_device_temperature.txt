@@ -1,0 +1,99 @@
+Name Strings
+
+   cl_altera_device_temperature
+
+Contributors
+
+   Michael Kinsner, Altera Corporation
+   David Neto, Altera Corporation
+
+Contact
+
+   Michael Kinsner, mkinsner 'at' altera 'dot' com
+
+IP Status
+
+   No known IP issues.
+
+Version
+
+   Version 0, February 26, 2014
+
+Number
+
+   TBD
+
+Status
+
+   Complete. 
+   Shipping with the Altera SDK for OpenCL, version 14.0
+
+Extension Type
+
+   OpenCL platform extension
+
+Dependencies
+
+   OpenCL 1.0 is required.
+   This document is written against revision 48 of the OpenCL 1.0 specification.
+
+Overview
+
+   This extension specifies an API for querying the current temperature of a
+   given device.  The device temperature may be used to diagnose problems
+   with a deplyed system, or to enhance its reliability or useful lifetime.
+
+Header File
+
+   Externsion interfaces are defined in cl_ext.h
+
+New Procedures and Functions
+
+   None.
+
+New Tokens
+
+   Accepted by the <param_name> argument of clGetDeviceInfo
+
+      CL_DEVICE_CORE_TEMPERATURE_ALTERA        0x40F3
+
+Additions to Chapter 4 of the OpenCL 1.0 (v48) Specification
+
+   Add a new entry to Table 4.3 (clGetDeviceInfo OpenCL Device Queries):
+
+      cl_device_info:   CL_DEVICE_CORE_TEMPERATURE_ALTERA
+      Return type   :   cl_int
+      Description   :   The core die temperature of the device, in degrees Celsius.
+                        If the devie does not support the query, the result will
+                        default to 0.
+
+Sample Code
+
+   Example for getting the current device core die temperature.
+
+      #include <CL/opencl.h>
+
+      ...
+
+      #ifdef cl_altera_device_temperature
+
+      cl_int temperature = 0;
+      cl_int status=0;
+      status = clGetDeviceInfo( device, CL_DEVICE_CORE_TEMPERATURE_ALTERA,
+                  sizeof(cl_int), &temperature, NULL );
+
+      if (status == CL_SUCCESS) {
+         printf("Device die temperature = %d degrees C\n", temperature);
+      } else {
+         printf("Failed to query temperature\n");
+      }
+
+      #endif
+
+Conformance Tests
+
+   None.
+
+Revision History
+
+   Version 0, 2014-02-26 - Initial revision.

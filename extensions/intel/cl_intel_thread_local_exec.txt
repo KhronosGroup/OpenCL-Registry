@@ -1,0 +1,183 @@
+Name Strings
+
+    cl_intel_thread_local_exec
+
+Contributors
+
+    Yariv Aridor
+    Evgeny Fiksman
+    Doron Singer
+
+Contact
+
+    Yariv.Aridor(at)Intel.Com
+
+IP Status
+
+    N/A
+
+Version
+
+    Version 2, August 27, 2015
+
+Number
+
+    OpenCL Extension #16
+
+Status
+
+    Complete.
+
+Extension Type
+
+    OpenCL device extension
+
+Dependencies
+
+    OpenCL 1.0 is required
+
+Overview
+
+    This extension allows the user to execute OpenCL tasks and kernels with
+    the user application's threads. The extension defines a token that can
+    be passed to clCreateCommandQueue, creating a queue with the "thread
+    local exec" capability.
+
+    All enqueue APIs (e.g., clEnqueueRead) submitted to such a queue
+    never enqueue commands. An Enqueue API call is executed by the
+    caller host-thread itself without involving any of the OpenCL
+    runtime threads, much like function calls. The queue would typically
+    stay empty - the queue handler argument is used only for
+    compatibility of the enqueue APIs (i.e., keeping the same API
+    signatures) and checking, at runtime, whether the enqueue API needs
+    to be executed in such a fashion. Enqueue API calls on a "local"
+    command queue can still use event dependency lists and output
+    events. A non-NULL event dependency list will block the caller
+    application thread until all the corresponding events are completed.
+    Output events will be accessible only after the return of the
+    enqueue API call (as with regular command queues) and should always
+    have "completed" status (as expected). They might be useful for
+    querying event status and profiling data. "Local" command queues
+    behave the same regardless if they are defined as in-order or
+    out-of-order. However, with in-order queues, threads may be blocked
+    until execution of previously enqueued commands (by other threads)
+    is completed. Given an enqueue API with a blocking flag (e.g.,
+    clEnqueueReadBuffer), both its blocking non-blocking calls behave
+    the same and have the exact same impact on the application. Calls to
+    clFinish and clFlush, clEnqueueBarrier and clEnqueueMarker are valid
+    although meaningless for these command queues. An optimal
+    implementation of these APIs for Immediate command queues will incur
+    the minimal overhead of a function call and possibly an if-then-else
+    to distinguish between a local command queue and a regular one.
+    clEnqueueNDRangeCommand and clEnqueueTask should have optimized
+    implementations using a single execution thread.
+
+Header File
+
+    cl_ext.h
+
+New Procedures and Functions
+
+    None
+
+New Tokens
+
+    CL_QUEUE_THREAD_LOCAL_EXEC_ENABLE_INTEL      (((cl_bitfield)1) << 31)
+
+Additions to Chapter 5 of the OpenCL 1.1 (v45) Specification
+
+    Add CL_QUEUE_THREAD_LOCAL_EXEC_INTEL as a new property of command
+    queues into table 5.1 (chapter 5)
+
+    
+    In chapter 5.1, add the following error codes to clCreateCommandQueue:
+
+    CL_INVALID_QUEUE_PROPERTIES if the target device doesn't support the
+    corresponding execution mode.
+
+    And in a dedicated section to thread local execution, also in
+    chapter 5.1, page 55:
+
+    A host thread which fails to immediately invoke an enqueue API call
+    because of out of stack memory should return CL_OUT_OF_HOST_MEMORY
+    for this enqueue API call. The same host code should work, as is,
+    with and without immediate command queues, except for code changes
+    due to
+
+    I. Potential deadlocks. These are the same type of deadlocks which
+    may occur with current blocking API calls in OpenCL 1.1
+
+    II. Any optimizations which take into account the immediate
+    execution of commands e.g., writing to a mapped buffer immediately
+    after a call to clEnqueueMapBuffer without a follow-up call to
+    clFinish.
+
+Interactions with other extensions
+
+    None
+
+Issues
+
+    N/A
+
+Sample Code
+
+    cl_device_id device_id;
+    cl_context   context;
+    cl_platform_id platform = 0;
+
+    cl_int err = clGetPlatformIDs(1, &platform, NULL);
+
+    cl_context_properties prop[3] = { CL_CONTEXT_PLATFORM, (cl_context_properties)platform, 0 };
+
+    err = clGetDeviceIDs(platform, CL_DEVICE_TYPE_CPU, 1, &device_id, NULL);
+
+    // create context
+    context = clCreateContext(prop, 1, &device_id, NULL, NULL, &err);
+
+    // create program with source
+    cl_program program = clCreateProgramWithSource(context, 1, (const char**)&ocl_test_program, NULL, &err);
+
+    err = clBuildProgram(program, NULL, NULL, NULL, NULL, NULL);
+
+    cl_float src[IMMEDIATE_EXECUTION_GLOBAL_SIZE];
+    cl_float dst[IMMEDIATE_EXECUTION_GLOBAL_SIZE];
+
+    // ... Fill buffers
+
+    // Create an in-order immediate queue
+    cl_command_queue queue1 = clCreateCommandQueue (context, device_id, CL_QUEUE_THREAD_LOCAL_EXEC_ENABLE_INTEL, &err);
+
+    // Create Kernel
+    cl_kernel kernel1 = clCreateKernel(program, "copy", &err);
+
+    // Create buffers
+    size_t size = sizeof(cl_float);
+    cl_mem buffer_src = clCreateBuffer(context, CL_MEM_READ_ONLY, size * IMMEDIATE_EXECUTION_GLOBAL_SIZE, NULL, &err);
+    cl_mem buffer_dst = clCreateBuffer(context, CL_MEM_READ_WRITE, size * IMMEDIATE_EXECUTION_GLOBAL_SIZE, NULL, &err);
+
+    // Set arguments
+    err = clSetKernelArg(kernel1, 0, sizeof(cl_mem), &buffer_src);
+    err = clSetKernelArg(kernel1, 1, sizeof(cl_mem), &buffer_dst);
+
+    // Execute commands - Write buffers
+    err = clEnqueueWriteBuffer (queue1, buffer_src, false, 0, size* IMMEDIATE_EXECUTION_GLOBAL_SIZE, src, 0, NULL, NULL);
+    err = clEnqueueWriteBuffer (queue1, buffer_dst, false, 0, size* IMMEDIATE_EXECUTION_GLOBAL_SIZE, dst, 0, NULL, NULL);
+
+    // Execute kernel
+    size_t global_work_size[1] = { IMMEDIATE_EXECUTION_GLOBAL_SIZE };
+    size_t local_work_size[1] = { IMMEDIATE_EXECUTION_LOCAL_SIZE };
+
+    cl_event evt;
+    err = clEnqueueNDRangeKernel(queue1, kernel1, 1, NULL, global_work_size, local_work_size, 0, NULL, &evt);
+    err = clEnqueueReadBuffer (queue1, buffer_dst, CL_TRUE,  0, size*IMMEDIATE_EXECUTION_GLOBAL_SIZE, dst, 0, NULL, NULL);
+
+    // release OpenCL objects
+
+Conformance Tests
+
+    N/A
+
+Revision History
+
+    Version 1, March 28, 2012 - Initial revision
