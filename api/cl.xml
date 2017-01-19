@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <registry>
     <comment>
-Copyright (c) 2013-2016 The Khronos Group Inc.
+Copyright (c) 2013-2017 The Khronos Group Inc.
 
 Permission is hereby granted, free of charge, to any person obtaining a
 copy of this software and/or associated documentation files (the
@@ -322,7 +322,8 @@ has no formal schema defined.
         <enum value="(1 << 11)"   name="CL_MEM_SVM_ATOMICS"/>
         <enum value="(1 << 12)"   name="CL_MEM_KERNEL_READ_AND_WRITE"/>
             <unused start="1<<13" end="1<<23"/>
-            <!-- 1 << (24,25) reserved for Intel (bug 16049) -->
+        <enum value="(1 << 24)"   name="CL_MEM_NO_ACCESS_INTEL"/>
+        <enum value="(1 << 25)"   name="CL_MEM_ACCESS_FLAGS_UNRESTRICTED_INTEL"/>
         <enum value="(1 << 26)"   name="CL_MEM_USE_UNCACHED_CPU_MEMORY_IMG"/>
         <enum value="(1 << 27)"   name="CL_MEM_USE_CACHED_CPU_MEMORY_IMG"/>
             <!-- 1 << 28 reserved for IMG (bug 12428) -->
@@ -1061,7 +1062,9 @@ has no formal schema defined.
         <enum value="0x4108"      name="CL_DEVICE_SUB_GROUP_SIZES_INTEL"/>
         <enum value="0x4109"      name="CL_KERNEL_SPILL_MEM_SIZE_INTEL"/>
         <enum value="0x410A"      name="CL_KERNEL_COMPILE_SUB_GROUP_SIZE_INTEL"/>
-            <unused start="0x410B" end="0x410F"/>
+            <unused start="0x410B" end="0x410D"/>
+        <enum value="0x410E"      name="CL_NV12_INTEL"/>
+            <unused start="0x410F" end="0x410F"/>
     </enums>
 
     <enums namespace="CL" start="0x4110" end="0x411F" vendor="Qualcomm" comment="Per Bug 13929">
@@ -1081,7 +1084,9 @@ has no formal schema defined.
     </enums>
 
     <enums namespace="CL" start="0x4170" end="0x417F" vendor="Intel" comment="Per bug 16067.">
-            <unused start="0x4170" end="0x417F"/>
+            <unused start="0x4170" end="0x417D"/>
+        <enum value="0x417E"      name="CL_DEVICE_PLANAR_YUV_MAX_WIDTH_INTEL"/>
+        <enum value="0x417F"      name="CL_DEVICE_PLANAR_YUV_MAX_HEIGHT_INTEL"/>
     </enums>
 
     <enums namespace="CL" start="0x4180" end="0x4FFF" comment="Reserved for vendor extensions. Allocate in groups of 16.">
@@ -1148,5 +1153,6 @@ has no formal schema defined.
     <extension number="46" name="cl_img_yuv_image"/>
     <extension number="47" name="cl_intel_driver_diagnostics"/>
     <extension number="48" name="cl_intel_subgroups_short"/>
+    <extension number="49" name="cl_intel_planar_yuv"/>
         <!-- Next free extension number is assigned sequentially here -->
 </registry>
