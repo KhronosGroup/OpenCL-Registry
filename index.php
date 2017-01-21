@@ -475,6 +475,10 @@ include_once("../../assets/static_pages/khr_page_top.php");
 </li>
 <li value=48> <a href="extensions/intel/cl_intel_subgroups_short.txt">cl_intel_subgroups_short</a>
 </li>
+<li value=49> <a href="extensions/intel/cl_intel_planar_yuv.txt">cl_intel_planar_yuv</a>
+</li>
+<li value=50> <a href="extensions/intel/cl_intel_device_side_avc_motion_estimation.txt">cl_intel_device_side_avc_motion_estimation</a>
+</li>
 </ol>
 <?php include_once("../../assets/static_pages/khr_page_bottom.php"); ?>
 </body>
