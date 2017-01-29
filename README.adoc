@@ -13,7 +13,7 @@ https://cvs.khronos.org/svn/repos/registry/trunk/public/cl/ .
 
 == Reserving OpenCL Enumerant Ranges
 
-OpenCL enumerants are documented in xml/cl.xml . New ranges can be allocated
+OpenCL enumerants are documented in 'xml/cl.xml'. New ranges can be allocated
 by proposing a pull request to master modifying this file, following the
 existing examples. Allocate ranges starting at the lowest free values
 available (search for "Reserved for vendor extensions"). Ranges are not
@@ -23,20 +23,20 @@ that point you can use values from your assigned range for API extensions.
 == Adding Extension Specifications
 
 Extension specification documents can be added by proposing a pull request
-to master, adding the specification .txt file under
-extensions/<vendor>/filename.txt . You must also:
+to master, adding the specification '.txt' file under
+'extensions/<vendor>/filename.txt'. You must also:
 
-* Modify extensions/registry.py to include the extension, using the next
-  free extension number. Execute the python script nextfree.py in the
-  extensions/ directory to find the next free number. The extension 'flags'
-  must be marked as 'public', similar to other entries in registry.py, for
-  the extension to be linked from the registry index page.
+* Modify 'extensions/registry.py' to include the extension, using the next
+  free extension number. Execute the python script 'nextfree.py' in the
+  'extensions/' directory to find the next free number. The extension `flags`
+  must be marked as `public` , similar to other entries in 'registry.py',
+  for the extension to be linked from the registry index page.
 * Include that extension number in the extension specification document
-* In the extensions/ directory, 'make' to regenerate the HTML index file
-  'clext.php' from registry.py. If this doesn't succeed due to not having
+* In the 'extensions/' directory, `make` to regenerate the HTML index file
+  'clext.php' from 'registry.py'. If this doesn't succeed due to not having
   the right Python version or something like that, we'll take care of it
   when merging to master.
-* We are no longer registering extension numbers in xml/cl.xml, for
+* We are no longer registering extension numbers in 'xml/cl.xml', for
   consistency with the combined GL registry scripts.
 
 Sometimes extension text files contain inappropriate UTF-8 characters. They
@@ -54,20 +54,20 @@ at some point.
 
 Interesting files in this repository include:
 
-* index.php - toplevel index page for the web view. This relies on PHP
-  include files found elsewhere on www.khronos.org and so is not very useful
+* 'index.php' - toplevel index page for the web view. This relies on PHP
+  include files found elsewhere on https://www.khronos.org and so is not very useful
   in isolation.
-* xml/cl.xml - enumerant and extension number registry. Documents the
+* 'xml/cl.xml' - enumerant and extension number registry. Documents the
   assigned OpenCL enumerant ranges, and the names and index numbers assigned
   to OpenCL extension specifications.
-* extensions/ - OpenCL extension specifications, grouped into
+* 'extensions/' - OpenCL extension specifications, grouped into
   vendor-specific subdirectories.
-** extensions/registry.py - extension registry.
-** extensions/makeindex.py - create HTML extension indices from registry.py.
-** extensions/nextfree.py - determine the next free extension number in
-   registry.py.
-* sdk/ - OpenCL reference pages and reference cards. There are separate sets
+** 'extensions/registry.py' - extension registry.
+** 'extensions/makeindex.py' - create HTML extension indices from 'registry.py'.
+** 'extensions/nextfree.py' - determine the next free extension number in
+   'registry.py'.
+* 'sdk/' - OpenCL reference pages and reference cards. There are separate sets
   for each API version.
-* specs/ - OpenCL specification documents.
+* 'specs/' - OpenCL specification documents.
 
 
