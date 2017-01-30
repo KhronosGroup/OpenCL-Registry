@@ -146,6 +146,11 @@ registry = {
         'flags' : { 'public' },
         'url' : 'extensions/intel/cl_intel_egl_image_yuv.txt',
     },
+    'cl_intel_media_block_io' : {
+        'number' : 51,
+        'flags' : { 'public' },
+        'url' : 'extensions/intel/cl_intel_media_block_io.txt',
+    },
     'cl_intel_motion_estimation' : {
         'number' : 23,
         'flags' : { 'public' },

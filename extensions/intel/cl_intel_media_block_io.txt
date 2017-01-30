@@ -1,0 +1,609 @@
+Name String
+
+   cl_intel_media_block_io
+
+Contributors
+
+   Biju George, Intel
+   Ben Ashbaugh, Intel
+   Scott Pillow, Intel
+
+Contact
+
+   Biju George, Intel (biju.george 'at' intel.com)
+
+Version
+
+   Version 1, December 2, 2016
+
+Number
+
+   OpenCL Extension #51
+
+Status
+
+  First Draft
+
+Dependencies
+
+  OpenCL 1.2 is required.
+
+  The OpenCL Intel vendor extension cl_intel_subgroups is required. The media
+  block read/write built-in functions are an extension of the subgroup
+  functions defined in cl_intel_subgroups.
+
+  This extension is written against revision 29 of the OpenCL 2.0 API
+  specification, against revision 33 of the OpenCL 2.0 OpenCL C
+  specification, and against revision 32 of the OpenCL 2.0 extension
+  specification.
+
+Overview
+
+  This extension augments the block read/write functionality available in the
+  Intel vendor extensions cl_intel_subgroups and cl_intel_subgroups_short by 
+  the specification of additional built-in functions to facilitate the reading
+  and writing of flexible 2D regions from images. This API allows for
+  the explicit specification of the width and height of the image regions.
+
+  While not required, this extension is most useful when the subgroup size is
+  known at compile-time. The primary use case for this extension is to support
+  the reading of the edge texels (or image elements) of neighboring macro-
+  blocks as described in the Intel vendor extension cl_intel_device_side_avc_
+  motion_estimation. When using the built-in functions from cl_intel_device_
+  side_avc_motion_estimation the subgroup size is implicitly fixed to 16. In 
+  other use cases the subgroup size may be fixed using the cl_intel_required_
+  subgroup_size extension, if needed.
+
+New API Enums
+  
+  None.
+
+Terms and Definitions
+
+  Texel:
+  ------
+  This refers to an images element (or an image pixel).  
+
+  Byte:
+  -----
+  A 8-bit unsigned integer (or cl_uchar).
+
+  Word:
+  -----
+  A 16-bit unsigned integer (or cl_ushort).
+
+  Dword:
+  -----
+  A 32-bit unsigned integer (or cl_uint). 
+
+New OpenCL C built-in functions
+
+  Append to Section 6.13.X "Sub Group Read and Write Functions" of the
+  OpenCL 2.0 C Specification, which was added by the cl_intel_subgroups   
+  extension.
+
+  These built-in functions must be encountered by all work items in a subgroup
+  executing the kernel, otherwise the behavior is undefined (i.e. they can only
+  be used only in convergent control flow where all the work-items in the sub- 
+  groups are enabled).
+
+  The following restrictions in Table 6.X apply for allowed sizes for the 
+  explicit width and height parameters of the flexible media block read/write
+  built-in functions.  
+
+        Table 6.X
+        +-----------+--------------+
+        |   width   |maximum height|
+        |  (bytes)  |    (rows)    |
+        +-----------+--------------+
+        |     4     |      64      |
+        +-----------+--------------+
+        |     8     |      32      |
+        +-----------+--------------+
+        |   12,16   |      16      |
+        +-----------+--------------+
+        |20,24,28,32|      8       |
+        +-----------+--------------+
+
+
+  If OpenCL image kernel parameters are used as input arguments in calls 
+  to the flexible media block read/write built-in functions, then these image
+  objects must exclusively be used only by flexible media block read/write
+  built-in functions. If the same image needs to be used for other image
+  operations within the same kernel, then an additional image parameter may be
+  used that is bound to the same image object as for the flexible media block
+  read/write built-in function call in the OpenCL host application for the
+  kernel enqueue API call.
+
+  Additionally for images that are read from or written to using the flexible
+  media block read/write built-in functions, the images should be created with
+  the "image_width" value in "cl_image_desc" such that image_width multiplied
+  by the texel size is a multiple of 4.
+
+  The following additional restrictions are imposed for reading 2D images
+  created from buffers with the flexible media block read/write built-in
+  functions.  
+
+  1. The image row pitch is required to be a multiple of 64-bytes, in addition
+     to the CL_DEVICE_IMAGE_PITCH_ALIGNMENT requirements.
+  2. If the buffer was created using CL_MEM_USE_HOST_PTR with the host
+     application providing the storage bits for the memory object using
+     "host_ptr", then "host_ptr" is required to be 16-byte aligned, in addition
+     to the clCreateBuffer requirements.
+  3. The maximum height is further restricted to 16 or less.
+
+  The behavior is undefined if the flexible media block read/write built-in 
+  functions are used to directly read/write planar YUV image. Instead they may
+  be indirectly used to read/write a 2D image object representing a single 
+  plane from a planar YUV image object. Creating a 2D image object 
+  representing a single plane from a planar YUV image object is described in
+  cl_intel_planar_yuv.
+  _____________________________________________________________________________
+
+  Read operations
+  ---------------
+ 
+  Byte sized read operations
+  ++++++++++++++++++++++++++
+
+  +---------------------------------+----------------------------------------+
+  |uchar                            |Reads a 2D region from an image.        |
+  |intel_sub_group_media_block_read_|                                        |
+  |uc(                              |The 2D source byte offset of the        |
+  |  int2 src_byte_offset,          |top-left corner and the width and height|
+  |  int width,                     |of the region are specified explicitly  |
+  |  int height,                    |in the interface parameters. The source |
+  |  read_only image2d_t image )    |byte x-offset and width must be 4 byte  |
+  |                                 |aligned.                                |
+  +---------------------------------+                                        |
+  |uchar2                           |The width is specified in byte units    |
+  |intel_sub_group_media_block_read_|must be less than or equal to 32. The   |
+  |uc2(                             |width and height of the region must be  |
+  |  int2 src_byte_offset,          |compile-time constants.                 |
+  |  int width,                     |                                        |
+  |  int height,                    |The read-in texels in the 2D region     |
+  |  read_only image2d_t image )    |taken in row-major order are            |
+  |                                 |re-organized as another 2D region with  |
+  +---------------------------------+the byte width equal to the subgroup    |
+  |uchar4                           |size. Then each work-item reads each    |
+  |intel_sub_group_media_block_read_|byte column vector of the re-organized  |
+  |uc4(                             |rectangle, i.e. each column's subsequent|
+  |  int2 src_byte_offset,          |data element's address is strided by the|
+  |  int width,                     |subgroup size.                          |
+  |  int height,                    |                                        |
+  |  read_only image2d_t image )    |The max byte area of the region is      |
+  |                                 |defined as the byte size of the return  |
+  +---------------------------------+type multiplied by the subgroup size. If|
+  |uchar8                           |the byte area of the region is less than|
+  |intel_sub_group_media_block_read_|its max byte area, then corresponding   |
+  |uc8(                             |tail elements of some of the column     |
+  |  int2 src_byte_offset,          |vector are undefined. Conversely if the |
+  |  int width,                     |byte area of the region is more than the|
+  |  int height,                    |max byte area, then some corresponding  |
+  |  read_only image2d_t image )    |of the tail elements of the region are  |
+  |                                 |dropped.                                |
+  +---------------------------------+                                        |
+  |uchar16                          |For out-of-bound reads, the read-in     |
+  |intel_sub_group_media_block_read_|texels are replicated from the nearest  |
+  |uc16(                            |edge for byte sized texels. The out-of- |
+  |  int2 src_byte_offset,          |bound behavior is undefined for larger  |
+  |  int width,                     |sized texels with the "_uc"             |
+  |  int height,                    |builtin-functions.                      |
+  |  read_only image2d_t image )    |                                        |
+  +---------------------------------+----------------------------------------+
+
+  Word sized read operations
+  ++++++++++++++++++++++++++
+
+  +---------------------------------+----------------------------------------+
+  |ushort                           |Reads a 2D region from an image.        |
+  |intel_sub_group_media_block_read_|                                        |
+  |us(                              |The 2D source byte offset of the        |
+  |  int2 src_byte_offset,          |top-left corner and the width and height|
+  |  int width,                     |of the region are specified explicitly  |
+  |  int height,                    |in the interface parameters. The source |
+  |  read_only image2d_t image )    |byte x-offset and width must be 4 byte  |
+  |                                 |aligned.                                |
+  +---------------------------------+                                        |
+  |ushort2                          |The width is specified in word units and|
+  |intel_sub_group_media_block_read_|must be less than or equal to 16. The   |
+  |us2(                             |width and height of the region must be  |
+  |  int2 src_byte_offset,          |compile-time constants.                 |
+  |  int width,                     |                                        |
+  |  int height,                    |The read-in texels in the 2D region     |
+  |  read_only image2d_t image )    |taken in row-major order are            |
+  |                                 |re-organized as another 2D region with  |
+  +---------------------------------+the word width equal to the subgroup    |
+  |ushort4                          |size. Then each work-item reads each    |
+  |intel_sub_group_media_block_read_|word column vector of the re-organized  |
+  |us4(                             |rectangle, i.e. each column's subsequent|
+  |  int2 src_byte_offset,          |data element's address is strided by the|
+  |  int width,                     |subgroup size multipled by 2.           |
+  |  int height,                    |                                        |
+  |  read_only image2d_t image )    |The max word area of the region is      |
+  |                                 |defined as the word size of the return  |
+  +---------------------------------+type multiplied by the subgroup size. If|
+  |ushort8                          |the word area of the region is less than|
+  |intel_sub_group_media_block_read_|its max word area, then corresponding   |
+  |us8(                             |tail elements of some of the column     |
+  |  int2 src_byte_offset,          |vector are undefined. Conversely if the |
+  |  int width,                     |word area of the region is more than the|
+  |  int height,                    |max word area, then some corresponding  |
+  |  read_only image2d_t image )    |of the tail elements of the region are  |
+  |                                 |dropped.                                |
+  +---------------------------------+                                        |
+  |ushort16                         |For out-of-bound reads, the read-in     |
+  |intel_sub_group_media_block_read_|texels are replicated from the nearest  |
+  |us16(                            |edge for byte and word sized texels. The|
+  |  int2 src_byte_offset,          |out-of-bound behavior is undefined for  |
+  |  int width,                     |larger sized texels with the "_us"      |
+  |  int height,                    |builtin-functions.                      |
+  |  read_only image2d_t image )    |                                        |
+  +---------------------------------+----------------------------------------+ 
+ 
+
+  Double Word (DWORD) sized read operations
+  +++++++++++++++++++++++++++++++++++++++++
+
+  +---------------------------------+----------------------------------------+
+  |uint                             |Reads a 2D region from an image.        |
+  |intel_sub_group_media_block_read_|                                        |
+  |ui(                              |The 2D source byte offset of the        |
+  |  int2 src_byte_offset,          |top-left corner and the width and height|
+  |  int width,                     |of the region are specified explicitly  |
+  |  int height,                    |in the interface parameters. The source |
+  |  read_only image2d_t image )    |byte x-offset and width must be 4 byte  |
+  |                                 |aligned.                                |
+  +---------------------------------+                                        |
+  |uint2                            |The width is specified in dword units   |
+  |intel_sub_group_media_block_read_|and must be less than or equal to 8. The|
+  |ui2(                             |width and height of the region must be  |
+  |  int2 src_byte_offset,          |compile-time constants.                 |
+  |  int width,                     |                                        |
+  |  int height,                    |The read-in texels in the 2D region     |
+  |  read_only image2d_t image )    |taken in row-major order are            |
+  |                                 |re-organized as another 2D region with  |
+  +---------------------------------+the dword width equal to the subgroup   |
+  |uint4                            |size. Then each work-item reads each    |
+  |intel_sub_group_media_block_read_|dword column vector of the re-organized |
+  |ui4(                             |rectangle, i.e. each column's subsequent|
+  |  int2 src_byte_offset,          |data elements's address is strided by   |
+  |  int width,                     |the subgroup size multipled by 4.       |
+  |  int height,                    |                                        |
+  |  read_only image2d_t image )    |The max dword area of the region is the |
+  |                                 |dword size of the return type multiplied|
+  +---------------------------------+by the subgroup size. If the dword area |
+  |uint8                            |of the region is less than its max dword|
+  |intel_sub_group_media_block_read_|area, then corresponding tail elements  |
+  |ui8(                             |of some of the column vector are        |
+  |  int2 src_byte_offset,          |undefined. Conversely if the dword area |
+  |  int width,                     |of the region is more than the max dword|
+  |  int height,                    |area, then corresponding some of the    |
+  |  read_only image2d_t image )    |tail elements of the region are dropped.|
+  |                                 |                                        |
+  |                                 |For out-of-bound reads, the read-in     |
+  |                                 |texels are replicated from the nearest  |
+  |                                 |edge for byte, word and dword sized     |
+  |                                 |texels. The out-of-bound behavior is    |
+  |                                 |undefined for larger sized texels with  |
+  |                                 |the "_ui" builtin-functions.            |
+  +---------------------------------+----------------------------------------+
+
+  Additional notes on out-of-bound reads:
+  +++++++++++++++++++++++++++++++++++++++
+
+  1. For an image with byte texels, the boundary byte is replicated. For 
+     example, for a boundary word B0B1B2B3, to replicate the left boundary 
+     byte texel, the out of bound dwords have the format of B0B0B0B0, and that
+     for right boundary is B3B3B3B3.
+  2. For an image with word texels, boundary texel replication is on words. For
+     example, for a boundary dword B0B1B2B3, to replicate the left boundary 
+     word texel, the out of bound dwords have the format of B0B1B0B1, and that
+     for right boundary is B2B3B2B3.
+  3. For special images with (word texel) YUV packed format as described in
+     the cl_intel_packed_yuv extension, there are two cases depending on the
+     Y location: CL_YUYV_INTEL and CL_UYVY_INTEL. Boundary handling for 
+     CL_YVYU_INTEL is the same as that for CL_YUYV_INTEL. Similarly, boundary 
+     handling for CL_VYUY_INTEL is the same as that for UYVY. For a boundary 
+     dword Y0U0Y1V0, to replicate the left boundary, we get Y0U0Y0V0, and to 
+     replicate the right boundary, we get Y1U0Y1V0. For a boundary dword 
+     U0Y0V0Y1, to replicate the left boundary, we get U0Y0V0Y0, and to 
+     replicate the right boundary, we get U0Y1V0Y1.
+  4. For an image with dword texels, the boundary dword texel is replicated.
+  5. The behavior is undefined for images with greater than dword sized texels
+     (such as CL_RGBA + CL_FLOAT).
+
+  _____________________________________________________________________________
+
+  Write operations
+  ----------------
+
+  Byte sized write operations
+  +++++++++++++++++++++++++++
+
+  +----------------------------------+---------------------------------------+
+  |void                              |Writes to a 2D region of an image with |
+  |intel_sub_group_media_block_write_|surface formats of byte sized texels.  |
+  |uc(                               |                                       |
+  |  int2 src_byte_offset,           |The 2D source byte offset of the       |
+  |  int width,                      |top-left corner and the width and      |
+  |  int height,                     |height of the region are specified     |
+  |  uchar texel,                    |explicitly in the interface            |
+  |  image2d_t image )               |parameters. The source byte x-offset   |
+  |                                  |and width must be 4 byte aligned.      |
+  +----------------------------------+                                       |
+  |intel_sub_group_media_block_write_|The width is specified in byte units   |
+  |uc2(                              |and must be less than or equal to      |
+  |  int2 src_byte_offset,           |32. The width and height of the region |
+  |  int width,                      |must be compile-time constants.        |
+  |  int height,                     |                                       |
+  |  uchar2 texels,                  |The 2D region that is written to is    |
+  |  image2d_t image )               |logically re-organized taken in        |
+  |                                  |row-major order as another 2D region   |
+  +----------------------------------+with the byte width equal to the       |
+  |void                              |subgroup size. Then each work-item     |
+  |intel_sub_group_media_block_write_|processes each byte column vector of   |
+  |uc4(                              |the logically re-organized rectangle,  |
+  |  int2 src_byte_offset,           |i.e. each column's subsequent data     |
+  |  int width,                      |element's address is strided by the    |
+  |  int height,                     |subgroup size.                         |
+  |  uchar4 texels,                  |                                       |
+  |  image2d_t image )               |The max byte area of the region is     |
+  |                                  |defined as the byte size of the return |
+  +----------------------------------+type multiplied by the subgroup        |
+  |void                              |size. If the byte area of the region is|
+  |intel_sub_group_media_block_write_|less than its max byte area, then      |
+  |uc8(                              |corresponding tail elements of some of |
+  |  int2 src_byte_offset,           |the column vector will not be included |
+  |  int width,                      |in the written out region. Conversely  |
+  |  int height,                     |if the byte area of the region is more |
+  |  uchar8 texels,                  |than the max byte area, then           |
+  |  image2d_t image )               |corresponding some of the tail elements|
+  |                                  |of the region are dropped.             |
+  +----------------------------------+                                       |
+  |void                              |Out-of-bound writes are dropped.       |
+  |intel_sub_group_media_block_write_|                                       |
+  |uc16(                             |                                       |
+  |  int2 src_byte_offset,           |                                       |
+  |  int width,                      |                                       |
+  |  int height,                     |                                       |
+  |  uchar16 texels,                 |                                       |
+  |  image2d_t image )               |                                       |
+  |                                  |                                       |
+  +----------------------------------+---------------------------------------+
+  
+  Word sized write operations
+  +++++++++++++++++++++++++++
+
+  +----------------------------------+---------------------------------------+
+  |void                              |Writes to a 2D region of an image with |
+  |intel_sub_group_media_block_write_|surface formats of word or byte sized  |
+  |us(                               |texels.                                |
+  |  int2 src_byte_offset,           |                                       |
+  |  int width,                      |The 2D source byte offset of the       |
+  |  int height,                     |top-left corner and the width and      |
+  |  ushort texel,                   |height of the region are specified     |
+  |  image2d_t image )               |explicitly in the interface parameters.|
+  |                                  |The source byte x-offset and width must|
+  +----------------------------------+be dword aligned.                      |
+  |void                              |                                       |
+  |intel_sub_group_media_block_write_|The width is specified in word units   |
+  |us2(                              |and must be less than or equal to      |
+  |  int2 src_byte_offset,           |16. The width and height of the region |
+  |  int width,                      |must be compile-time constants.        |
+  |  int height,                     |                                       |
+  |  ushort2 texels,                 |The 2D region that is written to is    |
+  |  image2d_t image )               |logically re-organized taken in        |
+  |                                  |row-major order as another 2D region   |
+  +----------------------------------+with the word width equal to the       |
+  |void                              |subgroup size. Then each work-item     |
+  |intel_sub_group_media_block_write_|processes each column vector of the    |
+  |us4(                              |logically re-organized rectangle,      |
+  |  int2 src_byte_offset,           |i.e. each column's subsequent data     |
+  |  int width,                      |element's address is strided by the    |
+  |  int height,                     |subgroup size multipled by 2.          |
+  |  ushort4 texels,                 |                                       |
+  |  image2d_t image )               |The max word area of the region is     |
+  |                                  |defined as the word size of the return |
+  +----------------------------------+type multiplied by the subgroup        |
+  |void                              |size. If the word area of the region is|
+  |intel_sub_group_media_block_write_|less than its max word area, then      |
+  |us8(                              |corresponding tail elements of some of |
+  |  int2 src_byte_offset,           |the column vector will not be included |
+  |  int width,                      |in the written out region. Conversely  |
+  |  int height,                     |if the word area of the region is more |
+  |  ushort8 texels,                 |than the max word area, then           |
+  |  image2d_t image )               |corresponding some of the tail elements|
+  |                                  |of the region are dropped.             |
+  +----------------------------------+                                       |
+  |void                              |Out-of-bound writes are dropped.       |
+  |intel_sub_group_media_block_write_|                                       |
+  |us16(                             |                                       |
+  |  int2 src_byte_offset,           |                                       |
+  |  int width,                      |                                       |
+  |  int height,                     |                                       |
+  |  ushort16 texels,                |                                       |
+  |  image2d_t image )               |                                       |
+  |                                  |                                       |
+  +----------------------------------+---------------------------------------+
+
+  Double word (DWORD) sized write operations
+  ++++++++++++++++++++++++++++++++++++++++++
+
+  +----------------------------------+---------------------------------------+
+  |void                              |Writes to a 2D region of an image with |
+  |intel_sub_group_media_block_write_|surface formats of dword, word or sized|
+  |ui(                               |texels.                                |
+  |  int2 src_byte_offset,           |                                       |
+  |  int width,                      |The 2D source byte offset of the       |
+  |  int height,                     |top-left corner and the width and      |
+  |  uint texels,                    |height of the region are specified     |
+  |  image2d_t image )               |explicitly in the interface            |
+  |                                  |parameters. The source byte x-offset   |
+  +----------------------------------+and width must be 4 byte aligned.      |
+  |void                              |                                       |
+  |intel_sub_group_media_block_write_|The width is specified in dword units  |
+  |ui2(                              |and must be less than or equal to      |
+  |  int2 src_byte_offset,           |8. The width and height of the region  |
+  |  int width,                      |must be compile-time constants.        |
+  |  int height,                     |                                       |
+  |  uint2 texels,                   |The 2D region that is written to is    |
+  |  image2d_t image )               |logically re-organized taken in        |
+  |                                  |row-major order as another 2D region   |
+  +----------------------------------+with the dword width equal to the      |
+  |void                              |subgroup size. Then each work-item     |
+  |intel_sub_group_media_block_write_|processes each column vector of the    |
+  |ui4(                              |logically re-organized rectangle,      |
+  |  int2 src_byte_offset,           |i.e. each column's subsequent data     |
+  |  int width,                      |element's address is strided by the    |
+  |  int height,                     |subgroup size multiplied by 4.         |
+  |  uint4 texels,                   |                                       |
+  |  image2d_t image )               |The max dword area of the region is    |
+  |                                  |defined as the dword size of the return|
+  +----------------------------------+type multiplied by the subgroup        |
+  |void                              |size. If the dword area of the region  |
+  |intel_sub_group_media_block_write_|is less than its max dword area, then  |
+  |ui8(                              |corresponding tail elements of some of |
+  |  int2 src_byte_offset,           |the column vector will not be included |
+  |  int width,                      |in the written out region. Conversely  |
+  |  int height,                     |if the dword area of the region is more|
+  |  uint8 texels,                   |than the max texel area, then          |
+  |  image2d_t image )               |corresponding some of the tail elements|
+  |                                  |of the region are dropped              |
+  |                                  |                                       |
+  |                                  |Out-of-bound writes are dropped.       |
+  +----------------------------------+---------------------------------------+
+  _____________________________________________________________________________
+
+Examples
+
+  1. Reading the vertical left edge of a macroblock in a kernel that use the
+     device-side VME built-in functions.
+
+    All images are 8-bit images with the image_channel_order and the 
+    image_data_type as CL_R and CL_UNORM_INT8 respectively.
+
+    __kernel
+    void vme_intra_estimation_kernel(
+      __read_only image2d_t src_img,
+      __read_only image2d_t ref_img,
+      __read_only image2d_t src_luma_img,
+      ...
+    {
+      ...
+      // Read the left edge for a macro-block.
+      int2 edgeCoord;
+      edgeCoord.x = srcCoord.x - 4;
+      edgeCoord.y = srcCoord.y;
+      
+      uint leftLumaEdgeDW =
+        intel_sub_group_media_block_read_ui(
+          edgeCoord,
+          1,  // image region width of 1 dword
+          16, // image region height of 16
+          src_luma_image );
+      leftLumaEdge = as_uchar4( leftLumaEdgeDW ).s3;
+      ...
+      intel_sub_group_avc_sic_result_t result;
+      result =
+        intel_sub_group_avc_sic_evaluate_ipe(
+          src_img,
+          vme_sampler,
+          payload );
+      ...
+    }
+
+    Image 2D region:                   Subgroup work-items:
+    ++++++++++++++++                   ++++++++++++++++++++
+
+      +-+
+      |0|
+      +-+                                                                
+      |1|         Subgroup local id: 0 1 2 3 4 5 6 7 8 9 A B C D E F 
+      +-+                           +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+      |2|                           |0|1|2|3|4|5|6|7|8|9|A|B|C|D|E|F|
+      +-+                           +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+      |3|
+      +-+                           
+      |4|
+      +-+
+      |5|       The max byte area of the image region is 1*16 (16).
+      +-+
+      |6|       The 1x16 dword image region is re-organized taken in row-
+      +-+       major order as another 2D region within the subgroup with
+      |7|       the word width equal to the subgroup size of 16 - 16x1 
+      +-+       region.
+      |8|
+      +-+
+      |9|
+      +-+
+      |A|
+      +-+
+      |B|
+      +-+
+      |C|
+      +-+
+      |D|
+      +-+
+      |E|
+      +-+
+      |F|
+      +-+
+    
+  2. Reading a 16x2 word region from an image.
+
+    All images are 8-bit images with the image_channel_order and the 
+    image_data_type as CL_R and CL_UNORM_INT8 respectively.
+
+    __kernel __attribute__((intel_reqd_sub_group_size(8)))
+    void vme_intra_estimation_kernel(
+      __read_only image2d_t src_img,
+      ...
+    {
+      ...
+      // Read the 16x2 word region in a subgroup of size 8.
+  
+      int2 srcCoord;
+      ... 
+      ushort4 texels =
+      intel_sub_group_media_block_read_us4(
+        srcCoord,
+        16,    // image region width of 16 words
+        2,     // image rgeion height of 16
+        src_image );
+      ...    
+    }
+
+    Image 2D region:
+    ++++++++++++++++
+
+    The max word area of the region is 4*8 (32).
+
+    +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+    |0 |1 |2 |3 |4 |5 |6 |7 |8 |9 |A |B |C |D |E |F |
+    +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+    |10|11|12|13|14|15|16|17|18|19|1A|1B|1C|1D|1E|1F|
+    +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+
+    Subgroup work-items:
+    ++++++++++++++++++++
+
+    The 16x2 image region is re-organized taken in row-major order as another
+    2D region within the subgroup with the word width equal to the subgroup 
+    size of 8 - 8x4 region. Each work-item processes a data item strided by 8 
+    words.
+                                                
+    Subgroup local id:  0  1  2  3  4  5  6  7  
+                       +--+--+--+--+--+--+--+--+
+                       |0 |1 |2 |3 |4 |5 |6 |7 |
+                       +--+--+--+--+--+--+--+--+
+                       |8 |9 |A |B |C |D |E |F |
+                       +--+--+--+--+--+--+--+--+
+                       |10|11|12|13|14|15|16|17|
+                       +--+--+--+--+--+--+--+--+
+                       |18|19|1A|1B|1C|1D|1E|1F|
+                       +--+--+--+--+--+--+--+--+
+
+Revision History
+
+    Version 1 (12/02/2016): First public revision.

@@ -99,4 +99,6 @@
 </li>
 <li value=50><a href="extensions/intel/cl_intel_device_side_avc_motion_estimation.txt">cl_intel_device_side_avc_motion_estimation</a>
 </li>
+<li value=51><a href="extensions/intel/cl_intel_media_block_io.txt">cl_intel_media_block_io</a>
+</li>
 </ol>
