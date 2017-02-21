@@ -16,9 +16,9 @@ include_once("../../assets/static_pages/khr_page_top.php");
 <p> The OpenCL registry contains specifications of the core API and the
     OpenCL C language; a portable intermediate representation of OpenCL
     programs; specifications of Khronos- and vendor-approved OpenCL
-    extensions; and links to header files corresponding to the
-    specifications, which are now hosted in the <a
-    href="https://www.github.com/KhronosGroup/OpenCL-Headers/">
+    extensions; reference pages for different OpenCL versions; and links to
+    header files corresponding to the specifications, which are now hosted
+    in the <a href="https://www.github.com/KhronosGroup/OpenCL-Headers/">
     OpenCL-Headers </a> Github repository. </p>
 
 <p> The OpenCL Standard Portable Intermediate Representation (SPIR) is
@@ -26,6 +26,11 @@ include_once("../../assets/static_pages/khr_page_top.php");
 
 <p> The SYCL specification is found in the <a href="../sycl/">SYCL
     Registry</a>. </p>
+
+<p> The registry, including Docbook XML source for the reference pages, is
+    hosted in the <a
+    href="https://github.com/KhronosGroup/OpenCL-Registry/"> OpenCL-Registry
+    </a> Github repository. </li>
 
 
 <h6> OpenCL Core API and C Language Specification, Headers, and Documentation </h6>
@@ -45,14 +50,13 @@ include_once("../../assets/static_pages/khr_page_top.php");
 <li> OpenCL 2.2 (Provisional) C++ Language
      <a href="specs/opencl-2.2-cplusplus.pdf">
      Specification</a> (April 12, 2016). </li>
-<li> The OpenCL 2.2 online manual pages are not posted yet.
+<li> The OpenCL 2.2 Reference Pages are not posted yet. </li>
      <!--
      <a href="http://www.khronos.org/registry/cl/sdk/2.2/docs/man/xhtml/">
-     OpenCL 2.2 Online Manual Pages.</a> The Docbook XML
-     <a href="https://cvs.khronos.org/svn/repos/registry/trunk/public/cl/sdk/2.2/docs/man/">
-     source for the manual pages </a>
-     can be obtained from the Khronos Subversion repository via
-     anonymous read-only access. </li>
+     OpenCL 2.2 Reference Pages.</a> The Docbook XML source for the
+     reference pages is in the <tt>sdk/2.2</tt> directory of the <a
+     href="https://github.com/KhronosGroup/OpenCL-Registry/">
+     OpenCL-Registry </a> Github repository.
      -->
 <li> The OpenCL 2.2 Quick Reference Card is not posted yet.
 <li> The OpenCL 2.2 header files are not posted yet.
@@ -134,11 +138,7 @@ include_once("../../assets/static_pages/khr_page_top.php");
      <a href="specs/opencl-2.1-environment.pdf">
      Specification</a>. </li>
 <li> <a href="http://www.khronos.org/registry/cl/sdk/2.1/docs/man/xhtml/">
-     OpenCL 2.1 Online Manual Pages.</a> The Docbook XML
-     <a href="https://cvs.khronos.org/svn/repos/registry/trunk/public/cl/sdk/2.1/docs/man/">
-     source for the manual pages </a>
-     can be obtained from the Khronos Subversion repository via
-     anonymous read-only access. </li>
+     OpenCL 2.1 Reference Pages.</a>
 <li> <a href="http://www.khronos.org/registry/cl/sdk/2.1/docs/OpenCL-2.1-refcard.pdf">
      OpenCL 2.1 Quick Reference Card.</a> </li>
 <li> All of the following headers should be present in a directory
@@ -186,15 +186,11 @@ include_once("../../assets/static_pages/khr_page_top.php");
      <a href="specs/opencl-2.0-extensions.pdf">
      Specification </a> (March 11, 2016). </li>
 <li> <a href="http://www.khronos.org/registry/cl/sdk/2.0/docs/man/xhtml/">
-     OpenCL 2.0 Online Manual Pages.</a> The Docbook XML
-     <a href="https://cvs.khronos.org/svn/repos/registry/trunk/public/cl/sdk/2.0/docs/man/">
-     source for the manual pages </a>
-     can be obtained from the Khronos Subversion repository via
-     anonymous read-only access. </li>
+     OpenCL 2.0 Reference Pages.</a>
 <li> <a href="http://www.khronos.org/registry/cl/sdk/2.0/docs/OpenCL-2.0-refcard.pdf">
      OpenCL 2.0 Quick Reference Card.</a> </li>
 <li> OpenCL 2.0 headers are structured in exactly the same fashion as
-     OpenCL 2.1 headers described above.
+     OpenCL 2.0 headers described above.
 
      <ul>
      <li> <a href="https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/opencl20/opencl.h"> opencl.h </a> -
@@ -231,11 +227,7 @@ include_once("../../assets/static_pages/khr_page_top.php");
      <a href="specs/opencl-1.2-extensions.pdf">
      Specification </a> (September 22, 2015). </li>
 <li> <a href="http://www.khronos.org/registry/cl/sdk/1.2/docs/man/xhtml/">
-     OpenCL 1.2 Online Manual Pages.</a> The Docbook XML
-     <a href="https://cvs.khronos.org/svn/repos/registry/trunk/public/cl/sdk/1.2/docs/man/">
-     source for the manual pages </a>
-     can be obtained from the Khronos Subversion repository via
-     anonymous read-only access. </li>
+     OpenCL 1.2 Reference Pages.</a>
 <li> <a href="http://www.khronos.org/registry/cl/sdk/1.2/docs/OpenCL-1.2-refcard.pdf">
      OpenCL 1.2 Quick Reference Card.</a> </li>
 <li> OpenCL 1.2 headers are structured in exactly the same fashion as
@@ -277,7 +269,7 @@ include_once("../../assets/static_pages/khr_page_top.php");
      Japanese translation </a>
      of the specification is also available. </li>
 <li> <a href="http://www.khronos.org/registry/cl/sdk/1.1/docs/man/xhtml/">
-     OpenCL 1.1 Online Manual Pages.</a> </li>
+     OpenCL 1.1 Reference Pages.</a> </li>
 <li> <a href="http://www.khronos.org/registry/cl/sdk/1.1/docs/OpenCL-1.1-refcard.pdf">
      OpenCL 1.1 Reference Card.</a> </li>
 <li> OpenCL 1.1 headers are structured in exactly the same fashion as
@@ -308,7 +300,7 @@ include_once("../../assets/static_pages/khr_page_top.php");
      <a href="specs/opencl-1.0.pdf">
      Specification </a> (revision 48, October 6, 2009). </li>
 <li> <a href="http://www.khronos.org/registry/cl/sdk/1.0/docs/man/xhtml/">
-     OpenCL 1.0 Online Manual Pages.</a> </li>
+     OpenCL 1.0 Reference Pages.</a> </li>
 <li> <a href="http://www.khronos.org/registry/cl/sdk/1.0/docs/OpenCL-1.0-refcard.pdf">
      OpenCL 1.0 Reference Card.</a> </li>
 <li> OpenCL 1.0 headers are structured in exactly the same fashion as
