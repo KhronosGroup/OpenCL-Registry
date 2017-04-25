@@ -214,12 +214,12 @@
 					
 </style>
     <title>cl_image_format</title>
-    <meta name="generator" content="DocBook XSL Stylesheets V1.75.1" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
     <meta name="keywords" content="                            &#10;                cl_image_format&#10;            " />
   </head>
   <body>
-    <div class="refentry" title="cl_image_format">
-      <a id="id2898548"></a>
+    <div class="refentry">
+      <a id="idp41006048"></a>
       <div class="titlepage"></div>
       <div xmlns="" class="refnamediv">
         <a xmlns="http://www.w3.org/1999/xhtml" id="cl_image_format"></a>
@@ -233,7 +233,7 @@
         <div class="informaltable">
           <table border="0">
             <colgroup>
-              <col align="left" />
+              <col align="left" class="col1" />
             </colgroup>
             <tbody>
               <tr>
@@ -246,11 +246,11 @@
           </table>
         </div>
       </div>
-      <div class="refsect1" title="Members">
+      <div class="refsect1">
         <a id="parameters"></a>
         <h2>Members</h2>
         <div class="variablelist">
-          <dl>
+          <dl class="variablelist">
             <dt>
               <span class="term">image_channel_order</span>
             </dt>
@@ -258,7 +258,7 @@
 			Specifies the number of channels and the channel layout i.e. the
 memory layout in which channels are stored in the image. Valid values are described in the table below.
 
-				<div class="informaltable"><table border="1"><colgroup><col align="left" /><col align="left" /></colgroup><thead><tr><th align="left">Format</th><th align="left">Description</th></tr></thead><tbody><tr><td align="left">CL_R, or CL_A</td><td align="left"> </td></tr><tr><td align="left">CL_INTENSITY</td><td align="left">This format can only be used if channel data type = CL_UNORM_INT8, CL_UNORM_INT16, CL_SNORM_INT8, CL_SNORM_INT16,
+				<div class="informaltable"><table border="1"><colgroup><col align="left" class="col1" /><col align="left" class="col2" /></colgroup><thead><tr><th align="left">Format</th><th align="left">Description</th></tr></thead><tbody><tr><td align="left">CL_R, or CL_A</td><td align="left"> </td></tr><tr><td align="left">CL_INTENSITY</td><td align="left">This format can only be used if channel data type = CL_UNORM_INT8, CL_UNORM_INT16, CL_SNORM_INT8, CL_SNORM_INT16,
 CL_HALF_FLOAT, or CL_FLOAT.</td></tr><tr><td align="left">CL_LUMINANCE</td><td align="left">This format can only be used if channel data type = CL_UNORM_INT8, CL_UNORM_INT16, CL_SNORM_INT8, CL_SNORM_INT16,
 CL_HALF_FLOAT, or CL_FLOAT.</td></tr><tr><td align="left">CL_RG, or CL_RA</td><td align="left"> </td></tr><tr><td align="left">CL_RGB</td><td align="left">This format can only be used if channel data type = CL_UNORM_SHORT_565, CL_UNORM_SHORT_555 or CL_UNORM_INT101010.</td></tr><tr><td align="left">CL_RGBA</td><td align="left"> </td></tr><tr><td align="left">CL_ARGB, CL_BGRA.</td><td align="left">This format can only be used if channel data type = CL_UNORM_INT8, CL_SNORM_INT8, CL_SIGNED_INT8 or CL_UNSIGNED_INT8.</td></tr></tbody></table></div><p>
 		 
@@ -270,13 +270,13 @@ CL_HALF_FLOAT, or CL_FLOAT.</td></tr><tr><td align="left">CL_RG, or CL_RA</td><t
 			Describes the size of the channel data type. The number of bits per element determined by the
 <em class="structfield"><code>image_channel_data_type</code></em> and <em class="structfield"><code>image_channel_order</code></em> must be a power of two. The list of supported values is described in the table below.
 
-				<div class="informaltable"><table border="1"><colgroup><col align="left" /><col align="left" /></colgroup><thead><tr><th align="left">Image Channel Data Type</th><th align="left">Description</th></tr></thead><tbody><tr><td align="left">CL_SNORM_INT8</td><td align="left">Each channel component is a normalized signed 8-bit integer value.</td></tr><tr><td align="left">CL_SNORM_INT16</td><td align="left">Each channel component is a normalized signed 16-bit integer value.</td></tr><tr><td align="left">CL_UNORM_INT8</td><td align="left">Each channel component is a normalized unsigned 8-bit integer value.</td></tr><tr><td align="left">CL_UNORM_INT16</td><td align="left">Each channel component is a normalized unsigned 16-bit integer value.</td></tr><tr><td align="left">CL_UNORM_SHORT_565</td><td align="left">Represents a normalized 5-6-5 3-channel RGB image. The channel order must be CL_RGB.</td></tr><tr><td align="left">CL_UNORM_SHORT_555</td><td align="left">Represents a normalized x-5-5-5 4-channel xRGB image. The channel order must be CL_RGB.</td></tr><tr><td align="left">CL_UNORM_INT_101010</td><td align="left">Represents a normalized x-10-10-10 4-channel xRGB image. The channel order must be CL_RGB.</td></tr><tr><td align="left">CL_SIGNED_INT8</td><td align="left">Each channel component is an unnormalized signed 8-bit integer value.</td></tr><tr><td align="left">CL_SIGNED_INT16</td><td align="left">Each channel component is an unnormalized signed 16-bit integer value.</td></tr><tr><td align="left">CL_SIGNED_INT32</td><td align="left">Each channel component is an unnormalized signed 32-bit integer value.</td></tr><tr><td align="left">CL_UNSIGNED_INT8</td><td align="left">Each channel component is an unnormalized unsigned 8-bit integer value.</td></tr><tr><td align="left">CL_UNSIGNED_INT16</td><td align="left">Each channel component is an unnormalized unsigned 16-bit integer value.</td></tr><tr><td align="left">CL_UNSIGNED_INT32</td><td align="left">Each channel component is an unnormalized unsigned 32-bit integer value.</td></tr><tr><td align="left">CL_HALF_FLOAT</td><td align="left">Each channel component is a 16-bit half-float value.</td></tr><tr><td align="left">CL_FLOAT</td><td align="left">Each channel component is a single precision floating-point value.</td></tr></tbody></table></div><p>
+				<div class="informaltable"><table border="1"><colgroup><col align="left" class="col1" /><col align="left" class="col2" /></colgroup><thead><tr><th align="left">Image Channel Data Type</th><th align="left">Description</th></tr></thead><tbody><tr><td align="left">CL_SNORM_INT8</td><td align="left">Each channel component is a normalized signed 8-bit integer value.</td></tr><tr><td align="left">CL_SNORM_INT16</td><td align="left">Each channel component is a normalized signed 16-bit integer value.</td></tr><tr><td align="left">CL_UNORM_INT8</td><td align="left">Each channel component is a normalized unsigned 8-bit integer value.</td></tr><tr><td align="left">CL_UNORM_INT16</td><td align="left">Each channel component is a normalized unsigned 16-bit integer value.</td></tr><tr><td align="left">CL_UNORM_SHORT_565</td><td align="left">Represents a normalized 5-6-5 3-channel RGB image. The channel order must be CL_RGB.</td></tr><tr><td align="left">CL_UNORM_SHORT_555</td><td align="left">Represents a normalized x-5-5-5 4-channel xRGB image. The channel order must be CL_RGB.</td></tr><tr><td align="left">CL_UNORM_INT_101010</td><td align="left">Represents a normalized x-10-10-10 4-channel xRGB image. The channel order must be CL_RGB.</td></tr><tr><td align="left">CL_SIGNED_INT8</td><td align="left">Each channel component is an unnormalized signed 8-bit integer value.</td></tr><tr><td align="left">CL_SIGNED_INT16</td><td align="left">Each channel component is an unnormalized signed 16-bit integer value.</td></tr><tr><td align="left">CL_SIGNED_INT32</td><td align="left">Each channel component is an unnormalized signed 32-bit integer value.</td></tr><tr><td align="left">CL_UNSIGNED_INT8</td><td align="left">Each channel component is an unnormalized unsigned 8-bit integer value.</td></tr><tr><td align="left">CL_UNSIGNED_INT16</td><td align="left">Each channel component is an unnormalized unsigned 16-bit integer value.</td></tr><tr><td align="left">CL_UNSIGNED_INT32</td><td align="left">Each channel component is an unnormalized unsigned 32-bit integer value.</td></tr><tr><td align="left">CL_HALF_FLOAT</td><td align="left">Each channel component is a 16-bit half-float value.</td></tr><tr><td align="left">CL_FLOAT</td><td align="left">Each channel component is a single precision floating-point value.</td></tr></tbody></table></div><p>
 		 
 	</p></dd>
           </dl>
         </div>
       </div>
-      <div class="refsect1" title="Description">
+      <div class="refsect1">
         <a id="description"></a>
         <h2>Description</h2>
         <p>
@@ -303,7 +303,7 @@ OpenCL implementations must maintain the minimum precision specified by the numb
 OpenCL implementation, then the call to <a class="citerefentry" href="clCreateImage2D.html"><span class="citerefentry"><span class="refentrytitle">clCreateImage2D</span></span></a> or <a class="citerefentry" href="clCreateImage3D.html"><span class="citerefentry"><span class="refentrytitle">clCreateImage3D</span></span></a> will return a NULL memory object.
 </p>
       </div>
-      <div class="refsect1" title="Specification">
+      <div class="refsect1">
         <a id="specification"></a>
         <h2>Specification</h2>
         <p>
@@ -312,7 +312,7 @@ OpenCL implementation, then the call to <a class="citerefentry" href="clCreateIm
             <a href="http://www.khronos.org/registry/cl/specs/opencl-1.x-latest.pdf#page=62" target="OpenCL Spec">OpenCL Specification</a>
         </p>
       </div>
-      <div class="refsect1" title="Also see">
+      <div class="refsect1">
         <a id="seealso"></a>
         <h2>Also see</h2>
         <p>

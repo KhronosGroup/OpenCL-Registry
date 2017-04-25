@@ -214,12 +214,12 @@
 					
 </style>
     <title>clCreateCommandQueue</title>
-    <meta name="generator" content="DocBook XSL Stylesheets V1.75.1" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
     <meta name="keywords" content="clCreateCommandQueue" />
   </head>
   <body>
-    <div class="refentry" title="clCreateCommandQueue">
-      <a id="id2706653"></a>
+    <div class="refentry">
+      <a id="idp42004592"></a>
       <div class="titlepage"></div>
       <div xmlns="" class="refnamediv">
         <a xmlns="http://www.w3.org/1999/xhtml" id="clCreateCommandQueue"></a>
@@ -232,7 +232,7 @@
           <table xmlns="" border="0" summary="Function synopsis" cellspacing="0" cellpadding="0">
             <tr valign="bottom">
               <td>
-                <code xmlns="http://www.w3.org/1999/xhtml" class="funcdef">cl_command_queue <b class="fsfunc">clCreateCommandQueue</b>(</code>
+                <code xmlns="http://www.w3.org/1999/xhtml" class="funcdef">cl_command_queue <strong class="fsfunc">clCreateCommandQueue</strong>(</code>
                 <td><a xmlns="http://www.w3.org/1999/xhtml" class="link" href="abstractDataTypes.html" target="_top">cl_context</a> <var xmlns="http://www.w3.org/1999/xhtml" class="pdparam">context</var>, </td>
               </td>
             </tr>
@@ -251,11 +251,11 @@
           </table>
         </div>
       </div>
-      <div class="refsect1" title="Parameters">
+      <div class="refsect1">
         <a id="parameters"></a>
         <h2>Parameters</h2>
         <div class="variablelist">
-          <dl>
+          <dl class="variablelist">
             <dt>
               <span class="term">
                 <code class="varname">context</code>
@@ -289,8 +289,8 @@
               <div class="informaltable">
                 <table border="1">
                   <colgroup>
-                    <col align="left" />
-                    <col align="left" />
+                    <col align="left" class="col1" />
+                    <col align="left" class="col2" />
                   </colgroup>
                   <thead>
                     <tr>
@@ -328,7 +328,7 @@
           </dl>
         </div>
       </div>
-      <div class="refsect1" title="Notes">
+      <div class="refsect1">
         <a id="notes"></a>
         <h2>Notes</h2>
         <p>The OpenCL functions that are submitted to a command-queue are enqueued in the order the
@@ -352,12 +352,12 @@ ordering of commands, the event object returned by  <a class="citerefentry" href
 clEnqueueTask or <a class="citerefentry" href="clEnqueueNativeKernel.html"><span class="citerefentry"><span class="refentrytitle">clEnqueueNativeKernel</span></span></a> can be used to enqueue a wait for event or a barrier command can be enqueued that must complete before reads or writes to the memory object(s) occur.
 		</p>
       </div>
-      <div class="refsect1" title="Errors">
+      <div class="refsect1">
         <a id="errors"></a>
         <h2>Errors</h2>
         <p><code class="function">clCreateCommandQueue</code> returns a valid non-zero command-queue and <code class="varname">errcode_ret</code> is set to <span class="errorname">CL_SUCCESS</span> if the command-queue is created successfully. Otherwise, it returns a NULL value with one of the following error values returned in <code class="varname">errcode_ret</code>:</p>
         <div class="itemizedlist">
-          <ul class="itemizedlist" type="disc">
+          <ul class="itemizedlist" style="list-style-type: disc; ">
             <li class="listitem" style="list-style-type: disc"><span class="errorname">CL_INVALID_CONTEXT</span> if <code class="varname">context</code> is not a valid context.
 		</li>
             <li class="listitem" style="list-style-type: disc"><span class="errorname">CL_INVALID_DEVICE</span> if <code class="varname">device</code> is not a valid device or is not associated with <code class="varname">context</code>.
@@ -371,14 +371,14 @@ clEnqueueTask or <a class="citerefentry" href="clEnqueueNativeKernel.html"><span
           </ul>
         </div>
       </div>
-      <div class="refsect1" title="Specification">
+      <div class="refsect1">
         <a id="specification"></a>
         <h2>Specification</h2>
         <p><img src="pdficon_small1.gif" />
             <a href="http://www.khronos.org/registry/cl/specs/opencl-1.x-latest.pdf#page=46" target="OpenCL Spec">OpenCL Specification</a>
         </p>
       </div>
-      <div class="refsect1" title="Also see">
+      <div class="refsect1">
         <a id="seealso"></a>
         <h2>Also see</h2>
         <p>

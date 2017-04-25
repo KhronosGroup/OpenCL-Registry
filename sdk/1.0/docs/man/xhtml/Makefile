@@ -7,6 +7,7 @@ XSLT	= xsltproc --nonet
 
 SED	= sed
 MV	= mv
+RUBY	= ruby
 
 # Location of locally customized stylesheet, which imports
 # the Docbook modular stylesheets, and specifically the
@@ -17,10 +18,10 @@ DB2XHTML = opencl-man.xsl
 ADDTL_DEPS = copyright.inc.xsl styles-css.xsl pageNumberLookup.rb
 
 # Filter program to fix up links to specification page numbers:
-PAGENUM_FIXUP = ./pageNumberLookup.rb
+PAGENUM_FIXUP = $(RUBY) pageNumberLookup.rb
 
 .SUFFIXES: .gl .xml .html .xhtml .ck.xhtml .tex .pdf .3G .tar .tar.gz
-#.PHONY: man html 
+#.PHONY: man html
 
 %.html: ../%.xml $(DB2XHTML) $(ADDTL_DEPS)
 	$(XSLT) --xinclude -o $@.tmp1 $(DB2XHTML) $<
