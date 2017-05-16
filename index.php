@@ -27,29 +27,36 @@ include_once("../../assets/static_pages/khr_page_top.php");
 <p> The SYCL specification is found in the <a href="../sycl/">SYCL
     Registry</a>. </p>
 
-<p> The registry, including Docbook XML source for the reference pages, is
-    hosted in the <a
+<p> The registry, including published specifications and Docbook XML source
+    for the reference pages, is hosted in the <a
     href="https://github.com/KhronosGroup/OpenCL-Registry/"> OpenCL-Registry
     </a> Github repository. </li>
 
-
 <h6> OpenCL Core API and C Language Specification, Headers, and Documentation </h6>
 
-<p> The current version of OpenCL is OpenCL 2.2 (Provisional). </p>
+<p> The current version of OpenCL is OpenCL 2.2. </p>
+
+<p> The asciidoc source for the OpenCL 2.2 Specifications is available in
+    the <a href="https://github.com/KhronosGroup/OpenCL-Docs">
+    KhronosGroup/OpenCL-Docs </a> Github repository. </p>
 
 <ul>
-<li> OpenCL 2.2 (Provisional) API
-     <a href="specs/opencl-2.2.pdf">
-     Specification </a> (March 11, 2016). </li>
-<li> OpenCL 2.2 Extension
-     <a href="specs/opencl-2.2-extension.pdf">
-     Specification </a> (February 8, 2016).</li>
-<li> OpenCL 2.2 Environment
-     <a href="specs/opencl-2.2-environment.pdf">
-     Specification</a>. </li>
-<li> OpenCL 2.2 (Provisional) C++ Language
-     <a href="specs/opencl-2.2-cplusplus.pdf">
-     Specification</a> (April 12, 2016). </li>
+<li> OpenCL 2.2 API Specification
+     (<a href="specs/opencl-2.2.pdf">PDF</a>)
+     (<a href="specs/opencl-2.2.html">HTML</a>)
+     (May 12, 2017). </li>
+<li> OpenCL 2.2 Extension Specification
+     (<a href="specs/opencl-2.2-extension.pdf">PDF</a>)
+     (<a href="specs/opencl-2.2-extension.html">HTML</a>)
+     (May 12, 2017). </li>
+<li> OpenCL 2.2 SPIR-V Environment Specification
+     (<a href="specs/opencl-2.2-environment.pdf">PDF</a>)
+     (<a href="specs/opencl-2.2-environment.html">HTML</a>)
+     (May 12, 2017). </li>
+<li> OpenCL C++ Language Specification
+     (<a href="specs/opencl-2.2-cplusplus.pdf">PDF</a>)
+     (<a href="specs/opencl-2.2-cplusplus.html">HTML</a>)
+     (May 12, 2017). </li>
 <li> The OpenCL 2.2 Reference Pages are not posted yet. </li>
      <!--
      <a href="http://www.khronos.org/registry/cl/sdk/2.2/docs/man/xhtml/">
@@ -336,10 +343,9 @@ include_once("../../assets/static_pages/khr_page_top.php");
 
 <ul>
 <li> <p> For the OpenCL API, C/C++ Language, and Environment Specifications,
-     file a bug on the <a href="http://www.khronos.org/bugzilla/"> Khronos
-     Bugzilla </a>. Make sure to fill in the &quot;Product&quot; field in
-     the bug entry form as &quot;OpenCL&quot;, and pick appropriate values
-     for the Component and other fields. </p> </li>
+     file an issue on the
+     <a href="https://github.com/KhronosGroup/OpenCL-Docs">
+     KhronosGroup/OpenCL-Docs </a> Github repository. </p> </li>
 <li> <p> For the OpenCL C header files, file an issue in the <a
      href="https://github.com/KhronosGroup/OpenCL-Headers/issues">
      OpenCL-Headers </a> Github project. </p> </li>

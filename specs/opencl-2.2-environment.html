@@ -1,0 +1,4798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="generator" content="AsciiDoc 8.6.9">
+<title>The OpenCL SPIR-V Environment Specification</title>
+<style type="text/css">
+/* Shared CSS for AsciiDoc xhtml11 and html5 backends */
+
+/* Default font. */
+body {
+  font-family: Georgia,serif;
+}
+
+/* Title font. */
+h1, h2, h3, h4, h5, h6,
+div.title, caption.title,
+thead, p.table.header,
+#toctitle,
+#author, #revnumber, #revdate, #revremark,
+#footer {
+  font-family: Arial,Helvetica,sans-serif;
+}
+
+body {
+  margin: 1em 5% 1em 5%;
+}
+
+a {
+  color: blue;
+  text-decoration: underline;
+}
+a:visited {
+  color: fuchsia;
+}
+
+em {
+  font-style: italic;
+  color: navy;
+}
+
+strong {
+  font-weight: bold;
+  color: #083194;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #527bbd;
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+  line-height: 1.3;
+}
+
+h1, h2, h3 {
+  border-bottom: 2px solid silver;
+}
+h2 {
+  padding-top: 0.5em;
+}
+h3 {
+  float: left;
+}
+h3 + * {
+  clear: left;
+}
+h5 {
+  font-size: 1.0em;
+}
+
+div.sectionbody {
+  margin-left: 0;
+}
+
+hr {
+  border: 1px solid silver;
+}
+
+p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+ul, ol, li > p {
+  margin-top: 0;
+}
+ul > li     { color: #aaa; }
+ul > li > * { color: black; }
+
+.monospaced, code, pre {
+  font-family: "Courier New", Courier, monospace;
+  font-size: inherit;
+  color: navy;
+  padding: 0;
+  margin: 0;
+}
+pre {
+  white-space: pre-wrap;
+}
+
+#author {
+  color: #527bbd;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+#email {
+}
+#revnumber, #revdate, #revremark {
+}
+
+#footer {
+  font-size: small;
+  border-top: 2px solid silver;
+  padding-top: 0.5em;
+  margin-top: 4.0em;
+}
+#footer-text {
+  float: left;
+  padding-bottom: 0.5em;
+}
+#footer-badges {
+  float: right;
+  padding-bottom: 0.5em;
+}
+
+#preamble {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+div.imageblock, div.exampleblock, div.verseblock,
+div.quoteblock, div.literalblock, div.listingblock, div.sidebarblock,
+div.admonitionblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.admonitionblock {
+  margin-top: 2.0em;
+  margin-bottom: 2.0em;
+  margin-right: 10%;
+  color: #606060;
+}
+
+div.content { /* Block element content. */
+  padding: 0;
+}
+
+/* Block element titles. */
+div.title, caption.title {
+  color: #527bbd;
+  font-weight: bold;
+  text-align: left;
+  margin-top: 1.0em;
+  margin-bottom: 0.5em;
+}
+div.title + * {
+  margin-top: 0;
+}
+
+td div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content + div.title {
+  margin-top: 0.0em;
+}
+
+div.sidebarblock > div.content {
+  background: #ffffee;
+  border: 1px solid #dddddd;
+  border-left: 4px solid #f0f0f0;
+  padding: 0.5em;
+}
+
+div.listingblock > div.content {
+  border: 1px solid #dddddd;
+  border-left: 5px solid #f0f0f0;
+  background: #f8f8f8;
+  padding: 0.5em;
+}
+
+div.quoteblock, div.verseblock {
+  padding-left: 1.0em;
+  margin-left: 1.0em;
+  margin-right: 10%;
+  border-left: 5px solid #f0f0f0;
+  color: #888;
+}
+
+div.quoteblock > div.attribution {
+  padding-top: 0.5em;
+  text-align: right;
+}
+
+div.verseblock > pre.content {
+  font-family: inherit;
+  font-size: inherit;
+}
+div.verseblock > div.attribution {
+  padding-top: 0.75em;
+  text-align: left;
+}
+/* DEPRECATED: Pre version 8.2.7 verse style literal block. */
+div.verseblock + div.attribution {
+  text-align: left;
+}
+
+div.admonitionblock .icon {
+  vertical-align: top;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-decoration: underline;
+  color: #527bbd;
+  padding-right: 0.5em;
+}
+div.admonitionblock td.content {
+  padding-left: 0.5em;
+  border-left: 3px solid #dddddd;
+}
+
+div.exampleblock > div.content {
+  border-left: 3px solid #dddddd;
+  padding-left: 0.5em;
+}
+
+div.imageblock div.content { padding-left: 0; }
+span.image img { border-style: none; vertical-align: text-bottom; }
+a.image:visited { color: white; }
+
+dl {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+dt {
+  margin-top: 0.5em;
+  margin-bottom: 0;
+  font-style: normal;
+  color: navy;
+}
+dd > *:first-child {
+  margin-top: 0.1em;
+}
+
+ul, ol {
+    list-style-position: outside;
+}
+ol.arabic {
+  list-style-type: decimal;
+}
+ol.loweralpha {
+  list-style-type: lower-alpha;
+}
+ol.upperalpha {
+  list-style-type: upper-alpha;
+}
+ol.lowerroman {
+  list-style-type: lower-roman;
+}
+ol.upperroman {
+  list-style-type: upper-roman;
+}
+
+div.compact ul, div.compact ol,
+div.compact p, div.compact p,
+div.compact div, div.compact div {
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+}
+
+tfoot {
+  font-weight: bold;
+}
+td > div.verse {
+  white-space: pre;
+}
+
+div.hdlist {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+div.hdlist tr {
+  padding-bottom: 15px;
+}
+dt.hdlist1.strong, td.hdlist1.strong {
+  font-weight: bold;
+}
+td.hdlist1 {
+  vertical-align: top;
+  font-style: normal;
+  padding-right: 0.8em;
+  color: navy;
+}
+td.hdlist2 {
+  vertical-align: top;
+}
+div.hdlist.compact tr {
+  margin: 0;
+  padding-bottom: 0;
+}
+
+.comment {
+  background: yellow;
+}
+
+.footnote, .footnoteref {
+  font-size: 0.8em;
+}
+
+span.footnote, span.footnoteref {
+  vertical-align: super;
+}
+
+#footnotes {
+  margin: 20px 0 20px 0;
+  padding: 7px 0 0 0;
+}
+
+#footnotes div.footnote {
+  margin: 0 0 5px 0;
+}
+
+#footnotes hr {
+  border: none;
+  border-top: 1px solid silver;
+  height: 1px;
+  text-align: left;
+  margin-left: 0;
+  width: 20%;
+  min-width: 100px;
+}
+
+div.colist td {
+  padding-right: 0.5em;
+  padding-bottom: 0.3em;
+  vertical-align: top;
+}
+div.colist td img {
+  margin-top: 0.3em;
+}
+
+@media print {
+  #footer-badges { display: none; }
+}
+
+#toc {
+  margin-bottom: 2.5em;
+}
+
+#toctitle {
+  color: #527bbd;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-top: 1.0em;
+  margin-bottom: 0.1em;
+}
+
+div.toclevel0, div.toclevel1, div.toclevel2, div.toclevel3, div.toclevel4 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+div.toclevel2 {
+  margin-left: 2em;
+  font-size: 0.9em;
+}
+div.toclevel3 {
+  margin-left: 4em;
+  font-size: 0.9em;
+}
+div.toclevel4 {
+  margin-left: 6em;
+  font-size: 0.9em;
+}
+
+span.aqua { color: aqua; }
+span.black { color: black; }
+span.blue { color: blue; }
+span.fuchsia { color: fuchsia; }
+span.gray { color: gray; }
+span.green { color: green; }
+span.lime { color: lime; }
+span.maroon { color: maroon; }
+span.navy { color: navy; }
+span.olive { color: olive; }
+span.purple { color: purple; }
+span.red { color: red; }
+span.silver { color: silver; }
+span.teal { color: teal; }
+span.white { color: white; }
+span.yellow { color: yellow; }
+
+span.aqua-background { background: aqua; }
+span.black-background { background: black; }
+span.blue-background { background: blue; }
+span.fuchsia-background { background: fuchsia; }
+span.gray-background { background: gray; }
+span.green-background { background: green; }
+span.lime-background { background: lime; }
+span.maroon-background { background: maroon; }
+span.navy-background { background: navy; }
+span.olive-background { background: olive; }
+span.purple-background { background: purple; }
+span.red-background { background: red; }
+span.silver-background { background: silver; }
+span.teal-background { background: teal; }
+span.white-background { background: white; }
+span.yellow-background { background: yellow; }
+
+span.big { font-size: 2em; }
+span.small { font-size: 0.6em; }
+
+span.underline { text-decoration: underline; }
+span.overline { text-decoration: overline; }
+span.line-through { text-decoration: line-through; }
+
+div.unbreakable { page-break-inside: avoid; }
+
+
+/*
+ * xhtml11 specific
+ *
+ * */
+
+div.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.tableblock > table {
+  border: 3px solid #527bbd;
+}
+thead, p.table.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.table {
+  margin-top: 0;
+}
+/* Because the table frame attribute is overriden by CSS in most browsers. */
+div.tableblock > table[frame="void"] {
+  border-style: none;
+}
+div.tableblock > table[frame="hsides"] {
+  border-left-style: none;
+  border-right-style: none;
+}
+div.tableblock > table[frame="vsides"] {
+  border-top-style: none;
+  border-bottom-style: none;
+}
+
+
+/*
+ * html5 specific
+ *
+ * */
+
+table.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+thead, p.tableblock.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.tableblock {
+  margin-top: 0;
+}
+table.tableblock {
+  border-width: 3px;
+  border-spacing: 0px;
+  border-style: solid;
+  border-color: #527bbd;
+  border-collapse: collapse;
+}
+th.tableblock, td.tableblock {
+  border-width: 1px;
+  padding: 4px;
+  border-style: solid;
+  border-color: #527bbd;
+}
+
+table.tableblock.frame-topbot {
+  border-left-style: hidden;
+  border-right-style: hidden;
+}
+table.tableblock.frame-sides {
+  border-top-style: hidden;
+  border-bottom-style: hidden;
+}
+table.tableblock.frame-none {
+  border-style: hidden;
+}
+
+th.tableblock.halign-left, td.tableblock.halign-left {
+  text-align: left;
+}
+th.tableblock.halign-center, td.tableblock.halign-center {
+  text-align: center;
+}
+th.tableblock.halign-right, td.tableblock.halign-right {
+  text-align: right;
+}
+
+th.tableblock.valign-top, td.tableblock.valign-top {
+  vertical-align: top;
+}
+th.tableblock.valign-middle, td.tableblock.valign-middle {
+  vertical-align: middle;
+}
+th.tableblock.valign-bottom, td.tableblock.valign-bottom {
+  vertical-align: bottom;
+}
+
+
+/*
+ * manpage specific
+ *
+ * */
+
+body.manpage h1 {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border-top: 2px solid silver;
+  border-bottom: 2px solid silver;
+}
+body.manpage h2 {
+  border-style: none;
+}
+body.manpage div.sectionbody {
+  margin-left: 3em;
+}
+
+@media print {
+  body.manpage div#toc { display: none; }
+}
+
+
+@media screen {
+  body {
+    max-width: 50em; /* approximately 80 characters wide */
+    margin-left: 16em;
+  }
+
+  #toc {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 13em;
+    padding: 0.5em;
+    padding-bottom: 1.5em;
+    margin: 0;
+    overflow: auto;
+    border-right: 3px solid #f8f8f8;
+    background-color: white;
+  }
+
+  #toc .toclevel1 {
+    margin-top: 0.5em;
+  }
+
+  #toc .toclevel2 {
+    margin-top: 0.25em;
+    display: list-item;
+    color: #aaaaaa;
+  }
+
+  #toctitle {
+    margin-top: 0.5em;
+  }
+}
+</style>
+<script type="text/javascript">
+/*<![CDATA[*/
+var asciidoc = {  // Namespace.
+
+/////////////////////////////////////////////////////////////////////
+// Table Of Contents generator
+/////////////////////////////////////////////////////////////////////
+
+/* Author: Mihai Bazon, September 2002
+ * http://students.infoiasi.ro/~mishoo
+ *
+ * Table Of Content generator
+ * Version: 0.4
+ *
+ * Feel free to use this script under the terms of the GNU General Public
+ * License, as long as you do not remove or alter this notice.
+ */
+
+ /* modified by Troy D. Hanson, September 2006. License: GPL */
+ /* modified by Stuart Rackham, 2006, 2009. License: GPL */
+
+// toclevels = 1..4.
+toc: function (toclevels) {
+
+  function getText(el) {
+    var text = "";
+    for (var i = el.firstChild; i != null; i = i.nextSibling) {
+      if (i.nodeType == 3 /* Node.TEXT_NODE */) // IE doesn't speak constants.
+        text += i.data;
+      else if (i.firstChild != null)
+        text += getText(i);
+    }
+    return text;
+  }
+
+  function TocEntry(el, text, toclevel) {
+    this.element = el;
+    this.text = text;
+    this.toclevel = toclevel;
+  }
+
+  function tocEntries(el, toclevels) {
+    var result = new Array;
+    var re = new RegExp('[hH]([1-'+(toclevels+1)+'])');
+    // Function that scans the DOM tree for header elements (the DOM2
+    // nodeIterator API would be a better technique but not supported by all
+    // browsers).
+    var iterate = function (el) {
+      for (var i = el.firstChild; i != null; i = i.nextSibling) {
+        if (i.nodeType == 1 /* Node.ELEMENT_NODE */) {
+          var mo = re.exec(i.tagName);
+          if (mo && (i.getAttribute("class") || i.getAttribute("className")) != "float") {
+            result[result.length] = new TocEntry(i, getText(i), mo[1]-1);
+          }
+          iterate(i);
+        }
+      }
+    }
+    iterate(el);
+    return result;
+  }
+
+  var toc = document.getElementById("toc");
+  if (!toc) {
+    return;
+  }
+
+  // Delete existing TOC entries in case we're reloading the TOC.
+  var tocEntriesToRemove = [];
+  var i;
+  for (i = 0; i < toc.childNodes.length; i++) {
+    var entry = toc.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div'
+     && entry.getAttribute("class")
+     && entry.getAttribute("class").match(/^toclevel/))
+      tocEntriesToRemove.push(entry);
+  }
+  for (i = 0; i < tocEntriesToRemove.length; i++) {
+    toc.removeChild(tocEntriesToRemove[i]);
+  }
+
+  // Rebuild TOC entries.
+  var entries = tocEntries(document.getElementById("content"), toclevels);
+  for (var i = 0; i < entries.length; ++i) {
+    var entry = entries[i];
+    if (entry.element.id == "")
+      entry.element.id = "_toc_" + i;
+    var a = document.createElement("a");
+    a.href = "#" + entry.element.id;
+    a.appendChild(document.createTextNode(entry.text));
+    var div = document.createElement("div");
+    div.appendChild(a);
+    div.className = "toclevel" + entry.toclevel;
+    toc.appendChild(div);
+  }
+  if (entries.length == 0)
+    toc.parentNode.removeChild(toc);
+},
+
+
+/////////////////////////////////////////////////////////////////////
+// Footnotes generator
+/////////////////////////////////////////////////////////////////////
+
+/* Based on footnote generation code from:
+ * http://www.brandspankingnew.net/archive/2005/07/format_footnote.html
+ */
+
+footnotes: function () {
+  // Delete existing footnote entries in case we're reloading the footnodes.
+  var i;
+  var noteholder = document.getElementById("footnotes");
+  if (!noteholder) {
+    return;
+  }
+  var entriesToRemove = [];
+  for (i = 0; i < noteholder.childNodes.length; i++) {
+    var entry = noteholder.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div' && entry.getAttribute("class") == "footnote")
+      entriesToRemove.push(entry);
+  }
+  for (i = 0; i < entriesToRemove.length; i++) {
+    noteholder.removeChild(entriesToRemove[i]);
+  }
+
+  // Rebuild footnote entries.
+  var cont = document.getElementById("content");
+  var spans = cont.getElementsByTagName("span");
+  var refs = {};
+  var n = 0;
+  for (i=0; i<spans.length; i++) {
+    if (spans[i].className == "footnote") {
+      n++;
+      var note = spans[i].getAttribute("data-note");
+      if (!note) {
+        // Use [\s\S] in place of . so multi-line matches work.
+        // Because JavaScript has no s (dotall) regex flag.
+        note = spans[i].innerHTML.match(/\s*\[([\s\S]*)]\s*/)[1];
+        spans[i].innerHTML =
+          "[<a id='_footnoteref_" + n + "' href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+        spans[i].setAttribute("data-note", note);
+      }
+      noteholder.innerHTML +=
+        "<div class='footnote' id='_footnote_" + n + "'>" +
+        "<a href='#_footnoteref_" + n + "' title='Return to text'>" +
+        n + "</a>. " + note + "</div>";
+      var id =spans[i].getAttribute("id");
+      if (id != null) refs["#"+id] = n;
+    }
+  }
+  if (n == 0)
+    noteholder.parentNode.removeChild(noteholder);
+  else {
+    // Process footnoterefs.
+    for (i=0; i<spans.length; i++) {
+      if (spans[i].className == "footnoteref") {
+        var href = spans[i].getElementsByTagName("a")[0].getAttribute("href");
+        href = href.match(/#.*/)[0];  // Because IE return full URL.
+        n = refs[href];
+        spans[i].innerHTML =
+          "[<a href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+      }
+    }
+  }
+},
+
+install: function(toclevels) {
+  var timerId;
+
+  function reinstall() {
+    asciidoc.footnotes();
+    if (toclevels) {
+      asciidoc.toc(toclevels);
+    }
+  }
+
+  function reinstallAndRemoveTimer() {
+    clearInterval(timerId);
+    reinstall();
+  }
+
+  timerId = setInterval(reinstall, 500);
+  if (document.addEventListener)
+    document.addEventListener("DOMContentLoaded", reinstallAndRemoveTimer, false);
+  else
+    window.onload = reinstallAndRemoveTimer;
+}
+
+}
+asciidoc.install(3);
+/*]]>*/
+</script>
+    <script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	    MathML: { extensions: ["content-mathml.js"] },
+	    tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] }
+	});
+    </script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+</head>
+<body class="book">
+<div id="header">
+<h1>The OpenCL SPIR-V Environment Specification</h1>
+<span id="author">Khronos OpenCL Working Group</span><br>
+<span id="revnumber">version v2.2-3</span>
+<div id="toc">
+  <div id="toctitle">Table of Contents</div>
+  <noscript><p><b>JavaScript must be enabled in your browser to display the table of contents.</b></p></noscript>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph"><p>Copyright 2008-2017 The Khronos Group.</p></div>
+<div class="paragraph"><p>This specification is protected by copyright laws and contains material proprietary
+to the Khronos Group, Inc. Except as described by these terms, it or any components
+may not be reproduced, republished, distributed, transmitted, displayed, broadcast
+or otherwise exploited in any manner without the express prior written permission
+of Khronos Group.</p></div>
+<div class="paragraph"><p>Khronos Group grants a conditional copyright license to use and reproduce the
+unmodified specification for any purpose, without fee or royalty, EXCEPT no licenses
+to any patent, trademark or other intellectual property rights are granted under
+these terms. Parties desiring to implement the specification and make use of
+Khronos trademarks in relation to that implementation, and receive reciprocal patent
+license protection under the Khronos IP Policy must become Adopters and confirm the
+implementation as conformant under the process defined by Khronos for this
+specification; see <a href="https://www.khronos.org/adopters">https://www.khronos.org/adopters</a>.</p></div>
+<div class="paragraph"><p>Khronos Group makes no, and expressly disclaims any, representations or warranties,
+express or implied, regarding this specification, including, without limitation:
+merchantability, fitness for a particular purpose, non-infringement of any
+intellectual property, correctness, accuracy, completeness, timeliness, and
+reliability. Under no circumstances will the Khronos Group, or any of its Promoters,
+Contributors or Members, or their respective partners, officers, directors,
+employees, agents or representatives be liable for any damages, whether direct,
+indirect, special or consequential damages for lost revenues, lost profits, or
+otherwise, arising from or in connection with these materials.</p></div>
+<div class="paragraph"><p>Vulkan is a registered trademark and Khronos, OpenXR, SPIR, SPIR-V, SYCL, WebGL,
+WebCL, OpenVX, OpenVG, EGL, COLLADA, glTF, NNEF, OpenKODE, OpenKCAM, StreamInput,
+OpenWF, OpenSL ES, OpenMAX, OpenMAX AL, OpenMAX IL, OpenMAX DL, OpenML and DevU are
+trademarks of the Khronos Group Inc. ASTC is a trademark of ARM Holdings PLC,
+OpenCL is a trademark of Apple Inc. and OpenGL and OpenML are registered trademarks
+and the OpenGL ES and OpenGL SC logos are trademarks of Silicon Graphics
+International used under license by Khronos. All other product names, trademarks,
+and/or company names are used solely for identification and belong to their
+respective owners.</p></div>
+<div style="page-break-after:always"></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="introduction">Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph"><p><strong>OpenCL</strong> (Open Computing Language) is an open royalty-free standard for general purpose parallel programming across CPUs, GPUs and other processors, giving software developers portable and efficient access to the power of these heterogeneous processing platforms.</p></div>
+<div class="paragraph"><p>Parallel programs in OpenCL may be written in the OpenCL C source language, or may compiled from OpenCL C, OpenCL C++, or other source languages into SPIR-V modules.</p></div>
+<div class="paragraph"><p>All SPIR-V intermediate binary modules are consumed by environments, such as an API, a specific version of an API, or an implementation of an API.  The environment describes required support for some SPIR-V capabilities, additional semantics for some SPIR-V instructions, and additional validation rules a module must adhere to in order to be considered valid.</p></div>
+<div class="paragraph"><p>This document describes the environment for implementations of the OpenCL API.  It is written for compiler developers who are generating SPIR-V modules to be consumed by the OpenCL API, for implementors of the OpenCL API who are consuming SPIR-V modules, and by software developers who are using SPIR-V modules with the OpenCL API.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="consumption">SPIR-V Consumption</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>This section describes common properties of all OpenCL environments.  Subsequent sections describe environments for specific versions of OpenCL, and how an environment may additionally be modified via OpenCL or SPIR-V extensions.</p></div>
+<div class="paragraph"><p>A SPIR-V module passed to an OpenCL environment is interpreted as a series of 32-bit words in host endianness, with literal strings packed as described in the SPIR-V specification.  The first few words of the SPIR-V module must be a magic number and a SPIR-V version number, as described in the SPIR-V specification.</p></div>
+<div class="sect2">
+<h3 id="_validation_rules">Validation Rules</h3>
+<div class="paragraph"><p>The following are a list of validation rules that apply to SPIR-V modules executing in all OpenCL environments:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+The <em>Execution Model</em> declared in <strong>OpEntryPoint</strong> must be <strong>Kernel</strong>.
+</p>
+</li>
+<li>
+<p>
+The <em>Addressing Model</em> declared in <strong>OpMemoryModel</strong> must be either <strong>Physical32</strong> or <strong>Physical64</strong>:
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+Modules indicating a <strong>Physical32</strong> <em>Addressing Model</em> are valid for OpenCL devices reporting <span class="monospaced">32</span> for <span class="monospaced">CL_DEVICE_ADDRESS_BITS</span>.
+</p>
+</li>
+<li>
+<p>
+Modules indicating a <strong>Physical64</strong> <em>Addressing Model</em> are valid for OpenCL devices reporting <span class="monospaced">64</span> for <span class="monospaced">CL_DEVICE_ADDRESS_BITS</span>.
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+The <em>Memory Model</em> declared in <strong>OpMemoryModel</strong> must be <strong>OpenCL</strong>.
+</p>
+</li>
+<li>
+<p>
+For all <strong>OpTypeImage</strong> type-declaration instructions:
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>MS</em> must be 0, indicating single-sampled content.
+</p>
+</li>
+<li>
+<p>
+<em>Arrayed</em> may only be set to 1, indicating arrayed content, when <em>Dim</em> is set to <strong>1D</strong> or <strong>2D</strong>.
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+The image write instruction <strong>OpImageWrite</strong> must not include any optional <em>Image Operands</em>.
+</p>
+</li>
+<li>
+<p>
+The image read instructions <strong>OpImageRead</strong>, <strong>OpImageFetch</strong>, and <strong>OpImageSampleExplicitLod</strong> must not include the optional <em>Image Operand</em> <strong>ConstOffset</strong>.
+</p>
+</li>
+<li>
+<p>
+Only 32-bit integer types are supported for the <em>Result Type</em> and/or type of <em>Value</em> for all <strong>Atomic Instructions</strong>.
+</p>
+</li>
+<li>
+<p>
+Recursion is not supported.  The static function call graph for an entry point must not contain cycles.
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect2">
+<h3 id="_source_language_encoding">Source Language Encoding</h3>
+<div class="paragraph"><p>If a SPIR-V module represents a program written in OpenCL C, then the <em>Source Language</em> operand for the <strong>OpSource</strong> instruction should be <strong>OpenCL_C</strong>, and the 32-bit literal language <em>Version</em> should describe the version of OpenCL C, encoded MSB to LSB as:</p></div>
+<div class="literalblock">
+<div class="content monospaced">
+<pre>0 | Major Number | Minor Number | Revision Number (optional)</pre>
+</div></div>
+<div class="paragraph"><p>Hence, OpenCL C 1.2 would be encoded as <span class="monospaced">0x00010200</span>, and OpenCL C 2.0 as <span class="monospaced">0x00020000</span>.</p></div>
+<div class="paragraph"><p>If a SPIR-V module represents a program written in OpenCL C++, then the <em>Source Language</em> operand for the <strong>OpSource</strong> instruction should be <strong>OpenCL_CPP</strong>, and the 32-bit literal language <em>Version</em> should describe the version of OpenCL C++, encoded similarly.  Hence, OpenCL C++ 2.2 would be encoded as <span class="monospaced">0x00020200</span>.</p></div>
+<div class="paragraph"><p>The source language version is purely informational and has no semantic meaning.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_numerical_type_formats">Numerical Type Formats</h3>
+<div class="paragraph"><p>For all OpenCL environments, floating-point types are represented and stored using IEEE-754 semantics.  All integer formats are represented and stored using 2’s compliment format.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_image_channel_order_mapping">Image Channel Order Mapping</h3>
+<div class="paragraph"><p>The following table describes how the results of the SPIR-V <strong>OpImageQueryOrder</strong> instruction correspond to the OpenCL host API image channel orders.</p></div>
+<table class="tableblock frame-all grid-all"
+style="
+width:100%;
+">
+<caption class="title">Table 1. Image Channel Order mapping</caption>
+<col style="width:50%;">
+<col style="width:50%;">
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top" > <strong>SPIR-V Image Channel Order</strong></th>
+<th class="tableblock halign-left valign-top" > <strong>OpenCL Image Channel Order</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">R</span></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">CL_R</span></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">A</span></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">CL_A</span></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">RG</span></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">CL_RG</span></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">RA</span></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">CL_RA</span></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">RGB</span></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">CL_RGB</span></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">RGBA</span></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">CL_RGBA</span></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">BGRA</span></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">CL_BGRA</span></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">ARGB</span></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">CL_ARGB</span></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">Intensity</span></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">CL_INTENSITY</span></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">Luminance</span></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">CL_LUMINANCE</span></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">Rx</span></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">CL_Rx</span></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">RGx</span></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">CL_RGx</span></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">RGBx</span></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">CL_RGBx</span></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">Depth</span></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">CL_DEPTH</span></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">DepthStencil</span></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">CL_DEPTH_STENCIL</span></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">sRGB</span></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">CL_sRGB</span></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">sRGBA</span></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">CL_sRGBA</span></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">sBGRA</span></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">CL_sBGRA</span></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">sRGBx</span></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">CL_sRGBx</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_image_channel_data_type_mapping">Image Channel Data Type Mapping</h3>
+<div class="paragraph"><p>The following table describes how the results of the SPIR-V <strong>OpImageQueryFormat</strong> instruction correspond to the OpenCL host API image channel data types.</p></div>
+<table class="tableblock frame-all grid-all"
+style="
+width:100%;
+">
+<caption class="title">Table 2. Image Channel Data Type mapping</caption>
+<col style="width:50%;">
+<col style="width:50%;">
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top" > <strong>SPIR-V Image Channel Data Type</strong></th>
+<th class="tableblock halign-left valign-top" > <strong>OpenCL Image Channel Data Type</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">SnormInt8</span></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">CL_SNORM_INT8</span></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">SnormInt16</span></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">CL_SNORM_INT16</span></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">UnormInt8</span></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">CL_UNORM_INT8</span></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">UnormInt16</span></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">CL_UNORM_INT16</span></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">UnormInt24</span></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">CL_UNORM_INT24</span></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">UnormShort565</span></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">CL_UNORM_SHORT_565</span></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">UnormShort555</span></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">CL_UNORM_SHORT_555</span></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">UnormInt101010</span></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">CL_UNORM_INT_101010</span></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">SignedInt8</span></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">CL_SIGNED_INT8</span></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">SignedInt16</span></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">CL_SIGNED_INT16</span></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">SignedInt32</span></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">CL_SIGNED_INT32</span></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">UnsignedInt8</span></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">CL_UNSIGNED_INT8</span></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">UnsignedInt16</span></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">CL_UNSIGNED_INT16</span></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">UnsignedInt32</span></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">CL_UNSIGNED_INT32</span></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">HalfFloat</span></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">CL_HALF_FLOAT</span></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">Float</span></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><span class="monospaced">CL_FLOAT</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_kernels">Kernels</h3>
+<div class="paragraph"><p>An <strong>OpFunction</strong> in a SPIR-V module that is identified with <strong>OpEntryPoint</strong> defines an OpenCL kernel that may be invoked using the OpenCL host API enqueue kernel interfaces.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_kernel_return_types">Kernel Return Types</h3>
+<div class="paragraph"><p>The <em>Result Type</em> for an <strong>OpFunction</strong> identified with <strong>OpEntryPoint</strong> must be <strong>OpTypeVoid</strong>.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_kernel_arguments">Kernel Arguments</h3>
+<div class="paragraph"><p>An <strong>OpFunctionParameter</strong> for an <strong>OpFunction</strong> that is identified with <strong>OpEntryPoint</strong> defines an OpenCL kernel argument.  Allowed types for OpenCL kernel arguments are:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>OpTypeInt</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>OpTypeFloat</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>OpTypeStruct</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>OpTypeVector</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>OpTypePointer</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>OpTypeSampler</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>OpTypeImage</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>OpTypePipe</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>OpTypeQueue</strong>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>For <strong>OpTypeInt</strong> parameters, supported <em>Widths</em> are 8, 16, 32, and 64, and may be signed or unsigned.</p></div>
+<div class="paragraph"><p>For <strong>OpTypeFloat</strong> parameters, <em>Width</em> must be 32.</p></div>
+<div class="paragraph"><p>For <strong>OpTypeStruct</strong> parameters, supported structure <em>Member Types</em> are:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>OpTypeInt</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>OpTypeFloat</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>OpTypeStruct</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>OpTypeVector</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>OpTypePointer</strong>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>For <strong>OpTypePointer</strong> parameters, supported <em>Storage Classes</em> are:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>CrossWorkgroup</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Workgroup</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>UniformConstant</strong>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>OpenCL kernel argument types must have a representation in the OpenCL host API.</p></div>
+<div class="paragraph"><p>Environments that support extensions or optional features may allow additional types in an entry point’s parameter list.</p></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="opencl2_2">OpenCL 2.2</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>An OpenCL 2.2 environment must accept SPIR-V 1.0, 1.1, and 1.2 modules.</p></div>
+<div class="sect2">
+<h3 id="_full_profile">Full Profile</h3>
+<div class="paragraph"><p>An OpenCL 2.2 Full Profile environment is guaranteed to support the following SPIR-V capabilities:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>Address</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>DeviceEnqueue</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Float16Buffer</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>GenericPointer</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Groups</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Int64</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Int16</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Int8</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Kernel</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Linkage</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Pipes</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Vector16</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>SubgroupDispatch</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>PipeStorage</strong>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>The following capabilities may be optionally supported:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>ImageBasic</strong>, if <span class="monospaced">CL_DEVICE_IMAGE_SUPPORT</span> is <span class="monospaced">CL_TRUE</span>
+</p>
+</li>
+<li>
+<p>
+<strong>Float64</strong>, if the device supports double precision floating-point
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>If <strong>ImageBasic</strong> is supported then the following capabilities must also be supported:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>ImageReadWrite</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>LiteralSampler</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Sampled1D</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Image1D</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>SampledBuffer</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>ImageBuffer</strong>
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect2">
+<h3 id="_embedded_profile">Embedded Profile</h3>
+<div class="paragraph"><p>An OpenCL 2.2 Embedded Profile environment is guaranteed to support the following SPIR-V capabilities:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>Address</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>DeviceEnqueue</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Float16Buffer</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>GenericPointer</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Groups</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Int16</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Int8</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Kernel</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Linkage</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Pipes</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Vector16</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>SubgroupDispatch</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>PipeStorage</strong>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>Furthermore, the following capabilities may optionally be supported:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>ImageBasic</strong>, if <span class="monospaced">CL_DEVICE_IMAGE_SUPPORT</span> is <span class="monospaced">CL_TRUE</span>
+</p>
+</li>
+<li>
+<p>
+<strong>Float64</strong>, if the device supports double precision floating-point
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>If <strong>ImageBasic</strong> is supported then the following capabilities must also be supported:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>ImageReadWrite</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>LiteralSampler</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Sampled1D</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Image1D</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>SampledBuffer</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>ImageBuffer</strong>
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect2">
+<h3 id="_validation_rules_2">Validation Rules</h3>
+<div class="paragraph"><p>The following are a list of validation rules for SPIR-V modules executing in an OpenCL 2.2 environment:</p></div>
+<div class="paragraph"><p><em>Scope</em> for <em>Execution</em> is generally limited to:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>Workgroup</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Subgroup</strong>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p><em>Scope</em> for <em>Memory</em> is generally limited to:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>CrossDevice</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Device</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Workgroup</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Invocation</strong>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p><em>Scope</em> for <em>Execution</em> for the <strong>OpGroupAsyncCopy</strong> and <strong>OpGroupWaitEvents</strong> instructions is specifically limited to:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>Workgroup</strong>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+</li>
+</ul></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="opencl2_1">OpenCL 2.1</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>An OpenCL 2.1 environment must accept SPIR-V 1.0 modules.</p></div>
+<div class="sect2">
+<h3 id="_full_profile_2">Full Profile</h3>
+<div class="paragraph"><p>An OpenCL 2.1 Full Profile environment is guaranteed to support the following SPIR-V capabilities:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>Address</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>DeviceEnqueue</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Float16Buffer</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>GenericPointer</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Groups</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Int64</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Int16</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Int8</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Kernel</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Linkage</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Pipes</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Vector16</strong>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>The following capabilities may be optionally supported:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>ImageBasic</strong>, if <span class="monospaced">CL_DEVICE_IMAGE_SUPPORT</span> is <span class="monospaced">CL_TRUE</span>
+</p>
+</li>
+<li>
+<p>
+<strong>Float64</strong>, if the device supports double precision floating-point
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>If <strong>ImageBasic</strong> is supported then the following capabilities must also be supported:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>ImageReadWrite</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>LiteralSampler</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Sampled1D</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Image1D</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>SampledBuffer</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>ImageBuffer</strong>
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect2">
+<h3 id="_embedded_profile_2">Embedded Profile</h3>
+<div class="paragraph"><p>An OpenCL 2.1 Embedded Profile environment is guaranteed to support the following SPIR-V capabilities:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>Address</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>DeviceEnqueue</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Float16Buffer</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>GenericPointer</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Groups</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Int16</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Int8</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Kernel</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Linkage</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Pipes</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Vector16</strong>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>Furthermore, the following capabilities may optionally be supported:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>ImageBasic</strong>, if <span class="monospaced">CL_DEVICE_IMAGE_SUPPORT</span> is <span class="monospaced">CL_TRUE</span>
+</p>
+</li>
+<li>
+<p>
+<strong>Float64</strong>, if the device supports double precision floating-point
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>If <strong>ImageBasic</strong> is supported then the following capabilities must also be supported:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>ImageReadWrite</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>LiteralSampler</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Sampled1D</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Image1D</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>SampledBuffer</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>ImageBuffer</strong>
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect2">
+<h3 id="_validation_rules_3">Validation Rules</h3>
+<div class="paragraph"><p>The following are a list of validation rules for SPIR-V modules executing in an OpenCL 2.1 environment:</p></div>
+<div class="paragraph"><p><em>Scope</em> for <em>Execution</em> is generally limited to:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>Workgroup</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Subgroup</strong>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p><em>Scope</em> for <em>Memory</em> is generally limited to:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>CrossDevice</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Device</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Workgroup</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Invocation</strong>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p><em>Scope</em> for <em>Execution</em> for the <strong>OpGroupAsyncCopy</strong> and <strong>OpGroupWaitEvents</strong> instructions is specifically limited to:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>Workgroup</strong>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+</li>
+</ul></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="opencl2_0">OpenCL 2.0</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>An OpenCL 2.0 environment must accept SPIR-V 1.0 modules if it includes the optional extension <span class="monospaced">cl_khr_il_program</span> in the host API <span class="monospaced">CL_PLATFORM_EXTENSIONS</span> or <span class="monospaced">CL_DEVICE_EXTENSIONS</span> string.</p></div>
+<div class="sect2">
+<h3 id="_full_profile_3">Full Profile</h3>
+<div class="paragraph"><p>An OpenCL 2.0 Full Profile environment is guaranteed to support the following SPIR-V capabilities:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>Address</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>DeviceEnqueue</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Float16Buffer</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>GenericPointer</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Groups</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Int64</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Int16</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Int8</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Kernel</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Linkage</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Pipes</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Vector16</strong>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>The following capabilities may be optionally supported:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>ImageBasic</strong>, if <span class="monospaced">CL_DEVICE_IMAGE_SUPPORT</span> is <span class="monospaced">CL_TRUE</span>
+</p>
+</li>
+<li>
+<p>
+<strong>Float64</strong>, if the device supports double precision floating-point
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>If <strong>ImageBasic</strong> is supported then the following capabilities must also be supported:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>ImageReadWrite</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>LiteralSampler</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Sampled1D</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Image1D</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>SampledBuffer</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>ImageBuffer</strong>
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect2">
+<h3 id="_embedded_profile_3">Embedded Profile</h3>
+<div class="paragraph"><p>An OpenCL 2.0 Embedded Profile environment is guaranteed to support the following SPIR-V capabilities:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>Address</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>DeviceEnqueue</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Float16Buffer</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>GenericPointer</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Groups</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Int16</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Int8</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Kernel</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Linkage</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Pipes</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Vector16</strong>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>Furthermore, the following capabilities may optionally be supported:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>ImageBasic</strong>, if <span class="monospaced">CL_DEVICE_IMAGE_SUPPORT</span> is <span class="monospaced">CL_TRUE</span>
+</p>
+</li>
+<li>
+<p>
+<strong>Float64</strong>, if the device supports double precision floating-point
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>If <strong>ImageBasic</strong> is supported then the following capabilities must also be supported:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>ImageReadWrite</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>LiteralSampler</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Sampled1D</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Image1D</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>SampledBuffer</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>ImageBuffer</strong>
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect2">
+<h3 id="_validation_rules_4">Validation Rules</h3>
+<div class="paragraph"><p>The following are a list of validation rules for SPIR-V modules executing in an OpenCL 2.0 environment:</p></div>
+<div class="paragraph"><p><em>Scope</em> for <em>Execution</em> is generally limited to:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>Workgroup</strong>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p><em>Scope</em> for <em>Memory</em> is generally limited to:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>CrossDevice</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Device</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Workgroup</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Invocation</strong>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+</li>
+</ul></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="opencl1_2">OpenCL 1.2</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>An OpenCL 1.2 environment must accept SPIR-V 1.0 modules if it includes the optional extension <span class="monospaced">cl_khr_il_program</span> in the host API <span class="monospaced">CL_PLATFORM_EXTENSIONS</span> or <span class="monospaced">CL_DEVICE_EXTENSIONS</span> string.</p></div>
+<div class="sect2">
+<h3 id="_full_profile_4">Full Profile</h3>
+<div class="paragraph"><p>An OpenCL 1.2 Full Profile environment is guaranteed to support the following SPIR-V capabilities:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>Address</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Float16Buffer</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Groups</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Int64</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Int16</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Int8</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Kernel</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Linkage</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Vector16</strong>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>The following capabilities may be optionally supported:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>ImageBasic</strong>, if <span class="monospaced">CL_DEVICE_IMAGE_SUPPORT</span> is <span class="monospaced">CL_TRUE</span>
+</p>
+</li>
+<li>
+<p>
+<strong>Float64</strong>, if the device supports double precision floating-point
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>If <strong>ImageBasic</strong> is supported then the following capabilities must also be supported:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>LiteralSampler</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Sampled1D</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Image1D</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>SampledBuffer</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>ImageBuffer</strong>
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect2">
+<h3 id="_embedded_profile_4">Embedded Profile</h3>
+<div class="paragraph"><p>An OpenCL 1.2 Embedded Profile environment is guaranteed to support the following SPIR-V capabilities:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>Address</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Float16Buffer</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Groups</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Int16</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Int8</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Kernel</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Linkage</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Pipes</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Vector16</strong>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>The following capabilities may be optionally supported:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>ImageBasic</strong>, if <span class="monospaced">CL_DEVICE_IMAGE_SUPPORT</span> is <span class="monospaced">CL_TRUE</span>
+</p>
+</li>
+<li>
+<p>
+<strong>Float64</strong>, if the device supports double precision floating-point
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>If <strong>ImageBasic</strong> is supported then the following capabilities must also be supported:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>LiteralSampler</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Sampled1D</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Image1D</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>SampledBuffer</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>ImageBuffer</strong>
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect2">
+<h3 id="_validation_rules_5">Validation Rules</h3>
+<div class="paragraph"><p>The following are a list of validation rules for SPIR-V modules executing in an OpenCL 1.2 environment:</p></div>
+<div class="paragraph"><p><em>Scope</em> for <em>Execution</em> is generally limited to:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>Workgroup</strong>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p><em>Scope</em> for <em>Memory</em> is generally limited to:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>CrossDevice</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Device</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Workgroup</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>Invocation</strong>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>The following <strong>Group Instructions</strong> are not supported:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>OpGroupAll</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>OpGroupAny</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>OpGroupBroadcast</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>OpGroupIAdd</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>OpGroupFAdd</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>OpGroupFMin</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>OpGroupUMin</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>OpGroupSMin</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>OpGroupFMax</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>OpGroupUMax</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>OpGroupSMax</strong>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>For the <strong>Barrier Instructions</strong> <strong>OpControlBarrier</strong> and <strong>OpMemoryBarrier</strong>, the <em>Scope</em> for execution must be <strong>Workgroup</strong>, the <em>Scope</em> for memory must be <strong>Workgroup</strong>, and the <em>Memory Semantics</em> must be <strong>SequentiallyConsistent</strong>.</p></div>
+<div class="paragraph"><p>For the <strong>Atomic Instructions</strong>, the <em>Scope</em> must be <strong>Device</strong>, and the <em>Memory Semantics</em> must be <strong>Relaxed</strong>.</p></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="opencl_extensions">OpenCL Extensions</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>An OpenCL environment may be modified by OpenCL extensions that affect SPIR-V.  An implementation indicates support for an OpenCL extension by including the extension name in the host API <span class="monospaced">CL_PLATFORM_EXTENSIONS</span> or <span class="monospaced">CL_DEVICE_EXTENSIONS</span> string.  To enable the behavior described for an extension, a SPIR-V module must declare use of the extension using <strong>OpExtension</strong> and the name of the extension, for example:</p></div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre>OpExtension "cl_khr_extension_name"</pre>
+</div></div>
+<div class="paragraph"><p>This section describes how the OpenCL environment is modified by Khronos (<span class="monospaced">khr</span>) OpenCL extensions.  Other OpenCL extensions, such as multi-vendor (<span class="monospaced">ext</span>) extensions or vendor-specific extensions, describe how they modify the OpenCL environment in their individual extension documents.</p></div>
+<div class="sect2">
+<h3 id="_full_and_embedded_profile_extensions">Full and Embedded Profile Extensions</h3>
+<div class="sect3">
+<h4 id="_span_class_monospaced_cl_khr_3d_image_writes_span"><span class="monospaced">cl_khr_3d_image_writes</span></h4>
+<div class="paragraph"><p>If the OpenCL environment supports the extension <span class="monospaced">cl_khr_3d_image_writes</span>, and use of the extension is declared in the module using <strong>OpExtension</strong>, then the environment must accept <em>Image</em> operands to <strong>OpImageWrite</strong> that are declared with with dimensionality <strong>3D</strong>.</p></div>
+</div>
+<div class="sect3">
+<h4 id="_span_class_monospaced_cl_khr_depth_images_span"><span class="monospaced">cl_khr_depth_images</span></h4>
+<div class="paragraph"><p>If the OpenCL environment supports the extension <span class="monospaced">cl_khr_depth_images</span>, and use of the extension is declared in the module using <strong>OpExtension</strong>, then the following Image Channel Orders may additionally be returned by <strong>OpImageQueryOrder</strong>:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>Depth</strong>
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_span_class_monospaced_cl_khr_device_enqueue_local_arg_types_span"><span class="monospaced">cl_khr_device_enqueue_local_arg_types</span></h4>
+<div class="paragraph"><p>If the OpenCL environment supports the extension <span class="monospaced">cl_khr_device_enqueue_local_arg_types</span>, and use of the extension is declared in the module using <strong>OpExtension</strong>, then then environment will allow <em>Invoke</em> functions to be passed to <strong>OpEnqueueKernel</strong> with <strong>Workgroup</strong> memory pointer parameters of any type.</p></div>
+</div>
+<div class="sect3">
+<h4 id="_span_class_monospaced_cl_khr_fp16_span"><span class="monospaced">cl_khr_fp16</span></h4>
+<div class="paragraph"><p>If the OpenCL environment supports the extension <span class="monospaced">cl_khr_fp16</span>, and use of the extension is declared in the module using <strong>OpExtension</strong>, then the environment must accept modules that declare the following SPIR-V capabilities:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>Float16</strong>
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_span_class_monospaced_cl_khr_fp64_span"><span class="monospaced">cl_khr_fp64</span></h4>
+<div class="paragraph"><p>If the OpenCL environment supports the extension <span class="monospaced">cl_khr_fp64</span>, and use of the extension is declared in the module using <strong>OpExtension</strong>, then the environment must accept modules that declare the following SPIR-V capabilities:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>Float64</strong>
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_span_class_monospaced_cl_khr_gl_depth_images_span"><span class="monospaced">cl_khr_gl_depth_images</span></h4>
+<div class="paragraph"><p>If the OpenCL environment supports the extension <span class="monospaced">cl_khr_gl_depth_images</span>, and use of the extension is declared in the module using <strong>OpExtension</strong>, then:</p></div>
+<div class="paragraph"><p>The following Image Channel Orders may additionally be returned by <strong>OpImageQueryOrder</strong>:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>DepthStencil</strong>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>Also, the following Image Channel Data Types may additionally be returned by <strong>OpImageQueryFormat</strong>:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>UnormInt24</strong>
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_span_class_monospaced_cl_khr_gl_msaa_sharing_span"><span class="monospaced">cl_khr_gl_msaa_sharing</span></h4>
+<div class="paragraph"><p>If the OpenCL environment supports the extension <span class="monospaced">cl_khr_gl_msaa_sharing</span>, and use of the extension is declared in the module using <strong>OpExtension</strong>, then 2D multi-sampled image types may be declared using <strong>OpTypeImage</strong> with dimensionality <em>Dim</em> equal to <strong>2D</strong> and <em>MS</em> equal to 1, indicating multi-sampled content.</p></div>
+<div class="paragraph"><p>The 2D multi-sampled images may be used with the following instructions:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>OpImageRead</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>OpImageQuerySizeLod</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>OpImageQueryFormat</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>OpImageQueryOrder</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>OpImageQuerySamples</strong>
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_span_class_monospaced_cl_khr_int64_base_atomics_span_and_span_class_monospaced_cl_khr_int64_extended_atomics_span"><span class="monospaced">cl_khr_int64_base_atomics</span> and <span class="monospaced">cl_khr_int64_extended_atomics</span></h4>
+<div class="paragraph"><p>If the OpenCL environment supports the extension <span class="monospaced">cl_khr_int64_base_atomics</span> or <span class="monospaced">cl_khr_int64_extended_atomics</span>, and use of either extension is declared in the module using <strong>OpExtension</strong>, then the environment must support 64-bit integer operands for all of the SPIR-V <strong>Atomic Instructions</strong>.</p></div>
+<div class="paragraph"><p>When the <strong>WorkgroupMemory</strong> <em>Memory Semantic</em> is used the <em>Scope</em> must be <strong>Workgroup</strong>.</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">OpenCL environments that consume SPIR-V must support both <span class="monospaced">cl_khr_int64_base_atomics</span> and <span class="monospaced">cl_khr_int64_extended_atomics</span> or neither of these extensions.  Only one of the extension strings need to be declared via <strong>OpExtension</strong>.</td>
+</tr></table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_span_class_monospaced_cl_khr_mipmap_image_span"><span class="monospaced">cl_khr_mipmap_image</span></h4>
+<div class="paragraph"><p>If the OpenCL environment supports the extension <span class="monospaced">cl_khr_mipmap_image</span>, and use of the extension is declared in the module using <strong>OpExtension</strong>, then the environment must accept non-zero optional <strong>Lod</strong> <em>Image Operands</em> for the following instructions:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>OpImageSampleExplicitLod</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>OpImageFetch</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>OpImageRead</strong>
+</p>
+</li>
+<li>
+<p>
+<strong>OpImageQuerySizeLod</strong>
+</p>
+</li>
+</ul></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">Implementations that support <span class="monospaced">cl_khr_mipmap_image</span> are not guaranteed to support the <strong>ImageMipmap</strong> capability, since this extension does not require non-zero optional <strong>Lod</strong> <em>Image Operands</em> for <strong>OpImageWrite</strong>.</td>
+</tr></table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_span_class_monospaced_cl_khr_mipmap_image_writes_span"><span class="monospaced">cl_khr_mipmap_image_writes</span></h4>
+<div class="paragraph"><p>If the OpenCL environment supports the extension <span class="monospaced">cl_khr_mipmap_image_writes</span>, and use of the extension is declared in the module using <strong>OpExtension</strong>, then the environment must accept non-zero optional <strong>Lod</strong> <em>Image Operands</em> for the following instructions:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>OpImageWrite</strong>
+</p>
+</li>
+</ul></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">An implementation that supports <span class="monospaced">cl_khr_mipmap_image_writes</span> must also support <span class="monospaced">cl_khr_mipmap_image</span>, and support for both extensions does guarantee support for the <strong>ImageMipmap</strong> capability.</td>
+</tr></table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_span_class_monospaced_cl_khr_subgroups_span"><span class="monospaced">cl_khr_subgroups</span></h4>
+<div class="paragraph"><p>If the OpenCL environment supports the extension <span class="monospaced">cl_khr_subgroups</span>, and use of the extension is declared in the module using <strong>OpExtension</strong>, then the environment will generally allows the scope for <em>Execution</em> to include:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>Subgroup</strong>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>However, the <em>Scope</em> for <em>Execution</em> for the <strong>OpGroupAsyncCopy</strong> and <strong>OpGroupWaitEvents</strong> instructions still is limited to:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>Workgroup</strong>
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_span_class_monospaced_cl_khr_subgroup_named_barrier_span"><span class="monospaced">cl_khr_subgroup_named_barrier</span></h4>
+<div class="paragraph"><p>If the OpenCL environment supports the extension <span class="monospaced">cl_khr_subgroup_named_barrier</span>, and use of the extension is declared in the module using <strong>OpExtension</strong>, the the environment must accept modules that declare the following SPIR-V capabilities:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>NamedBarrier</strong>
+</p>
+</li>
+</ul></div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_embedded_profile_extensions">Embedded Profile Extensions</h3>
+<div class="sect3">
+<h4 id="_span_class_monospaced_cles_khr_int64_span"><span class="monospaced">cles_khr_int64</span></h4>
+<div class="paragraph"><p>If the OpenCL environment supports the extension <span class="monospaced">cles_khr_int64</span>, and use of the extension is declared in the module using <strong>OpExtension</strong>, then the environment must accept modules that declare the following SPIR-V capabilities:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>Int64</strong>
+</p>
+</li>
+</ul></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="numerical_compliance">OpenCL Numerical Compliance</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>This section describes features of the C++14 and IEEE 754 standards that must be supported by all OpenCL compliant devices.</p></div>
+<div class="paragraph"><p>This section describes the functionality that must be supported by all OpenCL devices for single precision floating-point numbers.  Currently, only single precision floating-point is a requirement.  Half precision floating-point is an optional feature indicated by the <strong>Float16</strong> capability.  Double precision floating-point is also an optional feature indicated by the <strong>Float64</strong> capability.</p></div>
+<div class="sect2">
+<h3 id="_rounding_modes">Rounding Modes</h3>
+<div class="paragraph"><p>Floating-point calculations may be carried out internally with extra precision and then rounded to fit into the destination type.  IEEE 754 defines four possible rounding modes:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>Round to nearest even</em>
+</p>
+</li>
+<li>
+<p>
+<em>Round toward +infinity</em>
+</p>
+</li>
+<li>
+<p>
+<em>Round toward -infinity</em>
+</p>
+</li>
+<li>
+<p>
+<em>Round toward zero</em>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>The complete set of rounding modes supported by the device are described by the <span class="monospaced">CL_DEVICE_SINGLE_FP_CONFIG</span>, <span class="monospaced">CL_DEVICE_HALF_FP_CONFIG</span>, and <span class="monospaced">CL_DEVICE_DOUBLE_FP_CONFIG</span> device queries.</p></div>
+<div class="paragraph"><p>For double precision operations, <em>Round to nearest even</em> is a required rounding mode, and is therefore the default rounding mode for double precision operations.</p></div>
+<div class="paragraph"><p>For single precision operations, devices supporting the full profile must support <em>Round to nearest even</em>, therefore for full profile devices this is the default rounding mode for single precision operations.  Devices supporting the embedded profile may support either <em>Round to nearest even</em> or <em>Round toward zero</em> as the default rounding mode for single precision operations.</p></div>
+<div class="paragraph"><p>For half precision operations, devices may support either <em>Round to nearest even</em> or <em>Round toward zero</em> as the default rounding mode for half precision operations.</p></div>
+<div class="paragraph"><p>Only static selection of rounding mode is supported.  Dynamically reconfiguring the rounding mode as specified by the IEEE 754 spec is not supported.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_rounding_modes_for_conversions">Rounding Modes for Conversions</h3>
+<div class="paragraph"><p>The rounding mode for conversion operations may be specified explicitly via an <strong>FPRoundingMode</strong> decoration or may use an implicit rounding mode.  If no rounding mode is specified explicitly then the default rounding mode for OpenCL conversion operations is:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>Round to nearest even</em>, for conversions to floating-point types.
+</p>
+</li>
+<li>
+<p>
+<em>Round toward zero</em>, for conversions from floating-point to integer types.
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect2">
+<h3 id="_inf_nan_and_denormalized_numbers">INF, NaN, and Denormalized Numbers</h3>
+<div class="paragraph"><p>INFs and NaNs must be supported.  Support for signaling NaNs is not required.</p></div>
+<div class="paragraph"><p>Support for denormalized numbers with single precision and half precision floating-point is optional.  Denormalized single precision or half precision floating-point numbers passed as the input or produced as the output of single precision or half precision floating-point operations may be flushed to zero.  Support for denormalized numbers is required for double precision floating-point.</p></div>
+<div class="paragraph"><p>Support for INFs, NaNs, and denormalized numbers is described by the <span class="monospaced">CL_FP_DENORM</span> and <span class="monospaced">CL_FP_INF_NAN</span> bits in the <span class="monospaced">CL_DEVICE_SINGLE_FP_CONFIG</span>, <span class="monospaced">CL_DEVICE_HALF_FP_CONFIG</span>, and <span class="monospaced">CL_DEVICE_DOUBLE_FP_CONFIG</span> device queries.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_floating_point_exceptions">Floating-Point Exceptions</h3>
+<div class="paragraph"><p>Floating-point exceptions are disabled in OpenCL.  The result of a floating-point exception must match the IEEE 754 spec for the exceptions-not-enabled case.  Whether and when the implementation sets floating-point flags or raises floating-point exceptions is implementation-defined.</p></div>
+<div class="paragraph"><p>This standard provides no method for querying, clearing or setting floating-point flags or trapping raised exceptions.  Due to non-performance, non-portability of trap mechanisms, and the impracticality of servicing precise exceptions in a vector context (especially on heterogeneous hardware), such features are discouraged.</p></div>
+<div class="paragraph"><p>Implementations that nevertheless support such operations through an extension to the standard shall initialize with all exception flags cleared and the exception masks set so that exceptions raised by arithmetic operations do not trigger a trap to be taken.  If the underlying work is reused by the implementation, the implementation is however not responsible for re-clearing the flags or resetting exception masks to default values before entering the kernel.  That is to say that kernels that do not inspect flags or enable traps are licensed to expect that their arithmetic will not trigger a trap.  Those kernels that do examine flags or enable traps are responsible for clearing flag state and disabling all traps before returning control to the implementation.  Whether or when the underlying work-item (and accompanying global floating-point state if any) is reused is implementation-defined.</p></div>
+</div>
+<div class="sect2">
+<h3 id="relative-error-as-ulps">Relative Error as ULPs</h3>
+<div class="paragraph"><p>In this section we discuss the maximum relative error defined as ulp (units in the last place).  Addition, subtraction, multiplication, fused multiply-add, and conversion between integer and a single precision floating-point format are IEEE 754 compliant and are therefore correctly rounded.  Conversion between floating-point formats and explicit conversions must be correctly rounded.</p></div>
+<div class="paragraph"><p>The ULP is defined as follows:</p></div>
+<div class="quoteblock">
+<div class="content">
+<div class="paragraph"><p><span class="monospaced">If x is a real number that lies between two finite consecutive floating-point numbers a and b, without being equal to one of them, then ulp(x) = |b − a|, otherwise ulp(x) is the distance between the two non-equal finite floating-point numbers nearest x.  Moreover, ulp(NaN) is NaN.</span></p></div>
+</div>
+<div class="attribution">
+</div></div>
+<div class="paragraph"><p><em>Attribution: This definition was taken with consent from Jean-Michel Muller with slight clarification for behavior at zero.
+Refer to <a href="ftp://ftp.inria.fr/INRIA/publication/publi-pdf/RR/RR-5504.pdf">ftp://ftp.inria.fr/INRIA/publication/publi-pdf/RR/RR-5504.pdf</a></em></p></div>
+<div class="paragraph"><p>0 ULP is used for math functions that do not require rounding.  The reference value used to compute the ULP value is the infinitely precise result.</p></div>
+<div class="sect3">
+<h4 id="_ulp_values_for_math_instructions_full_profile">ULP Values for Math Instructions - Full Profile</h4>
+<div class="paragraph"><p>The ULP Values for Math Instructions table below describes the minimum accuracy of floating-point math arithmetic instructions for full profile devices given as ULP values.</p></div>
+<table class="tableblock frame-all grid-all" id="ulp_values_for_math_instructions"
+style="
+width:100%;
+">
+<caption class="title">Table 3. ULP Values for Math Instructions - Full Profile</caption>
+<col style="width:31%;">
+<col style="width:23%;">
+<col style="width:23%;">
+<col style="width:23%;">
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top" ><strong>SPIR-V Instruction</strong></th>
+<th class="tableblock halign-left valign-top" ><strong>Minimum Accuracy - Float64</strong></th>
+<th class="tableblock halign-left valign-top" ><strong>Minimum Accuracy - Float32</strong></th>
+<th class="tableblock halign-left valign-top" ><strong>Minimum Accuracy - Float16</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpFAdd</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpFSub</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpFMul</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpFDiv</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 2.5 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>acos</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 2 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>acosh</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 2 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>acospi</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 5 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 5 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 2 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>asin</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 2 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>asinh</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 2 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>asinpi</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 5 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 5 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 2 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>atan</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 5 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 5 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 2 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>atanh</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 5 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 5 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 2 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>atanpi</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 5 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 5 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 2 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>atan2</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 6 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 6 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 2 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>atan2pi</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 6 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 6 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 2 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>cbrt</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 2 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 2 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 2 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>ceil</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>copysign</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>cos</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 2 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>cosh</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 2 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>cospi</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 2 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>erfc</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 16 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 16 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>erf</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 16 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 16 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>exp</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 3 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 3 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 2 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>exp2</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 3 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 3 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 2 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>exp10</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 3 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 3 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 2 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>expm1</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 3 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 3 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 2 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>fabs</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>fdim</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>floor</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>fma</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>fmax</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>fmin</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>fmod</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>fract</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>frexp</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>hypot</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 2 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>ilogb</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>ldexp</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>lgamma</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implementation-defined</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implementation-defined</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implementation-defined</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>lgamma_r</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implementation-defined</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implementation-defined</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implementation-defined</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>log</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 3 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 3 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 2 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>log2</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 3 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 3 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 2 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>log10</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 3 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 3 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 2 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>log1p</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 2 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 2 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 2 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>logb</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>mad</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implementation-defined</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implemented either as a correctly rounded fma, or as a multiply followed by an add, both of which are correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implementation-defined</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>maxmag</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>minmag</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>modf</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>nan</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>nextafter</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>pow</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 16 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 16 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>pown</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 16 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 16 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>powr</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 16 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 16 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>remainder</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>remquo</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp for the remainder, at least the lower 7 bits of the integral quotient</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp for the remainder, at least the lower 7 bits of the integral quotient</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp for the remainder, at least the lower 7 bits of the integral quotient</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>rint</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>rootn</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 16 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 16 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>round</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>rsqrt</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 2 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 2 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 1 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>sin</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 2 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>sincos</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp for sine and cosine values</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp for sine and cosine values</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 2 ulp for sine and cosine values</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>sinh</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 2 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>sinpi</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 2 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>sqrt</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 3 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>tan</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 5 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 5 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 2 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>tanh</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 5 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 5 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 2 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>tanpi</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 6 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 6 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 2 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>tgamma</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 16 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 16 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>trunc</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>half_cos</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 8192 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>half_divide</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 8192 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>half_exp</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 8192 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>half_exp2</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 8192 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>half_exp10</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 8192 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>half_log</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 8192 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>half_log2</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 8192 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>half_log10</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 8192 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>half_powr</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 8192 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>half_recip</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 8192 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>half_rsqrt</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 8192 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>half_sin</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 8192 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>half_sqrt</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 8192 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>half_tan</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 8192 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>native_cos</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implementation-defined</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>native_divide</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implementation-defined</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>native_exp</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implementation-defined</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>native_exp2</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implementation-defined</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>native_exp10</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implementation-defined</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>native_log</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implementation-defined</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>native_log2</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implementation-defined</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>native_log10</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implementation-defined</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>native_powr</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implementation-defined</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>native_recip</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implementation-defined</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>native_rsqrt</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implementation-defined</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>native_sin</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implementation-defined</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>native_sqrt</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implementation-defined</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>native_tan</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implementation-defined</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_ulp_values_for_math_instructions_embedded_profile">ULP Values for Math Instructions - Embedded Profile</h4>
+<div class="paragraph"><p>The ULP Values for Math instructions for Embedded Profile table below describes the minimum accuracy of floating-point math arithmetic operations given as ULP values for the embedded profile.</p></div>
+<table class="tableblock frame-all grid-all" id="ulp_values_for_math_instructions_for_embedded_profile"
+style="
+width:100%;
+">
+<caption class="title">Table 4. ULP Values for Math Instructions - Embedded Profile</caption>
+<col style="width:31%;">
+<col style="width:23%;">
+<col style="width:23%;">
+<col style="width:23%;">
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top" ><strong>SPIR-V Instruction</strong></th>
+<th class="tableblock halign-left valign-top" ><strong>Minimum Accuracy - Float64</strong></th>
+<th class="tableblock halign-left valign-top" ><strong>Minimum Accuracy - Float32</strong></th>
+<th class="tableblock halign-left valign-top" ><strong>Minimum Accuracy - Float16</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpFAdd</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpFSub</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpFMul</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpFDiv</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 3 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 3 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 1 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>acos</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 3 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>acosh</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 3 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>acospi</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 5 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 5 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 3 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>asin</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 3 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>asinh</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 3 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>asinpi</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 5 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 5 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 3 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>atan</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 5 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 5 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 3 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>atanh</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 5 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 5 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 3 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>atanpi</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 5 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 5 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 3 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>atan2</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 6 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 6 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 3 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>atan2pi</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 6 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 6 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 3 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>cbrt</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 2 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>ceil</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>copysign</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>cos</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 2 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>cosh</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 3 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>cospi</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 2 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>erfc</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 16 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 16 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>erf</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 16 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 16 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>exp</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 3 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>exp2</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 3 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>exp10</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 3 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>expm1</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 3 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>fabs</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>fdim</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>floor</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>fma</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>fmax</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>fmin</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>fmod</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>fract</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>frexp</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>hypot</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 3 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>ilogb</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>ldexp</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>lgamma</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implementation-defined</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implementation-defined</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implementation-defined</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>lgamma_r</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implementation-defined</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implementation-defined</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implementation-defined</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>log</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 3 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>log2</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 3 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>log10</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 3 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>log1p</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 3 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>logb</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>mad</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implemention-defined</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implemention-defined</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implemention-defined</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>maxmag</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>minmag</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>modf</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>nan</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>nextafter</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>pow</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 16 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 16 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 5 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>pown</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 16 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 16 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 5 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>powr</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 16 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 16 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 5 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>remainder</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>remquo</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp for the remainder, at least the lower 7 bits of the integral quotient</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp for the remainder, at least the lower 7 bits of the integral quotient</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0 ulp for the remainder, at least the lower 7 bits of the integral quotient</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>rint</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>rootn</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 16 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 16 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 5 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>round</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>rsqrt</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 1 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>sin</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 2 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>sincos</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp for sine and cosine values</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp for sine and cosine values</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 2 ulp for sine and cosine values</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>sinh</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 3 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>sinpi</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 2 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>sqrt</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 1 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>tan</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 5 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 5 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 3 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>tanh</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 5 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 5 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 3 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>tanpi</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 6 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 6 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 3 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>tgamma</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 16 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 16 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>trunc</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Correctly rounded</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>half_cos</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 8192 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>half_divide</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 8192 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>half_exp</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 8192 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>half_exp2</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 8192 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>half_exp10</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 8192 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>half_log</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 8192 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>half_log2</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 8192 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>half_log10</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 8192 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>half_powr</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 8192 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>half_recip</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 8192 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>half_rsqrt</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 8192 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>half_sin</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 8192 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>half_sqrt</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 8192 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>half_tan</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 8192 ulp</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>native_cos</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implementation-defined</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>native_divide</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implementation-defined</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>native_exp</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implementation-defined</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>native_exp2</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implementation-defined</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>native_exp10</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implementation-defined</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>native_log</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implementation-defined</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>native_log2</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implementation-defined</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>native_log10</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implementation-defined</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>native_powr</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implementation-defined</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>native_recip</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implementation-defined</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>native_rsqrt</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implementation-defined</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>native_sin</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implementation-defined</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>native_sqrt</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implementation-defined</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>native_tan</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implementation-defined</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_ulp_values_for_math_instructions_fast_relaxed_math">ULP Values for Math Instructions - Fast Relaxed Math</h4>
+<div class="paragraph"><p>The ULP Values for Math Instructions with Fast Relaxed Math table below describes the minimum accuracy of commonly used single precision floating-point math arithmetic instructions given as ULP values if the <em>-cl-fast-relaxed-math</em> compiler option is specified when compiling or building the OpenCL program.</p></div>
+<div class="paragraph"><p>For derived implementations, the operations used in the derivation may themselves be relaxed according to the ULP Values for Math Instructions with Fast Relaxed Math table.</p></div>
+<div class="paragraph"><p>The minimum accuracy of math functions not defined in the ULP Values for Math Instructions with Fast Relaxed Math table when the <em>-cl-fast-relaxed-math</em> compiler option is specified is as defined in the <a href="#ulp_values_for_math_instructions">ULP Values for Math Instructions for Full Profile</a> table when operating in the full profile, and as defined in the <a href="#ulp_values_for_math_instructions_for_embedded_profile">ULP Values for Math instructions for Embedded Profile</a> table when operating in the embedded profile.</p></div>
+<table class="tableblock frame-all grid-all" id="ulp_values_for_math_instructions_with_fast_relaxed_math"
+style="
+width:75%;
+">
+<caption class="title">Table 5. ULP Values for Single Precision Math Instructions with <em>-cl-fast-relaxed-math</em></caption>
+<col style="width:40%;">
+<col style="width:60%;">
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top" ><strong>SPIR-V Instruction</strong></th>
+<th class="tableblock halign-left valign-top" ><strong>Minimum Accuracy</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpFDiv</strong> for 1.0 / <em>x</em></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 2.5 ulp for x in the domain of 2<sup>-126</sup> to 2<sup>126</sup> for the full profile, and &lt;= 3 ulp for the embedded profile.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpFDiv</strong> for <em>x</em> / <em>y</em></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 2.5 ulp for x in the domain of 2<sup>-62</sup> to 2<sup>62</sup> and <em>y</em> in the domain of 2<sup>-62</sup> to 2<sup>62</sup> for the full profile, and &lt;= 3 ulp for the embedded profile.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>acos</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4096 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>acosh</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implemented as log( x + sqrt(x*x - 1) ).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>acospi</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implemented as acos(x) * M_PI_F.
+For non-derived implementations, the error is &lt;= 8192 ulp.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>asin</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4096 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>asinh</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implemented as log( x + sqrt(x*x + 1) ).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>asinpi</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implemented as asin(x) * M_PI_F.
+For non-derived implementations, the error is &lt;= 8192 ulp.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>atan</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 4096 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>atanh</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Defined for x in the domain (-1, 1). For x in [-2<sup>-10</sup>, 2<sup>-10</sup>], implemented as x.
+For x outside of [-2<sup>-10</sup>, 2<sup>-10</sup>], implemented as 0.5f * log( (1.0f + x) / (1.0f - x) ).
+For non-derived implementations, the error is &lt;= 8192 ulp.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>atanpi</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implemented as atan(x) * M_1_PI_F.
+For non-derived implementations, the error is &lt;= 8192 ulp.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>atan2</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implemented as atan(y/x) for x &gt; 0, atan(y/x) + M_PI_F for x &lt; 0 and y &gt; 0 and atan(y/x) - M_PI_F for x &lt; 0 and y &lt; 0.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>atan2pi</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implemented as atan2(y, x) * M_1_PI_F.
+For non-derived implementations, the error is &lt;= 8192 ulp.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>cbrt</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implemented as rootn(x, 3).
+For non-derived implementations, the error is &lt;= 8192 ulp.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>cos</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">For x in the domain [-π, π], the maximum absolute error is &lt;= 2<sup>-11</sup> and larger otherwise.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>cosh</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Defined for x in the domain [-88, 88] and implemented as 0.5f * ( exp(x) + exp(-x) ).
+For non-derived implementations, the error is &lt;= 8192 ULP.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>cospi</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">For x in the domain [-1, 1], the maximum absolute error is &lt;= 2<sup>-11</sup> and larger otherwise.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>exp</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 3 + floor( fabs(2 * x) ) ulp for the full profile, and &lt;= 4 ulp for the embedded profile.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>exp2</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">&lt;= 3 + floor( fabs(2 * x) ) ulp for the full profile, and &lt;= 4 ulp for the embedded profile.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>exp10</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Derived implementations implement this as exp2( x * log2(10) ).
+For non-derived implementations, the error is &lt;= 8192 ulp.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>expm1</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Derived implementations implement this as exp(x) - 1.
+For non-derived implementations, the error is &lt;= 8192 ulp.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>log</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">For x in the domain [0.5, 2] the maximum absolute error is &lt;= 2<sup>-21</sup>; otherwise the maximum error is &lt;=3 ulp for the full profile and &lt;= 4 ulp for the embedded profile</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>log2</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">For x in the domain [0.5, 2] the maximum absolute error is &lt;= 2<sup>-21</sup>; otherwise the maximum error is &lt;=3 ulp for the full profile and &lt;= 4 ulp for the embedded profile</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>log10</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">For x in the domain [0.5, 2] the maximum absolute error is &lt;= 2<sup>-21</sup>; otherwise the maximum error is &lt;=3 ulp for the full profile and &lt;= 4 ulp for the embedded profile</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>log1p</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Derived implementations implement this as log(x + 1).
+For non-derived implementations, the error is &lt;= 8192 ulp.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>pow</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Undefined for x = 0 and y = 0.
+Undefined for x &lt; 0 and non-integer y.
+Undefined for x &lt; 0 and y outside the domain [-2<sup>24</sup>, 2<sup>24</sup>].
+For x &gt; 0 or x &lt; 0 and even y, derived implementations implement this as exp2( y * log2(x) ).
+For x &lt; 0 and odd y, derived implementations implement this as -exp2( y * log2(fabs(x) ).
+For x == 0 and nonzero y, derived implementations return zero.
+For non-derived implementations, the error is &lt;= 8192 ULP.
+<span class="footnote"><br>[On some implementations, <span class="monospaced">powr()</span> or <span class="monospaced">pown()</span> may perform faster than <span class="monospaced">pow()</span>.
+If <span class="monospaced">x</span> is known to be <span class="monospaced">&gt;= 0</span>, consider using <span class="monospaced">powr()</span> in place of <span class="monospaced">pow()</span>, or if <span class="monospaced">y</span> is known to be an integer, consider using <span class="monospaced">pown()</span> in place of <span class="monospaced">pow()</span>.]<br></span></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>pown</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Defined only for integer values of y.
+Undefined for x = 0 and y = 0.
+For x &gt;= 0 or x &lt; 0 and even y, derived implementations implement this as exp2( y * log2(x) ).
+For x &lt; 0 and odd y, derived implementations implement this as -exp2( y * log2( fabs(x) ) ).
+For non-derived implementations, the error is &lt;= 8192 ulp.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>powr</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Defined only for x &gt;= 0.
+Undefined for x = 0 and y = 0.
+Derived implementations implement this as exp2( y * log2(x) ).
+For non-derived implementations, the error is &lt;= 8192 ulp.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>rootn</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Defined for x &gt; 0 when y is non-zero, derived implementations implement this case as exp2( log2(x) / y ). Defined for x &lt; 0 when y is odd, derived implementations implement this case as -exp2( log2(-x) / y ).
+Defined for x = +/-0 when y &gt; 0, derived implementations will return +0 in this case.
+For non-derived implementations, the error is &lt;= 8192 ULP.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>sin</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">For x in the domain [-π, π], the maximum absolute error is &lt;= 2<sup>-11</sup> and larger otherwise.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>sincos</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">ulp values as defined for sin(x) and cos(x).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>sinh</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Defined for x in the domain [-88, 88].
+For x in [-2<sup>-10</sup>, 2<sup>-10</sup>], derived implementations implement as x.
+For x outside of [-2<sup>-10</sup>, 2<sup>-10</sup>], derived implement as 0.5f * ( exp(x) - exp(-x) ).
+For non-derived implementations, the error is &lt;= 8192 ULP.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>sinpi</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">For x in the domain [-1, 1], the maximum absolute error is &lt;= 2<sup>-11</sup> and larger otherwise.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>tan</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Derived implementations implement this as sin(x) * ( 1.0f / cos(x) ).
+For non-derived implementations, the error is &lt;= 8192 ulp.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>tanh</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Defined for x in the domain [-88, 88].
+For x in [-2<sup>-10</sup>, 2<sup>-10</sup>], derived implementations implement as x.
+For x outside of [-2<sup>-10</sup>, 2<sup>-10</sup>], derived implementations implement as ( exp(x) - exp(-x) ) / ( exp(x) + exp(-x) ).
+For non-derived implementations, the error is &lt;= 8192 ULP.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpExtInst</strong> <strong>tanpi</strong></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Derived implementations implement this as tan(x * M_PI_F).
+For non-derived implementations, the error is &lt;= 8192 ulp for x in the domain [-1, 1].</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>OpFMul</strong> and <strong>OpFAdd</strong> for <em>x</em> * <em>y</em> + <em>z</em></p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Implemented either as a correctly rounded fma or as a multiply and an add both of which are correctly rounded.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_edge_case_behavior">Edge Case Behavior</h3>
+<div class="paragraph"><p>The edge case behavior of the math functions shall conform to sections F.9 and G.6 of ISO/IEC 9899:TC 2, except where noted below in the <em><a href="#additional-requirements-beyond-isoiec-9899tc2">Additional Requirements Beyond ISO/IEC 9899:TC2</a> section</em>.</p></div>
+<div class="sect3">
+<h4 id="additional-requirements-beyond-isoiec-9899tc2">Additional Requirements Beyond ISO/IEC 9899:TC2</h4>
+<div class="paragraph"><p>Functions that return a NaN with more than one NaN operand shall return one of the NaN operands.
+Functions that return a NaN operand may silence the NaN if it is a signaling NaN.
+A non-signaling NaN shall be converted to a non-signaling NaN.
+A signaling NaN shall be converted to a NaN, and should be converted to a non-signaling NaN.
+How the rest of the NaN payload bits or the sign of NaN is converted is undefined.</p></div>
+<div class="paragraph"><p>The usual allowances for rounding error (<em><a href="#relative-error-as-ulps">Relative Error as ULPs</a> section</em>) or flushing behavior (<em><a href="#edge-case-behavior-in-flush-to-zero-mode">Edge Case Behavior in Flush To Zero Mode</a> section</em>) shall not apply for those values for which <em>section F.9</em> of ISO/IEC 9899:,TC2, or <em><a href="#additional-requirements-beyond-isoiec-9899tc2">Additional Requirements Beyond ISO/IEC 9899:TC2</a></em> and <em><a href="#edge-case-behavior-in-flush-to-zero-mode">Edge Case Behavior in Flush To Zero Mode</a> sections</em> below (and similar sections for other floating-point precisions) prescribe a result (e.g. ceil( -1 &lt; x &lt; 0 ) returns -0).
+Those values shall produce exactly the prescribed answers, and no other.
+Where the ± symbol is used, the sign shall be preserved.
+For example, sin(±0) = ±0 shall be interpreted to mean sin(+0) is +0 and sin(-0) is -0.</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>OpExtInst</strong> <strong>acospi</strong>:
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+acospi( 1 ) = +0.
+</p>
+</li>
+<li>
+<p>
+acospi( x ) returns a NaN for | x | &gt; 1.
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+<strong>OpExtInst</strong> <strong>asinpi</strong>:
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+asinpi( ±0 ) = ±0.
+</p>
+</li>
+<li>
+<p>
+asinpi( x ) returns a NaN for | x | &gt; 1.
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+<strong>OpExtInst</strong> <strong>atanpi</strong>:
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+atanpi( ±0 ) = ±0.
+</p>
+</li>
+<li>
+<p>
+atanpi ( ±∞ ) = ±0.5.
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+<strong>OpExtInst</strong> <strong>atan2pi</strong>:
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+atan2pi ( ±0, -0 ) = ±1.
+</p>
+</li>
+<li>
+<p>
+atan2pi ( ±0, +0 ) = ± 0.
+</p>
+</li>
+<li>
+<p>
+atan2pi ( ±0, x ) returns ± 1 for x &lt; 0.
+</p>
+</li>
+<li>
+<p>
+atan2pi ( ±0, x) returns ± 0 for x &gt; 0.
+</p>
+</li>
+<li>
+<p>
+atan2pi ( y, ±0 ) returns -0.5 for y &lt; 0.
+</p>
+</li>
+<li>
+<p>
+atan2pi ( y, ±0 ) returns 0.5 for y &gt; 0.
+</p>
+</li>
+<li>
+<p>
+atan2pi ( ±y, -∞ ) returns ± 1 for finite y &gt; 0.
+</p>
+</li>
+<li>
+<p>
+atan2pi ( ±y, +∞ ) returns ± 0 for finite y &gt; 0.
+</p>
+</li>
+<li>
+<p>
+atan2pi ( ±∞, x ) returns ± 0.5 for finite x.
+</p>
+</li>
+<li>
+<p>
+atan2pi (±∞, -∞ ) returns ±0.75.
+</p>
+</li>
+<li>
+<p>
+atan2pi (±∞, +∞ ) returns ±0.25.
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+<strong>OpExtInst</strong> <strong>ceil</strong>:
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+ceil( -1 &lt; x &lt; 0 ) returns -0.
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+<strong>OpExtInst</strong> <strong>cospi</strong>:
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+cospi( ±0 ) returns 1
+</p>
+</li>
+<li>
+<p>
+cospi( n + 0.5 ) is +0 for any integer n where n + 0.5 is representable.
+</p>
+</li>
+<li>
+<p>
+cospi( ±∞ ) returns a NaN.
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+<strong>OpExtInst</strong> <strong>exp10</strong>:
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+exp10( ±0 ) returns 1.
+</p>
+</li>
+<li>
+<p>
+exp10( -∞ ) returns +0.
+</p>
+</li>
+<li>
+<p>
+exp10( +∞ ) returns +∞.
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+<strong>OpExtInst</strong> <strong>distance</strong>:
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+distance(x, y) calculates the distance from x to y without overflow or extraordinary precision loss due to underflow.
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+<strong>OpExtInst</strong> <strong>fdim</strong>:
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+fdim( any, NaN ) returns NaN.
+</p>
+</li>
+<li>
+<p>
+fdim( NaN, any ) returns NaN.
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+<strong>OpExtInst</strong> <strong>fmod</strong>:
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+fmod( ±0, NaN ) returns NaN.
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+<strong>OpExtInst</strong> <strong>fract</strong>:
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+fract( x, iptr) shall not return a value greater than or equal to 1.0, and shall not return a value less than 0.
+</p>
+</li>
+<li>
+<p>
+fract( +0, iptr ) returns +0 and +0 in iptr.
+</p>
+</li>
+<li>
+<p>
+fract( -0, iptr ) returns -0 and -0 in iptr.
+</p>
+</li>
+<li>
+<p>
+fract( +inf, iptr ) returns +0 and +inf in iptr.
+</p>
+</li>
+<li>
+<p>
+fract( -inf, iptr ) returns -0 and -inf in iptr.
+</p>
+</li>
+<li>
+<p>
+fract( NaN, iptr ) returns the NaN and NaN in iptr.
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+<strong>OpExtInst</strong> <strong>frexp</strong>:
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+frexp( ±∞, exp ) returns ±∞ and stores 0 in exp.
+</p>
+</li>
+<li>
+<p>
+frexp( NaN, exp ) returns the NaN and stores 0 in exp.
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+<strong>OpExtInst</strong> <strong>length</strong>:
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+length calculates the length of a vector without overflow or extraordinary precision loss due to underflow.
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+<strong>OpExtInst</strong> <strong>lgamma_r</strong>:
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+lgamma_r( x, signp ) returns 0 in signp if x is zero or a negative integer.
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+<strong>OpExtInst</strong> <strong>nextafter</strong>:
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+nextafter( -0, y &gt; 0 ) returns smallest positive denormal value.
+</p>
+</li>
+<li>
+<p>
+nextafter( +0, y &lt; 0 ) returns smallest negative denormal value.
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+<strong>OpExtInst</strong> <strong>normalize</strong>:
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+normalize shall reduce the vector to unit length, pointing in the same direction without overflow or extraordinary precision loss due to underflow.
+</p>
+</li>
+<li>
+<p>
+normalize( v ) returns v if all elements of v are zero.
+</p>
+</li>
+<li>
+<p>
+normalize( v ) returns a vector full of NaNs if any element is a NaN.
+</p>
+</li>
+<li>
+<p>
+normalize( v ) for which any element in v is infinite shall proceed as if the elements in v were replaced as follows:
+</p>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">for</span></span><span style="color: #990000">(</span> i <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span> i <span style="color: #990000">&lt;</span> <span style="font-weight: bold"><span style="color: #0000FF">sizeof</span></span><span style="color: #990000">(</span>v<span style="color: #990000">)</span> <span style="color: #990000">/</span> <span style="font-weight: bold"><span style="color: #0000FF">sizeof</span></span><span style="color: #990000">(</span>v<span style="color: #990000">[</span><span style="color: #993399">0</span><span style="color: #990000">]</span> <span style="color: #990000">);</span> i<span style="color: #990000">++</span> <span style="color: #990000">)</span>
+    v<span style="color: #990000">[</span>i<span style="color: #990000">]</span> <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">isinf</span></span><span style="color: #990000">(</span>v<span style="color: #990000">[</span>i<span style="color: #990000">]</span> <span style="color: #990000">)</span>  <span style="color: #990000">?</span>  <span style="font-weight: bold"><span style="color: #000000">copysign</span></span><span style="color: #990000">(</span><span style="color: #993399">1.0</span><span style="color: #990000">,</span> v<span style="color: #990000">[</span>i<span style="color: #990000">])</span> <span style="color: #990000">:</span> <span style="color: #993399">0.0</span> <span style="color: #990000">*</span> v <span style="color: #990000">[</span>i<span style="color: #990000">];</span></tt></pre></div></div>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+<strong>OpExtInst</strong> <strong>pow</strong>:
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+pow( ±0, -∞ ) returns +∞
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+<strong>OpExtInst</strong> <strong>pown</strong>:
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+pown( x, 0 ) is 1 for any x, even zero, NaN or infinity.
+</p>
+</li>
+<li>
+<p>
+pown( ±0, n ) is ±∞ for odd n &lt; 0.
+</p>
+</li>
+<li>
+<p>
+pown( ±0, n ) is +∞ for even n &lt; 0.
+</p>
+</li>
+<li>
+<p>
+pown( ±0, n ) is +0 for even n &gt; 0.
+</p>
+</li>
+<li>
+<p>
+pown( ±0, n ) is ±0 for odd n &gt; 0.
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+<strong>OpExtInst</strong> <strong>powr</strong>:
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+powr( x, ±0 ) is 1 for finite x &gt; 0.
+</p>
+</li>
+<li>
+<p>
+powr( ±0, y ) is +∞ for finite y &lt; 0.
+</p>
+</li>
+<li>
+<p>
+powr( ±0, -∞) is +∞.
+</p>
+</li>
+<li>
+<p>
+powr( ±0, y ) is +0 for y &gt; 0.
+</p>
+</li>
+<li>
+<p>
+powr( +1, y ) is 1 for finite y.
+</p>
+</li>
+<li>
+<p>
+powr( x, y ) returns NaN for x &lt; 0.
+</p>
+</li>
+<li>
+<p>
+powr( ±0, ±0 ) returns NaN.
+</p>
+</li>
+<li>
+<p>
+powr( +∞, ±0 ) returns NaN.
+</p>
+</li>
+<li>
+<p>
+powr( +1, ±∞ ) returns NaN.
+</p>
+</li>
+<li>
+<p>
+powr( x, NaN ) returns the NaN for x &gt;= 0.
+</p>
+</li>
+<li>
+<p>
+powr( NaN, y ) returns the NaN.
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+<strong>OpExtInst</strong> <strong>rint</strong>:
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+rint( -0.5 &lt;= x &lt; 0 ) returns -0.
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+<strong>OpExtInst</strong> <strong>remquo</strong>:
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+remquo(x, y, &amp;quo) returns a NaN and 0 in quo if x is ±∞, or if y is 0 and the other argument is non-NaN or if either argument is a NaN.
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+<strong>OpExtInst</strong> <strong>rootn</strong>:
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+rootn( ±0, n ) is ±∞ for odd n &lt; 0.
+</p>
+</li>
+<li>
+<p>
+rootn( ±0, n ) is +∞ for even n &lt; 0.
+</p>
+</li>
+<li>
+<p>
+rootn( ±0, n ) is +0 for even n &gt; 0.
+</p>
+</li>
+<li>
+<p>
+rootn( ±0, n ) is ±0 for odd n &gt; 0.
+</p>
+</li>
+<li>
+<p>
+rootn( x, n ) returns a NaN for x &lt; 0 and n is even.
+</p>
+</li>
+<li>
+<p>
+rootn( x, 0 ) returns a NaN.
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+<strong>OpExtInst</strong> <strong>round</strong>:
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+round( -0.5 &lt; x &lt; 0 ) returns -0.
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+<strong>OpExtInst</strong> <strong>sinpi</strong>:
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+sinpi( ±0 ) returns ±0.
+</p>
+</li>
+<li>
+<p>
+sinpi( +n) returns +0 for positive integers n.
+</p>
+</li>
+<li>
+<p>
+sinpi( -n ) returns -0 for negative integers n.
+</p>
+</li>
+<li>
+<p>
+sinpi( ±∞ ) returns a NaN.
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+<strong>OpExtInst</strong> <strong>tanpi</strong>:
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+tanpi( ±0 ) returns ±0.
+</p>
+</li>
+<li>
+<p>
+tanpi( ±∞ ) returns a NaN.
+</p>
+</li>
+<li>
+<p>
+tanpi( n ) is copysign( 0.0, n ) for even integers n.
+</p>
+</li>
+<li>
+<p>
+tanpi( n ) is copysign( 0.0, - n) for odd integers n.
+</p>
+</li>
+<li>
+<p>
+tanpi( n + 0.5 ) for even integer n is +∞ where n + 0.5 is representable.
+</p>
+</li>
+<li>
+<p>
+tanpi( n + 0.5 ) for odd integer n is -∞ where n + 0.5 is representable.
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+<strong>OpExtInst</strong> <strong>trunc</strong>:
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+trunc( -1 &lt; x &lt; 0 ) returns -0.
+</p>
+</li>
+</ul></div>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="changes-to-isoiec-9899-tc2-behavior">Changes to ISO/IEC 9899: TC2 Behavior</h4>
+<div class="paragraph"><p><strong>OpExtInst</strong> <strong>modf</strong> behaves as though implemented by:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #008080">gentype</span> <span style="font-weight: bold"><span style="color: #000000">modf</span></span><span style="color: #990000">(</span> <span style="color: #008080">gentype</span> value<span style="color: #990000">,</span> <span style="color: #008080">gentype</span> <span style="color: #990000">*</span>iptr <span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+    <span style="color: #990000">*</span>iptr <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">trunc</span></span><span style="color: #990000">(</span> value <span style="color: #990000">);</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #000000">copysign</span></span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #000000">isinf</span></span><span style="color: #990000">(</span> value <span style="color: #990000">)</span> <span style="color: #990000">?</span> <span style="color: #993399">0.0</span> <span style="color: #990000">:</span> value – <span style="color: #990000">*</span>iptr<span style="color: #990000">,</span> value <span style="color: #990000">);</span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+<div class="paragraph"><p><strong>OpExtInst</strong> <strong>rint</strong> always rounds according to round to nearest even rounding mode even if the caller is in some other rounding mode.</p></div>
+</div>
+<div class="sect3">
+<h4 id="edge-case-behavior-in-flush-to-zero-mode">Edge Case Behavior in Flush To Zero Mode</h4>
+<div class="paragraph"><p>If denormals are flushed to zero, then a function may return one of four results:</p></div>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+Any conforming result for non-flush-to-zero mode.
+</p>
+</li>
+<li>
+<p>
+If the result given by 1. is a sub-normal before rounding, it may be flushed to zero.
+</p>
+</li>
+<li>
+<p>
+Any non-flushed conforming result for the function if one or more of its sub-normal operands are flushed to zero.
+</p>
+</li>
+<li>
+<p>
+If the result of 3. is a sub-normal before rounding, the result may be flushed to zero.
+</p>
+</li>
+</ol></div>
+<div class="paragraph"><p>In each of the above cases, if an operand or result is flushed to zero, the sign of the zero is undefined.</p></div>
+<div class="paragraph"><p>If subnormals are flushed to zero, a device may choose to conform to the following edge cases for <strong>OpExtInst</strong> <strong>nextafter</strong> instead of those listed in <em><a href="#additional-requirements-beyond-isoiec-9899tc2">Additional Requirements Beyond ISO/IEC 9899:TC2</a> section</em>:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+nextafter ( +smallest normal, y &lt; +smallest normal ) = +0.
+</p>
+</li>
+<li>
+<p>
+nextafter ( -smallest normal, y &gt; -smallest normal ) = -0.
+</p>
+</li>
+<li>
+<p>
+nextafter ( -0, y &gt; 0 ) returns smallest positive normal value.
+</p>
+</li>
+<li>
+<p>
+nextafter ( +0, y &lt; 0 ) returns smallest negative normal value.
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>For clarity, subnormals or denormals are defined to be the set of representable numbers in the range 0 &lt; x &lt; TYPE_MIN  and -TYPE_MIN &lt; x &lt; -0.
+They do not include ±0.
+A non-zero number is said to be sub-normal before rounding if, after normalization, its radix-2 exponent is less than (TYPE_MIN_EXP - 1). <span class="footnote"><br>[Here <span class="monospaced">TYPE_MIN</span> and <span class="monospaced">TYPE_MIN_EXP</span> should be substituted by constants appropriate to the floating-point type under consideration, such as <span class="monospaced">FLT_MIN</span> and <span class="monospaced">FLT_MIN_EXP</span> for float.]<br></span></p></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footnotes"><hr></div>
+<div id="footer">
+<div id="footer-text">
+Version v2.2-3<br>
+Last updated
+ 2017-05-12 11:30:12 PDT
+</div>
+</div>
+</body>
+</html>
