@@ -65,7 +65,8 @@ include_once("../../assets/static_pages/khr_page_top.php");
      href="https://github.com/KhronosGroup/OpenCL-Registry/">
      OpenCL-Registry </a> Github repository.
      -->
-<li> The OpenCL 2.2 Quick Reference Card is not posted yet.
+<li> <a href="https://www.khronos.org/files/opencl22-reference-guide.pdf">
+     OpenCL 2.2 Reference Guide.</a> </li>
 <li> The OpenCL 2.2 header files are not posted yet.
      <!--
      All of the following headers should be present in a directory
