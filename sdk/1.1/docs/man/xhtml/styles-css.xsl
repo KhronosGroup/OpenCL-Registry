@@ -24,7 +24,7 @@
             font: bold 19px verdana, sans-serif;
             margin-top: 28px;
             margin-bottom: 3px;
-            padding-top: 0; 
+            padding-top: 0;
             padding-bottom: 0;
         }
 
@@ -47,19 +47,19 @@
         .pdparam {
             font: italic 16px verdana, sans-serif;
         }
-		
-		.term {
-			font: italic 16px verdana, sans-serif;
-			font-weight: normal;
-		}	
-		
-		.type {
-			font: normal 16px verdana, sans-serif !important;
-		}			
-		
-		.parameter { 
-			font-style: italic; 
-			}
+
+                .term {
+                        font: italic 16px verdana, sans-serif;
+                        font-weight: normal;
+                }
+
+                .type {
+                        font: normal 16px verdana, sans-serif !important;
+                }
+
+                .parameter {
+                        font-style: italic;
+                        }
 
         a:link, a:visited {
             color: blue;
@@ -76,8 +76,8 @@
             text-align: left;
             background-color: #e6e6e6;
             font: normal 16px verdana, sans-serif;
-			padding-top: 10px;
-			padding-bottom: 10px;
+                        padding-top: 10px;
+                        padding-bottom: 10px;
         }
 
         div.funcsynopsis table {
@@ -100,19 +100,19 @@
         code.constant {
             font: normal 16px courier new, monospace !important;
         }
-		
-		span.errorname {
+
+                span.errorname {
             font: normal 16px verdana, sans-serif !important;
         }
 
         code.function {
             font: bold 16px verdana, sans-serif !important;
         }
-		
+
         b.fsfunc {
             font: bold 16px verdana, sans-serif !important;
         }
-		
+
         code.varname {
             font: italic 16px verdana, sans-serif;
         }
@@ -145,39 +145,39 @@
         /* TABLES: These styles apply to all tables OTHER than the Synopsis and Example tables */
         div.refsect1 table {
             width: 100%;
-			margin-top: 10px;
+                        margin-top: 10px;
             background-color: #FFF;
-			border-collapse: collapse;
-			border-color: #000;
+                        border-collapse: collapse;
+                        border-color: #000;
             border-width: 1px;
-			font: normal 16px verdana, sans-serif;
+                        font: normal 16px verdana, sans-serif;
         }
-		
+
         div.refsect1 th {
-			border-collapse: collapse;
-			border-color: #000;
+                        border-collapse: collapse;
+                        border-color: #000;
             border-width: 1px;
             font: bold 16px verdana, sans-serif;
         }
-		
+
         div.refsect1 td {
             background-color: #FFF;
             padding: 5px;
             vertical-align: text-top;
-			border-collapse: collapse;
-			border-color: #000;
+                        border-collapse: collapse;
+                        border-color: #000;
             border-width: 1px;
             font: normal 16px verdana, sans-serif;
         }
-		
-		  div.refsect1 p{
+
+                  div.refsect1 p{
             font: normal 16px verdana, sans-serif;
             margin-top: 8px;
             margin-bottom: 8px;
             padding-top: 0;
             padding-bottom: 0;
         }
-		
+
 
         /* EXAMPLE: These styles apply only to the Example section */
         div.refsect2 {
@@ -196,7 +196,7 @@
         div.refsect2 td {
             background-color: #e6e6e6;
             font: normal 16px courier new, monospace !important;
-			white-space:pre;
+                        white-space:pre;
         }
 
         /* COPYRIGHT: This style formats the text of the copyright statement at the bottom of the page */
@@ -207,7 +207,7 @@
             padding-top: 0;
             padding-bottom: 0;
         }
-					
+
 </xsl:param>
 </xsl:stylesheet>
 

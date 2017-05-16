@@ -11,6 +11,7 @@ XSLT	= xsltproc --nonet
 
 SED	= sed
 MV	= mv
+RUBY	= ruby
 
 # Location of locally customized stylesheet, which imports
 # the Docbook modular stylesheets, and specifically the
@@ -20,14 +21,14 @@ DB2XHTML = opencl-man.xsl
 # Additional global dependencies that should cause a re-build of all pages:
 # Unfortunately, if one line changes in the pageNumberLookup.rb file, it's only
 # necessary to rebuild the corresponding .html refpage, but there's no easy way to
-# express that in makefile rules. The choices are either to automatically 
-# rebuild all .html refpages triggered by any change in pageNumberLookup.rb, 
+# express that in makefile rules. The choices are either to automatically
+# rebuild all .html refpages triggered by any change in pageNumberLookup.rb,
 # or else to rely on a human to rebuild pages as needed.
 ADDTL_DEPS = copyright.inc.xsl styles-css.xsl pageNumberLookup.rb
 #ADDTL_DEPS = copyright.inc.xsl styles-css.xsl
 
 # Filter program to fix up links to specification page numbers:
-PAGENUM_FIXUP = ./pageNumberLookup.rb
+PAGENUM_FIXUP = $(RUBY) pageNumberLookup.rb
 
 .SUFFIXES: .gl .xml .html .xhtml .ck.xhtml .tex .pdf .3G .tar .tar.gz
 #.PHONY: man html
