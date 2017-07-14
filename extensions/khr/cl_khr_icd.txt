@@ -4,6 +4,7 @@ Name Strings
 
 Contributors
 
+    Ben Ashbaugh
     Christopher Cameron
     Benedict Gaster
     Michael Houston
@@ -19,7 +20,7 @@ IP Status
 
 Version
 
-    Version 7, March 2, 2010
+    Version 8, August 8, 2017
 
 Number
 
@@ -92,18 +93,56 @@ ICD Data
 
 ICD Loader Vendor Enumeration on Windows
 
-    To enumerate Vendor ICDs on Windows, the ICD Loader scans
-    the values in the registry key
-    HKEY_LOCAL_MACHINE\SOFTWARE\Khronos\OpenCL\Vendors
-    For each value in this key which has DWORD data set to 0, the ICD
-    Loader opens the dynamic link library specified by the name of
-    the value using LoadLibraryA.
- 
-    For example, if the registry contains the following value
-      [HKEY_LOCAL_MACHINE\SOFTWARE\Khronos\OpenCL\Vendors]
+    To enumerate Vendor ICDs on Windows, the ICD Loader will first
+    scan for REG_SZ string values in the "Display Adapter" and
+    "Software Components" HKR registry keys.  The exact registry
+    keys to scan should be obtained via PnP Configuration Manager
+    APIs, but will look like:
+
+    For 64-bit ICDs:
+
+        HKLM\SYSTEM\CurrentControlSet\Control\Class\
+        {Display Adapter GUID}\{Instance ID}\OpenCLDriverName, or
+
+        HKLM\SYSTEM\CurrentControlSet\Control\Class\
+        {Software Component GUID}\{Instance ID}\OpenCLDriverName
+
+    For 32-bit ICDs:
+
+        HKLM\SYSTEM\CurrentControlSet\Control\Class\
+        {Display Adapter GUID}\{Instance ID}\OpenCLDriverNameWoW, or
+
+        HKLM\SYSTEM\CurrentControlSet\Control\Class\
+        {Software Component GUID}\{Instance ID}\OpenCLDriverNameWoW
+
+    These registry values contain the path to the Vendor ICD library.
+    For example, if the registry contains the value:
+
+        [HKLM\SYSTEM\CurrentControlSet\Control\Class\{GUID}\{Instance}]
+        "OpenCLDriverName"="c:\\vendor a\\vndra_ocl.dll"
+
+    Then the ICD loader will open the Vendor ICD library:
+
+        "c:\vendor a\vndra_ocl.dll"
+
+    The ICD Loader will also scan for REG_DWORD values in the registry
+    key:
+
+        HKLM\SOFTWARE\Khronos\OpenCL\Vendors
+
+    For each registry value in this key which has data set to 0, the
+    ICD Loader will open the Vendor ICD library specified by the name
+    of the registry value.
+
+    For example, if the registry contains the value:
+
+      [HKLM\SOFTWARE\Khronos\OpenCL\Vendors]
       "c:\\vendor a\\vndra_ocl.dll"=dword:00000000
-    then the ICD will open the library "c:\vendor a\vndra_ocl.dll"
- 
+
+    Then the ICD will open the Vendor ICD library:
+
+        "c:\vendor a\vndra_ocl.dll"
+
 ICD Loader Vendor Enumeration on Linux
 
     To enumerate vendor ICDs on Linux, the ICD Loader scans
@@ -263,9 +302,8 @@ Issues
 
 Sample Code
     
-    The official source for the ICD. This is currently available
-    only to Khronos members from our internal Subversion
-    repository under /repos/OpenCL/trunk/icd/
+    The official source for the ICD loader is available on github, here:
+        https://github.com/KhronosGroup/OpenCL-ICD-Loader
 
     An abbreviated version of the _cl_icd_dispatch structure is
     as follows.
@@ -310,6 +348,10 @@ Conformance Tests
     on their platform through the ICD Loader.
 
 Revision History
+
+    Version 8, 2017/08/08 (Ben Ashbaugh) - updated to include HKR
+    as a scanned registry key for Windows, added github link for ICD
+    loader source code.
 
     Version 7, 2010/03/02 (Jon Leech) - fix typos for
     clGetExtensionFunctionAddress (public bug 258), reflow a paragraph
