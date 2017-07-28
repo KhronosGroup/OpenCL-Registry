@@ -1,17 +1,8 @@
 <?php
 $static_title = 'Khronos OpenCL Registry';
-$static_breadcrumb = array(
-    '/registry/' => 'Registry',
-    'NOLINK' => 'OpenCL Registry'
-);
+
 include_once("../../assets/static_pages/khr_page_top.php");
 ?>
-
-<h1 class="pagetitle">Khronos OpenCL&trade; Registry</h1>
-<div id="mainformat">
-
-
-<h1 style="text-align:center"> Khronos OpenCL&trade; Registry </h1>
 
 <p> The OpenCL registry contains specifications of the core API and the
     OpenCL C language; a portable intermediate representation of OpenCL
