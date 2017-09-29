@@ -8,11 +8,12 @@ Name Strings
 
 Contributors
 
-    Robert Elliott, ARM
+    Robert Elliott, ARM Ltd.
+    Kévin Petit, ARM Ltd.
 
 Contact
 
-    Robert Elliott, ARM (robert.elliott 'at' ARM.com)
+    Kévin Petit, ARM Ltd. (kevin.petit 'at' ARM.com)
 
 IP Status
 
@@ -20,7 +21,7 @@ IP Status
 
 Version
 
-    Revision: #2, Feb 23rd, 2015
+    Revision: #3, Sept 28th, 2017
 
 Number
 
@@ -40,10 +41,10 @@ Dependencies
 
 Overview
 
-    This extension provides a way for an application to provide a hint for the
-    maximum threads to run concurrently on a compute unit. This results in a
-    limit in the threads used by a kernel instance on some devices and results
-    in a lower pressure on caches.
+    This extension enables an application to provide a hint for the maximum
+    number of threads allowed to run concurrently on a compute unit. This
+    results in a limit in the threads used by a kernel instance on devices
+    that support it, lowering pressure on caches.
 
 Header File
 
@@ -68,8 +69,9 @@ New Procedures and Functions
       The attribute can be specified as part of the declaration of a kernel and
       provides a hint to the implementation that using fewer threads is desired.
 
-      The hint must be the value 64, 128 or 256, and the hint cannot be provided
-      without an explicit size.
+      The implementation will accept any number between 0 and
+      CL_DEVICE_MAX_WORK_GROUP_SIZE and choose the closest number that can be
+      used.
 
       If the hint is larger than the maximum workgroup size supported by the
       kernel for that device, it is not honored.
@@ -79,14 +81,14 @@ New Procedures and Functions
 
       If the hint is not honored, a warning will be produced on context_notify.
 
-      The hint will be honored on architectures which support this feature.
+      The hint will be honored on devices which support this feature.
 
 New Tokens
 
     OpenCL kernel code now has access to:
 
       #pragma OPENCL EXTENSION cl_arm_thread_limit_hint : enable
-      The define cl_arm_thread_limit_hint is also present
+      The define cl_arm_thread_limit_hint is also present.
 
 Interactions with other extensions
 
@@ -124,3 +126,5 @@ Revision History
     Revision: #1, Feb 2nd, 2015 - Initial revision
     Revision: #2, Feb 23rd, 2015 - Tidied up some of the language, added _hint
                   to the extension to be more consistent with other extensions.
+    Revision: #3, Sept 28th, 2017 - Relaxed the constraints on the number of
+                  threads accepted. Clarified the wording.
