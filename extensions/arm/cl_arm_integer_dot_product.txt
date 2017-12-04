@@ -1,0 +1,113 @@
+Name
+
+    ARM_integer_dot_product
+
+Name Strings
+
+    cl_arm_integer_dot_product_int8
+    cl_arm_integer_dot_product_accumulate_int8
+    cl_arm_integer_dot_product_accumulate_int16
+
+Contributors
+
+    Kevin Petit, ARM Ltd.
+    Abel Bernabeu, ARM Ltd.
+    Giridhar Tammana, ARM Ltd.
+
+Contact
+
+    Kevin Petit, ARM Ltd. (kevin.petit 'at' ARM.com)
+
+IP Status
+
+    No claims or disclosures are known to exist.
+
+Version
+
+    Revision: #3, November 17th, 2017
+
+Number
+
+    OpenCL Extension #?
+
+Status
+
+    Complete.
+
+Extension Type
+
+    OpenCL device extension
+
+Dependencies
+
+    Requires OpenCL version 1.2 or later.
+
+Overview
+
+    This extension adds built-in functions giving direct access to specialised
+    integer dot product instructions that are supported on some devices.  An
+    application wishing to support a fallback path for devices where a specific
+    function is not available may use the following pattern:
+
+    #ifdef cl_arm_integer_dot_product_XXX
+    #pragma OPENCL EXTENSION cl_arm_integer_dot_product_XXX : enable
+        code using arm_dot_xxx()
+    #else
+        alternative implementation
+    #endif
+
+Header File
+
+    cl_ext.h
+
+New Procedures and Functions
+
+    Built-in Functions
+
+      int arm_dot(char4 a, char4 b);
+      uint arm_dot(uchar4 a, uchar4 b);
+
+    Description
+
+      These functions are available when cl_arm_integer_dot_product_int8 is reported.
+      The cl_arm_integer_dot_product_int8 preprocessor macro is then defined.
+
+      The value returned is:
+
+        (a.x * b.x) + (a.y * b.y) + (a.z * b.z) + (a.w * b.w).
+
+      Operands are zero- or sign-extended to 32-bit before the multiplications.
+
+    Built-in Functions
+
+      int arm_dot_acc(char4 a, char4 b, int acc);
+      uint arm_dot_acc(uchar4 a, uchar4 b, uint acc);
+
+    Description
+
+      These functions are available when cl_arm_integer_dot_product_accumulate_int8
+      is reported.  The cl_arm_integer_dot_product_accumulate_int8 preprocessor
+      macro is then defined.
+
+      The value returned is:
+
+        acc + [ (a.x * b.x) + (a.y * b.y) + (a.z * b.z) + (a.w * b.w) ].
+
+      Operands are zero- or sign-extended to 32-bit before the multiplications.
+
+    Built-in Functions
+
+      int arm_dot_acc(short2 a, short2 b, int acc);
+      uint arm_dot_acc(ushort2 a, ushort2 b, uint acc);
+
+    Description
+
+      These functions are available when cl_arm_integer_dot_product_accumulate_int16
+      is reported.  The cl_arm_integer_dot_product_accumulate_int16 preprocessor
+      macro is then defined.
+
+      The value returned is:
+
+        acc + [ (a.x * b.x) + (a.y * b.y) ].
+
+      Operands are zero- or sign-extended to 32-bit before the multiplications.
