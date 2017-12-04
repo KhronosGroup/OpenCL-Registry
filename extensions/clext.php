@@ -101,4 +101,6 @@
 </li>
 <li value=51><a href="extensions/intel/cl_intel_media_block_io.txt">cl_intel_media_block_io</a>
 </li>
+<li value=52><a href="extensions/arm/cl_arm_integer_dot_product.txt">cl_arm_integer_dot_product</a>
+</li>
 </ol>

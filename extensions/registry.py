@@ -71,6 +71,11 @@ registry = {
         'flags' : { 'public' },
         'url' : 'extensions/arm/cl_arm_thread_limit_hint.txt',
     },
+    'cl_arm_integer_dot_product' : {
+        'number' : 52,
+        'flags' : { 'public' },
+        'url' : 'extensions/arm/cl_arm_integer_dot_product.txt',
+    },
     'cl_ext_atomic_counters_32' : {
         'number' : 12,
         'flags' : { 'public' },
