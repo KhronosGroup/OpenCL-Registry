@@ -27,7 +27,7 @@ IP Status
 
 Version
 
-    Revision: #5, May 3rd, 2017
+    Revision: #6, Jan 5th, 2018
 
 Number
 
@@ -133,7 +133,6 @@ New Procedures and Functions
       one of the following API functions (they can't be used with imported
       memory objects):
 
-             * clCreateSubBuffer
              * clEnqueueMapBuffer
              * clEnqueueMapImage
              * clEnqueueUnmapMemObject
@@ -234,6 +233,15 @@ Interactions with other extensions
     the resulting cl_mem and subject to the restrictions listed in this
     document.
 
+    In order to guarantee data consistency, applications must ensure that neither
+    the host nor any device attempt to perform simultaneous read and write
+    operations on any part of the memory backing an imported buffer or sub-buffers
+    created therefrom, even if these accesses do not overlap. For example, this
+    implies that it is not possible to write part of the memory backing an imported
+    buffer on the host while reading a sub-buffer created from that buffer on a
+    device, even if the memory written by the host is not visible through the
+    sub-buffer.
+
     This extension also provides an alternative to image import via EGL.
 
 Sample Code
@@ -297,3 +305,5 @@ Revision History
                                    changes made during review.
     Revision: #5, May 3rd, 2017  - Additional restrictions on host operations
                                    and general cleanup / clarification.
+    Revision: #6, Jan 5th, 2018  - Support creating a sub-buffer from an imported
+                                   buffer.
