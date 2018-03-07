@@ -1,0 +1,80 @@
+Name Strings
+
+    cl_qcom_ext_host_ptr_iocoherent
+
+Contributors
+
+    Balaji Calidas, Qualcomm Technologies, Inc.
+    Manali Torpe, Qualcomm Innovation Center, Inc.
+    Sreelakshmi Haridas Maruthur, Qualcomm Innovation Center, Inc.
+
+Contact
+
+    bcalidas at qti dot qualcomm dot com
+
+Version
+
+    Version 4, 2018/03/06
+
+Number
+
+    OpenCL Extension #TBD
+
+Status
+
+    Shipping
+
+Extension Type
+
+    OpenCL device extension
+
+Dependencies
+
+    OpenCL 1.1 is required.
+    cl_qcom_ext_host_ptr is required.
+
+    This extension extends the functionality of cl_qcom_ext_host_ptr.
+
+Overview
+
+    This extension extends the functionality provided by cl_qcom_ext_host_ptr by
+    adding a new host cache policy. It allows applications to specify a new
+    value, CL_MEM_HOST_IOCOHERENT_QCOM, for
+    cl_mem_ext_host_ptr::host_cache_policy. When the application selects this
+    value for host cache policy, the imported allocation is mapped as
+    io-coherent for the GPU. This in turn avoids the need for the OpenCL driver
+    to explicitly issue CPU cache operation calls. Although GPU performance can
+    be slower in some cases for io-coherent allocations, the overall performance
+    can improve due to the elimination of explicit CPU cache operations.
+
+Header File
+
+    cl_ext.h
+
+New Tokens
+
+    Modification to handling of <host_ptr> argument of clCreateBuffer,
+    clCreateImage2D and clCreateImage3D when CL_MEM_EXT_HOST_PTR_QCOM is
+    specified in the <flags> argument.
+
+    New accepted value for cl_mem_ext_host_ptr::host_cache_policy:
+
+        CL_MEM_HOST_IOCOHERENT_QCOM                0x40A9
+
+    As described in the cl_qcom_ext_host_ptr spec, when CL_MEM_EXT_HOST_PTR_QCOM
+    is enabled in the <flags> argument, then <host_ptr> is interpreted as a
+    pointer to cl_mem_ext_host_ptr. The application must initialize
+    cl_mem_ext_host_ptr::host_cache_policy to one of CL_MEM_HOST_UNCACHED_QCOM,
+    CL_MEM_HOST_WRITEBACK_QCOM, or CL_MEM_HOST_IOCOHERENT_QCOM according to the
+    cache policy used in the host for this memory allocation.
+    CL_MEM_HOST_IOCOHERENT_QCOM can only be specified when the memory was
+    originally allocated as cached. Use of this value with an uncached
+    allocation will lead to undefined results.
+
+Revision History
+
+    Revision 1, 2018/01/03: Initial version.
+    Revision 2, 2018/01/15: Minor edits.
+    Revision 3, 2018/01/19: Formatting and misc changes. No functional changes.
+    Revision 4, 2018/03/06: Corrected token value.
+
