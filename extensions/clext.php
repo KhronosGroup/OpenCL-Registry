@@ -103,4 +103,6 @@
 </li>
 <li value=52><a href="extensions/arm/cl_arm_integer_dot_product.txt">cl_arm_integer_dot_product</a>
 </li>
+<li value=53><a href="extensions/qcom/cl_qcom_ext_host_ptr_iocoherent.txt">cl_qcom_ext_host_ptr_iocoherent</a>
+</li>
 </ol>

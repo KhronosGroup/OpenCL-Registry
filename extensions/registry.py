@@ -261,4 +261,9 @@ registry = {
         'flags' : { 'public' },
         'url' : 'extensions/qcom/cl_qcom_ion_host_ptr.txt',
     },
+    'cl_qcom_ext_host_ptr_iocoherent' : {
+        'number' : 53,
+        'flags' : { 'public' },
+        'url' : 'extensions/qcom/cl_qcom_ext_host_ptr_iocoherent.txt',
+    },
 }
