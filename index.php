@@ -4,16 +4,18 @@ $static_title = 'Khronos OpenCL Registry';
 include_once("../../assets/static_pages/khr_page_top.php");
 ?>
 
-<p> The OpenCL registry contains specifications of the core API and the
-    OpenCL C language; a portable intermediate representation of OpenCL
-    programs; specifications of Khronos- and vendor-approved OpenCL
-    extensions; reference pages for different OpenCL versions; and links to
-    header files corresponding to the specifications, which are now hosted
-    in the <a href="https://www.github.com/KhronosGroup/OpenCL-Headers/">
+<p> The OpenCL registry contains specifications for the core API; Khronos-
+    and vendor-approved extensions to the core API; the OpenCL C and C++
+    languages; and the OpenCL SPIR-V Environment.
+
+<p> In addition, it contains reference pages for different OpenCL versions
+    and links to header files corresponding to the specifications, which are
+    now hosted in the <a
+    href="https://www.github.com/KhronosGroup/OpenCL-Headers/">
     OpenCL-Headers </a> Github repository. </p>
 
-<p> The OpenCL Standard Portable Intermediate Representation (SPIR) is
-    found in the <a href="../spir/">SPIR Registry</a>. </p>
+<p> The OpenCL Standard Portable Intermediate Representation (SPIR)
+    specification is found in the <a href="../spir/">SPIR Registry</a>. </p>
 
 <p> The SYCL specification is found in the <a href="../sycl/">SYCL
     Registry</a>. </p>
@@ -23,31 +25,39 @@ include_once("../../assets/static_pages/khr_page_top.php");
     href="https://github.com/KhronosGroup/OpenCL-Registry/"> OpenCL-Registry
     </a> Github repository. </li>
 
-<h6> OpenCL Core API and C Language Specification, Headers, and Documentation </h6>
+<h6> OpenCL Specification, Headers, and Documentation </h6>
 
 <p> The current version of OpenCL is OpenCL 2.2. </p>
 
-<p> The asciidoc source for the OpenCL 2.2 Specifications is available in
+<p> The asciidoctor source for the OpenCL 2.2 Specifications is available in
     the <a href="https://github.com/KhronosGroup/OpenCL-Docs">
     KhronosGroup/OpenCL-Docs </a> Github repository. </p>
 
 <ul>
 <li> OpenCL 2.2 API Specification
-     (<a href="specs/opencl-2.2.pdf">PDF</a>)
-     (<a href="specs/opencl-2.2.html">HTML</a>)
-     (May 12, 2017). </li>
+     (<a href="specs/2.2/html/OpenCL_API.pdf">PDF</a>)
+     (<a href="specs/2.2/pdf/OpenCL_API.html">HTML</a>)
+     (May 12, 2018). </li>
 <li> OpenCL 2.2 Extension Specification
-     (<a href="specs/opencl-2.2-extension.pdf">PDF</a>)
-     (<a href="specs/opencl-2.2-extension.html">HTML</a>)
-     (May 12, 2017). </li>
+     (<a href="specs/2.2/html/OpenCL_Ext.pdf">PDF</a>)
+     (<a href="specs/2.2/pdf/OpenCL_Ext.html">HTML</a>)
+     (May 12, 2018). </li>
 <li> OpenCL 2.2 SPIR-V Environment Specification
-     (<a href="specs/opencl-2.2-environment.pdf">PDF</a>)
-     (<a href="specs/opencl-2.2-environment.html">HTML</a>)
-     (May 12, 2017). </li>
+     (<a href="specs/2.2/html/OpenCL_Env.pdf">PDF</a>)
+     (<a href="specs/2.2/pdf/OpenCL_Env.html">HTML</a>)
+     (May 12, 2018). </li>
+<li> OpenCL C Language Specification
+     (<a href="specs/2.2/html/OpenCL_C.pdf">PDF</a>)
+     (<a href="specs/2.2/pdf/OpenCL_C.html">HTML</a>)
+     (May 12, 2018). </li>
 <li> OpenCL C++ Language Specification
-     (<a href="specs/opencl-2.2-cplusplus.pdf">PDF</a>)
-     (<a href="specs/opencl-2.2-cplusplus.html">HTML</a>)
-     (May 12, 2017). </li>
+     (<a href="specs/2.2/html/OpenCL_Cxx.pdf">PDF</a>)
+     (<a href="specs/2.2/pdf/OpenCL_Cxx.html">HTML</a>)
+     (May 12, 2018). </li>
+<li> OpenCL ICD Installation Guide Specification
+     (<a href="specs/2.2/html/OpenCL_ICD_Installation.pdf">PDF</a>)
+     (<a href="specs/2.2/pdf/OpenCL_ICD_Installation.html">HTML</a>)
+     (May 12, 2018). </li>
 <li> The OpenCL 2.2 Reference Pages are not posted yet. </li>
      <!--
      <a href="http://www.khronos.org/registry/cl/sdk/2.2/docs/man/xhtml/">
