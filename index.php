@@ -35,28 +35,28 @@ include_once("../../assets/static_pages/khr_page_top.php");
 
 <ul>
 <li> OpenCL 2.2 API Specification
-     (<a href="specs/2.2/html/OpenCL_API.html">PDF</a>)
-     (<a href="specs/2.2/pdf/OpenCL_API.pdf">HTML</a>)
+     (<a href="specs/2.2/html/OpenCL_API.html">HTML</a>)
+     (<a href="specs/2.2/pdf/OpenCL_API.pdf">PDF</a>)
      (May 12, 2018). </li>
 <li> OpenCL 2.2 Extension Specification
-     (<a href="specs/2.2/html/OpenCL_Ext.html">PDF</a>)
-     (<a href="specs/2.2/pdf/OpenCL_Ext.pdf">HTML</a>)
+     (<a href="specs/2.2/html/OpenCL_Ext.html">HTML</a>)
+     (<a href="specs/2.2/pdf/OpenCL_Ext.pdf">PDF</a>)
      (May 12, 2018). </li>
 <li> OpenCL 2.2 SPIR-V Environment Specification
-     (<a href="specs/2.2/html/OpenCL_Env.html">PDF</a>)
-     (<a href="specs/2.2/pdf/OpenCL_Env.pdf">HTML</a>)
+     (<a href="specs/2.2/html/OpenCL_Env.html">HTML</a>)
+     (<a href="specs/2.2/pdf/OpenCL_Env.pdf">PDF</a>)
      (May 12, 2018). </li>
 <li> OpenCL C Language Specification
-     (<a href="specs/2.2/html/OpenCL_C.html">PDF</a>)
-     (<a href="specs/2.2/pdf/OpenCL_C.pdf">HTML</a>)
+     (<a href="specs/2.2/html/OpenCL_C.html">HTML</a>)
+     (<a href="specs/2.2/pdf/OpenCL_C.pdf">PDF</a>)
      (May 12, 2018). </li>
 <li> OpenCL C++ Language Specification
-     (<a href="specs/2.2/html/OpenCL_Cxx.html">PDF</a>)
-     (<a href="specs/2.2/pdf/OpenCL_Cxx.pdf">HTML</a>)
+     (<a href="specs/2.2/html/OpenCL_Cxx.html">HTML</a>)
+     (<a href="specs/2.2/pdf/OpenCL_Cxx.pdf">PDF</a>)
      (May 12, 2018). </li>
 <li> OpenCL ICD Installation Guide Specification
-     (<a href="specs/2.2/html/OpenCL_ICD_Installation.html">PDF</a>)
-     (<a href="specs/2.2/pdf/OpenCL_ICD_Installation.pdf">HTML</a>)
+     (<a href="specs/2.2/html/OpenCL_ICD_Installation.html">HTML</a>)
+     (<a href="specs/2.2/pdf/OpenCL_ICD_Installation.pdf">PDF</a>)
      (May 12, 2018). </li>
 <li> The OpenCL 2.2 Reference Pages are not posted yet. </li>
      <!--
