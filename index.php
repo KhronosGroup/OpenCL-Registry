@@ -8,11 +8,9 @@ include_once("../../assets/static_pages/khr_page_top.php");
     and vendor-approved extensions to the core API; the OpenCL C and C++
     languages; and the OpenCL SPIR-V Environment.
 
-<p> In addition, it contains reference pages for different OpenCL versions
-    and links to header files corresponding to the specifications, which are
-    now hosted in the <a
-    href="https://www.github.com/KhronosGroup/OpenCL-Headers/">
-    OpenCL-Headers </a> Github repository. </p>
+<p> In addition, it contains reference pages for different OpenCL versions,
+    and links to the github repository containing unified header files
+    corresponding to the Specifications. </p>
 
 <p> The OpenCL Standard Portable Intermediate Representation (SPIR)
     specification is found in the <a href="../spir/">SPIR Registry</a>. </p>
@@ -25,7 +23,7 @@ include_once("../../assets/static_pages/khr_page_top.php");
     href="https://github.com/KhronosGroup/OpenCL-Registry/"> OpenCL-Registry
     </a> Github repository. </li>
 
-<h6> OpenCL Specification, Headers, and Documentation </h6>
+<h6> OpenCL Specifications and Related Documentation </h6>
 
 <p> The current version of OpenCL is OpenCL 2.2. </p>
 
@@ -58,6 +56,9 @@ include_once("../../assets/static_pages/khr_page_top.php");
      (<a href="specs/2.2/html/OpenCL_ICD_Installation.html">HTML</a>)
      (<a href="specs/2.2/pdf/OpenCL_ICD_Installation.pdf">PDF</a>)
      (May 12, 2018). </li>
+<li> The <a href="https://www.khronos.org/registry/spir-v/"> OpenCL Extended
+     Instruction Set for SPIR-V</a> is included as part of the SPIR-V
+     registry.
 <li> The OpenCL 2.2 Reference Pages are not posted yet. </li>
      <!--
      <a href="http://www.khronos.org/registry/cl/sdk/2.2/docs/man/xhtml/">
@@ -68,6 +69,21 @@ include_once("../../assets/static_pages/khr_page_top.php");
      -->
 <li> <a href="https://www.khronos.org/files/opencl22-reference-guide.pdf">
      OpenCL 2.2 Reference Guide.</a> </li>
+</ul>
+
+<h6> OpenCL Header Files </h6>
+
+<p> C language header files for the OpenCL API are found in the <a
+    href="https://github.com/KhronosGroup/OpenCL-Headers">
+    KhronosGroup/OpenCL-Headers</a> Github repository. In the past, there
+    were different header files for each OpenCL version. The header files
+    have now been unified - a single set of headers supports all OpenCL API
+    versions - and the API version defined by the headers at compilation
+    time is determined as described in the README.md in that repository.
+    </a>
+
+    <!--
+<ul>
 <li> All of the following headers should be present in a directory
      <tt> CL/ </tt> (or <tt> OpenCL/ </tt> on MacOS X). The single
      header file <a href="https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/opencl22/CL/opencl.h"> opencl.h </a> includes
@@ -98,10 +114,8 @@ include_once("../../assets/static_pages/khr_page_top.php");
      <li> <a href="https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/opencl22/CL/cl_gl_ext.h"> cl_gl_ext.h </a> -
           OpenCL 2.2 Vendor OpenCL/OpenGL Extensions Header File. </li>
      </li>
-<li> The <a href="https://www.khronos.org/registry/spir-v/"> OpenCL Extended
-     Instruction Set for SPIR-V</a> is included as part of the SPIR-V
-     registry.
 </ul>
+    -->
 
 
 <h6> OpenCL ICD and C++ Bindings Headers </h6>
@@ -147,36 +161,6 @@ include_once("../../assets/static_pages/khr_page_top.php");
      OpenCL 2.1 Reference Pages.</a>
 <li> <a href="http://www.khronos.org/registry/cl/sdk/2.1/docs/OpenCL-2.1-refcard.pdf">
      OpenCL 2.1 Quick Reference Card.</a> </li>
-<li> All of the following headers should be present in a directory
-     <tt> CL/ </tt> (or <tt> OpenCL/ </tt> on MacOS X). The single
-     header file <a href="https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/opencl21/CL/opencl.h"> opencl.h </a> includes
-     other headers as appropriate for the target platform, and simply
-     including <tt> opencl.h </tt> should be all that most applications
-     need to do.
-
-     <ul>
-     <li> <a href="https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/opencl21/CL/opencl.h"> opencl.h </a> -
-          OpenCL 2.1 Single Header File for Applications. </li>
-     <li> <a href="https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/opencl21/CL/cl_platform.h"> cl_platform.h </a> -
-          OpenCL 2.1 Platform-Dependent Macros. </li>
-     <li> <a href="https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/opencl21/CL/cl.h"> cl.h </a> -
-          OpenCL 2.1 Core API Header File. </li>
-     <li> <a href="https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/opencl21/CL/cl_ext.h"> cl_ext.h </a> -
-          OpenCL 2.1 Extensions Header File. </li>
-     <li> <a href="https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/opencl21/CL/cl_egl.h"> cl_egl.h </a> -
-          OpenCL 2.1 Khronos EGL Extensions Header File. </li>
-     <li> <a href="https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/opencl21/CL/cl_dx9_media_sharing.h"> cl_dx9_media_sharing.h </a> -
-          OpenCL 2.1 Khronos OpenCL/Direct3D 9 Media Sharing Extensions
-          Header File. </li>
-     <li> <a href="https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/opencl21/CL/cl_d3d10.h"> cl_d3d10.h </a> -
-          OpenCL 2.1 Khronos OpenCL/Direct3D 10 Extensions Header File. </li>
-     <li> <a href="https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/opencl21/CL/cl_d3d11.h"> cl_d3d11.h </a> -
-          OpenCL 2.1 Khronos OpenCL/Direct3D 11 Extensions Header File. </li>
-     <li> <a href="https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/opencl21/CL/cl_gl.h"> cl_gl.h </a> -
-          OpenCL 2.1 Khronos OpenCL/OpenGL Extensions Header File. </li>
-     <li> <a href="https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/opencl21/CL/cl_gl_ext.h"> cl_gl_ext.h </a> -
-          OpenCL 2.1 Vendor OpenCL/OpenGL Extensions Header File. </li>
-     </ul> </li>
 </ul>
 
 <h6> OpenCL 2.0 </h6>
@@ -195,32 +179,6 @@ include_once("../../assets/static_pages/khr_page_top.php");
      OpenCL 2.0 Reference Pages.</a>
 <li> <a href="http://www.khronos.org/registry/cl/sdk/2.0/docs/OpenCL-2.0-refcard.pdf">
      OpenCL 2.0 Quick Reference Card.</a> </li>
-<li> OpenCL 2.0 headers are structured in exactly the same fashion as
-     OpenCL 2.0 headers described above.
-
-     <ul>
-     <li> <a href="https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/opencl20/CL/opencl.h"> opencl.h </a> -
-          OpenCL 2.0 Single Header File for Applications. </li>
-     <li> <a href="https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/opencl20/CL/cl_platform.h"> cl_platform.h </a> -
-          OpenCL 2.0 Platform-Dependent Macros. </li>
-     <li> <a href="https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/opencl20/CL/cl.h"> cl.h </a> -
-          OpenCL 2.0 Core API Header File. </li>
-     <li> <a href="https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/opencl20/CL/cl_ext.h"> cl_ext.h </a> -
-          OpenCL 2.0 Extensions Header File. </li>
-     <li> <a href="https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/opencl20/CL/cl_egl.h"> cl_egl.h </a> -
-          OpenCL 2.0 Khronos EGL Extensions Header File. </li>
-     <li> <a href="https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/opencl20/CL/cl_dx9_media_sharing.h"> cl_dx9_media_sharing.h </a> -
-          OpenCL 2.0 Khronos OpenCL/Direct3D 9 Media Sharing Extensions
-          Header File. </li>
-     <li> <a href="https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/opencl20/CL/cl_d3d10.h"> cl_d3d10.h </a> -
-          OpenCL 2.0 Khronos OpenCL/Direct3D 10 Extensions Header File. </li>
-     <li> <a href="https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/opencl20/CL/cl_d3d11.h"> cl_d3d11.h </a> -
-          OpenCL 2.0 Khronos OpenCL/Direct3D 11 Extensions Header File. </li>
-     <li> <a href="https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/opencl20/CL/cl_gl.h"> cl_gl.h </a> -
-          OpenCL 2.0 Khronos OpenCL/OpenGL Extensions Header File. </li>
-     <li> <a href="https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/opencl20/CL/cl_gl_ext.h"> cl_gl_ext.h </a> -
-          OpenCL 2.0 Vendor OpenCL/OpenGL Extensions Header File. </li>
-     </ul> </li>
 </ul>
 
 <h6> OpenCL 1.2 </h6>
@@ -236,32 +194,6 @@ include_once("../../assets/static_pages/khr_page_top.php");
      OpenCL 1.2 Reference Pages.</a>
 <li> <a href="http://www.khronos.org/registry/cl/sdk/1.2/docs/OpenCL-1.2-refcard.pdf">
      OpenCL 1.2 Quick Reference Card.</a> </li>
-<li> OpenCL 1.2 headers are structured in exactly the same fashion as
-     OpenCL 2.1 headers described above.
-
-     <ul>
-     <li> <a href="https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/opencl12/CL/opencl.h"> opencl.h </a> -
-          OpenCL 1.2 Single Header File for Applications. </li>
-     <li> <a href="https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/opencl12/CL/cl_platform.h"> cl_platform.h </a> -
-          OpenCL 1.2 Platform-Dependent Macros. </li>
-     <li> <a href="https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/opencl12/CL/cl.h"> cl.h </a> -
-          OpenCL 1.2 Core API Header File. </li>
-     <li> <a href="https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/opencl12/CL/cl_ext.h"> cl_ext.h </a> -
-          OpenCL 1.2 Extensions Header File. </li>
-     <li> <a href="https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/opencl12/CL/cl_egl.h"> cl_egl.h </a> -
-          OpenCL 1.2 Khronos EGL Extensions Header File. </li>
-     <li> <a href="https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/opencl12/CL/cl_dx9_media_sharing.h"> cl_dx9_media_sharing.h </a> -
-          OpenCL 1.2 Khronos OpenCL/Direct3D 9 Media Sharing Extensions
-          Header File. </li>
-     <li> <a href="https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/opencl12/CL/cl_d3d10.h"> cl_d3d10.h </a> -
-          OpenCL 1.2 Khronos OpenCL/Direct3D 10 Extensions Header File. </li>
-     <li> <a href="https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/opencl12/CL/cl_d3d11.h"> cl_d3d11.h </a> -
-          OpenCL 1.2 Khronos OpenCL/Direct3D 11 Extensions Header File. </li>
-     <li> <a href="https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/opencl12/CL/cl_gl.h"> cl_gl.h </a> -
-          OpenCL 1.2 Khronos OpenCL/OpenGL Extensions Header File. </li>
-     <li> <a href="https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/opencl12/CL/cl_gl_ext.h"> cl_gl_ext.h </a> -
-          OpenCL 1.2 Vendor OpenCL/OpenGL Extensions Header File. </li>
-     </ul> </li>
 </ul>
 
 <h6> OpenCL 1.1 </h6>
@@ -278,25 +210,6 @@ include_once("../../assets/static_pages/khr_page_top.php");
      OpenCL 1.1 Reference Pages.</a> </li>
 <li> <a href="http://www.khronos.org/registry/cl/sdk/1.1/docs/OpenCL-1.1-refcard.pdf">
      OpenCL 1.1 Reference Card.</a> </li>
-<li> OpenCL 1.1 headers are structured in exactly the same fashion as
-     OpenCL 2.1 headers described above.
-
-     <ul>
-     <li> <a href="https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/opencl11/CL/opencl.h"> opencl.h </a> -
-          OpenCL 1.1 Single Header File for Applications. </li>
-     <li> <a href="https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/opencl11/CL/cl_platform.h"> cl_platform.h </a> -
-          OpenCL 1.1 Platform-Dependent Macros. </li>
-     <li> <a href="https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/opencl11/CL/cl.h"> cl.h </a> -
-          OpenCL 1.1 Core API Header File. </li>
-     <li> <a href="https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/opencl11/CL/cl_ext.h"> cl_ext.h </a> -
-          OpenCL 1.1 Extensions Header File. </li>
-     <li> <a href="https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/opencl11/CL/cl_d3d10.h"> cl_d3d10.h </a> -
-          OpenCL 1.1 Khronos OpenCL/Direct3D 10 Extensions Header File. </li>
-     <li> <a href="https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/opencl11/CL/cl_gl.h"> cl_gl.h </a> -
-          OpenCL 1.1 Khronos OpenCL/OpenGL Extensions Header File. </li>
-     <li> <a href="https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/opencl11/CL/cl_gl_ext.h"> cl_gl_ext.h </a> -
-          OpenCL 1.1 Vendor OpenCL/OpenGL Extensions Header File. </li>
-     </ul> </li>
 </ul>
 
 <h6> OpenCL 1.0 </h6>
@@ -309,25 +222,6 @@ include_once("../../assets/static_pages/khr_page_top.php");
      OpenCL 1.0 Reference Pages.</a> </li>
 <li> <a href="http://www.khronos.org/registry/cl/sdk/1.0/docs/OpenCL-1.0-refcard.pdf">
      OpenCL 1.0 Reference Card.</a> </li>
-<li> OpenCL 1.0 headers are structured in exactly the same fashion as
-     OpenCL 2.1 headers described above.
-
-     <ul>
-     <li> <a href="https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/opencl10/CL/opencl.h"> opencl.h </a> -
-          OpenCL 1.0 Single Header File for Applications. </li>
-     <li> <a href="https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/opencl10/CL/cl_platform.h"> cl_platform.h </a> -
-          OpenCL 1.0 Platform-Dependent Macros. </li>
-     <li> <a href="https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/opencl10/CL/cl.h"> cl.h </a> -
-          OpenCL 1.0 Core API Header File. </li>
-     <li> <a href="https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/opencl10/CL/cl_ext.h"> cl_ext.h </a> -
-          OpenCL 1.0 Extensions Header File. </li>
-     <li> <a href="https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/opencl10/CL/cl_d3d10.h"> cl_d3d10.h </a> -
-          OpenCL 1.0 Khronos OpenCL/Direct3D 10 Extensions Header File. </li>
-     <li> <a href="https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/opencl10/CL/cl_gl.h"> cl_gl.h </a> -
-          OpenCL 1.0 Khronos OpenCL/OpenGL Extensions Header File. </li>
-     <li> <a href="https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/opencl10/CL/cl_gl_ext.h"> cl_gl_ext.h </a> -
-          OpenCL 1.0 Vendor OpenCL/OpenGL Extensions Header File. </li>
-     </ul> </li>
 </ul>
 
 <h6> Providing Feedback on the Registry </h6>
