@@ -105,4 +105,6 @@
 </li>
 <li value=53><a href="extensions/qcom/cl_qcom_ext_host_ptr_iocoherent.txt">cl_qcom_ext_host_ptr_iocoherent</a>
 </li>
+<li value=54><a href="extensions/amd/cl_amd_planar_yuv.txt">cl_amd_planar_yuv</a>
+</li>
 </ol>
