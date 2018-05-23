@@ -1,0 +1,143 @@
+Name Strings
+
+    cl_amd_planar_yuv
+
+Contributors
+
+    Brian Sumner
+    German Andryeyev
+
+Contact
+
+    Brian Sumner, AMD (Brian.Sumner 'at' amd.com)
+
+IP Status
+
+    No known IP issues.
+    
+Version
+
+    Version 1.0, May 10, 2018
+    
+Number
+    
+    OpenCL Extension #54
+    
+Status
+
+    Draft
+
+Extension Type
+
+    OpenCL platform extension
+    
+Dependencies
+
+    OpenCL 2.0, cl_khr_d3d11_sharing
+
+Overview
+
+    This extension extends the cl_khr_d3d11_sharing function
+    clCreateFromD3D11Texture2DKHR to accept resources in planar YUV formats
+    sucn as NV12 and P010. It also adds a new runtime API call to create
+    new images from the Y or UV plane of images createed using
+    clCreateFromD3D11Texture2DKHR.
+
+New Procedures and Functions
+
+    cl_mem clGetPlaneFromImageAMD(cl_context context,
+           cl_mem mem, cl_uint plane, cl_int* errcode_ret);
+
+New Types
+
+    None
+
+New Tokens
+
+Macros for the <plane> argument passed to clGetPlaneFromImageAMD:
+     CL_YUV_IMAGE_Y_PLANE_AMD           0x0
+     CL_YUV_IMAGE_UV_PLANE_AMD          0x1
+
+Additions to section 9.10.7.4 Sharing Direct3D 11 Texture and Resources as
+OpenCL Image Objects
+
+Add the following to table 9.11.3
+
+     +---------------------+---------------------------+
+     | DXGI format         | CL image format (channel  |
+     |                     | order, channel data type) |
+     +---------------------+---------------------------+
+     | DXGI_FORMAT_NV12    | CL_R, CL_UNSIGNED_INT8    |
+     | DXGI_FORMAT_P010    | CL_R, CL_UNSIGNED_INT16   |
+     +---------------------+---------------------------+
+
+Add the following Note to the end of section 9.10.7.4:
+
+    Note: In table 9.11.3, the DXGI formats DXGI_FORMAT_NV12 and
+    DXGI_FORMAT_P010 are only permitted for ID3D11Texture2D resource arguments
+    to clCreateFromD3D11Texture2DKHR
+
+Add the following to section 5.3.1 Creating Image Objects
+
+    The function
+
+    cl_mem clGetPlaneFromImageAMD(cl_context context,
+                                  cl_mem     mem,
+                                  cl_uint    plane,
+                                  cl_int*    errcode_ret)
+
+    creates an OpenCL 2D image object from a particular YUV
+    plane of an OpenCL Direct3D 11 interop image.
+
+    <context> is a valid OpenCL context created from a Direct3D 11 device.
+
+    <mem> is an OpenCL interop image created from a D3D11 resource with
+    DXGI format DXGI_FORMAT_NV12 or DXGI_FORMAT_P010
+
+    <plane> selects the plane used to create the image and is either
+    CL_YUV_IMAGE_Y_PLANE_AMD or CL_YUV_IMAGE_UV_PLANE_AMD.
+
+    <errcode_ret> will return an appropriate error code. If <errcode_ret> is
+    NULL, no error code is  returned
+
+    The following table specifies the format of the image created by
+    clGetPlaneFromImageAMD:
+
+    +---------------------------+-----------+------------------+
+    | <plane> value             | Channel   | channel mappings |
+    |                           | order     |                  |
+    +---------------------------+-----------+------------------+
+    | CL_YUV_IMAGE_Y_PLANE_AMD  | CL_R      | R = Y            |
+    | CL_YUV_IMAGE_UV_PLANE_AMD | CL_RG     | R = U, G = V     |
+    +---------------------------+-----------+------------------+
+    
+    The dimensions of the created image are as follows: if the
+    dimensions of the original D3D11 texture are (width, height),
+    the dimensions of the Y plane image will be (width, height), and the
+    dimensions of the UV plange image will be (width/2, height/2).
+
+    clGetPlaneFromImageAMD returns a valid non-zero image object created
+    and <errcode_ret> is set to CL_SUCCESS if the image object is created
+    successfully.  Otherwise, it returns a NULL value with one of the
+    following error values returned in <errcode_ret>:
+
+    CL_INVALID_CONTEXT if context is not a valid context.
+
+    CL_INVALID_VALUE if values specified in plane are not valid or if <mem>
+    object is NULL.
+ 
+    CL_INVALID_MEM_OBJECT is generated if <mem> is not a valid cl_mem object.
+
+    CL_INVALID_D3D11_RESOURCE_KHR if <mem> is not a valid interop image from
+    a YUV texture allocated in D3D11.
+
+    CL_MEM_OBJECT_ALLOCATION_FAILURE if OCL runtime failed to allocate
+    a new image for the specified plane.
+
+    CL_OUT_OF_HOST_MEMORY if there is a failure to allocate resources 
+    required by the OpenCL implementation on the host.
+
+Revision History
+
+    Version 1, 2018/05/10 (Brian Sumner) - initial extension specification.
+
