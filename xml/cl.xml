@@ -1022,7 +1022,10 @@ has no formal schema defined.
     <enums namespace="CL" start="0x40B0" end="0x40BF" vendor="ARM" comment="Per Bug 10337">
         <enum value="0x40B0"      name="CL_PRINTF_CALLBACK_ARM"/>
         <enum value="0x40B1"      name="CL_PRINTF_BUFFERSIZE_ARM"/>
-            <unused start="0x40B2" end="0x40B5"/>
+        <enum value="0x40B2"      name="CL_IMPORT_TYPE_ARM"/>
+        <enum value="0x40B3"      name="CL_IMPORT_TYPE_HOST_ARM"/>
+        <enum value="0x40B4"      name="CL_IMPORT_TYPE_DMA_BUF_ARM"/>
+        <enum value="0x40B5"      name="CL_IMPORT_TYPE_PROTECTED_ARM"/>
         <enum value="0x40B6"      name="CL_DEVICE_SVM_CAPABILITIES_ARM"/>
         <enum value="0x40B7"      name="CL_MEM_USES_SVM_POINTER_ARM"/>
         <enum value="0x40B8"      name="CL_KERNEL_EXEC_INFO_SVM_PTRS_ARM"/>
@@ -1115,8 +1118,12 @@ has no formal schema defined.
             <unused start="0x41A0" end="0x41DF"/>
     </enums>
 
-    <enums namespace="CL" start="0x41E0" end="0x4FFF" comment="Reserved for vendor extensions. Allocate in groups of 16.">
-            <unused start="0x41E0" end="0x4FFF"/>
+    <enums namespace="CL" start="0x41E0" end="0x41FF" vendor="ARM">
+            <unused start="0x41E0" end="0x41FF"/>
+    </enums>
+
+    <enums namespace="CL" start="0x4200" end="0x4FFF" comment="Reserved for vendor extensions. Allocate in groups of 16.">
+            <unused start="0x4200" end="0x4FFF"/>
     </enums>
 
     <enums namespace="CL" start="0x10000" end="0x10FFF" vendor="Khronos" comment="Experimental range for internal development only. Do not allocate.">
