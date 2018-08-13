@@ -8,12 +8,13 @@ Name Strings
 
 Contributors
 
-    Robert Elliott
-    Hui Chen
+    Robert Elliott, ARM Ltd. (robert.elliott 'at' arm.com)
+    Hui Chen, ARM Ltd.       (hui.chen 'at' arm.com)
+    Kevin Petit, ARM Ltd.    (kevin.petit 'at' arm.com)
 
 Contacts
 
-    Robert Elliott, ARM (robert.elliott 'at' ARM.com)
+    Kevin Petit, ARM Ltd. (kevin.petit 'at' arm.com)
 
 Status
 
@@ -21,7 +22,7 @@ Status
 
 Version
 
-    Revision: #1, April 2nd, 2013
+    Revision: #2, Feb 26th, 2018
 
 Number
 
@@ -29,19 +30,24 @@ Number
 
 Dependencies
 
-    Requires OpenCL version 1.0 or later.
+    Requires OpenCL version 1.2 or later.
 
 Overview
 
-    This extension provides a built-in function which returns the physical core
-    id (OpenCL Compute Unit) that a work-group is running on. This value is
+    This extension provides a built-in function which returns a unique ID
+    for the compute unit that a work-group is running on.  This value is
     uniform for a work-group.
 
     This value can be used for a core-specific cache or atomic pool where the
     storage is required to be in global memory and persistent (but not ordered)
-    between work-groups. This does not provide any additional ordering on top
+    between work-groups.  This does not provide any additional ordering on top
     of the existing guarantees between workgroups, nor does it provide any
     guarantee of concurrent execution.
+
+    The IDs for the compute units may not be consecutive and applications must
+    make sure they allocate enough memory to accommodate all the compute units
+    present on the device.  A device info query allows the application to
+    know the IDs associated with the compute units on a given device.
 
     The extension string cl_arm_core_id is returned for devices and platforms
     which support this extension.
@@ -56,20 +62,32 @@ New Types
 
 New Procedures and Functions
 
+    Device Info query
+
+      CL_DEVICE_COMPUTE_UNITS_BITFIELD_ARM (return type cl_ulong) returns a
+      bitfield where each bit set represents the presence of compute unit whose
+      ID is the bit position.  The highest ID for any compute unit on the device
+      is the position of the most significant bit set.  The total number of
+      elements an application should allocate in an array indexed by core IDs is
+      thus given by:
+
+        ALLOC = sizeof(cl_ulong) * 8 - CLZ(CL_DEVICE_COMPUTE_UNITS_BITFIELD_ARM)
+
     Built-in Function
 
       uint arm_get_core_id( void )
 
     Description
 
-      Returns a uint that represents the physical core id, in the range 0 to
-      CL_DEVICE_MAX_COMPUTE_UNITS-1
+      Returns the compute unit id as a uint, in the range [0;ALLOC-1]
 
     Example
 
-      // Host code, size pool based on required_instance_size * number_of_compute_units
+      // Host code, size pool based on required_instance_size * ALLOC
       size_t required_instance_size = 1024; 
-      cl_mem core_pool = clCreateBuffer( ctx, CL_MEM_READ_WRITE, required_instance_size * CL_DEVICE_MAX_COMPUTE_UNITS, NULL, NULL );
+      cl_mem core_pool = clCreateBuffer(context,
+                                        CL_MEM_READ_WRITE,
+                                        required_instance_size * ALLOC, NULL, NULL);
 
       // Device/Kernel code, select memory instance
       kernel void test( global char *per_core_pool, global char *input, uint required_instance_size  )
@@ -83,4 +101,10 @@ New Tokens
     OpenCL kernel code Now has access to:
 
       #pragma OPENCL EXTENSION cl_arm_core_id : enable
-      The define cl_arm_core_id is also present
+      The preprocessor macro cl_arm_core_id is also present
+
+Revision History
+
+    Revision: #1, Apr  2nd, 2013 - Initial revision
+    Revision: #2, Feb 26th, 2018 - Added support for sparsely allocated compute
+                                   unit IDs.
