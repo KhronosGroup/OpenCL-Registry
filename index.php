@@ -40,7 +40,7 @@ include_once("../../assets/static_pages/khr_page_top.php");
      (<a href="specs/2.2/html/OpenCL_Ext.html">HTML</a>)
      (<a href="specs/2.2/pdf/OpenCL_Ext.pdf">PDF</a>)
      (May 12, 2018). </li>
-<li> OpenCL 2.2 SPIR-V Environment Specification
+<li> OpenCL SPIR-V Environment Specification
      (<a href="specs/2.2/html/OpenCL_Env.html">HTML</a>)
      (<a href="specs/2.2/pdf/OpenCL_Env.pdf">PDF</a>)
      (May 12, 2018). </li>
