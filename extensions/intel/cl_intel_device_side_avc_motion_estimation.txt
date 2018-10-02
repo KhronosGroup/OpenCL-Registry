@@ -18,7 +18,7 @@ Contact
 
 Version
 
-   Version 1, December 2, 2016
+   Version 3, October 2, 2018
 
 Number 
 
@@ -670,33 +670,49 @@ Terms, Acronyms and Definitions
    #define CLK_AVC_ME_FRAME_BACKWARD_INTEL 0x2
    #define CLK_AVC_ME_FRAME_DUAL_INTEL     0x3
 
-   VME media sampler initialization value:
-   ----------------------------------------
-   #define CLK_AVC_ME_INITIALIZE_INTEL 0x0
+   VME media sampler type default initialization literal:
+   ------------------------------------------------------
+   Pre-defined enumeration CLK_AVC_ME_INITIALIZE_INTEL.
 
-   Default IME payload initialization:
-   -----------------------------------
-   #define CLK_AVC_IME_PAYLOAD_INITIALIZE_INTEL {0x0}
+   IME payload type default initialization literal:
+   ------------------------------------------------
+   Pre-defined enumeration CLK_AVC_IME_PAYLOAD_INITIALIZE_INTEL.
 
-   Default REF payload initialization:
-   -----------------------------------
-   #define CLK_AVC_REF_PAYLOAD_INITIALIZE_INTEL {0x0}
+   REF payload type default initialization literal:
+   ------------------------------------------------
+   Pre-defined enumeration CLK_AVC_REF_PAYLOAD_INITIALIZE_INTEL.
 
-   Default SIC payload initialization:
-   -----------------------------------
-   #define CLK_AVC_SIC_PAYLOAD_INITIALIZE_INTEL {0x0}
+   SIC payload type default initialization literal:
+   ------------------------------------------------
+   Pre-defined enumeration CLK_AVC_SIC_PAYLOAD_INITIALIZE_INTEL.
 
-   Default IME result initialization:
-   ----------------------------------
-   #define CLK_AVC_IME_RESULT_INITIALIZE_INTEL  {0x0}
+   IME result type default initialization literal:
+   -----------------------------------------------
+   Pre-defined enumeration CLK_AVC_IME_RESULT_INITIALIZE_INTEL.
 
-   Default REF result initialization:
-   ----------------------------------
-   #define CLK_AVC_REF_RESULT_INITIALIZE_INTEL  {0x0}
+   IME result single reference streamout type default initialization literal:
+   --------------------------------------------------------------------------
+   Pre-defined enumeration CLK_AVC_IME_RESULT_SINGLE_REFERENCE_STREAMOUT_INITIALIZE_INTEL.
 
-   Default SIC result initialization:
-   ----------------------------------
-   #define CLK_AVC_SIC_RESULT_INITIALIZE_INTEL  {0x0}
+   IME result dual reference streamout type default initialization literal:
+   ------------------------------------------------------------------------
+   Pre-defined enumeration CLK_AVC_IME_RESULT_DUAL_REFERENCE_STREAMOUT_INITIALIZE_INTEL.
+
+   IME result single reference streamin type default initialization literal:
+   -------------------------------------------------------------------------
+   Pre-defined enumeration CLK_AVC_IME_RESULT_SINGLE_REFERENCE_STREAMIN_INITIALIZE_INTEL.
+
+   IME result dual reference streamin type default initialization literal:
+   -----------------------------------------------------------------------
+   Pre-defined enumeration CLK_AVC_IME_RESULT_DUAL_REFERENCE_STREAMIN_INITIALIZE_INTEL.
+
+   REF result type default initialization literal:
+   -----------------------------------------------
+   Pre-defined enumeration CLK_AVC_REF_RESULT_INITIALIZE_INTEL.
+
+   SIC result type default initialization literal:
+   -----------------------------------------------
+   Pre-defined enumeration CLK_AVC_SIC_RESULT_INITIALIZE_INTEL.
 
 New OpenCL C Types
 
@@ -1346,7 +1362,7 @@ New OpenCL C built-in functions
    +----------------------------------+---------------------------------+
    |uint intel_sub_group_avc_mce_get_ |Get the default intra non-dc cost|
    |default_non_dc_luma_intra_penalty(|penalty for intra luma estimation|
-   |   void )                         |in 8-bit integer format.         |
+   |   void )                         |in packed 32-bit integer format. |
    +----------------------------------+---------------------------------+
    |uchar intel_sub_group_avc_mce_get_|Get the default chroma mode base |
    |default_intra_chroma_mode_base_   |penalty in U4U4 format.          |
@@ -1576,11 +1592,11 @@ New OpenCL C built-in functions
    |                                   |- 16x16, then bits in the range |
    |                                   |  [0, 1] contains the direction |
    |                                   |- 16x8 or 8x16, then bits in the|
-   |                                   |  ranges [0, 1] and [4,5]       |
+   |                                   |  ranges [0, 1] and [2, 3]      |
    |                                   |  contains the two partitions   |
    |                                   |  directions                    |
    |                                   |- 8x8, then bits in the ranges  |
-   |                                   |  [0, 1], [2, 3], [4,5], and    |
+   |                                   |  [0, 1], [2, 3], [4, 5], and   |
    |                                   |  [6, 7] contains the four      |
    |                                   |  partitions directions         |
    |                                   |                                |
@@ -4109,7 +4125,7 @@ New OpenCL C built-in functions
    |                                   |  corresponding to the four     |
    |                                   |  partitions are returned by    |
    |                                   |  bits in the ranges [0, 3],    |
-   |                                   |  [16,19], [32, 35], and        |
+   |                                   |  [16, 19], [32, 35], and       |
    |                                   |  [48, 51]; the order of the    |
    |                                   |  four partitions are in the    |
    |                                   |  traditional Z-order           |
@@ -4354,3 +4370,7 @@ New OpenCL C built-in functions
 Revision History
 
     Version 1 (12/02/2016): First public revision.
+    Version 2 (09/18/2016): Fixed typos.
+    Version 3 (10/02/2018): Modified definitions of default initialization 
+                            literals to be pre-defined enumeration literals.
+                            Fixed typo in intra cost configuration function.
