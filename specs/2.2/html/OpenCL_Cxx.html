@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.6.1">
+<meta name="generator" content="Asciidoctor 1.5.5">
 <meta name="author" content="Khronos OpenCL Working Group">
 <title>The OpenCL&#8482; C++ 1.0 Specification</title>
 <style>
@@ -841,9 +841,9 @@ table.CodeRay td.code>pre{padding:0}
 <h1>The OpenCL<sup>&#8482;</sup> C++ 1.0 Specification</h1>
 <div class="details">
 <span id="author" class="author">Khronos OpenCL Working Group</span><br>
-<span id="revnumber">version 2.2-7,</span>
-<span id="revdate">Sat, 12 May 2018 13:21:28 +0000</span>
-<br><span id="revremark">from git branch: master commit: ab6da3001e9eeafaa36c18888ca7eb4ebb9768af</span>
+<span id="revnumber">version 2.2-8,</span>
+<span id="revdate">Mon, 08 Oct 2018 16:50:47 +0000</span>
+<br><span id="revremark">from git branch: master commit: b3cab22fcff5d8c17869907c983e259ddd7ce788</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -3094,15 +3094,15 @@ The explicit address space pointer classes are implemented as a part of the stan
 <tr>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">uninitialized (no constructor or trivial default constructor)</p>
-<p class="tableblock">  <strong>AND</strong></p>
-<p class="tableblock">  trivial destructor</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">initialized by constant expression</p>
-<p class="tableblock">  <strong>AND</strong></p>
-<p class="tableblock">  trivial destructor</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">custom initializer</p>
-<p class="tableblock">  <strong>OR</strong></p>
-<p class="tableblock">  custom destructor</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">uninitialized (no constructor or trivial default constructor)
+</p><p class="tableblock">  <strong>AND</strong>
+</p><p class="tableblock">  trivial destructor</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">initialized by constant expression
+</p><p class="tableblock">  <strong>AND</strong>
+</p><p class="tableblock">  trivial destructor</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">custom initializer
+</p><p class="tableblock">  <strong>OR</strong>
+</p><p class="tableblock">  custom destructor</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top" rowspan="4"><p class="tableblock">local</p></td>
@@ -3113,17 +3113,17 @@ The explicit address space pointer classes are implemented as a part of the stan
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">kernel</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">supported</p>
-<p class="tableblock">  Variables are not zero-pre-initialized.</p>
-<p class="tableblock">  Optional zero-pre-initialization possible using switch: -cl-zero-init-local-mem-vars</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">supported</p>
-<p class="tableblock">  Variables are not zero-pre-initialized.</p>
-<p class="tableblock">  Materialize temporary expressions are not supported.</p>
-<p class="tableblock">  Optional zero-pre-initialization possible using switch: -cl-zero-init-local-mem-vars</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">supported</p>
-<p class="tableblock">  Variables are not zero-pre-initialized.</p>
-<p class="tableblock">  Materialize temporary expressions are not supported.</p>
-<p class="tableblock">  Optional zero-pre-initialization possible using switch: -cl-zero-init-local-mem-vars</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">supported
+</p><p class="tableblock">  Variables are not zero-pre-initialized.
+</p><p class="tableblock">  Optional zero-pre-initialization possible using switch: -cl-zero-init-local-mem-vars</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">supported
+</p><p class="tableblock">  Variables are not zero-pre-initialized.
+</p><p class="tableblock">  Materialize temporary expressions are not supported.
+</p><p class="tableblock">  Optional zero-pre-initialization possible using switch: -cl-zero-init-local-mem-vars</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">supported
+</p><p class="tableblock">  Variables are not zero-pre-initialized.
+</p><p class="tableblock">  Materialize temporary expressions are not supported.
+</p><p class="tableblock">  Optional zero-pre-initialization possible using switch: -cl-zero-init-local-mem-vars</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">local (non-kernel)</p></td>
@@ -3133,43 +3133,43 @@ The explicit address space pointer classes are implemented as a part of the stan
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">class (static data member)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">supported</p>
-<p class="tableblock">  Variables are not zero-pre-initialized.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">supported
+</p><p class="tableblock">  Variables are not zero-pre-initialized.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">not supported</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">not supported</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top" rowspan="3"><p class="tableblock">global</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">program</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">supported</p>
-<p class="tableblock">  Variables are zero-pre-initialized.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">supported</p>
-<p class="tableblock">  Variables are zero or constexpr-pre-initialized.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">supported
+</p><p class="tableblock">  Variables are zero-pre-initialized.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">supported
+</p><p class="tableblock">  Variables are zero or constexpr-pre-initialized.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">supported</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">kernel / local</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">supported</p>
-<p class="tableblock">  Variables are zero-pre-initialized.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">supported</p>
-<p class="tableblock">  Variables are zero or constexpr-pre-initialized.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">supported
+</p><p class="tableblock">  Variables are zero-pre-initialized.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">supported
+</p><p class="tableblock">  Variables are zero or constexpr-pre-initialized.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">not supported</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">class (static data member)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">supported</p>
-<p class="tableblock">  Variables are zero-pre-initialized.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">supported</p>
-<p class="tableblock">  Variables are zero or constexpr-pre-initialized.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">supported
+</p><p class="tableblock">  Variables are zero-pre-initialized.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">supported
+</p><p class="tableblock">  Variables are zero or constexpr-pre-initialized.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">not supported</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">constant</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">(any)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">supported</p>
-<p class="tableblock">  Variables are zero-pre-initialized.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">supported</p>
-<p class="tableblock">  Variables are zero or constexpr-pre-initialized.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">supported
+</p><p class="tableblock">  Variables are zero-pre-initialized.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">supported
+</p><p class="tableblock">  Variables are zero or constexpr-pre-initialized.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">not supported</p></td>
 </tr>
 <tr>
@@ -3835,9 +3835,6 @@ In this case it is the programmer&#8217;s responsibility to guarantee that the i
 <p>non-placement <code>new</code> and <code>delete</code> operators (<em>ISO C++ Sections 5.3.4 and 5.3.5</em>)</p>
 </li>
 <li>
-<p><code>goto</code> statement (<em>ISO C++ Section 6.6</em>)</p>
-</li>
-<li>
 <p><code>register</code> and <code>thread_local</code> storage qualifiers (<em>ISO C++ Section 7.1.1</em>)</p>
 </li>
 <li>
@@ -3856,16 +3853,16 @@ In this case it is the programmer&#8217;s responsibility to guarantee that the i
 <p>the C++ standard library (<em>ISO C++ Sections 17 &#8230;&#8203; 30</em>)</p>
 </li>
 <li>
-<p><code>asm</code> declaration (<em>ISO C++ Section 7.4</em>)</p>
-</li>
-<li>
 <p>no implicit lambda to function pointer conversion (<em>ISO C++ Section 5.1.2, item 6</em>)</p>
 </li>
 <li>
 <p>variadic functions (<em>ISO C99 Section 7.15, Variable arguments &lt;stdarg.h&gt;</em>)</p>
 </li>
 <li>
-<p>and, like C++, OpenCL C++ does not support variable length arrays (<em>ISO C99, Section 6.7.5</em>).</p>
+<p>and, like C++, OpenCL C++ does not support variable length arrays (<em>ISO C99, Section 6.7.5</em>)</p>
+</li>
+<li>
+<p>whether irreducible control flow is legal is implementation defined.</p>
 </li>
 </ul>
 </div>
@@ -3876,6 +3873,9 @@ In this case it is the programmer&#8217;s responsibility to guarantee that the i
 <ul>
 <li>
 <p>All variadic templates (<em>ISO C++ Section 14.5.3</em>) including variadic function templates are supported.</p>
+</li>
+<li>
+<p>Virtual inheritance (<em>ISO C++ Section 10.1, item 4</em>) is supported.</p>
 </li>
 </ul>
 </div>
@@ -10480,9 +10480,9 @@ It is defined as follows:</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>exec_time</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Identifies profiling information to be queried.
-  If specified, the two 64-bit values are returned</p>
-<p class="tableblock">  The first 64-bit value describes the elapsed time: <code>CL_PROFILING_COMMAND_END - CL_PROFILING_COMMAND_START</code> for the command identified by event in nanoseconds.</p>
-<p class="tableblock">  The second 64-bit value describes the elapsed time <code>CL_PROFILING_COMMAND_COMPLETE - CL_PROFILING_COMMAND_START</code> for the command identified by event in nanoseconds.</p></td>
+  If specified, the two 64-bit values are returned
+</p><p class="tableblock">  The first 64-bit value describes the elapsed time: <code>CL_PROFILING_COMMAND_END - CL_PROFILING_COMMAND_START</code> for the command identified by event in nanoseconds.
+</p><p class="tableblock">  The second 64-bit value describes the elapsed time <code>CL_PROFILING_COMMAND_COMPLETE - CL_PROFILING_COMMAND_START</code> for the command identified by event in nanoseconds.</p></td>
 </tr>
 </tbody>
 </table>
@@ -20916,8 +20916,8 @@ If <code>x</code> is known to be <code>&gt;= 0</code>, consider using <code>powr
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 2.2-7<br>
-Last updated 2018-05-07 12:41:34 BST
+Version 2.2-8<br>
+Last updated 2018-09-24 21:35:08 PDT
 </div>
 </div>
 

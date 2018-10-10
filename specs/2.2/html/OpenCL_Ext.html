@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.6.1">
+<meta name="generator" content="Asciidoctor 1.5.5">
 <meta name="author" content="Khronos OpenCL Working Group">
 <title>The OpenCL Extension Specification</title>
 <style>
@@ -841,9 +841,9 @@ table.CodeRay td.code>pre{padding:0}
 <h1>The OpenCL Extension Specification</h1>
 <div class="details">
 <span id="author" class="author">Khronos OpenCL Working Group</span><br>
-<span id="revnumber">version 2.2-7,</span>
-<span id="revdate">Sat, 12 May 2018 13:21:27 +0000</span>
-<br><span id="revremark">from git branch: master commit: ab6da3001e9eeafaa36c18888ca7eb4ebb9768af</span>
+<span id="revnumber">version 2.2-8,</span>
+<span id="revdate">Mon, 08 Oct 2018 16:50:25 +0000</span>
+<br><span id="revremark">from git branch: master commit: b3cab22fcff5d8c17869907c983e259ddd7ce788</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -1028,17 +1028,17 @@ below.</p>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>enable</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Behave as specified by the extension <em>extension_name</em>.</p>
-<p class="tableblock">  Report an error on the <strong><code>#pragma OPENCL EXTENSION</code></strong> if the
+<td class="tableblock halign-left valign-top"><p class="tableblock">Behave as specified by the extension <em>extension_name</em>.
+</p><p class="tableblock">  Report an error on the <strong><code>#pragma OPENCL EXTENSION</code></strong> if the
   <em>extension_name</em> is not supported, or if <strong>all</strong> is specified.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>disable</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Behave (including issuing errors and warnings) as if the extension
-  <em>extension_name</em> is not part of the language definition.</p>
-<p class="tableblock">  If <strong>all</strong> is specified, then behavior must revert back to that of the
-  non-extended core version of the language being compiled to.</p>
-<p class="tableblock">  Warn on the <strong><code>#pragma OPENCL EXTENSION</code></strong> if the extension <em>extension_name</em>
+  <em>extension_name</em> is not part of the language definition.
+</p><p class="tableblock">  If <strong>all</strong> is specified, then behavior must revert back to that of the
+  non-extended core version of the language being compiled to.
+</p><p class="tableblock">  Warn on the <strong><code>#pragma OPENCL EXTENSION</code></strong> if the extension <em>extension_name</em>
   is not supported.</p></td>
 </tr>
 </tbody>
@@ -1099,8 +1099,8 @@ A kernel can now use this preprocessor <code>#define</code> to do something like
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code>void clGetExtensionFunctionAddressForPlatform(cl_platform_id platform,
-                                              const char *funcname)</code></pre>
+<pre class="CodeRay highlight"><code>void* clGetExtensionFunctionAddressForPlatform(cl_platform_id platform,
+                                               const char *funcname)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1482,8 +1482,8 @@ all arguments and the return type.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>fract</strong> (gentype <em>x</em>, gentype *<em>iptr</em>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Returns <strong>fmin</strong>( <em>x</em> - <strong>floor</strong> (<em>x</em>), 0x1.ffcp-1f ).</p>
-<p class="tableblock">  <strong>floor</strong>(x) is returned in <em>iptr</em>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns <strong>fmin</strong>( <em>x</em> - <strong>floor</strong> (<em>x</em>), 0x1.ffcp-1f ).
+</p><p class="tableblock">  <strong>floor</strong>(x) is returned in <em>iptr</em>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">half<em>n</em> <strong>frexp</strong> (half<em>n</em> <em>x</em>, int<em>n</em> *exp)<br>
@@ -1545,8 +1545,8 @@ all arguments and the return type.</p>
   The function may compute <em>a</em> * <em>b</em> + <em>c</em> with reduced accuracy
   in the embedded profile.  See the SPIR-V OpenCL environment specification
   for details. On some hardware the mad instruction may provide better
-  performance than expanded computation of <em>a</em> * <em>b</em> + <em>c</em>.</p>
-<p class="tableblock">  Note: For some usages, e.g. <strong>mad</strong>(a, b, -a*b), the half precision
+  performance than expanded computation of <em>a</em> * <em>b</em> + <em>c</em>.
+</p><p class="tableblock">  Note: For some usages, e.g. <strong>mad</strong>(a, b, -a*b), the half precision
   definition of <strong>mad</strong>() is loose enough that almost any result is allowed
   from <strong>mad</strong>() for some values of a and b.</p></td>
 </tr>
@@ -1859,11 +1859,11 @@ These are described below.</p>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>clamp</strong> (<br>
-  gentype <em>x</em>, gentype <em>minval</em>, gentype <em>maxval</em>)</p>
-<p class="tableblock">  gentype <strong>clamp</strong> (<br>
+  gentype <em>x</em>, gentype <em>minval</em>, gentype <em>maxval</em>)
+</p><p class="tableblock">  gentype <strong>clamp</strong> (<br>
   gentype <em>x</em>, half <em>minval</em>, half <em>maxval</em>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Returns <strong>min</strong>(<strong>max</strong>(<em>x</em>, <em>minval</em>), <em>maxval</em>).</p>
-<p class="tableblock">  Results are undefined if <em>minval</em> &gt; <em>maxval</em>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns <strong>min</strong>(<strong>max</strong>(<em>x</em>, <em>minval</em>), <em>maxval</em>).
+</p><p class="tableblock">  Results are undefined if <em>minval</em> &gt; <em>maxval</em>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>degrees</strong> (gentype <em>radians</em>)</p></td>
@@ -1885,11 +1885,11 @@ These are described below.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>mix</strong> (gentype <em>x</em>, gentype <em>y</em>, gentype <em>a</em>)<br>
   gentype <strong>mix</strong> (gentype <em>x</em>, gentype <em>y</em>, half <em>a</em>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the linear blend of <em>x</em> and <em>y</em> implemented as:</p>
-<p class="tableblock">  <em>x</em> + (<em>y</em> - <em>x)</em> * <em>a</em></p>
-<p class="tableblock">  <em>a</em> must be a value in the range 0.0 &#8230;&#8203; 1.0.
-  If <em>a</em> is not in the range 0.0 &#8230;&#8203; 1.0, the return values are undefined.</p>
-<p class="tableblock">  Note: The half precision <strong>mix</strong> function can be implemented using contractions such as <strong>mad</strong> or <strong>fma</strong>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the linear blend of <em>x</em> and <em>y</em> implemented as:
+</p><p class="tableblock">  <em>x</em> + (<em>y</em> - <em>x)</em> * <em>a</em>
+</p><p class="tableblock">  <em>a</em> must be a value in the range 0.0 &#8230;&#8203; 1.0.
+  If <em>a</em> is not in the range 0.0 &#8230;&#8203; 1.0, the return values are undefined.
+</p><p class="tableblock">  Note: The half precision <strong>mix</strong> function can be implemented using contractions such as <strong>mad</strong> or <strong>fma</strong>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>radians</strong> (gentype <em>degrees</em>)</p></td>
@@ -1902,19 +1902,19 @@ These are described below.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>smoothstep</strong> (<br>
-  gentype <em>edge0</em>, gentype <em>edge1</em>, gentype <em>x</em>)</p>
-<p class="tableblock">  gentype <strong>smoothstep</strong> (<br>
+  gentype <em>edge0</em>, gentype <em>edge1</em>, gentype <em>x</em>)
+</p><p class="tableblock">  gentype <strong>smoothstep</strong> (<br>
   half <em>edge0</em>, half <em>edge1</em>, gentype <em>x</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns 0.0 if <em>x</em> &lt;= <em>edge0</em> and 1.0 if <em>x</em> &gt;= <em>edge1</em> and performs
   smooth Hermite interpolation between 0 and 1 when <em>edge0</em> &lt; <em>x</em> &lt; <em>edge1</em>.
   This is useful in cases where you would want a threshold function with a
-  smooth transition.</p>
-<p class="tableblock">  This is equivalent to:</p>
-<p class="tableblock">  gentype <em>t</em>;<br>
+  smooth transition.
+</p><p class="tableblock">  This is equivalent to:
+</p><p class="tableblock">  gentype <em>t</em>;<br>
   <em>t</em> = clamp ((<em>x</em> - <em>edge0</em>) / (<em>edge1</em> - <em>edge0</em>), 0, 1);<br>
-  return <em>t</em> * <em>t</em> * (3 - 2 * <em>t</em>);<br></p>
-<p class="tableblock">  Results are undefined if <em>edge0</em> &gt;= <em>edge1</em>.</p>
-<p class="tableblock">  Note: The half precision <strong>smoothstep</strong> function can be implemented using contractions such as <strong>mad</strong> or <strong>fma</strong>.</p></td>
+  return <em>t</em> * <em>t</em> * (3 - 2 * <em>t</em>);<br>
+</p><p class="tableblock">  Results are undefined if <em>edge0</em> &gt;= <em>edge1</em>.
+</p><p class="tableblock">  Note: The half precision <strong>smoothstep</strong> function can be implemented using contractions such as <strong>mad</strong> or <strong>fma</strong>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>sign</strong> (gentype <em>x</em>)</p></td>
@@ -2157,8 +2157,8 @@ components from a 3-component vector to address (<em>p</em> + (<em>offset</em> *
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">gentype<em>n</em> <strong>vload<em>n</em></strong><br>
-  (size_t <em>offset</em>, const gentype *<em>p</em>)</p>
-<p class="tableblock">  gentype<em>n</em> <strong>vload<em>n</em></strong><br>
+  (size_t <em>offset</em>, const gentype *<em>p</em>)
+</p><p class="tableblock">  gentype<em>n</em> <strong>vload<em>n</em></strong><br>
   (size_t <em>offset</em>, const __constant gentype *<em>p</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return sizeof (gentype<em>n</em>) bytes of data read from address
   (<em>p</em> + (<em>offset * n</em>)).
@@ -2204,8 +2204,8 @@ from global memory.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">event_t <strong>async_work_group_copy</strong> (<br>
   __local gentype *<em>dst</em>,<br>
   const __global gentype *<em>src</em>,<br>
-  size_t <em>num_gentypes</em>, event_t <em>event</em>)</p>
-<p class="tableblock">  event_t <strong>async_work_group_copy</strong> (<br>
+  size_t <em>num_gentypes</em>, event_t <em>event</em>)
+</p><p class="tableblock">  event_t <strong>async_work_group_copy</strong> (<br>
   __global gentype <em>*dst</em>,<br>
   const __local gentype *<em>src</em>,<br>
   size_t <em>num_gentypes</em>, event_t <em>event</em>)</p></td>
@@ -2214,15 +2214,15 @@ from global memory.</p>
   The async copy is performed by all work-items in a work-group and this
   built-in function must therefore be encountered by all work-items in a
   work-group executing the kernel with the same argument values; otherwise
-  the results are undefined.</p>
-<p class="tableblock">  Returns an event object that can be used by <strong>wait_group_events</strong> to wait
+  the results are undefined.
+</p><p class="tableblock">  Returns an event object that can be used by <strong>wait_group_events</strong> to wait
   for the async copy to finish.
   The <em>event</em> argument can also be used to associate the
   <strong>async_work_group_copy</strong> with a previous async copy allowing an event to be
-  shared by multiple async copies; otherwise <em>event</em> should be zero.</p>
-<p class="tableblock">  If <em>event</em> argument is not zero, the event object supplied in <em>event</em>
-  argument will be returned.</p>
-<p class="tableblock">  This function does not perform any implicit synchronization of source data
+  shared by multiple async copies; otherwise <em>event</em> should be zero.
+</p><p class="tableblock">  If <em>event</em> argument is not zero, the event object supplied in <em>event</em>
+  argument will be returned.
+</p><p class="tableblock">  This function does not perform any implicit synchronization of source data
   such as using a <strong>barrier</strong> before performing the copy.</p></td>
 </tr>
 <tr>
@@ -2234,8 +2234,8 @@ from global memory.</p>
   __local gentype <em>*dst</em>,<br>
   const __global gentype *<em>src</em>,<br>
   size_t <em>num_gentypes</em>,<br>
-  size_t <em>src_stride</em>, event_t <em>event</em>)</p>
-<p class="tableblock">  event_t <strong>async_work_group_strided_copy</strong> (<br>
+  size_t <em>src_stride</em>, event_t <em>event</em>)
+</p><p class="tableblock">  event_t <strong>async_work_group_strided_copy</strong> (<br>
   __global gentype <em>*dst</em>,<br>
   const __local gentype *<em>src</em>,<br>
   size_t <em>num_gentypes</em>,<br>
@@ -2247,18 +2247,18 @@ from global memory.</p>
   The async gather is performed by all work-items in a work-group and this
   built-in function must therefore be encountered by all work-items in a
   work-group executing the kernel with the same argument values; otherwise
-  the results are undefined.</p>
-<p class="tableblock">  Returns an event object that can be used by <strong>wait_group_events</strong> to wait
+  the results are undefined.
+</p><p class="tableblock">  Returns an event object that can be used by <strong>wait_group_events</strong> to wait
   for the async copy to finish.
   The <em>event</em> argument can also be used to associate the
   <strong>async_work_group_strided_copy</strong> with a previous async copy allowing an
   event to be shared by multiple async copies; otherwise <em>event</em> should be
-  zero.</p>
-<p class="tableblock">  If <em>event</em> argument is not zero, the event object supplied in <em>event</em>
-  argument will be returned.</p>
-<p class="tableblock">  This function does not perform any implicit synchronization of source data
-  such as using a <strong>barrier</strong> before performing the copy.</p>
-<p class="tableblock">  The behavior of <strong>async_work_group_strided_copy</strong> is undefined if
+  zero.
+</p><p class="tableblock">  If <em>event</em> argument is not zero, the event object supplied in <em>event</em>
+  argument will be returned.
+</p><p class="tableblock">  This function does not perform any implicit synchronization of source data
+  such as using a <strong>barrier</strong> before performing the copy.
+</p><p class="tableblock">  The behavior of <strong>async_work_group_strided_copy</strong> is undefined if
   <em>src_stride</em> or <em>dst_stride</em> is 0, or if the <em>src_stride</em> or <em>dst_stride</em>
   values cause the <em>src</em> or <em>dst</em> pointers to exceed the upper bounds of the
   address space during the copy.</p></td>
@@ -2273,8 +2273,8 @@ from global memory.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Wait for events that identify the <strong>async_work_group_copy</strong> operations to
   complete.
   The event objects specified in <em>event_list</em> will be released after the
-  wait is performed.</p>
-<p class="tableblock">  This function must be encountered by all work-items in a work-group
+  wait is performed.
+</p><p class="tableblock">  This function must be encountered by all work-items in a work-group
   executing the kernel with the same <em>num_events</em> and event objects
   specified in <em>event_list</em>; otherwise the results are undefined.</p></td>
 </tr>
@@ -2314,28 +2314,28 @@ from global memory.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">half4 <strong>read_imageh</strong> (<br>
   read_only image2d_t <em>image</em>,<br>
   sampler_t <em>sampler</em>,<br>
-  int2 <em>coord</em>)</p>
-<p class="tableblock">  half4 <strong>read_imageh</strong> (<br>
+  int2 <em>coord</em>)
+</p><p class="tableblock">  half4 <strong>read_imageh</strong> (<br>
   read_only image2d_t <em>image</em>,<br>
   sampler_t <em>sampler</em>,<br>
   float2 <em>coord</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Use the coordinate <em>(coord.x, coord.y)</em> to do an element lookup in the 2D
-  image object specified by <em>image</em>.</p>
-<p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values in the range
+  image object specified by <em>image</em>.
+</p><p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values in the range
   [0.0 &#8230;&#8203; 1.0] for image objects created with <em>image_channel_data_type</em> set
   to one of the pre-defined packed formats, CL_UNORM_INT8, or
-  CL_UNORM_INT16.</p>
-<p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values in the range
+  CL_UNORM_INT16.
+</p><p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values in the range
   [-1.0 &#8230;&#8203; 1.0] for image objects created with <em>image_channel_data_type</em>
-  set to CL_SNORM_INT8, or CL_SNORM_INT16.</p>
-<p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values for image
-  objects created with <em>image_channel_data_type</em> set to CL_HALF_FLOAT.</p>
-<p class="tableblock">  The <strong>read_imageh</strong> calls that take integer coordinates must use a sampler
+  set to CL_SNORM_INT8, or CL_SNORM_INT16.
+</p><p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values for image
+  objects created with <em>image_channel_data_type</em> set to CL_HALF_FLOAT.
+</p><p class="tableblock">  The <strong>read_imageh</strong> calls that take integer coordinates must use a sampler
   with filter mode set to CLK_FILTER_NEAREST, normalized coordinates set to
   CLK_NORMALIZED_COORDS_FALSE and addressing mode set to
   CLK_ADDRESS_CLAMP_TO_EDGE, CLK_ADDRESS_CLAMP or CLK_ADDRESS_NONE;
-  otherwise the values returned are undefined.</p>
-<p class="tableblock">  Values returned by <strong>read_imageh</strong> for image objects with
+  otherwise the values returned are undefined.
+</p><p class="tableblock">  Values returned by <strong>read_imageh</strong> for image objects with
   <em>image_channel_data_type</em> values not specified in the description above
   are undefined.</p></td>
 </tr>
@@ -2347,29 +2347,29 @@ from global memory.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">half4 <strong>read_imageh</strong> (<br>
   read_only image3d_t <em>image</em>,<br>
   sampler_t <em>sampler</em>,<br>
-  int4 <em>coord</em> )</p>
-<p class="tableblock">  half4 <strong>read_imageh</strong> (<br>
+  int4 <em>coord</em> )
+</p><p class="tableblock">  half4 <strong>read_imageh</strong> (<br>
   read_only image3d_t <em>image</em>,<br>
   sampler_t <em>sampler</em>,<br>
   float4 <em>coord</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Use the coordinate <em>(coord.x</em>, <em>coord.y</em>, <em>coord.z)</em> to do an
   elementlookup in the 3D image object specified by <em>image</em>. <em>coord.w</em> is
-  ignored.</p>
-<p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values in the range
+  ignored.
+</p><p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values in the range
   [0.0 &#8230;&#8203; 1.0] for image objects created with <em>image_channel_data_type</em> set
   to one of the pre-defined packed formats or CL_UNORM_INT8, or
-  CL_UNORM_INT16.</p>
-<p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values in the range
+  CL_UNORM_INT16.
+</p><p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values in the range
   [-1.0 &#8230;&#8203; 1.0] for image objects created with <em>image_channel_data_type</em>
-  set to CL_SNORM_INT8, or CL_SNORM_INT16.</p>
-<p class="tableblock">  <strong>read_imageh</strong>returns half precision floating-point values for image
-  objects created with <em>image_channel_data_type</em> set to CL_HALF_FLOAT.</p>
-<p class="tableblock">  The <strong>read_imageh</strong> calls that take integer coordinates must use a sampler
+  set to CL_SNORM_INT8, or CL_SNORM_INT16.
+</p><p class="tableblock">  <strong>read_imageh</strong>returns half precision floating-point values for image
+  objects created with <em>image_channel_data_type</em> set to CL_HALF_FLOAT.
+</p><p class="tableblock">  The <strong>read_imageh</strong> calls that take integer coordinates must use a sampler
   with filter mode set to CLK_FILTER_NEAREST, normalized coordinates set to
   CLK_NORMALIZED_COORDS_FALSE and addressing mode set to
   CLK_ADDRESS_CLAMP_TO_EDGE, CLK_ADDRESS_CLAMP or CLK_ADDRESS_NONE;
-  otherwise the values returned are undefined.</p>
-<p class="tableblock">  Values returned by <strong>read_imageh</strong> for image objects with
+  otherwise the values returned are undefined.
+</p><p class="tableblock">  Values returned by <strong>read_imageh</strong> for image objects with
   <em>image_channel_data_type</em> values not specified in the description are
   undefined.</p></td>
 </tr>
@@ -2381,28 +2381,28 @@ from global memory.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">half4 <strong>read_imageh</strong> (<br>
   read_only image2d_array_t <em>image</em>,<br>
   sampler_t <em>sampler</em>,<br>
-  int4 <em>coord</em>)</p>
-<p class="tableblock">  half4 <strong>read_imageh</strong> (<br>
+  int4 <em>coord</em>)
+</p><p class="tableblock">  half4 <strong>read_imageh</strong> (<br>
   read_only image2d_array_t <em>image</em>,<br>
   sampler_t <em>sampler</em>,<br>
   float4 <em>coord</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Use <em>coord.xy</em> to do an element lookup in the 2D image identified by
-  <em>coord.z</em> in the 2D image array specified by <em>image</em>.</p>
-<p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values in the range
+  <em>coord.z</em> in the 2D image array specified by <em>image</em>.
+</p><p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values in the range
   [0.0 &#8230;&#8203; 1.0] for image objects created with image_channel_data_type set
   to one of the pre-defined packed formats or CL_UNORM_INT8, or
-  CL_UNORM_INT16.</p>
-<p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values in the range
+  CL_UNORM_INT16.
+</p><p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values in the range
   [-1.0 &#8230;&#8203; 1.0] for image objects created with image_channel_data_type set
-  to CL_SNORM_INT8, or CL_SNORM_INT16.</p>
-<p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values for image
-  objects created with image_channel_data_type set to CL_HALF_FLOAT.</p>
-<p class="tableblock">  The <strong>read_imageh</strong> calls that take integer coordinates must use a sampler
+  to CL_SNORM_INT8, or CL_SNORM_INT16.
+</p><p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values for image
+  objects created with image_channel_data_type set to CL_HALF_FLOAT.
+</p><p class="tableblock">  The <strong>read_imageh</strong> calls that take integer coordinates must use a sampler
   with filter mode set to CLK_FILTER_NEAREST, normalized coordinates set to
   CLK_NORMALIZED_COORDS_FALSE and addressing mode set to
   CLK_ADDRESS_CLAMP_TO_EDGE, CLK_ADDRESS_CLAMP or CLK_ADDRESS_NONE;
-  otherwise the values returned are undefined.</p>
-<p class="tableblock">  Values returned by <strong>read_imageh</strong> for image objects with
+  otherwise the values returned are undefined.
+</p><p class="tableblock">  Values returned by <strong>read_imageh</strong> for image objects with
   image_channel_data_type values not specified in the description above are
   undefined.</p></td>
 </tr>
@@ -2414,28 +2414,28 @@ from global memory.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">half4 <strong>read_imageh</strong> (<br>
   read_only image1d_t <em>image</em>,<br>
   sampler_t <em>sampler</em>,<br>
-  int <em>coord</em>)</p>
-<p class="tableblock">  half4 <strong>read_imageh</strong> (<br>
+  int <em>coord</em>)
+</p><p class="tableblock">  half4 <strong>read_imageh</strong> (<br>
   read_only image1d_t <em>image</em>,<br>
   sampler_t <em>sampler</em>,<br>
   float <em>coord</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Use <em>coord</em> to do an element lookup in the 1D image object specified by
-  <em>image</em>.</p>
-<p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values in the range
+  <em>image</em>.
+</p><p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values in the range
   [0.0 &#8230;&#8203; 1.0] for image objects created with <em>image_channel_data_type</em> set
   to one of the pre-defined packed formats or CL_UNORM_INT8, or
-  CL_UNORM_INT16.</p>
-<p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values in the range
+  CL_UNORM_INT16.
+</p><p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values in the range
   [-1.0 &#8230;&#8203; 1.0] for image objects created with <em>image_channel_data_type</em>
-  set to CL_SNORM_INT8, or CL_SNORM_INT16.</p>
-<p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values for image
-  objects created with <em>image_channel_data_type</em> set to CL_HALF_FLOAT.</p>
-<p class="tableblock">  The <strong>read_imageh</strong> calls that take integer coordinates must use a sampler
+  set to CL_SNORM_INT8, or CL_SNORM_INT16.
+</p><p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values for image
+  objects created with <em>image_channel_data_type</em> set to CL_HALF_FLOAT.
+</p><p class="tableblock">  The <strong>read_imageh</strong> calls that take integer coordinates must use a sampler
   with filter mode set to CLK_FILTER_NEAREST, normalized coordinates set to
   CLK_NORMALIZED_COORDS_FALSE and addressing mode set to
   CLK_ADDRESS_CLAMP_TO_EDGE, CLK_ADDRESS_CLAMP or CLK_ADDRESS_NONE;
-  otherwise the values returned are undefined.</p>
-<p class="tableblock">  Values returned by <strong>read_imageh</strong> for image objects with
+  otherwise the values returned are undefined.
+</p><p class="tableblock">  Values returned by <strong>read_imageh</strong> for image objects with
   <em>image_channel_data_type</em> values not specified in the description above
   are undefined.</p></td>
 </tr>
@@ -2447,28 +2447,28 @@ from global memory.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">half4 <strong>read_imageh</strong> (<br>
   read_only image1d_array_t <em>image</em>,<br>
   sampler_t <em>sampler</em>,<br>
-  int2 <em>coord</em>)</p>
-<p class="tableblock">  half4 <strong>read_imageh</strong> (<br>
+  int2 <em>coord</em>)
+</p><p class="tableblock">  half4 <strong>read_imageh</strong> (<br>
   read_only image1d_array_t <em>image</em>,<br>
   sampler_t <em>sampler</em>,<br>
   float2 <em>coord</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Use <em>coord.x</em> to do an element lookup in the 1D image identified by
-  <em>coord.y</em> in the 1D image array specified by <em>image</em>.</p>
-<p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values in the range
+  <em>coord.y</em> in the 1D image array specified by <em>image</em>.
+</p><p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values in the range
   [0.0 &#8230;&#8203; 1.0] for image objects created with image_channel_data_type set
   to one of the pre-defined packed formats or CL_UNORM_INT8, or
-  CL_UNORM_INT16.</p>
-<p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values in the range
+  CL_UNORM_INT16.
+</p><p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values in the range
   [-1.0 &#8230;&#8203; 1.0] for image objects created with image_channel_data_type set
-  to CL_SNORM_INT8, or CL_SNORM_INT16.</p>
-<p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values for image
-  objects created with image_channel_data_type set to CL_HALF_FLOAT.</p>
-<p class="tableblock">  The <strong>read_imageh</strong> calls that take integer coordinates must use a sampler
+  to CL_SNORM_INT8, or CL_SNORM_INT16.
+</p><p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values for image
+  objects created with image_channel_data_type set to CL_HALF_FLOAT.
+</p><p class="tableblock">  The <strong>read_imageh</strong> calls that take integer coordinates must use a sampler
   with filter mode set to CLK_FILTER_NEAREST, normalized coordinates set to
   CLK_NORMALIZED_COORDS_FALSE and addressing mode set to
   CLK_ADDRESS_CLAMP_TO_EDGE, CLK_ADDRESS_CLAMP or CLK_ADDRESS_NONE;
-  otherwise the values returned are undefined.</p>
-<p class="tableblock">  Values returned by <strong>read_imageh</strong> for image objects with
+  otherwise the values returned are undefined.
+</p><p class="tableblock">  Values returned by <strong>read_imageh</strong> for image objects with
   image_channel_data_type values not specified in the description above are
   undefined.</p></td>
 </tr>
@@ -2499,17 +2499,17 @@ For sampler-less read functions this may be <em>read_only</em> or <em>read_write
   <em>aQual</em> image2d_t <em>image</em>,<br>
   int2 <em>coord</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Use the coordinate <em>(coord.x, coord.y)</em> to do an element lookup in the 2D
-  image object specified by <em>image</em>.</p>
-<p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values in the range
+  image object specified by <em>image</em>.
+</p><p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values in the range
   [0.0 &#8230;&#8203; 1.0] for image objects created with <em>image_channel_data_type</em> set
   to one of the pre-defined packed formats or CL_UNORM_INT8, or
-  CL_UNORM_INT16.</p>
-<p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values in the range
+  CL_UNORM_INT16.
+</p><p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values in the range
   [-1.0 &#8230;&#8203; 1.0] for image objects created with <em>image_channel_data_type</em>
-  set to CL_SNORM_INT8, or CL_SNORM_INT16.</p>
-<p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values for image
-  objects created with <em>image_channel_data_type</em> set to CL_HALF_FLOAT.</p>
-<p class="tableblock">  Values returned by <strong>read_imageh</strong> for image objects with
+  set to CL_SNORM_INT8, or CL_SNORM_INT16.
+</p><p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values for image
+  objects created with <em>image_channel_data_type</em> set to CL_HALF_FLOAT.
+</p><p class="tableblock">  Values returned by <strong>read_imageh</strong> for image objects with
   <em>image_channel_data_type</em> values not specified in the description above
   are undefined.</p></td>
 </tr>
@@ -2518,17 +2518,17 @@ For sampler-less read functions this may be <em>read_only</em> or <em>read_write
   <em>aQual</em> image3d_t <em>image</em>,<br>
   int4 <em>coord</em> )</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Use the coordinate <em>(coord.x</em>, <em>coord.y</em>, <em>coord.z)</em> to do an element
-  lookup in the 3D image object specified by <em>image</em>. <em>coord.w</em> is ignored.</p>
-<p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values in the range
+  lookup in the 3D image object specified by <em>image</em>. <em>coord.w</em> is ignored.
+</p><p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values in the range
   [0.0 &#8230;&#8203; 1.0] for image objects created with <em>image_channel_data_type</em> set
   to one of the pre-defined packed formats or CL_UNORM_INT8, or
-  CL_UNORM_INT16.</p>
-<p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values in the range
+  CL_UNORM_INT16.
+</p><p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values in the range
   [-1.0 &#8230;&#8203; 1.0] for image objects created with <em>image_channel_data_type</em>
-  set to CL_SNORM_INT8, or CL_SNORM_INT16.</p>
-<p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values for image
-  objects created with <em>image_channel_data_type</em> set to CL_HALF_FLOAT.</p>
-<p class="tableblock">  Values returned by <strong>read_imageh</strong> for image objects with
+  set to CL_SNORM_INT8, or CL_SNORM_INT16.
+</p><p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values for image
+  objects created with <em>image_channel_data_type</em> set to CL_HALF_FLOAT.
+</p><p class="tableblock">  Values returned by <strong>read_imageh</strong> for image objects with
   <em>image_channel_data_type</em> values not specified in the description are
   undefined.</p></td>
 </tr>
@@ -2537,39 +2537,39 @@ For sampler-less read functions this may be <em>read_only</em> or <em>read_write
   <em>aQual</em> image2d_array_t <em>image</em>,<br>
   int4 <em>coord</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Use <em>coord.xy</em> to do an element lookup in the 2D image identified by
-  <em>coord.z</em> in the 2D image array specified by <em>image</em>.</p>
-<p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values in the range
+  <em>coord.z</em> in the 2D image array specified by <em>image</em>.
+</p><p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values in the range
   [0.0 &#8230;&#8203; 1.0] for image objects created with <em>image_channel_data_type</em> set
   to one of the pre-defined packed formats or CL_UNORM_INT8, or
-  CL_UNORM_INT16.</p>
-<p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values in the range
+  CL_UNORM_INT16.
+</p><p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values in the range
   [-1.0 &#8230;&#8203; 1.0] for image objects created with <em>image_channel_data_type</em>
-  set to CL_SNORM_INT8, or CL_SNORM_INT16.</p>
-<p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values for image
-  objects created with <em>image_channel_data_type</em> set to CL_HALF_FLOAT.</p>
-<p class="tableblock">  Values returned by <strong>read_imageh</strong> for image objects with
+  set to CL_SNORM_INT8, or CL_SNORM_INT16.
+</p><p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values for image
+  objects created with <em>image_channel_data_type</em> set to CL_HALF_FLOAT.
+</p><p class="tableblock">  Values returned by <strong>read_imageh</strong> for image objects with
   <em>image_channel_data_type</em> values not specified in the description above
   are undefined.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">half4 <strong>read_imageh</strong> (<br>
   <em>aQual</em> image1d_t <em>image</em>,<br>
-  int <em>coord</em>)</p>
-<p class="tableblock">  half4 <strong>read_imageh</strong> (<br>
+  int <em>coord</em>)
+</p><p class="tableblock">  half4 <strong>read_imageh</strong> (<br>
   <em>aQual</em> image1d_buffer_t <em>image</em>,<br>
   int <em>coord</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Use <em>coord</em> to do an element lookup in the 1D image or 1D image buffer
-  object specified by <em>image</em>.</p>
-<p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values in the range
+  object specified by <em>image</em>.
+</p><p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values in the range
   [0.0 &#8230;&#8203; 1.0] for image objects created with <em>image_channel_data_type</em> set
   to one of the pre-defined packed formats or CL_UNORM_INT8, or
-  CL_UNORM_INT16.</p>
-<p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values in the range
+  CL_UNORM_INT16.
+</p><p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values in the range
   [-1.0 &#8230;&#8203; 1.0] for image objects created with <em>image_channel_data_type</em>
-  set to CL_SNORM_INT8, or CL_SNORM_INT16.</p>
-<p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values for image
-  objects created with <em>image_channel_data_type</em> set to CL_HALF_FLOAT.</p>
-<p class="tableblock">  Values returned by <strong>read_imageh</strong> for image objects with
+  set to CL_SNORM_INT8, or CL_SNORM_INT16.
+</p><p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values for image
+  objects created with <em>image_channel_data_type</em> set to CL_HALF_FLOAT.
+</p><p class="tableblock">  Values returned by <strong>read_imageh</strong> for image objects with
   <em>image_channel_data_type</em> values not specified in the description above
   are undefined.</p></td>
 </tr>
@@ -2578,17 +2578,17 @@ For sampler-less read functions this may be <em>read_only</em> or <em>read_write
   <em>aQual</em> image1d_array_t <em>image</em>,<br>
   int2 <em>coord</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Use <em>coord.x</em> to do an element lookup in the 2D image identified by
-  <em>coord.y</em> in the 2D image array specified by <em>image</em>.</p>
-<p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values in the range
+  <em>coord.y</em> in the 2D image array specified by <em>image</em>.
+</p><p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values in the range
   [0.0 &#8230;&#8203; 1.0] for image objects created with <em>image_channel_data_type</em> set
   to one of the pre-defined packed formats or CL_UNORM_INT8, or
-  CL_UNORM_INT16.</p>
-<p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values in the range
+  CL_UNORM_INT16.
+</p><p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values in the range
   [-1.0 &#8230;&#8203; 1.0] for image objects created with <em>image_channel_data_type</em>
-  set to CL_SNORM_INT8, or CL_SNORM_INT16.</p>
-<p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values for image
-  objects created with <em>image_channel_data_type</em> set to CL_HALF_FLOAT.</p>
-<p class="tableblock">  Values returned by <strong>read_imageh</strong> for image objects with
+  set to CL_SNORM_INT8, or CL_SNORM_INT16.
+</p><p class="tableblock">  <strong>read_imageh</strong> returns half precision floating-point values for image
+  objects created with <em>image_channel_data_type</em> set to CL_HALF_FLOAT.
+</p><p class="tableblock">  Values returned by <strong>read_imageh</strong> for image objects with
   <em>image_channel_data_type</em> values not specified in the description above
   are undefined.</p></td>
 </tr>
@@ -2620,16 +2620,16 @@ For write functions this may be <em>write_only</em> or <em>read_write</em>.</p>
   int2 <em>coord</em>,<br>
   half4 <em>color</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Write <em>color</em> value to location specified by <em>coord.xy</em> in the 2D image
-  specified by <em>image</em>.</p>
-<p class="tableblock">  Appropriate data format conversion to the specified image format is done
+  specified by <em>image</em>.
+</p><p class="tableblock">  Appropriate data format conversion to the specified image format is done
   before writing the color value. <em>x</em> &amp; <em>y</em> are considered to be
   unnormalized coordinates and must be in the range 0 &#8230;&#8203; width - 1, and 0
-  &#8230;&#8203; height - 1.</p>
-<p class="tableblock">  <strong>write_imageh</strong> can only be used with image objects created with
+  &#8230;&#8203; height - 1.
+</p><p class="tableblock">  <strong>write_imageh</strong> can only be used with image objects created with
   <em>image_channel_data_type</em> set to one of the pre-defined packed formats or
   set to CL_SNORM_INT8, CL_UNORM_INT8, CL_SNORM_INT16, CL_UNORM_INT16 or
-  CL_HALF_FLOAT.</p>
-<p class="tableblock">  The behavior of <strong>write_imageh</strong> for image objects created with
+  CL_HALF_FLOAT.
+</p><p class="tableblock">  The behavior of <strong>write_imageh</strong> for image objects created with
   <em>image_channel_data_type</em> values not specified in the description above or
   with (<em>x</em>, <em>y</em>) coordinate values that are not in the range (0 &#8230;&#8203; width -
   1, 0 &#8230;&#8203; height - 1) respectively, is undefined.</p></td>
@@ -2640,17 +2640,17 @@ For write functions this may be <em>write_only</em> or <em>read_write</em>.</p>
   int4 <em>coord</em>,<br>
   half4 <em>color</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Write <em>color</em> value to location specified by <em>coord.xy</em> in the 2D image
-  identified by <em>coord.z</em> in the 2D image array specified by <em>image</em>.</p>
-<p class="tableblock">  Appropriate data format conversion to the specified image format is done
+  identified by <em>coord.z</em> in the 2D image array specified by <em>image</em>.
+</p><p class="tableblock">  Appropriate data format conversion to the specified image format is done
   before writing the color value. <em>coord.x</em>, <em>coord.y</em> and <em>coord.z</em> are
   considered to be unnormalized coordinates and must be in the range 0 &#8230;&#8203;
   image width - 1, 0 &#8230;&#8203; image height - 1 and 0 &#8230;&#8203; image number of layers -
-  1.</p>
-<p class="tableblock">  <strong>write_imageh</strong> can only be used with image objects created with
+  1.
+</p><p class="tableblock">  <strong>write_imageh</strong> can only be used with image objects created with
   <em>image_channel_data_type</em> set to one of the pre-defined packed formats or
   set to CL_SNORM_INT8, CL_UNORM_INT8, CL_SNORM_INT16, CL_UNORM_INT16 or
-  CL_HALF_FLOAT.</p>
-<p class="tableblock">  The behavior of <strong>write_imageh</strong> for image objects created with
+  CL_HALF_FLOAT.
+</p><p class="tableblock">  The behavior of <strong>write_imageh</strong> for image objects created with
   <em>image_channel_data_type</em> values not specified in the description above or
   with (<em>x</em>, <em>y, z</em>) coordinate values that are not in the range (0 &#8230;&#8203;
   image width - 1, 0 &#8230;&#8203; image height - 1, 0 &#8230;&#8203; image number of layers -
@@ -2660,8 +2660,8 @@ For write functions this may be <em>write_only</em> or <em>read_write</em>.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">void <strong>write_imageh</strong> (<br>
   <em>aQual</em> image1d_t <em>image</em>,<br>
   int <em>coord</em>,<br>
-  half4 <em>color</em>)</p>
-<p class="tableblock">  void <strong>write_imageh</strong> (<br>
+  half4 <em>color</em>)
+</p><p class="tableblock">  void <strong>write_imageh</strong> (<br>
   <em>aQual</em> image1d_buffer_t <em>image</em>,<br>
   int <em>coord</em>,<br>
   half4 <em>color</em>)</p></td>
@@ -2670,15 +2670,15 @@ For write functions this may be <em>write_only</em> or <em>read_write</em>.</p>
   Appropriate data format conversion to the specified image format is done
   before writing the color value.
   <em>coord</em> is considered to be unnormalized coordinates and must be in the
-  range 0 &#8230;&#8203; image width - 1.</p>
-<p class="tableblock">  <strong>write_imageh</strong> can only be used with image objects created with
+  range 0 &#8230;&#8203; image width - 1.
+</p><p class="tableblock">  <strong>write_imageh</strong> can only be used with image objects created with
   <em>image_channel_data_type</em> set to one of the pre-defined packed formats or
   set to CL_SNORM_INT8, CL_UNORM_INT8, CL_SNORM_INT16, CL_UNORM_INT16 or
   CL_HALF_FLOAT.
   Appropriate data format conversion will be done to convert channel data
   from a floating-point value to actual data format in which the channels
-  are stored.</p>
-<p class="tableblock">  The behavior of <strong>write_imageh</strong> for image objects created with
+  are stored.
+</p><p class="tableblock">  The behavior of <strong>write_imageh</strong> for image objects created with
   <em>image_channel_data_type</em> values not specified in the description above or
   with coordinate values that is not in the range (0 &#8230;&#8203; image width - 1),
   is undefined.</p></td>
@@ -2693,15 +2693,15 @@ For write functions this may be <em>write_only</em> or <em>read_write</em>.</p>
   Appropriate data format conversion to the specified image format is done
   before writing the color value. <em>coord.x</em> and <em>coord.y</em> are considered to
   be unnormalized coordinates and must be in the range 0 &#8230;&#8203; image width - 1
-  and 0 &#8230;&#8203; image number of layers - 1.</p>
-<p class="tableblock">  <strong>write_imageh</strong> can only be used with image objects created with
+  and 0 &#8230;&#8203; image number of layers - 1.
+</p><p class="tableblock">  <strong>write_imageh</strong> can only be used with image objects created with
   <em>image_channel_data_type</em> set to one of the pre-defined packed formats or
   set to CL_SNORM_INT8, CL_UNORM_INT8, CL_SNORM_INT16, CL_UNORM_INT16 or
   CL_HALF_FLOAT.
   Appropriate data format conversion will be done to convert channel data
   from a floating-point value to actual data format in which the channels
-  are stored.</p>
-<p class="tableblock">  The behavior of <strong>write_imageh</strong> for image objects created with
+  are stored.
+</p><p class="tableblock">  The behavior of <strong>write_imageh</strong> for image objects created with
   <em>image_channel_data_type</em> values not specified in the description above or
   with (<em>x</em>, <em>y</em>) coordinate values that are not in the range (0 &#8230;&#8203; image
   width - 1, 0 &#8230;&#8203; image number of layers - 1), respectively, is undefined.</p></td>
@@ -2712,22 +2712,22 @@ For write functions this may be <em>write_only</em> or <em>read_write</em>.</p>
   int4 <em>coord</em>,<br>
   half4 <em>color</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Write color value to location specified by coord.xyz in the 3D image
-  object specified by <em>image</em>.</p>
-<p class="tableblock">  Appropriate data format conversion to the specified image format is done
+  object specified by <em>image</em>.
+</p><p class="tableblock">  Appropriate data format conversion to the specified image format is done
   before writing the color value.
   coord.x, coord.y and coord.z are considered to be unnormalized coordinates
   and must be in the range 0 &#8230;&#8203; image width - 1, 0 &#8230;&#8203; image height - 1 and
-  0 &#8230;&#8203; image depth - 1.</p>
-<p class="tableblock">  <strong>write_imageh</strong> can only be used with image objects created with
+  0 &#8230;&#8203; image depth - 1.
+</p><p class="tableblock">  <strong>write_imageh</strong> can only be used with image objects created with
   image_channel_data_type set to one of the pre-defined packed formats or
   set to CL_SNORM_INT8, CL_UNORM_INT8, CL_SNORM_INT16, CL_UNORM_INT16 or
-  CL_HALF_FLOAT.</p>
-<p class="tableblock">  The behavior of <strong>write_imageh</strong> for image objects created with
+  CL_HALF_FLOAT.
+</p><p class="tableblock">  The behavior of <strong>write_imageh</strong> for image objects created with
   image_channel_data_type values not specified in the description above or
   with (x, y, z) coordinate values that are not in the range (0 &#8230;&#8203; image
   width - 1, 0 &#8230;&#8203; image height - 1, 0 &#8230;&#8203; image depth - 1), respectively,
-  is undefined.</p>
-<p class="tableblock">  Note: This built-in function is only available if the
+  is undefined.
+</p><p class="tableblock">  Note: This built-in function is only available if the
   cl_khr_3d_image_writes extension is also supported by the device.</p></td>
 </tr>
 </tbody>
@@ -2759,19 +2759,19 @@ floating-point.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_DEVICE_HALF_FP_CONFIG</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_device_fp_config</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Describes half precision floating-point capability of the OpenCL device.
-  This is a bit-field that describes one or more of the following values:</p>
-<p class="tableblock">  CL_FP_DENORM&#8201;&#8212;&#8201;denorms are supported</p>
-<p class="tableblock">  CL_FP_INF_NAN&#8201;&#8212;&#8201;INF and NaNs are supported</p>
-<p class="tableblock">  CL_FP_ROUND_TO_NEAREST&#8201;&#8212;&#8201;round to nearest even rounding mode supported</p>
-<p class="tableblock">  CL_FP_ROUND_TO_ZERO&#8201;&#8212;&#8201;round to zero rounding mode supported</p>
-<p class="tableblock">  CL_FP_ROUND_TO_INF&#8201;&#8212;&#8201;round to positive and negative infinity rounding
-  modes supported</p>
-<p class="tableblock">  CP_FP_FMA&#8201;&#8212;&#8201;IEEE754-2008 fused multiply-add is supported</p>
-<p class="tableblock">  CL_FP_SOFT_FLOAT&#8201;&#8212;&#8201;Basic floating-point operations (such as addition,
-  subtraction, multiplication) are implemented in software.</p>
-<p class="tableblock">  The required minimum half precision floating-point capability as
-  implemented by this extension is:</p>
-<p class="tableblock">  CL_FP_ROUND_TO_ZERO, or CL_FP_ROUND_TO_NEAREST | CL_FP_INF_NAN.</p></td>
+  This is a bit-field that describes one or more of the following values:
+</p><p class="tableblock">  CL_FP_DENORM&#8201;&#8212;&#8201;denorms are supported
+</p><p class="tableblock">  CL_FP_INF_NAN&#8201;&#8212;&#8201;INF and NaNs are supported
+</p><p class="tableblock">  CL_FP_ROUND_TO_NEAREST&#8201;&#8212;&#8201;round to nearest even rounding mode supported
+</p><p class="tableblock">  CL_FP_ROUND_TO_ZERO&#8201;&#8212;&#8201;round to zero rounding mode supported
+</p><p class="tableblock">  CL_FP_ROUND_TO_INF&#8201;&#8212;&#8201;round to positive and negative infinity rounding
+  modes supported
+</p><p class="tableblock">  CL_FP_FMA&#8201;&#8212;&#8201;IEEE754-2008 fused multiply-add is supported
+</p><p class="tableblock">  CL_FP_SOFT_FLOAT&#8201;&#8212;&#8201;Basic floating-point operations (such as addition,
+  subtraction, multiplication) are implemented in software.
+</p><p class="tableblock">  The required minimum half precision floating-point capability as
+  implemented by this extension is:
+</p><p class="tableblock">  CL_FP_ROUND_TO_ZERO, or CL_FP_ROUND_TO_NEAREST | CL_FP_INF_NAN.</p></td>
 </tr>
 </tbody>
 </table>
@@ -4151,8 +4151,8 @@ format.</p>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">GL_RGBA8</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CL_RGBA, CL_UNORM_INT8 or</p>
-<p class="tableblock">CL_BGRA, CL_UNORM_INT8</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CL_RGBA, CL_UNORM_INT8 or
+</p><p class="tableblock">CL_BGRA, CL_UNORM_INT8</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">GL_SRGB8_ALPHA8</p></td>
@@ -7796,8 +7796,8 @@ zero), all attributes take on their default values.&#8221;</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_CONTEXT_D3D11_DEVICE_KHR</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ID3D11Device *</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the ID3D11Device * to use for Direct3D 11 interoperability.</p>
-<p class="tableblock">  The default value is <code>NULL</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the ID3D11Device * to use for Direct3D 11 interoperability.
+</p><p class="tableblock">  The default value is <code>NULL</code>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -9041,8 +9041,8 @@ that may be queried with clGetGLTextureInfo</a>:</strong></p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_GL_NUM_SAMPLES</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">GLsizei</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The <em>samples</em> argument passed to <strong>glTexImage2DMultisample</strong> or
-  <strong>glTexImage3DMultisample</strong>.</p>
-<p class="tableblock">  If <em>image</em> is not a MSAA texture, 1 is returned.</p></td>
+  <strong>glTexImage3DMultisample</strong>.
+</p><p class="tableblock">  If <em>image</em> is not a MSAA texture, 1 is returned.</p></td>
 </tr>
 </tbody>
 </table>
@@ -9528,10 +9528,10 @@ This extension name is <strong>cl_khr_initialize_memory</strong>.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_CONTEXT_MEMORY_INITIALIZE_KHR</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_context_memory_initialize_khr</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Describes which memory types for the context must be initialized.
-  This is a bit-field, where the following values are currently supported:</p>
-<p class="tableblock">  CL_CONTEXT_MEMORY_INITIALIZE_LOCAL_KHR&#8201;&#8212;&#8201;Initialize local memory to
-  zeros.</p>
-<p class="tableblock">  CL_CONTEXT_MEMORY_INITIALIZE_PRIVATE_KHR&#8201;&#8212;&#8201;Initialize private memory to
+  This is a bit-field, where the following values are currently supported:
+</p><p class="tableblock">  CL_CONTEXT_MEMORY_INITIALIZE_LOCAL_KHR&#8201;&#8212;&#8201;Initialize local memory to
+  zeros.
+</p><p class="tableblock">  CL_CONTEXT_MEMORY_INITIALIZE_PRIVATE_KHR&#8201;&#8212;&#8201;Initialize private memory to
   zeros.</p></td>
 </tr>
 </tbody>
@@ -9607,8 +9607,8 @@ terminate an OpenCL context and adds an API to terminate a context.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_DEVICE_TERMINATE_CAPABILITY_KHR</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>cl_device_terminate_capability_khr</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Describes the termination capability of the OpenCL device.
-  This is a bit-field, where the following values are currently supported:</p>
-<p class="tableblock">  CL_DEVICE_TERMINATE_CAPABILITY_CONTEXT_KHR - Indicates that context
+  This is a bit-field, where the following values are currently supported:
+</p><p class="tableblock">  CL_DEVICE_TERMINATE_CAPABILITY_CONTEXT_KHR - Indicates that context
   termination is supported.</p></td>
 </tr>
 </tbody>
@@ -9779,8 +9779,8 @@ representation, which became a core feature in OpenCL 2.1.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_DEVICE_SPIR_VERSIONS</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">char[]</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A space separated list of SPIR versions supported by the device.</p>
-<p class="tableblock">  For example, returning <code>"1.2"</code> in this query implies that SPIR version 1.2
+<td class="tableblock halign-left valign-top"><p class="tableblock">A space separated list of SPIR versions supported by the device.
+</p><p class="tableblock">  For example, returning <code>"1.2"</code> in this query implies that SPIR version 1.2
   is supported by the implementation.</p></td>
 </tr>
 </tbody>
@@ -9822,8 +9822,8 @@ CL_PROGRAM_BINARY_TYPE_INTERMEDIATE:</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CL_PROGRAM_BINARY_TYPE_INTERMEDIATE&#8201;&#8212;&#8201;An intermediate (non-source)
   representation for the program is loaded as a binary.
   The program must be further processed with <strong>clCompileProgram</strong> or
-  <strong>clBuildProgram</strong>.</p>
-<p class="tableblock">  If processed with <strong>clCompileProgram</strong>, the result will be a binary of type
+  <strong>clBuildProgram</strong>.
+</p><p class="tableblock">  If processed with <strong>clCompileProgram</strong>, the result will be a binary of type
   CL_PROGRAM_BINARY_TYPE_COMPILED_OBJECT or CL_PROGRAM_BINARY_TYPE_LIBRARY.
   If processed with <strong>clBuildProgram</strong>, the result will be a binary of type
   CL_PROGRAM_BINARY_TYPE_EXECUTABLE.</p></td>
@@ -10381,8 +10381,8 @@ specification for descriptions of OpenCL C++ subgroup built-in functions.</p>
 <p>uint <strong>get_num_sub_groups</strong> ()</p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the number of subgroups that the current work group is divided
-  into.</p>
-<p class="tableblock">  This number will be constant for the duration of a work group&#8217;s execution.
+  into.
+</p><p class="tableblock">  This number will be constant for the duration of a work group&#8217;s execution.
   If the kernel is executed with a non-uniform work group size
   (i.e. the global_work_size values specified to <strong>clEnqueueNDRangeKernel</strong>
   are not evenly divisible by the local_work_size values for any dimension,
@@ -10394,8 +10394,8 @@ specification for descriptions of OpenCL C++ subgroup built-in functions.</p>
 <p>uint <strong>get_enqueued_num_sub_groups</strong> ()</p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the same value as that returned by <strong>get_num_sub_groups</strong> if the
-  kernel is executed with a uniform work group size.</p>
-<p class="tableblock">  If the kernel is executed with a non-uniform work group size, returns the
+  kernel is executed with a uniform work group size.
+</p><p class="tableblock">  If the kernel is executed with a non-uniform work group size, returns the
   number of subgroups in each of the work groups that make up the uniform
   region of the global range.</p></td>
 </tr>
@@ -10404,8 +10404,8 @@ specification for descriptions of OpenCL C++ subgroup built-in functions.</p>
 <p>uint <strong>get_sub_group_id</strong> ()</p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>get_sub_group_id</strong> returns the subgroup ID which is a number from 0 ..
-  <strong>get_num_sub_groups</strong>() - 1.</p>
-<p class="tableblock">  For <strong>clEnqueueTask</strong>, this returns 0.</p></td>
+  <strong>get_num_sub_groups</strong>() - 1.
+</p><p class="tableblock">  For <strong>clEnqueueTask</strong>, this returns 0.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><div><div class="paragraph">
@@ -10434,8 +10434,8 @@ specification for descriptions of OpenCL C++ subgroup built-in functions.</p>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">void <strong>sub_group_barrier</strong> (<br>
-  cl_mem_fence_flags <em>flags</em>)</p>
-<p class="tableblock">  void <strong>sub_group_barrier</strong> (<br>
+  cl_mem_fence_flags <em>flags</em>)
+</p><p class="tableblock">  void <strong>sub_group_barrier</strong> (<br>
   cl_mem_fence_flags <em>flags</em>, memory_scope <em>scope</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">All work items in a subgroup executing the kernel on a processor must
   execute this function before any are allowed to continue execution beyond
@@ -10443,28 +10443,28 @@ specification for descriptions of OpenCL C++ subgroup built-in functions.</p>
   This function must be encountered by all work items in a subgroup
   executing the kernel.
   These rules apply to ND-ranges implemented with uniform and non-uniform
-  work groups.</p>
-<p class="tableblock">  If <strong>subgroup_barrier</strong> is inside a conditional statement, then all work
+  work groups.
+</p><p class="tableblock">  If <strong>subgroup_barrier</strong> is inside a conditional statement, then all work
   items within the subgroup must enter the conditional if any work item in
   the subgroup enters the conditional statement and executes the
-  subgroup_barrier.</p>
-<p class="tableblock">  If <strong>subgroup_barrier</strong> is inside a loop, all work items within the subgroup
+  subgroup_barrier.
+</p><p class="tableblock">  If <strong>subgroup_barrier</strong> is inside a loop, all work items within the subgroup
   must execute the subgroup_barrier for each iteration of the loop before
-  any are allowed to continue execution beyond the subgroup_barrier.</p>
-<p class="tableblock">  The <strong>subgroup_barrier</strong> function also queues a memory fence (reads and
+  any are allowed to continue execution beyond the subgroup_barrier.
+</p><p class="tableblock">  The <strong>subgroup_barrier</strong> function also queues a memory fence (reads and
   writes) to ensure correct ordering of memory operations to local or global
-  memory.</p>
-<p class="tableblock">  The flags argument specifies the memory address space and can be set to a
-  combination of the following values:</p>
-<p class="tableblock">  CLK_LOCAL_MEM_FENCE - The <strong>subgroup_barrier</strong> function will either flush
+  memory.
+</p><p class="tableblock">  The flags argument specifies the memory address space and can be set to a
+  combination of the following values:
+</p><p class="tableblock">  CLK_LOCAL_MEM_FENCE - The <strong>subgroup_barrier</strong> function will either flush
   any variables stored in local memory or queue a memory fence to ensure
-  correct ordering of memory operations to local memory.</p>
-<p class="tableblock">  CLK_GLOBAL_MEM_FENCE&#8201;&#8212;&#8201;The <strong>subgroup_barrier</strong> function will queue a
+  correct ordering of memory operations to local memory.
+</p><p class="tableblock">  CLK_GLOBAL_MEM_FENCE&#8201;&#8212;&#8201;The <strong>subgroup_barrier</strong> function will queue a
   memory fence to ensure correct ordering of memory operations to global
   memory.
   This can be useful when work items, for example, write to buffer objects
-  and then want to read the updated data from these buffer objects.</p>
-<p class="tableblock">  CLK_IMAGE_MEM_FENCE&#8201;&#8212;&#8201;The <strong>subgroup_barrier</strong> function will queue a memory
+  and then want to read the updated data from these buffer objects.
+</p><p class="tableblock">  CLK_IMAGE_MEM_FENCE&#8201;&#8212;&#8201;The <strong>subgroup_barrier</strong> function will queue a memory
   fence to ensure correct ordering of memory operations to image objects.
   This can be useful when work items, for example, write to image objects
   and then want to read the updated data from these image objects.</p></td>
@@ -10531,8 +10531,8 @@ precision is supported) as the type for the arguments.</p>
   gentype <em>x</em>, uint <em>sub_group_local_id</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Broadcast the value of <em>x</em> for work item identified by
   <em>sub_group_local_id</em> (value returned by <strong>get_sub_group_local_id</strong>) to all
-  work items in the subgroup.</p>
-<p class="tableblock">  <em>sub_group_local_id</em> must be the same value for all work items in the
+  work items in the subgroup.
+</p><p class="tableblock">  <em>sub_group_local_id</em> must be the same value for all work items in the
   subgroup.</p></td>
 </tr>
 <tr>
@@ -10546,8 +10546,8 @@ precision is supported) as the type for the arguments.</p>
   gentype <em>x</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Do an exclusive scan operation specified by <strong>&lt;op&gt;</strong> of all values specified
   by work items in a subgroup.
-  The scan results are returned for each work item.</p>
-<p class="tableblock">  The scan order is defined by increasing 1D linear global ID within the
+  The scan results are returned for each work item.
+</p><p class="tableblock">  The scan order is defined by increasing subgroup local ID within the
   subgroup.</p></td>
 </tr>
 <tr>
@@ -10555,8 +10555,8 @@ precision is supported) as the type for the arguments.</p>
   gentype <em>x</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Do an inclusive scan operation specified by <strong>&lt;op&gt;</strong> of all values specified
   by work items in a subgroup.
-  The scan results are returned for each work item.</p>
-<p class="tableblock">  The scan order is defined by increasing 1D linear global ID within the
+  The scan results are returned for each work item.
+</p><p class="tableblock">  The scan order is defined by increasing subgroup local ID within the
   subgroup.</p></td>
 </tr>
 </tbody>
@@ -10590,21 +10590,21 @@ for the arguments to the pipe functions listed in <em>table 6.29</em>.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">reserve_id_t <strong>sub_group_reserve_read_pipe</strong> (<br>
   read_only pipe gentype <em>pipe</em>,<br>
-  uint <em>num_packets</em>)</p>
-<p class="tableblock">  reserve_id_t <strong>sub_group_reserve_write_pipe</strong> (<br>
+  uint <em>num_packets</em>)
+</p><p class="tableblock">  reserve_id_t <strong>sub_group_reserve_write_pipe</strong> (<br>
   write_only pipe gentype <em>pipe</em>,<br>
   uint <em>num_packets</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Reserve <em>num_packets</em> entries for reading from or writing to <em>pipe</em>.
   Returns a valid non-zero reservation ID if the reservation is successful
-  and 0 otherwise.</p>
-<p class="tableblock">  The reserved pipe entries are referred to by indices that go from 0 &#8230;&#8203;
+  and 0 otherwise.
+</p><p class="tableblock">  The reserved pipe entries are referred to by indices that go from 0 &#8230;&#8203;
   <em>num_packets</em> - 1.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">void <strong>sub_group_commit_read_pipe</strong> (<br>
   read_only pipe gentype <em>pipe</em>,<br>
-  reserve_id_t <em>reserve_id</em>)</p>
-<p class="tableblock">  void <strong>sub_group_commit_write_pipe</strong> (<br>
+  reserve_id_t <em>reserve_id</em>)
+</p><p class="tableblock">  void <strong>sub_group_commit_write_pipe</strong> (<br>
   write_only pipe gentype <em>pipe</em>,<br>
   reserve_id_t <em>reserve_id</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Indicates that all reads and writes to <em>num_packets</em> associated with
@@ -10638,20 +10638,20 @@ groups is implementation defined.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">uint <strong>get_kernel_sub_group_count_for_ndrange</strong> (<br>
   const ndrange_t <em>ndrange</em>,<br>
-  void (^block)(void));</p>
-<p class="tableblock">  uint <strong>get_kernel_sub_group_count_for_ndrange</strong> (<br>
+  void (^block)(void));
+</p><p class="tableblock">  uint <strong>get_kernel_sub_group_count_for_ndrange</strong> (<br>
   const ndrange_t <em>ndrange</em>,<br>
   void (^block)(local void *, &#8230;&#8203;));</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the number of subgroups in each work group of the dispatch (except
   for the last in cases where the global size does not divide cleanly into
-  work groups) given the combination of the passed ndrange and block.</p>
-<p class="tableblock">  <em>block</em> specifies the block to be enqueued.</p></td>
+  work groups) given the combination of the passed ndrange and block.
+</p><p class="tableblock">  <em>block</em> specifies the block to be enqueued.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">uint <strong>get_kernel_max_sub_group_size_for_ndrange</strong> (<br>
   const ndrange_t <em>ndrange</em>,<br>
-  void (^block)(void));<br></p>
-<p class="tableblock">  uint <strong>get_kernel_max_sub_group_size_for_ndrange</strong> (<br>
+  void (^block)(void));<br>
+</p><p class="tableblock">  uint <strong>get_kernel_max_sub_group_size_for_ndrange</strong> (<br>
   const ndrange_t <em>ndrange</em>,<br>
   void (^block)(local void *, &#8230;&#8203;));</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the maximum subgroup size for a block.</p></td>
@@ -11804,8 +11804,8 @@ added.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 2.2-7<br>
-Last updated 2018-05-12 14:11:33 BST
+Version 2.2-8<br>
+Last updated 2018-09-24 21:35:08 PDT
 </div>
 </div>
 

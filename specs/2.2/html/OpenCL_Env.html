@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.6.1">
+<meta name="generator" content="Asciidoctor 1.5.5">
 <meta name="author" content="Khronos OpenCL Working Group">
 <title>The OpenCL&#8482; SPIR-V Environment Specification</title>
 <style>
@@ -841,9 +841,9 @@ table.CodeRay td.code>pre{padding:0}
 <h1>The OpenCL<sup>&#8482;</sup> SPIR-V Environment Specification</h1>
 <div class="details">
 <span id="author" class="author">Khronos OpenCL Working Group</span><br>
-<span id="revnumber">version 2.2-7,</span>
-<span id="revdate">Sat, 12 May 2018 13:21:27 +0000</span>
-<br><span id="revremark">from git branch: master commit: ab6da3001e9eeafaa36c18888ca7eb4ebb9768af</span>
+<span id="revnumber">version 2.2-8,</span>
+<span id="revdate">Mon, 08 Oct 2018 16:50:05 +0000</span>
+<br><span id="revremark">from git branch: master commit: b3cab22fcff5d8c17869907c983e259ddd7ce788</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -1091,9 +1091,8 @@ have a specified format.</p>
 <em>Image Operands</em>.</p>
 </li>
 <li>
-<p>The image read instructions <strong>OpImageRead</strong>, <strong>OpImageFetch</strong>, and
-<strong>OpImageSampleExplicitLod</strong> must not include the optional <em>Image Operand</em>
-<strong>ConstOffset</strong>.</p>
+<p>The image read instructions <strong>OpImageRead</strong> and <strong>OpImageSampleExplicitLod</strong>
+must not include the optional <em>Image Operand</em> <strong>ConstOffset</strong>.</p>
 </li>
 <li>
 <p>For all <strong>Atomic Instructions</strong>:</p>
@@ -1116,6 +1115,9 @@ have defined behavior.</p>
 <p>Recursion is not supported.
 The static function call graph for an entry point must not contain
 cycles.</p>
+</li>
+<li>
+<p>Whether irreducible control flow is legal is implementation defined.</p>
 </li>
 </ul>
 </div>
@@ -2592,7 +2594,7 @@ in a SPIR-V module using <strong>OpExtension</strong>.</p>
 <div class="sect2">
 <h3 id="_full_and_embedded_profile_extensions">7.2. Full and Embedded Profile Extensions</h3>
 <div class="sect3">
-<h4 id="_code_cl_khr_3d_image_writes_code">7.2.1. <code>cl_khr_3d_image_writes</code></h4>
+<h4 id="__code_cl_khr_3d_image_writes_code">7.2.1. <code>cl_khr_3d_image_writes</code></h4>
 <div class="paragraph">
 <p>If the OpenCL environment supports the extension <code>cl_khr_3d_image_writes</code>,
 then the environment must accept <em>Image</em> operands to <strong>OpImageWrite</strong> that
@@ -2600,7 +2602,7 @@ are declared with with dimensionality <em>Dim</em> equal to <strong>3D</strong>.
 </div>
 </div>
 <div class="sect3">
-<h4 id="_code_cl_khr_depth_images_code">7.2.2. <code>cl_khr_depth_images</code></h4>
+<h4 id="__code_cl_khr_depth_images_code">7.2.2. <code>cl_khr_depth_images</code></h4>
 <div class="paragraph">
 <p>If the OpenCL environment supports the extension <code>cl_khr_depth_images</code>,
 then the environment must accept modules that declare 2D depth image types
@@ -2621,7 +2623,7 @@ equal to  1, indicating a depth image.  2D depth images may optionally be
 </div>
 </div>
 <div class="sect3">
-<h4 id="_code_cl_khr_device_enqueue_local_arg_types_code">7.2.3. <code>cl_khr_device_enqueue_local_arg_types</code></h4>
+<h4 id="__code_cl_khr_device_enqueue_local_arg_types_code">7.2.3. <code>cl_khr_device_enqueue_local_arg_types</code></h4>
 <div class="paragraph">
 <p>If the OpenCL environment supports the extension
 <code>cl_khr_device_enqueue_local_arg_types</code>, then then environment will allow
@@ -2630,7 +2632,7 @@ memory pointer parameters of any type.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_code_cl_khr_fp16_code">7.2.4. <code>cl_khr_fp16</code></h4>
+<h4 id="__code_cl_khr_fp16_code">7.2.4. <code>cl_khr_fp16</code></h4>
 <div class="paragraph">
 <p>If the OpenCL environment supports the extension <code>cl_khr_fp16</code>, then the
 environment must accept modules that declare the following SPIR-V
@@ -2645,7 +2647,7 @@ capabilities:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_code_cl_khr_fp64_code">7.2.5. <code>cl_khr_fp64</code></h4>
+<h4 id="__code_cl_khr_fp64_code">7.2.5. <code>cl_khr_fp64</code></h4>
 <div class="paragraph">
 <p>If the OpenCL environment supports the extension <code>cl_khr_fp64</code>, then the
 environment must accept modules that declare the following SPIR-V
@@ -2660,7 +2662,7 @@ capabilities:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_code_cl_khr_gl_depth_images_code">7.2.6. <code>cl_khr_gl_depth_images</code></h4>
+<h4 id="__code_cl_khr_gl_depth_images_code">7.2.6. <code>cl_khr_gl_depth_images</code></h4>
 <div class="paragraph">
 <p>If the OpenCL environment supports the extension <code>cl_khr_gl_depth_images</code>,
 then the following Image Channel Orders may additionally be returned by
@@ -2686,7 +2688,7 @@ then the following Image Channel Orders may additionally be returned by
 </div>
 </div>
 <div class="sect3">
-<h4 id="_code_cl_khr_gl_msaa_sharing_code">7.2.7. <code>cl_khr_gl_msaa_sharing</code></h4>
+<h4 id="__code_cl_khr_gl_msaa_sharing_code">7.2.7. <code>cl_khr_gl_msaa_sharing</code></h4>
 <div class="paragraph">
 <p>If the OpenCL environment supports the extension <code>cl_khr_gl_msaa_sharing</code>,
 then the environment must accept modules that declare 2D multi-sampled
@@ -2718,7 +2720,7 @@ may optionally be <em>Arrayed</em> or <em>Depth</em> images, if supported.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_code_cl_khr_int64_base_atomics_code_and_code_cl_khr_int64_extended_atomics_code">7.2.8. <code>cl_khr_int64_base_atomics</code> and <code>cl_khr_int64_extended_atomics</code></h4>
+<h4 id="__code_cl_khr_int64_base_atomics_code_and_code_cl_khr_int64_extended_atomics_code">7.2.8. <code>cl_khr_int64_base_atomics</code> and <code>cl_khr_int64_extended_atomics</code></h4>
 <div class="paragraph">
 <p>If the OpenCL environment supports the extension <code>cl_khr_int64_base_atomics</code>
 or <code>cl_khr_int64_extended_atomics</code>, then the environment must support 64-bit
@@ -2735,7 +2737,7 @@ of these extensions.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_code_cl_khr_mipmap_image_code">7.2.9. <code>cl_khr_mipmap_image</code></h4>
+<h4 id="__code_cl_khr_mipmap_image_code">7.2.9. <code>cl_khr_mipmap_image</code></h4>
 <div class="paragraph">
 <p>If the OpenCL environment supports the extension <code>cl_khr_mipmap_image</code>,
 then the environment must accept non-zero optional <strong>Lod</strong> <em>Image Operands</em>
@@ -2745,9 +2747,6 @@ for the following instructions:</p>
 <ul>
 <li>
 <p><strong>OpImageSampleExplicitLod</strong></p>
-</li>
-<li>
-<p><strong>OpImageFetch</strong></p>
 </li>
 <li>
 <p><strong>OpImageRead</strong></p>
@@ -2764,7 +2763,7 @@ require non-zero optional <strong>Lod</strong> <em>Image Operands</em> for <stro
 </div>
 </div>
 <div class="sect3">
-<h4 id="_code_cl_khr_mipmap_image_writes_code">7.2.10. <code>cl_khr_mipmap_image_writes</code></h4>
+<h4 id="__code_cl_khr_mipmap_image_writes_code">7.2.10. <code>cl_khr_mipmap_image_writes</code></h4>
 <div class="paragraph">
 <p>If the OpenCL environment supports the extension <code>cl_khr_mipmap_image_writes</code>,
 then the environment must accept non-zero optional <strong>Lod</strong> <em>Image Operands</em>
@@ -2784,7 +2783,7 @@ guarantee support for the <strong>ImageMipmap</strong> capability.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_code_cl_khr_subgroups_code">7.2.11. <code>cl_khr_subgroups</code></h4>
+<h4 id="__code_cl_khr_subgroups_code">7.2.11. <code>cl_khr_subgroups</code></h4>
 <div class="paragraph">
 <p>If the OpenCL environment supports the extension <code>cl_khr_subgroups</code>, then
 the environment will generally allows the scope for <em>Execution</em> to include:</p>
@@ -2809,7 +2808,7 @@ the environment will generally allows the scope for <em>Execution</em> to includ
 </div>
 </div>
 <div class="sect3">
-<h4 id="_code_cl_khr_subgroup_named_barrier_code">7.2.12. <code>cl_khr_subgroup_named_barrier</code></h4>
+<h4 id="__code_cl_khr_subgroup_named_barrier_code">7.2.12. <code>cl_khr_subgroup_named_barrier</code></h4>
 <div class="paragraph">
 <p>If the OpenCL environment supports the extension
 <code>cl_khr_subgroup_named_barrier</code>, then the environment must accept modules
@@ -2827,7 +2826,7 @@ that declare the following SPIR-V capabilities:</p>
 <div class="sect2">
 <h3 id="_embedded_profile_extensions">7.3. Embedded Profile Extensions</h3>
 <div class="sect3">
-<h4 id="_code_cles_khr_int64_code">7.3.1. <code>cles_khr_int64</code></h4>
+<h4 id="__code_cles_khr_int64_code">7.3.1. <code>cles_khr_int64</code></h4>
 <div class="paragraph">
 <p>If the OpenCL environment supports the extension <code>cles_khr_int64</code>, then the
 environment must accept modules that declare the following SPIR-V
@@ -4481,8 +4480,8 @@ profile.</p>
   For x &lt; 0 and odd y, derived implementations implement this as -exp2( y *
   log2(fabs(x) ).
   For x == 0 and nonzero y, derived implementations return zero.
-  For non-derived implementations, the error is &lt;= 8192 ULP.</p>
-<p class="tableblock">  On some implementations, powr() or pown() may perform faster
+  For non-derived implementations, the error is &lt;= 8192 ULP.
+</p><p class="tableblock">  On some implementations, powr() or pown() may perform faster
   than pow().
   If x is known to be &gt;= 0, consider using powr() in place of pow(),
   or if y is known to be an integer, consider using pown() in place of
@@ -6556,8 +6555,8 @@ Default RGB colour space - sRGB&#8221;,
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 2.2-7<br>
-Last updated 2018-05-07 12:41:34 BST
+Version 2.2-8<br>
+Last updated 2018-09-24 21:35:08 PDT
 </div>
 </div>
 
