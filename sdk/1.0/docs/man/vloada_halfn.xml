@@ -4,19 +4,19 @@
 <refentry>
     <refentryinfo>
         <keywordset>
-            <keyword>                            
+            <keyword>
                 vloada_halfn
             </keyword>
         </keywordset>
     </refentryinfo>
 
-    <refmeta>                                    
+    <refmeta>
         <refentrytitle>vloada_halfn</refentrytitle>
 
         <refmiscinfo>
             <copyright>
                 <year>2007-2009</year>
-                <holder>The Khronos Group Inc. 
+                <holder>The Khronos Group Inc.
  Permission is hereby granted, free of charge, to any person obtaining a
 copy of this software and/or associated documentation files (the
 "Materials"), to deal in the Materials without restriction, including
@@ -32,89 +32,88 @@ in all copies or substantial portions of the Materials.</holder>
 
 <!-- ================================ SYNOPSIS -->
 
-    <refnamediv id="vloada_halfn>">             
-        <refname>vloada_half<replaceable>n</replaceable></refname> 
+    <refnamediv id="vloada_halfn>">
+        <refname>vloada_half<replaceable>n</replaceable></refname>
 
         <refpurpose>
-            Read half float vector from a pointer to memory.
+            Read a half float vector from a pointer to memory.
         </refpurpose>
     </refnamediv>
 
-
-	<refsynopsisdiv xmlns:xlink="http://www.w3.org/1999/xlink"><title></title>
+        <refsynopsisdiv xmlns:xlink="http://www.w3.org/1999/xlink"><title></title>
         <funcsynopsis>
             <funcprototype>
                 <funcdef>
                     float<replaceable>n</replaceable>
-                    <function>                   
+                    <function>
                         vloada_half<replaceable>n</replaceable>
                     </function>
-                </funcdef>		
+                </funcdef>
 <paramdef><link xlink:href="scalarDataTypes.html">size_t</link><parameter>offset</parameter></paramdef>
-<paramdef><link xlink:href="global.html">__global</link> half<parameter>*p</parameter></paramdef>            
+<paramdef>const <link xlink:href="global.html">__global</link> half<parameter>*p</parameter></paramdef>
 </funcprototype>
-        </funcsynopsis>     
-		 <funcsynopsis>
+        </funcsynopsis>
+                 <funcsynopsis>
             <funcprototype>
                 <funcdef>
                     float<replaceable>n</replaceable>
-                    <function>                   
-                        vloada_half<replaceable>n</replaceable>_rte
+                    <function>
+                        vloada_half<replaceable>n</replaceable>
                     </function>
-                </funcdef>		
+                </funcdef>
 <paramdef><link xlink:href="scalarDataTypes.html">size_t</link><parameter>offset</parameter></paramdef>
-<paramdef><link xlink:href="local.html">__local</link> half<parameter>*p</parameter></paramdef>            
+<paramdef>const <link xlink:href="local.html">__local</link> half<parameter>*p</parameter></paramdef>
 </funcprototype>
-        </funcsynopsis>  
-  	    <funcsynopsis>
+        </funcsynopsis>
+            <funcsynopsis>
             <funcprototype>
                 <funcdef>
                     float<replaceable>n</replaceable>
-                    <function>                   
-                        vloada_half<replaceable>n</replaceable>_rtz
+                    <function>
+                        vloada_half<replaceable>n</replaceable>
                     </function>
-                </funcdef>		
+                </funcdef>
 <paramdef><link xlink:href="scalarDataTypes.html">size_t</link><parameter>offset</parameter></paramdef>
-<paramdef><link xlink:href="constant.html">__constant</link> half<parameter>*p</parameter></paramdef>            
+<paramdef>const <link xlink:href="constant.html">__constant</link> half<parameter>*p</parameter></paramdef>
 </funcprototype>
-        </funcsynopsis>  
-		 <funcsynopsis>
+        </funcsynopsis>
+                 <funcsynopsis>
             <funcprototype>
                 <funcdef>
                     float<replaceable>n</replaceable>
-                    <function>                   
-                        vloada_half<replaceable>n</replaceable>_rtp
+                    <function>
+                        vloada_half<replaceable>n</replaceable>
                     </function>
-                </funcdef>		
+                </funcdef>
 <paramdef><link xlink:href="scalarDataTypes.html">size_t</link><parameter>offset</parameter></paramdef>
-<paramdef><link xlink:href="private.html">__private</link> half<parameter>*p</parameter></paramdef>            
-          
+<paramdef>const <link xlink:href="private.html">__private</link> half<parameter>*p</parameter></paramdef>
+
 </funcprototype>
-        </funcsynopsis>  
-	</refsynopsisdiv>			
+        </funcsynopsis>
+        </refsynopsisdiv>
 
 <!-- ================================ DESCRIPTION  -->
 
     <refsect1 id="description"><title>Description</title>
         <para>
-		Return <constant>sizeof(<type>float<replaceable>n</replaceable></type>)</constant> bytes of data read from location (<emphasis>p</emphasis> + (<varname>offset</varname> * <varname>n</varname>)).
-		</para>
+                Return <constant>sizeof(<type>float<replaceable>n</replaceable></type>)</constant> bytes of data read from location (<emphasis>p</emphasis> + (<varname>offset</varname> * <varname>n</varname>)).
+                </para>
         <para>
 The <type>half<replaceable>n</replaceable></type> values are read from location (<varname>p</varname> + (<varname>offset</varname> * <varname>n</varname>)) and then converted to single precision floating point.
-The read address computed as (<varname>p</varname> + (<varname>offset</varname> * <varname>n</varname>)) must be aligned to <constant>sizeof(<type>half</type>)</constant> * number of <type>half</type> elements being read (given by <varname>n</varname>) bytes. 
-		</para>
+The read address computed as (<varname>p</varname> + (<varname>offset</varname> * <varname>n</varname>)) must be aligned to <constant>sizeof(<type>half</type>)</constant> * number of <type>half</type> elements being read (given by <varname>n</varname>) bytes.
+                </para>
     </refsect1>
 
-<!-- ================================ NOTES  
+<!-- ================================ NOTES
     <refsect1 id="notes"><title>Notes</title>
-		<para>
+                <para>
 
-        </para> 
+        </para>
     </refsect1>-->
-	
-	
+
+
 <!-- ================================ EXAMPLE  -->
-<!-- DO NOT DELETE IN CASE AN EXAMPLE IS ADDED IN THE FUTURE --> 
+<!-- DO NOT DELETE IN CASE AN EXAMPLE IS ADDED IN THE FUTURE -->
 <!--
     <refsect2 id="example1">
         <title>
@@ -127,7 +126,7 @@ The read address computed as (<varname>p</varname> + (<varname>offset</varname> 
                 <tbody>
                     <row>
                         <entry>
-                            Example goes here - it will be set in "code" type with white space preserved.  
+                            Example goes here - it will be set in "code" type with white space preserved.
                         </entry>
                     </row>
                 </tbody>
@@ -145,7 +144,7 @@ The read address computed as (<varname>p</varname> + (<varname>offset</varname> 
             <imageobject>
                 <imagedata fileref="pdficon_small1.gif" format="gif" />
             </imageobject>
-                                                 
+
             <olink uri="vectorDataLoadandStoreFunctions">OpenCL Specification</olink>
         </para>
     </refsect1>
@@ -155,7 +154,7 @@ The read address computed as (<varname>p</varname> + (<varname>offset</varname> 
 
     <refsect1 id="seealso"><title>Also see</title>
         <para>
-            <citerefentry href="vectorDataLoadandStoreFunctions"><refentrytitle>Vector Data Load and Store Functions</refentrytitle></citerefentry> 
+            <citerefentry href="vectorDataLoadandStoreFunctions"><refentrytitle>Vector Data Load and Store Functions</refentrytitle></citerefentry>
         </para>
     </refsect1>
 
@@ -165,10 +164,10 @@ The read address computed as (<varname>p</varname> + (<varname>offset</varname> 
 <!-- Content included from copyright.inc.xsl -->
 
     <refsect3 id="Copyright"><title></title>
-		<imageobject>
+                <imageobject>
                 <imagedata fileref="KhronosLogo.jpg" format="jpg" />
         </imageobject>
-		<para />
+                <para />
     </refsect3>
 
 </refentry>
