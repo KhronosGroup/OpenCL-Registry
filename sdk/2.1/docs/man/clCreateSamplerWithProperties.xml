@@ -77,16 +77,16 @@ in all copies or substantial portions of the Materials.</holder>
                 <term> <varname>sampler_properties</varname> </term>
                 <listitem>
                     <para>
-                        Specifies a list of sampler property names and 
-                        their corresponding values. 
-                        Each sampler property name is immediately followed 
-                        by the corresponding desired value. The 
-                        list is terminated with 0. The list of supported 
-                        properties is described in the table below. If a 
-                        supported property and its value is not specified in 
-                        <varname>sampler_properties</varname>, its default value will be 
-                        used. <varname>sampler_properties</varname> can be 
-                        NULL in which case the default values for supported sampler 
+                        Specifies a list of sampler property names and
+                        their corresponding values.
+                        Each sampler property name is immediately followed
+                        by the corresponding desired value. The
+                        list is terminated with 0. The list of supported
+                        properties is described in the table below. If a
+                        supported property and its value is not specified in
+                        <varname>sampler_properties</varname>, its default value will be
+                        used. <varname>sampler_properties</varname> can be
+                        NULL in which case the default values for supported sampler
                         properties will be used.
                     </para>
 
@@ -110,13 +110,13 @@ in all copies or substantial portions of the Materials.</holder>
                         <entry><type>cl_bool</type></entry>
                         <entry>
                             <para>
-                                A boolean value that specifies 
-                                whether the image coordinates 
+                                A boolean value that specifies
+                                whether the image coordinates
                                 specified are normalized or not.
                             </para>
 
                             <para>
-                                The default value (i.e. the value used 
+                                The default value (i.e. the value used
                                 if this property is not specified in
                                 <varname>sampler_properties</varname>) is <constant>CL_TRUE</constant>.
                             </para>
@@ -128,8 +128,8 @@ in all copies or substantial portions of the Materials.</holder>
                         <entry><type>cl_addressing_mode</type></entry>
                         <entry>
                             <para>
-                                Specifies how out-of-range image 
-                                coordinates are handled when reading 
+                                Specifies how out-of-range image
+                                coordinates are handled when reading
                                 from an image.
                             </para>
 
@@ -170,8 +170,8 @@ in all copies or substantial portions of the Materials.</holder>
                         <entry><type>cl_filter_mode</type></entry>
                         <entry>
                             <para>
-                                Specifies the type of filter that must 
-                                be applied when reading an image. 
+                                Specifies the type of filter that must
+                                be applied when reading an image.
                                 Valid values are:
                             </para>
 
@@ -191,19 +191,19 @@ in all copies or substantial portions of the Materials.</holder>
                             </para>
                         </entry>
                     </row>
-                </tbody>  
+                </tbody>
             </tgroup>
         </informaltable>
 
         <!-- Table 5.14, additions from the extension spec -->
 
         <para>
-            If the <citerefentry><refentrytitle>cl_khr_mipmap_image</refentrytitle></citerefentry> 
-            extension is supported, the following sampler 
-            properties can be specified when a sampler object is 
+            If the <citerefentry><refentrytitle>cl_khr_mipmap_image</refentrytitle></citerefentry>
+            extension is supported, the following sampler
+            properties can be specified when a sampler object is
             created using <function>clCreateSamplerWithProperties</function>:
         </para>
-              
+
         <informaltable frame="all">
             <tgroup cols="3" align="left" colsep="1" rowsep="1">
                 <colspec colname="col1" colnum="1" />
@@ -226,31 +226,31 @@ in all copies or substantial portions of the Materials.</holder>
 
                     <row>
                         <entry><constant>CL_SAMPLER_LOD_MIN_KHR</constant></entry>
-                        <entry><type>float</type></entry>
+                        <entry><type>cl_float</type></entry>
                         <entry><constant>0.0f</constant></entry>
                     </row>
 
                     <row>
                         <entry><constant>CL_SAMPLER_LOD_MAX_KHR</constant></entry>
-                        <entry><type>float</type></entry>
+                        <entry><type>cl_float</type></entry>
                         <entry><constant>MAXFLOAT</constant></entry>
                     </row>
-                </tbody>  
+                </tbody>
             </tgroup>
         </informaltable>
 
         <para>
-            If the <citerefentry><refentrytitle>cl_khr_mipmap_image</refentrytitle></citerefentry> 
+            If the <citerefentry><refentrytitle>cl_khr_mipmap_image</refentrytitle></citerefentry>
             extension is supported,
-            The sampler properties 
+            The sampler properties
             <constant>CL_SAMPLER_MIP_FILTER_MODE_KHR</constant>,
-            <constant>CL_SAMPLER_LOD_MIN_KHR</constant> and 
+            <constant>CL_SAMPLER_LOD_MIN_KHR</constant> and
             <constant>CL_SAMPLER_LOD_MAX_KHR</constant> cannot be specified with
-            any samplers initialized in the OpenCL program 
+            any samplers initialized in the OpenCL program
             source. Only the default values for these
-            properties will be used. To create a sampler 
+            properties will be used. To create a sampler
             with specific values for these properties, a sampler
-            object must be created with 
+            object must be created with
             <function>clCreateSamplerWithProperties</function>
             and passed as an argument to a kernel.
         </para>
@@ -288,17 +288,17 @@ in all copies or substantial portions of the Materials.</holder>
         </para>
 
         <para>
-            If the <citerefentry><refentrytitle>cl_khr_mipmap_image</refentrytitle></citerefentry> 
-            extension is supported, the sampler properties 
-            <constant>CL_SAMPLER_MIP_FILTER_MODE</constant>, 
-            <constant>CL_SAMPLER_LOD_MIN</constant> and 
-            <constant>CL_SAMPLER_LOD_MAX</constant> cannot be 
-            specified with any samplers initialized in the OpenCL 
-            program source. Only the default values for these 
-            properties will be used. To create a sampler 
-            with specific values for these properties, a 
-            sampler object must be created with 
-            <function>clCreateSamplerWithProperties</function> 
+            If the <citerefentry><refentrytitle>cl_khr_mipmap_image</refentrytitle></citerefentry>
+            extension is supported, the sampler properties
+            <constant>CL_SAMPLER_MIP_FILTER_MODE_KHR</constant>,
+            <constant>CL_SAMPLER_LOD_MIN_KHR</constant> and
+            <constant>CL_SAMPLER_LOD_MAX_KHR</constant> cannot be
+            specified with any samplers initialized in the OpenCL
+            program source. Only the default values for these
+            properties will be used. To create a sampler
+            with specific values for these properties, a
+            sampler object must be created with
+            <function>clCreateSamplerWithProperties</function>
             and passed as an argument to a kernel.
         </para>
 
@@ -321,10 +321,10 @@ in all copies or substantial portions of the Materials.</holder>
             </listitem>
 
             <listitem>
-              <errorname>CL_INVALID_VALUE</errorname> if the property 
-                name in <varname>sampler_properties</varname> is not a supported 
-                property name, if the value specified for a supported property 
-                name is not valid, or if the 
+              <errorname>CL_INVALID_VALUE</errorname> if the property
+                name in <varname>sampler_properties</varname> is not a supported
+                property name, if the value specified for a supported property
+                name is not valid, or if the
                 same property name is specified more than once.
             </listitem>
 
@@ -392,7 +392,7 @@ in all copies or substantial portions of the Materials.</holder>
             <citerefentry><refentrytitle>clRetainSampler</refentrytitle></citerefentry>,
             <citerefentry><refentrytitle>clReleaseSampler</refentrytitle></citerefentry>,
             <citerefentry><refentrytitle>clGetSamplerInfo</refentrytitle></citerefentry>
-            <citerefentry><refentrytitle>sampler_t</refentrytitle></citerefentry>,     
+            <citerefentry><refentrytitle>sampler_t</refentrytitle></citerefentry>,
             <citerefentry><refentrytitle>cl_khr_mipmap_image</refentrytitle></citerefentry>
         </para>
     </refsect1>

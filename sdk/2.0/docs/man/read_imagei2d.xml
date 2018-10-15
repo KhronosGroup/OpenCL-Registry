@@ -310,7 +310,7 @@ in all copies or substantial portions of the Materials.</holder>
         </funcsynopsis>
 
 
-        <bridgehead>Functions added with mipmap support enabled by extension 
+        <bridgehead>Functions added with mipmap support enabled by extension
         <code>cl_khr_mipmap_image</code>:</bridgehead>
 
         <funcsynopsis>
@@ -533,7 +533,7 @@ in all copies or substantial portions of the Materials.</holder>
         </funcsynopsis>
 
 
-        <bridgehead>Functions added with MSAA support enabled by extension 
+        <bridgehead>Functions added with MSAA support enabled by extension
         <code>cl_khr_gl_msaa_sharing</code>:</bridgehead>
 
         <funcsynopsis>
@@ -641,9 +641,9 @@ in all copies or substantial portions of the Materials.</holder>
 
         <para>
           For the forms that take an <type>image2d_array_t</type> object, use
-          the gradients to compute the lod and 
-          coordinate <emphasis>coord.xy</emphasis> to do an element lookup in 
-          the mip-level specified by the computed lod in 
+          the gradients to compute the lod and
+          coordinate <emphasis>coord.xy</emphasis> to do an element lookup in
+          the mip-level specified by the computed lod in
           the 2D image object specified by <varname>image</varname>.
         </para>
 
@@ -655,15 +655,15 @@ in all copies or substantial portions of the Materials.</holder>
 
         <para>
             For forms that take <type>image2d_msaa_t</type>,
-            use the coordinate (<varname>coord.x, coord.y</varname>) and <varname>sample</varname> to 
-            do an element lookup in the 2D image object 
+            use the coordinate (<varname>coord.x, coord.y</varname>) and <varname>sample</varname> to
+            do an element lookup in the 2D image object
             specified by <varname>image</varname>.
         </para>
 
         <para>
             For forms that take <type>image2d_array_msaa_t</type>,
-            use <varname>coord.xy</varname> and <varname>sample</varname> to do an element lookup in 
-            the 2D image identified by <varname>coord.z</varname> in the 2D image 
+            use <varname>coord.xy</varname> and <varname>sample</varname> to do an element lookup in
+            the 2D image identified by <varname>coord.z</varname> in the 2D image
             array specified by <varname>image</varname>.
         </para>
 
@@ -701,7 +701,7 @@ in all copies or substantial portions of the Materials.</holder>
         </para>
 
         <para>
-          For the forms that take a sampler, the <function>read_imagei</function> and 
+          For the forms that take a sampler, the <function>read_imagei</function> and
           <function>read_imageui</function> calls
           support a nearest filter only. The <varname>filter_mode</varname> specified in
           <varname>sampler</varname> must be set to <constant>CLK_FILTER_NEAREST</constant>;
@@ -709,7 +709,7 @@ in all copies or substantial portions of the Materials.</holder>
         </para>
 
         <para>
-          Furthermore, for the forms that take a sampler, the <function>read_imagei</function> 
+          Furthermore, for the forms that take a sampler, the <function>read_imagei</function>
           and <function>read_imageui</function>
           calls that take integer coordinates must use a sampler with normalized coordinates
           set to <constant>CLK_NORMALIZED_COORDS_FALSE</constant> and addressing mode set to
@@ -735,7 +735,7 @@ in all copies or substantial portions of the Materials.</holder>
             <constant>CL_SAMPLER_NORMALIZED_COORDS</constant> must be <constant>CL_TRUE</constant> for built-in functions
             described in the table above that read from a mip-mapped image; otherwise the behavior is
             undefined. The value specified in the <varname>lod</varname> argument is clamped to the minimum of (actual
-            number of mip-levels – 1) in the image or value specified for <constant>CL_SAMPLER_LOD_MAX</constant>.
+            number of mip-levels – 1) in the image or value specified for <constant>CL_SAMPLER_LOD_MAX_KHR</constant>.
         </para>
 
     </refsect1>
