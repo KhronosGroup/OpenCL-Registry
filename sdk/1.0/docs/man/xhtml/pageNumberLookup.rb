@@ -26,13 +26,13 @@
 # The xsltproc program generates a temporary HTML file where the XML line above
 # is transformed into:
 #
-#    <a href="http://www.khronos.org/registry/cl/specs/opencl-1.0.43.pdf#namedest=gl_sharing">
+#    <a href="http://www.khronos.org/registry/cl/specs/opencl-1.0.pdf#namedest=gl_sharing">
 #           OpenCL Specification</a>
 #
 # When this lookup program is run on the HTML file, it will look up the keyword and
 # replace text in the HTML file so that the final URL will to make it look like this:
 #
-#    <a href="http://www.khronos.org/registry/cl/specs/opencl-1.0.43.pdf#page=279">
+#    <a href="http://www.khronos.org/registry/cl/specs/opencl-1.0.pdf#page=279">
 #           OpenCL Specification</a>
 #
 # (You can control what the first part of the URL is by modifying the SpecBaseUrl
