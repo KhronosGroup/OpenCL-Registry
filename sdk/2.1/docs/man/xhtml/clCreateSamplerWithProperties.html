@@ -214,7 +214,7 @@
 
 </style>
     <title>clCreateSamplerWithProperties</title>
-    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
     <meta name="keywords" content="clCreateSamplerWithProperties" />
   </head>
   <body>
@@ -271,20 +271,20 @@
             </dt>
             <dd>
               <p>
-                        Specifies a list of sampler property names and 
-                        their corresponding values. 
-                        Each sampler property name is immediately followed 
-                        by the corresponding desired value. The 
-                        list is terminated with 0. The list of supported 
-                        properties is described in the table below. If a 
-                        supported property and its value is not specified in 
-                        <code class="varname">sampler_properties</code>, its default value will be 
-                        used. <code class="varname">sampler_properties</code> can be 
-                        NULL in which case the default values for supported sampler 
+                        Specifies a list of sampler property names and
+                        their corresponding values.
+                        Each sampler property name is immediately followed
+                        by the corresponding desired value. The
+                        list is terminated with 0. The list of supported
+                        properties is described in the table below. If a
+                        supported property and its value is not specified in
+                        <code class="varname">sampler_properties</code>, its default value will be
+                        used. <code class="varname">sampler_properties</code> can be
+                        NULL in which case the default values for supported sampler
                         properties will be used.
                     </p>
               <div class="informaltable">
-                <table border="1">
+                <table class="informaltable" border="1">
                   <colgroup>
                     <col align="left" class="col1" />
                     <col align="left" class="col2" />
@@ -307,13 +307,13 @@
                       </td>
                       <td align="left">
                             <p>
-                                A boolean value that specifies 
-                                whether the image coordinates 
+                                A boolean value that specifies
+                                whether the image coordinates
                                 specified are normalized or not.
                             </p>
 
                             <p>
-                                The default value (i.e. the value used 
+                                The default value (i.e. the value used
                                 if this property is not specified in
                                 <code class="varname">sampler_properties</code>) is <code class="constant">CL_TRUE</code>.
                             </p>
@@ -328,8 +328,8 @@
                       </td>
                       <td align="left">
                             <p>
-                                Specifies how out-of-range image 
-                                coordinates are handled when reading 
+                                Specifies how out-of-range image
+                                coordinates are handled when reading
                                 from an image.
                             </p>
 
@@ -353,8 +353,8 @@
                       </td>
                       <td align="left">
                             <p>
-                                Specifies the type of filter that must 
-                                be applied when reading an image. 
+                                Specifies the type of filter that must
+                                be applied when reading an image.
                                 Valid values are:
                             </p>
 
@@ -369,13 +369,13 @@
                 </table>
               </div>
               <p>
-            If the <a class="citerefentry" href="cl_khr_mipmap_image.html"><span class="citerefentry"><span class="refentrytitle">cl_khr_mipmap_image</span></span></a> 
-            extension is supported, the following sampler 
-            properties can be specified when a sampler object is 
+            If the <a class="citerefentry" href="cl_khr_mipmap_image.html"><span class="citerefentry"><span class="refentrytitle">cl_khr_mipmap_image</span></span></a>
+            extension is supported, the following sampler
+            properties can be specified when a sampler object is
             created using <code class="function">clCreateSamplerWithProperties</code>:
         </p>
               <div class="informaltable">
-                <table border="1">
+                <table class="informaltable" border="1">
                   <colgroup>
                     <col align="left" class="col1" />
                     <col align="left" class="col2" />
@@ -405,7 +405,7 @@
                         <code class="constant">CL_SAMPLER_LOD_MIN_KHR</code>
                       </td>
                       <td align="left">
-                        <span class="type">float</span>
+                        <span class="type">cl_float</span>
                       </td>
                       <td align="left">
                         <code class="constant">0.0f</code>
@@ -416,7 +416,7 @@
                         <code class="constant">CL_SAMPLER_LOD_MAX_KHR</code>
                       </td>
                       <td align="left">
-                        <span class="type">float</span>
+                        <span class="type">cl_float</span>
                       </td>
                       <td align="left">
                         <code class="constant">MAXFLOAT</code>
@@ -426,17 +426,17 @@
                 </table>
               </div>
               <p>
-            If the <a class="citerefentry" href="cl_khr_mipmap_image.html"><span class="citerefentry"><span class="refentrytitle">cl_khr_mipmap_image</span></span></a> 
+            If the <a class="citerefentry" href="cl_khr_mipmap_image.html"><span class="citerefentry"><span class="refentrytitle">cl_khr_mipmap_image</span></span></a>
             extension is supported,
-            The sampler properties 
+            The sampler properties
             <code class="constant">CL_SAMPLER_MIP_FILTER_MODE_KHR</code>,
-            <code class="constant">CL_SAMPLER_LOD_MIN_KHR</code> and 
+            <code class="constant">CL_SAMPLER_LOD_MIN_KHR</code> and
             <code class="constant">CL_SAMPLER_LOD_MAX_KHR</code> cannot be specified with
-            any samplers initialized in the OpenCL program 
+            any samplers initialized in the OpenCL program
             source. Only the default values for these
-            properties will be used. To create a sampler 
+            properties will be used. To create a sampler
             with specific values for these properties, a sampler
-            object must be created with 
+            object must be created with
             <code class="function">clCreateSamplerWithProperties</code>
             and passed as an argument to a kernel.
         </p>
@@ -468,17 +468,17 @@
             <a class="citerefentry" href="sampler_t.html"><span class="citerefentry"><span class="refentrytitle">sampler_t</span></span></a>
         </p>
         <p>
-            If the <a class="citerefentry" href="cl_khr_mipmap_image.html"><span class="citerefentry"><span class="refentrytitle">cl_khr_mipmap_image</span></span></a> 
-            extension is supported, the sampler properties 
-            <code class="constant">CL_SAMPLER_MIP_FILTER_MODE</code>, 
-            <code class="constant">CL_SAMPLER_LOD_MIN</code> and 
-            <code class="constant">CL_SAMPLER_LOD_MAX</code> cannot be 
-            specified with any samplers initialized in the OpenCL 
-            program source. Only the default values for these 
-            properties will be used. To create a sampler 
-            with specific values for these properties, a 
-            sampler object must be created with 
-            <code class="function">clCreateSamplerWithProperties</code> 
+            If the <a class="citerefentry" href="cl_khr_mipmap_image.html"><span class="citerefentry"><span class="refentrytitle">cl_khr_mipmap_image</span></span></a>
+            extension is supported, the sampler properties
+            <code class="constant">CL_SAMPLER_MIP_FILTER_MODE_KHR</code>,
+            <code class="constant">CL_SAMPLER_LOD_MIN_KHR</code> and
+            <code class="constant">CL_SAMPLER_LOD_MAX_KHR</code> cannot be
+            specified with any samplers initialized in the OpenCL
+            program source. Only the default values for these
+            properties will be used. To create a sampler
+            with specific values for these properties, a
+            sampler object must be created with
+            <code class="function">clCreateSamplerWithProperties</code>
             and passed as an argument to a kernel.
         </p>
       </div>
@@ -496,10 +496,10 @@
             <li class="listitem" style="list-style-type: disc"><span class="errorname">CL_INVALID_CONTEXT</span> if <code class="varname">context</code>
                 is not a valid context.
             </li>
-            <li class="listitem" style="list-style-type: disc"><span class="errorname">CL_INVALID_VALUE</span> if the property 
-                name in <code class="varname">sampler_properties</code> is not a supported 
-                property name, if the value specified for a supported property 
-                name is not valid, or if the 
+            <li class="listitem" style="list-style-type: disc"><span class="errorname">CL_INVALID_VALUE</span> if the property
+                name in <code class="varname">sampler_properties</code> is not a supported
+                property name, if the value specified for a supported property
+                name is not valid, or if the
                 same property name is specified more than once.
             </li>
             <li class="listitem" style="list-style-type: disc"><span class="errorname">CL_INVALID_OPERATION</span> if images are not
@@ -534,7 +534,7 @@
             <a class="citerefentry" href="clRetainSampler.html"><span class="citerefentry"><span class="refentrytitle">clRetainSampler</span></span></a>,
             <a class="citerefentry" href="clReleaseSampler.html"><span class="citerefentry"><span class="refentrytitle">clReleaseSampler</span></span></a>,
             <a class="citerefentry" href="clGetSamplerInfo.html"><span class="citerefentry"><span class="refentrytitle">clGetSamplerInfo</span></span></a>
-            <a class="citerefentry" href="sampler_t.html"><span class="citerefentry"><span class="refentrytitle">sampler_t</span></span></a>,     
+            <a class="citerefentry" href="sampler_t.html"><span class="citerefentry"><span class="refentrytitle">sampler_t</span></span></a>,
             <a class="citerefentry" href="cl_khr_mipmap_image.html"><span class="citerefentry"><span class="refentrytitle">cl_khr_mipmap_image</span></span></a>
         </p>
       </div>

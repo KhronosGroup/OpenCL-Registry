@@ -214,7 +214,7 @@
 
 </style>
     <title>read_imagef (2D)</title>
-    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
     <meta name="keywords" content="read_imagef (2D)" />
   </head>
   <body>
@@ -1199,55 +1199,55 @@
         </p>
         <h4><a id="id-1.5.29"></a>Mipmap read image functions:</h4>
         <p>
-        For the forms that take an <span class="type">image2d_t</span> object, 
-        use the coordinate <code class="varname">coord.xy</code> to 
-        do an element lookup in the mip-level specified by  
-        <code class="varname">lod</code> in the 2D image object specified 
+        For the forms that take an <span class="type">image2d_t</span> object,
+        use the coordinate <code class="varname">coord.xy</code> to
+        do an element lookup in the mip-level specified by
+        <code class="varname">lod</code> in the 2D image object specified
         by <code class="varname">image</code>.
     </p>
         <p>
-        For the forms that use gradients, use the gradients to compute 
-        the lod and coordinate <span class="emphasis"><em>coord.xy</em></span> to do an 
+        For the forms that use gradients, use the gradients to compute
+        the lod and coordinate <span class="emphasis"><em>coord.xy</em></span> to do an
         element lookup in
         the mip-level specified by the computed lod in
         the 2D image object specified by <code class="varname">image</code>.
     </p>
         <p>
-        For the forms that take an <span class="type">image2d_array_t</span> object, 
-        use the coordinate <span class="emphasis"><em>coord.xy</em></span> to 
-        do an element lookup in the 2D image identified by 
-        <span class="emphasis"><em>coord.z</em></span> and mip-level specified by  
-        <code class="varname">lod</code> in the 2D image object specified 
+        For the forms that take an <span class="type">image2d_array_t</span> object,
+        use the coordinate <span class="emphasis"><em>coord.xy</em></span> to
+        do an element lookup in the 2D image identified by
+        <span class="emphasis"><em>coord.z</em></span> and mip-level specified by
+        <code class="varname">lod</code> in the 2D image object specified
         by <code class="varname">image</code>.
     </p>
         <p>
-        For the forms that take an <span class="type">image2d_array_t</span> 
-        object and that use gradients, 
+        For the forms that take an <span class="type">image2d_array_t</span>
+        object and that use gradients,
         use the gradients to compute the lod coordinate
-        and <span class="emphasis"><em>coord.xy</em></span> to 
-        do an element lookup in the 2D image identified by 
-        <span class="emphasis"><em>coord.z</em></span> and mip-level specified by  
-        <code class="varname">lod</code> in the 2D image object specified 
+        and <span class="emphasis"><em>coord.xy</em></span> to
+        do an element lookup in the 2D image identified by
+        <span class="emphasis"><em>coord.z</em></span> and mip-level specified by
+        <code class="varname">lod</code> in the 2D image object specified
         by <code class="varname">image</code>.
     </p>
         <p>
-        When a multisample image is accessed in a kernel, 
-        the access takes one vector of 
-        integers describing which pixel to fetch and an 
-        integer corresponding to the sample numbers 
-        describing which sample within the pixel to fetch. 
-        sample identifies the sample position in the 
+        When a multisample image is accessed in a kernel,
+        the access takes one vector of
+        integers describing which pixel to fetch and an
+        integer corresponding to the sample numbers
+        describing which sample within the pixel to fetch.
+        sample identifies the sample position in the
         multi-sample image.
     </p>
         <p>
-        NOTE: <code class="constant">CL_SAMPLER_NORMALIZED_COORDS</code> 
+        NOTE: <code class="constant">CL_SAMPLER_NORMALIZED_COORDS</code>
         must be <code class="constant">CL_TRUE</code> for built-in functions
-        described in the table above that read from a 
+        described in the table above that read from a
         mip-mapped image; otherwise the behavior is
-        undefined. The value specified in the 
+        undefined. The value specified in the
         <code class="varname">lod</code> argument is clamped to the minimum of (actual
-        number of mip-levels - 1) in the image or value 
-        specified for <code class="constant">CL_SAMPLER_LOD_MAX</code>.
+        number of mip-levels - 1) in the image or value
+        specified for <code class="constant">CL_SAMPLER_LOD_MAX_KHR</code>.
     </p>
         <h4><a id="id-1.5.36"></a>For forms that take image2d_msaa_t and return float4:</h4>
         <p>
@@ -1443,7 +1443,7 @@
         <p>
     </p>
         <div class="informaltable">
-          <table border="1">
+          <table class="informaltable" border="1">
             <colgroup>
               <col align="center" class="col1" />
               <col align="center" class="col2" />

@@ -214,7 +214,7 @@
 
 </style>
     <title>read_imagef (1D)</title>
-    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
     <meta name="keywords" content="read_imagef (1D)" />
   </head>
   <body>
@@ -555,51 +555,51 @@
         </p>
         <h4><a id="id-1.5.11"></a>Mipmap read image functions:</h4>
         <p>
-        For the forms that take an <span class="type">image1d_t</span> object, 
-        use the coordinate <span class="emphasis"><em>coord</em></span> to 
-        do an element lookup in the mip-level specified by  
-        <code class="varname">lod</code> in the 1D image object specified 
+        For the forms that take an <span class="type">image1d_t</span> object,
+        use the coordinate <span class="emphasis"><em>coord</em></span> to
+        do an element lookup in the mip-level specified by
+        <code class="varname">lod</code> in the 1D image object specified
         by <code class="varname">image</code>.
     </p>
         <p>
-        For the forms that use gradients, use the gradients to compute 
-        the lod and coordinate <span class="emphasis"><em>coord</em></span> to do an 
+        For the forms that use gradients, use the gradients to compute
+        the lod and coordinate <span class="emphasis"><em>coord</em></span> to do an
         element lookup in
         the mip-level specified by the computed lod in
         the 1D image object specified by <code class="varname">image</code>.
     </p>
         <p>
-        For the forms that take an <span class="type">image1d_array_t</span> object, 
-        use the coordinate <span class="emphasis"><em>coord.x</em></span> to 
-        do an element lookup in the 1D image identified by 
-        <span class="emphasis"><em>coord.x</em></span> and mip-level specified by  
-        <code class="varname">lod</code> in the 1D image object specified 
+        For the forms that take an <span class="type">image1d_array_t</span> object,
+        use the coordinate <span class="emphasis"><em>coord.x</em></span> to
+        do an element lookup in the 1D image identified by
+        <span class="emphasis"><em>coord.x</em></span> and mip-level specified by
+        <code class="varname">lod</code> in the 1D image object specified
         by <code class="varname">image</code>.
     </p>
         <p>
-        When a multisample image is accessed in a kernel, 
-        the access takes one vector of 
-        integers describing which pixel to fetch and an 
-        integer corresponding to the sample numbers 
-        describing which sample within the pixel to fetch. 
-        sample identifies the sample position in the 
+        When a multisample image is accessed in a kernel,
+        the access takes one vector of
+        integers describing which pixel to fetch and an
+        integer corresponding to the sample numbers
+        describing which sample within the pixel to fetch.
+        sample identifies the sample position in the
         multi-sample image.
     </p>
         <p>
-        For best performance, we recommend that <code class="varname">sample</code> 
-        be a literal value so it is known at 
-        compile time and the OpenCL compiler can perform appropriate 
+        For best performance, we recommend that <code class="varname">sample</code>
+        be a literal value so it is known at
+        compile time and the OpenCL compiler can perform appropriate
         optimizationsfor multisample reads on the device.
     </p>
         <p>
-        NOTE: <code class="constant">CL_SAMPLER_NORMALIZED_COORDS</code> 
+        NOTE: <code class="constant">CL_SAMPLER_NORMALIZED_COORDS</code>
         must be <code class="constant">CL_TRUE</code> for built-in functions
-        described in the table above that read from a 
+        described in the table above that read from a
         mip-mapped image; otherwise the behavior is
-        undefined. The value specified in the 
+        undefined. The value specified in the
         <code class="varname">lod</code> argument is clamped to the minimum of (actual
-        number of mip-levels - 1) in the image or value 
-        specified for <code class="constant">CL_SAMPLER_LOD_MAX</code>.
+        number of mip-levels - 1) in the image or value
+        specified for <code class="constant">CL_SAMPLER_LOD_MAX_KHR</code>.
     </p>
       </div>
       <div class="refsect1">
@@ -688,7 +688,7 @@
         <p>
     </p>
         <div class="informaltable">
-          <table border="1">
+          <table class="informaltable" border="1">
             <colgroup>
               <col align="center" class="col1" />
               <col align="center" class="col2" />
