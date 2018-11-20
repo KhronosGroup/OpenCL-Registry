@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="AsciiDoc 8.6.9">
+<title>cl_intel_subgroups_short</title>
+<style type="text/css">
+/* Shared CSS for AsciiDoc xhtml11 and html5 backends */
+
+/* Default font. */
+body {
+  font-family: Georgia,serif;
+}
+
+/* Title font. */
+h1, h2, h3, h4, h5, h6,
+div.title, caption.title,
+thead, p.table.header,
+#toctitle,
+#author, #revnumber, #revdate, #revremark,
+#footer {
+  font-family: Arial,Helvetica,sans-serif;
+}
+
+body {
+  margin: 1em 5% 1em 5%;
+}
+
+a {
+  color: blue;
+  text-decoration: underline;
+}
+a:visited {
+  color: fuchsia;
+}
+
+em {
+  font-style: italic;
+  color: navy;
+}
+
+strong {
+  font-weight: bold;
+  color: #083194;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #527bbd;
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+  line-height: 1.3;
+}
+
+h1, h2, h3 {
+  border-bottom: 2px solid silver;
+}
+h2 {
+  padding-top: 0.5em;
+}
+h3 {
+  float: left;
+}
+h3 + * {
+  clear: left;
+}
+h5 {
+  font-size: 1.0em;
+}
+
+div.sectionbody {
+  margin-left: 0;
+}
+
+hr {
+  border: 1px solid silver;
+}
+
+p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+ul, ol, li > p {
+  margin-top: 0;
+}
+ul > li     { color: #aaa; }
+ul > li > * { color: black; }
+
+.monospaced, code, pre {
+  font-family: "Courier New", Courier, monospace;
+  font-size: inherit;
+  color: navy;
+  padding: 0;
+  margin: 0;
+}
+pre {
+  white-space: pre-wrap;
+}
+
+#author {
+  color: #527bbd;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+#email {
+}
+#revnumber, #revdate, #revremark {
+}
+
+#footer {
+  font-size: small;
+  border-top: 2px solid silver;
+  padding-top: 0.5em;
+  margin-top: 4.0em;
+}
+#footer-text {
+  float: left;
+  padding-bottom: 0.5em;
+}
+#footer-badges {
+  float: right;
+  padding-bottom: 0.5em;
+}
+
+#preamble {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+div.imageblock, div.exampleblock, div.verseblock,
+div.quoteblock, div.literalblock, div.listingblock, div.sidebarblock,
+div.admonitionblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.admonitionblock {
+  margin-top: 2.0em;
+  margin-bottom: 2.0em;
+  margin-right: 10%;
+  color: #606060;
+}
+
+div.content { /* Block element content. */
+  padding: 0;
+}
+
+/* Block element titles. */
+div.title, caption.title {
+  color: #527bbd;
+  font-weight: bold;
+  text-align: left;
+  margin-top: 1.0em;
+  margin-bottom: 0.5em;
+}
+div.title + * {
+  margin-top: 0;
+}
+
+td div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content + div.title {
+  margin-top: 0.0em;
+}
+
+div.sidebarblock > div.content {
+  background: #ffffee;
+  border: 1px solid #dddddd;
+  border-left: 4px solid #f0f0f0;
+  padding: 0.5em;
+}
+
+div.listingblock > div.content {
+  border: 1px solid #dddddd;
+  border-left: 5px solid #f0f0f0;
+  background: #f8f8f8;
+  padding: 0.5em;
+}
+
+div.quoteblock, div.verseblock {
+  padding-left: 1.0em;
+  margin-left: 1.0em;
+  margin-right: 10%;
+  border-left: 5px solid #f0f0f0;
+  color: #888;
+}
+
+div.quoteblock > div.attribution {
+  padding-top: 0.5em;
+  text-align: right;
+}
+
+div.verseblock > pre.content {
+  font-family: inherit;
+  font-size: inherit;
+}
+div.verseblock > div.attribution {
+  padding-top: 0.75em;
+  text-align: left;
+}
+/* DEPRECATED: Pre version 8.2.7 verse style literal block. */
+div.verseblock + div.attribution {
+  text-align: left;
+}
+
+div.admonitionblock .icon {
+  vertical-align: top;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-decoration: underline;
+  color: #527bbd;
+  padding-right: 0.5em;
+}
+div.admonitionblock td.content {
+  padding-left: 0.5em;
+  border-left: 3px solid #dddddd;
+}
+
+div.exampleblock > div.content {
+  border-left: 3px solid #dddddd;
+  padding-left: 0.5em;
+}
+
+div.imageblock div.content { padding-left: 0; }
+span.image img { border-style: none; vertical-align: text-bottom; }
+a.image:visited { color: white; }
+
+dl {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+dt {
+  margin-top: 0.5em;
+  margin-bottom: 0;
+  font-style: normal;
+  color: navy;
+}
+dd > *:first-child {
+  margin-top: 0.1em;
+}
+
+ul, ol {
+    list-style-position: outside;
+}
+ol.arabic {
+  list-style-type: decimal;
+}
+ol.loweralpha {
+  list-style-type: lower-alpha;
+}
+ol.upperalpha {
+  list-style-type: upper-alpha;
+}
+ol.lowerroman {
+  list-style-type: lower-roman;
+}
+ol.upperroman {
+  list-style-type: upper-roman;
+}
+
+div.compact ul, div.compact ol,
+div.compact p, div.compact p,
+div.compact div, div.compact div {
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+}
+
+tfoot {
+  font-weight: bold;
+}
+td > div.verse {
+  white-space: pre;
+}
+
+div.hdlist {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+div.hdlist tr {
+  padding-bottom: 15px;
+}
+dt.hdlist1.strong, td.hdlist1.strong {
+  font-weight: bold;
+}
+td.hdlist1 {
+  vertical-align: top;
+  font-style: normal;
+  padding-right: 0.8em;
+  color: navy;
+}
+td.hdlist2 {
+  vertical-align: top;
+}
+div.hdlist.compact tr {
+  margin: 0;
+  padding-bottom: 0;
+}
+
+.comment {
+  background: yellow;
+}
+
+.footnote, .footnoteref {
+  font-size: 0.8em;
+}
+
+span.footnote, span.footnoteref {
+  vertical-align: super;
+}
+
+#footnotes {
+  margin: 20px 0 20px 0;
+  padding: 7px 0 0 0;
+}
+
+#footnotes div.footnote {
+  margin: 0 0 5px 0;
+}
+
+#footnotes hr {
+  border: none;
+  border-top: 1px solid silver;
+  height: 1px;
+  text-align: left;
+  margin-left: 0;
+  width: 20%;
+  min-width: 100px;
+}
+
+div.colist td {
+  padding-right: 0.5em;
+  padding-bottom: 0.3em;
+  vertical-align: top;
+}
+div.colist td img {
+  margin-top: 0.3em;
+}
+
+@media print {
+  #footer-badges { display: none; }
+}
+
+#toc {
+  margin-bottom: 2.5em;
+}
+
+#toctitle {
+  color: #527bbd;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-top: 1.0em;
+  margin-bottom: 0.1em;
+}
+
+div.toclevel0, div.toclevel1, div.toclevel2, div.toclevel3, div.toclevel4 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+div.toclevel2 {
+  margin-left: 2em;
+  font-size: 0.9em;
+}
+div.toclevel3 {
+  margin-left: 4em;
+  font-size: 0.9em;
+}
+div.toclevel4 {
+  margin-left: 6em;
+  font-size: 0.9em;
+}
+
+span.aqua { color: aqua; }
+span.black { color: black; }
+span.blue { color: blue; }
+span.fuchsia { color: fuchsia; }
+span.gray { color: gray; }
+span.green { color: green; }
+span.lime { color: lime; }
+span.maroon { color: maroon; }
+span.navy { color: navy; }
+span.olive { color: olive; }
+span.purple { color: purple; }
+span.red { color: red; }
+span.silver { color: silver; }
+span.teal { color: teal; }
+span.white { color: white; }
+span.yellow { color: yellow; }
+
+span.aqua-background { background: aqua; }
+span.black-background { background: black; }
+span.blue-background { background: blue; }
+span.fuchsia-background { background: fuchsia; }
+span.gray-background { background: gray; }
+span.green-background { background: green; }
+span.lime-background { background: lime; }
+span.maroon-background { background: maroon; }
+span.navy-background { background: navy; }
+span.olive-background { background: olive; }
+span.purple-background { background: purple; }
+span.red-background { background: red; }
+span.silver-background { background: silver; }
+span.teal-background { background: teal; }
+span.white-background { background: white; }
+span.yellow-background { background: yellow; }
+
+span.big { font-size: 2em; }
+span.small { font-size: 0.6em; }
+
+span.underline { text-decoration: underline; }
+span.overline { text-decoration: overline; }
+span.line-through { text-decoration: line-through; }
+
+div.unbreakable { page-break-inside: avoid; }
+
+
+/*
+ * xhtml11 specific
+ *
+ * */
+
+div.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.tableblock > table {
+  border: 3px solid #527bbd;
+}
+thead, p.table.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.table {
+  margin-top: 0;
+}
+/* Because the table frame attribute is overriden by CSS in most browsers. */
+div.tableblock > table[frame="void"] {
+  border-style: none;
+}
+div.tableblock > table[frame="hsides"] {
+  border-left-style: none;
+  border-right-style: none;
+}
+div.tableblock > table[frame="vsides"] {
+  border-top-style: none;
+  border-bottom-style: none;
+}
+
+
+/*
+ * html5 specific
+ *
+ * */
+
+table.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+thead, p.tableblock.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.tableblock {
+  margin-top: 0;
+}
+table.tableblock {
+  border-width: 3px;
+  border-spacing: 0px;
+  border-style: solid;
+  border-color: #527bbd;
+  border-collapse: collapse;
+}
+th.tableblock, td.tableblock {
+  border-width: 1px;
+  padding: 4px;
+  border-style: solid;
+  border-color: #527bbd;
+}
+
+table.tableblock.frame-topbot {
+  border-left-style: hidden;
+  border-right-style: hidden;
+}
+table.tableblock.frame-sides {
+  border-top-style: hidden;
+  border-bottom-style: hidden;
+}
+table.tableblock.frame-none {
+  border-style: hidden;
+}
+
+th.tableblock.halign-left, td.tableblock.halign-left {
+  text-align: left;
+}
+th.tableblock.halign-center, td.tableblock.halign-center {
+  text-align: center;
+}
+th.tableblock.halign-right, td.tableblock.halign-right {
+  text-align: right;
+}
+
+th.tableblock.valign-top, td.tableblock.valign-top {
+  vertical-align: top;
+}
+th.tableblock.valign-middle, td.tableblock.valign-middle {
+  vertical-align: middle;
+}
+th.tableblock.valign-bottom, td.tableblock.valign-bottom {
+  vertical-align: bottom;
+}
+
+
+/*
+ * manpage specific
+ *
+ * */
+
+body.manpage h1 {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border-top: 2px solid silver;
+  border-bottom: 2px solid silver;
+}
+body.manpage h2 {
+  border-style: none;
+}
+body.manpage div.sectionbody {
+  margin-left: 3em;
+}
+
+@media print {
+  body.manpage div#toc { display: none; }
+}
+
+
+@media screen {
+  body {
+    max-width: 50em; /* approximately 80 characters wide */
+    margin-left: 16em;
+  }
+
+  #toc {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 13em;
+    padding: 0.5em;
+    padding-bottom: 1.5em;
+    margin: 0;
+    overflow: auto;
+    border-right: 3px solid #f8f8f8;
+    background-color: white;
+  }
+
+  #toc .toclevel1 {
+    margin-top: 0.5em;
+  }
+
+  #toc .toclevel2 {
+    margin-top: 0.25em;
+    display: list-item;
+    color: #aaaaaa;
+  }
+
+  #toctitle {
+    margin-top: 0.5em;
+  }
+}
+</style>
+<script type="text/javascript">
+/*<![CDATA[*/
+var asciidoc = {  // Namespace.
+
+/////////////////////////////////////////////////////////////////////
+// Table Of Contents generator
+/////////////////////////////////////////////////////////////////////
+
+/* Author: Mihai Bazon, September 2002
+ * http://students.infoiasi.ro/~mishoo
+ *
+ * Table Of Content generator
+ * Version: 0.4
+ *
+ * Feel free to use this script under the terms of the GNU General Public
+ * License, as long as you do not remove or alter this notice.
+ */
+
+ /* modified by Troy D. Hanson, September 2006. License: GPL */
+ /* modified by Stuart Rackham, 2006, 2009. License: GPL */
+
+// toclevels = 1..4.
+toc: function (toclevels) {
+
+  function getText(el) {
+    var text = "";
+    for (var i = el.firstChild; i != null; i = i.nextSibling) {
+      if (i.nodeType == 3 /* Node.TEXT_NODE */) // IE doesn't speak constants.
+        text += i.data;
+      else if (i.firstChild != null)
+        text += getText(i);
+    }
+    return text;
+  }
+
+  function TocEntry(el, text, toclevel) {
+    this.element = el;
+    this.text = text;
+    this.toclevel = toclevel;
+  }
+
+  function tocEntries(el, toclevels) {
+    var result = new Array;
+    var re = new RegExp('[hH]([1-'+(toclevels+1)+'])');
+    // Function that scans the DOM tree for header elements (the DOM2
+    // nodeIterator API would be a better technique but not supported by all
+    // browsers).
+    var iterate = function (el) {
+      for (var i = el.firstChild; i != null; i = i.nextSibling) {
+        if (i.nodeType == 1 /* Node.ELEMENT_NODE */) {
+          var mo = re.exec(i.tagName);
+          if (mo && (i.getAttribute("class") || i.getAttribute("className")) != "float") {
+            result[result.length] = new TocEntry(i, getText(i), mo[1]-1);
+          }
+          iterate(i);
+        }
+      }
+    }
+    iterate(el);
+    return result;
+  }
+
+  var toc = document.getElementById("toc");
+  if (!toc) {
+    return;
+  }
+
+  // Delete existing TOC entries in case we're reloading the TOC.
+  var tocEntriesToRemove = [];
+  var i;
+  for (i = 0; i < toc.childNodes.length; i++) {
+    var entry = toc.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div'
+     && entry.getAttribute("class")
+     && entry.getAttribute("class").match(/^toclevel/))
+      tocEntriesToRemove.push(entry);
+  }
+  for (i = 0; i < tocEntriesToRemove.length; i++) {
+    toc.removeChild(tocEntriesToRemove[i]);
+  }
+
+  // Rebuild TOC entries.
+  var entries = tocEntries(document.getElementById("content"), toclevels);
+  for (var i = 0; i < entries.length; ++i) {
+    var entry = entries[i];
+    if (entry.element.id == "")
+      entry.element.id = "_toc_" + i;
+    var a = document.createElement("a");
+    a.href = "#" + entry.element.id;
+    a.appendChild(document.createTextNode(entry.text));
+    var div = document.createElement("div");
+    div.appendChild(a);
+    div.className = "toclevel" + entry.toclevel;
+    toc.appendChild(div);
+  }
+  if (entries.length == 0)
+    toc.parentNode.removeChild(toc);
+},
+
+
+/////////////////////////////////////////////////////////////////////
+// Footnotes generator
+/////////////////////////////////////////////////////////////////////
+
+/* Based on footnote generation code from:
+ * http://www.brandspankingnew.net/archive/2005/07/format_footnote.html
+ */
+
+footnotes: function () {
+  // Delete existing footnote entries in case we're reloading the footnodes.
+  var i;
+  var noteholder = document.getElementById("footnotes");
+  if (!noteholder) {
+    return;
+  }
+  var entriesToRemove = [];
+  for (i = 0; i < noteholder.childNodes.length; i++) {
+    var entry = noteholder.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div' && entry.getAttribute("class") == "footnote")
+      entriesToRemove.push(entry);
+  }
+  for (i = 0; i < entriesToRemove.length; i++) {
+    noteholder.removeChild(entriesToRemove[i]);
+  }
+
+  // Rebuild footnote entries.
+  var cont = document.getElementById("content");
+  var spans = cont.getElementsByTagName("span");
+  var refs = {};
+  var n = 0;
+  for (i=0; i<spans.length; i++) {
+    if (spans[i].className == "footnote") {
+      n++;
+      var note = spans[i].getAttribute("data-note");
+      if (!note) {
+        // Use [\s\S] in place of . so multi-line matches work.
+        // Because JavaScript has no s (dotall) regex flag.
+        note = spans[i].innerHTML.match(/\s*\[([\s\S]*)]\s*/)[1];
+        spans[i].innerHTML =
+          "[<a id='_footnoteref_" + n + "' href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+        spans[i].setAttribute("data-note", note);
+      }
+      noteholder.innerHTML +=
+        "<div class='footnote' id='_footnote_" + n + "'>" +
+        "<a href='#_footnoteref_" + n + "' title='Return to text'>" +
+        n + "</a>. " + note + "</div>";
+      var id =spans[i].getAttribute("id");
+      if (id != null) refs["#"+id] = n;
+    }
+  }
+  if (n == 0)
+    noteholder.parentNode.removeChild(noteholder);
+  else {
+    // Process footnoterefs.
+    for (i=0; i<spans.length; i++) {
+      if (spans[i].className == "footnoteref") {
+        var href = spans[i].getElementsByTagName("a")[0].getAttribute("href");
+        href = href.match(/#.*/)[0];  // Because IE return full URL.
+        n = refs[href];
+        spans[i].innerHTML =
+          "[<a href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+      }
+    }
+  }
+},
+
+install: function(toclevels) {
+  var timerId;
+
+  function reinstall() {
+    asciidoc.footnotes();
+    if (toclevels) {
+      asciidoc.toc(toclevels);
+    }
+  }
+
+  function reinstallAndRemoveTimer() {
+    clearInterval(timerId);
+    reinstall();
+  }
+
+  timerId = setInterval(reinstall, 500);
+  if (document.addEventListener)
+    document.addEventListener("DOMContentLoaded", reinstallAndRemoveTimer, false);
+  else
+    window.onload = reinstallAndRemoveTimer;
+}
+
+}
+asciidoc.install(1);
+/*]]>*/
+</script>
+</head>
+<body class="article">
+<div id="header">
+<h1>cl_intel_subgroups_short</h1>
+<div id="toc">
+  <div id="toctitle">Table of Contents</div>
+  <noscript><p><b>JavaScript must be enabled in your browser to display the table of contents.</b></p></noscript>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_name_strings">Name Strings</h2>
+<div class="sectionbody">
+<div class="paragraph"><p><span class="monospaced">cl_intel_subgroups_short</span></p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_contact">Contact</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Ben Ashbaugh, Intel (ben <em>dot</em> ashbaugh <em>at</em> intel <em>dot</em> com)</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_contributors">Contributors</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Ben Ashbaugh, Intel<br>
+Felix J Degrood, Intel<br>
+Biju George, Intel<br>
+Raun M Krisch, Intel<br>
+Konstantin A Pyjov, Intel<br>
+Insoo Woo, Intel</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_notice">Notice</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Copyright (c) 2018 Intel Corporation.  All rights reserved.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_status">Status</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Final Draft</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_version">Version</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Built On: 2018-11-16<br>
+Revision: 2</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dependencies">Dependencies</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>OpenCL 1.2 and support for <span class="monospaced">cl_intel_subgroups</span> is required.
+This extension is written against the OpenCL API Specification Version 2.2 (revision v2.2-7), against the OpenCL C Language Specification Version 2.0 (revision v2.2-7), and against version 4 of the <span class="monospaced">cl_intel_subgroups</span> specification.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_overview">Overview</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>The goal of this extension is to allow programmers to improve the performance of applications operating on 16-bit data types by extending the subgroup functions described in the <span class="monospaced">cl_intel_subgroups</span> extension to support 16-bit integer data types (<span class="monospaced">shorts</span> and <span class="monospaced">ushorts</span>).
+Specifically, the extension:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Extends the subgroup broadcast function to allow 16-bit integer values to be broadcast from one work item to all other work items in the subgroup.
+</p>
+</li>
+<li>
+<p>
+Extends the subgroup scan and reduction functions to operate on 16-bit integer data types.
+</p>
+</li>
+<li>
+<p>
+Extends the Intel subgroup shuffle functions to allow arbitrarily exchanging 16-bit integer values among work items in the subgroup.
+</p>
+</li>
+<li>
+<p>
+Extends the Intel subgroup block read and write functions to allow reading and writing 16-bit integer data from images and buffers.
+</p>
+</li>
+</ul></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_new_api_functions">New API Functions</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>None.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_new_api_enums">New API Enums</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>None.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_new_opencl_c_functions">New OpenCL C Functions</h2>
+<div class="sectionbody">
+<div class="dlist"><dl>
+<dt class="hdlist1">
+Add <span class="monospaced">short</span> and <span class="monospaced">ushort</span> to the list of supported data types for the subgroup broadcast, scan, and reduction functions: 
+</dt>
+<dd>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #009900">short</span>   <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_broadcast</span></span><span style="color: #990000">(</span> <span style="color: #009900">short</span> x<span style="color: #990000">,</span> <span style="color: #008080">uint</span> sub_group_local_id <span style="color: #990000">)</span>
+<span style="color: #008080">ushort</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_broadcast</span></span><span style="color: #990000">(</span> <span style="color: #008080">ushort</span> x<span style="color: #990000">,</span> <span style="color: #008080">uint</span> sub_group_local_id <span style="color: #990000">)</span>
+
+<span style="color: #009900">short</span>   <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_reduce_add</span></span><span style="color: #990000">(</span> <span style="color: #009900">short</span> x <span style="color: #990000">)</span>
+<span style="color: #008080">ushort</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_reduce_add</span></span><span style="color: #990000">(</span> <span style="color: #008080">ushort</span> x <span style="color: #990000">)</span>
+<span style="color: #009900">short</span>   <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_reduce_min</span></span><span style="color: #990000">(</span> <span style="color: #009900">short</span> x <span style="color: #990000">)</span>
+<span style="color: #008080">ushort</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_reduce_min</span></span><span style="color: #990000">(</span> <span style="color: #008080">ushort</span> x <span style="color: #990000">)</span>
+<span style="color: #009900">short</span>   <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_reduce_max</span></span><span style="color: #990000">(</span> <span style="color: #009900">short</span> x <span style="color: #990000">)</span>
+<span style="color: #008080">ushort</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_reduce_max</span></span><span style="color: #990000">(</span> <span style="color: #008080">ushort</span> x <span style="color: #990000">)</span>
+
+<span style="color: #009900">short</span>   <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_scan_exclusive_add</span></span><span style="color: #990000">(</span> <span style="color: #009900">short</span> x <span style="color: #990000">)</span>
+<span style="color: #008080">ushort</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_scan_exclusive_add</span></span><span style="color: #990000">(</span> <span style="color: #008080">ushort</span> x <span style="color: #990000">)</span>
+<span style="color: #009900">short</span>   <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_scan_exclusive_min</span></span><span style="color: #990000">(</span> <span style="color: #009900">short</span> x <span style="color: #990000">)</span>
+<span style="color: #008080">ushort</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_scan_exclusive_min</span></span><span style="color: #990000">(</span> <span style="color: #008080">ushort</span> x <span style="color: #990000">)</span>
+<span style="color: #009900">short</span>   <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_scan_exclusive_max</span></span><span style="color: #990000">(</span> <span style="color: #009900">short</span> x <span style="color: #990000">)</span>
+<span style="color: #008080">ushort</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_scan_exclusive_max</span></span><span style="color: #990000">(</span> <span style="color: #008080">ushort</span> x <span style="color: #990000">)</span>
+
+<span style="color: #009900">short</span>   <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_scan_inclusive_add</span></span><span style="color: #990000">(</span> <span style="color: #009900">short</span> x <span style="color: #990000">)</span>
+<span style="color: #008080">ushort</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_scan_inclusive_add</span></span><span style="color: #990000">(</span> <span style="color: #008080">ushort</span> x <span style="color: #990000">)</span>
+<span style="color: #009900">short</span>   <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_scan_inclusive_min</span></span><span style="color: #990000">(</span> <span style="color: #009900">short</span> x <span style="color: #990000">)</span>
+<span style="color: #008080">ushort</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_scan_inclusive_min</span></span><span style="color: #990000">(</span> <span style="color: #008080">ushort</span> x <span style="color: #990000">)</span>
+<span style="color: #009900">short</span>   <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_scan_inclusive_max</span></span><span style="color: #990000">(</span> <span style="color: #009900">short</span> x <span style="color: #990000">)</span>
+<span style="color: #008080">ushort</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_scan_inclusive_max</span></span><span style="color: #990000">(</span> <span style="color: #008080">ushort</span> x <span style="color: #990000">)</span></tt></pre></div></div>
+</div></div>
+</dd>
+<dt class="hdlist1">
+Add <span class="monospaced">short</span>, <span class="monospaced">short2</span>, <span class="monospaced">short4</span>, <span class="monospaced">short8</span>, <span class="monospaced">short16</span>, <span class="monospaced">ushort</span>, <span class="monospaced">ushort2</span>, <span class="monospaced">ushort4</span>, <span class="monospaced">ushort8</span>, and <span class="monospaced">ushort16</span> to the list of <span class="monospaced">gentype</span> data types supported by the <span class="monospaced">sub_group_shuffle</span>, <span class="monospaced">sub_group_shuffle_down</span>, <span class="monospaced">sub_group_shuffle_up</span>, and <span class="monospaced">sub_group_shuffle_xor</span> functions: 
+</dt>
+<dd>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #008080">gentype</span> <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_shuffle</span></span><span style="color: #990000">(</span> <span style="color: #008080">gentype</span> data<span style="color: #990000">,</span> <span style="color: #008080">uint</span> c <span style="color: #990000">)</span>
+<span style="color: #008080">gentype</span> <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_shuffle_down</span></span><span style="color: #990000">(</span>
+                <span style="color: #008080">gentype</span> current<span style="color: #990000">,</span> <span style="color: #008080">gentype</span> next<span style="color: #990000">,</span> <span style="color: #008080">uint</span> delta <span style="color: #990000">)</span>
+<span style="color: #008080">gentype</span> <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_shuffle_up</span></span><span style="color: #990000">(</span>
+                <span style="color: #008080">gentype</span> previous<span style="color: #990000">,</span> <span style="color: #008080">gentype</span> current<span style="color: #990000">,</span> <span style="color: #008080">uint</span> delta <span style="color: #990000">)</span>
+<span style="color: #008080">gentype</span> <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_shuffle_xor</span></span><span style="color: #990000">(</span> <span style="color: #008080">gentype</span> data<span style="color: #990000">,</span> <span style="color: #008080">uint</span> value <span style="color: #990000">)</span></tt></pre></div></div>
+</div></div>
+</dd>
+<dt class="hdlist1">
+Add <span class="monospaced">ushort</span> variants of the subgroup block read and write functions: 
+</dt>
+<dd>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #008080">ushort</span>   <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_read_us</span></span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #008080">__global</span> ushort<span style="color: #990000">*</span> p <span style="color: #990000">)</span>
+<span style="color: #008080">ushort2</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_read_us2</span></span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #008080">__global</span> ushort<span style="color: #990000">*</span> p <span style="color: #990000">)</span>
+<span style="color: #008080">ushort4</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_read_us4</span></span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #008080">__global</span> ushort<span style="color: #990000">*</span> p <span style="color: #990000">)</span>
+<span style="color: #008080">ushort8</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_read_us8</span></span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #008080">__global</span> ushort<span style="color: #990000">*</span> p <span style="color: #990000">)</span>
+<span style="color: #008080">ushort</span>   <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_read_us</span></span><span style="color: #990000">(</span> <span style="color: #008080">image2d_t</span> image<span style="color: #990000">,</span> <span style="color: #008080">int2</span> byte_coord <span style="color: #990000">)</span>
+<span style="color: #008080">ushort2</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_read_us2</span></span><span style="color: #990000">(</span> <span style="color: #008080">image2d_t</span> image<span style="color: #990000">,</span> <span style="color: #008080">int2</span> byte_coord <span style="color: #990000">)</span>
+<span style="color: #008080">ushort4</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_read_us4</span></span><span style="color: #990000">(</span> <span style="color: #008080">image2d_t</span> image<span style="color: #990000">,</span> <span style="color: #008080">int2</span> byte_coord <span style="color: #990000">)</span>
+<span style="color: #008080">ushort8</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_read_us8</span></span><span style="color: #990000">(</span> <span style="color: #008080">image2d_t</span> image<span style="color: #990000">,</span> <span style="color: #008080">int2</span> byte_coord <span style="color: #990000">)</span>
+
+<span style="color: #009900">void</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_write_us</span></span><span style="color: #990000">(</span> <span style="color: #008080">__global</span> ushort<span style="color: #990000">*</span> p<span style="color: #990000">,</span> <span style="color: #008080">ushort</span> data <span style="color: #990000">)</span>
+<span style="color: #009900">void</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_write_us2</span></span><span style="color: #990000">(</span> <span style="color: #008080">__global</span> ushort<span style="color: #990000">*</span> p<span style="color: #990000">,</span> <span style="color: #008080">ushort2</span> data <span style="color: #990000">)</span>
+<span style="color: #009900">void</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_write_us4</span></span><span style="color: #990000">(</span> <span style="color: #008080">__global</span> ushort<span style="color: #990000">*</span> p<span style="color: #990000">,</span> <span style="color: #008080">ushort4</span> data <span style="color: #990000">)</span>
+<span style="color: #009900">void</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_write_us8</span></span><span style="color: #990000">(</span> <span style="color: #008080">__global</span> ushort<span style="color: #990000">*</span> p<span style="color: #990000">,</span> <span style="color: #008080">ushort8</span> data <span style="color: #990000">)</span>
+<span style="color: #009900">void</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_write_us</span></span><span style="color: #990000">(</span> <span style="color: #008080">image2d_t</span> image<span style="color: #990000">,</span> <span style="color: #008080">int2</span> byte_coord<span style="color: #990000">,</span> <span style="color: #008080">ushort</span> data <span style="color: #990000">)</span>
+<span style="color: #009900">void</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_write_us2</span></span><span style="color: #990000">(</span> <span style="color: #008080">image2d_t</span> image<span style="color: #990000">,</span> <span style="color: #008080">int2</span> byte_coord<span style="color: #990000">,</span> <span style="color: #008080">ushort2</span> data <span style="color: #990000">)</span>
+<span style="color: #009900">void</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_write_us4</span></span><span style="color: #990000">(</span> <span style="color: #008080">image2d_t</span> image<span style="color: #990000">,</span> <span style="color: #008080">int2</span> byte_coord<span style="color: #990000">,</span> <span style="color: #008080">ushort4</span> data <span style="color: #990000">)</span>
+<span style="color: #009900">void</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_write_us8</span></span><span style="color: #990000">(</span> <span style="color: #008080">image2d_t</span> image<span style="color: #990000">,</span> <span style="color: #008080">int2</span> byte_coord<span style="color: #990000">,</span> <span style="color: #008080">ushort8</span> data <span style="color: #990000">)</span></tt></pre></div></div>
+</div></div>
+</dd>
+<dt class="hdlist1">
+For naming consistency, also add suffixed aliases of the <span class="monospaced">uint</span> subgroup block read and write functions described in the <span class="monospaced">cl_intel_subgroups</span> extension: 
+</dt>
+<dd>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #008080">uint</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_read_ui</span></span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #008080">__global</span> uint<span style="color: #990000">*</span> p <span style="color: #990000">)</span>
+<span style="color: #008080">uint2</span> <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_read_ui2</span></span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #008080">__global</span> uint<span style="color: #990000">*</span> p <span style="color: #990000">)</span>
+<span style="color: #008080">uint4</span> <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_read_ui4</span></span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #008080">__global</span> uint<span style="color: #990000">*</span> p <span style="color: #990000">)</span>
+<span style="color: #008080">uint8</span> <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_read_ui8</span></span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #008080">__global</span> uint<span style="color: #990000">*</span> p <span style="color: #990000">)</span>
+<span style="color: #008080">uint</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_read_ui</span></span><span style="color: #990000">(</span> <span style="color: #008080">image2d_t</span> image<span style="color: #990000">,</span> <span style="color: #008080">int2</span> byte_coord <span style="color: #990000">)</span>
+<span style="color: #008080">uint2</span> <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_read_ui2</span></span><span style="color: #990000">(</span> <span style="color: #008080">image2d_t</span> image<span style="color: #990000">,</span> <span style="color: #008080">int2</span> byte_coord <span style="color: #990000">)</span>
+<span style="color: #008080">uint4</span> <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_read_ui4</span></span><span style="color: #990000">(</span> <span style="color: #008080">image2d_t</span> image<span style="color: #990000">,</span> <span style="color: #008080">int2</span> byte_coord <span style="color: #990000">)</span>
+<span style="color: #008080">uint8</span> <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_read_ui8</span></span><span style="color: #990000">(</span> <span style="color: #008080">image2d_t</span> image<span style="color: #990000">,</span> <span style="color: #008080">int2</span> byte_coord <span style="color: #990000">)</span>
+
+<span style="color: #009900">void</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_write_ui</span></span><span style="color: #990000">(</span> <span style="color: #008080">__global</span> uint<span style="color: #990000">*</span> p<span style="color: #990000">,</span> <span style="color: #008080">uint</span> data <span style="color: #990000">)</span>
+<span style="color: #009900">void</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_write_ui2</span></span><span style="color: #990000">(</span> <span style="color: #008080">__global</span> uint<span style="color: #990000">*</span> p<span style="color: #990000">,</span> <span style="color: #008080">uint2</span> data <span style="color: #990000">)</span>
+<span style="color: #009900">void</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_write_ui4</span></span><span style="color: #990000">(</span> <span style="color: #008080">__global</span> uint<span style="color: #990000">*</span> p<span style="color: #990000">,</span> <span style="color: #008080">uint4</span> data <span style="color: #990000">)</span>
+<span style="color: #009900">void</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_write_ui8</span></span><span style="color: #990000">(</span> <span style="color: #008080">__global</span> uint<span style="color: #990000">*</span> p<span style="color: #990000">,</span> <span style="color: #008080">uint8</span> data <span style="color: #990000">)</span>
+<span style="color: #009900">void</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_write_ui</span></span><span style="color: #990000">(</span> <span style="color: #008080">image2d_t</span> image<span style="color: #990000">,</span> <span style="color: #008080">int2</span> byte_coord<span style="color: #990000">,</span> <span style="color: #008080">uint</span> data <span style="color: #990000">)</span>
+<span style="color: #009900">void</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_write_ui2</span></span><span style="color: #990000">(</span> <span style="color: #008080">image2d_t</span> image<span style="color: #990000">,</span> <span style="color: #008080">int2</span> byte_coord<span style="color: #990000">,</span> <span style="color: #008080">uint2</span> data <span style="color: #990000">)</span>
+<span style="color: #009900">void</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_write_ui4</span></span><span style="color: #990000">(</span> <span style="color: #008080">image2d_t</span> image<span style="color: #990000">,</span> <span style="color: #008080">int2</span> byte_coord<span style="color: #990000">,</span> <span style="color: #008080">uint4</span> data <span style="color: #990000">)</span>
+<span style="color: #009900">void</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_write_ui8</span></span><span style="color: #990000">(</span> <span style="color: #008080">image2d_t</span> image<span style="color: #990000">,</span> <span style="color: #008080">int2</span> byte_coord<span style="color: #990000">,</span> <span style="color: #008080">uint8</span> data <span style="color: #990000">)</span></tt></pre></div></div>
+</div></div>
+</dd>
+</dl></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_modifications_to_the_opencl_c_specification">Modifications to the OpenCL C Specification</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_additions_to_section_6_13_15_work_group_functions">Additions to Section 6.13.15 - "Work Group Functions"</h3>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+Add <span class="monospaced">short</span> and <span class="monospaced">ushort</span> to the list of supported data types for the subgroup broadcast, scan, and reduction functions: 
+</dt>
+<dd>
+<div class="openblock">
+<div class="content">
+<table class="tableblock frame-all grid-all"
+style="
+width:100%;
+">
+<col style="width:66%;">
+<col style="width:33%;">
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top" > <strong>Function</strong></th>
+<th class="tableblock halign-left valign-top" > <strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top" ><div><div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #008080">gentype</span> <span style="font-weight: bold"><span style="color: #000000">sub_group_broadcast</span></span><span style="color: #990000">(</span>
+          <span style="color: #008080">gentype</span> x<span style="color: #990000">,</span>
+          <span style="color: #008080">uint</span> sub_group_local_id <span style="color: #990000">)</span>
+
+<span style="color: #009900">short</span>    <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_broadcast</span></span><span style="color: #990000">(</span>
+          <span style="color: #009900">short</span> x<span style="color: #990000">,</span>
+          <span style="color: #008080">uint</span> sub_group_local_id <span style="color: #990000">)</span>
+<span style="color: #008080">ushort</span>   <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_broadcast</span></span><span style="color: #990000">(</span>
+          <span style="color: #008080">ushort</span> x<span style="color: #990000">,</span>
+          <span style="color: #008080">uint</span> sub_group_local_id <span style="color: #990000">)</span></tt></pre></div></div></div></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Broadcasts the value of <em>x</em> for work item identified by <em>sub_group_local_id</em> (value returned by  <strong>get_sub_group_local_id</strong>) to all work items in the subgroup.
+<em>sub_group_local_id</em> must be the same value for all work items in the subgroup.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><div><div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #008080">gentype</span> <span style="font-weight: bold"><span style="color: #000000">sub_group_reduce_add</span></span><span style="color: #990000">(</span> <span style="color: #008080">gentype</span> x <span style="color: #990000">)</span>
+<span style="color: #008080">gentype</span> <span style="font-weight: bold"><span style="color: #000000">sub_group_reduce_min</span></span><span style="color: #990000">(</span> <span style="color: #008080">gentype</span> x <span style="color: #990000">)</span>
+<span style="color: #008080">gentype</span> <span style="font-weight: bold"><span style="color: #000000">sub_group_reduce_max</span></span><span style="color: #990000">(</span> <span style="color: #008080">gentype</span> x <span style="color: #990000">)</span>
+
+<span style="color: #009900">short</span>    <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_reduce_add</span></span><span style="color: #990000">(</span> <span style="color: #009900">short</span> x <span style="color: #990000">)</span>
+<span style="color: #008080">ushort</span>   <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_reduce_add</span></span><span style="color: #990000">(</span> <span style="color: #008080">ushort</span> x <span style="color: #990000">)</span>
+<span style="color: #009900">short</span>    <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_reduce_min</span></span><span style="color: #990000">(</span> <span style="color: #009900">short</span> x <span style="color: #990000">)</span>
+<span style="color: #008080">ushort</span>   <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_reduce_min</span></span><span style="color: #990000">(</span> <span style="color: #008080">ushort</span> x <span style="color: #990000">)</span>
+<span style="color: #009900">short</span>    <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_reduce_max</span></span><span style="color: #990000">(</span> <span style="color: #009900">short</span> x <span style="color: #990000">)</span>
+<span style="color: #008080">ushort</span>   <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_reduce_max</span></span><span style="color: #990000">(</span> <span style="color: #008080">ushort</span> x <span style="color: #990000">)</span></tt></pre></div></div></div></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Returns the result of the specified reduction operation for all values of <em>x</em> specified by work items in a subgroup.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><div><div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #008080">gentype</span> <span style="font-weight: bold"><span style="color: #000000">sub_group_scan_exclusive_add</span></span><span style="color: #990000">(</span> <span style="color: #008080">gentype</span> x <span style="color: #990000">)</span>
+<span style="color: #008080">gentype</span> <span style="font-weight: bold"><span style="color: #000000">sub_group_scan_exclusive_min</span></span><span style="color: #990000">(</span> <span style="color: #008080">gentype</span> x <span style="color: #990000">)</span>
+<span style="color: #008080">gentype</span> <span style="font-weight: bold"><span style="color: #000000">sub_group_scan_exclusive_max</span></span><span style="color: #990000">(</span> <span style="color: #008080">gentype</span> x <span style="color: #990000">)</span>
+
+<span style="color: #009900">short</span>    <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_scan_exclusive_add</span></span><span style="color: #990000">(</span> <span style="color: #009900">short</span> x <span style="color: #990000">)</span>
+<span style="color: #008080">ushort</span>   <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_scan_exclusive_add</span></span><span style="color: #990000">(</span> <span style="color: #008080">ushort</span> x <span style="color: #990000">)</span>
+<span style="color: #009900">short</span>    <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_scan_exclusive_min</span></span><span style="color: #990000">(</span> <span style="color: #009900">short</span> x <span style="color: #990000">)</span>
+<span style="color: #008080">ushort</span>   <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_scan_exclusive_min</span></span><span style="color: #990000">(</span> <span style="color: #008080">ushort</span> x <span style="color: #990000">)</span>
+<span style="color: #009900">short</span>    <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_scan_exclusive_max</span></span><span style="color: #990000">(</span> <span style="color: #009900">short</span> x <span style="color: #990000">)</span>
+<span style="color: #008080">ushort</span>   <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_scan_exclusive_max</span></span><span style="color: #990000">(</span> <span style="color: #008080">ushort</span> x <span style="color: #990000">)</span></tt></pre></div></div></div></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Performs the specified exclusive scan operation of all values <em>x</em> specified by work items in a subgroup.
+The scan results are returned for each work item.</p>
+<p class="tableblock">The scan order is defined by increasing subgroup local ID within the subgroup.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><div><div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #008080">gentype</span> <span style="font-weight: bold"><span style="color: #000000">sub_group_scan_inclusive_add</span></span><span style="color: #990000">(</span> <span style="color: #008080">gentype</span> x<span style="color: #990000">)</span>
+<span style="color: #008080">gentype</span> <span style="font-weight: bold"><span style="color: #000000">sub_group_scan_inclusive_min</span></span><span style="color: #990000">(</span> <span style="color: #008080">gentype</span> x<span style="color: #990000">)</span>
+<span style="color: #008080">gentype</span> <span style="font-weight: bold"><span style="color: #000000">sub_group_scan_inclusive_max</span></span><span style="color: #990000">(</span> <span style="color: #008080">gentype</span> x<span style="color: #990000">)</span>
+
+<span style="color: #009900">short</span>    <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_scan_inclusive_add</span></span><span style="color: #990000">(</span> <span style="color: #009900">short</span> x <span style="color: #990000">)</span>
+<span style="color: #008080">ushort</span>   <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_scan_inclusive_add</span></span><span style="color: #990000">(</span> <span style="color: #008080">ushort</span> x <span style="color: #990000">)</span>
+<span style="color: #009900">short</span>    <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_scan_inclusive_min</span></span><span style="color: #990000">(</span> <span style="color: #009900">short</span> x <span style="color: #990000">)</span>
+<span style="color: #008080">ushort</span>   <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_scan_inclusive_min</span></span><span style="color: #990000">(</span> <span style="color: #008080">ushort</span> x <span style="color: #990000">)</span>
+<span style="color: #009900">short</span>    <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_scan_inclusive_max</span></span><span style="color: #990000">(</span> <span style="color: #009900">short</span> x <span style="color: #990000">)</span>
+<span style="color: #008080">ushort</span>   <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_scan_inclusive_max</span></span><span style="color: #990000">(</span> <span style="color: #008080">ushort</span> x <span style="color: #990000">)</span></tt></pre></div></div></div></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Performs the specified inclusive scan operation of all values <em>x</em> specified by work items in a subgroup.
+The scan results are returned for each work item.</p>
+<p class="tableblock">The scan order is defined by increasing subgroup local ID within the subgroup.</p></td>
+</tr>
+</tbody>
+</table>
+</div></div>
+</dd>
+</dl></div>
+</div>
+<div class="sect2">
+<h3 id="_additions_to_section_6_13_x_sub_group_shuffle_functions">Additions to Section 6.13.X - "Sub Group Shuffle Functions"</h3>
+<div class="paragraph"><p>This section was added by the <span class="monospaced">cl_intel_subgroups</span> extension.</p></div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+Add <span class="monospaced">short</span>, <span class="monospaced">short2</span>, <span class="monospaced">short4</span>, <span class="monospaced">short8</span>, <span class="monospaced">short16</span>, <span class="monospaced">ushort</span>, <span class="monospaced">ushort2</span>, <span class="monospaced">ushort4</span>, <span class="monospaced">ushort8</span>, and <span class="monospaced">ushort16</span> to the list of data types supported by the <span class="monospaced">sub_group_shuffle</span>, <span class="monospaced">sub_group_shuffle_down</span>, <span class="monospaced">sub_group_shuffle_up</span>, and <span class="monospaced">sub_group_shuffle_xor</span> functions: 
+</dt>
+<dd>
+<div class="openblock">
+<div class="content">
+<div class="paragraph"><p>The OpenCL C programming language implements the following built-in functions to allow data to be exchanged among work items in a subgroup.
+These built-in functions need not be encountered by all work items in a subgroup executing the kernel, however, data may only be shuffled among work items encountering the subgroup shuffle function.
+Shuffling data from a work item that does not encounter the subgroup shuffle function will produce undefined results.
+For these functions, <span class="monospaced">gentype</span> is <span class="monospaced">float</span>, <span class="monospaced">float2</span>, <span class="monospaced">float4</span>, <span class="monospaced">float8</span>, <span class="monospaced">float16</span>, <span class="monospaced">short</span>, <span class="monospaced">short2</span>, <span class="monospaced">short4</span>, <span class="monospaced">short8</span>, <span class="monospaced">short16</span>, <span class="monospaced">ushort</span>, <span class="monospaced">ushort2</span>, <span class="monospaced">ushort4</span>, <span class="monospaced">ushort8</span>, <span class="monospaced">ushort16</span>, <span class="monospaced">int</span>, <span class="monospaced">int2</span>, <span class="monospaced">int4</span>, <span class="monospaced">int8</span>, <span class="monospaced">int16</span>, <span class="monospaced">uint</span>, <span class="monospaced">uint2</span>, <span class="monospaced">uint4</span>, <span class="monospaced">uint8</span>, <span class="monospaced">uint16</span>, <span class="monospaced">long</span>, or <span class="monospaced">ulong</span>.</p></div>
+<div class="paragraph"><p>If <span class="monospaced">cl_khr_fp16</span> is supported, <span class="monospaced">gentype</span> also includes <span class="monospaced">half</span>.</p></div>
+<div class="paragraph"><p>If <span class="monospaced">cl_khr_fp64</span> or doubles are supported, <span class="monospaced">gentype</span> also includes <span class="monospaced">double</span>.</p></div>
+</div></div>
+</dd>
+</dl></div>
+</div>
+<div class="sect2">
+<h3 id="_modifications_to_section_6_13_x_sub_group_read_and_write_functions">Modifications to Section 6.13.X "Sub Group Read and Write Functions"</h3>
+<div class="paragraph"><p>This section was added by the <span class="monospaced">cl_intel_subgroups</span> extension.</p></div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+Add suffixed aliases of the previously un-suffixed 32-bit block read and write functions. There is no change to the description or behavior of these functions: 
+</dt>
+<dd>
+<div class="openblock">
+<div class="content">
+<table class="tableblock frame-all grid-all"
+style="
+width:100%;
+">
+<col style="width:55%;">
+<col style="width:44%;">
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top" ><strong>Function</strong></th>
+<th class="tableblock halign-left valign-top" ><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top" ><div><div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #008080">uint</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_read</span></span><span style="color: #990000">(</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #008080">__global</span> uint<span style="color: #990000">*</span> p <span style="color: #990000">)</span>
+<span style="color: #008080">uint2</span> <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_read2</span></span><span style="color: #990000">(</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #008080">__global</span> uint<span style="color: #990000">*</span> p <span style="color: #990000">)</span>
+<span style="color: #008080">uint4</span> <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_read4</span></span><span style="color: #990000">(</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #008080">__global</span> uint<span style="color: #990000">*</span> p <span style="color: #990000">)</span>
+<span style="color: #008080">uint8</span> <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_read8</span></span><span style="color: #990000">(</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #008080">__global</span> uint<span style="color: #990000">*</span> p <span style="color: #990000">)</span>
+
+<span style="color: #008080">uint</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_read_ui</span></span><span style="color: #990000">(</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #008080">__global</span> uint<span style="color: #990000">*</span> p <span style="color: #990000">)</span>
+<span style="color: #008080">uint2</span> <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_read_ui2</span></span><span style="color: #990000">(</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #008080">__global</span> uint<span style="color: #990000">*</span> p <span style="color: #990000">)</span>
+<span style="color: #008080">uint4</span> <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_read_ui4</span></span><span style="color: #990000">(</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #008080">__global</span> uint<span style="color: #990000">*</span> p <span style="color: #990000">)</span>
+<span style="color: #008080">uint8</span> <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_read_ui8</span></span><span style="color: #990000">(</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #008080">__global</span> uint<span style="color: #990000">*</span> p <span style="color: #990000">)</span></tt></pre></div></div></div></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Reads 1, 2, 4, or 8 uints of data for each work item in the subgroup from the specified pointer as a block operation&#8230;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><div><div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #008080">uint</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_read</span></span><span style="color: #990000">(</span>
+        <span style="color: #008080">image2d_t</span> image<span style="color: #990000">,</span>
+        <span style="color: #008080">int2</span> byte_coord <span style="color: #990000">)</span>
+<span style="color: #008080">uint2</span> <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_read2</span></span><span style="color: #990000">(</span>
+        <span style="color: #008080">image2d_t</span> image<span style="color: #990000">,</span>
+        <span style="color: #008080">int2</span> byte_coord <span style="color: #990000">)</span>
+<span style="color: #008080">uint4</span> <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_read4</span></span><span style="color: #990000">(</span>
+        <span style="color: #008080">image2d_t</span> image<span style="color: #990000">,</span>
+        <span style="color: #008080">int2</span> byte_coord <span style="color: #990000">)</span>
+<span style="color: #008080">uint8</span> <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_read8</span></span><span style="color: #990000">(</span>
+        <span style="color: #008080">image2d_t</span> image<span style="color: #990000">,</span>
+        <span style="color: #008080">int2</span> byte_coord <span style="color: #990000">)</span>
+
+<span style="color: #008080">uint</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_read_ui</span></span><span style="color: #990000">(</span>
+        <span style="color: #008080">image2d_t</span> image<span style="color: #990000">,</span>
+        <span style="color: #008080">int2</span> byte_coord <span style="color: #990000">)</span>
+<span style="color: #008080">uint2</span> <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_read_ui2</span></span><span style="color: #990000">(</span>
+        <span style="color: #008080">image2d_t</span> image<span style="color: #990000">,</span>
+        <span style="color: #008080">int2</span> byte_coord <span style="color: #990000">)</span>
+<span style="color: #008080">uint4</span> <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_read_ui4</span></span><span style="color: #990000">(</span>
+        <span style="color: #008080">image2d_t</span> image<span style="color: #990000">,</span>
+        <span style="color: #008080">int2</span> byte_coord <span style="color: #990000">)</span>
+<span style="color: #008080">uint8</span> <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_read_ui8</span></span><span style="color: #990000">(</span>
+        <span style="color: #008080">image2d_t</span> image<span style="color: #990000">,</span>
+        <span style="color: #008080">int2</span> byte_coord <span style="color: #990000">)</span></tt></pre></div></div></div></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Reads 1, 2, 4, or 8 uints of data for each work item in the subgroup from the specified image at the specified coordinate as a block operation&#8230;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><div><div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #009900">void</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_write</span></span><span style="color: #990000">(</span>
+        <span style="color: #008080">__global</span> uint<span style="color: #990000">*</span> p<span style="color: #990000">,</span> <span style="color: #008080">uint</span> data <span style="color: #990000">)</span>
+<span style="color: #009900">void</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_write2</span></span><span style="color: #990000">(</span>
+        <span style="color: #008080">__global</span> uint<span style="color: #990000">*</span> p<span style="color: #990000">,</span> <span style="color: #008080">uint2</span> data <span style="color: #990000">)</span>
+<span style="color: #009900">void</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_write4</span></span><span style="color: #990000">(</span>
+        <span style="color: #008080">__global</span> uint<span style="color: #990000">*</span> p<span style="color: #990000">,</span> <span style="color: #008080">uint4</span> data <span style="color: #990000">)</span>
+<span style="color: #009900">void</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_write8</span></span><span style="color: #990000">(</span>
+        <span style="color: #008080">__global</span> uint<span style="color: #990000">*</span> p<span style="color: #990000">,</span> <span style="color: #008080">uint8</span> data <span style="color: #990000">)</span>
+
+<span style="color: #009900">void</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_write_ui</span></span><span style="color: #990000">(</span>
+        <span style="color: #008080">__global</span> uint<span style="color: #990000">*</span> p<span style="color: #990000">,</span> <span style="color: #008080">uint</span> data <span style="color: #990000">)</span>
+<span style="color: #009900">void</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_write_ui2</span></span><span style="color: #990000">(</span>
+        <span style="color: #008080">__global</span> uint<span style="color: #990000">*</span> p<span style="color: #990000">,</span> <span style="color: #008080">uint2</span> data <span style="color: #990000">)</span>
+<span style="color: #009900">void</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_write_ui4</span></span><span style="color: #990000">(</span>
+        <span style="color: #008080">__global</span> uint<span style="color: #990000">*</span> p<span style="color: #990000">,</span> <span style="color: #008080">uint4</span> data <span style="color: #990000">)</span>
+<span style="color: #009900">void</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_write_ui8</span></span><span style="color: #990000">(</span>
+        <span style="color: #008080">__global</span> uint<span style="color: #990000">*</span> p<span style="color: #990000">,</span> <span style="color: #008080">uint8</span> data <span style="color: #990000">)</span></tt></pre></div></div></div></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Writes 1, 2, 4, or 8 uints of data for each work item in the subgroup to the specified pointer as a block operation&#8230;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><div><div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #009900">void</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_write</span></span><span style="color: #990000">(</span>
+        <span style="color: #008080">image2d_t</span> image<span style="color: #990000">,</span>
+        <span style="color: #008080">int2</span> byte_coord<span style="color: #990000">,</span> <span style="color: #008080">uint</span> data <span style="color: #990000">)</span>
+<span style="color: #009900">void</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_write2</span></span><span style="color: #990000">(</span>
+        <span style="color: #008080">image2d_t</span> image<span style="color: #990000">,</span>
+        <span style="color: #008080">int2</span> byte_coord<span style="color: #990000">,</span> <span style="color: #008080">uint2</span> data <span style="color: #990000">)</span>
+<span style="color: #009900">void</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_write4</span></span><span style="color: #990000">(</span>
+        <span style="color: #008080">image2d_t</span> image<span style="color: #990000">,</span>
+        <span style="color: #008080">int2</span> byte_coord<span style="color: #990000">,</span> <span style="color: #008080">uint4</span> data <span style="color: #990000">)</span>
+<span style="color: #009900">void</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_write8</span></span><span style="color: #990000">(</span>
+        <span style="color: #008080">image2d_t</span> image<span style="color: #990000">,</span>
+        <span style="color: #008080">int2</span> byte_coord<span style="color: #990000">,</span> <span style="color: #008080">uint8</span> data <span style="color: #990000">)</span>
+
+<span style="color: #009900">void</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_write_ui</span></span><span style="color: #990000">(</span>
+        <span style="color: #008080">image2d_t</span> image<span style="color: #990000">,</span>
+        <span style="color: #008080">int2</span> byte_coord<span style="color: #990000">,</span> <span style="color: #008080">uint</span> data <span style="color: #990000">)</span>
+<span style="color: #009900">void</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_write_ui2</span></span><span style="color: #990000">(</span>
+        <span style="color: #008080">image2d_t</span> image<span style="color: #990000">,</span>
+        <span style="color: #008080">int2</span> byte_coord<span style="color: #990000">,</span> <span style="color: #008080">uint2</span> data <span style="color: #990000">)</span>
+<span style="color: #009900">void</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_write_ui4</span></span><span style="color: #990000">(</span>
+        <span style="color: #008080">image2d_t</span> image<span style="color: #990000">,</span>
+        <span style="color: #008080">int2</span> byte_coord<span style="color: #990000">,</span> <span style="color: #008080">uint4</span> data <span style="color: #990000">)</span>
+<span style="color: #009900">void</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_write_ui8</span></span><span style="color: #990000">(</span>
+        <span style="color: #008080">image2d_t</span> image<span style="color: #990000">,</span>
+        <span style="color: #008080">int2</span> byte_coord<span style="color: #990000">,</span> <span style="color: #008080">uint8</span> data <span style="color: #990000">)</span></tt></pre></div></div></div></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Writes 1, 2, 4, or 8 uints of data for each work item in the subgroup to the specified image at the specified coordinate as a block operation&#8230;</p></td>
+</tr>
+</tbody>
+</table>
+</div></div>
+</dd>
+<dt class="hdlist1">
+Also, add <span class="monospaced">ushort</span> variants of the block read and write functions.  In the descriptions of these functions, the "note below describing out-of-bounds behavior" is in the <span class="monospaced">cl_intel_subgroups</span> extension specification: 
+</dt>
+<dd>
+<div class="openblock">
+<div class="content">
+<table class="tableblock frame-all grid-all"
+style="
+width:100%;
+">
+<col style="width:55%;">
+<col style="width:44%;">
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top" ><strong>Function</strong></th>
+<th class="tableblock halign-left valign-top" ><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top" ><div><div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #008080">ushort</span>   <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_read_us</span></span><span style="color: #990000">(</span>
+          <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #008080">__global</span> ushort<span style="color: #990000">*</span> p <span style="color: #990000">)</span>
+<span style="color: #008080">ushort2</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_read_us2</span></span><span style="color: #990000">(</span>
+          <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #008080">__global</span> ushort<span style="color: #990000">*</span> p <span style="color: #990000">)</span>
+<span style="color: #008080">ushort4</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_read_us4</span></span><span style="color: #990000">(</span>
+          <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #008080">__global</span> ushort<span style="color: #990000">*</span> p <span style="color: #990000">)</span>
+<span style="color: #008080">ushort8</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_read_us8</span></span><span style="color: #990000">(</span>
+          <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #008080">__global</span> ushort<span style="color: #990000">*</span> p <span style="color: #990000">)</span></tt></pre></div></div></div></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Reads 1, 2, 4, or 8 ushorts of data for each work item in the subgroup from the specified pointer as a block operation.
+The data is read strided, so the first value read is:</p>
+<p class="tableblock"><span class="monospaced">p[ sub_group_local_id ]</span></p>
+<p class="tableblock">and the second value read is:</p>
+<p class="tableblock"><span class="monospaced">p[ sub_group_local_id + max_sub_group_size ]</span></p>
+<p class="tableblock">etc.</p>
+<p class="tableblock"><em>p</em> must be aligned to a 32-bit (4-byte) boundary.</p>
+<p class="tableblock">There is no defined out-of-range behavior for these functions.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><div><div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #008080">ushort</span>   <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_read_us</span></span><span style="color: #990000">(</span>
+          <span style="color: #008080">image2d_t</span> image<span style="color: #990000">,</span>
+          <span style="color: #008080">int2</span> byte_coord <span style="color: #990000">)</span>
+<span style="color: #008080">ushort2</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_read_us2</span></span><span style="color: #990000">(</span>
+          <span style="color: #008080">image2d_t</span> image<span style="color: #990000">,</span>
+          <span style="color: #008080">int2</span> byte_coord <span style="color: #990000">)</span>
+<span style="color: #008080">ushort4</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_read_us4</span></span><span style="color: #990000">(</span>
+          <span style="color: #008080">image2d_t</span> image<span style="color: #990000">,</span>
+          <span style="color: #008080">int2</span> byte_coord <span style="color: #990000">)</span>
+<span style="color: #008080">ushort8</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_read_us8</span></span><span style="color: #990000">(</span>
+          <span style="color: #008080">image2d_t</span> image<span style="color: #990000">,</span>
+          <span style="color: #008080">int2</span> byte_coord <span style="color: #990000">)</span></tt></pre></div></div></div></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Reads 1, 2, 4, or 8 ushorts of data for each work item in the subgroup from the specified <em>image</em> at the specified coordinate as a block operation.
+Note that the coordinate is a byte coordinate, not an image element coordinate.
+Also note that the image data is read without format conversion, so each work item may read multiple image elements
+(for images with element size smaller than 16-bits).</p>
+<p class="tableblock">The data is read row-by-row, so the first value read is from the row specified in the y-component of the provided <em>byte_coord</em>, the second value is read from the y-component of the provided <em>byte_coord</em> plus one, etc.</p>
+<p class="tableblock">Please see the note below describing out-of-bounds behavior for these functions.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><div><div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #009900">void</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_write_us</span></span><span style="color: #990000">(</span>
+        <span style="color: #008080">__global</span> ushort<span style="color: #990000">*</span> p<span style="color: #990000">,</span> <span style="color: #008080">ushort</span> data <span style="color: #990000">)</span>
+<span style="color: #009900">void</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_write_us2</span></span><span style="color: #990000">(</span>
+        <span style="color: #008080">__global</span> ushort<span style="color: #990000">*</span> p<span style="color: #990000">,</span> <span style="color: #008080">ushort2</span> data <span style="color: #990000">)</span>
+<span style="color: #009900">void</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_write_us4</span></span><span style="color: #990000">(</span>
+        <span style="color: #008080">__global</span> ushort<span style="color: #990000">*</span> p<span style="color: #990000">,</span> <span style="color: #008080">ushort4</span> data <span style="color: #990000">)</span>
+<span style="color: #009900">void</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_write_us8</span></span><span style="color: #990000">(</span>
+        <span style="color: #008080">__global</span> ushort<span style="color: #990000">*</span> p<span style="color: #990000">,</span> <span style="color: #008080">ushort8</span> data <span style="color: #990000">)</span></tt></pre></div></div></div></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Writes 1, 2, 4, or 8 ushorts of data for each work item in the subgroup to the specified pointer as a block operation.
+The data is written strided, so the first value is written to:</p>
+<p class="tableblock"><span class="monospaced">p[ sub_group_local_id ]</span></p>
+<p class="tableblock">and the second value is written to:</p>
+<p class="tableblock"><span class="monospaced">p[ sub_group_local_id + max_sub_group_size ]</span></p>
+<p class="tableblock">etc.</p>
+<p class="tableblock"><em>p</em> must be aligned to a 128-bit (16-byte) boundary.</p>
+<p class="tableblock">There is no defined out-of-range behavior for these functions.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><div><div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #009900">void</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_write_us</span></span><span style="color: #990000">(</span>
+        <span style="color: #008080">image2d_t</span> image<span style="color: #990000">,</span>
+        <span style="color: #008080">int2</span> byte_coord<span style="color: #990000">,</span> <span style="color: #008080">ushort</span> data <span style="color: #990000">)</span>
+<span style="color: #009900">void</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_write_us2</span></span><span style="color: #990000">(</span>
+        <span style="color: #008080">image2d_t</span> image<span style="color: #990000">,</span>
+        <span style="color: #008080">int2</span> byte_coord<span style="color: #990000">,</span> <span style="color: #008080">ushort2</span> data <span style="color: #990000">)</span>
+<span style="color: #009900">void</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_write_us4</span></span><span style="color: #990000">(</span>
+        <span style="color: #008080">image2d_t</span> image<span style="color: #990000">,</span>
+        <span style="color: #008080">int2</span> byte_coord<span style="color: #990000">,</span> <span style="color: #008080">ushort4</span> data <span style="color: #990000">)</span>
+<span style="color: #009900">void</span>  <span style="font-weight: bold"><span style="color: #000000">intel_sub_group_block_write_us8</span></span><span style="color: #990000">(</span>
+        <span style="color: #008080">image2d_t</span> image<span style="color: #990000">,</span>
+        <span style="color: #008080">int2</span> byte_coord<span style="color: #990000">,</span> <span style="color: #008080">ushort8</span> data <span style="color: #990000">)</span></tt></pre></div></div></div></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Writes 1, 2, 4, or 8 ushorts of data for each work item in the subgroup to the specified <em>image</em> at the specified coordinate as a block operation.
+Note that the coordinate is a byte coordinate, not an image element coordinate.
+Unlike the image block read function, which may read from any arbitrary byte offset, the x-component of the byte coordinate for the image block write functions must be a multiple of four;
+in other words, the write must begin at 32-bit boundary.
+There is no restriction on the y-component of the coordinate.
+Also, note that the image <em>data</em> is written without format conversion, so each work item may write multiple image elements (for images with element size smaller than 8-bits).</p>
+<p class="tableblock">The data is written row-by-row, so the first value written is from the row specified by the y-component of the provided <em>byte_coord</em>, the second value is written from the y-component of the provided <em>byte_coord</em> plus one, etc.</p>
+<p class="tableblock">Please see the note below describing out-of-bounds behavior for these functions.</p></td>
+</tr>
+</tbody>
+</table>
+</div></div>
+</dd>
+</dl></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_issues">Issues</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>None.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_revision_history">Revision History</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-rows"
+style="
+width:100%;
+">
+<col style="width:4%;">
+<col style="width:14%;">
+<col style="width:14%;">
+<col style="width:66%;">
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top" >Rev</th>
+<th class="tableblock halign-left valign-top" >Date</th>
+<th class="tableblock halign-left valign-top" >Author</th>
+<th class="tableblock halign-left valign-top" >Changes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">2016-10-20</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Ben Ashbaugh</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><strong>First public revision.</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">2</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">2018-11-15</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Ben Ashbaugh</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Conversion to asciidoc.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="footnotes"><hr></div>
+<div id="footer">
+<div id="footer-text">
+Last updated
+ 2018-11-16 09:32:34 PST
+</div>
+</div>
+</body>
+</html>

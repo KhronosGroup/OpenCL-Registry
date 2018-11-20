@@ -174,7 +174,7 @@ registry = {
     'cl_intel_required_subgroup_size' : {
         'number' : 43,
         'flags' : { 'public' },
-        'url' : 'extensions/intel/cl_intel_required_subgroup_size.txt',
+        'url' : 'extensions/intel/cl_intel_required_subgroup_size.html',
     },
     'cl_intel_simultaneous_sharing' : {
         'number' : 34,
