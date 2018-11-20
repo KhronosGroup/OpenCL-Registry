@@ -184,12 +184,12 @@ registry = {
     'cl_intel_subgroups' : {
         'number' : 35,
         'flags' : { 'public' },
-        'url' : 'extensions/intel/cl_intel_subgroups.txt',
+        'url' : 'extensions/intel/cl_intel_subgroups.html',
     },
     'cl_intel_subgroups_short' : {
         'number' : 48,
         'flags' : { 'public' },
-        'url' : 'extensions/intel/cl_intel_subgroups_short.txt',
+        'url' : 'extensions/intel/cl_intel_subgroups_short.html',
     },
     'cl_intel_thread_local_exec' : {
         'number' : 16,

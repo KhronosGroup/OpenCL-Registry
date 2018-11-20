@@ -18,7 +18,7 @@ Contact
 
 Version
 
-   Version 3, October 2, 2018
+   Version 5, November 9, 2018
 
 Number 
 
@@ -1518,7 +1518,7 @@ New OpenCL C built-in functions
    |ushort intel_sub_group_avc_mce_get_|Get the MCE inter distortions   |
    |inter_distortions(                 |result corresponding to the BMVs|
    |   intel_sub_group_avc_mce_result_t|returned by intel_sub_group_avc_|
-   |      result                       |mce_get_motion_vectors(..). The |
+   |      result )                     |mce_get_motion_vectors(..). The |
    |                                   |MCE inter directions result     |
    |                                   |returned by intel_sub_group_avc_|
    |                                   |mce_get_inter_directions(..)    |
@@ -1910,16 +1910,16 @@ New OpenCL C built-in functions
    |                                    |window configuration           |
    |                                    |enumeration values.            |
    +------------------------------------+-------------------------------+
-   |ushort2 intel_sub_group_ime_        |Get the 2D size of the         |
+   |ushort2 intel_sub_group_avc_ime_    |Get the 2D size of the         |
    |ref_window_size(                    |reference window in pixel      |
    |  uchar search_window_config,       |units.                         |
    |  char dual_ref )                   |                               |
    |                                    |The value of                   |
-   |                                    |search_window_config must be   |
-   |                                    |one of the unreserved search   |
-   |                                    |window configuration           |
-   |                                    |enumeration values.            |
-   |                                    |                               |
+   |// deprecated                       |search_window_config must be   |
+   |ushort2 intel_sub_group_ime_        |one of the unreserved search   |
+   |ref_window_size(                    |window configuration           |
+   |  uchar search_window_config,       |enumeration values.            |
+   |  char dual_ref )                   |                               |
    |                                    |The value of dual_ref must be  |
    |                                    |set to zero for a single       |
    |                                    |reference search window and one|
@@ -2079,7 +2079,7 @@ New OpenCL C built-in functions
    |intel_sub_group_avc_ime_payload_t   |This is a wrapper for          |
    |intel_sub_group_avc_ime_set_        |intel_sub_group_avc_mce_set_   |
    |source_interlaced_field_polarity(   |source_interlaced_field_       |
-   |   uchar src_field_polarity         |polarity(..)  with the result  |
+   |   uchar src_field_polarity,        |polarity(..)  with the result  |
    |   intel_sub_group_avc_ime_payload_t|conversions to/from MCE        |
    |      payload )                     |types. See MCE version for     |
    |                                    |description.                   |
@@ -2900,7 +2900,7 @@ New OpenCL C built-in functions
    |intel_sub_group_avc_ref_payload_t   |This is a wrapper for          |
    |intel_sub_group_avc_ref_set_        |intel_sub_group_avc_mce_set_   |
    |source_interlaced_field_polarity(   |source_interlaced_field_       |
-   |   uchar src_field_polarity         |polarity(..)  with the result  |
+   |   uchar src_field_polarity,        |polarity(..)  with the result  |
    |   intel_sub_group_avc_ref_payload_t|conversions to/from MCE        |
    |      payload )                     |types. See MCE version for     |
    |                                    |description.                   |
@@ -2915,7 +2915,7 @@ New OpenCL C built-in functions
    +------------------------------------+-------------------------------+
    |intel_sub_group_avc_ref_payload_t   |This is a wrapper for          |
    |intel_sub_group_avc_ref_set_        |intel_sub_group_avc_mce_set_   |
-   |dual_reference_interlaced_image_    |dual_reference_interlaced_     |
+   |dual_reference_interlaced_          |dual_reference_interlaced_     |
    |field_polarities(                   |field_polarities(..)  with the |
    |   uchar fwd_ref_field_polarity,    |result conversions to/from MCE |
    |   uchar bwd_ref_field_polarity,    |types. See MCE version for     |
@@ -2929,7 +2929,7 @@ New OpenCL C built-in functions
    |      payload )                     |                               |
    |                                    |Default is to enable it.       |
    +------------------------------------+-------------------------------+
-   |intel_sub_group_avc_sic_payload_t   |Update the input payload to do |
+   |intel_sub_group_avc_ref_payload_t   |Update the input payload to do |
    |intel_sub_group_avc_ref_set_        |enable bilinear filter         |
    |bilinear_filter_enable(             |interpolation instead of 4-tap |
    |   intel_sub_group_avc_ref_payload_t|filter interpolation. Default  |
@@ -2970,7 +2970,7 @@ New OpenCL C built-in functions
    |evaluate_with_dual_reference(       |and return its results.        |
    |  read_only image2d_t src_image,    |                               |
    |  read_only image2d_t fwd_ref_image,|The parameter                  |
-   |  image2d_t bwd_ref_image,          |fwd_ref_image[bwd_ref_image]   |
+   |  read_only image2d_t bwd_ref_image,|fwd_ref_image[bwd_ref_image]   |
    |  sampler_t vme_media_sampler,      |must be a valid                |
    |  intel_sub_group_avc_ref_payload_t |forward[backward] image kernel |
    |     payload )                      |parameter per the ordering     |
@@ -3160,7 +3160,7 @@ New OpenCL C built-in functions
    |intel_sub_group_avc_ref_result_t   |Convert the MCE result into an  |
    |intel_sub_group_avc_mce_           |REF result.                     |
    |convert_to_ref_result(             |                                |
-   |   intel_sub_group_avc_ref_result_t|                                |
+   |   intel_sub_group_avc_mce_result_t|                                |
    |      result )                     |                                |
    +-----------------------------------+--------------------------------+
 
@@ -3297,8 +3297,8 @@ New OpenCL C built-in functions
    |   uint skip_block_partition_type,  |                               |
    |   uint skip_motion_vector_mask,    |The legal values for           |
    |   ulong motion_vectors,            |skip_block_partition_type must |
-   |   char bidirectional_weight,       |be one of the specified        |
-   |   uchar skip_sad_adjustment ,      |partition mask enumeration     |
+   |   uchar bidirectional_weight,      |be one of the specified        |
+   |   uchar skip_sad_adjustment,       |partition mask enumeration     |
    |   intel_sub_group_avc_sic_payload_t|values.                        |
    |     payload )                      |                               |
    |                                    |Legal values for               |
@@ -3754,7 +3754,7 @@ New OpenCL C built-in functions
    |intel_sub_group_avc_sic_payload_t   |This is a wrapper for          |
    |intel_sub_group_avc_sic_set_        |intel_sub_group_avc_mce_set_   |
    |source_interlaced_field_polarity(   |source_interlaced_field_       |
-   |   uchar src_field_polarity         |polarity(..)  with the result  |
+   |   uchar src_field_polarity,        |polarity(..)  with the result  |
    |   intel_sub_group_avc_sic_payload_t|conversions to/from MCE        |
    |      payload )                     |types. See MCE version for     |
    |                                    |description.                   |
@@ -3769,7 +3769,7 @@ New OpenCL C built-in functions
    +------------------------------------+-------------------------------+
    |intel_sub_group_avc_sic_payload_t   |This is a wrapper for          |
    |intel_sub_group_avc_sic_set_        |intel_sub_group_avc_mce_set_   |
-   |dual_reference_interlaced_image_    |dual_reference_interlaced_     |
+   |dual_reference_interlaced_          |dual_reference_interlaced_     |
    |field_polarities(                   |field_polarities(..)  with the |
    |   uchar fwd_ref_field_polarity,    |result conversions to/from MCE |
    |   uchar bwd_ref_field_polarity,    |types. See MCE version for     |
@@ -3778,7 +3778,7 @@ New OpenCL C built-in functions
    +------------------------------------+-------------------------------+
    |intel_sub_group_avc_sic_payload_t   |Update the input payload to do |
    |intel_sub_group_avc_sic_set_        |enable bilinear filter         |
-   |bilinear_filter_enable(             |interpolation instead of 4-tap |
+   |skc_bilinear_filter_enable(         |interpolation instead of 4-tap |
    |   intel_sub_group_avc_sic_payload_t|filter interpolation.  Default |
    |      payload )                     |is 4-tap filter interpolation. |
    |                                    |                               |
@@ -3839,7 +3839,7 @@ New OpenCL C built-in functions
    |intel_sub_group_avc_sic_set_        |during the evaluation phase    |
    |block_based_raw_skip_sad(           |will be the maximal SAD of     |
    |   uchar block_based_skip_type,     |individual 4x4 (or 8x8) blocks,|
-   |   intel_sub_group_avc_ime_payload_t|instead of the sum of the      |
+   |   intel_sub_group_avc_sic_payload_t|instead of the sum of the      |
    |      payload )                     |entire individual 4x4 block    |
    |                                    |SADs of the MB.                |
    |                                    |                               |
@@ -4078,7 +4078,7 @@ New OpenCL C built-in functions
    |intel_sub_group_avc_sic_result_t   |Convert the MCE result into an  |
    |intel_sub_group_avc_mce_           |SIC result.                     |
    |convert_to_sic_result(             |                                |
-   |   intel_sub_group_avc_sic_result_t|                                |
+   |   intel_sub_group_avc_mce_result_t|                                |
    |      result )                     |                                |
    +-----------------------------------+--------------------------------+
 
@@ -4374,3 +4374,6 @@ Revision History
     Version 3 (10/02/2018): Modified definitions of default initialization 
                             literals to be pre-defined enumeration literals.
                             Fixed typo in intra cost configuration function.
+    Version 4 (10/31/2018): Minor typo fixes.
+    Version 5 (11/09/2018): Marked intel_sub_group_ime_ref_window_size
+                            function as deprecated.
