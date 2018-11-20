@@ -181,6 +181,21 @@ registry = {
         'flags' : { 'public' },
         'url' : 'extensions/intel/cl_intel_simultaneous_sharing.txt',
     },
+    'cl_intel_spirv_device_side_avc_motion_estimation' : {
+        'number' : 57,
+        'flags' : { 'public' },
+        'url' : 'extensions/intel/cl_intel_spirv_device_side_avc_motion_estimation.html',
+    },
+    'cl_intel_spirv_media_block_io' : {
+        'number' : 56,
+        'flags' : { 'public' },
+        'url' : 'extensions/intel/cl_intel_spirv_media_block_io.html',
+    },
+    'cl_intel_spirv_subgroups' : {
+        'number' : 55,
+        'flags' : { 'public' },
+        'url' : 'extensions/intel/cl_intel_spirv_subgroups.html',
+    },
     'cl_intel_subgroups' : {
         'number' : 35,
         'flags' : { 'public' },
