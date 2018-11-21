@@ -174,22 +174,37 @@ registry = {
     'cl_intel_required_subgroup_size' : {
         'number' : 43,
         'flags' : { 'public' },
-        'url' : 'extensions/intel/cl_intel_required_subgroup_size.txt',
+        'url' : 'extensions/intel/cl_intel_required_subgroup_size.html',
     },
     'cl_intel_simultaneous_sharing' : {
         'number' : 34,
         'flags' : { 'public' },
         'url' : 'extensions/intel/cl_intel_simultaneous_sharing.txt',
     },
+    'cl_intel_spirv_device_side_avc_motion_estimation' : {
+        'number' : 57,
+        'flags' : { 'public' },
+        'url' : 'extensions/intel/cl_intel_spirv_device_side_avc_motion_estimation.html',
+    },
+    'cl_intel_spirv_media_block_io' : {
+        'number' : 56,
+        'flags' : { 'public' },
+        'url' : 'extensions/intel/cl_intel_spirv_media_block_io.html',
+    },
+    'cl_intel_spirv_subgroups' : {
+        'number' : 55,
+        'flags' : { 'public' },
+        'url' : 'extensions/intel/cl_intel_spirv_subgroups.html',
+    },
     'cl_intel_subgroups' : {
         'number' : 35,
         'flags' : { 'public' },
-        'url' : 'extensions/intel/cl_intel_subgroups.txt',
+        'url' : 'extensions/intel/cl_intel_subgroups.html',
     },
     'cl_intel_subgroups_short' : {
         'number' : 48,
         'flags' : { 'public' },
-        'url' : 'extensions/intel/cl_intel_subgroups_short.txt',
+        'url' : 'extensions/intel/cl_intel_subgroups_short.html',
     },
     'cl_intel_thread_local_exec' : {
         'number' : 16,
