@@ -67,7 +67,7 @@
 </li>
 <li value=34><a href="extensions/intel/cl_intel_simultaneous_sharing.txt">cl_intel_simultaneous_sharing</a>
 </li>
-<li value=35><a href="extensions/intel/cl_intel_subgroups.txt">cl_intel_subgroups</a>
+<li value=35><a href="extensions/intel/cl_intel_subgroups.html">cl_intel_subgroups</a>
 </li>
 <li value=36><a href="extensions/intel/cl_intel_va_api_media_sharing.txt">cl_intel_va_api_media_sharing</a>
 </li>
@@ -83,7 +83,7 @@
 </li>
 <li value=42><a href="extensions/intel/cl_intel_packed_yuv.txt">cl_intel_packed_yuv</a>
 </li>
-<li value=43><a href="extensions/intel/cl_intel_required_subgroup_size.txt">cl_intel_required_subgroup_size</a>
+<li value=43><a href="extensions/intel/cl_intel_required_subgroup_size.html">cl_intel_required_subgroup_size</a>
 </li>
 <li value=44><a href="extensions/img/cl_img_cached_allocations.txt">cl_img_cached_allocations</a>
 </li>
@@ -93,7 +93,7 @@
 </li>
 <li value=47><a href="extensions/intel/cl_intel_driver_diagnostics.txt">cl_intel_driver_diagnostics</a>
 </li>
-<li value=48><a href="extensions/intel/cl_intel_subgroups_short.txt">cl_intel_subgroups_short</a>
+<li value=48><a href="extensions/intel/cl_intel_subgroups_short.html">cl_intel_subgroups_short</a>
 </li>
 <li value=49><a href="extensions/intel/cl_intel_planar_yuv.txt">cl_intel_planar_yuv</a>
 </li>
@@ -106,5 +106,11 @@
 <li value=53><a href="extensions/qcom/cl_qcom_ext_host_ptr_iocoherent.txt">cl_qcom_ext_host_ptr_iocoherent</a>
 </li>
 <li value=54><a href="extensions/amd/cl_amd_planar_yuv.txt">cl_amd_planar_yuv</a>
+</li>
+<li value=55><a href="extensions/intel/cl_intel_spirv_subgroups.html">cl_intel_spirv_subgroups</a>
+</li>
+<li value=56><a href="extensions/intel/cl_intel_spirv_media_block_io.html">cl_intel_spirv_media_block_io</a>
+</li>
+<li value=57><a href="extensions/intel/cl_intel_spirv_device_side_avc_motion_estimation.html">cl_intel_spirv_device_side_avc_motion_estimation</a>
 </li>
 </ol>
