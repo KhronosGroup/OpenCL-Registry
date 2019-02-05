@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.5">
-<meta name="author" content="Khronos OpenCL Working Group">
+<meta name="generator" content="Asciidoctor 1.5.7">
+<meta name="author" content="Khronos&#174; OpenCL Working Group">
 <title>The OpenCL&#8482; SPIR-V Environment Specification</title>
 <style>
 /*! normalize.css v2.1.2 | MIT License | git.io/normalize */
@@ -724,7 +724,7 @@ p.tableblock.header { color: #6d6e71; }
 .literalblock pre, .listingblock pre { background: #eeeeee; }
 
 </style>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
 /* Stylesheet for CodeRay to match GitHub theme | MIT License | http://foundation.zurb.com */
 /*pre.CodeRay {background-color:#f7f7f8;}*/
@@ -840,10 +840,10 @@ table.CodeRay td.code>pre{padding:0}
 <div id="header">
 <h1>The OpenCL<sup>&#8482;</sup> SPIR-V Environment Specification</h1>
 <div class="details">
-<span id="author" class="author">Khronos OpenCL Working Group</span><br>
-<span id="revnumber">version 2.2-8,</span>
-<span id="revdate">Mon, 08 Oct 2018 16:50:05 +0000</span>
-<br><span id="revremark">from git branch: master commit: b3cab22fcff5d8c17869907c983e259ddd7ce788</span>
+<span id="author" class="author">Khronos<sup>&#174;</sup> OpenCL Working Group</span><br>
+<span id="revnumber">version v2.2-10,</span>
+<span id="revdate">Tue, 05 Feb 2019 21:17:11 +0000</span>
+<br><span id="revremark">from git branch:  commit: 00422daf5dc013f21ab633479577c7cc225150e2</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -927,7 +927,7 @@ table.CodeRay td.code>pre{padding:0}
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2008-2018 The Khronos Group.</p>
+<p>Copyright 2008-2019 The Khronos Group.</p>
 </div>
 <div class="paragraph">
 <p>This specification is protected by copyright laws and contains material proprietary
@@ -958,7 +958,7 @@ indirect, special or consequential damages for lost revenues, lost profits, or
 otherwise, arising from or in connection with these materials.</p>
 </div>
 <div class="paragraph">
-<p>Vulkan is a registered trademark and Khronos, OpenXR, SPIR, SPIR-V, SYCL, WebGL,
+<p>Vulkan and Khronos are registered trademarks, and OpenXR, SPIR, SPIR-V, SYCL, WebGL,
 WebCL, OpenVX, OpenVG, EGL, COLLADA, glTF, NNEF, OpenKODE, OpenKCAM, StreamInput,
 OpenWF, OpenSL ES, OpenMAX, OpenMAX AL, OpenMAX IL, OpenMAX DL, OpenML and DevU are
 trademarks of the Khronos Group Inc. ASTC is a trademark of ARM Holdings PLC,
@@ -1206,7 +1206,7 @@ Supported vector <em>Component Counts</em> are 2, 3, 4, 8, or 16.</p>
 <p>The following table describes the <strong>OpTypeImage</strong> image types supported by
 OpenCL environments:</p>
 </div>
-<table class="tableblock frame-all grid-all spread">
+<table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. Image Types</caption>
 <colgroup>
 <col style="width: 16.6666%;">
@@ -1281,7 +1281,7 @@ OpenCL environments:</p>
 <p>The following table describes other data types that may be used in an
 OpenCL environment:</p>
 </div>
-<table class="tableblock frame-all grid-all spread">
+<table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 2. Other Data Types</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -1323,7 +1323,7 @@ OpenCL environment:</p>
 <strong>OpImageQueryOrder</strong> instruction correspond to the OpenCL host API image
 channel orders.</p>
 </div>
-<table class="tableblock frame-all grid-all spread">
+<table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 3. Image Channel Order mapping</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -1422,7 +1422,7 @@ channel orders.</p>
 <strong>OpImageQueryFormat</strong> instruction correspond to the OpenCL host API image
 channel data types.</p>
 </div>
-<table class="tableblock frame-all grid-all spread">
+<table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 4. Image Channel Data Type mapping</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -2594,7 +2594,7 @@ in a SPIR-V module using <strong>OpExtension</strong>.</p>
 <div class="sect2">
 <h3 id="_full_and_embedded_profile_extensions">7.2. Full and Embedded Profile Extensions</h3>
 <div class="sect3">
-<h4 id="__code_cl_khr_3d_image_writes_code">7.2.1. <code>cl_khr_3d_image_writes</code></h4>
+<h4 id="_cl_khr_3d_image_writes">7.2.1. <code>cl_khr_3d_image_writes</code></h4>
 <div class="paragraph">
 <p>If the OpenCL environment supports the extension <code>cl_khr_3d_image_writes</code>,
 then the environment must accept <em>Image</em> operands to <strong>OpImageWrite</strong> that
@@ -2602,7 +2602,7 @@ are declared with with dimensionality <em>Dim</em> equal to <strong>3D</strong>.
 </div>
 </div>
 <div class="sect3">
-<h4 id="__code_cl_khr_depth_images_code">7.2.2. <code>cl_khr_depth_images</code></h4>
+<h4 id="_cl_khr_depth_images">7.2.2. <code>cl_khr_depth_images</code></h4>
 <div class="paragraph">
 <p>If the OpenCL environment supports the extension <code>cl_khr_depth_images</code>,
 then the environment must accept modules that declare 2D depth image types
@@ -2623,7 +2623,7 @@ equal to  1, indicating a depth image.  2D depth images may optionally be
 </div>
 </div>
 <div class="sect3">
-<h4 id="__code_cl_khr_device_enqueue_local_arg_types_code">7.2.3. <code>cl_khr_device_enqueue_local_arg_types</code></h4>
+<h4 id="_cl_khr_device_enqueue_local_arg_types">7.2.3. <code>cl_khr_device_enqueue_local_arg_types</code></h4>
 <div class="paragraph">
 <p>If the OpenCL environment supports the extension
 <code>cl_khr_device_enqueue_local_arg_types</code>, then then environment will allow
@@ -2632,7 +2632,7 @@ memory pointer parameters of any type.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="__code_cl_khr_fp16_code">7.2.4. <code>cl_khr_fp16</code></h4>
+<h4 id="_cl_khr_fp16">7.2.4. <code>cl_khr_fp16</code></h4>
 <div class="paragraph">
 <p>If the OpenCL environment supports the extension <code>cl_khr_fp16</code>, then the
 environment must accept modules that declare the following SPIR-V
@@ -2647,7 +2647,7 @@ capabilities:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="__code_cl_khr_fp64_code">7.2.5. <code>cl_khr_fp64</code></h4>
+<h4 id="_cl_khr_fp64">7.2.5. <code>cl_khr_fp64</code></h4>
 <div class="paragraph">
 <p>If the OpenCL environment supports the extension <code>cl_khr_fp64</code>, then the
 environment must accept modules that declare the following SPIR-V
@@ -2662,7 +2662,7 @@ capabilities:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="__code_cl_khr_gl_depth_images_code">7.2.6. <code>cl_khr_gl_depth_images</code></h4>
+<h4 id="_cl_khr_gl_depth_images">7.2.6. <code>cl_khr_gl_depth_images</code></h4>
 <div class="paragraph">
 <p>If the OpenCL environment supports the extension <code>cl_khr_gl_depth_images</code>,
 then the following Image Channel Orders may additionally be returned by
@@ -2688,7 +2688,7 @@ then the following Image Channel Orders may additionally be returned by
 </div>
 </div>
 <div class="sect3">
-<h4 id="__code_cl_khr_gl_msaa_sharing_code">7.2.7. <code>cl_khr_gl_msaa_sharing</code></h4>
+<h4 id="_cl_khr_gl_msaa_sharing">7.2.7. <code>cl_khr_gl_msaa_sharing</code></h4>
 <div class="paragraph">
 <p>If the OpenCL environment supports the extension <code>cl_khr_gl_msaa_sharing</code>,
 then the environment must accept modules that declare 2D multi-sampled
@@ -2720,7 +2720,7 @@ may optionally be <em>Arrayed</em> or <em>Depth</em> images, if supported.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="__code_cl_khr_int64_base_atomics_code_and_code_cl_khr_int64_extended_atomics_code">7.2.8. <code>cl_khr_int64_base_atomics</code> and <code>cl_khr_int64_extended_atomics</code></h4>
+<h4 id="_cl_khr_int64_base_atomics_and_cl_khr_int64_extended_atomics">7.2.8. <code>cl_khr_int64_base_atomics</code> and <code>cl_khr_int64_extended_atomics</code></h4>
 <div class="paragraph">
 <p>If the OpenCL environment supports the extension <code>cl_khr_int64_base_atomics</code>
 or <code>cl_khr_int64_extended_atomics</code>, then the environment must support 64-bit
@@ -2737,7 +2737,7 @@ of these extensions.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="__code_cl_khr_mipmap_image_code">7.2.9. <code>cl_khr_mipmap_image</code></h4>
+<h4 id="_cl_khr_mipmap_image">7.2.9. <code>cl_khr_mipmap_image</code></h4>
 <div class="paragraph">
 <p>If the OpenCL environment supports the extension <code>cl_khr_mipmap_image</code>,
 then the environment must accept non-zero optional <strong>Lod</strong> <em>Image Operands</em>
@@ -2763,7 +2763,7 @@ require non-zero optional <strong>Lod</strong> <em>Image Operands</em> for <stro
 </div>
 </div>
 <div class="sect3">
-<h4 id="__code_cl_khr_mipmap_image_writes_code">7.2.10. <code>cl_khr_mipmap_image_writes</code></h4>
+<h4 id="_cl_khr_mipmap_image_writes">7.2.10. <code>cl_khr_mipmap_image_writes</code></h4>
 <div class="paragraph">
 <p>If the OpenCL environment supports the extension <code>cl_khr_mipmap_image_writes</code>,
 then the environment must accept non-zero optional <strong>Lod</strong> <em>Image Operands</em>
@@ -2783,7 +2783,7 @@ guarantee support for the <strong>ImageMipmap</strong> capability.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="__code_cl_khr_subgroups_code">7.2.11. <code>cl_khr_subgroups</code></h4>
+<h4 id="_cl_khr_subgroups">7.2.11. <code>cl_khr_subgroups</code></h4>
 <div class="paragraph">
 <p>If the OpenCL environment supports the extension <code>cl_khr_subgroups</code>, then
 the environment will generally allows the scope for <em>Execution</em> to include:</p>
@@ -2808,7 +2808,7 @@ the environment will generally allows the scope for <em>Execution</em> to includ
 </div>
 </div>
 <div class="sect3">
-<h4 id="__code_cl_khr_subgroup_named_barrier_code">7.2.12. <code>cl_khr_subgroup_named_barrier</code></h4>
+<h4 id="_cl_khr_subgroup_named_barrier">7.2.12. <code>cl_khr_subgroup_named_barrier</code></h4>
 <div class="paragraph">
 <p>If the OpenCL environment supports the extension
 <code>cl_khr_subgroup_named_barrier</code>, then the environment must accept modules
@@ -2822,11 +2822,20 @@ that declare the following SPIR-V capabilities:</p>
 </ul>
 </div>
 </div>
+<div class="sect3">
+<h4 id="_cl_khr_spirv_no_integer_wrap_decoration">7.2.13. <code>cl_khr_spirv_no_integer_wrap_decoration</code></h4>
+<div class="paragraph">
+<p>If the OpenCL environment supports the extension <code>cl_khr_spirv_no_integer_wrap_decoration</code>, then the environment must accept modules that declare use of the extension <code>SPV_KHR_no_integer_wrap_decoration</code> via <strong>OpExtension</strong>.</p>
+</div>
+<div class="paragraph">
+<p>If the OpenCL environment supports the extension <code>cl_khr_spirv_no_integer_wrap_decoration</code> and use of the SPIR-V extension <code>SPV_KHR_no_integer_wrap_decoration</code> is declared in the module via <strong>OpExtension</strong>, then the environment must accept modules that include the <strong>NoSignedWrap</strong> or <strong>NoUnsignedWrap</strong> decorations.</p>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_embedded_profile_extensions">7.3. Embedded Profile Extensions</h3>
 <div class="sect3">
-<h4 id="__code_cles_khr_int64_code">7.3.1. <code>cles_khr_int64</code></h4>
+<h4 id="_cles_khr_int64">7.3.1. <code>cles_khr_int64</code></h4>
 <div class="paragraph">
 <p>If the OpenCL environment supports the extension <code>cles_khr_int64</code>, then the
 environment must accept modules that declare the following SPIR-V
@@ -3067,7 +3076,7 @@ result.</p>
 accuracy of floating-point math arithmetic instructions for full profile
 devices given as ULP values.</p>
 </div>
-<table id="ulp_values_for_math_instructions" class="tableblock frame-all grid-all spread">
+<table id="ulp_values_for_math_instructions" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 5. ULP Values for Math Instructions - Full Profile</caption>
 <colgroup>
 <col style="width: 31%;">
@@ -3691,7 +3700,7 @@ devices given as ULP values.</p>
 describes the minimum accuracy of floating-point math arithmetic operations
 given as ULP values for the embedded profile.</p>
 </div>
-<table id="ulp_values_for_math_instructions_for_embedded_profile" class="tableblock frame-all grid-all spread">
+<table id="ulp_values_for_math_instructions_for_embedded_profile" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 6. ULP Values for Math Instructions - Embedded Profile</caption>
 <colgroup>
 <col style="width: 31%;">
@@ -3986,9 +3995,9 @@ given as ULP values for the embedded profile.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpExtInst</strong> <strong>mad</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Implemention-defined</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Implemention-defined</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Implemention-defined</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implementation-defined</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implementation-defined</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implementation-defined</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpExtInst</strong> <strong>maxmag</strong></p></td>
@@ -4329,7 +4338,7 @@ Profile</a> table when operating in the full profile, and as defined in the
 instructions for Embedded Profile</a> table when operating in the embedded
 profile.</p>
 </div>
-<table id="ulp_values_for_math_instructions_with_fast_relaxed_math" class="tableblock frame-all grid-all spread">
+<table id="ulp_values_for_math_instructions_with_fast_relaxed_math" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 7. ULP Values for Single Precision Math Instructions with <em>-cl-unsafe-math-optimizations</em></caption>
 <colgroup>
 <col style="width: 30%;">
@@ -4476,12 +4485,12 @@ profile.</p>
   Undefined for x &lt; 0 and non-integer y.
   Undefined for x &lt; 0 and y outside the domain [-2<sup>24</sup>, 2<sup>24</sup>].
   For x &gt; 0 or x &lt; 0 and even y, derived implementations implement this as
-  exp2( y * log2(x) ).
+  exp2( y * log2( fabs(x) ) ).
   For x &lt; 0 and odd y, derived implementations implement this as -exp2( y *
-  log2(fabs(x) ).
+  log2( fabs(x) ).
   For x == 0 and nonzero y, derived implementations return zero.
-  For non-derived implementations, the error is &lt;= 8192 ULP.
-</p><p class="tableblock">  On some implementations, powr() or pown() may perform faster
+  For non-derived implementations, the error is &lt;= 8192 ULP.</p>
+<p class="tableblock">  On some implementations, powr() or pown() may perform faster
   than pow().
   If x is known to be &gt;= 0, consider using powr() in place of pow(),
   or if y is known to be an integer, consider using pown() in place of
@@ -4492,7 +4501,7 @@ profile.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Defined only for integer values of y.
   Undefined for x = 0 and y = 0.
   For x &gt;= 0 or x &lt; 0 and even y, derived implementations implement this as
-  exp2( y * log2(x) ).
+  exp2( y * log2( fabs(x) ) ).
   For x &lt; 0 and odd y, derived implementations implement this as -exp2( y *
   log2( fabs(x) ) ).
   For non-derived implementations, the error is &lt;= 8192 ulp.</p></td>
@@ -5126,7 +5135,7 @@ representable numbers in the range 0 &lt; x &lt; TYPE_MIN and -TYPE_MIN &lt; x &
 They do not include ±0.
 A non-zero number is said to be sub-normal before rounding if, after
 normalization, its radix-2 exponent is less than (TYPE_MIN_EXP - 1).
-<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</sup></p>
+<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p>
 </div>
 </div>
 </div>
@@ -5190,7 +5199,7 @@ For a 2D image, the image element at location <code>(i,j)</code> becomes the col
 <div class="paragraph">
 <p>The below table describes the <code>address_mode</code> function.</p>
 </div>
-<table id="addressing_modes_to_generate_texel_location" class="tableblock frame-all grid-all spread">
+<table id="addressing_modes_to_generate_texel_location" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 8. Addressing Modes to Generate Texel Location</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -5204,26 +5213,26 @@ For a 2D image, the image element at location <code>(i,j)</code> becomes the col
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p><code>CL_ADDRESS_CLAMP</code></p>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p><em>clamp (coord, -1, size)</em></p>
 </div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p><code>CL_ADDRESS_CLAMP_TO_EDGE</code></p>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p><em>clamp (coord, 0, size - 1)</em></p>
 </div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p><code>CL_ADDRESS_NONE</code></p>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p><em>coord</em></p>
 </div></div></td>
 </tr>
@@ -6369,7 +6378,7 @@ written by an image write instruction:</p>
 <p>For the following image channel orders, the data is a four
 component vector type:</p>
 </div>
-<table class="tableblock frame-all grid-all spread">
+<table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 9. <em>Mapping Image Data to Vector Components</em></caption>
 <colgroup>
 <col style="width: 50%;">
@@ -6415,7 +6424,7 @@ component vector type:</p>
 <div class="paragraph">
 <p>For the following image channel orders, the data is a scalar type:</p>
 </div>
-<table class="tableblock frame-all grid-all spread">
+<table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 10. <em>Scalar Image Data</em></caption>
 <colgroup>
 <col style="width: 50%;">
@@ -6442,7 +6451,7 @@ component vector type:</p>
 <p>The following table describes the mapping from image channel data type
 to the data vector component type or scalar type:</p>
 </div>
-<table class="tableblock frame-all grid-all spread">
+<table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 11. <em>Image Data Types</em></caption>
 <colgroup>
 <col style="width: 50%;">
@@ -6534,7 +6543,9 @@ languages - C++&#8221;, <a href="https://www.iso.org/standard/64029.html" class=
 </li>
 <li>
 <p><a id="ulp-definition"></a> Jean-Michel Muller. <em>On the definition of ulp(x)</em>.
-RR-5504, INRIA. 2005, pp.16. &lt;inria-00070503&gt;</p>
+RR-5504, INRIA. 2005, pp.16. &lt;inria-00070503&gt;
+Currently hosted at
+<a href="https://hal.inria.fr/inria-00070503/document">https://hal.inria.fr/inria-00070503/document</a>.</p>
 </li>
 <li>
 <p><a id="sRGB-spec"></a> &#8220;IEC 61966-2-1:1999 Multimedia systems and equipment -
@@ -6549,17 +6560,17 @@ Default RGB colour space - sRGB&#8221;,
 </div>
 <div id="footnotes">
 <hr>
-<div class="footnote" id="_footnote_1">
+<div class="footnote" id="_footnotedef_1">
 <a href="#_footnoteref_1">1</a>. Here <code>TYPE_MIN</code> and <code>TYPE_MIN_EXP</code> should be substituted by constants appropriate to the floating-point type under consideration, such as <code>FLT_MIN</code> and <code>FLT_MIN_EXP</code> for float.
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 2.2-8<br>
-Last updated 2018-09-24 21:35:08 PDT
+Version v2.2-10<br>
+Last updated 2019-02-05 16:03:11 EST
 </div>
 </div>
 
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
 </body>
 </html>

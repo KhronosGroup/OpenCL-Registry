@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.5">
-<meta name="author" content="Khronos OpenCL Working Group">
+<meta name="generator" content="Asciidoctor 1.5.7">
+<meta name="author" content="Khronos&#174; OpenCL Working Group">
 <title>The OpenCL&#8482; Specification</title>
 <style>
 /*! normalize.css v2.1.2 | MIT License | git.io/normalize */
@@ -724,7 +724,7 @@ p.tableblock.header { color: #6d6e71; }
 .literalblock pre, .listingblock pre { background: #eeeeee; }
 
 </style>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
 /* Stylesheet for CodeRay to match GitHub theme | MIT License | http://foundation.zurb.com */
 /*pre.CodeRay {background-color:#f7f7f8;}*/
@@ -840,10 +840,10 @@ table.CodeRay td.code>pre{padding:0}
 <div id="header">
 <h1>The OpenCL<sup>&#8482;</sup> Specification</h1>
 <div class="details">
-<span id="author" class="author">Khronos OpenCL Working Group</span><br>
-<span id="revnumber">version 2.2-8,</span>
-<span id="revdate">Mon, 08 Oct 2018 16:49:19 +0000</span>
-<br><span id="revremark">from git branch: master commit: b3cab22fcff5d8c17869907c983e259ddd7ce788</span>
+<span id="author" class="author">Khronos<sup>&#174;</sup> OpenCL Working Group</span><br>
+<span id="revnumber">version v2.2-10,</span>
+<span id="revdate">Tue, 05 Feb 2019 21:16:07 +0000</span>
+<br><span id="revremark">from git branch:  commit: 00422daf5dc013f21ab633479577c7cc225150e2</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -936,7 +936,7 @@ table.CodeRay td.code>pre{padding:0}
 <div class="sectionbody">
 <div style="page-break-after: always;"></div>
 <div class="paragraph">
-<p>Copyright 2008-2018 The Khronos Group.</p>
+<p>Copyright 2008-2019 The Khronos Group.</p>
 </div>
 <div class="paragraph">
 <p>This specification is protected by copyright laws and contains material proprietary
@@ -967,7 +967,7 @@ indirect, special or consequential damages for lost revenues, lost profits, or
 otherwise, arising from or in connection with these materials.</p>
 </div>
 <div class="paragraph">
-<p>Vulkan is a registered trademark and Khronos, OpenXR, SPIR, SPIR-V, SYCL, WebGL,
+<p>Vulkan and Khronos are registered trademarks, and OpenXR, SPIR, SPIR-V, SYCL, WebGL,
 WebCL, OpenVX, OpenVG, EGL, COLLADA, glTF, NNEF, OpenKODE, OpenKCAM, StreamInput,
 OpenWF, OpenSL ES, OpenMAX, OpenMAX AL, OpenMAX IL, OpenMAX DL, OpenML and DevU are
 trademarks of the Khronos Group Inc. ASTC is a trademark of ARM Holdings PLC,
@@ -1997,7 +1997,7 @@ object <strong>M</strong>, if <strong>A</strong> uses an atomic store of <strong
 synchronize-with an atomic load to <strong>M</strong> by <strong>B</strong> that used acquire
 semantics, then <strong>A</strong>'s atomic store will occur <em>after</em> any prior
 operations by <strong>A</strong>.
-Note that the memory orders <em>acquire</em>, <em>sequentialy consistent</em>, and
+Note that the memory orders <em>acquire</em>, <em>sequentially consistent</em>, and
 <em>acquire_release</em> all include <em>acquire semantics</em> and effectively pair
 with a store using release semantics.</p>
 </dd>
@@ -2038,7 +2038,7 @@ elements</em>.</p>
 <dd>
 <p>The action of incrementing (retain) and decrementing (release) the
 reference count using an OpenCL <em>object</em>.
-This is a book keeping functionality to make sure the system doesnt
+This is a book keeping functionality to make sure the system doesn&#8217;t
 remove an <em>object</em> before all instances that use this <em>object</em> have
 finished.
 Refer to <em>Reference Count</em>.</p>
@@ -2136,12 +2136,13 @@ instructions.</p>
 <dt class="hdlist1">Specialization constants </dt>
 <dd>
 <p>Specialization is intended for constant objects that will not have known
-constant values until after initial generation of a SPIR-V module.
-Such objects are called specialization constants.
+constant values until after initial generation of a module in an intermediate
+representation format (e.g. SPIR-V). Such objects are called specialization
+constants.
 Application might provide values for the specialization constants that
-will be used when SPIR-V program is built.
+will be used when program is built from the intermediate format.
 Specialization constants that do not receive a value from an application
-shall use default value as defined in SPIR-V specification.</p>
+shall use default values as defined in OpenCL C++ or SPIR-V specification.</p>
 </dd>
 <dt class="hdlist1">SPMD </dt>
 <dd>
@@ -2585,7 +2586,7 @@ commands and coordinate execution between the host and one or more
 devices.</p>
 </li>
 <li>
-<p>The third source of prerequisities can be the presence of non-trivial C
+<p>The third source of prerequisites can be the presence of non-trivial C
 initializers or C constructors for program scope global variables.
 In this case, OpenCL C/C compiler shall generate program
 initialization kernels that perform C initialization or C++
@@ -3006,7 +3007,7 @@ Consider the following three domains of synchronization in OpenCL:</p>
 work-items in a single work-group</p>
 </li>
 <li>
-<p>Sub-group synchronization: Contraints on the order of execution for
+<p>Sub-group synchronization: Constraints on the order of execution for
 work-items in a single sub-group</p>
 </li>
 <li>
@@ -3282,7 +3283,7 @@ Local and private memories are always associated with a particular device.
 The global and constant memories, however, are shared between all devices
 within a given context.
 An OpenCL device may include a cache to support efficient access to these
-shared memories</p>
+shared memories.</p>
 </div>
 <div class="paragraph">
 <p>To understand memory in OpenCL, it is important to appreciate the
@@ -3459,15 +3460,15 @@ or the host can read and/or write to a memory region).</p>
 <td class="tableblock halign-left valign-top" rowspan="2"><p class="tableblock">Kernel</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Static Allocation for program scope variables</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Static Allocation</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Static Allocation.
-</p><p class="tableblock">            Dynamic allocation for child kernel</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Static Allocation.</p>
+<p class="tableblock">            Dynamic allocation for child kernel</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Static Allocation</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Read/Write access</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Read-only access</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Read/Write access.
-</p><p class="tableblock">        No access to child&#8217;s local memory.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Read/Write access.</p>
+<p class="tableblock">        No access to child&#8217;s local memory.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Read/Write access</p></td>
 </tr>
 </tbody>
@@ -3593,7 +3594,7 @@ provide fine-grained control of memory consistency.</p>
 </li>
 </ul>
 </div>
-<table id="svm-summary-table" class="tableblock frame-all grid-all spread">
+<table id="svm-summary-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 2. A summary of shared virtual memory (SVM) options in OpenCL</caption>
 <colgroup>
 <col style="width: 20%;">
@@ -3627,7 +3628,7 @@ provide fine-grained control of memory consistency.</p>
 <td class="tableblock halign-center valign-top"><p class="tableblock">yes, through Map and Unmap commands.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Fine Grained buffer SVM</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Fine-Grained buffer SVM</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">Bytes within OpenCL Memory objects (buffer)</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><strong>clSVMAlloc</strong></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">Synchronization points plus atomics (if supported)</p></td>
@@ -3707,7 +3708,7 @@ enumeration constants:</p>
 <li>
 <p><strong>memory_order_relaxed</strong>: implies no order constraints.
 This memory order can be used safely to increment counters that are
-concurrently incremented, but it doesnt guarantee anything about the
+concurrently incremented, but it doesn&#8217;t guarantee anything about the
 ordering with respect to operations to other memory locations.
 It can also be used, for example, to do ticket allocation and by expert
 programmers implementing lock-free algorithms.</p>
@@ -4498,7 +4499,7 @@ local- and global-happens-before relations.</p>
 <p>Earlier, we introduced synchronization primitives called fences.
 Fences can utilize the acquire memory_order, release memory_order, or both.
 A fence with acquire semantics is called an acquire fence; a fence with
-release semantics is called a release fence.  The <a href="#atomic-fence-orders">overview of atomic and fence operations</a> section decribes the memory orders
+release semantics is called a release fence.  The <a href="#atomic-fence-orders">overview of atomic and fence operations</a> section describes the memory orders
 that result in acquire and release fences.</p>
 </div>
 <div class="paragraph">
@@ -5138,7 +5139,7 @@ This size in bytes must be ≥ size of return type specified in the
 queried by <em>param_name</em>.
 If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </div>
-<table id="platform-queries-table" class="tableblock frame-all grid-all spread">
+<table id="platform-queries-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 3. OpenCL Platform Queries</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -5158,11 +5159,11 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">char[]<sup>1</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">OpenCL profile string.
         Returns the profile name supported by the implementation.
-        The profile name returned can be one of the following strings:
-</p><p class="tableblock">        FULL_PROFILE - if the implementation supports the OpenCL
+        The profile name returned can be one of the following strings:</p>
+<p class="tableblock">        FULL_PROFILE - if the implementation supports the OpenCL
         specification (functionality defined as part of the core
-        specification and does not require any extensions to be supported).
-</p><p class="tableblock">        EMBEDDED_PROFILE - if the implementation supports the OpenCL
+        specification and does not require any extensions to be supported).</p>
+<p class="tableblock">        EMBEDDED_PROFILE - if the implementation supports the OpenCL
         embedded profile.
         The embedded profile is defined to be a subset for each version of
         OpenCL.
@@ -5174,10 +5175,10 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">char[]</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">OpenCL version string.
         Returns the OpenCL version supported by the implementation.
-        This version string has the following format:
-</p><p class="tableblock">        <em>OpenCL&lt;space&gt;&lt;major_version.minor_version&gt;&lt;space&gt;&lt;platform-specific
-        information&gt;</em>
-</p><p class="tableblock">        The <em>major_version.minor_version</em> value returned will be 2.2.</p></td>
+        This version string has the following format:</p>
+<p class="tableblock">        <em>OpenCL&lt;space&gt;&lt;major_version.minor_version&gt;&lt;space&gt;&lt;platform-specific
+        information&gt;</em></p>
+<p class="tableblock">        The <em>major_version.minor_version</em> value returned will be 2.2.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_PLATFORM_NAME</strong></p></td>
@@ -5279,7 +5280,7 @@ devices present in the platform and that match <em>device_type</em>.</p>
 </dd>
 </dl>
 </div>
-<table id="device-categories-table" class="tableblock frame-all grid-all spread">
+<table id="device-categories-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 4. List of OpenCL Device Categories</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -5428,7 +5429,7 @@ This size in bytes must be ≥ size of return type specified in the
 queried by <em>param_name</em>.
 If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </div>
-<table id="device-queries-table" class="tableblock frame-all grid-all spread">
+<table id="device-queries-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 5. OpenCL Device Queries</caption>
 <colgroup>
 <col style="width: 30%;">
@@ -5447,8 +5448,8 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CL_DEVICE_TYPE</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_device_type</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The OpenCL device type.
-        Currently supported values are:
-</p><p class="tableblock">        CL_DEVICE_TYPE_CPU, CL_DEVICE_TYPE_GPU, CL_DEVICE_TYPE_ACCELERATOR,
+        Currently supported values are:</p>
+<p class="tableblock">        CL_DEVICE_TYPE_CPU, CL_DEVICE_TYPE_GPU, CL_DEVICE_TYPE_ACCELERATOR,
         CL_DEVICE_TYPE_DEFAULT, a combination of the above types or
         CL_DEVICE_TYPE_CUSTOM.</p></td>
 </tr>
@@ -5478,10 +5479,10 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CL_DEVICE_MAX_WORK_ITEM_SIZES</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">size_t []</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Maximum number of work-items that can be specified in each dimension
-        of the work-group to <strong>clEnqueueNDRangeKernel</strong>.
-</p><p class="tableblock">        Returns <em>n</em> size_t entries, where <em>n</em> is the value returned by the
-        query for CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS.
-</p><p class="tableblock">        The minimum value is (1, 1, 1) for devices that are not of type
+        of the work-group to <strong>clEnqueueNDRangeKernel</strong>.</p>
+<p class="tableblock">        Returns <em>n</em> size_t entries, where <em>n</em> is the value returned by the
+        query for CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS.</p>
+<p class="tableblock">        The minimum value is (1, 1, 1) for devices that are not of type
         CL_DEVICE_TYPE_CUSTOM.</p></td>
 </tr>
 <tr>
@@ -5509,10 +5510,10 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Preferred native vector width size for built-in scalar types that
         can be put into vectors.
         The vector width is defined as the number of scalar elements that
-        can be stored in the vector.
-</p><p class="tableblock">        If double precision is not supported,
-        CL_DEVICE_PREFERRED_VECTOR_WIDTH_DOUBLE must return 0.
-</p><p class="tableblock">        If the <strong>cl_khr_fp16</strong> extension is not supported,
+        can be stored in the vector.</p>
+<p class="tableblock">        If double precision is not supported,
+        CL_DEVICE_PREFERRED_VECTOR_WIDTH_DOUBLE must return 0.</p>
+<p class="tableblock">        If the <strong>cl_khr_fp16</strong> extension is not supported,
         CL_DEVICE_PREFERRED_VECTOR_WIDTH_HALF must return 0.</p></td>
 </tr>
 <tr>
@@ -5526,10 +5527,10 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_uint</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the native ISA vector width.
         The vector width is defined as the number of scalar elements that
-        can be stored in the vector.
-</p><p class="tableblock">        If double precision is not supported,
-        CL_DEVICE_NATIVE_VECTOR_WIDTH_DOUBLE must return 0.
-</p><p class="tableblock">        If the <strong>cl_khr_fp16</strong> extension is not supported,
+        can be stored in the vector.</p>
+<p class="tableblock">        If double precision is not supported,
+        CL_DEVICE_NATIVE_VECTOR_WIDTH_DOUBLE must return 0.</p>
+<p class="tableblock">        If the <strong>cl_khr_fp16</strong> extension is not supported,
         CL_DEVICE_NATIVE_VECTOR_WIDTH_HALF must return 0.</p></td>
 </tr>
 <tr>
@@ -5597,68 +5598,68 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CL_DEVICE_IMAGE2D_MAX_WIDTH</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">size_t</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Max width of 2D image or 1D image not created from a buffer object
-        in pixels.
-</p><p class="tableblock">        The minimum value is 16384 if CL_DEVICE_IMAGE_SUPPORT is CL_TRUE.</p></td>
+        in pixels.</p>
+<p class="tableblock">        The minimum value is 16384 if CL_DEVICE_IMAGE_SUPPORT is CL_TRUE.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CL_DEVICE_IMAGE2D_MAX_HEIGHT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">size_t</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Max height of 2D image in pixels.
-</p><p class="tableblock">        The minimum value is 16384 if CL_DEVICE_IMAGE_SUPPORT is CL_TRUE.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Max height of 2D image in pixels.</p>
+<p class="tableblock">        The minimum value is 16384 if CL_DEVICE_IMAGE_SUPPORT is CL_TRUE.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CL_DEVICE_IMAGE3D_MAX_WIDTH</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">size_t</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Max width of 3D image in pixels.
-</p><p class="tableblock">        The minimum value is 2048 if CL_DEVICE_IMAGE_SUPPORT is CL_TRUE.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Max width of 3D image in pixels.</p>
+<p class="tableblock">        The minimum value is 2048 if CL_DEVICE_IMAGE_SUPPORT is CL_TRUE.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CL_DEVICE_IMAGE3D_MAX_HEIGHT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">size_t</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Max height of 3D image in pixels.
-</p><p class="tableblock">        The minimum value is 2048 if CL_DEVICE_IMAGE_SUPPORT is CL_TRUE.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Max height of 3D image in pixels.</p>
+<p class="tableblock">        The minimum value is 2048 if CL_DEVICE_IMAGE_SUPPORT is CL_TRUE.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CL_DEVICE_IMAGE3D_MAX_DEPTH</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">size_t</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Max depth of 3D image in pixels.
-</p><p class="tableblock">        The minimum value is 2048 if CL_DEVICE_IMAGE_SUPPORT is CL_TRUE.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Max depth of 3D image in pixels.</p>
+<p class="tableblock">        The minimum value is 2048 if CL_DEVICE_IMAGE_SUPPORT is CL_TRUE.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CL_DEVICE_IMAGE_MAX_BUFFER_SIZE</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">size_t</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Max number of pixels for a 1D image created from a buffer object.
-</p><p class="tableblock">        The minimum value is 65536 if CL_DEVICE_IMAGE_SUPPORT is CL_TRUE.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Max number of pixels for a 1D image created from a buffer object.</p>
+<p class="tableblock">        The minimum value is 65536 if CL_DEVICE_IMAGE_SUPPORT is CL_TRUE.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CL_DEVICE_IMAGE_MAX_ARRAY_SIZE</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">size_t</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Max number of images in a 1D or 2D image array.
-</p><p class="tableblock">        The minimum value is 2048 if CL_DEVICE_IMAGE_SUPPORT is CL_TRUE.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Max number of images in a 1D or 2D image array.</p>
+<p class="tableblock">        The minimum value is 2048 if CL_DEVICE_IMAGE_SUPPORT is CL_TRUE.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CL_DEVICE_MAX_SAMPLERS</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_uint</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Maximum number of samplers that can be used in a kernel.
-</p><p class="tableblock">        The minimum value is 16 if CL_DEVICE_IMAGE_SUPPORT is CL_TRUE.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Maximum number of samplers that can be used in a kernel.</p>
+<p class="tableblock">        The minimum value is 16 if CL_DEVICE_IMAGE_SUPPORT is CL_TRUE.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CL_DEVICE_IMAGE_PITCH_ALIGNMENT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_uint</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The row pitch alignment size in pixels for 2D images created from a
         buffer.
-        The value returned must be a power of 2.
-</p><p class="tableblock">        If the device does not support images, this value must be 0.</p></td>
+        The value returned must be a power of 2.</p>
+<p class="tableblock">        If the device does not support images, this value must be 0.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CL_DEVICE_IMAGE_BASE_ADDRESS_ALIGNMENT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_uint</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This query should be used when a 2D image is created from a buffer
         which was created using CL_MEM_USE_HOST_PTR.
-        The value returned must be a power of 2.
-</p><p class="tableblock">        This query specifies the minimum alignment in pixels of the host_ptr
-        specified to <strong>clCreateBuffer</strong>.
-</p><p class="tableblock">        If the device does not support images, this value must be 0.</p></td>
+        The value returned must be a power of 2.</p>
+<p class="tableblock">        This query specifies the minimum alignment in pixels of the host_ptr
+        specified to <strong>clCreateBuffer</strong>.</p>
+<p class="tableblock">        If the device does not support images, this value must be 0.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CL_DEVICE_MAX_PIPE_ARGS</p></td>
@@ -5685,8 +5686,8 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CL_DEVICE_MAX_PARAMETER_SIZE</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">size_t</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Max size in bytes of all arguments that can be passed to a kernel.
-</p><p class="tableblock">        The minimum value is 1024 for devices that are not of type
+<td class="tableblock halign-left valign-top"><p class="tableblock">Max size in bytes of all arguments that can be passed to a kernel.</p>
+<p class="tableblock">        The minimum value is 1024 for devices that are not of type
         CL_DEVICE_TYPE_CUSTOM.
         For this minimum value, only a maximum of 128 arguments can be
         passed to a kernel</p></td>
@@ -5705,23 +5706,23 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_device_fp_config</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Describes single precision floating-point capability of the device.
         This is a bit-field that describes one or more of the following
-        values:
-</p><p class="tableblock">        CL_FP_DENORM - denorms are supported
-</p><p class="tableblock">        CL_FP_INF_NAN - INF and quiet NaNs are supported.
-</p><p class="tableblock">        CL_FP_ROUND_TO_NEAREST-- round to nearest even rounding mode
-        supported
-</p><p class="tableblock">        CL_FP_ROUND_TO_ZERO - round to zero rounding mode supported
-</p><p class="tableblock">        CL_FP_ROUND_TO_INF - round to positive and negative infinity
-        rounding modes supported
-</p><p class="tableblock">        CL_FP_FMA - IEEE754-2008 fused multiply-add is supported.
-</p><p class="tableblock">        CL_FP_CORRECTLY_ROUNDED_DIVIDE_SQRT - divide and sqrt are correctly
-        rounded as defined by the IEEE754 specification.
-</p><p class="tableblock">        CL_FP_SOFT_FLOAT - Basic floating-point operations (such as
-        addition, subtraction, multiplication) are implemented in software.
-</p><p class="tableblock">        For the full profile, the mandated minimum floating-point capability
+        values:</p>
+<p class="tableblock">        CL_FP_DENORM - denorms are supported</p>
+<p class="tableblock">        CL_FP_INF_NAN - INF and quiet NaNs are supported.</p>
+<p class="tableblock">        CL_FP_ROUND_TO_NEAREST-- round to nearest even rounding mode
+        supported</p>
+<p class="tableblock">        CL_FP_ROUND_TO_ZERO - round to zero rounding mode supported</p>
+<p class="tableblock">        CL_FP_ROUND_TO_INF - round to positive and negative infinity
+        rounding modes supported</p>
+<p class="tableblock">        CL_FP_FMA - IEEE754-2008 fused multiply-add is supported.</p>
+<p class="tableblock">        CL_FP_CORRECTLY_ROUNDED_DIVIDE_SQRT - divide and sqrt are correctly
+        rounded as defined by the IEEE754 specification.</p>
+<p class="tableblock">        CL_FP_SOFT_FLOAT - Basic floating-point operations (such as
+        addition, subtraction, multiplication) are implemented in software.</p>
+<p class="tableblock">        For the full profile, the mandated minimum floating-point capability
         for devices that are not of type CL_DEVICE_TYPE_CUSTOM is:
-        CL_FP_ROUND_TO_NEAREST | CL_FP_INF_NAN.
-</p><p class="tableblock">        For the embedded profile, see section 10.</p></td>
+        CL_FP_ROUND_TO_NEAREST | CL_FP_INF_NAN.</p>
+<p class="tableblock">        For the embedded profile, see section 10.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CL_DEVICE_DOUBLE_FP_CONFIG<sup>7</sup></p></td>
@@ -5729,20 +5730,20 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Describes double precision floating-point capability of the OpenCL
         device.
         This is a bit-field that describes one or more of the following
-        values:
-</p><p class="tableblock">        CL_FP_DENORM - denorms are supported
-</p><p class="tableblock">        CL_FP_INF_NAN - INF and NaNs are supported.
-</p><p class="tableblock">        CL_FP_ROUND_TO_NEAREST - round to nearest even rounding mode
-        supported.
-</p><p class="tableblock">        CL_FP_ROUND_TO_ZERO - round to zero rounding mode supported.
-</p><p class="tableblock">        CL_FP_ROUND_TO_INF - round to positive and negative infinity
-        rounding modes supported.
-</p><p class="tableblock">        CL_FP_FMA - IEEE754-2008 fused multiply-add is supported.
-</p><p class="tableblock">        CL_FP_SOFT_FLOAT - Basic floating-point operations (such as
-        addition, subtraction, multiplication) are implemented in software.
-</p><p class="tableblock">        Double precision is an optional feature so the mandated minimum
-        double precision floating-point capability is 0.
-</p><p class="tableblock">        If double precision is supported by the device, then the minimum
+        values:</p>
+<p class="tableblock">        CL_FP_DENORM - denorms are supported</p>
+<p class="tableblock">        CL_FP_INF_NAN - INF and NaNs are supported.</p>
+<p class="tableblock">        CL_FP_ROUND_TO_NEAREST - round to nearest even rounding mode
+        supported.</p>
+<p class="tableblock">        CL_FP_ROUND_TO_ZERO - round to zero rounding mode supported.</p>
+<p class="tableblock">        CL_FP_ROUND_TO_INF - round to positive and negative infinity
+        rounding modes supported.</p>
+<p class="tableblock">        CL_FP_FMA - IEEE754-2008 fused multiply-add is supported.</p>
+<p class="tableblock">        CL_FP_SOFT_FLOAT - Basic floating-point operations (such as
+        addition, subtraction, multiplication) are implemented in software.</p>
+<p class="tableblock">        Double precision is an optional feature so the mandated minimum
+        double precision floating-point capability is 0.</p>
+<p class="tableblock">        If double precision is supported by the device, then the minimum
         double precision floating-point capability must be:<br>
         CL_FP_FMA |<br>
         CL_FP_ROUND_TO_NEAREST |<br>
@@ -5791,8 +5792,8 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">size_t</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The maximum number of bytes of storage that may be allocated for any
         single variable in program scope or inside a function in an OpenCL
-        kernel language declared in the global address space.
-</p><p class="tableblock">        The minimum value is 64 KB.</p></td>
+        kernel language declared in the global address space.</p>
+<p class="tableblock">        The minimum value is 64 KB.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CL_DEVICE_GLOBAL_VARIABLE_PREFERRED_TOTAL_SIZE</p></td>
@@ -5810,8 +5811,8 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_device_local_mem_type</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Type of local memory supported.
         This can be set to CL_LOCAL implying dedicated local memory storage
-        such as SRAM , or CL_GLOBAL.
-</p><p class="tableblock">        For custom devices, CL_NONE can also be returned indicating no local
+        such as SRAM , or CL_GLOBAL.</p>
+<p class="tableblock">        For custom devices, CL_NONE can also be returned indicating no local
         memory support.</p></td>
 </tr>
 <tr>
@@ -5852,28 +5853,28 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CL_DEVICE_COMPILER_AVAILABLE</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_bool</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Is CL_FALSE if the implementation does not have a compiler available
-        to compile the program source.
-</p><p class="tableblock">        Is CL_TRUE if the compiler is available.
+        to compile the program source.</p>
+<p class="tableblock">        Is CL_TRUE if the compiler is available.
         This can be CL_FALSE for the embedded platform profile only.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CL_DEVICE_LINKER_AVAILABLE</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_bool</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Is CL_FALSE if the implementation does not have a linker available.
-        Is CL_TRUE if the linker is available.
-</p><p class="tableblock">        This can be CL_FALSE for the embedded platform profile only.
-</p><p class="tableblock">        This must be CL_TRUE if CL_DEVICE_COMPILER_AVAILABLE is CL_TRUE.</p></td>
+        Is CL_TRUE if the linker is available.</p>
+<p class="tableblock">        This can be CL_FALSE for the embedded platform profile only.</p>
+<p class="tableblock">        This must be CL_TRUE if CL_DEVICE_COMPILER_AVAILABLE is CL_TRUE.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CL_DEVICE_EXECUTION_CAPABILITIES</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_device_exec_ capabilities</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Describes the execution capabilities of the device.
         This is a bit-field that describes one or more of the following
-        values:
-</p><p class="tableblock">        CL_EXEC_KERNEL - The OpenCL device can execute OpenCL kernels.
-</p><p class="tableblock">        CL_EXEC_NATIVE_KERNEL - The OpenCL device can execute native
-        kernels.
-</p><p class="tableblock">        The mandated minimum capability is: CL_EXEC_KERNEL.</p></td>
+        values:</p>
+<p class="tableblock">        CL_EXEC_KERNEL - The OpenCL device can execute OpenCL kernels.</p>
+<p class="tableblock">        CL_EXEC_NATIVE_KERNEL - The OpenCL device can execute native
+        kernels.</p>
+<p class="tableblock">        The mandated minimum capability is: CL_EXEC_KERNEL.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CL_DEVICE_QUEUE_ON_HOST_PROPERTIES<sup>8</sup></p></td>
@@ -5881,11 +5882,11 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Describes the on host command-queue properties supported by the
         device.
         This is a bit-field that describes one or more of the following
-        values:
-</p><p class="tableblock">        CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE<br>
-        CL_QUEUE_PROFILING_ENABLE
-</p><p class="tableblock">        These properties are described in the <a href="#queue-properties-table">Queue Properties</a> table.
-</p><p class="tableblock">        The mandated minimum capability is: CL_QUEUE_PROFILING_ENABLE.</p></td>
+        values:</p>
+<p class="tableblock">        CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE<br>
+        CL_QUEUE_PROFILING_ENABLE</p>
+<p class="tableblock">        These properties are described in the <a href="#queue-properties-table">Queue Properties</a> table.</p>
+<p class="tableblock">        The mandated minimum capability is: CL_QUEUE_PROFILING_ENABLE.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CL_DEVICE_QUEUE_ON_DEVICE_PROPERTIES</p></td>
@@ -5893,11 +5894,11 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Describes the on device command-queue properties supported by the
         device.
         This is a bit-field that describes one or more of the following
-        values:
-</p><p class="tableblock">        CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE<br>
-        CL_QUEUE_PROFILING_ENABLE
-</p><p class="tableblock">        These properties are described in the <a href="#queue-properties-table">Queue Properties</a> table.
-</p><p class="tableblock">        The mandated minimum capability is:
+        values:</p>
+<p class="tableblock">        CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE<br>
+        CL_QUEUE_PROFILING_ENABLE</p>
+<p class="tableblock">        These properties are described in the <a href="#queue-properties-table">Queue Properties</a> table.</p>
+<p class="tableblock">        The mandated minimum capability is:
         CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE | CL_QUEUE_PROFILING_ENABLE.</p></td>
 </tr>
 <tr>
@@ -5906,8 +5907,8 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The size of the device queue in bytes preferred by the
         implementation.
         Applications should use this size for the device queue to ensure
-        good performance.
-</p><p class="tableblock">        The minimum value is 16 KB</p></td>
+        good performance.</p>
+<p class="tableblock">        The minimum value is 16 KB</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CL_DEVICE_QUEUE_ON_DEVICE_MAX_SIZE</p></td>
@@ -5920,8 +5921,8 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CL_DEVICE_MAX_ON_DEVICE_QUEUES</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_uint</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The maximum number of device queues that can be created for this
-        device in a single context.
-</p><p class="tableblock">        The minimum value is 1.</p></td>
+        device in a single context.</p>
+<p class="tableblock">        The minimum value is 1.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CL_DEVICE_MAX_ON_DEVICE_EVENTS</p></td>
@@ -5929,8 +5930,8 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The maximum number of events in use by a device queue.
         These refer to events returned by the <code>enqueue_</code> built-in functions
         to a device queue or user events returned by the <code>create_user_event</code>
-        built-in function that have not been released.
-</p><p class="tableblock">        The minimum value is 1024.</p></td>
+        built-in function that have not been released.</p>
+<p class="tableblock">        The minimum value is 1024.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CL_DEVICE_BUILT_IN_KERNELS</p></td>
@@ -5966,11 +5967,11 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">char[]</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">OpenCL profile string.
         Returns the profile name supported by the device.
-        The profile name returned can be one of the following strings:
-</p><p class="tableblock">        FULL_PROFILE - if the device supports the OpenCL specification
+        The profile name returned can be one of the following strings:</p>
+<p class="tableblock">        FULL_PROFILE - if the device supports the OpenCL specification
         (functionality defined as part of the core specification and does
-        not require any extensions to be supported).
-</p><p class="tableblock">        EMBEDDED_PROFILE - if the device supports the OpenCL embedded
+        not require any extensions to be supported).</p>
+<p class="tableblock">        EMBEDDED_PROFILE - if the device supports the OpenCL embedded
         profile.</p></td>
 </tr>
 <tr>
@@ -5978,10 +5979,10 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">char[]</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">OpenCL version string.
         Returns the OpenCL version supported by the device. This version
-        string has the following format:
-</p><p class="tableblock">        <em>OpenCL&lt;space&gt;&lt;major_version.minor_version&gt;&lt;space&gt;&lt;vendor-specific
-        information&gt;</em>
-</p><p class="tableblock">        The major_version.minor_version value returned will be 2.2.</p></td>
+        string has the following format:</p>
+<p class="tableblock">        <em>OpenCL&lt;space&gt;&lt;major_version.minor_version&gt;&lt;space&gt;&lt;vendor-specific
+        information&gt;</em></p>
+<p class="tableblock">        The major_version.minor_version value returned will be 2.2.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CL_DEVICE_OPENCL_C_VERSION</p></td>
@@ -5989,16 +5990,16 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">OpenCL C version string.
         Returns the highest OpenCL C version supported by the compiler for
         this device that is not of type CL_DEVICE_TYPE_CUSTOM.
-        This version string has the following format:
-</p><p class="tableblock">        <em>OpenCL&lt;space&gt;C&lt;space&gt;&lt;major_version.minor_version&gt;&lt;space&gt;&lt;vendor-specific
-        information&gt;</em>
-</p><p class="tableblock">        The major_version.minor_version value returned must be 2.0 if
-        CL_DEVICE_VERSION is OpenCL 2.0.
-</p><p class="tableblock">        The major_version.minor_version value returned must be 1.2 if
-        CL_DEVICE_VERSION is OpenCL 1.2.
-</p><p class="tableblock">        The major_version.minor_version value returned must be 1.1 if
-        CL_DEVICE_VERSION is OpenCL 1.1.
-</p><p class="tableblock">        The major_version.minor_version value returned can be 1.0 or 1.1 if
+        This version string has the following format:</p>
+<p class="tableblock">        <em>OpenCL&lt;space&gt;C&lt;space&gt;&lt;major_version.minor_version&gt;&lt;space&gt;&lt;vendor-specific
+        information&gt;</em></p>
+<p class="tableblock">        The major_version.minor_version value returned must be 2.0 if
+        CL_DEVICE_VERSION is OpenCL 2.0.</p>
+<p class="tableblock">        The major_version.minor_version value returned must be 1.2 if
+        CL_DEVICE_VERSION is OpenCL 1.2.</p>
+<p class="tableblock">        The major_version.minor_version value returned must be 1.1 if
+        CL_DEVICE_VERSION is OpenCL 1.1.</p>
+<p class="tableblock">        The major_version.minor_version value returned can be 1.0 or 1.1 if
         CL_DEVICE_VERSION is OpenCL 1.0.</p></td>
 </tr>
 <tr>
@@ -6008,8 +6009,8 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
         names themselves do not contain any spaces) supported by the device.
         The list of extension names returned can be vendor supported
         extension names and one or more of the following Khronos approved
-        extension names:
-</p><p class="tableblock">        <strong>cl_khr_int64_base_atomics</strong><br>
+        extension names:</p>
+<p class="tableblock">        <strong>cl_khr_int64_base_atomics</strong><br>
         <strong>cl_khr_int64_extended_atomics</strong><br>
         <strong>cl_khr_fp16</strong><br>
         <strong>cl_khr_gl_sharing</strong><br>
@@ -6022,16 +6023,16 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
         <strong>cl_khr_initialize_memory</strong><br>
         <strong>cl_khr_terminate_context</strong><br>
         <strong>cl_khr_spir</strong><br>
-        <strong>cl_khr_srgb_image_writes</strong>
-</p><p class="tableblock">        The following approved Khronos extension names must be returned by
-        all devices that support OpenCL C 2.0:
-</p><p class="tableblock">        <strong>cl_khr_byte_addressable_store</strong><br>
+        <strong>cl_khr_srgb_image_writes</strong></p>
+<p class="tableblock">        The following approved Khronos extension names must be returned by
+        all devices that support OpenCL C 2.0:</p>
+<p class="tableblock">        <strong>cl_khr_byte_addressable_store</strong><br>
         <strong>cl_khr_fp64</strong> (for backward compatibility if double precision is
         supported)<br>
         <strong>cl_khr_3d_image_writes</strong><br>
         <strong>cl_khr_image2d_from_buffer</strong><br>
-        <strong>cl_khr_depth_images</strong>
-</p><p class="tableblock">        Please refer to the OpenCL 2.0 Extension Specification for a
+        <strong>cl_khr_depth_images</strong></p>
+<p class="tableblock">        Please refer to the OpenCL 2.0 Extension Specification for a
         detailed description of these extensions.</p></td>
 </tr>
 <tr>
@@ -6062,19 +6063,19 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CL_DEVICE_PARTITION_MAX_SUB_DEVICES</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_uint</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the maximum number of sub-devices that can be created when a
-        device is partitioned.
-</p><p class="tableblock">        The value returned cannot exceed CL_DEVICE_MAX_COMPUTE_UNITS.</p></td>
+        device is partitioned.</p>
+<p class="tableblock">        The value returned cannot exceed CL_DEVICE_MAX_COMPUTE_UNITS.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CL_DEVICE_PARTITION_PROPERTIES</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_device_partition_ property[]</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the list of partition types supported by <em>device</em>.
         This is an array of cl_device_partition_property values drawn from
-        the following list:
-</p><p class="tableblock">        CL_DEVICE_PARTITION_EQUALLY<br>
+        the following list:</p>
+<p class="tableblock">        CL_DEVICE_PARTITION_EQUALLY<br>
         CL_DEVICE_PARTITION_BY_COUNTS<br>
-        CL_DEVICE_PARTITION_BY_AFFINITY_DOMAIN
-</p><p class="tableblock">        If the device cannot be partitioned (i.e. there is no partitioning
+        CL_DEVICE_PARTITION_BY_AFFINITY_DOMAIN</p>
+<p class="tableblock">        If the device cannot be partitioned (i.e. there is no partitioning
         scheme supported by the device that will return at least two
         subdevices), a value of 0 will be returned.</p></td>
 </tr>
@@ -6084,14 +6085,14 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the list of supported affinity domains for partitioning the
         device using CL_DEVICE_PARTITION_BY_AFFINITY_DOMAIN.
         This is a bit-field that describes one or more of the following
-        values:
-</p><p class="tableblock">        CL_DEVICE_AFFINITY_DOMAIN_NUMA<br>
+        values:</p>
+<p class="tableblock">        CL_DEVICE_AFFINITY_DOMAIN_NUMA<br>
         CL_DEVICE_AFFINITY_DOMAIN_L4_CACHE<br>
         CL_DEVICE_AFFINITY_DOMAIN_L3_CACHE<br>
         CL_DEVICE_AFFINITY_DOMAIN_L2_CACHE<br>
         CL_DEVICE_AFFINITY_DOMAIN_L1_CACHE<br>
-        CL_DEVICE_AFFINITY_DOMAIN_NEXT_PARTITIONABLE
-</p><p class="tableblock">        If the device does not support any affinity domains, a value of 0
+        CL_DEVICE_AFFINITY_DOMAIN_NEXT_PARTITIONABLE</p>
+<p class="tableblock">        If the device does not support any affinity domains, a value of 0
         will be returned.</p></td>
 </tr>
 <tr>
@@ -6103,13 +6104,13 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
         CL_DEVICE_PARTITION_BY_AFFINITY_DOMAIN,
         CL_DEVICE_AFFINITY_DOMAIN_NEXT_PARTITIONABLE, the affinity domain
         used to perform the partition will be returned.
-        This can be one of the following values:
-</p><p class="tableblock">        CL_DEVICE_AFFINITY_DOMAIN_NUMA<br>
+        This can be one of the following values:</p>
+<p class="tableblock">        CL_DEVICE_AFFINITY_DOMAIN_NUMA<br>
         CL_DEVICE_AFFINITY_DOMAIN_L4_CACHE<br>
         CL_DEVICE_AFFINITY_DOMAIN_L3_CACHE<br>
         CL_DEVICE_AFFINITY_DOMAIN_L2_CACHE<br>
-        CL_DEVICE_AFFINITY_DOMAIN_L1_CACHE
-</p><p class="tableblock">        Otherwise the implementation may either return a
+        CL_DEVICE_AFFINITY_DOMAIN_L1_CACHE</p>
+<p class="tableblock">        Otherwise the implementation may either return a
         <em>param_value_size_ret</em> of 0 i.e. there is no partition type
         associated with device or can return a property value of 0 (where 0
         is used to terminate the partition property list) in the memory that
@@ -6130,23 +6131,23 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
         Coarse-grain SVM allocations are required to be supported by all
         OpenCL 2.0 devices.
         This is a bit-field that describes a combination of the following
-        values:
-</p><p class="tableblock">        CL_DEVICE_SVM_COARSE_GRAIN_BUFFER - Support for coarse-grain buffer
+        values:</p>
+<p class="tableblock">        CL_DEVICE_SVM_COARSE_GRAIN_BUFFER - Support for coarse-grain buffer
         sharing using <strong>clSVMAlloc</strong>.
         Memory consistency is guaranteed at synchronization points and the
         host must use calls to <strong>clEnqueueMapBuffer</strong> and
-        <strong>clEnqueueUnmapMemObject</strong>.
-</p><p class="tableblock">        CL_DEVICE_SVM_FINE_GRAIN_BUFFER - Support for fine-grain buffer
+        <strong>clEnqueueUnmapMemObject</strong>.</p>
+<p class="tableblock">        CL_DEVICE_SVM_FINE_GRAIN_BUFFER - Support for fine-grain buffer
         sharing using <strong>clSVMAlloc</strong>.
         Memory consistency is guaranteed at synchronization points without
-        need for <strong>clEnqueueMapBuffer</strong> and <strong>clEnqueueUnmapMemObject</strong>.
-</p><p class="tableblock">        CL_DEVICE_SVM_FINE_GRAIN_SYSTEM - Support for sharing the host&#8217;s
+        need for <strong>clEnqueueMapBuffer</strong> and <strong>clEnqueueUnmapMemObject</strong>.</p>
+<p class="tableblock">        CL_DEVICE_SVM_FINE_GRAIN_SYSTEM - Support for sharing the host&#8217;s
         entire virtual memory including memory allocated using <strong>malloc</strong>.
-        Memory consistency is guaranteed at synchronization points.
-</p><p class="tableblock">        CL_DEVICE_SVM_ATOMICS - Support for the OpenCL 2.0 atomic
+        Memory consistency is guaranteed at synchronization points.</p>
+<p class="tableblock">        CL_DEVICE_SVM_ATOMICS - Support for the OpenCL 2.0 atomic
         operations that provide memory consistency across the host and all
-        OpenCL devices supporting fine-grain SVM allocations.
-</p><p class="tableblock">        The mandated minimum capability is
+        OpenCL devices supporting fine-grain SVM allocations.</p>
+<p class="tableblock">        The mandated minimum capability is
         CL_DEVICE_SVM_COARSE_GRAIN_BUFFER.</p></td>
 </tr>
 <tr>
@@ -6453,7 +6454,7 @@ The list of supported partitioning schemes is described in the
 Only one of the listed partitioning schemes can be specified in
 <em>properties</em>.</p>
 </div>
-<table id="subdevice-partition-table" class="tableblock frame-all grid-all spread">
+<table id="subdevice-partition-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 6. <em>List of supported partition schemes by</em> <strong>clCreateSubDevices</strong></caption>
 <colgroup>
 <col style="width: 30%;">
@@ -6486,10 +6487,10 @@ Only one of the listed partitioning schemes can be specified in
         unit counts.
         For each non-zero count <em>m</em> in the list, a sub-device is created
         with <em>m</em> compute units in it.
-        CL_DEVICE_PARTITION_BY_COUNTS_LIST_END is defined to be 0.
-</p><p class="tableblock">        The number of non-zero count entries in the list may not exceed
-        CL_DEVICE_PARTITION_MAX_SUB_DEVICES.
-</p><p class="tableblock">        The total number of compute units specified may not exceed
+        CL_DEVICE_PARTITION_BY_COUNTS_LIST_END is defined to be 0.</p>
+<p class="tableblock">        The number of non-zero count entries in the list may not exceed
+        CL_DEVICE_PARTITION_MAX_SUB_DEVICES.</p>
+<p class="tableblock">        The total number of compute units specified may not exceed
         CL_DEVICE_PARTITION_MAX_COMPUTE_UNITS.</p></td>
 </tr>
 <tr>
@@ -6498,28 +6499,28 @@ Only one of the listed partitioning schemes can be specified in
 <td class="tableblock halign-left valign-top"><p class="tableblock">Split the device into smaller aggregate devices containing one or
         more compute units that all share part of a cache hierarchy.
         The value accompanying this property may be drawn from the following
-        list:
-</p><p class="tableblock">        CL_DEVICE_AFFINITY_DOMAIN_NUMA - Split the device into sub-devices
-        comprised of compute units that share a NUMA node.
-</p><p class="tableblock">        CL_DEVICE_AFFINITY_DOMAIN_L4_CACHE - Split the device into
+        list:</p>
+<p class="tableblock">        CL_DEVICE_AFFINITY_DOMAIN_NUMA - Split the device into sub-devices
+        comprised of compute units that share a NUMA node.</p>
+<p class="tableblock">        CL_DEVICE_AFFINITY_DOMAIN_L4_CACHE - Split the device into
         sub-devices comprised of compute units that share a level 4 data
-        cache.
-</p><p class="tableblock">        CL_DEVICE_AFFINITY_DOMAIN_L3_CACHE - Split the device into
+        cache.</p>
+<p class="tableblock">        CL_DEVICE_AFFINITY_DOMAIN_L3_CACHE - Split the device into
         sub-devices comprised of compute units that share a level 3 data
-        cache.
-</p><p class="tableblock">        CL_DEVICE_AFFINITY_DOMAIN_L2_CACHE - Split the device into
+        cache.</p>
+<p class="tableblock">        CL_DEVICE_AFFINITY_DOMAIN_L2_CACHE - Split the device into
         sub-devices comprised of compute units that share a level 2 data
-        cache.
-</p><p class="tableblock">        CL_DEVICE_AFFINITY_DOMAIN_L1_CACHE - Split the device into
+        cache.</p>
+<p class="tableblock">        CL_DEVICE_AFFINITY_DOMAIN_L1_CACHE - Split the device into
         sub-devices comprised of compute units that share a level 1 data
-        cache.
-</p><p class="tableblock">        CL_DEVICE_AFFINITY_DOMAIN_NEXT_PARTITIONABLE - Split the device
+        cache.</p>
+<p class="tableblock">        CL_DEVICE_AFFINITY_DOMAIN_NEXT_PARTITIONABLE - Split the device
         along the next partitionable affinity domain.
         The implementation shall find the first level along which the device
         or sub-device may be further subdivided in the order NUMA, L4, L3,
         L2, L1, and partition the device into sub-devices comprised of
-        compute units that share memory subsystems at this level.
-</p><p class="tableblock">        The user may determine what happened by calling
+        compute units that share memory subsystems at this level.</p>
+<p class="tableblock">        The user may determine what happened by calling
         <strong>clGetDeviceInfo</strong>(CL_DEVICE_PARTITION_TYPE) on the sub-devices.</p></td>
 </tr>
 </tbody>
@@ -6731,7 +6732,7 @@ The list of supported properties is described in the
 <em>properties</em> can be <code>NULL</code> in which case the platform that is selected is
 implementation-defined.</p>
 </div>
-<table id="context-properties-table" class="tableblock frame-all grid-all spread">
+<table id="context-properties-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 7. <em>List of supported properties by</em> <strong>clCreateContext</strong></caption>
 <colgroup>
 <col style="width: 34%;">
@@ -6758,8 +6759,8 @@ implementation-defined.</p>
         between OpenCL and other APIs.
         Please refer to the specific sections in the OpenCL 2.0 extension
         specification that describe sharing with other APIs for restrictions
-        on using this flag.
-</p><p class="tableblock">        If CL_CONTEXT_INTEROP_USER_SYNC is not specified, a default of
+        on using this flag.</p>
+<p class="tableblock">        If CL_CONTEXT_INTEROP_USER_SYNC is not specified, a default of
         CL_FALSE is assumed.</p></td>
 </tr>
 </tbody>
@@ -7095,7 +7096,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <em>param_value</em> by <strong>clGetContextInfo</strong> is described in the
 <a href="#context-info-table">Context Attributes</a> table.</p>
 </div>
-<table id="context-info-table" class="tableblock frame-all grid-all spread">
+<table id="context-info-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 8. List of supported param_names by <strong>clGetContextInfo</strong></caption>
 <colgroup>
 <col style="width: 34%;">
@@ -7129,12 +7130,12 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_CONTEXT_PROPERTIES</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_context_properties[]</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return the properties argument specified in <strong>clCreateContext</strong> or
-        <strong>clCreateContextFromType</strong>.
-</p><p class="tableblock">        If the <em>properties</em> argument specified in <strong>clCreateContext</strong> or
+        <strong>clCreateContextFromType</strong>.</p>
+<p class="tableblock">        If the <em>properties</em> argument specified in <strong>clCreateContext</strong> or
         <strong>clCreateContextFromType</strong> used to create <em>context</em> is not <code>NULL</code>, the
         implementation must return the values specified in the properties
-        argument.
-</p><p class="tableblock">        If the <em>properties</em> argument specified in <strong>clCreateContext</strong> or
+        argument.</p>
+<p class="tableblock">        If the <em>properties</em> argument specified in <strong>clCreateContext</strong> or
         <strong>clCreateContextFromType</strong> used to create <em>context</em> is <code>NULL</code>, the
         implementation may return either a <em>param_value_size_ret</em> of 0
         i.e. there is no context property value to be returned or can return
@@ -7245,7 +7246,7 @@ default value will be used.
 <em>properties</em> can be <code>NULL</code> in which case the default values for supported
 command-queue properties will be used.</p>
 </div>
-<table id="queue-properties-table" class="tableblock frame-all grid-all spread">
+<table id="queue-properties-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 9. List of supported cl_queue_properties values and description</caption>
 <colgroup>
 <col style="width: 34%;">
@@ -7264,35 +7265,35 @@ command-queue properties will be used.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_QUEUE_PROPERTIES</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_bitfield</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This is a bitfield and can be set to a combination of the following
-        values:
-</p><p class="tableblock">        CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE - Determines whether the
+        values:</p>
+<p class="tableblock">        CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE - Determines whether the
         commands queued in the command-queue are executed in-order or
         out-of-order.
         If set, the commands in the command-queue are executed out-of-order.
-        Otherwise, commands are executed in-order.
-</p><p class="tableblock">        CL_QUEUE_PROFILING_ENABLE - Enable or disable profiling of commands
+        Otherwise, commands are executed in-order.</p>
+<p class="tableblock">        CL_QUEUE_PROFILING_ENABLE - Enable or disable profiling of commands
         in the command-queue.
         If set, the profiling of commands is enabled.
-        Otherwise profiling of commands is disabled.
-</p><p class="tableblock">        CL_QUEUE_ON_DEVICE - Indicates that this is a device queue.
+        Otherwise profiling of commands is disabled.</p>
+<p class="tableblock">        CL_QUEUE_ON_DEVICE - Indicates that this is a device queue.
         If CL_QUEUE_ON_DEVICE is set,
-        CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE<sup>1</sup> must also be set.
-</p><p class="tableblock">        CL_QUEUE_ON_DEVICE_DEFAULT<sup>2</sup> --indicates that this is the default
+        CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE<sup>1</sup> must also be set.</p>
+<p class="tableblock">        CL_QUEUE_ON_DEVICE_DEFAULT<sup>2</sup> --indicates that this is the default
         device queue.
-        This can only be used with CL_QUEUE_ON_DEVICE.
-</p><p class="tableblock">        If CL_QUEUE_PROPERTIES is not specified an in-order host command
+        This can only be used with CL_QUEUE_ON_DEVICE.</p>
+<p class="tableblock">        If CL_QUEUE_PROPERTIES is not specified an in-order host command
         queue is created for the specified device</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_QUEUE_SIZE</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_uint</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the size of the device queue in bytes.
-</p><p class="tableblock">        This can only be specified if CL_QUEUE_ON_DEVICE is set in
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the size of the device queue in bytes.</p>
+<p class="tableblock">        This can only be specified if CL_QUEUE_ON_DEVICE is set in
         CL_QUEUE_PROPERTIES.
-        This must be a value ≤ CL_DEVICE_QUEUE_ON_DEVICE_MAX_SIZE.
-</p><p class="tableblock">        For best performance, this should be ≤
-        CL_DEVICE_QUEUE_ON_DEVICE_PREFERRED_SIZE.
-</p><p class="tableblock">        If CL_QUEUE_SIZE is not specified, the device queue is created with
+        This must be a value ≤ CL_DEVICE_QUEUE_ON_DEVICE_MAX_SIZE.</p>
+<p class="tableblock">        For best performance, this should be ≤
+        CL_DEVICE_QUEUE_ON_DEVICE_PREFERRED_SIZE.</p>
+<p class="tableblock">        If CL_QUEUE_SIZE is not specified, the device queue is created with
         CL_DEVICE_QUEUE_ON_DEVICE_PREFERRED_SIZE as the size of the queue.</p></td>
 </tr>
 </tbody>
@@ -7523,7 +7524,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <em>param_value</em> by <strong>clGetCommandQueueInfo</strong> is described in the
 <a href="#command-queue-param-table">Command Queue Parameter</a> table.</p>
 </div>
-<table id="command-queue-param-table" class="tableblock frame-all grid-all spread">
+<table id="command-queue-param-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 10. List of supported param_names by <strong>clGetCommandQueueInfo</strong></caption>
 <colgroup>
 <col style="width: 34%;">
@@ -7667,7 +7668,7 @@ for <em>flags</em>.
 If value specified for <em>flags</em> is 0, the default is used which is
 CL_MEM_READ_WRITE.</p>
 </div>
-<table id="memory-flags-table" class="tableblock frame-all grid-all spread">
+<table id="memory-flags-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 11. List of supported cl_mem_flags values</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -7689,18 +7690,18 @@ CL_MEM_READ_WRITE.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_MEM_WRITE_ONLY</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This flag specifies that the memory object will be
-    written but not read by a kernel.
-</p><p class="tableblock">    Reading from a buffer or image object created with CL_MEM_WRITE_ONLY
-    inside a kernel is undefined.
-</p><p class="tableblock">    CL_MEM_READ_WRITE and CL_MEM_WRITE_ONLY are mutually exclusive.</p></td>
+    written but not read by a kernel.</p>
+<p class="tableblock">    Reading from a buffer or image object created with CL_MEM_WRITE_ONLY
+    inside a kernel is undefined.</p>
+<p class="tableblock">    CL_MEM_READ_WRITE and CL_MEM_WRITE_ONLY are mutually exclusive.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_MEM_READ_ONLY</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This flag specifies that the memory object is a
-    readonly memory object when used inside a kernel.
-</p><p class="tableblock">    Writing to a buffer or image object created with CL_MEM_READ_ONLY inside
-    a kernel is undefined.
-</p><p class="tableblock">    CL_MEM_READ_WRITE or CL_MEM_WRITE_ONLY and CL_MEM_READ_ONLY are mutually
+    readonly memory object when used inside a kernel.</p>
+<p class="tableblock">    Writing to a buffer or image object created with CL_MEM_READ_ONLY inside
+    a kernel is undefined.</p>
+<p class="tableblock">    CL_MEM_READ_WRITE or CL_MEM_WRITE_ONLY and CL_MEM_READ_ONLY are mutually
     exclusive.</p></td>
 </tr>
 <tr>
@@ -7708,21 +7709,21 @@ CL_MEM_READ_WRITE.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This flag is valid only if host_ptr is not <code>NULL</code>.
     If specified, it indicates that the application wants the OpenCL
     implementation to use memory referenced by host_ptr as the storage bits
-    for the memory object.
-</p><p class="tableblock">    The contents of the memory pointed to by host_ptr at the time of the
-    clCreateBuffer call define the initial contents of the buffer object.
-</p><p class="tableblock">    OpenCL implementations are allowed to cache the buffer contents pointed
+    for the memory object.</p>
+<p class="tableblock">    The contents of the memory pointed to by host_ptr at the time of the
+    clCreateBuffer call define the initial contents of the buffer object.</p>
+<p class="tableblock">    OpenCL implementations are allowed to cache the buffer contents pointed
     to by host_ptr in device memory.
-    This cached copy can be used when kernels are executed on a device.
-</p><p class="tableblock">    The result of OpenCL commands that operate on multiple buffer objects
+    This cached copy can be used when kernels are executed on a device.</p>
+<p class="tableblock">    The result of OpenCL commands that operate on multiple buffer objects
     created with the same host_ptr or from overlapping host or SVM regions
     is considered to be undefined.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_MEM_ALLOC_HOST_PTR</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This flag specifies that the application wants the OpenCL implementation
-    to allocate memory from host accessible memory.
-</p><p class="tableblock">    CL_MEM_ALLOC_HOST_PTR and CL_MEM_USE_HOST_PTR are mutually exclusive.</p></td>
+    to allocate memory from host accessible memory.</p>
+<p class="tableblock">    CL_MEM_ALLOC_HOST_PTR and CL_MEM_USE_HOST_PTR are mutually exclusive.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_MEM_COPY_HOST_PTR</strong></p></td>
@@ -7732,11 +7733,11 @@ CL_MEM_READ_WRITE.</p>
     data from memory referenced by host_ptr.
     The implementation will copy the memory immediately and host_ptr is
     available for reuse by the application when the <strong>clCreateBuffer</strong> or
-    <strong>clCreateImage</strong> operation returns.
-</p><p class="tableblock">    CL_MEM_COPY_HOST_PTR and CL_MEM_USE_HOST_PTR are mutually exclusive.
-</p><p class="tableblock">    CL_MEM_COPY_HOST_PTR can be used with CL_MEM_ALLOC_HOST_PTR to
+    <strong>clCreateImage</strong> operation returns.</p>
+<p class="tableblock">    CL_MEM_COPY_HOST_PTR and CL_MEM_USE_HOST_PTR are mutually exclusive.</p>
+<p class="tableblock">    CL_MEM_COPY_HOST_PTR can be used with CL_MEM_ALLOC_HOST_PTR to
     initialize the contents of the cl_mem object allocated using
-    hostaccessible (e.g. PCIe) memory.</p></td>
+    host-accessible (e.g. PCIe) memory.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_MEM_HOST_WRITE_ONLY</strong></p></td>
@@ -7750,14 +7751,14 @@ CL_MEM_READ_WRITE.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_MEM_HOST_READ_ONLY</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This flag specifies that the host will only read
     the memory object (using OpenCL APIs that enqueue a read or a map for
-    read).
-</p><p class="tableblock">    CL_MEM_HOST_WRITE_ONLY and CL_MEM_HOST_READ_ONLY are mutually exclusive.</p></td>
+    read).</p>
+<p class="tableblock">    CL_MEM_HOST_WRITE_ONLY and CL_MEM_HOST_READ_ONLY are mutually exclusive.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_MEM_HOST_NO_ACCESS</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This flag specifies that the host will not read or
-    write the memory object.
-</p><p class="tableblock">    CL_MEM_HOST_WRITE_ONLY or CL_MEM_HOST_READ_ONLY and
+    write the memory object.</p>
+<p class="tableblock">    CL_MEM_HOST_WRITE_ONLY or CL_MEM_HOST_READ_ONLY and
     CL_MEM_HOST_NO_ACCESS are mutually exclusive.</p></td>
 </tr>
 </tbody>
@@ -7873,7 +7874,7 @@ information about the sub-buffer memory object being created and is
 described in the <a href="#memory-flags-table">Memory Flags</a> table.
 If the CL_MEM_READ_WRITE, CL_MEM_READ_ONLY or CL_MEM_WRITE_ONLY values are
 not specified in <em>flags</em>, they are inherited from the corresponding memory
-access qualifers associated with <em>buffer</em>.
+access qualifiers associated with <em>buffer</em>.
 The CL_MEM_USE_HOST_PTR, CL_MEM_ALLOC_HOST_PTR and CL_MEM_COPY_HOST_PTR
 values cannot be specified in <em>flags</em> but are inherited from the
 corresponding memory access qualifiers associated with <em>buffer</em>.
@@ -7892,7 +7893,7 @@ The list of supported values for <em>buffer_create_type</em> and corresponding
 descriptor that <em>buffer_create_info</em> points to is described in the
 <a href="#subbuffer-create-info-table">SubBuffer Attributes</a> table.</p>
 </div>
-<table id="subbuffer-create-info-table" class="tableblock frame-all grid-all spread">
+<table id="subbuffer-create-info-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 12. List of supported names and values in <strong>clCreateSubBuffer</strong></caption>
 <colgroup>
 <col style="width: 50%;">
@@ -7907,7 +7908,7 @@ descriptor that <em>buffer_create_info</em> points to is described in the
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_BUFFER_CREATE_TYPE_REGION</strong></p></td>
-<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>Create a buffer object that represents a
     specific region in buffer.</p>
 </div>
@@ -9045,7 +9046,7 @@ required by the OpenCL implementation on the host.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="c"><span class="directive">void</span> clEnqueueMapBuffer(cl_command_queue command_queue,
+<pre class="CodeRay highlight"><code data-lang="c"><span class="directive">void</span>* clEnqueueMapBuffer(cl_command_queue command_queue,
                         cl_mem buffer,
                         cl_bool blocking_map,
                         cl_map_flags map_flags,
@@ -9228,7 +9229,7 @@ the <em>host_ptr</em> specified when the buffer object is created.</p>
 This is described in <a href="#unmapping-mapped-memory">Unmapping Mapped Memory
 Objects</a>.</p>
 </div>
-<table id="memory-map-flags-table" class="tableblock frame-all grid-all spread">
+<table id="memory-map-flags-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 13. List of supported cl_map_flags values</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -9244,31 +9245,31 @@ Objects</a>.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_MAP_READ</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This flag specifies that the region being mapped in the memory object is
-    being mapped for reading.
-</p><p class="tableblock">    The pointer returned by <strong>clEnqueueMapBuffer</strong> (<strong>clEnqueueMapImage</strong>) is
+    being mapped for reading.</p>
+<p class="tableblock">    The pointer returned by <strong>clEnqueueMapBuffer</strong> (<strong>clEnqueueMapImage</strong>) is
     guaranteed to contain the latest bits in the region being mapped when
     the <strong>clEnqueueMapBuffer</strong> (<strong>clEnqueueMapImage</strong>) command has completed.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_MAP_WRITE</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This flag specifies that the region being mapped in the memory object is
-    being mapped for writing.
-</p><p class="tableblock">    The pointer returned by <strong>clEnqueueMapBuffer</strong> (<strong>clEnqueueMapImage</strong>) is
+    being mapped for writing.</p>
+<p class="tableblock">    The pointer returned by <strong>clEnqueueMapBuffer</strong> (<strong>clEnqueueMapImage</strong>) is
     guaranteed to contain the latest bits in the region being mapped when
     the <strong>clEnqueueMapBuffer</strong> (<strong>clEnqueueMapImage</strong>) command has completed</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_MAP_WRITE_INVALIDATE_REGION</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This flag specifies that the region being mapped in the memory object is
-    being mapped for writing.
-</p><p class="tableblock">    The contents of the region being mapped are to be discarded.
+    being mapped for writing.</p>
+<p class="tableblock">    The contents of the region being mapped are to be discarded.
     This is typically the case when the region being mapped is overwritten
     by the host.
     This flag allows the implementation to no longer guarantee that the
     pointer returned by <strong>clEnqueueMapBuffer</strong> (<strong>clEnqueueMapImage</strong>) contains
     the latest bits in the region being mapped which can be a significant
-    performance enhancement.
-</p><p class="tableblock">    CL_MAP_READ or CL_MAP_WRITE and CL_MAP_WRITE_INVALIDATE_REGION are
+    performance enhancement.</p>
+<p class="tableblock">    CL_MAP_READ or CL_MAP_WRITE and CL_MAP_WRITE_INVALIDATE_REGION are
     mutually exclusive.</p></td>
 </tr>
 </tbody>
@@ -9317,7 +9318,7 @@ for <em>flags</em> is 0, the default is used which is CL_MEM_READ_WRITE.</p>
 <p>For CL_MEM_OBJECT_IMAGE1D_BUFFER image type, or an image created from
 another memory object (image or buffer), if the CL_MEM_READ_WRITE,
 CL_MEM_READ_ONLY or CL_MEM_WRITE_ONLY values are not specified in <em>flags</em>,
-they are inherited from the corresponding memory access qualifers associated
+they are inherited from the corresponding memory access qualifiers associated
 with <em>mem_object</em>.
 The CL_MEM_USE_HOST_PTR, CL_MEM_ALLOC_HOST_PTR and CL_MEM_COPY_HOST_PTR
 values cannot be specified in <em>flags</em> but are inherited from the
@@ -9354,7 +9355,7 @@ It is only used to initialize the image, and can be freed after the call to
 Refer to table below for a description of how large the buffer that
 <em>host_ptr</em> points to must be.</p>
 </div>
-<table class="tableblock frame-all grid-all spread">
+<table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -9531,7 +9532,7 @@ The list of supported values is described in the
 The number of bits per element determined by the <code>image_channel_data_type</code>
 and <code>image_channel_order</code> must be a power of two.</p>
 </div>
-<table id="image-channel-order-table" class="tableblock frame-all grid-all spread">
+<table id="image-channel-order-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 14. List of supported Image Channel Order Values</caption>
 <colgroup>
 <col style="width: 100%;">
@@ -9571,7 +9572,7 @@ and <code>image_channel_order</code> must be a power of two.</p>
 </tr>
 </tbody>
 </table>
-<table id="image-channel-data-types-table" class="tableblock frame-all grid-all spread">
+<table id="image-channel-data-types-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 15. List of supported Image Channel Data Types</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -9945,7 +9946,7 @@ data type associated with mem_object.
 The channel order values<sup>8</sup> supported are:</p>
 <div class="openblock">
 <div class="content">
-<table class="tableblock frame-all grid-all spread">
+<table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -10164,7 +10165,7 @@ dependencies and that must be supported by all devices that support images
 is described in the <a href="#min-supported-cross-kernel-table">Supported Formats -
 Kernel Read Or Write</a> table.</p>
 </div>
-<table id="min-supported-cross-kernel-table" class="tableblock frame-all grid-all spread">
+<table id="min-supported-cross-kernel-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 16. Min. list of supported image formats kernel read or write</caption>
 <colgroup>
 <col style="width: 34%;">
@@ -10268,7 +10269,7 @@ devices that support images is described in the
 <a href="#min-supported-same-kernel-table">Supported Formats - Kernel Read And
 Write</a> table.</p>
 </div>
-<table id="min-supported-same-kernel-table" class="tableblock frame-all grid-all spread">
+<table id="min-supported-same-kernel-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 17. Min. list of supported image formats kernel read and write</caption>
 <colgroup>
 <col style="width: 34%;">
@@ -10327,7 +10328,7 @@ It is not valid to pass an image supporting writing as both a <code>read_only</c
 image and a <code>write_only</code> image parameter, or to a <code>read_write</code> image
 parameter and any other image parameter.</p>
 </div>
-<table id="image-format-mapping-table" class="tableblock frame-all grid-all spread">
+<table id="image-format-mapping-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 18. Mapping from format flags passed to <strong>clGetSupportedImageFormats</strong> to OpenCL kernel language image access qualifiers</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -11345,7 +11346,7 @@ required by the OpenCL implementation on the host.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="c"><span class="directive">void</span> clEnqueueMapImage(cl_command_queue command_queue,
+<pre class="CodeRay highlight"><code data-lang="c"><span class="directive">void</span>* clEnqueueMapImage(cl_command_queue command_queue,
                        cl_mem image,
                        cl_bool blocking_map,
                        cl_map_flags map_flags,
@@ -11658,7 +11659,7 @@ required by the OpenCL implementation on the host.</p>
 </li>
 </ul>
 </div>
-<table id="image-info-table" class="tableblock frame-all grid-all spread">
+<table id="image-info-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 19. List of supported param_names by <strong>clGetImageInfo</strong></caption>
 <colgroup>
 <col style="width: 34%;">
@@ -11928,7 +11929,7 @@ required by the OpenCL implementation on the host.</p>
 </li>
 </ul>
 </div>
-<table id="pipe-info-table" class="tableblock frame-all grid-all spread">
+<table id="pipe-info-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 20. List of supported param_names by <strong>clGetPipeInfo</strong></caption>
 <colgroup>
 <col style="width: 34%;">
@@ -12435,7 +12436,7 @@ CL_MIGRATE_MEM_OBJECT_HOST has been specified.</p>
 The <a href="#migration-flags-table">Memory Migration Flags</a> describes the possible
 values for flags.</p>
 </div>
-<table id="migration-flags-table" class="tableblock frame-all grid-all spread">
+<table id="migration-flags-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 21. Supported values for cl_mem_migration_flags</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -12605,7 +12606,7 @@ required by the OpenCL implementation on the host.</p>
 </li>
 </ul>
 </div>
-<table id="mem-info-table" class="tableblock frame-all grid-all spread">
+<table id="mem-info-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 22. List of supported param_names by <strong>clGetMemObjectInfo</strong></caption>
 <colgroup>
 <col style="width: 34%;">
@@ -12623,12 +12624,12 @@ required by the OpenCL implementation on the host.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_MEM_TYPE</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_mem_object_type</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Returns one of the following values:
-</p><p class="tableblock">        CL_MEM_OBJECT_BUFFER if <em>memobj</em> is created with <strong>clCreateBuffer</strong> or
-        <strong>clCreateSubBuffer</strong>.
-</p><p class="tableblock">        cl_image_desc.image_type argument value if <em>memobj</em> is created with
-        <strong>clCreateImage</strong>.
-</p><p class="tableblock">        CL_MEM_OBJECT_PIPE if <em>memobj</em> is created with <strong>clCreatePipe</strong>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns one of the following values:</p>
+<p class="tableblock">        CL_MEM_OBJECT_BUFFER if <em>memobj</em> is created with <strong>clCreateBuffer</strong> or
+        <strong>clCreateSubBuffer</strong>.</p>
+<p class="tableblock">        cl_image_desc.image_type argument value if <em>memobj</em> is created with
+        <strong>clCreateImage</strong>.</p>
+<p class="tableblock">        CL_MEM_OBJECT_PIPE if <em>memobj</em> is created with <strong>clCreatePipe</strong>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_MEM_FLAGS</strong></p></td>
@@ -12637,8 +12638,8 @@ required by the OpenCL implementation on the host.</p>
         with <strong>clCreateBuffer</strong>,<br>
         <strong>clCreateSubBuffer</strong>,<br>
         <strong>clCreateImage</strong> or<br>
-        <strong>clCreatePipe</strong>.
-</p><p class="tableblock">        If <em>memobj</em> is a sub-buffer the memory access qualifiers inherited
+        <strong>clCreatePipe</strong>.</p>
+<p class="tableblock">        If <em>memobj</em> is a sub-buffer the memory access qualifiers inherited
         from parent buffer is also returned.</p></td>
 </tr>
 <tr>
@@ -12653,8 +12654,8 @@ required by the OpenCL implementation on the host.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">If <em>memobj</em> is created with <strong>clCreateBuffer</strong> or <strong>clCreateImage</strong> and
         CL_MEM_USE_HOST_PTR is specified in mem_flags, return the host_ptr
         argument value specified when <em>memobj</em> is created.
-        Otherwise a <code>NULL</code> value is returned.
-</p><p class="tableblock">        If <em>memobj</em> is created with <strong>clCreateSubBuffer</strong>, return the host_ptr
+        Otherwise a <code>NULL</code> value is returned.</p>
+<p class="tableblock">        If <em>memobj</em> is created with <strong>clCreateSubBuffer</strong>, return the host_ptr
         +  origin value specified when <em>memobj</em> is created.
         host_ptr is the argument value specified to <strong>clCreateBuffer</strong> and
         CL_MEM_USE_HOST_PTR is specified in mem_flags for memory object from
@@ -12685,17 +12686,17 @@ required by the OpenCL implementation on the host.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return memory object from which <em>memobj</em> is created.
         This returns the memory object specified as buffer argument to
         <strong>clCreateSubBuffer</strong> if <em>memobj</em> is a subbuffer object created using
-        <strong>clCreateSubBuffer</strong>.
-</p><p class="tableblock">        This returns the mem_object specified in cl_image_desc if <em>memobj</em>
-        is an image object.
-</p><p class="tableblock">        Otherwise a <code>NULL</code> value is returned.</p></td>
+        <strong>clCreateSubBuffer</strong>.</p>
+<p class="tableblock">        This returns the mem_object specified in cl_image_desc if <em>memobj</em>
+        is an image object.</p>
+<p class="tableblock">        Otherwise a <code>NULL</code> value is returned.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_MEM_OFFSET</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">size_t</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return offset if <em>memobj</em> is a sub-buffer object created using
-        <strong>clCreateSubBuffer</strong>.
-</p><p class="tableblock">        This return 0 if <em>memobj</em> is not a subbuffer object.</p></td>
+        <strong>clCreateSubBuffer</strong>.</p>
+<p class="tableblock">        This return 0 if <em>memobj</em> is not a subbuffer object.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_MEM_USES_SVM_POINTER</strong></p></td>
@@ -12876,7 +12877,7 @@ information.
 The <a href="#svm-flags-table">SVM Memory Flags</a> table describes the possible values
 for <em>flags</em>.</p>
 </div>
-<table id="svm-flags-table" class="tableblock frame-all grid-all spread">
+<table id="svm-flags-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 23. List of supported cl_svm_mem_flags_ values</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -12898,18 +12899,18 @@ for <em>flags</em>.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_MEM_WRITE_ONLY</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This flag specifies that the SVM buffer will be written but not read by
-    a kernel.
-</p><p class="tableblock">    Reading from a SVM buffer created with CL_MEM_WRITE_ONLY inside a kernel
-    is undefined.
-</p><p class="tableblock">    CL_MEM_READ_WRITE and CL_MEM_WRITE_ONLY are mutually exclusive.</p></td>
+    a kernel.</p>
+<p class="tableblock">    Reading from a SVM buffer created with CL_MEM_WRITE_ONLY inside a kernel
+    is undefined.</p>
+<p class="tableblock">    CL_MEM_READ_WRITE and CL_MEM_WRITE_ONLY are mutually exclusive.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_MEM_READ_ONLY</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This flag specifies that the SVM buffer object is a read-only memory
-    object when used inside a kernel.
-</p><p class="tableblock">    Writing to a SVM buffer created with CL_MEM_READ_ONLY inside a kernel is
-    undefined.
-</p><p class="tableblock">    CL_MEM_READ_WRITE or CL_MEM_WRITE_ONLY and CL_MEM_READ_ONLY are mutually
+    object when used inside a kernel.</p>
+<p class="tableblock">    Writing to a SVM buffer created with CL_MEM_READ_ONLY inside a kernel is
+    undefined.</p>
+<p class="tableblock">    CL_MEM_READ_WRITE or CL_MEM_WRITE_ONLY and CL_MEM_READ_ONLY are mutually
     exclusive.</p></td>
 </tr>
 <tr>
@@ -12990,7 +12991,7 @@ support the specified alignment for at least one device in <em>context</em>.</p>
 <div class="paragraph">
 <p>Calling <strong>clSVMAlloc</strong> does not itself provide consistency for the shared
 memory region.
-When the host cant use the SVM atomic operations, it must rely on OpenCLs
+When the host cannot use the SVM atomic operations, it must rely on OpenCLs
 guaranteed memory consistency at synchronization points.</p>
 </div>
 <div class="paragraph">
@@ -13037,7 +13038,7 @@ commands that use <em>svm_pointer</em> have finished before freeing <em>svm_poin
 This can be done by enqueuing a blocking operation such as <strong>clFinish</strong>,
 <strong>clWaitForEvents</strong>, <strong>clEnqueueReadBuffer</strong> or by registering a callback with
 the events associated with enqueued commands and when the last enqueued
-comamnd has finished freeing <em>svm_pointer</em>.</p>
+command has finished freeing <em>svm_pointer</em>.</p>
 </div>
 <div class="paragraph">
 <p>The behavior of using <em>svm_pointer</em> after it has been freed is undefined.
@@ -13865,7 +13866,7 @@ If a supported property and its value is not specified in
 <em>sampler_properties</em> can be <code>NULL</code> in which case the default values for
 supported sampler properties will be used.</p>
 </div>
-<table id="sampler-properties-table" class="tableblock frame-all grid-all spread">
+<table id="sampler-properties-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 24. List of supported cl_sampler_properties values and description</caption>
 <colgroup>
 <col style="width: 34%;">
@@ -13884,32 +13885,32 @@ supported sampler properties will be used.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_SAMPLER_NORMALIZED_COORDS</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_bool</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A boolean value that specifies whether the image coordinates
-        specified are normalized or not.
-</p><p class="tableblock">        The default value (i.e. the value used if this property is not
+        specified are normalized or not.</p>
+<p class="tableblock">        The default value (i.e. the value used if this property is not
         specified in sampler_properties) is CL_TRUE.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_SAMPLER_ADDRESSING_MODE</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_addressing_mode</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Specifies how out-of-range image coordinates are handled when
-        reading from an image.
-</p><p class="tableblock">        Valid values are:
-</p><p class="tableblock">        CL_ADDRESS_MIRRORED_REPEAT<br>
+        reading from an image.</p>
+<p class="tableblock">        Valid values are:</p>
+<p class="tableblock">        CL_ADDRESS_MIRRORED_REPEAT<br>
         CL_ADDRESS_REPEAT<br>
         CL_ADDRESS_CLAMP_TO_EDGE<br>
         CL_ADDRESS_CLAMP<br>
-        CL_ADDRESS_NONE
-</p><p class="tableblock">        The default is CL_ADDRESS_CLAMP.</p></td>
+        CL_ADDRESS_NONE</p>
+<p class="tableblock">        The default is CL_ADDRESS_CLAMP.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_SAMPLER_FILTER_MODE</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_filter_mode</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the type of filter that must be applied when reading an
         image.
-        Valid values are:
-</p><p class="tableblock">        CL_FILTER_NEAREST<br>
-        CL_FILTER_LINEAR
-</p><p class="tableblock">        The default value is CL_FILTER_NEAREST.</p></td>
+        Valid values are:</p>
+<p class="tableblock">        CL_FILTER_NEAREST<br>
+        CL_FILTER_LINEAR</p>
+<p class="tableblock">        The default value is CL_FILTER_NEAREST.</p></td>
 </tr>
 </tbody>
 </table>
@@ -14059,7 +14060,7 @@ This size must be ≥ size of return type as described in the
 queried by <em>param_name</em>.
 If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </div>
-<table id="sampler-info-table" class="tableblock frame-all grid-all spread">
+<table id="sampler-info-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 25. <strong>clGetSamplerInfo</strong> parameter queries</caption>
 <colgroup>
 <col style="width: 34%;">
@@ -14665,13 +14666,14 @@ required by the OpenCL implementation on the host.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>sets the values of a SPIR-V specialization constants.</p>
+<p>sets the value of a specialization constant.</p>
 </div>
 <div class="paragraph">
-<p><em>program</em> must be a valid OpenCL program created from a SPIR-V module.</p>
+<p><em>program</em> must be a valid OpenCL program created from an intermediate format
+module (e.g. SPIR-V).</p>
 </div>
 <div class="paragraph">
-<p><em>spec</em> id_ identifies the SPIR-V specialization constant whose value will be
+<p><em>spec</em> id_ identifies the specialization constant whose value will be
 set.</p>
 </div>
 <div class="paragraph">
@@ -14679,7 +14681,7 @@ set.</p>
 <em>spec_value</em>.
 This should be 1 for boolean constants.
 For all other constant types this should match the size of the
-specialization constant in the SPIR-V module.</p>
+specialization constant in the module.</p>
 </div>
 <div class="paragraph">
 <p><em>spec_value</em> is a pointer to the memory location that contains the value of
@@ -14702,8 +14704,8 @@ The values are used by a subsequent <strong>clBuildProgram</strong> call for the
 </div>
 <div class="paragraph">
 <p>Application is not required to provide values for every specialization
-constant contained in SPIR-V module.
-SPIR-V provides default values for all specialization constants.</p>
+constant contained in the module. If the value is not set by this API
+call, default values will be used during the build.</p>
 </div>
 <div class="paragraph">
 <p><strong>clSetProgramSpecializationConstant</strong> returns CL_SUCCESS if the function is
@@ -14716,7 +14718,7 @@ executed successfully.</p>
 <ul>
 <li>
 <p>CL_INVALID_PROGRAM if <em>program</em> is not a valid program object created
-from a SPIR-V module.</p>
+from a module in an intermediate format (e.g. SPIR-V).</p>
 </li>
 <li>
 <p>CL_INVALID_SPEC_ID if <em>spec_id</em> is not a valid specialization constant
@@ -14724,7 +14726,7 @@ ID</p>
 </li>
 <li>
 <p>CL_INVALID_VALUE if <em>spec_size</em> does not match the size of the
-specialization constant in the SPIR-V module, or if <em>spec_value</em> is
+specialization constant in the module, or if <em>spec_value</em> is
 <code>NULL</code>.</p>
 </li>
 <li>
@@ -14901,7 +14903,7 @@ required by the OpenCL implementation on the host.</p>
 <p>Separate compilation and link stages.
 Program sources can be compiled to generate a compiled binary object and
 linked in a separate stage with other compiled program objects to the
-program exectuable.</p>
+program executable.</p>
 </li>
 <li>
 <p>Embedded headers.
@@ -15795,7 +15797,7 @@ This size must be ≥ size of return type as described in the
 queried by <em>param_name</em>.
 If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </div>
-<table id="program-info-table" class="tableblock frame-all grid-all spread">
+<table id="program-info-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 26. <strong>clGetProgramInfo</strong> parameter queries</caption>
 <colgroup>
 <col style="width: 34%;">
@@ -15831,7 +15833,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return the list of devices associated with the program object.
         This can be the devices associated with context on which the program
         object has been created or can be a subset of devices that are
-        specified when a progam object is created using
+        specified when a program object is created using
         <strong>clCreateProgramWithBinary</strong>.</p></td>
 </tr>
 <tr>
@@ -15841,13 +15843,13 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
         <strong>clCreateProgramWithSource</strong>.
         The source string returned is a concatenation of all source strings
         specified to <strong>clCreateProgramWithSource</strong> with a null terminator.
-        The concatenation strips any nulls in the original source strings.
-</p><p class="tableblock">        If <em>program</em> is created using <strong>clCreateProgramWithBinary</strong>,
+        The concatenation strips any nulls in the original source strings.</p>
+<p class="tableblock">        If <em>program</em> is created using <strong>clCreateProgramWithBinary</strong>,
         <strong>clCreateProgramWithIL</strong> or <strong>clCreateProgramWithBuiltinKernels</strong>, a
         null string or the appropriate program source code is returned
         depending on whether or not the program source code is stored in the
-        binary.
-</p><p class="tableblock">        The actual number of characters that represents the program source
+        binary.</p>
+<p class="tableblock">        The actual number of characters that represents the program source
         code including the null terminator is returned in
         <em>param_value_size_ret</em>.</p></td>
 </tr>
@@ -15855,8 +15857,8 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_PROGRAM_IL</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">char[]</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the program IL for programs created with
-        <strong>clCreateProgramWithIL</strong>.
-</p><p class="tableblock">        If <em>program</em> is created with <strong>clCreateProgramWithSource</strong>,
+        <strong>clCreateProgramWithIL</strong>.</p>
+<p class="tableblock">        If <em>program</em> is created with <strong>clCreateProgramWithSource</strong>,
         <strong>clCreateProgramWithBinary</strong> or <strong>clCreateProgramWithBuiltinKernels</strong>
         the memory pointed to by param_value will be unchanged and
         param_value_size_retwill be set to 0.</p></td>
@@ -15870,8 +15872,8 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
         The size of the array is the number of devices associated with
         program.
         If a binary is not available for a device(s), a size of zero is
-        returned.
-</p><p class="tableblock">        If <em>program</em> is created using <strong>clCreateProgramWithBuiltinKernels</strong>,
+        returned.</p>
+<p class="tableblock">        If <em>program</em> is created using <strong>clCreateProgramWithBuiltinKernels</strong>,
         the implementation may return zero in any entries of the returned
         array.</p></td>
 </tr>
@@ -15891,13 +15893,13 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
         representation (a.k.a. IR) or device specific executable bits or
         both.
         The decision on which information is returned in the binary is up to
-        the OpenCL implementation.
-</p><p class="tableblock">        param_value points to an array of <code>n</code> pointers allocated by the
+        the OpenCL implementation.</p>
+<p class="tableblock">        param_value points to an array of <code>n</code> pointers allocated by the
         caller, where <code>n</code> is the number of devices associated with program.
         The buffer sizes needed to allocate the memory that these <code>n</code>
         pointers refer to can be queried using the CL_PROGRAM_BINARY_SIZES
-        query as described in this table.
-</p><p class="tableblock">        Each entry in this array is used by the implementation as the
+        query as described in this table.</p>
+<p class="tableblock">        Each entry in this array is used by the implementation as the
         location in memory where to copy the program binary for a specific
         device, if there is a binary available.
         To find out which device the program binary in the array refers to,
@@ -16027,7 +16029,7 @@ This size must be ≥ size of return type as described in the
 queried by <em>param_name</em>.
 If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </div>
-<table id="program-build-info-table" class="tableblock frame-all grid-all spread">
+<table id="program-build-info-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 27. <strong>clGetProgramBuildInfo</strong> parameter queries.</caption>
 <colgroup>
 <col style="width: 34%;">
@@ -16046,18 +16048,18 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CL_PROGRAM_BUILD_STATUS</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_build_status</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the build, compile or link status, whichever was performed
-        last on program for device.
-</p><p class="tableblock">        This can be one of the following:
-</p><p class="tableblock">        CL_BUILD_NONE - The build status returned if no <strong>clBuildProgram</strong>,
+        last on program for device.</p>
+<p class="tableblock">        This can be one of the following:</p>
+<p class="tableblock">        CL_BUILD_NONE - The build status returned if no <strong>clBuildProgram</strong>,
         <strong>clCompileProgram</strong> or <strong>clLinkProgram</strong> has been performed on the
-        specified program object for device.
-</p><p class="tableblock">        CL_BUILD_ERROR - The build status returned if <strong>clBuildProgram</strong>,
+        specified program object for device.</p>
+<p class="tableblock">        CL_BUILD_ERROR - The build status returned if <strong>clBuildProgram</strong>,
         <strong>clCompileProgram</strong> or <strong>clLinkProgram</strong> whichever was performed last
-        on the specified program object for device generated an error.
-</p><p class="tableblock">        CL_BUILD_SUCCESS - The build status returned if <strong>clBuildProgram</strong>,
+        on the specified program object for device generated an error.</p>
+<p class="tableblock">        CL_BUILD_SUCCESS - The build status returned if <strong>clBuildProgram</strong>,
         <strong>clCompileProgram</strong> or <strong>clLinkProgram</strong> whichever was performed last
-        on the specified program object for device was successful.
-</p><p class="tableblock">        CL_BUILD_IN_PROGRESS - The build status returned if
+        on the specified program object for device was successful.</p>
+<p class="tableblock">        CL_BUILD_IN_PROGRESS - The build status returned if
         <strong>clBuildProgram</strong>, <strong>clCompileProgram</strong> or <strong>clLinkProgram</strong> whichever
         was performed last on the specified program object for device has
         not finished.</p></td>
@@ -16067,8 +16069,8 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">char[]</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return the build, compile or link options specified by the options
         argument in <strong>clBuildProgram</strong>, <strong>clCompileProgram</strong> or <strong>clLinkProgram</strong>,
-        whichever was performed last on program for device.
-</p><p class="tableblock">        If build status of program for device is CL_BUILD_NONE, an empty
+        whichever was performed last on program for device.</p>
+<p class="tableblock">        If build status of program for device is CL_BUILD_NONE, an empty
         string is returned.</p></td>
 </tr>
 <tr>
@@ -16076,28 +16078,28 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">char[]</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return the build, compile or link log for <strong>clBuildProgram</strong>,
         <strong>clCompileProgram</strong> or <strong>clLinkProgram</strong>, whichever was performed last
-        on program for device.
-</p><p class="tableblock">        If build status of program for device is CL_BUILD_NONE, an empty
+        on program for device.</p>
+<p class="tableblock">        If build status of program for device is CL_BUILD_NONE, an empty
         string is returned.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CL_PROGRAM_BINARY_TYPE</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_program_binary_type</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return the program binary type for device.
-        This can be one of the following values:
-</p><p class="tableblock">        CL_PROGRAM_BINARY_TYPE_NONE - There is no binary associated with
-        device.
-</p><p class="tableblock">        CL_PROGRAM_BINARY_TYPE_COMPILED_OBJECT - A compiled binary is
+        This can be one of the following values:</p>
+<p class="tableblock">        CL_PROGRAM_BINARY_TYPE_NONE - There is no binary associated with
+        device.</p>
+<p class="tableblock">        CL_PROGRAM_BINARY_TYPE_COMPILED_OBJECT - A compiled binary is
         associated with device.
         This is the case if program was created using
         <strong>clCreateProgramWithSource</strong> and compiled using <strong>clCompileProgram</strong> or
-        a compiled binary is loaded using <strong>clCreateProgramWithBinary</strong>.
-</p><p class="tableblock">        CL_PROGRAM_BINARY_TYPE_LIBRARY - A library binary is associated with
+        a compiled binary is loaded using <strong>clCreateProgramWithBinary</strong>.</p>
+<p class="tableblock">        CL_PROGRAM_BINARY_TYPE_LIBRARY - A library binary is associated with
         device.
         This is the case if program was created by <strong>clLinkProgram</strong> which is
         called with the <code>-create-library</code> link option or if a library binary
-        is loaded using <strong>clCreateProgramWithBinary</strong>.
-</p><p class="tableblock">        CL_PROGRAM_BINARY_TYPE_EXECUTABLE - An executable binary is
+        is loaded using <strong>clCreateProgramWithBinary</strong>.</p>
+<p class="tableblock">        CL_PROGRAM_BINARY_TYPE_EXECUTABLE - An executable binary is
         associated with device.
         This is the case if program was created by <strong>clLinkProgram</strong> without
         the <code>-create-library link</code> option or program was created by
@@ -16435,9 +16437,22 @@ declared by a kernel.</p>
 <code>filter_weights</code>, 3 for <code>src_image</code> and 4 for <code>dst_image</code>.</p>
 </div>
 <div class="paragraph">
+<p><em>arg_size</em> specifies the size of the argument value.
+If the argument is a memory object, the size is the size of the memory
+object.
+For arguments declared with the <code>local</code> qualifier, the size specified will
+be the size in bytes of the buffer that must be allocated for the <code>local</code>
+argument.
+If the argument is of type <em>sampler_t</em>, the <em>arg_size</em> value must be equal
+to <code>sizeof(cl_sampler)</code>.
+If the argument is of type <em>queue_t</em>, the <em>arg_size</em> value must be equal to
+<code>sizeof(cl_command_queue)</code>.
+For all other arguments, the size will be the size of argument type.</p>
+</div>
+<div class="paragraph">
 <p><em>arg_value</em> is a pointer to data that should be used as the argument value
 for argument specified by <em>arg_index</em>.
-The argument data pointed to by_arg_value_ is copied and the <em>arg_value</em>
+The argument data pointed to by <em>arg_value</em> is copied and the <em>arg_value</em>
 pointer can therefore be reused by the application after <strong>clSetKernelArg</strong>
 returns.
 The argument value specified is the value used by all API calls that enqueue
@@ -16498,19 +16513,6 @@ type <em>image2d_array_depth_t</em>.</p>
 <div class="paragraph">
 <p>For all other kernel arguments, the <em>arg_value</em> entry must be a pointer to
 the actual data to be used as argument value.</p>
-</div>
-<div class="paragraph">
-<p><em>arg_size</em> specifies the size of the argument value.
-If the argument is a memory object, the size is the size of the memory
-object.
-For arguments declared with the <code>local</code> qualifier, the size specified will
-be the size in bytes of the buffer that must be allocated for the <code>local</code>
-argument.
-If the argument is of type <em>sampler_t</em>, the <em>arg_size</em> value must be equal
-to <code>sizeof(cl_sampler)</code>.
-If the argument is of type <em>queue_t</em>, the <em>arg_size</em> value must be equal to
-<code>sizeof(cl_command_queue)</code>.
-For all other arguments, the size will be the size of argument type.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -16580,7 +16582,7 @@ object (if the argument was declared with constant qualifier) or
 the maximum size restriction that was set with the optional language
 attribute.
 The optional attribute can be <code>cl::max_size</code> defined in OpenCL 2.2 C++
-Kernel Languange specification or <code>SpvDecorationMaxByteOffset</code> defined
+Kernel Language specification or <code>SpvDecorationMaxByteOffset</code> defined
 in SPIR-V 1.2 Specification.</p>
 </li>
 <li>
@@ -16632,10 +16634,10 @@ call to <strong>clSetKernelArgSVMPointer</strong> for <em>kernel</em>.
 The SVM pointer can only be used for arguments that are declared to be a
 pointer to <code>global</code> or <code>constant</code> memory.
 The SVM pointer value must be aligned according to the arguments type.
-For example, if the argument is declared to be <code>global float4 <strong>p</code>, the SVM
+For example, if the argument is declared to be <code>global float4 *p</code>, the SVM
 pointer value passed for <code>p</code> must be at a minimum aligned to a <code>float4</code>.
 The SVM pointer value specified as the argument value can be the pointer
-returned by *clSVMAlloc</strong> or can be a pointer offset into the SVM region.</p>
+returned by <strong>clSVMAlloc</strong> or can be a pointer offset into the SVM region.</p>
 </div>
 <div class="paragraph">
 <p><strong>clSetKernelArgSVMPointer</strong> returns CL_SUCCESS if the function was executed
@@ -16695,7 +16697,7 @@ Execution Properties</a> table.</p>
 <p><em>param_value</em> is a pointer to memory where the appropriate values determined
 by <em>param_name</em> are specified.</p>
 </div>
-<table id="kernel-exec-info-table" class="tableblock frame-all grid-all spread">
+<table id="kernel-exec-info-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 28. <strong>clSetKernelExecInfo_</strong> parameter values</caption>
 <colgroup>
 <col style="width: 34%;">
@@ -16715,8 +16717,8 @@ by <em>param_name</em> are specified.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">void *[]</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SVM pointers must reference locations contained entirely within
         buffers that are passed to kernel as arguments, or that are passed
-        through the execution information.
-</p><p class="tableblock">        Non-argument SVM buffers must be specified by passing pointers to
+        through the execution information.</p>
+<p class="tableblock">        Non-argument SVM buffers must be specified by passing pointers to
         those buffers via <strong>clSetKernelExecInfo</strong> for coarse-grain and
         fine-grain buffer SVM allocations but not for finegrain system SVM
         allocations.</p></td>
@@ -16955,7 +16957,7 @@ This size must be ≥ size of return type as described in the
 queried by <em>param_name</em>.
 If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </div>
-<table id="kernel-info-table" class="tableblock frame-all grid-all spread">
+<table id="kernel-info-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 29. <strong>clGetKernelInfo</strong> parameter queries</caption>
 <colgroup>
 <col style="width: 34%;">
@@ -17003,13 +17005,13 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
         with the kernel function declaration in the program source.
         These attributes include attributes described in the earlier OpenCL
         C kernel language specifications and other attributes supported by
-        an implementation.
-</p><p class="tableblock">        Attributes are returned as they were declared inside
+        an implementation.</p>
+<p class="tableblock">        Attributes are returned as they were declared inside
         <code>__attribute__((...))</code>, with any surrounding whitespace and
         embedded newlines removed.
         When multiple attributes are present, they are returned as a single,
-        space delimited string.
-</p><p class="tableblock">        For kernels not created from OpenCL C source and the
+        space delimited string.</p>
+<p class="tableblock">        For kernels not created from OpenCL C source and the
         <strong>clCreateProgramWithSource</strong> API call the string returned from this
         query will be empty.</p></td>
 </tr>
@@ -17101,7 +17103,7 @@ This size must be ≥ size of return type as described in the
 queried by <em>param_name</em>.
 If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </div>
-<table id="kernel-workgroup-info-table" class="tableblock frame-all grid-all spread">
+<table id="kernel-workgroup-info-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 30. <strong>clGetKernelWorkGroupInfo</strong> parameter queries</caption>
 <colgroup>
 <col style="width: 34%;">
@@ -17123,8 +17125,8 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
         global size that can be used to execute a kernel (i.e.
         <em>global_work_size</em> argument to <strong>clEnqueueNDRangeKernel</strong>) on a custom
         device given by device or a built-in kernel on an OpenCL device
-        given by device.
-</p><p class="tableblock">        If device is not a custom device and kernel is not a built-in
+        given by device.</p>
+<p class="tableblock">        If device is not a custom device and kernel is not a built-in
         kernel, <strong>clGetKernelWorkGroupInfo</strong> returns the error
         CL_INVALID_VALUE.</p></td>
 </tr>
@@ -17136,17 +17138,17 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
         device given by device.
         The OpenCL implementation uses the resource requirements of the
         kernel (register usage etc.) to determine what this work-group size
-        should be.
-</p><p class="tableblock">        As a result and unlike CL_DEVICE_MAX_WORK_GROUP_SIZE this value may
-        vary from one kernel to another as well as one device to another.
-</p><p class="tableblock">        CL_KERNEL_WORK_GROUP_SIZE will be less than or equal to
+        should be.</p>
+<p class="tableblock">        As a result and unlike CL_DEVICE_MAX_WORK_GROUP_SIZE this value may
+        vary from one kernel to another as well as one device to another.</p>
+<p class="tableblock">        CL_KERNEL_WORK_GROUP_SIZE will be less than or equal to
         CL_DEVICE_MAX_WORK_GROUP_SIZE for a given kernel object.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_KERNEL_COMPILE_WORK_GROUP_SIZE</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">size_t[3]</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the work-group size specified in the kernel source or IL.
-</p><p class="tableblock">        If the work-group size is not specified in the kernel source or IL,
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the work-group size specified in the kernel source or IL.</p>
+<p class="tableblock">        If the work-group size is not specified in the kernel source or IL,
         (0, 0, 0) is returned.</p></td>
 </tr>
 <tr>
@@ -17157,8 +17159,8 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
         to execute the kernel, variables declared inside the kernel with the
         <code>__local</code> address qualifier and local memory to be allocated for
         arguments to the kernel declared as pointers with the <code>__local</code>
-        address qualifier and whose size is specified with <strong>clSetKernelArg</strong>.
-</p><p class="tableblock">        If the local memory size, for any pointer argument to the kernel
+        address qualifier and whose size is specified with <strong>clSetKernelArg</strong>.</p>
+<p class="tableblock">        If the local memory size, for any pointer argument to the kernel
         declared with the <code>__local</code> address qualifier, is not specified,
         its size is assumed to be 0.</p></td>
 </tr>
@@ -17281,7 +17283,7 @@ This size must be ≥ size of return type as described in the
 queried by <em>param_name</em>.
 If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </div>
-<table id="kernel-subgroup-info-table" class="tableblock frame-all grid-all spread">
+<table id="kernel-subgroup-info-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 31. <strong>clGetKernelSubGroupInfo</strong> parameter queries</caption>
 <colgroup>
 <col style="width: 25%;">
@@ -17305,8 +17307,8 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the maximum sub-group size for this kernel.
             All sub-groups must be the same size, while the last subgroup in
             any work-group (i.e. the subgroup with the maximum index) could
-            be the same or smaller size.
-</p><p class="tableblock">            The <em>input_value</em> must be an array of size_t values
+            be the same or smaller size.</p>
+<p class="tableblock">            The <em>input_value</em> must be an array of size_t values
             corresponding to the local work size parameter of the intended
             dispatch.
             The number of dimensions in the ND-range will be inferred from
@@ -17320,8 +17322,8 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
             work-group for a given local work size.
             All workgroups, apart from the last work-group in each dimension
             in the presence of non-uniform work-group sizes, will have the
-            same number of sub-groups.
-</p><p class="tableblock">            The <em>input_value</em> must be an array of size_t values
+            same number of sub-groups.</p>
+<p class="tableblock">            The <em>input_value</em> must be an array of size_t values
             corresponding to the local work size parameter of the intended
             dispatch.
             The number of dimensions in the ND-range will be inferred from
@@ -17458,7 +17460,7 @@ This size must be &gt; size of return type as described in the
 queried by <em>param_name</em>.
 If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </div>
-<table id="kernel-argument-info-table" class="tableblock frame-all grid-all spread">
+<table id="kernel-argument-info-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 32. <strong>clGetKernelArgInfo</strong> parameter queries</caption>
 <colgroup>
 <col style="width: 34%;">
@@ -17478,12 +17480,12 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_kernel_arg_address_qualifier</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the address qualifier specified for the argument given by
         <em>arg_indx</em>.
-        This can be one of the following values:
-</p><p class="tableblock">        CL_KERNEL_ARG_ADDRESS_GLOBAL<br>
+        This can be one of the following values:</p>
+<p class="tableblock">        CL_KERNEL_ARG_ADDRESS_GLOBAL<br>
         CL_KERNEL_ARG_ADDRESS_LOCAL<br>
         CL_KERNEL_ARG_ADDRESS_CONSTANT<br>
-        CL_KERNEL_ARG_ADDRESS_PRIVATE
-</p><p class="tableblock">        If no address qualifier is specified, the default address qualifier
+        CL_KERNEL_ARG_ADDRESS_PRIVATE</p>
+<p class="tableblock">        If no address qualifier is specified, the default address qualifier
         which is CL_KERNEL_ARG_ADDRESS_PRIVATE is returned.</p></td>
 </tr>
 <tr>
@@ -17491,12 +17493,12 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_kernel_arg_access_qualifier</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the access qualifier specified for the argument given by
         <em>arg_indx</em>.
-        This can be one of the following values:
-</p><p class="tableblock">        CL_KERNEL_ARG_ACCESS_READ_ONLY<br>
+        This can be one of the following values:</p>
+<p class="tableblock">        CL_KERNEL_ARG_ACCESS_READ_ONLY<br>
         CL_KERNEL_ARG_ACCESS_WRITE_ONLY<br>
         CL_KERNEL_ARG_ACCESS_READ_WRITE<br>
-        CL_KERNEL_ARG_ACCESS_NONE
-</p><p class="tableblock">        If argument is not an image type and is not declared with the pipe
+        CL_KERNEL_ARG_ACCESS_NONE</p>
+<p class="tableblock">        If argument is not an image type and is not declared with the pipe
         qualifier, CL_KERNEL_ARG_ACCESS_NONE is returned.
         If argument is an image type, the access qualifier specified or the
         default access qualifier is returned.</p></td>
@@ -17522,8 +17524,8 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
         The returned value can be: CL_KERNEL_ARG_TYPE_CONST<sup>17</sup>,
         CL_KERNEL_ARG_TYPE_RESTRICT, CL_KERNEL_ARG_TYPE_VOLATILE<sup>18</sup>, a
         combination of the above enums, CL_KERNEL_ARG_TYPE_PIPE or
-        CL_KERNEL_ARG_TYPE_NONE.
-</p><p class="tableblock">        CL_KERNEL_ARG_TYPE_NONE is returned for all parameters passed by
+        CL_KERNEL_ARG_TYPE_NONE.</p>
+<p class="tableblock">        CL_KERNEL_ARG_TYPE_NONE is returned for all parameters passed by
         value.</p></td>
 </tr>
 <tr>
@@ -18362,7 +18364,7 @@ This size must be ≥ size of return type as described in the
 queried by <em>param_name</em>.
 If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </div>
-<table id="event-info-table" class="tableblock frame-all grid-all spread">
+<table id="event-info-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 33. <strong>clGetEventInfo</strong> parameter queries</caption>
 <colgroup>
 <col style="width: 30%;">
@@ -18392,8 +18394,8 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_EVENT_COMMAND_TYPE</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_command_type</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return the command associated with event.
-        Can be one of the following values:
-</p><p class="tableblock">        CL_COMMAND_NDRANGE_KERNEL<br>
+        Can be one of the following values:</p>
+<p class="tableblock">        CL_COMMAND_NDRANGE_KERNEL<br>
         CL_COMMAND_NATIVE_KERNEL<br>
         CL_COMMAND_READ_BUFFER<br>
         CL_COMMAND_WRITE_BUFFER<br>
@@ -18427,13 +18429,13 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_EVENT_COMMAND_EXECUTION_STATUS</strong><sup>19</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_int</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return the execution status of the command identified by event.
-        Valid values are:
-</p><p class="tableblock">        CL_QUEUED (command has been enqueued n the command-queue),
-</p><p class="tableblock">        CL_SUBMITTED (enqueued command has been submitted by the host to the
-        device associated with the command-queue),
-</p><p class="tableblock">        CL_RUNNING (device is currently executing this command),
-</p><p class="tableblock">        CL_COMPLETE (the command has completed), or
-</p><p class="tableblock">        Error code given by a negative integer value. (command was
+        Valid values are:</p>
+<p class="tableblock">        CL_QUEUED (command has been enqueued n the command-queue),</p>
+<p class="tableblock">        CL_SUBMITTED (enqueued command has been submitted by the host to the
+        device associated with the command-queue),</p>
+<p class="tableblock">        CL_RUNNING (device is currently executing this command),</p>
+<p class="tableblock">        CL_COMPLETE (the command has completed), or</p>
+<p class="tableblock">        Error code given by a negative integer value. (command was
         abnormally terminated - this may be caused by a bad memory access
         etc.).
         These error codes come from the same set of error codes that are
@@ -19048,7 +19050,7 @@ This size must be ≥ size of return type as described in the
 queried by <em>param_name</em>.
 If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </div>
-<table id="event-profiling-info-table" class="tableblock frame-all grid-all spread">
+<table id="event-profiling-info-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 34. <strong>clGetEventProfilingInfo</strong> parameter queries</caption>
 <colgroup>
 <col style="width: 34%;">
@@ -19572,7 +19574,7 @@ Device Queries</a> table that have been modified for the OpenCL embedded
 profile are listed in the <a href="#embedded-device-queries-table">OpenCL Embedded
 Device Queries</a> table.</p>
 </div>
-<table id="embedded-device-queries-table" class="tableblock frame-all grid-all spread">
+<table id="embedded-device-queries-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 35. OpenCL Embedded Device Queries</caption>
 <colgroup>
 <col style="width: 33.3333%;">
@@ -19641,20 +19643,20 @@ Device Queries</a> table.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_DEVICE_IMAGE_MAX_BUFFER_SIZE</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">size_t</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Max number of pixels for a 1D image created from a buffer object.
-</p><p class="tableblock">        The minimum value is 2048 if CL_DEVICE_IMAGE_SUPPORT is CL_TRUE.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Max number of pixels for a 1D image created from a buffer object.</p>
+<p class="tableblock">        The minimum value is 2048 if CL_DEVICE_IMAGE_SUPPORT is CL_TRUE.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_DEVICE_IMAGE_MAX_ARRAY_SIZE</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">size_t</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Max number of images in a 1D or 2D image array.
-</p><p class="tableblock">        The minimum value is 256 if CL_DEVICE_IMAGE_SUPPORT is CL_TRUE.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Max number of images in a 1D or 2D image array.</p>
+<p class="tableblock">        The minimum value is 256 if CL_DEVICE_IMAGE_SUPPORT is CL_TRUE.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_DEVICE_MAX_SAMPLERS</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_uint</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Maximum number of samplers that can be used in a kernel.
-</p><p class="tableblock">        The minimum value is 8 if CL_DEVICE_IMAGE_SUPPORT is CL_TRUE.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Maximum number of samplers that can be used in a kernel.</p>
+<p class="tableblock">        The minimum value is 8 if CL_DEVICE_IMAGE_SUPPORT is CL_TRUE.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_DEVICE_MAX_PARAMETER_SIZE</strong></p></td>
@@ -19666,22 +19668,22 @@ Device Queries</a> table.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_DEVICE_SINGLE_FP_CONFIG</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_device_fp_config</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Describes single precision floatingpoint capability of the device.
+<td class="tableblock halign-left valign-top"><p class="tableblock">Describes single precision floating-point capability of the device.
         This is a bit-field that describes one or more of the following
-        values:
-</p><p class="tableblock">        CL_FP_DENORM - denorms are supported
-</p><p class="tableblock">        CL_FP_INF_NAN - INF and quiet NaNs are supported.
-</p><p class="tableblock">        CL_FP_ROUND_TO_NEAREST - round to nearest even rounding mode
-        supported
-</p><p class="tableblock">        CL_FP_ROUND_TO_ZERO - round to zero rounding mode supported
-</p><p class="tableblock">        CL_FP_ROUND_TO_INF - round to positive and negative infinity
-        rounding modes supported
-</p><p class="tableblock">        CL_FP_FMA - IEEE754-2008 fused multiply-add is supported.
-</p><p class="tableblock">        CL_FP_CORRECTLY_ROUNDED_DIVIDE_SQRT - divide and sqrt are correctly
-        rounded as defined by the IEEE754 specification.
-</p><p class="tableblock">        CL_FP_SOFT_FLOAT - Basic floating-point operations (such as
-        addition, subtraction, multiplication) are implemented in software.
-</p><p class="tableblock">        The mandated minimum floating-point capability is:
+        values:</p>
+<p class="tableblock">        CL_FP_DENORM - denorms are supported</p>
+<p class="tableblock">        CL_FP_INF_NAN - INF and quiet NaNs are supported.</p>
+<p class="tableblock">        CL_FP_ROUND_TO_NEAREST - round to nearest even rounding mode
+        supported</p>
+<p class="tableblock">        CL_FP_ROUND_TO_ZERO - round to zero rounding mode supported</p>
+<p class="tableblock">        CL_FP_ROUND_TO_INF - round to positive and negative infinity
+        rounding modes supported</p>
+<p class="tableblock">        CL_FP_FMA - IEEE754-2008 fused multiply-add is supported.</p>
+<p class="tableblock">        CL_FP_CORRECTLY_ROUNDED_DIVIDE_SQRT - divide and sqrt are correctly
+        rounded as defined by the IEEE754 specification.</p>
+<p class="tableblock">        CL_FP_SOFT_FLOAT - Basic floating-point operations (such as
+        addition, subtraction, multiplication) are implemented in software.</p>
+<p class="tableblock">        The mandated minimum floating-point capability is:
         CL_FP_ROUND_TO_ZERO or CL_FP_ROUND_TO_NEAREST for devices that are
         not of type CL_DEVICE_TYPE_CUSTOM.</p></td>
 </tr>
@@ -19711,17 +19713,17 @@ Device Queries</a> table.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_DEVICE_COMPILER_AVAILABLE</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_bool</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Is CL_FALSE if the implementation does not have a compiler available
-        to compile the program source.
-</p><p class="tableblock">        Is CL_TRUE if the compiler is available.
+        to compile the program source.</p>
+<p class="tableblock">        Is CL_TRUE if the compiler is available.
         This can be CL_FALSE for the embedded platform profile only.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_DEVICE_LINKER_AVAILABLE</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_bool</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Is CL_FALSE if the implementation does not have a linker available.
-        Is CL_TRUE if the linker is available.
-</p><p class="tableblock">        This can be CL_FALSE for the embedded platform profile only.
-</p><p class="tableblock">        This must be CL_TRUE if CL_DEVICE_COMPILER_AVAILABLE is CL_TRUE.</p></td>
+        Is CL_TRUE if the linker is available.</p>
+<p class="tableblock">        This can be CL_FALSE for the embedded platform profile only.</p>
+<p class="tableblock">        This must be CL_TRUE if CL_DEVICE_COMPILER_AVAILABLE is CL_TRUE.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_DEVICE_QUEUE_ON_DEVICE_MAX_SIZE</strong></p></td>
@@ -19940,7 +19942,7 @@ elements with respect to one another in the vector are reversed.</p>
 <div class="paragraph">
 <p>uint4 a =</p>
 </div>
-<table class="tableblock frame-all grid-all spread">
+<table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 25%;">
@@ -19962,7 +19964,7 @@ elements with respect to one another in the vector are reversed.</p>
 <div class="paragraph">
 <p>uint4 a =</p>
 </div>
-<table class="tableblock frame-all grid-all spread">
+<table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 25%;">
@@ -19984,7 +19986,7 @@ elements with respect to one another in the vector are reversed.</p>
 <div class="paragraph">
 <p>uint4 a =</p>
 </div>
-<table class="tableblock frame-all grid-all spread">
+<table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 25%;">
@@ -20028,7 +20030,7 @@ in hardware.</p>
 <div class="paragraph">
 <p>uint4 a =</p>
 </div>
-<table class="tableblock frame-all grid-all spread">
+<table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 25%;">
@@ -20050,7 +20052,7 @@ in hardware.</p>
 <div class="paragraph">
 <p>uint4 a =</p>
 </div>
-<table class="tableblock frame-all grid-all spread">
+<table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 25%;">
@@ -20075,7 +20077,7 @@ in hardware.</p>
 <div class="paragraph">
 <p>uint4 a =</p>
 </div>
-<table class="tableblock frame-all grid-all spread">
+<table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 25%;">
@@ -20097,7 +20099,7 @@ in hardware.</p>
 <div class="paragraph">
 <p>uint4 a =</p>
 </div>
-<table class="tableblock frame-all grid-all spread">
+<table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 25%;">
@@ -20511,7 +20513,7 @@ foo.s7    <span class="comment">// illegal - no component s7</span></code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_high_low_vector_component_notation">High/Low vector component notation</h4>
+<h4 id="_highlow_vector_component_notation">High/Low vector component notation</h4>
 <div class="paragraph">
 <p>Vector data type components may be accessed using the <code>.hi</code> and <code>.lo</code>
 notation similar to that supported within the language types.
@@ -20603,9 +20605,9 @@ the external compiler.</p>
 <h3 id="_application_constant_definitions">Application constant definitions</h3>
 <div class="paragraph">
 <p>In addition to the above application type definitions, the following literal
-defintions are also available.</p>
+definitions are also available.</p>
 </div>
-<table class="tableblock frame-all grid-all spread">
+<table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -20775,7 +20777,7 @@ defintions are also available.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_INFINITY</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Macro expanding to a value represnting infinity</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Macro expanding to a value representing infinity</p></td>
 </tr>
 </tbody>
 </table>
@@ -21102,7 +21104,7 @@ memory object from one device to another.</p>
 program have been added to <strong>clGetProgramInfo</strong>.</p>
 </li>
 <li>
-<p>Additiional queries to get the compile and link status and options have
+<p>Additional queries to get the compile and link status and options have
 been added to <strong>clGetProgramBuildInfo</strong>.</p>
 </li>
 <li>
@@ -21428,11 +21430,11 @@ glossary.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 2.2-8<br>
-Last updated 2018-09-24 21:35:08 PDT
+Version v2.2-10<br>
+Last updated 2019-02-05 16:03:11 EST
 </div>
 </div>
 
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
 </body>
 </html>
