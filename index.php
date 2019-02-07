@@ -35,27 +35,27 @@ include_once("../../assets/static_pages/khr_page_top.php");
 <li> OpenCL 2.2 API Specification
      (<a href="specs/2.2/html/OpenCL_API.html">HTML</a>)
      (<a href="specs/2.2/pdf/OpenCL_API.pdf">PDF</a>)
-     (October 8, 2018). </li>
+     (February 5, 2019). </li>
 <li> OpenCL 2.2 Extension Specification
      (<a href="specs/2.2/html/OpenCL_Ext.html">HTML</a>)
      (<a href="specs/2.2/pdf/OpenCL_Ext.pdf">PDF</a>)
-     (October 8, 2018). </li>
+     (February 5, 2019). </li>
 <li> OpenCL SPIR-V Environment Specification
      (<a href="specs/2.2/html/OpenCL_Env.html">HTML</a>)
      (<a href="specs/2.2/pdf/OpenCL_Env.pdf">PDF</a>)
-     (October 8, 2018). </li>
+     (February 5, 2019). </li>
 <li> OpenCL C Language Specification
      (<a href="specs/2.2/html/OpenCL_C.html">HTML</a>)
      (<a href="specs/2.2/pdf/OpenCL_C.pdf">PDF</a>)
-     (October 8, 2018). </li>
+     (February 5, 2019). </li>
 <li> OpenCL C++ Language Specification
      (<a href="specs/2.2/html/OpenCL_Cxx.html">HTML</a>)
      (<a href="specs/2.2/pdf/OpenCL_Cxx.pdf">PDF</a>)
-     (October 8, 2018). </li>
+     (February 5, 2019). </li>
 <li> OpenCL ICD Installation Guide Specification
      (<a href="specs/2.2/html/OpenCL_ICD_Installation.html">HTML</a>)
      (<a href="specs/2.2/pdf/OpenCL_ICD_Installation.pdf">PDF</a>)
-     (October 8, 2018). </li>
+     (February 5, 2019). </li>
 <li> The <a href="https://www.khronos.org/registry/spir-v/"> OpenCL Extended
      Instruction Set for SPIR-V</a> is included as part of the SPIR-V
      registry.

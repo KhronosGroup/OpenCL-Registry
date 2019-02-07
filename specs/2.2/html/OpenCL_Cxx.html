@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.5">
-<meta name="author" content="Khronos OpenCL Working Group">
+<meta name="generator" content="Asciidoctor 1.5.7">
+<meta name="author" content="Khronos&#174; OpenCL Working Group">
 <title>The OpenCL&#8482; C++ 1.0 Specification</title>
 <style>
 /*! normalize.css v2.1.2 | MIT License | git.io/normalize */
@@ -724,7 +724,7 @@ p.tableblock.header { color: #6d6e71; }
 .literalblock pre, .listingblock pre { background: #eeeeee; }
 
 </style>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
 /* Stylesheet for CodeRay to match GitHub theme | MIT License | http://foundation.zurb.com */
 /*pre.CodeRay {background-color:#f7f7f8;}*/
@@ -840,10 +840,10 @@ table.CodeRay td.code>pre{padding:0}
 <div id="header">
 <h1>The OpenCL<sup>&#8482;</sup> C++ 1.0 Specification</h1>
 <div class="details">
-<span id="author" class="author">Khronos OpenCL Working Group</span><br>
-<span id="revnumber">version 2.2-8,</span>
-<span id="revdate">Mon, 08 Oct 2018 16:50:47 +0000</span>
-<br><span id="revremark">from git branch: master commit: b3cab22fcff5d8c17869907c983e259ddd7ce788</span>
+<span id="author" class="author">Khronos<sup>&#174;</sup> OpenCL Working Group</span><br>
+<span id="revnumber">version v2.2-10,</span>
+<span id="revdate">Tue, 05 Feb 2019 21:18:46 +0000</span>
+<br><span id="revremark">from git branch:  commit: 00422daf5dc013f21ab633479577c7cc225150e2</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -929,7 +929,7 @@ table.CodeRay td.code>pre{padding:0}
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2008-2018 The Khronos Group.</p>
+<p>Copyright 2008-2019 The Khronos Group.</p>
 </div>
 <div class="paragraph">
 <p>This specification is protected by copyright laws and contains material proprietary
@@ -960,7 +960,7 @@ indirect, special or consequential damages for lost revenues, lost profits, or
 otherwise, arising from or in connection with these materials.</p>
 </div>
 <div class="paragraph">
-<p>Vulkan is a registered trademark and Khronos, OpenXR, SPIR, SPIR-V, SYCL, WebGL,
+<p>Vulkan and Khronos are registered trademarks, and OpenXR, SPIR, SPIR-V, SYCL, WebGL,
 WebCL, OpenVX, OpenVG, EGL, COLLADA, glTF, NNEF, OpenKODE, OpenKCAM, StreamInput,
 OpenWF, OpenSL ES, OpenMAX, OpenMAX AL, OpenMAX IL, OpenMAX DL, OpenML and DevU are
 trademarks of the Khronos Group Inc. ASTC is a trademark of ARM Holdings PLC,
@@ -1123,7 +1123,7 @@ cl::common_type_t&lt;int, float&gt; greater(int x, float y);
 // etc.</code></pre>
 </div>
 </div>
-<table class="tableblock frame-all grid-all spread">
+<table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. generic types</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -1138,7 +1138,7 @@ cl::common_type_t&lt;int, float&gt; greater(int x, float y);
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>typen</code></p></td>
-<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>scalar and all vector types of type</p>
 </div>
 <div class="paragraph">
@@ -1197,7 +1197,7 @@ This section describes restrictions to the C++14 specification supported in Open
 </div>
 <div class="sect3">
 <h4 id="builtin-scalar-data-types">2.1.1. Built-in Scalar Data Types</h4>
-<table id="device_builtin_scalar_data_types" class="tableblock frame-all grid-all spread">
+<table id="device_builtin_scalar_data_types" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 2. Device Built-in scalar data types</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -1271,7 +1271,7 @@ This section describes restrictions to the C++14 specification supported in Open
 <p>Most built-in scalar data types are also declared as appropriate types in the OpenCL API (and header files) that can be used by an application.
 The following table describes the built-in scalar data type in the OpenCL C++ programming language and the corresponding data type available to the application:</p>
 </div>
-<table id="host_scalar_builtin_data_types" class="tableblock frame-all grid-all spread">
+<table id="host_scalar_builtin_data_types" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 3. Host Scalar Built-in Data Types</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -1454,7 +1454,7 @@ half h = 0x1.ffcp15h;</code></pre>
 The vector data type is defined with the type name i.e. <code>bool</code>, <code>char</code>, <code>uchar</code>, <code>short</code>, <code>ushort</code>, <code>int</code>, <code>uint</code>, <code>long</code>, <code>ulong</code>, <code>half</code>, <code>float</code> or <code>double</code> followed by a literal value <em>n</em> that defines the number of elements in the vector.
 Supported values of <em>n</em> are 2, 3, 4, 8, and 16 for all vector data types.</p>
 </div>
-<table id="device_builtin_vector_data_types" class="tableblock frame-all grid-all spread">
+<table id="device_builtin_vector_data_types" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 4. Device Built-in Vector Data Types</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -1521,7 +1521,7 @@ Supported values of <em>n</em> are 2, 3, 4, 8, and 16 for all vector data types.
 <p>The built-in vector data types are also declared as appropriate types in the OpenCL API (and header files) that can be used by an application.
 The following table describes the built-in vector data type in the OpenCL C++ programming language and the corresponding data type available to the application:</p>
 </div>
-<table id="host_builtin_vector_data_types" class="tableblock frame-all grid-all spread">
+<table id="host_builtin_vector_data_types" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 5. Host Built-in Vector Data Types</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -1976,7 +1976,7 @@ int16 vv2 = int16(v16.S98aabb0123, v2.gr, v3.xxxx);
 Each value selects single component.
 Values in a selector can be repeated and specified in any order.
 A number of values in a selector including repeated values is called the swizzle size.</p>
-<table id="selector_values_and_their_corresponding_components_in_swizzle" class="tableblock frame-all grid-all spread">
+<table id="selector_values_and_their_corresponding_components_in_swizzle" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 6. Selector values and their corresponding components in swizzle</caption>
 <colgroup>
 <col style="width: 25%;">
@@ -2187,7 +2187,7 @@ If 4-th component is read, the returned value is undefined; all writes to 4-th c
 <div class="paragraph">
 <p>The following <a href="#special_selector_values">Special selector values</a> table describes special selector values and their numerical equivalents.</p>
 </div>
-<table id="special_selector_values" class="tableblock frame-all grid-all spread">
+<table id="special_selector_values" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 7. Special selector values</caption>
 <colgroup>
 <col style="width: 25%;">
@@ -2326,7 +2326,7 @@ If 4-th component is read, the returned value is undefined; all writes to 4-th c
 </tr>
 </tbody>
 </table>
-<div class="listingblock">
+<div id="special_selector_values" class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code>float8 v = float8(1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f);
 
@@ -2607,8 +2607,8 @@ An operand is converted to vector-swizzle if required by applying identity swizz
 </tr>
 </table>
 </div>
-<div class="ulist">
-<ul>
+<div class="ulist NOTE">
+<ul class="NOTE">
 <li>
 <p><em>[ISO/IEC 14882:2014: expr.ass, ch. 5.18 (1)]</em> Assignment and compound assignment operators: The result in all cases is a bit-field or a <em>vector-swizzle</em> if the left operand is respectively a bit-field or a <em>vector-swizzle</em>.</p>
 </li>
@@ -3074,7 +3074,7 @@ The explicit address space pointer classes are implemented as a part of the stan
 </div>
 <div class="sect3">
 <h4 id="memory-initialization">2.5.4. Memory initialization</h4>
-<table class="tableblock frame-all grid-all spread">
+<table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 8. Supported memory initializers</caption>
 <colgroup>
 <col style="width: 13%;">
@@ -3094,15 +3094,15 @@ The explicit address space pointer classes are implemented as a part of the stan
 <tr>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">uninitialized (no constructor or trivial default constructor)
-</p><p class="tableblock">  <strong>AND</strong>
-</p><p class="tableblock">  trivial destructor</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">initialized by constant expression
-</p><p class="tableblock">  <strong>AND</strong>
-</p><p class="tableblock">  trivial destructor</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">custom initializer
-</p><p class="tableblock">  <strong>OR</strong>
-</p><p class="tableblock">  custom destructor</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">uninitialized (no constructor or trivial default constructor)</p>
+<p class="tableblock">  <strong>AND</strong></p>
+<p class="tableblock">  trivial destructor</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">initialized by constant expression</p>
+<p class="tableblock">  <strong>AND</strong></p>
+<p class="tableblock">  trivial destructor</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">custom initializer</p>
+<p class="tableblock">  <strong>OR</strong></p>
+<p class="tableblock">  custom destructor</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top" rowspan="4"><p class="tableblock">local</p></td>
@@ -3113,17 +3113,17 @@ The explicit address space pointer classes are implemented as a part of the stan
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">kernel</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">supported
-</p><p class="tableblock">  Variables are not zero-pre-initialized.
-</p><p class="tableblock">  Optional zero-pre-initialization possible using switch: -cl-zero-init-local-mem-vars</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">supported
-</p><p class="tableblock">  Variables are not zero-pre-initialized.
-</p><p class="tableblock">  Materialize temporary expressions are not supported.
-</p><p class="tableblock">  Optional zero-pre-initialization possible using switch: -cl-zero-init-local-mem-vars</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">supported
-</p><p class="tableblock">  Variables are not zero-pre-initialized.
-</p><p class="tableblock">  Materialize temporary expressions are not supported.
-</p><p class="tableblock">  Optional zero-pre-initialization possible using switch: -cl-zero-init-local-mem-vars</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">supported</p>
+<p class="tableblock">  Variables are not zero-pre-initialized.</p>
+<p class="tableblock">  Optional zero-pre-initialization possible using switch: -cl-zero-init-local-mem-vars</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">supported</p>
+<p class="tableblock">  Variables are not zero-pre-initialized.</p>
+<p class="tableblock">  Materialize temporary expressions are not supported.</p>
+<p class="tableblock">  Optional zero-pre-initialization possible using switch: -cl-zero-init-local-mem-vars</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">supported</p>
+<p class="tableblock">  Variables are not zero-pre-initialized.</p>
+<p class="tableblock">  Materialize temporary expressions are not supported.</p>
+<p class="tableblock">  Optional zero-pre-initialization possible using switch: -cl-zero-init-local-mem-vars</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">local (non-kernel)</p></td>
@@ -3133,43 +3133,43 @@ The explicit address space pointer classes are implemented as a part of the stan
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">class (static data member)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">supported
-</p><p class="tableblock">  Variables are not zero-pre-initialized.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">supported</p>
+<p class="tableblock">  Variables are not zero-pre-initialized.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">not supported</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">not supported</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top" rowspan="3"><p class="tableblock">global</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">program</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">supported
-</p><p class="tableblock">  Variables are zero-pre-initialized.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">supported
-</p><p class="tableblock">  Variables are zero or constexpr-pre-initialized.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">supported</p>
+<p class="tableblock">  Variables are zero-pre-initialized.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">supported</p>
+<p class="tableblock">  Variables are zero or constexpr-pre-initialized.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">supported</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">kernel / local</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">supported
-</p><p class="tableblock">  Variables are zero-pre-initialized.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">supported
-</p><p class="tableblock">  Variables are zero or constexpr-pre-initialized.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">supported</p>
+<p class="tableblock">  Variables are zero-pre-initialized.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">supported</p>
+<p class="tableblock">  Variables are zero or constexpr-pre-initialized.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">not supported</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">class (static data member)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">supported
-</p><p class="tableblock">  Variables are zero-pre-initialized.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">supported
-</p><p class="tableblock">  Variables are zero or constexpr-pre-initialized.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">supported</p>
+<p class="tableblock">  Variables are zero-pre-initialized.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">supported</p>
+<p class="tableblock">  Variables are zero or constexpr-pre-initialized.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">not supported</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">constant</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">(any)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">supported
-</p><p class="tableblock">  Variables are zero-pre-initialized.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">supported
-</p><p class="tableblock">  Variables are zero or constexpr-pre-initialized.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">supported</p>
+<p class="tableblock">  Variables are zero-pre-initialized.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">supported</p>
+<p class="tableblock">  Variables are zero or constexpr-pre-initialized.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">not supported</p></td>
 </tr>
 <tr>
@@ -3638,7 +3638,7 @@ kernel void foo([[cl::max_size(65536)]] cl::constant_ptr&lt;int&gt; arg) {
 <div class="sect3">
 <h4 id="optional-loop-attributes">2.8.5. Optional Loop Attributes</h4>
 <div class="sect4">
-<h5 id="_cl_unroll_hint">cl::unroll_hint</h5>
+<h5 id="_clunroll_hint">cl::unroll_hint</h5>
 <div class="paragraph">
 <p>The <code><a id="cl::unroll_hint"></a></code> and <code>[[cl::unroll_hint(n)]]</code> attribute qualifiers can be used to specify that a loop (<code>for</code>, <code>while</code> and <code>do</code> loops) can be unrolled.
 This attribute qualifier can be used to specify full unrolling or partial unrolling by a specified amount.
@@ -4156,7 +4156,7 @@ The operand and result type may be the same type in which case the conversion ha
 <p>Conversions to and from floating-point type shall conform to IEEE-754 rounding rules.
 Conversions may have an optional rounding mode specified as described in the table belows.</p>
 </div>
-<table class="tableblock frame-all grid-all spread">
+<table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 9. Rounding Modes</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -6247,9 +6247,9 @@ kernel void foo() {
 <div class="sect2">
 <h3 id="specialization-constants-library">3.5. Specialization Constants Library</h3>
 <div class="paragraph">
-<p>The specialization constants are objects that will not have known constant values until after initial generation of a SPIR-V module.
-Such objects are called specialization constants.
-Application might provide values for the specialization constants that will be used when SPIR-V program is built.</p>
+<p>The specialization constants are objects that will not have known constant values until after initial generation of a module in
+an intermediate representation format (e.g. SPIR-V). Such objects are called specialization constants.
+Application might provide values for the specialization constants that will be used when program is built from an intermediate format.</p>
 </div>
 <div class="sect3">
 <h4 id="header-opencl_spec_constant-synopsis">3.5.1. Header &lt;opencl_spec_constant&gt; Synopsis</h4>
@@ -6330,7 +6330,7 @@ The type <code>T</code> must be integral or floating point type.</p>
 <h5 id="id">ID</h5>
 <div class="paragraph">
 <p>Template parameter <code>ID</code> in spec_constant class template denotes an unique ID of the specialization constant that can be used to set a value from the host API.
-The value of <code>ID</code> must be unique within this compilation unit and across any other SPIR-V modules that it is linked with.</p>
+The value of <code>ID</code> must be unique within this compilation unit and across any other modules that it is linked with.</p>
 </div>
 </div>
 </div>
@@ -7695,7 +7695,7 @@ The image and sampler types can only be used if the device support images i.e. <
 <div class="paragraph">
 <p>The below table describes the OpenCL image and sampler data types and the corresponding data type available to the application:</p>
 </div>
-<table class="tableblock frame-all grid-all spread">
+<table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 10. Host image and sampler types</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -7984,7 +7984,7 @@ struct image_dim_num;
 <div class="paragraph">
 <p>The following table describes the <code>image_dim_num</code> trait that return a number of dimensions based on <code>image_dim</code> parameter.</p>
 </div>
-<table class="tableblock frame-all grid-all spread">
+<table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 11. Image_dim_num trait</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -8779,7 +8779,7 @@ enum class filtering_mode
 <div class="paragraph">
 <p>The following tables describe the inline sampler parameters and their behavior.</p>
 </div>
-<table class="tableblock frame-all grid-all spread">
+<table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 12. Addressing modes</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -8817,7 +8817,7 @@ enum class filtering_mode
 <div class="paragraph">
 <p>For 1D and 2D image arrays, the addressing mode applies only to the <em>x</em> and (<em>x, y</em>) coordinates.  The addressing mode for the coordinate which specifies the array index is always clamp_to_edge.</p>
 </div>
-<table class="tableblock frame-all grid-all spread">
+<table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 13. Normalized coordinates</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -8843,7 +8843,7 @@ enum class filtering_mode
 <div class="paragraph">
 <p>Sampling from an image with samplers that differ in specification of coordinates normalization result in undefined behavior.</p>
 </div>
-<table class="tableblock frame-all grid-all spread">
+<table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 14. Coordinate filtering modes</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -8942,7 +8942,7 @@ kernel void foo(image2d&lt;float4, image_access::read_write&gt; img, ... ) {
 <div class="paragraph">
 <p>The following table describes the mapping of the number of channels of an image element to the appropriate components in the <code>float4</code>, <code>int4</code> or <code>uint4</code> vector data type for the color values returned by <code>image::sample</code>, <code>image::read</code> or supplied to <code>image::write</code>. The unmapped components will be set to 0.0 for red, green and blue channels and will be set to 1.0 for the alpha channel.</p>
 </div>
-<table class="tableblock frame-all grid-all spread">
+<table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 15. Image channel mappings</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -9157,7 +9157,7 @@ kernel void foo(image2d&lt;float4, image_access::sample&gt; img) {
 <div class="paragraph">
 <p>The below describes the OpenCL pipe data type and the corresponding data type available to the application:</p>
 </div>
-<table id="host_pipe_type" class="tableblock frame-all grid-all spread">
+<table id="host_pipe_type" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 16. Host pipe type</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -9810,7 +9810,7 @@ A kernel may enqueue code represented by lambda syntax, and control execution or
 <div class="paragraph">
 <p>The below table describes the OpenCL queue data type and the corresponding data type available to the application:</p>
 </div>
-<table class="tableblock frame-all grid-all spread">
+<table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 17. Host queue type</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -10288,7 +10288,7 @@ Unspecified parameters are defaulted to 0.</p>
 <p>Enqueue policy enumerable is used to specify launch policy of enqueued kernel.
 It is defined as follows:</p>
 </div>
-<table class="tableblock frame-all grid-all spread">
+<table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 18. Enqueue policy</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -10339,7 +10339,7 @@ It is defined as follows:</p>
 If the <em>-g</em> compile option is specified in compiler options passed to <code>clBuildProgram</code>, the other errors may be returned instead of <code>enqueue_status::failure</code> to indicate why <code>enqueue_kernel</code> or <code>enqueue_marker</code> failed.
 Enqueue status is defined as follows:</p>
 </div>
-<table class="tableblock frame-all grid-all spread">
+<table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 19. Enqueue status</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -10407,7 +10407,7 @@ Enqueue status is defined as follows:</p>
 <p>Event status enumerable is used to set a user event status.
 It is defined as follows:</p>
 </div>
-<table class="tableblock frame-all grid-all spread">
+<table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 20. Event status</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -10464,7 +10464,7 @@ Kernel <code>A</code> is considered to have finished execution i.e. its executio
 <p>Event profiling info enumerable is used to determine the outcome of <code>event::profiling_info</code> function.
 It is defined as follows:</p>
 </div>
-<table class="tableblock frame-all grid-all spread">
+<table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 21. Event profiling info</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -10480,9 +10480,9 @@ It is defined as follows:</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>exec_time</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Identifies profiling information to be queried.
-  If specified, the two 64-bit values are returned
-</p><p class="tableblock">  The first 64-bit value describes the elapsed time: <code>CL_PROFILING_COMMAND_END - CL_PROFILING_COMMAND_START</code> for the command identified by event in nanoseconds.
-</p><p class="tableblock">  The second 64-bit value describes the elapsed time <code>CL_PROFILING_COMMAND_COMPLETE - CL_PROFILING_COMMAND_START</code> for the command identified by event in nanoseconds.</p></td>
+  If specified, the two 64-bit values are returned</p>
+<p class="tableblock">  The first 64-bit value describes the elapsed time: <code>CL_PROFILING_COMMAND_END - CL_PROFILING_COMMAND_START</code> for the command identified by event in nanoseconds.</p>
+<p class="tableblock">  The second 64-bit value describes the elapsed time <code>CL_PROFILING_COMMAND_COMPLETE - CL_PROFILING_COMMAND_START</code> for the command identified by event in nanoseconds.</p></td>
 </tr>
 </tbody>
 </table>
@@ -13084,9 +13084,10 @@ Returns <code>x - y * trunc (x/y)</code>.</p>
 <div class="paragraph">
 <p><code>mad</code> computes <code>a * b + c</code>.
 The function may compute <code>a * b + c</code> with reduced accuracy
-    in the embedded profile.  See the SPIR-V OpenCL environment specification
-    for details. On some hardware the mad instruction may provide better
-    performance than expanded computation of <code>a * b + c</code>. <a id="ftnref22"></a> <a href="#ftn22">[22]</a></p>
+    in the embedded profile. It is implemented either as a correctly rounded fma,
+    or as a multiply followed by an add, both of which are correctly rounded.
+    On some hardware the mad instruction may provide better performance
+    than expanded computation of <code>a * b + c</code>. <a id="ftnref22"></a> <a href="#ftn22">[22]</a></p>
 </div>
 </div>
 <div class="sect4">
@@ -16058,7 +16059,7 @@ These constant expressions are suitable for use in <code>#if</code> preprocessin
 <div class="paragraph">
 <p>The following table describes the built-in macro names given above in the OpenCL C++ library and the corresponding macro names available to the application.</p>
 </div>
-<table class="tableblock frame-all grid-all spread">
+<table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 22. Float Built-in Macros</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -16140,7 +16141,7 @@ These constant expressions are suitable for use in <code>#if</code> preprocessin
 <div class="paragraph">
 <p>The following table describes the built-in macro names given above in the OpenCL C++ library and the corresponding macro names available to the application.</p>
 </div>
-<table class="tableblock frame-all grid-all spread">
+<table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 23. Double Built-in Macros</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -16215,7 +16216,7 @@ These constant expressions are suitable for use in <code>#if</code> preprocessin
 <div class="paragraph">
 <p>The following table describes the built-in macro names given above in the OpenCL C++ library and the corresponding macro names available to the application.</p>
 </div>
-<table class="tableblock frame-all grid-all spread">
+<table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 24. Half Built-in Macros</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -16274,7 +16275,7 @@ These constant expressions are suitable for use in <code>#if</code> preprocessin
 <p>The following symbolic constants are available.
 Their values are of type float and are accurate within the precision of a single precision floating-point number.</p>
 </div>
-<table class="tableblock frame-all grid-all spread">
+<table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 25. Float Symbolic Constants</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -16309,7 +16310,7 @@ Their values are of type float and are accurate within the precision of a single
 <div class="paragraph">
 <p>If double precision is supported by the device, the following symbolic constant will also be available:</p>
 </div>
-<table class="tableblock frame-all grid-all spread">
+<table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 26. Double Symbolic Constants</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -16359,7 +16360,7 @@ The values shall all be constant expressions suitable for use in <code>#if</code
 <div class="paragraph">
 <p>The following table describes the built-in macro names given above in the OpenCL C++ library and the corresponding macro names available to the application.</p>
 </div>
-<table class="tableblock frame-all grid-all spread">
+<table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 27. Integer built-in macros</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -16583,7 +16584,7 @@ public:
 <p>The following constants are also available.
 They are of type <code>half</code> and are accurate within the precision of the <code>half</code> type.</p>
 </div>
-<table class="tableblock frame-all grid-all spread">
+<table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 28. Half Constants</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -16657,7 +16658,7 @@ They are of type <code>half</code> and are accurate within the precision of the 
 <p>The following constants are also available.
 They are of type <code>float</code> and are accurate within the precision of the <code>float</code> type.</p>
 </div>
-<table class="tableblock frame-all grid-all spread">
+<table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 29. Float Constants</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -16731,7 +16732,7 @@ They are of type <code>float</code> and are accurate within the precision of the
 <p>The following constants are also available.
 They are of type <code>double</code> and are accurate within the precision of the <code>double</code> type.</p>
 </div>
-<table class="tableblock frame-all grid-all spread">
+<table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 30. Double Constants</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -17147,7 +17148,7 @@ using void_t = void;
 <h4 id="unary-type-traits">3.29.2. Unary Type Traits</h4>
 <div class="sect4">
 <h5 id="additional-type-property-predicates">Additional type property predicates</h5>
-<table class="tableblock frame-all grid-all spread">
+<table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 31. Additional type property predicates</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -17189,7 +17190,7 @@ using void_t = void;
 </div>
 <div class="sect4">
 <h5 id="additional-type-property-queries">Additional type property queries</h5>
-<table class="tableblock frame-all grid-all spread">
+<table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 32. Additional type property queries</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -17214,7 +17215,7 @@ using void_t = void;
 <h4 id="binary-type-traits">3.29.3. Binary type traits</h4>
 <div class="sect4">
 <h5 id="changed-relationships-traits">Changed relationships traits</h5>
-<table class="tableblock frame-all grid-all spread">
+<table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 33. Changed relationship traits</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -17239,7 +17240,7 @@ using void_t = void;
 <h4 id="transformation-traits">3.29.4. Transformation traits</h4>
 <div class="sect4">
 <h5 id="address-space-and-vector-modifications">Address space and vector modifications</h5>
-<table class="tableblock frame-all grid-all spread">
+<table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 34. Address space and vector traits</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -17578,19 +17579,32 @@ Conversion between floating-point formats and explicit conversions specified in 
 <div class="paragraph">
 <p>The ULP is defined as follows:</p>
 </div>
+<div class="exampleblock">
+<div class="content">
 <div class="paragraph">
 <p>If x is a real number that lies between two finite consecutive floating-point numbers a and b, without being equal to one of them, then ulp(x) = |b - a|, otherwise ulp(x) is the distance between the two non-equal finite floating-point numbers nearest x.
 Moreover, ulp(NaN) is NaN.</p>
 </div>
+</div>
+</div>
 <div class="paragraph">
-<p><em>Attribution: This definition was taken with consent from Jean-Michel Muller with slight clarification for behavior at zero.
-Refer to <a href="ftp://ftp.inria.fr/INRIA/publication/publi-pdf/RR/RR-5504.pdf" class="bare">ftp://ftp.inria.fr/INRIA/publication/publi-pdf/RR/RR-5504.pdf</a></em></p>
+<p><em>Attribution: This definition was taken with consent from Jean-Michel Muller
+with slight clarification for behavior at zero.</em></p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>Jean-Michel Muller. On the definition of ulp(x). RR-5504, INRIA. 2005, pp.16. &lt;inria-00070503&gt;
+Currently hosted at
+<a href="https://hal.inria.fr/inria-00070503/document">https://hal.inria.fr/inria-00070503/document</a>.</p>
+</div>
+</div>
 </div>
 <div class="paragraph">
 <p><a href="#ulp_values_for_single_precision_builtin_math_functions">ULP values for single precision built-in math functions</a> <a id="ftnref31"></a> <a href="#ftn31">[31]</a> table describes the minimum accuracy of single precision floating-point arithmetic operations given as ULP values.
 The reference value used to compute the ULP value of an arithmetic operation is the infinitely precise result.</p>
 </div>
-<table id="ulp_values_for_single_precision_builtin_math_functions" class="tableblock frame-all grid-all spread">
+<table id="ulp_values_for_single_precision_builtin_math_functions" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 35. ULP values for single precision built-in math functions</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -17945,7 +17959,7 @@ The reference value used to compute the ULP value of an arithmetic operation is 
 <p><a href="#ulp_values_for_single_precision_builtin_math_functions_for_embedded_profile">ULP values for single precision builtin math functions for embedded profile</a> table describes the minimum accuracy of single precision floating-point arithmetic operations given as ULP values for the embedded profile.
 The reference value used to compute the ULP value of an arithmetic operation is the infinitely precise result.</p>
 </div>
-<table id="ulp_values_for_single_precision_builtin_math_functions_for_embedded_profile" class="tableblock frame-all grid-all spread">
+<table id="ulp_values_for_single_precision_builtin_math_functions_for_embedded_profile" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 36. ULP values for single precision built-in math functions for embedded profile</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -18358,7 +18372,7 @@ For derived implementations, the operations used in the derivation may themselve
 The minimum accuracy of math functions not defined in <a href="#ulp_values_for_single_precision_builtin_math_functions_with_fast_relaxed_math">ULP values for single precision built-in math functions with unsafe math optimizations</a> table when the <em>-cl-unsafe-math-optimizations</em> compiler option is specified is as defined in <a href="#ulp_values_for_single_precision_builtin_math_functions">ULP values for single precision built-in math functions</a> table when operating in the full profile, and as defined in <a href="#ulp_values_for_single_precision_builtin_math_functions_for_embedded_profile">ULP values for single precision built-in math functions for embedded profile</a> table when operating in the embedded profile.
 The reference value used to compute the ULP value of an arithmetic operation is the infinitely precise result.</p>
 </div>
-<table id="ulp_values_for_single_precision_builtin_math_functions_with_fast_relaxed_math" class="tableblock frame-all grid-all spread">
+<table id="ulp_values_for_single_precision_builtin_math_functions_with_fast_relaxed_math" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 37. ULP values for single precision built-in math functions with unsafe math optimizations in the full and embedded profiles</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -18487,8 +18501,8 @@ The reference value used to compute the ULP value of an arithmetic operation is 
 <td class="tableblock halign-left valign-top"><p class="tableblock">Undefined for x = 0 and y = 0.
   Undefined for x &lt; 0 and non-integer y.
   Undefined for x &lt; 0 and y outside the domain [-2<sup>24</sup>, 2<sup>24</sup>].
-  For x &gt; 0 or x &lt; 0 and even y, derived implementations implement this as exp2( y * log2(x) ).
-  For x &lt; 0 and odd y, derived implementations implement this as -exp2( y * log2(fabs(x) ) <a id="ftnref33"></a> <a href="#ftn33">[33]</a>.
+  For x &gt; 0 or x &lt; 0 and even y, derived implementations implement this as exp2( y * log2( fabs(x) ) ).
+  For x &lt; 0 and odd y, derived implementations implement this as -exp2( y * log2( fabs(x) ) <a id="ftnref33"></a> <a href="#ftn33">[33]</a>.
   For x == 0 and nonzero y, derived implementations return zero.
   For non-derived implementations, the error is &lt;= 8192 ULP.</p></td>
 </tr>
@@ -18496,7 +18510,7 @@ The reference value used to compute the ULP value of an arithmetic operation is 
 <td class="tableblock halign-left valign-top"><p class="tableblock">pown(x, y)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Defined only for integer values of y.
   Undefined for x = 0 and y = 0.
-  For x &gt;= 0 or x &lt; 0 and even y, derived implementations implement this as exp2( y * log2(x) ).
+  For x &gt;= 0 or x &lt; 0 and even y, derived implementations implement this as exp2( y * log2( fabs(x) ) ).
   For x &lt; 0 and odd y, derived implementations implement this as -exp2( y * log2( fabs(x) ) ).
   For non-derived implementations, the error is &lt;= 8192 ulp.</p></td>
 </tr>
@@ -18559,7 +18573,7 @@ The reference value used to compute the ULP value of an arithmetic operation is 
 <p><a href="#ulp_values_for_double_precision_builtin_math_functions">ULP values for double precision built-in math functions</a> table describes the minimum accuracy of double precision floating-point arithmetic operations given as ULP values.
 The reference value used to compute the ULP value of an arithmetic operation is the infinitely precise result.</p>
 </div>
-<table id="ulp_values_for_double_precision_builtin_math_functions" class="tableblock frame-all grid-all spread">
+<table id="ulp_values_for_double_precision_builtin_math_functions" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 38. ULP values for double precision built-in math functions</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -18858,7 +18872,7 @@ The reference value used to compute the ULP value of an arithmetic operation is 
 <p><a href="#ulp_values_for_half_precision_builtin_math_functions">ULP values for half precision built-in math functions</a> table describes the minimum accuracy of half precision floating-point arithmetic operations given as ULP values.
 The reference value used to compute the ULP value of an arithmetic operation is the infinitely precise result.</p>
 </div>
-<table id="ulp_values_for_half_precision_builtin_math_functions" class="tableblock frame-all grid-all spread">
+<table id="ulp_values_for_half_precision_builtin_math_functions" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 39. ULP values for half precision built-in math functions</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -19550,7 +19564,7 @@ For a 2D image, the image element at location (i, j) becomes the color value.</p
 <div class="paragraph">
 <p>The below table describes the <code>address_mode</code> function.</p>
 </div>
-<table id="addressing_modes_to_generate_texel_location" class="tableblock frame-all grid-all spread">
+<table id="addressing_modes_to_generate_texel_location" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 40. Addressing modes to generate texel location</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -19564,26 +19578,26 @@ For a 2D image, the image element at location (i, j) becomes the color value.</p
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p><code>clamp_to_edge</code></p>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>clamp (coord, 0, size - 1)</p>
 </div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p><code>clamp</code></p>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>clamp (coord, -1, size)</p>
 </div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p><code>none</code></p>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>Coord</p>
 </div></div></td>
 </tr>
@@ -20916,11 +20930,11 @@ If <code>x</code> is known to be <code>&gt;= 0</code>, consider using <code>powr
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 2.2-8<br>
-Last updated 2018-09-24 21:35:08 PDT
+Version v2.2-10<br>
+Last updated 2019-02-05 16:03:11 EST
 </div>
 </div>
 
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
 </body>
 </html>
