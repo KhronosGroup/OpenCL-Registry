@@ -36,7 +36,7 @@ include_once("../../assets/static_pages/khr_page_top.php");
      (<a href="specs/2.2/html/OpenCL_API.html">HTML</a>)
      (<a href="specs/2.2/pdf/OpenCL_API.pdf">PDF</a>)
      (February 5, 2019). </li>
-<li> OpenCL 2.2 Extension Specification
+<li> OpenCL Extension Specification
      (<a href="specs/2.2/html/OpenCL_Ext.html">HTML</a>)
      (<a href="specs/2.2/pdf/OpenCL_Ext.pdf">PDF</a>)
      (February 5, 2019). </li>
