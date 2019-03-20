@@ -7,6 +7,7 @@ Name Strings
     cl_arm_integer_dot_product_int8
     cl_arm_integer_dot_product_accumulate_int8
     cl_arm_integer_dot_product_accumulate_int16
+    cl_arm_integer_dot_product_accumulate_saturate_int8
 
 Contributors
 
@@ -111,3 +112,21 @@ New Procedures and Functions
         acc + [ (a.x * b.x) + (a.y * b.y) ].
 
       Operands are zero- or sign-extended to 32-bit before the multiplications.
+
+    Built-in Functions
+
+      int arm_dot_acc_sat(char4 a, char4 b, int acc);
+      uint arm_dot_acc_sat(uchar4 a, uchar4 b, uint acc);
+
+    Description
+
+      These functions are available when cl_arm_integer_dot_product_accumulate_saturate_int8
+      is reported.  The cl_arm_integer_dot_product_accumulate_saturate_int8
+      preprocessor macro is then defined.
+
+      The value returned is:
+
+        acc + [ (a.x * b.x) + (a.y * b.y) + (a.z * b.z) + (a.w * b.w) ].
+
+      Operands are zero- or sign-extended to 32-bit before the multiplications.
+      The final accumulation is saturating.
