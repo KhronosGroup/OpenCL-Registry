@@ -1,0 +1,17 @@
+# .htaccess test for OpenCL refpage aliasing
+
+Options +Indexes +FollowSymLinks
+
+# Redirect aliases of refpages
+
+RewriteEngine on
+
+# Ensure we use www.
+# RewriteCond %{HTTP_HOST} ^khronos.org
+# RewriteCond %{HTTPS} ^on
+
+# Avoid redirect loops
+RewriteCond %{ENV:REDIRECT_STATUS} 200
+RewriteRule ^ - [L]
+
+RewriteRule ^(redir|fred).xhtml$ write_pipe.xhtml [NE,L,R=301]
