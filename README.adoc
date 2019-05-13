@@ -21,11 +21,12 @@ https://github.com/KhronosGroup/OpenCL-Docs in the file
 https://github.com/KhronosGroup/OpenCL-Docs/blob/master/xml/cl.xml
 
 New enumerant ranges can be allocated by proposing a pull request to master
-branch of that repository modifying the file, following the
+branch of that repository modifying `cl.xml`, following the
 existing examples. Allocate ranges starting at the lowest free values
 available (search for "Reserved for vendor extensions"). Ranges are not
-officially allocated until your pull request is *accepted* into master. At
-that point you can use values from your assigned range for API extensions.
+officially allocated until your pull request is *accepted* into master
+branch of the OpenCL-Docs repository. At that point you can use values from
+your assigned range for API extensions.
 
 == Adding Extension Specifications
 
@@ -43,8 +44,6 @@ to master, adding the specification '.txt' file under
   'clext.php' from 'registry.py'. If this doesn't succeed due to not having
   the right Python version or something like that, we'll take care of it
   when merging to master.
-* We are no longer registering extension numbers in 'xml/cl.xml', for
-  consistency with the combined GL registry scripts.
 
 Sometimes extension text files contain inappropriate UTF-8 characters. They
 should be restricted to the ASCII subset of UTF-8 at present. They can be
@@ -64,9 +63,6 @@ Interesting files in this repository include:
 * 'index.php' - toplevel index page for the web view. This relies on PHP
   include files found elsewhere on https://www.khronos.org and so is not very useful
   in isolation.
-* 'xml/cl.xml' - enumerant and extension number registry. Documents the
-  assigned OpenCL enumerant ranges, and the names and index numbers assigned
-  to OpenCL extension specifications.
 * 'extensions/' - OpenCL extension specifications, grouped into
   vendor-specific subdirectories.
 ** 'extensions/registry.py' - extension registry.
