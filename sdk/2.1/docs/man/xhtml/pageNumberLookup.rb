@@ -45,11 +45,14 @@
 # variable in the opencl-man.xsl file.)
 
 
-# Here are the real spec filenames of the OpenCL 2.0 spec documents (see comments above):
+# Here are the real spec filenames of the OpenCL 2.1 spec documents (see comments above):
+# Note that CLan links to opencl-2.0-openclc.pdf, which is rewritten to the
+# current OpenCL C 2.2 specification - see
+# https://github.com/KhronosGroup/OpenCL-Docs/issues/87
 
 Core = "opencl-2.1.pdf"
 Ext  = "opencl-2.1-extensions.pdf"
-CLan = "opencl-2.1-openclc.pdf"
+CLan = "opencl-2.0-openclc.pdf"
 
 
 ###############################################################################
@@ -248,7 +251,7 @@ Pagenums = {
    "enqueue_marker" =>			  [CLan, 170],	   # 6.13.17.7 - Built-in Functions – Queuing other commands
    "eventFunctions" =>			  [CLan, 171],	   # 6.13.17.8 - Built-in Functions – Event Functions
    "helperFunctions" =>			  [CLan, 174],	   # 6.13.17.9 - built-in helper functions
-   "referenceWong" =>			  [CLan,   1],	   # 11 - [ References (to Wong paper) ] 
+   "referenceWong" =>			  [CLan,   1],	   # 11 - [ References (to Wong paper) ]
    "EXTENSION" =>			  [Ext, 7],	   # 9.1 - Compiler Directives for Optional Extensions
    "clGetExtensionFunctionAddressForPlatform" => [Ext, 9], # 9.2 - Getting OpenCL API Extension Function Pointers
    "cl_khr_int64_base_atomics" =>	  [Ext, 12],	   # 9.3 - 64-bit Atomics
@@ -321,7 +324,11 @@ IO.foreach(ARGV[0]) do |line|
 	 specName = Pagenums.fetch(keyword)[0]
 	 pageNum = Pagenums.fetch(keyword)[1]
 	 #puts "specName=" + specName + ", pageNum=" + pageNum.to_s
-	 puts line.sub(/namedest=[^\s]*\"/, "page=" + pageNum.to_s + '"').sub(/opencl-1.x-latest.pdf/, specName)
+
+	 # We no longer insert the page numbers, because they are not up to date - see
+	 # https://github.com/KhronosGroup/OpenCL-Docs/issues/87
+	 # puts line.sub(/namedest=[^\s]*\"/, "page=" + pageNum.to_s + '"').sub(/opencl-1.x-latest.pdf/, specName)
+	 puts line.sub(/opencl-1.x-latest.pdf/, specName)
       else
 	 abort("Spec page number for keyword \"" + keyword + "\" not found in " + $0) + '"'
       end
