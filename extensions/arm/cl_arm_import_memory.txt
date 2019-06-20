@@ -7,15 +7,18 @@ Name Strings
     cl_arm_import_memory
     cl_arm_import_memory_host
     cl_arm_import_memory_dma_buf
+    cl_arm_import_memory_protected
 
     cl_arm_import_memory will be reported if at least one of the other extension
     strings is also reported.
 
 Contributors
 
-    Robert Elliott, ARM
-    Vatsalya Prasad, ARM
-    Kévin Petit, ARM
+    Robert Elliott, Arm Ltd.
+    Vatsalya Prasad, Arm Ltd.
+    Kévin Petit, Arm Ltd.
+    Sam Laynton, Arm Ltd.
+    James Morrissey, Arm Ltd.
 
 Contact
 
@@ -65,7 +68,8 @@ Header File
 
 Glossary
 
-    No new terminology is introduced by this extension.
+    Protected memory: a zone of memory that is protected using TrustZone Media
+                      Protection.
 
 New Types
 
@@ -104,11 +108,26 @@ New Procedures and Functions
       Valid <properties> are:
 
         * CL_IMPORT_TYPE_ARM
+        * CL_IMPORT_TYPE_PROTECTED_ARM
 
       Valid values for CL_IMPORT_TYPE_ARM are:
 
         * CL_IMPORT_TYPE_HOST_ARM - this is the default
         * CL_IMPORT_TYPE_DMA_BUF_ARM
+
+      Valid values for CL_IMPORT_TYPE_PROTECTED_ARM are:
+
+        * CL_FALSE - the memory is imported with no special behaviour, this is
+                     the default.
+        * CL_TRUE - the memory is imported as protected memory.
+
+      When CL_IMPORT_TYPE_PROTECTED_ARM is set to CL_TRUE, the following
+      restrictions apply:
+
+        * CL_MEM_HOST_NO_ACCESS is the only accepted host access flag, all others
+          are rejected. If host access flags are omitted, then this is assumed.
+        * CL_IMPORT_TYPE_DMA_BUF_ARM is the only valid value for
+          CL_IMPORT_TYPE_ARM.
 
       If <properties> is NULL, default values are taken.
 
@@ -120,7 +139,8 @@ New Procedures and Functions
 
       CL_INVALID_VALUE on invalid flag input.
 
-      CL_INVALID_PROPERTY when invalid properties are passed.
+      CL_INVALID_PROPERTY when invalid properties or combination of properties
+      are passed.
 
       CL_INVALID_VALUE if memory is NULL.
 
@@ -149,6 +169,13 @@ New Procedures and Functions
              * clEnqueueCopyImage
              * clEnqueueFillBuffer
              * clEnqueueFillImage
+
+      CL_INVALID_OPERATION if a host memory flag other than CL_MEM_HOST_NO_ACCESS
+      is used when CL_IMPORT_TYPE_PROTECTED_ARM is set to CL_TRUE.
+
+      CL_INVALID_OPERATION if a command that makes use of a protected memory
+      object is enqueued to a command queue that has CL_QUEUE_PROFILING_ENABLE
+      set.
 
       Futher error information may be reported via the cl_context callback
       function.
@@ -222,6 +249,13 @@ New memory import types
 
       See also, the code example below.
 
+    Protected memory
+
+      If the extension string cl_arm_import_memory_protected is exposed then
+      using CL_IMPORT_TYPE_PROTECTED_ARM in the list of <properties> is
+      allowed. If the property's value is set to CL_TRUE, then the memory
+      is imported as protected memory.
+
 New Tokens
 
     None
@@ -291,6 +325,33 @@ Sample Code
           // Use <buffer> as you would any other cl_mem buffer
       }
 
+    CL_IMPORT_TYPE_PROTECTED_ARM
+
+      #define BUFFER_SIZE 4096
+
+      // Platform specific method of allocating protected memory and obtaining
+      // a handle. For example, from a protected dma_buf or ION region.
+      int protected_fd = protected_alloc( BUFFER_SIZE );
+
+      cl_int error = CL_SUCCESS;
+      // Import memory of type dma_buf and identify it as protected
+      const cl_import_properties_arm properties = {
+          CL_IMPORT_TYPE_ARM, CL_IMPORT_TYPE_DMA_BUF_ARM,
+          CL_IMPORT_TYPE_PROTECTED_ARM, CL_TRUE,
+          0
+      };
+      cl_mem buffer = clImportMemoryARM( context,
+                                         CL_MEM_READ_WRITE,
+                                         properties,
+                                         &protected_fd,
+                                         BUFFER_SIZE,
+                                         &error );
+
+      if( error == CL_SUCCESS )
+      {
+          // Use <buffer> as cl_mem buffer, observing the usage restrictions above.
+      }
+
 Conformance Tests
 
     None
@@ -307,3 +368,4 @@ Revision History
                                    and general cleanup / clarification.
     Revision: #6, Jan 5th, 2018  - Support creating a sub-buffer from an imported
                                    buffer.
+    Revision: #7, Jun 19th, 2018 - Add support for protected memory imports.
