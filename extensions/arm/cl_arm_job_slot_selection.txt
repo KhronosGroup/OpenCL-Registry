@@ -1,0 +1,72 @@
+Name
+
+    ARM_job_slot_selection
+
+Name Strings
+
+    cl_arm_job_slot_selection
+
+Contributors
+
+    Kevin Petit, Arm Ltd. (kevin.petit 'at' arm.com)
+
+Contacts
+
+    Kevin Petit, Arm Ltd. (kevin.petit 'at' arm.com)
+
+Status
+
+    Complete.
+
+Version
+
+    Revision: #1, May 20th, 2019
+
+Number
+
+    OpenCL Extension #58
+
+Dependencies
+
+    Requires OpenCL version 2.0 or later or cl_khr_create_command_queue.
+
+Overview
+
+    On devices that support work submission via job slots, this extension
+    provides a way of selecting the job slot that is used to submit work to the
+    device as well as a device info query to obtain a list of usable job slots.
+
+New Procedures and Functions
+
+    Device Info query
+
+      CL_DEVICE_JOB_SLOTS_ARM (return type cl_uint) returns a bitfield
+      listing the job slots that can be used to submit work to the device.
+      If bit i is set, then job slot i can be used to submit work.
+
+    Command queue property
+
+      CL_QUEUE_JOB_SLOT_ARM can be used when creating a command queue to
+      specify the job slot used to target the device.
+
+    Example
+
+      cl_uint available_job_slots;
+      cl_int err;
+      err = clGetDeviceInfo(device, CL_DEVICE_JOB_SLOTS_ARM,
+                            sizeof(cl_uint), &available_job_slots, NULL);
+
+      // Application-specific logic to select the job slot
+      cl_uint job_slot = ...
+
+      const cl_queue_properties properties[] = {
+          CL_QUEUE_JOB_SLOT_ARM, job_slot,
+      };
+
+      cl_command_queue queue;
+      queue = clCreateCommandQueueWithProperties(context, device, properties,
+                                                 &err);
+
+Revision History
+
+    Revision: #1, May  20th, 2019 - Initial revision

@@ -113,4 +113,6 @@
 </li>
 <li value=57><a href="extensions/intel/cl_intel_spirv_device_side_avc_motion_estimation.html">cl_intel_spirv_device_side_avc_motion_estimation</a>
 </li>
+<li value=58><a href="extensions/arm/cl_arm_job_slot_selection.txt">cl_arm_job_slot_selection</a>
+</li>
 </ol>
