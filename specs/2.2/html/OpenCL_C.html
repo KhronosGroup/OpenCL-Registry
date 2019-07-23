@@ -841,9 +841,9 @@ table.CodeRay td.code>pre{padding:0}
 <h1>The OpenCL<sup>&#8482;</sup> C 2.0 Specification</h1>
 <div class="details">
 <span id="author" class="author">Khronos<sup>&#174;</sup> OpenCL Working Group</span><br>
-<span id="revnumber">version v2.2-10,</span>
-<span id="revdate">Tue, 05 Feb 2019 21:19:55 +0000</span>
-<br><span id="revremark">from git branch:  commit: 00422daf5dc013f21ab633479577c7cc225150e2</span>
+<span id="revnumber">version V2.2-11,</span>
+<span id="revdate">Fri, 19 Jul 2019 14:12:56 +0000</span>
+<br><span id="revremark">from git branch: master commit: 2aaf7b58ead9567d8799b22ecc748b4892a1e04e</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -877,7 +877,7 @@ table.CodeRay td.code>pre{padding:0}
 <ul class="sectlevel3">
 <li><a href="#operators-arithmetic">6.3.1. Arithmetic Operators</a></li>
 <li><a href="#operators-unary">6.3.2. Unary Operators</a></li>
-<li><a href="#operators-prepost">6.3.3. Operators</a></li>
+<li><a href="#operators-prepost">6.3.3. Pre- and Post-Operators</a></li>
 <li><a href="#operators-relational">6.3.4. Relational Operators</a></li>
 <li><a href="#operators-equality">6.3.5. Equality Operators</a></li>
 <li><a href="#operators-bitwise">6.3.6. Bitwise Operators</a></li>
@@ -987,6 +987,7 @@ table.CodeRay td.code>pre{padding:0}
 </ul>
 </li>
 <li><a href="#references">9. Normative References</a></li>
+<li><a href="#_acknowledgements">10. Acknowledgements</a></li>
 </ul>
 </div>
 </div>
@@ -1037,183 +1038,6 @@ and/or company names are used solely for identification and belong to their
 respective owners.</p>
 </div>
 <div style="page-break-after: always;"></div>
-<div class="paragraph">
-<p><strong>Acknowledgements</strong></p>
-</div>
-<div class="paragraph">
-<p>The OpenCL specification is the result of the contributions of many people,
-representing a cross section of the desktop, hand-held, and embedded
-computer industry.
-Following is a partial list of the contributors, including the company that
-they represented at the time of their contribution:</p>
-</div>
-<div class="paragraph">
-<p>Chuck Rose, Adobe<br>
-Eric Berdahl, Adobe<br>
-Shivani Gupta, Adobe<br>
-Bill Licea Kane, AMD<br>
-Ed Buckingham, AMD<br>
-Jan Civlin, AMD<br>
-Laurent Morichetti, AMD<br>
-Mark Fowler, AMD<br>
-Marty Johnson, AMD<br>
-Michael Mantor, AMD<br>
-Norm Rubin, AMD<br>
-Ofer Rosenberg, AMD<br>
-Brian Sumner, AMD<br>
-Victor Odintsov, AMD<br>
-Aaftab Munshi, Apple<br>
-Abe Stephens, Apple<br>
-Alexandre Namaan, Apple<br>
-Anna Tikhonova, Apple<br>
-Chendi Zhang, Apple<br>
-Eric Bainville, Apple<br>
-David Hayward, Apple<br>
-Giridhar Murthy, Apple<br>
-Ian Ollmann, Apple<br>
-Inam Rahman, Apple<br>
-James Shearer, Apple<br>
-MonPing Wang, Apple<br>
-Tanya Lattner, Apple<br>
-Mikael Bourges-Sevenier, Aptina<br>
-Anton Lokhmotov, ARM<br>
-Dave Shreiner, ARM<br>
-Hedley Francis, ARM<br>
-Robert Elliott, ARM<br>
-Scott Moyers, ARM<br>
-Tom Olson, ARM<br>
-Anastasia Stulova, ARM<br>
-Christopher Thompson-Walsh, Broadcom<br>
-Holger Waechtler, Broadcom<br>
-Norman Rink, Broadcom<br>
-Andrew Richards, Codeplay<br>
-Maria Rovatsou, Codeplay<br>
-Alistair Donaldson, Codeplay<br>
-Alastair Murray, Codeplay<br>
-Stephen Frye, Electronic Arts<br>
-Eric Schenk, Electronic Arts<br>
-Daniel Laroche, Freescale<br>
-David Neto, Google<br>
-Robin Grosman, Huawei<br>
-Craig Davies, Huawei<br>
-Brian Horton, IBM<br>
-Brian Watt, IBM<br>
-Gordon Fossum, IBM<br>
-Greg Bellows, IBM<br>
-Joaquin Madruga, IBM<br>
-Mark Nutter, IBM<br>
-Mike Perks, IBM<br>
-Sean Wagner, IBM<br>
-Jon Parr, Imagination Technologies<br>
-Robert Quill, Imagination Technologies<br>
-James McCarthy, Imagination Technologie<br>
-Jon Leech, Independent<br>
-Aaron Kunze, Intel<br>
-Aaron Lefohn, Intel<br>
-Adam Lake, Intel<br>
-Alexey Bader, Intel<br>
-Allen Hux, Intel<br>
-Andrew Brownsword, Intel<br>
-Andrew Lauritzen, Intel<br>
-Bartosz Sochacki, Intel<br>
-Ben Ashbaugh, Intel<br>
-Brian Lewis, Intel<br>
-Geoff Berry, Intel<br>
-Hong Jiang, Intel<br>
-Jayanth Rao, Intel<br>
-Josh Fryman, Intel<br>
-Larry Seiler, Intel<br>
-Mike MacPherson, Intel<br>
-Murali Sundaresan, Intel<br>
-Paul Lalonde, Intel<br>
-Raun Krisch, Intel<br>
-Stephen Junkins, Intel<br>
-Tim Foley, Intel<br>
-Timothy Mattson, Intel<br>
-Yariv Aridor, Intel<br>
-Michael Kinsner, Intel<br>
-Kevin Stevens, Intel<br>
-Benjamin Bergen, Los Alamos National Laboratory<br>
-Roy Ju, Mediatek<br>
-Bor-Sung Liang, Mediatek<br>
-Rahul Agarwal, Mediatek<br>
-Michal Witaszek, Mobica<br>
-JenqKuen Lee, NTHU<br>
-Amit Rao, NVIDIA<br>
-Ashish Srivastava, NVIDIA<br>
-Bastiaan Aarts, NVIDIA<br>
-Chris Cameron, NVIDIA<br>
-Christopher Lamb, NVIDIA<br>
-Dibyapran Sanyal, NVIDIA<br>
-Guatam Chakrabarti, NVIDIA<br>
-Ian Buck, NVIDIA<br>
-Jaydeep Marathe, NVIDIA<br>
-Jian-Zhong Wang, NVIDIA<br>
-Karthik Raghavan Ravi, NVIDIA<br>
-Kedar Patil, NVIDIA<br>
-Manjunath Kudlur, NVIDIA<br>
-Mark Harris, NVIDIA<br>
-Michael Gold, NVIDIA<br>
-Neil Trevett, NVIDIA<br>
-Richard Johnson, NVIDIA<br>
-Sean Lee, NVIDIA<br>
-Tushar Kashalikar, NVIDIA<br>
-Vinod Grover, NVIDIA<br>
-Xiangyun Kong, NVIDIA<br>
-Yogesh Kini, NVIDIA<br>
-Yuan Lin, NVIDIA<br>
-Mayuresh Pise, NVIDIA<br>
-Allan Tzeng, QUALCOMM<br>
-Alex Bourd, QUALCOMM<br>
-Anirudh Acharya, QUALCOMM<br>
-Andrew Gruber, QUALCOMM<br>
-Andrzej Mamona, QUALCOMM<br>
-Benedict Gaster, QUALCOMM<br>
-Bill Torzewski, QUALCOMM<br>
-Bob Rychlik, QUALCOMM<br>
-Chihong Zhang, QUALCOMM<br>
-Chris Mei, QUALCOMM<br>
-Colin Sharp, QUALCOMM<br>
-David Garcia, QUALCOMM<br>
-David Ligon, QUALCOMM<br>
-Jay Yun, QUALCOMM<br>
-Lee Howes, QUALCOMM<br>
-Richard Ruigrok, QUALCOMM<br>
-Robert J. Simpson, QUALCOMM<br>
-Sumesh Udayakumaran, QUALCOMM<br>
-Vineet Goel, QUALCOMM<br>
-Lihan Bin, QUALCOMM<br>
-Vlad Shimanskiy, QUALCOMM<br>
-Jian Liu, QUALCOMM<br>
-Tasneem Brutch, Samsung<br>
-Yoonseo Choi, Samsung<br>
-Dennis Adams, Sony<br>
-Pr-Anders Aronsson, Sony<br>
-Jim Rasmusson, Sony<br>
-Thierry Lepley, STMicroelectronics<br>
-Anton Gorenko, StreamHPC<br>
-Jakub Szuppe, StreamHPC<br>
-Vincent Hindriksen, StreamHPC<br>
-Alan Ward, Texas Instruments<br>
-Yuan Zhao, Texas Instruments<br>
-Pete Curry, Texas Instruments<br>
-Simon McIntosh-Smith, University of Bristol<br>
-James Price, University of Bristol<br>
-Paul Preney, University of Windsor<br>
-Shane Peelar, University of Windsor<br>
-Brian Hutsell, Vivante<br>
-Mike Cai, Vivante<br>
-Sumeet Kumar, Vivante<br>
-Wei-Lun Kao, Vivante<br>
-Xing Wang, Vivante<br>
-Jeff Fifield, Xilinx<br>
-Hem C. Neema, Xilinx<br>
-Henry Styles, Xilinx<br>
-Ralph Wittig, Xilinx<br>
-Ronan Keryell, Xilinx<br>
-AJ Guillon, YetiWare Inc<br></p>
-</div>
-<div style="page-break-after: always;"></div>
 </div>
 </div>
 <div class="sect1">
@@ -1260,6 +1084,8 @@ Such features are described by reference to that Specification.</p>
 </div>
 <div class="sect3">
 <h4 id="built-in-scalar-data-types">6.1.1. Built-in Scalar Data Types</h4>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The following table describes the list of built-in scalar data types.</p>
 </div>
@@ -1459,8 +1285,12 @@ application:</p>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
 <div class="sect4">
-<h5 id="the-half-data-type">The <code>half</code> data type</h5>
+<h5 id="the-half-data-type">The <code>half</code> Data Type</h5>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The <code>half</code> data type must be IEEE 754-2008 compliant.
 <code>half</code> numbers have 1 sign bit, 5 exponent bits, and 10 mantissa bits.
@@ -1525,8 +1355,12 @@ write the <code>half</code> scalar or vector value to memory.</p>
 </div>
 </div>
 </div>
+</div>
+</div>
 <div class="sect3">
 <h4 id="built-in-vector-data-types">6.1.2. Built-in Vector Data Types<sup>4</sup></h4>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The <code>char</code>, <code>unsigned char</code>, <code>short</code>, <code>unsigned short</code>, <code>int</code>, <code>unsigned
 int</code>, <code>long</code>, <code>unsigned long</code>, and <code>float</code> vector data types are supported.
@@ -1665,8 +1499,12 @@ application:</p>
 </tbody>
 </table>
 </div>
+</div>
+</div>
 <div class="sect3">
 <h4 id="other-built-in-data-types">6.1.3. Other Built-in Data Types</h4>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The following table describes the list of additional data types supported by
 OpenCL.</p>
@@ -1811,8 +1649,12 @@ available to the application:</p>
 </tbody>
 </table>
 </div>
+</div>
+</div>
 <div class="sect3">
 <h4 id="reserved-data-types">6.1.4. Reserved Data Types</h4>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The data type names described in the following table are reserved and cannot
 be used by applications as type names.
@@ -1885,7 +1727,7 @@ where <em>n</em> is any value other than 2, 3, 4, 8 and 16, are also reserved.</
       stored in column-major order.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>long double</code> <code>long double<em>n</em></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>long double</code>, <code>long double<em>n</em></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A floating-point scalar and vector type with at least as much
       precision and range as a <code>double</code> and no more precision and range than
       a quad.</p></td>
@@ -1903,8 +1745,12 @@ where <em>n</em> is any value other than 2, 3, 4, 8 and 16, are also reserved.</
 </tbody>
 </table>
 </div>
+</div>
+</div>
 <div class="sect3">
 <h4 id="alignment-of-types">6.1.5. Alignment of Types</h4>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>A data item declared to be a data type in memory is always aligned to the
 size of the data type in bytes.
@@ -1939,6 +1785,8 @@ The vector load functions can read a vector from an address aligned to the
 element type of the vector.
 The vector store functions can write a vector to an address aligned to the
 element type of the vector.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect3">
@@ -2705,6 +2553,8 @@ u.d = <span class="float">1</span><span class="float">.0</span>;  <span class="c
 </div>
 <div class="sect4">
 <h5 id="reinterpreting-types-using-as_type-and-as_typen">Reinterpreting Types Using <strong>as_type</strong>() and <strong>as_type<em>n</em></strong>()</h5>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>All data types described in <a href="#table-builtin-scalar-types">Built-in Scalar Data Types</a> and
 <a href="#table-builtin-vector-types">Built-in Vector Data Types</a> (except <code>bool</code>, <code>half</code><sup>12</sup> and <code>void</code>) may be
@@ -2799,6 +2649,8 @@ double4 g = as_double4(f); <span class="comment">// Only if double precision is 
 float4 f;
 <span class="comment">// Legal. g.xyz will have same values as f.xyz. g.w is undefined</span>
 float3 g = as_float3(f);</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -2913,6 +2765,8 @@ be illegal.</p>
 <h3 id="operators">6.3. Operators</h3>
 <div class="sect3">
 <h4 id="operators-arithmetic">6.3.1. Arithmetic Operators</h4>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The arithmetic operators add (<strong>+</strong>), subtract (<strong>-</strong>), multiply (<strong>*</strong>) and
 divide (<strong>/</strong>) operate on built-in integer and floating-point scalar, and
@@ -2957,15 +2811,23 @@ Use the built-in functions <strong>dot</strong> and <strong>cross</strong> to ge
 vector dot product and the vector cross product.</p>
 </div>
 </div>
+</div>
+</div>
 <div class="sect3">
 <h4 id="operators-unary">6.3.2. Unary Operators</h4>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The arithmetic unary operators (<strong>+</strong> and <strong>-</strong>) operate on built-in scalar and
 vector types.</p>
 </div>
 </div>
+</div>
+</div>
 <div class="sect3">
-<h4 id="operators-prepost">6.3.3. Operators</h4>
+<h4 id="operators-prepost">6.3.3. Pre- and Post-Operators</h4>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The arithmetic post- and pre-increment and decrement operators (<strong>--</strong> and
 <strong>++</strong>) operate on built-in scalar and vector types except the built-in scalar
@@ -2994,8 +2856,12 @@ In non-default rounding modes, <code>(<em>a</em>++)--</code> may produce the sam
 <code><em>a</em>++</code> or <code><em>a</em>--</code> for large <em>a</em>.</p>
 </div>
 </div>
+</div>
+</div>
 <div class="sect3">
 <h4 id="operators-relational">6.3.4. Relational Operators</h4>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The relational operators<sup>16</sup> greater than (<strong>&gt;</strong>), less than (<strong>&lt;</strong>), greater
 than or equal (<strong>&gt;=</strong>), and less than or equal (<strong>&lt;=</strong>) operate on scalar and
@@ -3051,8 +2917,12 @@ The relational operators always return 0 if either argument is not a number
 (NaN).</p>
 </div>
 </div>
+</div>
+</div>
 <div class="sect3">
 <h4 id="operators-equality">6.3.5. Equality Operators</h4>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The equality operators<sup>17</sup> equal (<strong>==</strong>) and not equal (<strong>!=</strong>) operate on
 built-in scalar and vector types.
@@ -3112,8 +2982,12 @@ operands) or -1 (for vector source operands) if one or both arguments are
 not a number (NaN).</p>
 </div>
 </div>
+</div>
+</div>
 <div class="sect3">
 <h4 id="operators-bitwise">6.3.6. Bitwise Operators</h4>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The bitwise operators and (<strong>&amp;</strong>), or (<strong>|</strong>), exclusive or (<strong>^</strong>), and not
 (<strong>~</strong>) operate on all scalar and vector built-in types except the built-in
@@ -3127,8 +3001,12 @@ components as the vector operand.
 The operation is done component-wise resulting in the same size vector.</p>
 </div>
 </div>
+</div>
+</div>
 <div class="sect3">
 <h4 id="operators-logical">6.3.7. Logical Operators</h4>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The logical operators and (<strong>&amp;&amp;</strong>) and or (<strong>||</strong>) operate on all scalar and
 vector built-in types.
@@ -3166,8 +3044,12 @@ For vector types, the logical operators shall return 0 if the result of the
 operation is <em>false</em> and -1 (i.e. all bits set) if the result is <em>true</em>.</p>
 </div>
 </div>
+</div>
+</div>
 <div class="sect3">
 <h4 id="operators-logical-unary">6.3.8. Unary Logical Operator</h4>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The logical unary operator not (<strong>!</strong>) operates on all scalar and vector
 built-in types.
@@ -3193,8 +3075,12 @@ operand compares unequal to 0, and -1 (i.e. all bits set) if the value of
 its operand compares equal to 0.</p>
 </div>
 </div>
+</div>
+</div>
 <div class="sect3">
 <h4 id="operators-ternary-selection">6.3.9. Ternary Selection Operator</h4>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The ternary selection operator (<strong>?:</strong>) operates on three expressions (<em>exp1</em>
 <strong>?</strong> <em>exp2</em> <strong>:</strong> <em>exp3</em>).
@@ -3214,8 +3100,12 @@ widened to the same type as the vector type.
 This resulting matching type is the type of the entire expression.</p>
 </div>
 </div>
+</div>
+</div>
 <div class="sect3">
 <h4 id="operators-shift">6.3.10. Shift Operators</h4>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The operators right-shift (<strong>&gt;&gt;</strong>), left-shift (<strong>&lt;&lt;</strong>) operate on all scalar
 and vector built-in types except the built-in scalar and vector <code>float</code>
@@ -3249,8 +3139,12 @@ If <code>E1</code> has a signed type and a negative value, the vacated bits are 
 with ones.</p>
 </div>
 </div>
+</div>
+</div>
 <div class="sect3">
 <h4 id="operators-sizeof">6.3.11. Sizeof Operator</h4>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The <code>sizeof</code> operator yields the size (in bytes) of its operand, including
 any <a href="#alignment-of-types">padding bytes needed for alignment</a>, which may be
@@ -3299,16 +3193,24 @@ OpenCL C</a>.</p>
 <code>clk_event_t</code>, <code>queue_t</code> and <code>event_t</code> types is implementation-defined.</p>
 </div>
 </div>
+</div>
+</div>
 <div class="sect3">
 <h4 id="operators-comma">6.3.12. Comma Operator</h4>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The comma (<strong>,</strong>) operator operates on expressions by returning the type and
 value of the right-most expression in a comma separated list of expressions.
 All expressions are evaluated, in order, from left to right.</p>
 </div>
 </div>
+</div>
+</div>
 <div class="sect3">
 <h4 id="operators-indirection">6.3.13. Indirection Operator</h4>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The unary (<strong>*</strong>) operator denotes indirection.
 If the operand points to an object, the result is an l-value designating the
@@ -3327,8 +3229,12 @@ If <strong>P</strong> is an l-value and <strong>T</strong> is the name of an obj
 is an l-value that has a type compatible with that to which <strong>T</strong> points.</p>
 </div>
 </div>
+</div>
+</div>
 <div class="sect3">
 <h4 id="operators-address">6.3.14. Address Operator</h4>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The unary (<strong>&amp;</strong>) operator returns the address of its operand.
 If the operand has type &#8220;<em>type</em>&#8221;, the result has type &#8220;pointer to
@@ -3351,8 +3257,12 @@ It is always true that if <strong>E</strong> is an l-value that is a valid opera
 unary <strong>&amp;</strong> operator, <strong>&amp;E</strong> is an l-value equal to <strong>E</strong>.</p>
 </div>
 </div>
+</div>
+</div>
 <div class="sect3">
 <h4 id="operators-assignment">6.3.15. Assignment Operator</h4>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>Assignments of values to variable names are done with the assignment
 operator (<strong>=</strong>), like</p>
@@ -3443,6 +3353,8 @@ any of the operators described in this section.</p>
 </div>
 </div>
 </div>
+</div>
+</div>
 <div class="sect2">
 <h3 id="vector-operations">6.4. Vector Operations</h3>
 <div class="paragraph">
@@ -3500,6 +3412,8 @@ types.</p>
 </div>
 <div class="sect2">
 <h3 id="address-space-qualifiers">6.5. Address Space Qualifiers</h3>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>OpenCL implements the following disjoint named address spaces: <code>__global</code>,
 <code>__local</code>, <code>__constant</code> and <code>__private</code>.
@@ -3599,8 +3513,12 @@ always equals <code>sizeof(__local int *)</code>.</p>
 </tr>
 </table>
 </div>
+</div>
+</div>
 <div class="sect3">
 <h4 id="global-or-global">6.5.1. <code>__global</code> (or <code>global</code>)</h4>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The <code>__global</code> or <code>global</code> address space name is used to refer to memory
 objects (buffer or image objects) allocated from the <code>global</code> memory pool.</p>
@@ -3702,8 +3620,12 @@ global <span class="predefined-type">int</span> *bad_ptr; <span class="comment">
 specify a read-only buffer memory object.</p>
 </div>
 </div>
+</div>
+</div>
 <div class="sect3">
 <h4 id="local-or-local">6.5.2. <code>__local</code> (or <code>local</code>)</h4>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The <code>__local</code> or <code>local</code> address space name is used to describe variables
 that need to be allocated in local memory and are shared by all work-items
@@ -3768,8 +3690,12 @@ only for the lifetime of the work-group executing the kernel.</p>
 </table>
 </div>
 </div>
+</div>
+</div>
 <div class="sect3">
 <h4 id="constant-or-constant">6.5.3. <code>__constant</code> (or <code>constant</code>)</h4>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The <code>__constant</code> or <code>constant</code> address space name is used to describe
 variables allocated in <code>global</code> memory and which are accessed inside a
@@ -3819,8 +3745,12 @@ inside a function or in program scope allocated in the <code>__constant</code>
 address space counts as a separate constant argument.</p>
 </div>
 </div>
+</div>
+</div>
 <div class="sect3">
 <h4 id="private-or-private">6.5.4. <code>__private</code> (or <code>private</code>)</h4>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>Variables inside a kernel function not declared with an address space
 qualifier, all variables inside non-kernel functions, and all function
@@ -3829,8 +3759,12 @@ arguments are in the <code>__private</code> or <code>private</code> address spac
 <code>__private</code> address space if an address space qualifier is not specified</strong>.</p>
 </div>
 </div>
+</div>
+</div>
 <div class="sect3">
 <h4 id="the-generic-address-space">6.5.5. The generic address space</h4>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The following rules apply when using pointers that point to the generic
 address space:</p>
@@ -3943,6 +3877,8 @@ p = pp; <span class="comment">// legal</span>
 gp = p; <span class="comment">// compile-time error</span>
 lp = p; <span class="comment">// compile-time error</span>
 pp = p; <span class="comment">// compile-time error</span></code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -4299,6 +4235,8 @@ spaces.</p>
 </div>
 <div class="sect2">
 <h3 id="access-qualifiers">6.6. Access Qualifiers</h3>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>Image objects specified as arguments to a kernel can be declared to be
 read-only, write-only or read-write.
@@ -4348,10 +4286,14 @@ can be used with pipes</a>.</p>
 qualifiers and shall not be used otherwise.</p>
 </div>
 </div>
+</div>
+</div>
 <div class="sect2">
 <h3 id="function-qualifiers">6.7. Function Qualifiers</h3>
 <div class="sect3">
 <h4 id="kernel-or-kernel">6.7.1. <code>__kernel</code> (or <code>kernel</code>)</h4>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The <code>__kernel</code> (or <code>kernel</code>) qualifier declares a function to be a kernel
 that can be executed by an application on an OpenCL device(s).
@@ -4393,8 +4335,12 @@ APIs such as <strong>clEnqueueNDRangeKernel</strong>.</p>
 qualifiers and shall not be used otherwise.</p>
 </div>
 </div>
+</div>
+</div>
 <div class="sect3">
 <h4 id="optional-attribute-qualifiers">6.7.2. Optional Attribute Qualifiers</h4>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The <code>__kernel</code> qualifier can be used with the keyword <em>attribute</em> to
 declare additional information about the kernel function as described below.</p>
@@ -4526,8 +4472,12 @@ virtual memory region.</p>
 </div>
 </div>
 </div>
+</div>
+</div>
 <div class="sect2">
 <h3 id="storage-class-specifiers">6.8. Storage-Class Specifiers</h3>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The <code>typedef</code>, <code>extern</code> and <code>static</code> storage-class specifiers are supported.
 The <code>auto</code> and <code>register</code> storage-class specifiers are not supported.</p>
@@ -4572,8 +4522,12 @@ kernel <span class="directive">void</span> my_func(image2d_t img, global <span c
 </div>
 </div>
 </div>
+</div>
+</div>
 <div class="sect2">
 <h3 id="restrictions">6.9. Restrictions</h3>
+<div class="openblock">
+<div class="content">
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -4625,8 +4579,6 @@ a function argument.
 An image function argument cannot be modified.
 Elements of an image can only be accessed using the built-in
 <a href="#image-read-and-write-functions">image read and write functions</a>.</p>
-<div class="openblock">
-<div class="content">
 <div class="paragraph">
 <p>An image type cannot be used to declare a variable, a structure or union
 field, an array of images, a pointer to an image, or the return type of a
@@ -4651,8 +4603,6 @@ A sampler argument or variable cannot be modified.</p>
 array of samplers, a pointer to a sampler, or the return type of a function.
 The sampler type cannot be used with the <code>__local</code> and <code>__global</code>
 address space qualifiers.</p>
-</div>
-</div>
 </div>
 </li>
 <li>
@@ -4724,8 +4674,9 @@ the following restriction:</span></p>
 elements of a struct that are of type <code>char</code>, <code>uchar</code>, <code>char2</code>,
 <code>uchar2</code>, <code>short</code> and <code>ushort</code> are not supported.
 Refer to <em>section 9.9</em> for additional information.</span></p>
-<div class="openblock">
-<div class="content">
+</li>
+</ul>
+</div>
 <div class="paragraph">
 <p><span class="line-through">The kernel example below shows what memory operations are not
 supported on built-in types less than 32-bits in size.</span></p>
@@ -4746,11 +4697,6 @@ do_proc (__global <span class="predefined-type">char</span> *pA, <span class="pr
     pB[id] = b; <span class="comment">// error. pB cannot be written</span>
 }</code></pre>
 </div>
-</div>
-</div>
-</div>
-</li>
-</ul>
 </div>
 </li>
 <li>
@@ -4796,8 +4742,12 @@ are a pointer to a type declared to point to a named address space.</p>
 <p>[25] Unless the <strong>cl_khr_fp16</strong> extension is supported and has been enabled.</p>
 </div>
 </div>
+</div>
+</div>
 <div class="sect2">
 <h3 id="preprocessor-directives-and-macros">6.10. Preprocessor Directives and Macros</h3>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The preprocessing directives defined by the C99 specification are supported.</p>
 </div>
@@ -4936,6 +4886,8 @@ by OpenCL are reserved for future use.</p>
 <p>The predefined identifier <code>__func__</code> is available.</p>
 </div>
 </div>
+</div>
+</div>
 <div class="sect2">
 <h3 id="attribute-qualifiers">6.11. Attribute Qualifiers</h3>
 <div class="paragraph">
@@ -5018,6 +4970,8 @@ in <em>section 11</em> - <strong>References</strong>] for the details.</p>
 </div>
 <div class="sect3">
 <h4 id="specifying-attributes-of-types">6.11.1. Specifying Attributes of Types</h4>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The keyword <code>__attribute__</code> allows you to specify special attributes of
 enum, struct and union types when you define such types.
@@ -5042,68 +4996,76 @@ The former syntax is preferred.</p>
 <p>This attribute specifies a minimum alignment (in bytes) for variables of the
 specified type.
 For example, the declarations:</p>
-<div class="openblock">
-<div class="content">
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="c"><span class="keyword">struct</span> S { <span class="predefined-type">short</span> f[<span class="integer">3</span>]; } __attribute__ ((aligned (<span class="integer">8</span>)));
 <span class="keyword">typedef</span> <span class="predefined-type">int</span> more_aligned_int __attribute__ ((aligned (<span class="integer">8</span>)));</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>force the compiler to insure (as far as it can) that each variable whose
-type is <code>struct S</code> or <code>more_aligned_int</code> will be allocated and aligned <em>at
-least</em> on a 8-byte boundary.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">force the compiler to insure (as far as it can) that each variable whose
+type is <span class="error">`</span><span class="keyword">struct</span> S<span class="error">`</span> or <span class="error">`</span>more_aligned_int<span class="error">`</span> will be allocated and aligned _at
+least_ on a <span class="integer">8</span>-byte boundary.</code></pre>
 </div>
-<div class="paragraph">
-<p>Note that the alignment of any given struct or union type is required by the
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">Note that the alignment of any given <span class="keyword">struct</span> or <span class="keyword">union</span> type is required by the
 ISO C standard to be at least a perfect multiple of the lowest common
-multiple of the alignments of all of the members of the struct or union in
+multiple of the alignments of all of the members of the <span class="keyword">struct</span> or <span class="keyword">union</span> in
 question and must also be a power of two.
-This means that you <em>can</em> effectively adjust the alignment of a struct or
-union type by attaching an aligned attribute to any one of the members of
+This means that you _can_ effectively adjust the alignment of a <span class="keyword">struct</span> or
+<span class="keyword">union</span> type by attaching an aligned attribute to any one of the members of
 such a type, but the notation illustrated in the example above is a more
 obvious, intuitive, and readable way to request the compiler to adjust the
-alignment of an entire struct or union type.</p>
+alignment of an entire <span class="keyword">struct</span> or <span class="keyword">union</span> type.</code></pre>
 </div>
-<div class="paragraph">
-<p>As in the preceding example, you can explicitly specify the alignment (in
-bytes) that you wish the compiler to use for a given struct or union type.
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">As in the preceding example, you can explicitly specify the alignment (in
+bytes) that you wish the compiler to use <span class="keyword">for</span> a given <span class="keyword">struct</span> or <span class="keyword">union</span> type.
 Alternatively, you can leave out the alignment factor and just ask the
-compiler to align a type to the maximum useful alignment for the target
-machine you are compiling for.
-For example, you could write:</p>
+compiler to align a type to the maximum useful alignment <span class="keyword">for</span> the target
+machine you are compiling <span class="keyword">for</span>.
+For example, you could write:</code></pre>
+</div>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="c"><span class="keyword">struct</span> S { <span class="predefined-type">short</span> f[<span class="integer">3</span>]; } __attribute__ ((aligned));</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>Whenever you leave out the alignment factor in an aligned attribute
-specification, the compiler automatically sets the alignment for the type to
-the largest alignment which is ever used for any data type on the target
-machine you are compiling for.
-In the example above, the size of each <code>short</code> is 2 bytes, and therefore the
-size of the entire <code>struct S</code> type is 6 bytes.
-The smallest power of two which is greater than or equal to that is 8, so
-the compiler sets the alignment for the entire <code>struct S</code> type to 8 bytes.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">Whenever you leave out the alignment factor in an aligned attribute
+specification, the compiler automatically sets the alignment <span class="keyword">for</span> the type to
+the largest alignment which is ever used <span class="keyword">for</span> any data type on the target
+machine you are compiling <span class="keyword">for</span>.
+In the example above, the size of each <span class="error">`</span><span class="predefined-type">short</span><span class="error">`</span> is <span class="integer">2</span> bytes, and therefore the
+size of the entire <span class="error">`</span><span class="keyword">struct</span> S<span class="error">`</span> type is <span class="integer">6</span> bytes.
+The smallest power of two which is greater than or equal to that is <span class="integer">8</span>, so
+the compiler sets the alignment <span class="keyword">for</span> the entire <span class="error">`</span><span class="keyword">struct</span> S<span class="error">`</span> type to <span class="integer">8</span> bytes.</code></pre>
 </div>
-<div class="paragraph">
-<p>Note that the effectiveness of aligned attributes may be limited by inherent
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">Note that the effectiveness of aligned attributes may be limited by inherent
 limitations of the OpenCL device and compiler.
-For some devices, the OpenCL compiler may only be able to arrange for
+For some devices, the OpenCL compiler may only be able to arrange <span class="keyword">for</span>
 variables to be aligned up to a certain maximum alignment.
-If the OpenCL compiler is only able to align variables up to a maximum of 8
-byte alignment, then specifying <code>aligned(16)</code> in an <code>__attribute__</code> will
-still only provide you with 8 byte alignment.
-See your platform-specific documentation for further information.</p>
+If the OpenCL compiler is only able to align variables up to a maximum of <span class="integer">8</span>
+byte alignment, then specifying <span class="error">`</span>aligned(<span class="integer">16</span>)<span class="error">`</span> in an <span class="error">`</span>+__attribute__+<span class="error">`</span> will
+still only provide you with <span class="integer">8</span> byte alignment.
+See your platform-specific documentation <span class="keyword">for</span> further information.</code></pre>
 </div>
-<div class="paragraph">
-<p>The aligned attribute can only increase the alignment; but you can decrease
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">The aligned attribute can only increase the alignment; but you can decrease
 it by specifying packed as well.
-See below.</p>
-</div>
+See below.</code></pre>
 </div>
 </div>
 </dd>
@@ -5114,8 +5076,6 @@ each member of the structure or union is placed to minimize the memory
 required.
 When attached to an enum definition, it indicates that the smallest integral
 type should be used.</p>
-<div class="openblock">
-<div class="content">
 <div class="paragraph">
 <p>Specifying this attribute for struct and union types is equivalent to
 specifying the packed attribute on each of the structure or union members.</p>
@@ -5141,15 +5101,17 @@ To do that, struct <code>my_unpacked_struct</code> would need to be packed, too.
 };</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>You may only specify this attribute on the definition of a enum, struct or
-union, not on a <code>typedef</code> which does not also define the enumerated type,
-structure or union.</p>
-</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">You may only specify this attribute on the definition of a <span class="keyword">enum</span>, <span class="keyword">struct</span> or
+<span class="keyword">union</span>, not on a <span class="error">`</span><span class="keyword">typedef</span><span class="error">`</span> which does not also define the enumerated type,
+structure or <span class="keyword">union</span>.</code></pre>
 </div>
 </div>
 </dd>
 </dl>
+</div>
+</div>
 </div>
 </div>
 <div class="sect3">
@@ -5161,6 +5123,8 @@ qualifiers currently supported.</p>
 </div>
 <div class="sect3">
 <h4 id="specifying-attributes-of-variables">6.11.3. Specifying Attributes of Variables</h4>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The keyword <code>__attribute__</code> allows you to specify special attributes of
 variables or structure fields.
@@ -5175,69 +5139,79 @@ The following attribute qualifiers are currently defined:</p>
 <p>This attribute specifies a minimum alignment for the variable or structure
 field, measured in bytes.
 For example, the declaration:</p>
-<div class="openblock">
-<div class="content">
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="c"><span class="predefined-type">int</span> x __attribute__ ((aligned (<span class="integer">16</span>))) = <span class="integer">0</span>;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>causes the compiler to allocate the global variable <code>x</code> on a 16-byte
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">causes the compiler to allocate the global variable <span class="error">`</span>x<span class="error">`</span> on a <span class="integer">16</span>-byte
 boundary.
-The alignment value specified must be a power of two.</p>
+The alignment value specified must be a power of two.</code></pre>
 </div>
-<div class="paragraph">
-<p>You can also specify the alignment of structure fields.
-For example, to create a double-word aligned <code>int</code> pair, you could write:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">You can also specify the alignment of structure fields.
+For example, to create a <span class="predefined-type">double</span>-word aligned <span class="error">`</span><span class="predefined-type">int</span><span class="error">`</span> pair, you could write:</code></pre>
+</div>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="c"><span class="keyword">struct</span> foo { <span class="predefined-type">int</span> x[<span class="integer">2</span>] __attribute__ ((aligned (<span class="integer">8</span>))); };</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>This is an alternative to creating a union with a <code>double</code> member that
-forces the union to be double-word aligned.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">This is an alternative to creating a <span class="keyword">union</span> with a <span class="error">`</span><span class="predefined-type">double</span><span class="error">`</span> member that
+forces the <span class="keyword">union</span> to be <span class="predefined-type">double</span>-word aligned.</code></pre>
 </div>
-<div class="paragraph">
-<p>As in the preceding examples, you can explicitly specify the alignment (in
-bytes) that you wish the compiler to use for a given variable or structure
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">As in the preceding examples, you can explicitly specify the alignment (in
+bytes) that you wish the compiler to use <span class="keyword">for</span> a given variable or structure
 field.
 Alternatively, you can leave out the alignment factor and just ask the
-compiler to align a variable or field to the maximum useful alignment for
-the target machine you are compiling for.
-For example, you could write:</p>
+compiler to align a variable or field to the maximum useful alignment <span class="keyword">for</span>
+the target machine you are compiling <span class="keyword">for</span>.
+For example, you could write:</code></pre>
+</div>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="c"><span class="predefined-type">short</span> array[<span class="integer">3</span>] __attribute__ ((aligned));</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>Whenever you leave out the alignment factor in an aligned attribute
-specification, the OpenCL compiler automatically sets the alignment for the
-declared variable or field to the largest alignment which is ever used for
-any data type on the target device you are compiling for.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">Whenever you leave out the alignment factor in an aligned attribute
+specification, the OpenCL compiler automatically sets the alignment <span class="keyword">for</span> the
+declared variable or field to the largest alignment which is ever used <span class="keyword">for</span>
+any data type on the target device you are compiling <span class="keyword">for</span>.</code></pre>
 </div>
-<div class="paragraph">
-<p>When used on a struct, or struct member, the aligned attribute can only
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">When used on a <span class="keyword">struct</span>, or <span class="keyword">struct</span> member, the aligned attribute can only
 increase the alignment; in order to decrease it, the packed attribute must
 be specified as well.
-When used as part of a <code>typedef</code>, the aligned attribute can both increase
+When used as part of a <span class="error">`</span><span class="keyword">typedef</span><span class="error">`</span>, the aligned attribute can both increase
 and decrease alignment, and specifying the packed attribute will generate a
-warning.</p>
+warning.</code></pre>
 </div>
-<div class="paragraph">
-<p>Note that the effectiveness of aligned attributes may be limited by inherent
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">Note that the effectiveness of aligned attributes may be limited by inherent
 limitations of the OpenCL device and compiler.
-For some devices, the OpenCL compiler may only be able to arrange for
+For some devices, the OpenCL compiler may only be able to arrange <span class="keyword">for</span>
 variables to be aligned up to a certain maximum alignment.
-If the OpenCL compiler is only able to align variables up to a maximum of 8
-byte alignment, then specifying <code>aligned(16)</code> in an <code>__attribute__</code> will
-still only provide you with 8 byte alignment.
-See your platform-specific documentation for further information.</p>
-</div>
+If the OpenCL compiler is only able to align variables up to a maximum of <span class="integer">8</span>
+byte alignment, then specifying <span class="error">`</span>aligned(<span class="integer">16</span>)<span class="error">`</span> in an <span class="error">`</span>+__attribute__+<span class="error">`</span> will
+still only provide you with <span class="integer">8</span> byte alignment.
+See your platform-specific documentation <span class="keyword">for</span> further information.</code></pre>
 </div>
 </div>
 </dd>
@@ -5246,8 +5220,6 @@ See your platform-specific documentation for further information.</p>
 <p>The packed attribute specifies that a variable or structure field should
 have the smallest possible alignment&#8201;&#8212;&#8201;one byte for a variable, unless you
 specify a larger value with the aligned attribute.</p>
-<div class="openblock">
-<div class="content">
 <div class="paragraph">
 <p>Here is a structure in which the field <code>x</code> is packed, so that it immediately
 follows a:</p>
@@ -5261,13 +5233,17 @@ follows a:</p>
 };</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>An attribute list placed at the beginning of a user-defined type applies to
-the variable of that type and not the type, while attributes following the
-type body apply to the type.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">An attribute list placed at the beginning of a user-defined type applies to
+the variable of that type and not the type, <span class="keyword">while</span> attributes following the
+type body apply to the type.</code></pre>
 </div>
-<div class="paragraph">
-<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">For example:</code></pre>
+</div>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -5283,8 +5259,6 @@ __attribute__((aligned(<span class="integer">32</span>))) b ;
 <span class="keyword">struct</span> B b1; <span class="comment">/* b1 has alignment of 32 */</span></code></pre>
 </div>
 </div>
-</div>
-</div>
 </dd>
 <dt class="hdlist1"><code>endian (<em>endiantype</em>)</code> </dt>
 <dd>
@@ -5294,8 +5268,6 @@ endianness of the host processor or can be set to <code>device</code> indicating
 variable uses the endianness of the device on which the kernel will be
 executed.
 The default is <code>device</code>.</p>
-<div class="openblock">
-<div class="content">
 <div class="paragraph">
 <p>For example:</p>
 </div>
@@ -5304,26 +5276,32 @@ The default is <code>device</code>.</p>
 <pre class="CodeRay highlight"><code data-lang="c">global float4 *p __attribute__ ((endian(host)));</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>specifies that data stored in memory pointed to by p will be in the host
-endian format.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">specifies that data stored in memory pointed to by p will be in the host
+endian format.</code></pre>
 </div>
-<div class="paragraph">
-<p>The endian attribute can only be applied to pointer types that are in the
-<code>global</code> or <code>constant</code> address space.
-The endian attribute cannot be used for variables that are not a pointer
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">The endian attribute can only be applied to pointer types that are in the
+<span class="error">`</span>global<span class="error">`</span> or <span class="error">`</span>constant<span class="error">`</span> address space.
+The endian attribute cannot be used <span class="keyword">for</span> variables that are not a pointer
 type.
-The endian attribute value for both pointers must be the same when one
-pointer is assigned to another.</p>
-</div>
+The endian attribute value <span class="keyword">for</span> both pointers must be the same when one
+pointer is assigned to another.</code></pre>
 </div>
 </div>
 </dd>
 </dl>
 </div>
 </div>
+</div>
+</div>
 <div class="sect3">
 <h4 id="specifying-attributes-of-blocks-and-control-flow-statements">6.11.4. Specifying Attributes of Blocks and Control-Flow-Statements</h4>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>For basic blocks and control-flow-statements the attribute is placed before
 the structure in question, for example:</p>
@@ -5344,8 +5322,12 @@ the loop&#8217;s control construct and body, respectively.</p>
 defined.</p>
 </div>
 </div>
+</div>
+</div>
 <div class="sect3">
 <h4 id="specifying-attribute-for-unrolling-loops">6.11.5. Specifying Attribute For Unrolling Loops</h4>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The <code>__attribute__((opencl_unroll_hint))</code> and
 <code>__attribute__((opencl_unroll_hint(n)))</code> attribute qualifiers can be used
@@ -5463,6 +5445,8 @@ my_kernel( ... )
 compile-time constant expression.</p>
 </div>
 </div>
+</div>
+</div>
 <div class="sect3">
 <h4 id="extending-attribute-qualifiers">6.11.6. Extending Attribute Qualifiers</h4>
 <div class="paragraph">
@@ -5487,6 +5471,8 @@ information provided is in some sense correct.</p>
 </div>
 <div class="sect2">
 <h3 id="blocks">6.12. Blocks</h3>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>OpenCL C 2.0 adds support for the clang block syntax<sup>26</sup>.
 Like function types, the Block type is a pair consisting of a result value
@@ -5502,6 +5488,8 @@ Additionally, blocks based closures are supported by the clang open source C
 compiler as well as Mac OS X&#8217;s C and Objective C compilers.
 Specifically, Mac OS X&#8217;s Grand Central Dispatch allows applications to queue
 tasks as a block.</p>
+</div>
+</div>
 </div>
 <div class="sect3">
 <h4 id="declaring-and-using-a-block">6.12.1. Declaring and Using a Block</h4>
@@ -5757,7 +5745,11 @@ Therefore all block variables must be initialized at declaration time
 and may not be reassigned.</p>
 </li>
 <li>
-<p>A block cannot be the return value of a function.</p>
+<p>A block cannot be a return value or a parameter of a function.</p>
+</li>
+<li>
+<p>Blocks cannot be used as expressions of the ternary selection operator
+(<strong>?:</strong>).</p>
 </li>
 </ul>
 </div>
@@ -5767,10 +5759,6 @@ and may not be reassigned.</p>
 </li>
 <li>
 <p>Pointers to Blocks are not allowed.</p>
-</li>
-<li>
-<p>Blocks cannot be used as expressions of the ternary selection operator
-(<strong>?:</strong>).</p>
 </li>
 <li>
 <p>A Block cannot capture another Block variable declared in the outer
@@ -5916,6 +5904,8 @@ that operate on mixed scalar and vector types, however.</p>
 </div>
 <div class="sect3">
 <h4 id="work-item-functions">6.13.1. Work-Item Functions</h4>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The following table describes the list of built-in work-item functions that
 can be used to query the number of dimensions, the global and local work
@@ -6047,8 +6037,12 @@ identifier of each work-item when this kernel is being executed on a device.</p>
 are not evenly divisible by the <em>local_work_size</em> values for each dimension.</p>
 </div>
 </div>
+</div>
+</div>
 <div class="sect3">
 <h4 id="math-functions">6.13.2. Math Functions</h4>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The built-in math functions are categorized into the following:</p>
 </div>
@@ -6676,6 +6670,10 @@ Specification</a>) is not in force.
 Support for denormal values is implementation-defined for <strong>native_</strong>
 functions.</p>
 </div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The following symbolic constants are available.
 Their values are of type <code>float</code> and are accurate within the precision of a
@@ -6734,8 +6732,12 @@ constants will also be available:</p>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
 <div class="sect4">
 <h5 id="floating-point-macros-and-pragmas">Floating-point macros and pragmas</h5>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The <code>FP_CONTRACT</code> pragma can be used to allow (if the state is on) or
 disallow (if the state is off) the implementation to contract expressions.
@@ -7072,8 +7074,12 @@ double type.</p>
 </table>
 </div>
 </div>
+</div>
+</div>
 <div class="sect3">
 <h4 id="integer-functions">6.13.3. Integer Functions</h4>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The following table describes the built-in integer functions that take
 scalar or vector arguments.
@@ -7266,6 +7272,12 @@ take <code>int</code>, <code>int2</code>, <code>int3</code>, <code>int4</code>, 
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="integer-macros">Integer Macros</h5>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The macro names given in the following list must use the values specified.
 The values shall all be constant expressions suitable for use in <code>#if</code>
@@ -7368,12 +7380,17 @@ the application.</p>
 </tbody>
 </table>
 </div>
+</div>
+</div>
+</div>
 <div class="sect3">
 <h4 id="common-functions">6.13.4. Common Functions<sup>33</sup></h4>
 <div class="paragraph">
 <p>[33] The <strong>mix</strong> and <strong>smoothstep</strong> functions can be implemented using
 contractions such as <strong>mad</strong> or <strong>fma</strong>.</p>
 </div>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The following table describes the list of built-in common functions.
 These all operate component-wise.
@@ -7460,8 +7477,6 @@ even rounding mode.</p>
       This is useful in cases where you would want a threshold function with
       a smooth transition.</p>
 </div>
-<div class="openblock">
-<div class="content">
 <div class="paragraph">
 <p>This is equivalent to:</p>
 </div>
@@ -7475,8 +7490,6 @@ t = clamp ((x - edge0) / (edge1 - edge0), <span class="integer">0</span>, <span 
 <div class="paragraph">
 <p>Results are undefined if <em>edge0</em> &gt;= <em>edge1</em> or if <em>x</em>, <em>edge0</em> or <em>edge1</em> is
 a NaN.</p>
-</div>
-</div>
 </div></div></td>
 </tr>
 <tr>
@@ -7488,12 +7501,16 @@ a NaN.</p>
 </tbody>
 </table>
 </div>
+</div>
+</div>
 <div class="sect3">
 <h4 id="geometric-functions">6.13.5. Geometric Functions<sup>34</sup></h4>
 <div class="paragraph">
 <p>[34] The geometric functions can be implemented using contractions such as
 <strong>mad</strong> or <strong>fma</strong>.</p>
 </div>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The following table describes the list of built-in geometric functions.
 These all operate component-wise.
@@ -7563,14 +7580,17 @@ even rounding mode.</p>
 <p>Returns a vector in the same direction as <em>p</em> but with a length of 1.
       <strong>fast_normalize</strong> is computed as:</p>
 </div>
-<div class="openblock">
-<div class="content">
 <div class="paragraph">
-<p><em>p</em> * <strong>half_rsqrt</strong>(<em>p.x</em><sup>2</sup> + <em>p.y</em><sup>2</sup> + &#8230;&#8203;)</p>
+<p>+
+<em>p</em> * <strong>half_rsqrt</strong>(<em>p.x</em><sup>2</sup> + <em>p.y</em><sup>2</sup> + &#8230;&#8203;)</p>
 </div>
 <div class="paragraph">
-<p>The result shall be within 8192 ulps error from the infinitely precise
+<p>+
+The result shall be within 8192 ulps error from the infinitely precise
 result of</p>
+</div>
+<div class="paragraph">
+<p>+</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -7581,33 +7601,29 @@ result of</p>
 </div>
 </div>
 <div class="paragraph">
-<p>with the following exceptions:</p>
+<p>+
+with the following exceptions:</p>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>If the sum of squares is greater than <code>FLT_MAX</code> then the value of the
-floating-point values in the result vector are undefined.</p>
-</li>
-<li>
-<p>If the sum of squares is less than <code>FLT_MIN</code> then the implementation
-may return back <em>p</em>.</p>
-</li>
-<li>
-<p>If the device is in &#8220;denorms are flushed to zero&#8221; mode, individual
-operand elements with magnitude less than <strong>sqrt</strong>(<code>FLT_MIN</code>) may be flushed
-to zero before proceeding with the calculation.</p>
-</li>
-</ol>
-</div>
-</div>
+<div class="paragraph">
+<p>+
+. If the sum of squares is greater than <code>FLT_MAX</code> then the value of the
+  floating-point values in the result vector are undefined.
+. If the sum of squares is less than <code>FLT_MIN</code> then the implementation
+  may return back <em>p</em>.
+. If the device is in &#8220;denorms are flushed to zero&#8221; mode, individual
+  operand elements with magnitude less than <strong>sqrt</strong>(<code>FLT_MIN</code>) may be flushed
+  to zero before proceeding with the calculation.</p>
 </div></div></td>
 </tr>
 </tbody>
 </table>
 </div>
+</div>
+</div>
 <div class="sect3">
 <h4 id="relational-functions">6.13.6. Relational Functions</h4>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The <a href="#operators-relational">relational</a> and <a href="#operators-equality">equality</a>
 operators (<strong>&lt;</strong>, <strong>&lt;=</strong>, <strong>&gt;</strong>, <strong>&gt;=</strong>, <strong>!=</strong>, <strong>==</strong>) can be used with scalar and
@@ -7817,8 +7833,12 @@ operator for vector and scalar types is dependent on different
 interpretations of the bit pattern of <em>c</em>.</p>
 </div>
 </div>
+</div>
+</div>
 <div class="sect3">
 <h4 id="vector-data-load-and-store-functions">6.13.7. Vector Data Load and Store Functions</h4>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The following table describes the list of supported functions that allow you
 to read and write vector types from a pointer to memory.
@@ -8037,8 +8057,12 @@ arguments which point to the generic address space are also supported.</p>
 </table>
 </div>
 </div>
+</div>
+</div>
 <div class="sect3">
 <h4 id="synchronization-functions">6.13.8. Synchronization Functions</h4>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The OpenCL C programming language implements the following synchronization
 functions.</p>
@@ -8119,8 +8143,12 @@ For backward compatibility, <strong>barrier</strong> is also supported.</p>
 <p>[40] Refer to the <a href="#atomic-functions">description of <code>memory_scope</code></a>.</p>
 </div>
 </div>
+</div>
+</div>
 <div class="sect3">
 <h4 id="address-space-qualifier-functions">6.13.9. Address Space Qualifier Functions</h4>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The OpenCL C programming language implements the following address space
 qualifier functions.
@@ -8167,8 +8195,12 @@ types supported by OpenCL C or a user defined type.</p>
 </tbody>
 </table>
 </div>
+</div>
+</div>
 <div class="sect3">
 <h4 id="async-copies">6.13.10. Async Copies from Global to Local Memory, Local to Global Memory, and Prefetch</h4>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The OpenCL C programming language implements the following functions that
 provide asynchronous copies between <code>global</code> and local memory and a prefetch
@@ -8308,6 +8340,8 @@ is undefined.</p>
 </table>
 </div>
 </div>
+</div>
+</div>
 <div class="sect3">
 <h4 id="atomic-functions">6.13.11. Atomic Functions</h4>
 <div class="paragraph">
@@ -8425,6 +8459,8 @@ compatible with those in C11.</p>
 </div>
 <div class="sect4">
 <h5 id="the-atomic_var_init-macro">The <code>ATOMIC_VAR_INIT</code> macro</h5>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The <code>ATOMIC_VAR_INIT</code> macro expands to a token sequence suitable for
 initializing an atomic object of a type that is initialization-compatible
@@ -8456,10 +8492,14 @@ in program scope in the <code>global</code> address space.</p>
 operation, constitutes a data-race.</p>
 </div>
 </div>
+</div>
+</div>
 <div class="sect4">
 <h5 id="the-atomic_init-function">The atomic_init function</h5>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
-<p>The atomic_init function non-atomically initializes the atomic object
+<p>The <code>atomic_init</code> function non-atomically initializes the atomic object
 pointed to by obj to the value value.</p>
 </div>
 <div class="listingblock">
@@ -8479,8 +8519,12 @@ work_group_barrier(CLK_LOCAL_MEM_FENCE);</code></pre>
 </div>
 </div>
 </div>
+</div>
+</div>
 <div class="sect4">
 <h5 id="order-and-consistency">Order and Consistency</h5>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The enumerated type <code>memory_order</code> specifies the detailed regular
 (non-atomic) memory synchronization operations as defined in
@@ -8517,8 +8561,12 @@ Its enumeration constants are as follows:</p>
 or <code>local</code> memory.</p>
 </div>
 </div>
+</div>
+</div>
 <div class="sect4">
 <h5 id="memory-scope">Memory Scope</h5>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The enumerated type <code>memory_scope</code> specifies whether the memory ordering
 constraints given by <code>memory_order</code> apply to work-items in a work-group or
@@ -8558,8 +8606,12 @@ work-group not across work-groups and therefore ignore the <code>memory_scope</c
 value.</p>
 </div>
 </div>
+</div>
+</div>
 <div class="sect4">
 <h5 id="fences">Fences</h5>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The following fence operations are supported.</p>
 </div>
@@ -8614,8 +8666,12 @@ image by a work-item become visible to that work-item on subsequent reads to
 that image by that work-item.</p>
 </div>
 </div>
+</div>
+</div>
 <div class="sect4">
 <h5 id="atomic-integer-and-floating-point-types">Atomic integer and floating-point types</h5>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The list of supported atomic type names are:</p>
 </div>
@@ -8691,6 +8747,8 @@ the same size as their corresponding regular types.
 The atomic_flag type must be implemented as a 32-bit integer.</p>
 </div>
 </div>
+</div>
+</div>
 <div class="sect4">
 <h5 id="operations-on-atomic-types">Operations on atomic types</h5>
 <div class="paragraph">
@@ -8699,7 +8757,9 @@ many instances of those kinds.
 This section specifies each general kind.</p>
 </div>
 <div class="sect5">
-<h6 id="_the_atomic_store_functions"><strong>The atomic_store functions</strong></h6>
+<h6 id="atomic_store"><strong>The atomic_store Functions</strong></h6>
+<div class="openblock">
+<div class="content">
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="c"><span class="directive">void</span> atomic_store(<span class="directive">volatile</span> A *object, C desired)
@@ -8722,8 +8782,12 @@ Atomically replace the value pointed to by <em>object</em> with the value of
 Memory is affected according to the value of <em>order</em>.</p>
 </div>
 </div>
+</div>
+</div>
 <div class="sect5">
-<h6 id="_the_atomic_load_functions"><strong>The atomic_load functions</strong></h6>
+<h6 id="atomic_load"><strong>The atomic_load Functions</strong></h6>
+<div class="openblock">
+<div class="content">
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="c">C atomic_load(<span class="directive">volatile</span> A *object)
@@ -8743,8 +8807,12 @@ Memory is affected according to the value of <em>order</em>.
 Atomically returns the value pointed to by <em>object</em>.</p>
 </div>
 </div>
+</div>
+</div>
 <div class="sect5">
-<h6 id="_the_atomic_exchange_functions"><strong>The atomic_exchange functions</strong></h6>
+<h6 id="atomic_exchange"><strong>The atomic_exchange Functions</strong></h6>
+<div class="openblock">
+<div class="content">
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="c">C atomic_exchange(<span class="directive">volatile</span> A *object, C desired)
@@ -8768,8 +8836,12 @@ Atomically returns the value pointed to by object immediately before the
 effects.</p>
 </div>
 </div>
+</div>
+</div>
 <div class="sect5">
-<h6 id="_the_atomic_compare_exchange_functions"><strong>The atomic_compare_exchange functions</strong></h6>
+<h6 id="atomic_compare_exchange"><strong>The atomic_compare_exchange Functions</strong></h6>
+<div class="openblock">
+<div class="content">
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="c"><span class="predefined-type">bool</span> atomic_compare_exchange_strong(
@@ -8862,8 +8934,12 @@ a broader class of machines, e.g. load-locked store-conditional machines.</p>
 <p>These generic functions return the result of the comparison.</p>
 </div>
 </div>
+</div>
+</div>
 <div class="sect5">
-<h6 id="_the_atomic_fetch_and_modify_functions"><strong>The <code>atomic_fetch</code> and modify functions</strong></h6>
+<h6 id="atomic_fetch_key"><strong>The atomic_fetch and modify Functions</strong></h6>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The following operations perform arithmetic and bitwise computations.
 All of these operations are applicable to an object of any atomic integer
@@ -8967,17 +9043,21 @@ Returns atomically the value pointed to by <code>object</code> immediately befor
 effects.</p>
 </div>
 </div>
+</div>
+</div>
 <div class="sect5">
-<h6 id="_atomic_flag_type_and_operations"><strong>Atomic flag type and operations</strong></h6>
+<h6 id="atomic_flag"><strong>Atomic Flag Type and Operations</strong></h6>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
-<p>The atomic_flag type provides the classic test-and-set functionality.
+<p>The <code>atomic_flag</code> type provides the classic test-and-set functionality.
 It has two states, <em>set</em> (value is non-zero) and <em>clear</em> (value is 0).
-Operations on an object of type atomic_flag shall be lock free.</p>
+Operations on an object of type <code>atomic_flag</code> shall be lock free.</p>
 </div>
 <div class="paragraph">
-<p>The macro <code>ATOMIC_FLAG_INIT</code> may be used to initialize an atomic_flag to the
+<p>The macro <code>ATOMIC_FLAG_INIT</code> may be used to initialize an <code>atomic_flag</code> to the
 <em>clear</em> state.
-An atomic_flag that is not explicitly initialized with <code>ATOMIC_FLAG_INIT</code> is
+An <code>atomic_flag</code> that is not explicitly initialized with <code>ATOMIC_FLAG_INIT</code> is
 initially in an indeterminate state.</p>
 </div>
 <div class="paragraph">
@@ -8993,8 +9073,12 @@ scope in the <code>global</code> address space with the <code>atomic_flag</code>
 </div>
 </div>
 </div>
+</div>
+</div>
 <div class="sect5">
-<h6 id="_the_atomic_flag_test_and_set_functions"><strong>The atomic_flag_test_and_set functions</strong></h6>
+<h6 id="atomic_flag_test_and_set"><strong>The atomic_flag_test_and_set Functions</strong></h6>
+<div class="openblock">
+<div class="content">
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="c"><span class="predefined-type">bool</span> atomic_flag_test_and_set(
@@ -9018,8 +9102,12 @@ These operations are atomic read-modify-write operations (as defined by
 Returns atomically the value of the <code>object</code> immediately before the effects.</p>
 </div>
 </div>
+</div>
+</div>
 <div class="sect5">
-<h6 id="_the_atomic_flag_clear_functions"><strong>The atomic_flag_clear functions</strong></h6>
+<h6 id="atomic_flag_clear"><strong>The atomic_flag_clear Functions</strong></h6>
+<div class="openblock">
+<div class="content">
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="c"><span class="directive">void</span> atomic_flag_clear(<span class="directive">volatile</span> atomic_flag *object)
@@ -9042,8 +9130,12 @@ Memory is affected according to the value of order.</p>
 </div>
 </div>
 </div>
+</div>
+</div>
 <div class="sect4">
-<h5 id="restrictions-2">Restrictions</h5>
+<h5 id="atomic-restrictions">Restrictions</h5>
+<div class="openblock">
+<div class="content">
 <div class="ulist">
 <ul>
 <li>
@@ -9063,7 +9155,7 @@ supported by OpenCL C.</p>
 lock-free.</p>
 </li>
 <li>
-<p>The _Atomic type specifier and _Atomic type qualifier are not supported
+<p>The <em>Atomic</em> type specifier and <em>Atomic</em> type qualifier are not supported
 by OpenCL C.</p>
 </li>
 <li>
@@ -9075,8 +9167,12 @@ undefined.</p>
 </div>
 </div>
 </div>
+</div>
+</div>
 <div class="sect3">
 <h4 id="miscellaneous-vector-functions">6.13.12. Miscellaneous Vector Functions</h4>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The OpenCL C programming language implements the following additional
 built-in vector functions.
@@ -9147,8 +9243,6 @@ integer data types.</p>
       each <em>mask</em> element are considered.
       Other bits in the mask shall be ignored.</p>
 </div>
-<div class="openblock">
-<div class="content">
 <div class="paragraph">
 <p>The elements of the input vectors are numbered from left to right across one
 or both of the vectors.
@@ -9188,15 +9282,17 @@ short8 b;
 
 b = shuffle(a, mask); <span class="comment">//  not valid</span></code></pre>
 </div>
-</div>
-</div>
 </div></div></td>
 </tr>
 </tbody>
 </table>
 </div>
+</div>
+</div>
 <div class="sect3">
 <h4 id="printf">6.13.13. printf</h4>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The OpenCL C programming language implements the <strong>printf</strong> function.</p>
 </div>
@@ -9227,6 +9323,8 @@ b = shuffle(a, mask); <span class="comment">//  not valid</span></code></pre>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
 <div class="sect4">
 <h5 id="printf-output-synchronization">printf output synchronization</h5>
 <div class="paragraph">
@@ -9767,6 +9865,8 @@ component.</p>
 </div>
 <div class="sect4">
 <h5 id="samplers">Samplers</h5>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The image read functions take a sampler argument.
 The sampler can be passed as an argument to the kernel using
@@ -9913,6 +10013,8 @@ addressing mode and a nearest filter.</p>
 <p>The maximum number of samplers that can be declared in a kernel can be
 queried using the <code>CL_DEVICE_MAX_SAMPLERS</code> token in <strong>clGetDeviceInfo</strong>.</p>
 </div>
+</div>
+</div>
 <div class="sect5">
 <h6 id="determining-the-border-color-or-value"><strong>Determining the border color or value</strong></h6>
 <div class="paragraph">
@@ -9963,6 +10065,8 @@ The alpha component is returned as is.</p>
 </div>
 <div class="sect4">
 <h5 id="built-in-image-read-functions">Built-in Image Read Functions</h5>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The following built-in function calls to read images with a sampler<sup>58</sup> are
 supported.</p>
@@ -10379,8 +10483,12 @@ supported for <code>image1d_buffer_t</code> image types.</p>
 </tbody>
 </table>
 </div>
+</div>
+</div>
 <div class="sect4">
 <h5 id="built-in-image-sampler-less-read-functions">Built-in Image Sampler-less Read Functions</h5>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The sampler-less image read functions behave exactly as the corresponding
 <a href="#built-in-image-read-functions">built-in image read functions</a> that take
@@ -10691,8 +10799,12 @@ For samplerless read functions this may be <code>read_only</code> or <code>read_
 </tbody>
 </table>
 </div>
+</div>
+</div>
 <div class="sect4">
 <h5 id="built-in-image-write-functions">Built-in Image Write Functions</h5>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The following built-in function calls to write images are supported.
 Note that image writes to sRGB images are only supported if the
@@ -10974,8 +11086,12 @@ For write functions this may be <code>write_only</code> or <code>read_write</cod
 </tbody>
 </table>
 </div>
+</div>
+</div>
 <div class="sect4">
 <h5 id="built-in-image-query-functions">Built-in Image Query Functions</h5>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The following built-in function calls to query image information are
 supported.</p>
@@ -11123,6 +11239,8 @@ For example, both <code>CL_UNORM_INT8</code> and <code>CLK_UNORM_INT8</code> ref
 channel data type that is an unnormalized unsigned 8-bit integer.</p>
 </div>
 </div>
+</div>
+</div>
 <div class="sect4">
 <h5 id="reading-and-writing-to-the-same-image-in-a-kernel">Reading and writing to the same image in a kernel</h5>
 <div class="paragraph">
@@ -11252,6 +11370,8 @@ support will result in a <code>CL_OUT_OF_RESOURCES</code> error being returned.<
 </div>
 <div class="sect3">
 <h4 id="work-group-functions">6.13.15. Work-group Functions</h4>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The OpenCL C programming language implements the following built-in
 functions that operate on a work-group level.
@@ -11390,6 +11510,8 @@ given work-group.</p>
 </table>
 </div>
 </div>
+</div>
+</div>
 <div class="sect3">
 <h4 id="pipe-functions">6.13.16. Pipe Functions</h4>
 <div class="paragraph">
@@ -11463,6 +11585,8 @@ variables declared in program scope or the return type of a function.</p>
 </div>
 <div class="sect4">
 <h5 id="built-in-pipe-read-and-write-functions">Built-in Pipe Read and Write Functions</h5>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The OpenCL C programming language implements the following built-in
 functions that read from or write to a pipe.
@@ -11551,8 +11675,12 @@ is supported.</p>
 </tbody>
 </table>
 </div>
+</div>
+</div>
 <div class="sect4">
 <h5 id="built-in-work-group-pipe-read-and-write-functions">Built-in Work-group Pipe Read and Write Functions</h5>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The OpenCL C programming language implements the following built-in pipe
 functions that operate at a work-group level.
@@ -11646,8 +11774,12 @@ The order of work-group based reservations by different work-groups is
 implementation defined.</p>
 </div>
 </div>
+</div>
+</div>
 <div class="sect4">
 <h5 id="built-in-pipe-query-functions">Built-in Pipe Query Functions</h5>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The OpenCL C programming language implements the following built-in query
 functions for a pipe.
@@ -11691,10 +11823,12 @@ For pipe query functions this may be <code>read_only</code> or <code>write_only<
 </tbody>
 </table>
 </div>
+</div>
+</div>
 <div class="sect4">
 <h5 id="restrictions-4">Restrictions</h5>
 <div class="paragraph">
-<p>The following behavior is undefined:</p>
+<p>The following behavior is undefined</p>
 </div>
 <div class="ulist">
 <ul>
@@ -11743,6 +11877,8 @@ kernels.</p>
 </div>
 <div class="sect3">
 <h4 id="enqueuing-kernels">6.13.17. Enqueuing Kernels</h4>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>OpenCL 2.0 allows a kernel to independently enqueue to the same device,
 without host interaction.
@@ -11759,6 +11895,8 @@ used to enqueue a kernel(s).</p>
 <div class="paragraph">
 <p>The macro <code>CLK_NULL_EVENT</code> refers to an invalid device event.
 The macro <code>CLK_NULL_QUEUE</code> refers to an invalid device queue.</p>
+</div>
+</div>
 </div>
 <div class="sect4">
 <h5 id="built-in-functions-enqueuing-a-kernel">Built-in Functions - Enqueuing a kernel</h5>
@@ -12192,6 +12330,8 @@ execution.</p>
 </div>
 <div class="sect4">
 <h5 id="built-in-functions-kernel-query-functions">Built-in Functions - Kernel Query Functions</h5>
+<div class="openblock">
+<div class="content">
 <table id="table-builtin-kernel-query" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 32. Built-in Kernel Query Functions</caption>
 <colgroup>
@@ -12225,8 +12365,12 @@ execution.</p>
 </tbody>
 </table>
 </div>
+</div>
+</div>
 <div class="sect4">
 <h5 id="built-in-functions-queuing-other-commands">Built-in Functions - Queuing other commands</h5>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The following table describes the list of built-in functions that can be
 used to enqueue commands such as a marker.</p>
@@ -12287,8 +12431,12 @@ could not be allocated.</p>
 </ul>
 </div>
 </div>
+</div>
+</div>
 <div class="sect4">
 <h5 id="built-in-functions-event-functions">Built-in Functions - Event Functions</h5>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The following table describes the list of built-in functions that work on
 events.</p>
@@ -12351,26 +12499,51 @@ events.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">void <strong>capture_event_profiling_info</strong>(clk_event_t <em>event</em>,
   clk_profiling_info <em>name</em>, global void *<em>value</em>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Captures the profiling information for functions that are enqueued as
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Captures the profiling information for functions that are enqueued as
       commands.
       The specific function being referred to is: enqueue_kernel.
       These enqueued commands are identified by unique event objects.
       The profiling information will be available in <em>value</em> once the
-      command identified by <em>event</em> has completed.&#8201;&#8212;&#8201;<em>event</em> must be an event returned by enqueue_kernel.</p>
-<p class="tableblock"><em>name</em> identifies which profiling information is to be queried and can be:</p>
-<p class="tableblock">  <code>CLK_PROFILING_COMMAND_EXEC_TIME</code></p>
-<p class="tableblock"><em>value</em> is a pointer to two 64-bit values.</p>
-<p class="tableblock">The first 64-bit value describes the elapsed time <code>CL_PROFILING_COMMAND_END</code>
+      command identified by <em>event</em> has completed.</p>
+</div>
+<div class="paragraph">
+<p><em>event</em> must be an event returned by enqueue_kernel.</p>
+</div>
+<div class="paragraph">
+<p><em>name</em> identifies which profiling information is to be queried and can be:</p>
+</div>
+<div class="paragraph">
+<p><code>CLK_PROFILING_COMMAND_EXEC_TIME</code></p>
+</div>
+<div class="paragraph">
+<p><em>value</em> is a pointer to two 64-bit values.</p>
+</div>
+<div class="paragraph">
+<p>The first 64-bit value describes the elapsed time <code>CL_PROFILING_COMMAND_END</code>
 - <code>CL_PROFLING_COMMAND_START</code> for the command identified by <em>event</em> in
 nanoseconds.</p>
-<p class="tableblock">The second 64-bit value describes the elapsed time
+</div>
+<div class="paragraph">
+<p>The second 64-bit value describes the elapsed time
 <code>CL_PROFILING_COMMAND_COMPLETE</code> - <code>CL_PROFILING_COMAMND_START</code> for the
 command identified by <em>event</em> in nanoseconds.</p>
-<p class="tableblock">[NOTE]
-====
-The behavior of capture_event_profiling_info when called multiple times for
-the same <em>event</em> is undefined.
-====&#8201;&#8212;&#8201;</p></td>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The behavior of capture_event_profiling_info when called multiple times for
+the same <em>event</em> is undefined.</p>
+</div>
+</td>
+</tr>
+</table>
+</div></div></td>
 </tr>
 </tbody>
 </table>
@@ -12484,8 +12657,12 @@ foo(queue_t q, ...)
 </div>
 </div>
 </div>
+</div>
+</div>
 <div class="sect4">
 <h5 id="built-in-functions-helper-functions">Built-in Functions - Helper Functions</h5>
+<div class="openblock">
+<div class="content">
 <table id="table-builtin-helper" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 35. Built-in Helper Functions</caption>
 <colgroup>
@@ -12529,6 +12706,8 @@ foo(queue_t q, ...)
 </tr>
 </tbody>
 </table>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -12773,6 +12952,10 @@ currently undefined.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Correctly rounded</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>clamp</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>copysign</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
 </tr>
@@ -12787,6 +12970,22 @@ currently undefined.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>cospi</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">≤ 4 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>cross</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">absolute error tolerance of 'max * max * (3 * FLT_EPSILON)', where max is the maximum input operand value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>degrees</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">≤ 2 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>distance</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">≤ 3 + (1.5 * n) + (0.5 * (n - 1)) ulp, for gentype with vector width n</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>dot</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">absolute error tolerance of 'max * max * (2 * (n - 1)) * FLT_EPSILON', For vector width n and maximum input operand value 'max'</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>erfc</strong></p></td>
@@ -12857,6 +13056,10 @@ currently undefined.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>length</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">≤ 3 + 0.5 * 0.5 * n) + (0.5 * (n - 1) ulp, for gentype with vector width n</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>ldexp</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Correctly rounded</p></td>
 </tr>
@@ -12887,12 +13090,24 @@ currently undefined.</p>
                           correctly rounded</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>max</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>maxmag</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>min</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>minmag</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>mix</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">absolute error tolerance of 1e-3</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>modf</strong></p></td>
@@ -12907,6 +13122,10 @@ currently undefined.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>normalize</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">≤ 2.5 + (0.5 * n) + (0.5 * (n - 1)) ulp, for gentype with vector width n</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>pow</strong>(<em>x</em>, <em>y</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">≤ 16 ulp</p></td>
 </tr>
@@ -12917,6 +13136,10 @@ currently undefined.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>powr</strong>(<em>x</em>, <em>y</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">≤ 16 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>radians</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">≤ 2 ulp</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>remainder</strong></p></td>
@@ -12943,6 +13166,10 @@ currently undefined.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">≤ 2 ulp</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>sign</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>sin</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">≤ 4 ulp</p></td>
 </tr>
@@ -12959,8 +13186,16 @@ currently undefined.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">≤ 4 ulp</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>smoothstep</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">absolute error tolerance of 1e-5</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>sqrt</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">≤ 3 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>step</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>tan</strong></p></td>
@@ -13041,6 +13276,22 @@ currently undefined.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>half_tan</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">≤ 8192 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>fast_distance</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">≤ 8192 + (1.5 * n) + (0.5 * (n - 1)) ulp, for gentype with vector width n</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>fast_length</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">≤ 8192 + (0.5 * n) + (0.5 * (n - 1)) ulp, for gentype with vector width n</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>fast_normalize</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">≤ 8192.5 + (0.5 * n) + (0.5 * (n - 1)) ulp, for gentype with vector width n</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"></td>
@@ -13202,6 +13453,10 @@ is the infinitely precise result.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Correctly rounded</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>clamp</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>copysign</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
 </tr>
@@ -13216,6 +13471,22 @@ is the infinitely precise result.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>cospi</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">≤ 4 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>cross</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implementation-defined</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>degrees</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">≤ 2 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>distance</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implementation-defined</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>dot</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implementation-defined</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>erfc</strong></p></td>
@@ -13290,6 +13561,10 @@ is the infinitely precise result.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Correctly rounded</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>length</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implementation-defined</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>log</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">≤ 4 ulp</p></td>
 </tr>
@@ -13314,12 +13589,24 @@ is the infinitely precise result.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Any value allowed (infinite ulp)</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>max</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>maxmag</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>min</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>minmag</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>mix</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implementation-defined</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>modf</strong></p></td>
@@ -13328,6 +13615,10 @@ is the infinitely precise result.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>nan</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>normalize</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implementation-defined</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>nextafter</strong></p></td>
@@ -13344,6 +13635,10 @@ is the infinitely precise result.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>powr</strong>(<em>x</em>, <em>y</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">≤ 16 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>radians</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">≤ 2 ulp</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>remainder</strong></p></td>
@@ -13370,6 +13665,10 @@ is the infinitely precise result.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">≤ 4 ulp</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>sign</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>sin</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">≤ 4 ulp</p></td>
 </tr>
@@ -13386,8 +13685,16 @@ is the infinitely precise result.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">≤ 4 ulp</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>smoothstep</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implementation-defined</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>sqrt</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">≤ 4 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>step</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>tan</strong></p></td>
@@ -13468,6 +13775,22 @@ is the infinitely precise result.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>half_tan</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">≤ 8192 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>fast_distance</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implementation-defined</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>fast_length</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implementation-defined</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>fast_normalize</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implementation-defined</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"></td>
@@ -13864,6 +14187,10 @@ is the infinitely precise result.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Correctly rounded</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>clamp</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>copysign</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
 </tr>
@@ -13878,6 +14205,22 @@ is the infinitely precise result.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>cospi</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">≤ 4 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>cross</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">absolute error tolerance of 'max * max * (3 * FLT_EPSILON)', where max is the maximum input operand value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>degrees</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">≤ 2 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>distance</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">≤ 2 * (3 + 0.5 * 1.5 * n) + (0.5 * (n - 1)) For vector width n</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>dot</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">absolute error tolerance of 'max * max * (2 * (n - 1)) * FLT_EPSILON', For vector width n and maximum input operand value 'max'</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>erfc</strong></p></td>
@@ -13948,6 +14291,10 @@ is the infinitely precise result.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>length</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">≤ 2 * (3 + 0.5 * 0.5 * n) + (0.5 * (n - 1)) For vector width n</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>ldexp</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Correctly rounded</p></td>
 </tr>
@@ -13976,12 +14323,24 @@ is the infinitely precise result.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Any value allowed (infinite ulp)</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>max</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>maxmag</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>min</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>minmag</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>mix</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implementation-defined</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>modf</strong></p></td>
@@ -13996,6 +14355,10 @@ is the infinitely precise result.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>normalize</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">≤ 2 * (2.5 + 0.5 * 0.5 * n) + (0.5 * (n - 1)) For vector width n</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>pow</strong>(<em>x</em>, <em>y</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">≤ 16 ulp</p></td>
 </tr>
@@ -14006,6 +14369,10 @@ is the infinitely precise result.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>powr</strong>(<em>x</em>, <em>y</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">≤ 16 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>radians</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">≤ 2 ulp</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>remainder</strong></p></td>
@@ -14032,6 +14399,10 @@ is the infinitely precise result.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">≤ 2 ulp</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>sign</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>sin</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">≤ 4 ulp</p></td>
 </tr>
@@ -14046,6 +14417,14 @@ is the infinitely precise result.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>sinpi</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">≤ 4 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>smoothstep</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implementation-defined</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>step</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>fsqrt</strong></p></td>
@@ -15731,13 +16110,192 @@ Default RGB colour space - sRGB&#8221;,
 </li>
 </ol>
 </div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_acknowledgements">10. Acknowledgements</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The OpenCL specification is the result of the contributions of many people,
+representing a cross section of the desktop, hand-held, and embedded
+computer industry.
+Following is a partial list of the contributors, including the company that
+they represented at the time of their contribution:</p>
+</div>
+<div class="paragraph">
+<p>Chuck Rose, Adobe<br>
+Eric Berdahl, Adobe<br>
+Shivani Gupta, Adobe<br>
+Bill Licea Kane, AMD<br>
+Ed Buckingham, AMD<br>
+Jan Civlin, AMD<br>
+Laurent Morichetti, AMD<br>
+Mark Fowler, AMD<br>
+Marty Johnson, AMD<br>
+Michael Mantor, AMD<br>
+Norm Rubin, AMD<br>
+Ofer Rosenberg, AMD<br>
+Brian Sumner, AMD<br>
+Victor Odintsov, AMD<br>
+Aaftab Munshi, Apple<br>
+Abe Stephens, Apple<br>
+Alexandre Namaan, Apple<br>
+Anna Tikhonova, Apple<br>
+Chendi Zhang, Apple<br>
+Eric Bainville, Apple<br>
+David Hayward, Apple<br>
+Giridhar Murthy, Apple<br>
+Ian Ollmann, Apple<br>
+Inam Rahman, Apple<br>
+James Shearer, Apple<br>
+MonPing Wang, Apple<br>
+Tanya Lattner, Apple<br>
+Mikael Bourges-Sevenier, Aptina<br>
+Anton Lokhmotov, ARM<br>
+Dave Shreiner, ARM<br>
+Hedley Francis, ARM<br>
+Robert Elliott, ARM<br>
+Scott Moyers, ARM<br>
+Tom Olson, ARM<br>
+Anastasia Stulova, ARM<br>
+Christopher Thompson-Walsh, Broadcom<br>
+Holger Waechtler, Broadcom<br>
+Norman Rink, Broadcom<br>
+Andrew Richards, Codeplay<br>
+Maria Rovatsou, Codeplay<br>
+Alistair Donaldson, Codeplay<br>
+Alastair Murray, Codeplay<br>
+Stephen Frye, Electronic Arts<br>
+Eric Schenk, Electronic Arts<br>
+Daniel Laroche, Freescale<br>
+David Neto, Google<br>
+Robin Grosman, Huawei<br>
+Craig Davies, Huawei<br>
+Brian Horton, IBM<br>
+Brian Watt, IBM<br>
+Gordon Fossum, IBM<br>
+Greg Bellows, IBM<br>
+Joaquin Madruga, IBM<br>
+Mark Nutter, IBM<br>
+Mike Perks, IBM<br>
+Sean Wagner, IBM<br>
+Jon Parr, Imagination Technologies<br>
+Robert Quill, Imagination Technologies<br>
+James McCarthy, Imagination Technologie<br>
+Jon Leech, Independent<br>
+Aaron Kunze, Intel<br>
+Aaron Lefohn, Intel<br>
+Adam Lake, Intel<br>
+Alexey Bader, Intel<br>
+Allen Hux, Intel<br>
+Andrew Brownsword, Intel<br>
+Andrew Lauritzen, Intel<br>
+Bartosz Sochacki, Intel<br>
+Ben Ashbaugh, Intel<br>
+Brian Lewis, Intel<br>
+Geoff Berry, Intel<br>
+Hong Jiang, Intel<br>
+Jayanth Rao, Intel<br>
+Josh Fryman, Intel<br>
+Larry Seiler, Intel<br>
+Mike MacPherson, Intel<br>
+Murali Sundaresan, Intel<br>
+Paul Lalonde, Intel<br>
+Raun Krisch, Intel<br>
+Stephen Junkins, Intel<br>
+Tim Foley, Intel<br>
+Timothy Mattson, Intel<br>
+Yariv Aridor, Intel<br>
+Michael Kinsner, Intel<br>
+Kevin Stevens, Intel<br>
+Benjamin Bergen, Los Alamos National Laboratory<br>
+Roy Ju, Mediatek<br>
+Bor-Sung Liang, Mediatek<br>
+Rahul Agarwal, Mediatek<br>
+Michal Witaszek, Mobica<br>
+JenqKuen Lee, NTHU<br>
+Amit Rao, NVIDIA<br>
+Ashish Srivastava, NVIDIA<br>
+Bastiaan Aarts, NVIDIA<br>
+Chris Cameron, NVIDIA<br>
+Christopher Lamb, NVIDIA<br>
+Dibyapran Sanyal, NVIDIA<br>
+Guatam Chakrabarti, NVIDIA<br>
+Ian Buck, NVIDIA<br>
+Jaydeep Marathe, NVIDIA<br>
+Jian-Zhong Wang, NVIDIA<br>
+Karthik Raghavan Ravi, NVIDIA<br>
+Kedar Patil, NVIDIA<br>
+Manjunath Kudlur, NVIDIA<br>
+Mark Harris, NVIDIA<br>
+Michael Gold, NVIDIA<br>
+Neil Trevett, NVIDIA<br>
+Richard Johnson, NVIDIA<br>
+Sean Lee, NVIDIA<br>
+Tushar Kashalikar, NVIDIA<br>
+Vinod Grover, NVIDIA<br>
+Xiangyun Kong, NVIDIA<br>
+Yogesh Kini, NVIDIA<br>
+Yuan Lin, NVIDIA<br>
+Mayuresh Pise, NVIDIA<br>
+Allan Tzeng, QUALCOMM<br>
+Alex Bourd, QUALCOMM<br>
+Anirudh Acharya, QUALCOMM<br>
+Andrew Gruber, QUALCOMM<br>
+Andrzej Mamona, QUALCOMM<br>
+Benedict Gaster, QUALCOMM<br>
+Bill Torzewski, QUALCOMM<br>
+Bob Rychlik, QUALCOMM<br>
+Chihong Zhang, QUALCOMM<br>
+Chris Mei, QUALCOMM<br>
+Colin Sharp, QUALCOMM<br>
+David Garcia, QUALCOMM<br>
+David Ligon, QUALCOMM<br>
+Jay Yun, QUALCOMM<br>
+Lee Howes, QUALCOMM<br>
+Richard Ruigrok, QUALCOMM<br>
+Robert J. Simpson, QUALCOMM<br>
+Sumesh Udayakumaran, QUALCOMM<br>
+Vineet Goel, QUALCOMM<br>
+Lihan Bin, QUALCOMM<br>
+Vlad Shimanskiy, QUALCOMM<br>
+Jian Liu, QUALCOMM<br>
+Tasneem Brutch, Samsung<br>
+Yoonseo Choi, Samsung<br>
+Dennis Adams, Sony<br>
+Pr-Anders Aronsson, Sony<br>
+Jim Rasmusson, Sony<br>
+Thierry Lepley, STMicroelectronics<br>
+Anton Gorenko, StreamHPC<br>
+Jakub Szuppe, StreamHPC<br>
+Vincent Hindriksen, StreamHPC<br>
+Alan Ward, Texas Instruments<br>
+Yuan Zhao, Texas Instruments<br>
+Pete Curry, Texas Instruments<br>
+Simon McIntosh-Smith, University of Bristol<br>
+James Price, University of Bristol<br>
+Paul Preney, University of Windsor<br>
+Shane Peelar, University of Windsor<br>
+Brian Hutsell, Vivante<br>
+Mike Cai, Vivante<br>
+Sumeet Kumar, Vivante<br>
+Wei-Lun Kao, Vivante<br>
+Xing Wang, Vivante<br>
+Jeff Fifield, Xilinx<br>
+Hem C. Neema, Xilinx<br>
+Henry Styles, Xilinx<br>
+Ralph Wittig, Xilinx<br>
+Ronan Keryell, Xilinx<br>
+AJ Guillon, YetiWare Inc<br></p>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v2.2-10<br>
-Last updated 2019-02-05 16:03:11 EST
+Version V2.2-11<br>
+Last updated 2019-07-19 09:52:48 EDT
 </div>
 </div>
 

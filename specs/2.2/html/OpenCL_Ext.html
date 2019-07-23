@@ -841,9 +841,9 @@ table.CodeRay td.code>pre{padding:0}
 <h1>The OpenCL<sup>&#8482;</sup> Extension Specification</h1>
 <div class="details">
 <span id="author" class="author">Khronos<sup>&#174;</sup> OpenCL Working Group</span><br>
-<span id="revnumber">version v2.2-10,</span>
-<span id="revdate">Tue, 05 Feb 2019 21:17:59 +0000</span>
-<br><span id="revremark">from git branch:  commit: 00422daf5dc013f21ab633479577c7cc225150e2</span>
+<span id="revnumber">version V2.2-11,</span>
+<span id="revdate">Fri, 19 Jul 2019 14:10:29 +0000</span>
+<br><span id="revremark">from git branch: master commit: 2aaf7b58ead9567d8799b22ecc748b4892a1e04e</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -2457,7 +2457,7 @@ These are described below.</p>
   gentype <em>x</em>, gentype <em>minval</em>, gentype <em>maxval</em>)</p>
 <p class="tableblock">  gentype <strong>clamp</strong> (<br>
   gentype <em>x</em>, half <em>minval</em>, half <em>maxval</em>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Returns <strong>min</strong>(<strong>max</strong>(<em>x</em>, <em>minval</em>), <em>maxval</em>).</p>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns <strong>fmin</strong>(<strong>fmax</strong>(<em>x</em>, <em>minval</em>), <em>maxval</em>).</p>
 <p class="tableblock">  Results are undefined if <em>minval</em> &gt; <em>maxval</em>.</p></td>
 </tr>
 <tr>
@@ -3525,6 +3525,11 @@ is the infinitely precise result.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Correctly rounded</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>clamp</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>copysign</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
@@ -3543,6 +3548,26 @@ is the infinitely precise result.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>cospi</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 2 ulp</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 2 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>cross</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">absolute error tolerance of 'max * max * (3 * HLF_EPSILON)', where max is the maximum input operand value</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implementation-defined</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>degrees</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 2 ulp</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 2 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>distance</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 0.5 + (1.5 * n) + (0.5 * (n - 1)) ulp, for gentype with vector width n</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implementation-defined</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>dot</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">absolute error tolerance of 'max * max * (2 * (n - 1)) * HLF_EPSILON', For vector width n and maximum input operand value 'max'</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implementation-defined</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>erfc</strong></p></td>
@@ -3635,6 +3660,11 @@ is the infinitely precise result.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Correctly rounded</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>length</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 0.5 + 0.5 * 0.5 * n) + (0.5 * (n - 1) ulp, for gentype with vector width n</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implementation-defined</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>log</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 2 ulp</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 3 ulp</p></td>
@@ -3665,7 +3695,17 @@ is the infinitely precise result.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Implementation-defined</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>max</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>maxmag</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>min</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
 </tr>
@@ -3673,6 +3713,11 @@ is the infinitely precise result.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>minmag</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>mix</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implementation-defined</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implementation-defined</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>modf</strong></p></td>
@@ -3690,6 +3735,11 @@ is the infinitely precise result.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>normalize</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 1.5 + (0.5 * n) + (0.5 * (n - 1)) ulp, for gentype with vector width n</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implementation-defined</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>pow(x, y)</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 4 ulp</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 5 ulp</p></td>
@@ -3703,6 +3753,11 @@ is the infinitely precise result.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>powr(x, y)</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 4 ulp</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 5 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>radians</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 2 ulp</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 2 ulp</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>remainder</strong></p></td>
@@ -3735,6 +3790,11 @@ is the infinitely precise result.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;=1 ulp</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>sign</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>sin</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 2 ulp</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 2 ulp</p></td>
@@ -3755,9 +3815,19 @@ is the infinitely precise result.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 2 ulp</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>smoothstep</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implementation-defined</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implementation-defined</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>sqrt</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Correctly rounded</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 1 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>step</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>tan</strong></p></td>
@@ -4487,7 +4557,7 @@ These are described below.</p>
   gentype <em>x</em>, gentype <em>minval</em>, gentype <em>maxval</em>)</p>
 <p class="tableblock">  gentype <strong>clamp</strong> (<br>
   gentype <em>x</em>, double <em>minval</em>, double <em>maxval</em>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Returns <strong>min</strong>(<strong>max</strong>(<em>x</em>, <em>minval</em>), <em>maxval</em>).</p>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns <strong>fmin</strong>(<strong>fmax</strong>(<em>x</em>, <em>minval</em>), <em>maxval</em>).</p>
 <p class="tableblock">  Results are undefined if <em>minval</em> &gt; <em>maxval</em>.</p></td>
 </tr>
 <tr>
@@ -5172,6 +5242,10 @@ is the infinitely precise result.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Correctly rounded</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>clamp</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>copysign</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
 </tr>
@@ -5186,6 +5260,22 @@ is the infinitely precise result.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>cospi</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 4 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>cross</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">absolute error tolerance of 'max * max * (3 * FLT_EPSILON)', where max is the maximum input operand value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>degrees</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 2 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>distance</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 2 * (3 + 0.5 * 1.5 * n) + (0.5 * (n - 1)) ulp, for gentype with vector width n</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>dot</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">absolute error tolerance of 'max * max * (2 * (n - 1)) * FLT_EPSILON', For vector width n and maximum input operand value 'max'</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>erfc</strong></p></td>
@@ -5260,6 +5350,10 @@ is the infinitely precise result.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Correctly rounded</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>length</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 2 * (3 + 0.5 * 0.5 * n) + (0.5 * (n - 1)) ulp, for gentype with vector width n</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>log</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 3 ulp</p></td>
 </tr>
@@ -5284,12 +5378,24 @@ is the infinitely precise result.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Implementation-defined</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>max</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>maxmag</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>min</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>minmag</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>mix</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implementation-defined</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>modf</strong></p></td>
@@ -5304,6 +5410,10 @@ is the infinitely precise result.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>normalize</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 2 * (2.5 + 0.5 * 0.5 * n) + (0.5 * (n - 1)) ulp, for gentype with vector width n</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>pow(x, y)</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 16 ulp</p></td>
 </tr>
@@ -5314,6 +5424,10 @@ is the infinitely precise result.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>powr(x, y)</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 16 ulp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>radians</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 2 ulp</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>remainder</strong></p></td>
@@ -5340,6 +5454,10 @@ is the infinitely precise result.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 2 ulp</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>sign</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>sin</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 4 ulp</p></td>
 </tr>
@@ -5356,8 +5474,16 @@ is the infinitely precise result.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 4 ulp</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>smoothstep</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implementation-defined</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>sqrt</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Correctly rounded</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>step</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>tan</strong></p></td>
@@ -5857,15 +5983,12 @@ Conversions from floating-point to integer type always use <code>rtz</code> mode
 <div class="sect2">
 <h3 id="cl_khr_gl_sharing-overview">10.1. Overview</h3>
 <div class="paragraph">
-<p>This section describes the <strong>cl_khr_gl_sharing</strong> extension.
-The section <a href="#cl_khr_gl_sharing__memobjs">Creating OpenCL Memory Objects from
-OpenGL Objects</a> defines how to share data with texture and buffer objects
-in a parallel OpenGL implementation, but does not define how the association
-between an OpenCL context and an OpenGL context or share group is
-established.
-This extension defines optional attributes to OpenCL context creation
-routines which associate a OpenGL context or share group object with a newly
-created OpenCL context.</p>
+<p>This section describes functionality in the <strong>cl_khr_gl_sharing</strong> extension
+to associate an OpenCL context with an OpenGL context or share group object.
+Once an OpenCL context is associated with an OpenGL context or share group
+object, the functionality described in the section
+<a href="#cl_khr_gl_sharing__memobjs">Creating OpenCL Memory Objects from OpenGL Objects</a>
+may be used to share OpenGL buffer, texture, and renderbuffer objects with the OpenCL context.</p>
 </div>
 <div class="paragraph">
 <p>An OpenGL implementation supporting buffer objects and sharing of texture
@@ -6478,37 +6601,21 @@ binding layer API in use.</p>
 <h2 id="cl_khr_gl_sharing__memobjs">11. Creating OpenCL Memory Objects from OpenGL Objects</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This section describes OpenCL functions that allow applications to use
-OpenGL buffer, texture and renderbuffer objects as OpenCL memory objects.
-This allows efficient sharing of data between OpenCL and OpenGL.
-The OpenCL API may be used to execute kernels that read and/or write memory
-objects that are also OpenGL objects.</p>
+<p>This section describes functionality in the <strong>cl_khr_gl_sharing</strong> extension
+to use OpenGL buffer, texture, and renderbuffer objects as OpenCL memory objects.
+OpenCL memory objects may be created from OpenGL objects if and only if the
+OpenCL context is associated with an OpenGL context or share group object.
+The section <a href="#cl_khr_gl_sharing">Creating an OpenCL Context from an OpenGL Context or Share Group</a>
+describes how to create an OpenCL context associated with an OpenGL context or share group object.</p>
 </div>
 <div class="paragraph">
-<p>An OpenCL image object may be created from an OpenGL texture or renderbuffer
-object.
+<p>An OpenCL image object may be created from an OpenGL texture or renderbuffer object.
 An OpenCL buffer object may be created from an OpenGL buffer object.</p>
 </div>
 <div class="paragraph">
-<p>OpenCL memory objects may be created from OpenGL objects if and only if the
-OpenCL context has been created from an OpenGL share group object or
-context.
-OpenGL share groups and contexts are created using platform specific APIs
-such as EGL, CGL, WGL, and GLX.
-On MacOS X, an OpenCL context may be created from an OpenGL share group
-object using the OpenCL platform extension <strong>cl_apple_gl_sharing</strong>.
-On other platforms including Microsoft Windows, Linux/Unix, and others, an
-OpenCL context may be created from an OpenGL context using the extension
-<strong>cl_khr_gl_sharing</strong>.
-Refer to the platform documentation for your OpenCL implementation, or visit
-the Khronos Registry at <a href="http://www.khronos.org/registry/cl/" class="bare">http://www.khronos.org/registry/cl/</a> for more
-information.</p>
-</div>
-<div class="paragraph">
-<p>Any supported OpenGL object defined within the GL share group object, or the
-share group associated with the GL context from which the OpenCL context is
-created, may be shared, with the exception of the default OpenGL objects
-(i.e. objects named zero), which may not be shared.</p>
+<p>Any supported OpenGL object defined within the associated OpenGL context
+or share group object may be shared, with the exception of the default
+OpenGL objects (i.e. objects named zero), which may not be shared.</p>
 </div>
 <div class="sect2">
 <h3 id="cl_khr_gl_sharing__memobjs-lifetime-of-shared-objects">11.1. Lifetime of Shared Objects</h3>
@@ -13343,17 +13450,17 @@ described in those extensions.</p>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_DEVICE_IMAGE_<br>
-PITCH_ALIGNMENT</strong></p></td>
+PITCH_ALIGNMENT_KHR</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_uint</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The row pitch alignment size in pixels for images created from a buffer.  The value returned must be a power of 2.<br>
 <br>
 If the device does not support images, this value should be 0.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_DEVICE_IMAGE_<br>
-BASE_ADDRESS_ALIGNMENT</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_DEVICE_IMAGE_BASE_<br>
+ADDRESS_ALIGNMENT_KHR</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_uint</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">This query should be used when an image is created from a buffer which was created using CL_MEM_USE_HOST_PTR. The value returned must be a power of 2.<br>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This query should be used when an image is created from a buffer which was created using <code>CL_MEM_USE_HOST_PTR</code>. The value returned must be a power of 2.<br>
 <br>
 This query specifies the minimum alignment in pixels of the <em>host_ptr</em> specified to <strong>clCreateBuffer</strong>.<br>
 <br>
@@ -13368,24 +13475,22 @@ If the device does not support images, this value should be 0.</p></td>
 <p>Add to Section 5.3.1: Creating Image Objects:</p>
 </div>
 <div class="paragraph">
-<p>A 2D image can be created from a buffer by specifying a buffer object in the image_desc-&gt;buffer passed to <strong>clCreateImage</strong> for image_desc-&gt;image_type equal to CL_MEM_OBJECT_IMAGE2D. When the 2D image from buffer is created, the client must specify the width, height and image format (i.e. channel order and channel data type). If these are not specified, <strong>clCreateImage</strong> returns a NULL value with <em>errcode_ret</em> set to CL_INVALID_IMAGE_FORMAT_DESCRIPTOR.  The pitch can be optionally specified. If the pitch is not specified, the pitch is computed as width * bytes per pixel based on the image format.</p>
+<p>A 2D image can be created from a buffer by specifying a <em>buffer</em> object in the <em>image_desc</em> passed to <strong>clCreateImage</strong> for an <em>image_type</em> equal to <code>CL_MEM_OBJECT_IMAGE2D</code>. When the 2D image from buffer is created, the client must specify the width, height and image format (i.e. channel order and channel data type). If these are not specified, <strong>clCreateImage</strong> returns a NULL value with <em>errcode_ret</em> set to <code>CL_INVALID_IMAGE_FORMAT_DESCRIPTOR</code>.  The pitch can be optionally specified. If the pitch is not specified, the pitch is computed as width × bytes per pixel based on the image format.</p>
 </div>
 <div class="paragraph">
-<p>The pitch specified (or computed if pitch specified is 0) must be a multiple of the maximum of the CL_DEVICE_IMAGE_PITCH_ALIGNMENT value for all devices in the context associated with image_desc-&gt;buffer that support images.  Otherwise, <strong>clCreateImage</strong> returns a NULL value with <em>errcode_ret</em> set to CL_INVALID_IMAGE_FORMAT_DESCRIPTOR.</p>
+<p>The pitch specified (or computed if pitch specified is 0) must be a multiple of the maximum of the <code>CL_DEVICE_IMAGE_PITCH_ALIGNMENT_KHR</code> value for all devices in the context associated with the <em>buffer</em> that support images.  Otherwise, <strong>clCreateImage</strong> returns a NULL value with <em>errcode_ret</em> set to <code>CL_INVALID_IMAGE_FORMAT_DESCRIPTOR</code>.</p>
 </div>
 <div class="paragraph">
-<p>If image_desc-&gt;buffer is created with CL_MEM_USE_HOST_PTR, the <em>host_ptr</em> specified to clCreateBuffer must be aligned to the maximum of the CL_DEVICE_IMAGE_BASE_ADDRESS_ALIGNMENT value for all devices in the context associated with image_desc&#8594;buffer that support images.  Otherwise, <strong>clCreateImage</strong> returns a NULL value with <em>errcode_ret</em> set to CL_INVALID_IMAGE_FORMAT_DESCRIPTOR.</p>
+<p>If the <em>buffer</em> was created with <code>CL_MEM_USE_HOST_PTR</code>, the <em>host_ptr</em> specified to <strong>clCreateBuffer</strong> must be aligned to the maximum of the <code>CL_DEVICE_IMAGE_BASE_ADDRESS_ALIGNMENT_KHR</code> value for all devices in the context associated with the <em>buffer</em> that support images.  Otherwise, <strong>clCreateImage</strong> returns a NULL value with <em>errcode_ret</em> set to <code>CL_INVALID_IMAGE_FORMAT_DESCRIPTOR</code>.</p>
 </div>
 <div class="paragraph">
 <p>The minimum list of supported image formats described in <em>table 5.8</em> of the OpenCL 1.2 specification must be supported for 2D images created from a buffer.</p>
 </div>
 <div class="paragraph">
-<p>The OpenCL runtime APIs that operate on images (i.e. clEnqueueReadImage, clEnqueueWriteImage, clEnqueueFillImage, clEnqueueCopyImage, clEnqueueCopyImageToBuffer, clEnqueueCopyBufferToImage and clEnqueueMapImage) are supported for a 2D image created from a buffer.</p>
+<p>The OpenCL runtime APIs that operate on images (i.e. <strong>clEnqueueReadImage</strong>, <strong>clEnqueueWriteImage</strong>, <strong>clEnqueueFillImage</strong>, <strong>clEnqueueCopyImage</strong>, <strong>clEnqueueCopyImageToBuffer</strong>, <strong>clEnqueueCopyBufferToImage</strong> and <strong>clEnqueueMapImage</strong>) are supported for a 2D image created from a buffer.</p>
 </div>
 <div class="paragraph">
-<p>When the contents of a buffer objects data store are modified, those changes are reflected in the contents of the 2D image object and vice-versa at corresponding synchronization points. The
-image_height * image_row_pitch specified in image_desc must be &#8656; size of buffer object data
-store.</p>
+<p>When the contents of a buffer object data store are modified, those changes are reflected in the contents of the 2D image object and vice-versa at corresponding synchronization points. The <em>image_height</em> × <em>image_row_pitch</em> specified in <em>image_desc</em> must be less than or equal to the size of the buffer object data store.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -13394,7 +13499,7 @@ store.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Concurrent reading from, writing to and copying between both a buffer object and the 2D image object associated with the buffer object is undefined. Only reading from both a buffer object and 2D image object associated with the buffer object is defined. A 2D image or a 2D image created form a buffer use the same image type in OpenCL C i.e. image2d_t. The image built-ins functions described in <em>section 6.12.14.2</em>, <em>6.12.14.3</em>, <em>6.12.14.4</em> and <em>6.12.14.5</em> for image2d_t behave the same way for a 2D image and a 2D image from a buffer.
+Concurrent reading from, writing to, and copying between both a buffer object and the 2D image object associated with the buffer object is undefined. Only reading from both a buffer object and 2D image object associated with the buffer object is defined. A 2D image and a 2D image created from a buffer use the same image type in OpenCL C (<code>image2d_t</code>). The image built-ins functions described in <em>section 6.12.14.2</em>, <em>6.12.14.3</em>, <em>6.12.14.4</em> and <em>6.12.14.5</em> for <code>image2d_t</code> behave the same way for a 2D image and a 2D image from a buffer.
 </td>
 </tr>
 </table>
@@ -14248,7 +14353,7 @@ by the OpenCL implementation on the host.</p>
 <h2 id="cl_khr_device_enqueue_local_arg_types">27. Device Enqueue Local Argument Types</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This extension allows arguments to blocks that are passed to the +enqueue_kernel* built-in
+<p>This extension allows arguments to blocks that are passed to the <strong>enqueue_kernel</strong> built-in
 function to be pointers to any type (built-in or user-defined) in local memory, instead of
 requiring arguments to blocks to be pointers to void in local memory.</p>
 </div>
@@ -15420,8 +15525,8 @@ Its use is no longer recommended.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v2.2-10<br>
-Last updated 2019-02-05 16:03:11 EST
+Version V2.2-11<br>
+Last updated 2019-07-19 08:25:57 EDT
 </div>
 </div>
 
