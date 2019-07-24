@@ -214,8 +214,8 @@
 
 </style>
     <title>clGetProgramBuildInfo</title>
-    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
-    <meta name="keywords" content="         &#10;                clGetProgramBuildInfo&#10;            " />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <meta name="keywords" content="&#10;                clGetProgramBuildInfo&#10;            " />
   </head>
   <body>
     <div class="refentry">
@@ -223,10 +223,10 @@
       <div class="titlepage"></div>
       <div xmlns="" class="refnamediv">
         <a xmlns="http://www.w3.org/1999/xhtml" id="clGetProgramBuildInfo"></a>
-        <h1>     
+        <h1>
             clGetProgramBuildInfo
         </h1>
-        <p>          
+        <p>
             Returns build information for each device in the program object.
         </p>
       </div>
@@ -286,32 +286,32 @@
             </dt>
             <dd>
               <p>
-                    Specifies the device for which build information is being queried. 
+                    Specifies the device for which build information is being queried.
                     <code class="varname">device</code> must be a valid device associated with <code class="varname">program</code>.
                 </p>
             </dd>
             <dt>
               <span class="term">
-                <code class="varname"> 
+                <code class="varname">
                         param_name
                 </code>
               </span>
             </dt>
             <dd>
-              <p> 
+              <p>
                         Specifies the information to query. The list of supported <code class="varname">param_name</code> types and the
-                        information returned in <code class="varname">param_value</code> by <code class="function">clGetProgramBuildInfo</code> is 
+                        information returned in <code class="varname">param_value</code> by <code class="function">clGetProgramBuildInfo</code> is
                         described in the table below.
                     </p>
               <div class="informaltable">
-                <table border="1">
+                <table class="informaltable" border="1">
                   <colgroup>
                     <col align="left" class="col1" />
                     <col align="left" class="col2" />
                   </colgroup>
                   <thead>
                     <tr>
-                      <th align="left">cl_program_buid_info</th>
+                      <th align="left">cl_program_build_info</th>
                       <th align="left">Return Type and Info. returned in <code class="varname">param_value</code></th>
                     </tr>
                   </thead>
@@ -322,26 +322,26 @@
                       </td>
                       <td align="left">Return type: cl_build_status
                                         <p>
-                                            Returns the build status of <code class="varname">program</code> for a specific device 
+                                            Returns the build status of <code class="varname">program</code> for a specific device
                                             as given by <code class="varname">device</code>. This can be one of the following:
                                         </p>
                                         <p>
-                                            <span class="errorname">CL_BUILD_NONE</span>. The build status returned if no build has 
+                                            <span class="errorname">CL_BUILD_NONE</span>. The build status returned if no build has
                                             been performed on the specified program object for <code class="varname">device</code>.
                                         </p>
                                         <p>
-                                            <span class="errorname">CL_BUILD_ERROR</span>. The build status returned if the last call 
-                                            to <a class="citerefentry" href="clBuildProgram.html"><span class="citerefentry"><span class="refentrytitle">clBuildProgram</span></span></a> on the specified program object for <code class="varname">device</code> 
+                                            <span class="errorname">CL_BUILD_ERROR</span>. The build status returned if the last call
+                                            to <a class="citerefentry" href="clBuildProgram.html"><span class="citerefentry"><span class="refentrytitle">clBuildProgram</span></span></a> on the specified program object for <code class="varname">device</code>
                                             generated an error.
                                         </p>
                                         <p>
-                                            <span class="errorname">CL_BUILD_SUCCESS</span>. The build status returned if the last call 
-                                            to <a class="citerefentry" href="clBuildProgram.html"><span class="citerefentry"><span class="refentrytitle">clBuildProgram</span></span></a> on the 
+                                            <span class="errorname">CL_BUILD_SUCCESS</span>. The build status returned if the last call
+                                            to <a class="citerefentry" href="clBuildProgram.html"><span class="citerefentry"><span class="refentrytitle">clBuildProgram</span></span></a> on the
                                             specified program object for <code class="varname">device</code> was successful.
                                         </p>
                                         <p>
-                                            <span class="errorname">CL_BUILD_IN_PROGRESS</span>. The build status returned if the last call 
-                                            to  <a class="citerefentry" href="clBuildProgram.html"><span class="citerefentry"><span class="refentrytitle">clBuildProgram</span></span></a> on the 
+                                            <span class="errorname">CL_BUILD_IN_PROGRESS</span>. The build status returned if the last call
+                                            to  <a class="citerefentry" href="clBuildProgram.html"><span class="citerefentry"><span class="refentrytitle">clBuildProgram</span></span></a> on the
                                             specified program object for <code class="varname">device</code> has not finished.
                                         </p>
                                     </td>
@@ -352,12 +352,12 @@
                       </td>
                       <td align="left">Return type: char[]
                                         <p>
-                                            Return the build options specified by the <code class="varname">options</code> argument 
-                                            in  <a class="citerefentry" href="clBuildProgram.html"><span class="citerefentry"><span class="refentrytitle">clBuildProgram</span></span></a> 
+                                            Return the build options specified by the <code class="varname">options</code> argument
+                                            in  <a class="citerefentry" href="clBuildProgram.html"><span class="citerefentry"><span class="refentrytitle">clBuildProgram</span></span></a>
                                             for <code class="varname">device</code>.
                                         </p>
                                         <p>
-                                            If build status of <code class="varname">program</code> for <code class="varname">device</code> 
+                                            If build status of <code class="varname">program</code> for <code class="varname">device</code>
                                             is <span class="errorname">CL_BUILD_NONE</span>, an empty string is returned.
                                         </p>
                                     </td>
@@ -369,9 +369,9 @@
                       <td align="left">Return type: char[]
                                         <p>
                                         Return the build log when
-                                        <a class="citerefentry" href="clBuildProgram.html"><span class="citerefentry"><span class="refentrytitle">clBuildProgram</span></span></a> was called 
-                                        for <code class="varname">device</code>. If build status of <code class="varname">program</code> 
-                                        for <code class="varname">device</code> is <span class="errorname">CL_BUILD_NONE</span>, an empty string 
+                                        <a class="citerefentry" href="clBuildProgram.html"><span class="citerefentry"><span class="refentrytitle">clBuildProgram</span></span></a> was called
+                                        for <code class="varname">device</code>. If build status of <code class="varname">program</code>
+                                        for <code class="varname">device</code> is <span class="errorname">CL_BUILD_NONE</span>, an empty string
                                         is returned.</p>
                                     </td>
                     </tr>
@@ -385,8 +385,8 @@
               </span>
             </dt>
             <dd>
-              <p> 
-                    A pointer to memory where the appropriate result being queried is returned. 
+              <p>
+                    A pointer to memory where the appropriate result being queried is returned.
                     If <code class="varname">param_value</code> is NULL, it is ignored.
                 </p>
             </dd>
@@ -397,7 +397,7 @@
             </dt>
             <dd>
               <p>
-                    Specifies the size in bytes of memory pointed to by <code class="varname">param_value</code>. This size 
+                    Specifies the size in bytes of memory pointed to by <code class="varname">param_value</code>. This size
                     must be greater than or equal to the size of return type as described in the table above.
                 </p>
             </dd>
@@ -407,8 +407,8 @@
               </span>
             </dt>
             <dd>
-              <p> 
-                    Returns the actual size in bytes of data copied to <code class="varname">param_value</code>. 
+              <p>
+                    Returns the actual size in bytes of data copied to <code class="varname">param_value</code>.
                     If <code class="varname">param_value_size_ret</code> is NULL, it is ignored.
                 </p>
             </dd>
@@ -419,31 +419,31 @@
         <a id="errors"></a>
         <h2>Errors</h2>
         <p>
-            Returns <span class="errorname">CL_SUCCESS</span> if the function is executed successfully. 
+            Returns <span class="errorname">CL_SUCCESS</span> if the function is executed successfully.
             Otherwise it returns the following:
         </p>
         <div class="itemizedlist">
           <ul class="itemizedlist" style="list-style-type: disc; ">
             <li class="listitem" style="list-style-type: disc">
-            Returns <span class="errorname">CL_INVALID_DEVICE</span> if <code class="varname">device</code> 
+            Returns <span class="errorname">CL_INVALID_DEVICE</span> if <code class="varname">device</code>
             is not in the list of devices associated with <code class="varname">program</code>.
         </li>
             <li class="listitem" style="list-style-type: disc">
-            Returns <span class="errorname">CL_INVALID_VALUE</span> if <code class="varname">param_name</code> 
-            is not valid, or if size in bytes specified by <code class="varname">param_value_size</code> 
-            is less than size of return type 
+            Returns <span class="errorname">CL_INVALID_VALUE</span> if <code class="varname">param_name</code>
+            is not valid, or if size in bytes specified by <code class="varname">param_value_size</code>
+            is less than size of return type
             and <code class="varname">param_value</code> is not NULL.
         </li>
             <li class="listitem" style="list-style-type: disc">
-            Returns <span class="errorname">CL_INVALID_PROGRAM</span> if <code class="varname">program</code> 
+            Returns <span class="errorname">CL_INVALID_PROGRAM</span> if <code class="varname">program</code>
             is a not a valid program object.
         </li>
-            <li class="listitem" style="list-style-type: disc"><span class="errorname">CL_OUT_OF_RESOURCES</span> if there is a failure to allocate 
-            resources required by the 
+            <li class="listitem" style="list-style-type: disc"><span class="errorname">CL_OUT_OF_RESOURCES</span> if there is a failure to allocate
+            resources required by the
             OpenCL implementation on the device.
         </li>
-            <li class="listitem" style="list-style-type: disc"><span class="errorname">CL_OUT_OF_HOST_MEMORY</span> if there is a failure to allocate 
-            resources required by 
+            <li class="listitem" style="list-style-type: disc"><span class="errorname">CL_OUT_OF_HOST_MEMORY</span> if there is a failure to allocate
+            resources required by
             the OpenCL implementation on the host.
         </li>
           </ul>
@@ -454,8 +454,8 @@
         <h2>Specification</h2>
         <p>
             <img src="pdficon_small1.gif" />
-            
-                      
+
+
             <a href="http://www.khronos.org/registry/cl/specs/opencl-1.1.pdf#page=120" target="OpenCL Spec">OpenCL Specification</a>
         </p>
       </div>
