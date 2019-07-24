@@ -783,7 +783,7 @@ call the function</p>
 <li>
 <p><em>param_name</em> specifies the information to query.
 The list of supported <em>param_name</em> types and the information returned in
-<em>param_value</em> by <strong>clGetPipeInfo</strong> is described in the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#pipe-info-table">Pipe
+<em>param_value</em> by <strong>clGetPipeInfo</strong> is described in the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#pipe-info-table" target="_blank" rel="noopener">Pipe
 Object Queries</a> table.</p>
 </li>
 <li>
@@ -795,7 +795,7 @@ If <em>param_value</em> is <code>NULL</code>, it is ignored.</p>
 <p><em>param_value_size</em> is used to specify the size in bytes of memory pointed to
 by <em>param_value</em>.
 This size must be ≥ size of return type as described in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#pipe-info-table">Pipe Object Queries</a> table.</p>
+<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#pipe-info-table" target="_blank" rel="noopener">Pipe Object Queries</a> table.</p>
 </li>
 <li>
 <p><em>param_value_size_ret</em> returns the actual size in bytes of data being
@@ -810,32 +810,32 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <h2 id="_description">Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><strong>clGetPipeInfo</strong> returns CL_SUCCESS if the function is executed successfully.
+<p><strong>clGetPipeInfo</strong> returns <code>CL_&#8203;SUCCESS</code> if the function is executed successfully.
 Otherwise, it returns one of the following errors:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>CL_INVALID_VALUE if <em>param_name</em> is not valid, or if size in bytes
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if <em>param_name</em> is not valid, or if size in bytes
 specified by <em>param_value_size</em> is &lt; size of return type as described in
-the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#pipe-info-table">Pipe Object Queries</a> table and <em>param_value</em> is
+the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#pipe-info-table" target="_blank" rel="noopener">Pipe Object Queries</a> table and <em>param_value</em> is
 not <code>NULL</code>.</p>
 </li>
 <li>
-<p>CL_INVALID_MEM_OBJECT if <em>pipe</em> is a not a valid pipe object.</p>
+<p><code>CL_&#8203;INVALID_&#8203;MEM_&#8203;OBJECT</code> if <em>pipe</em> is a not a valid pipe object.</p>
 </li>
 <li>
-<p>CL_OUT_OF_RESOURCES if there is a failure to allocate resources required
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;RESOURCES</code> if there is a failure to allocate resources required
 by the OpenCL implementation on the device.</p>
 </li>
 <li>
-<p>CL_OUT_OF_HOST_MEMORY if there is a failure to allocate resources
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;HOST_&#8203;MEMORY</code> if there is a failure to allocate resources
 required by the OpenCL implementation on the host.</p>
 </li>
 </ul>
 </div>
 <table id="pipe-info-table" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. List of supported param_names by <strong>clGetPipeInfo</strong></caption>
+<caption class="title">Table 1. List of supported param_names by <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetPipeInfo" class="bare" target="_blank" rel="noopener">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetPipeInfo</a></caption>
 <colgroup>
 <col style="width: 34%;">
 <col style="width: 33%;">
@@ -850,13 +850,13 @@ required by the OpenCL implementation on the host.</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_PIPE_PACKET_SIZE</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;PIPE_&#8203;PACKET_&#8203;SIZE</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_uint</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return pipe packet size specified when <em>pipe</em> is created with
         <strong>clCreatePipe</strong>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_PIPE_MAX_PACKETS</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;PIPE_&#8203;MAX_&#8203;PACKETS</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_uint</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return max. number of packets specified when <em>pipe</em> is created with
         <strong>clCreatePipe</strong>.</p></td>
@@ -877,10 +877,7 @@ required by the OpenCL implementation on the host.</p>
 <h2 id="_document_notes">Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Specification at URL</p>
-</div>
-<div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetPipeInfo" class="bare">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetPipeInfo</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetPipeInfo" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the OpenCL Specification.
@@ -893,7 +890,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Copyright (c) 2014-2019 Khronos Group. This work is licensed under a
-<a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons
+<a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons
 Attribution 4.0 International License</a>.</p>
 </div>
 </div>
@@ -901,8 +898,8 @@ Attribution 4.0 International License</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v2.2-10-28-g71714e1-dirty<br>
-Last updated 2019-06-20 05:25:24 -0700
+Version V2.2-11-2-gbc16dca-dirty<br>
+Last updated 2019-07-24 05:39:45 -0700
 </div>
 </div>
 

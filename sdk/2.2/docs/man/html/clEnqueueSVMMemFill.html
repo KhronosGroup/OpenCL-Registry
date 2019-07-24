@@ -799,8 +799,8 @@ Otherwise the behavior is undefined.</p>
 <em>pattern</em> will be used to fill a region in <em>buffer</em> starting at <em>svm_ptr</em>
 and is <em>size</em> bytes in size.
 The data pattern must be a scalar or vector integer or floating-point data
-type supported by OpenCL as described in <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#scalar-data-types">Shared
-Application Scalar Data Types</a> and <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#vector-data-types">Supported
+type supported by OpenCL as described in <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#scalar-data-types" target="_blank" rel="noopener">Shared
+Application Scalar Data Types</a> and <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#vector-data-types" target="_blank" rel="noopener">Supported
 Application Vector Data Types</a>.
 For example, if region pointed to by <em>svm_ptr</em> is to be filled with a
 pattern of float4 values, then <em>pattern</em> will be a pointer to a cl_float4
@@ -849,45 +849,45 @@ array.</p>
 <h2 id="_description">Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><strong>clEnqueueSVMMemFill</strong> returns CL_SUCCESS if the function is executed
+<p><strong>clEnqueueSVMMemFill</strong> returns <code>CL_&#8203;SUCCESS</code> if the function is executed
 successfully.
 Otherwise, it returns one of the following errors:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>CL_INVALID_COMMAND_QUEUE if <em>command_queue</em> is not a valid host
+<p><code>CL_&#8203;INVALID_&#8203;COMMAND_&#8203;QUEUE</code> if <em>command_queue</em> is not a valid host
 command-queue.</p>
 </li>
 <li>
-<p>CL_INVALID_CONTEXT if the context associated with <em>command_queue</em> and
+<p><code>CL_&#8203;INVALID_&#8203;CONTEXT</code> if the context associated with <em>command_queue</em> and
 events in <em>event_wait_list</em> are not the same.</p>
 </li>
 <li>
-<p>CL_INVALID_VALUE if <em>svm_ptr</em> is <code>NULL</code>.</p>
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if <em>svm_ptr</em> is <code>NULL</code>.</p>
 </li>
 <li>
-<p>CL_INVALID_VALUE if <em>svm_ptr</em> is not aligned to <em>pattern_size</em> bytes.</p>
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if <em>svm_ptr</em> is not aligned to <em>pattern_size</em> bytes.</p>
 </li>
 <li>
-<p>CL_INVALID_VALUE if <em>pattern</em> is <code>NULL</code> or if <em>pattern_size</em> is 0 or if
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if <em>pattern</em> is <code>NULL</code> or if <em>pattern_size</em> is 0 or if
 <em>pattern_size</em> is not one of {1, 2, 4, 8, 16, 32, 64, 128}.</p>
 </li>
 <li>
-<p>CL_INVALID_VALUE if <em>size</em> is not a multiple of <em>pattern_size</em>.</p>
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if <em>size</em> is not a multiple of <em>pattern_size</em>.</p>
 </li>
 <li>
-<p>CL_INVALID_EVENT_WAIT_LIST if <em>event_wait_list</em> is <code>NULL</code> and
+<p><code>CL_&#8203;INVALID_&#8203;EVENT_&#8203;WAIT_&#8203;LIST</code> if <em>event_wait_list</em> is <code>NULL</code> and
 <em>num_events_in_wait_list</em> &gt; 0, or <em>event_wait_list</em> is not <code>NULL</code> and
 <em>num_events_in_wait_list</em> is 0, or if event objects in <em>event_wait_list</em>
 are not valid events.</p>
 </li>
 <li>
-<p>CL_OUT_OF_RESOURCES if there is a failure to allocate resources required
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;RESOURCES</code> if there is a failure to allocate resources required
 by the OpenCL implementation on the device.</p>
 </li>
 <li>
-<p>CL_OUT_OF_HOST_MEMORY if there is a failure to allocate resources
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;HOST_&#8203;MEMORY</code> if there is a failure to allocate resources
 required by the OpenCL implementation on the host.</p>
 </li>
 </ul>
@@ -906,10 +906,7 @@ required by the OpenCL implementation on the host.</p>
 <h2 id="_document_notes">Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Specification at URL</p>
-</div>
-<div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clEnqueueSVMMemFill" class="bare">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clEnqueueSVMMemFill</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clEnqueueSVMMemFill" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the OpenCL Specification.
@@ -922,7 +919,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Copyright (c) 2014-2019 Khronos Group. This work is licensed under a
-<a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons
+<a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons
 Attribution 4.0 International License</a>.</p>
 </div>
 </div>
@@ -930,8 +927,8 @@ Attribution 4.0 International License</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v2.2-10-28-g71714e1-dirty<br>
-Last updated 2019-06-20 05:25:24 -0700
+Version V2.2-11-2-gbc16dca-dirty<br>
+Last updated 2019-07-24 05:39:45 -0700
 </div>
 </div>
 

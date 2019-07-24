@@ -783,7 +783,7 @@ p.tableblock.header { color: #6d6e71; }
 <p><em>param_name</em> specifies the information to query.
 The list of supported <em>param_name</em> types and the information returned in
 <em>param_value</em> by <strong>clGetEventInfo</strong> is described in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#event-info-table">Event Object Queries</a> table.</p>
+<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#event-info-table" target="_blank" rel="noopener">Event Object Queries</a> table.</p>
 </li>
 <li>
 <p><em>param_value</em> is a pointer to memory where the appropriate result being
@@ -794,7 +794,7 @@ If <em>param_value</em> is <code>NULL</code>, it is ignored.</p>
 <p><em>param_value_size</em> is used to specify the size in bytes of memory pointed to
 by <em>param_value</em>.
 This size must be ≥ size of return type as described in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#event-info-table">Event Object Queries</a> table.</p>
+<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#event-info-table" target="_blank" rel="noopener">Event Object Queries</a> table.</p>
 </li>
 <li>
 <p><em>param_value_size_ret</em> returns the actual size in bytes of data being
@@ -809,7 +809,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <h2 id="_description">Description</h2>
 <div class="sectionbody">
 <table id="event-info-table" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. <strong>clGetEventInfo</strong> parameter queries</caption>
+<caption class="title">Table 1. List of supported param_names by <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetEventInfo" class="bare" target="_blank" rel="noopener">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetEventInfo</a></caption>
 <colgroup>
 <col style="width: 30%;">
 <col style="width: 33%;">
@@ -824,61 +824,61 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_EVENT_COMMAND_QUEUE</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;EVENT_&#8203;COMMAND_&#8203;QUEUE</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_command_queue</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return the command-queue associated with <em>event</em>.
         For user event objects, a <code>NULL</code> value is returned.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_EVENT_CONTEXT</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;EVENT_&#8203;CONTEXT</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_context</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return the context associated with <em>event</em>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_EVENT_COMMAND_TYPE</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;EVENT_&#8203;COMMAND_&#8203;TYPE</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_command_type</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return the command associated with event.
         Can be one of the following values:</p>
-<p class="tableblock">        CL_COMMAND_NDRANGE_KERNEL<br>
-        CL_COMMAND_NATIVE_KERNEL<br>
-        CL_COMMAND_READ_BUFFER<br>
-        CL_COMMAND_WRITE_BUFFER<br>
-        CL_COMMAND_COPY_BUFFER<br>
-        CL_COMMAND_READ_IMAGE<br>
-        CL_COMMAND_WRITE_IMAGE<br>
-        CL_COMMAND_COPY_IMAGE<br>
-        CL_COMMAND_COPY_BUFFER_TO_IMAGE<br>
-        CL_COMMAND_COPY_IMAGE_TO_BUFFER<br>
-        CL_COMMAND_MAP_BUFFER<br>
-        CL_COMMAND_MAP_IMAGE<br>
-        CL_COMMAND_UNMAP_MEM_OBJECT<br>
-        CL_COMMAND_MARKER<br>
-        CL_COMMAND_ACQUIRE_GL_OBJECTS<br>
-        CL_COMMAND_RELEASE_GL_OBJECTS<br>
-        CL_COMMAND_READ_BUFFER_RECT<br>
-        CL_COMMAND_WRITE_BUFFER_RECT<br>
-        CL_COMMAND_COPY_BUFFER_RECT<br>
-        CL_COMMAND_USER<br>
-        CL_COMMAND_BARRIER<br>
-        CL_COMMAND_MIGRATE_MEM_OBJECTS<br>
-        CL_COMMAND_FILL_BUFFER<br>
-        CL_COMMAND_FILL_IMAGE<br>
-        CL_COMMAND_SVM_FREE<br>
-        CL_COMMAND_SVM_MEMCPY<br>
-        CL_COMMAND_SVM_MEMFILL<br>
-        CL_COMMAND_SVM_MAP<br>
-        CL_COMMAND_SVM_UNMAP</p></td>
+<p class="tableblock">        <code>CL_&#8203;COMMAND_&#8203;NDRANGE_&#8203;KERNEL</code><br>
+        <code>CL_&#8203;COMMAND_&#8203;NATIVE_&#8203;KERNEL</code><br>
+        <code>CL_&#8203;COMMAND_&#8203;READ_&#8203;BUFFER</code><br>
+        <code>CL_&#8203;COMMAND_&#8203;WRITE_&#8203;BUFFER</code><br>
+        <code>CL_&#8203;COMMAND_&#8203;COPY_&#8203;BUFFER</code><br>
+        <code>CL_&#8203;COMMAND_&#8203;READ_&#8203;IMAGE</code><br>
+        <code>CL_&#8203;COMMAND_&#8203;WRITE_&#8203;IMAGE</code><br>
+        <code>CL_&#8203;COMMAND_&#8203;COPY_&#8203;IMAGE</code><br>
+        <code>CL_&#8203;COMMAND_&#8203;COPY_&#8203;BUFFER_&#8203;TO_&#8203;IMAGE</code><br>
+        <code>CL_&#8203;COMMAND_&#8203;COPY_&#8203;IMAGE_&#8203;TO_&#8203;BUFFER</code><br>
+        <code>CL_&#8203;COMMAND_&#8203;MAP_&#8203;BUFFER</code><br>
+        <code>CL_&#8203;COMMAND_&#8203;MAP_&#8203;IMAGE</code><br>
+        <code>CL_&#8203;COMMAND_&#8203;UNMAP_&#8203;MEM_&#8203;OBJECT</code><br>
+        <code>CL_&#8203;COMMAND_&#8203;MARKER</code><br>
+        <code>CL_&#8203;COMMAND_&#8203;ACQUIRE_&#8203;GL_&#8203;OBJECTS</code><br>
+        <code>CL_&#8203;COMMAND_&#8203;RELEASE_&#8203;GL_&#8203;OBJECTS</code><br>
+        <code>CL_&#8203;COMMAND_&#8203;READ_&#8203;BUFFER_&#8203;RECT</code><br>
+        <code>CL_&#8203;COMMAND_&#8203;WRITE_&#8203;BUFFER_&#8203;RECT</code><br>
+        <code>CL_&#8203;COMMAND_&#8203;COPY_&#8203;BUFFER_&#8203;RECT</code><br>
+        <code>CL_&#8203;COMMAND_&#8203;USER</code><br>
+        <code>CL_&#8203;COMMAND_&#8203;BARRIER</code><br>
+        <code>CL_&#8203;COMMAND_&#8203;MIGRATE_&#8203;MEM_&#8203;OBJECTS</code><br>
+        <code>CL_&#8203;COMMAND_&#8203;FILL_&#8203;BUFFER</code><br>
+        <code>CL_&#8203;COMMAND_&#8203;FILL_&#8203;IMAGE</code><br>
+        <code>CL_&#8203;COMMAND_&#8203;SVM_&#8203;FREE</code><br>
+        <code>CL_&#8203;COMMAND_&#8203;SVM_&#8203;MEMCPY</code><br>
+        <code>CL_&#8203;COMMAND_&#8203;SVM_&#8203;MEMFILL</code><br>
+        <code>CL_&#8203;COMMAND_&#8203;SVM_&#8203;MAP</code><br>
+        <code>CL_&#8203;COMMAND_&#8203;SVM_&#8203;UNMAP</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_EVENT_COMMAND_EXECUTION_STATUS</strong><sup>19</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;EVENT_&#8203;COMMAND_&#8203;EXECUTION_&#8203;STATUS</code><sup>19</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_int</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return the execution status of the command identified by event.
         Valid values are:</p>
-<p class="tableblock">        CL_QUEUED (command has been enqueued n the command-queue),</p>
-<p class="tableblock">        CL_SUBMITTED (enqueued command has been submitted by the host to the
+<p class="tableblock">        <code>CL_&#8203;QUEUED</code> (command has been enqueued in the command-queue),</p>
+<p class="tableblock">        <code>CL_&#8203;SUBMITTED</code> (enqueued command has been submitted by the host to the
         device associated with the command-queue),</p>
-<p class="tableblock">        CL_RUNNING (device is currently executing this command),</p>
-<p class="tableblock">        CL_COMPLETE (the command has completed), or</p>
+<p class="tableblock">        <code>CL_&#8203;RUNNING</code> (device is currently executing this command),</p>
+<p class="tableblock">        <code>CL_&#8203;COMPLETE</code> (the command has completed), or</p>
 <p class="tableblock">        Error code given by a negative integer value. (command was
         abnormally terminated - this may be caused by a bad memory access
         etc.).
@@ -887,7 +887,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
         errcode_ret values.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_EVENT_REFERENCE_COUNT</strong><sup>20</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;EVENT_&#8203;REFERENCE_&#8203;COUNT</code><sup>20</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_uint</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return the <em>event</em> reference count.</p></td>
 </tr>
@@ -898,10 +898,10 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <dt class="hdlist1">19</dt>
 <dd>
 <p>The error code values are negative, and event state values are positive.
-The event state values are ordered from the largest value (CL_QUEUED)
-for the first or initial state to the smallest value (CL_COMPLETE or
+The event state values are ordered from the largest value <code>CL_&#8203;QUEUED</code>
+for the first or initial state to the smallest value (<code>CL_&#8203;COMPLETE</code> or
 negative integer value) for the last or complete state.
-The value of CL_COMPLETE and CL_SUCCESS are the same.</p>
+The value of <code>CL_&#8203;COMPLETE</code> and <code>CL_&#8203;SUCCESS</code> are the same.</p>
 </dd>
 <dt class="hdlist1">20</dt>
 <dd>
@@ -913,37 +913,37 @@ This feature is provided for identifying memory leaks.</p>
 </div>
 <div class="paragraph">
 <p>Using <strong>clGetEventInfo</strong> to determine if a command identified by <em>event</em> has
-finished execution (i.e. CL_EVENT_COMMAND_EXECUTION_STATUS returns
-CL_COMPLETE) is not a synchronization point.
+finished execution (i.e. <code>CL_&#8203;EVENT_&#8203;COMMAND_&#8203;EXECUTION_&#8203;STATUS</code> returns
+<code>CL_&#8203;COMPLETE</code>) is not a synchronization point.
 There are no guarantees that the memory objects being modified by command
 associated with <em>event</em> will be visible to other enqueued commands.</p>
 </div>
 <div class="paragraph">
-<p><strong>clGetEventInfo</strong> returns CL_SUCCESS if the function is executed
+<p><strong>clGetEventInfo</strong> returns <code>CL_&#8203;SUCCESS</code> if the function is executed
 successfully.
 Otherwise, it returns one of the following errors:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>CL_INVALID_VALUE if <em>param_name</em> is not valid, or if size in bytes
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if <em>param_name</em> is not valid, or if size in bytes
 specified by <em>param_value_size</em> is &lt; size of return type as described in
-the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#kernel-argument-info-table">Kernel Argument Queries</a> table and
+the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#kernel-argument-info-table" target="_blank" rel="noopener">Kernel Argument Queries</a> table and
 <em>param_value</em> is not <code>NULL</code>.</p>
 </li>
 <li>
-<p>CL_INVALID_VALUE if information to query given in <em>param_name</em> cannot be
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if information to query given in <em>param_name</em> cannot be
 queried for <em>event</em>.</p>
 </li>
 <li>
-<p>CL_INVALID_EVENT if <em>event</em> is a not a valid event object.</p>
+<p><code>CL_&#8203;INVALID_&#8203;EVENT</code> if <em>event</em> is a not a valid event object.</p>
 </li>
 <li>
-<p>CL_OUT_OF_RESOURCES if there is a failure to allocate resources required
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;RESOURCES</code> if there is a failure to allocate resources required
 by the OpenCL implementation on the device.</p>
 </li>
 <li>
-<p>CL_OUT_OF_HOST_MEMORY if there is a failure to allocate resources
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;HOST_&#8203;MEMORY</code> if there is a failure to allocate resources
 required by the OpenCL implementation on the host.</p>
 </li>
 </ul>
@@ -962,10 +962,7 @@ required by the OpenCL implementation on the host.</p>
 <h2 id="_document_notes">Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Specification at URL</p>
-</div>
-<div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetEventInfo" class="bare">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetEventInfo</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetEventInfo" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the OpenCL Specification.
@@ -978,7 +975,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Copyright (c) 2014-2019 Khronos Group. This work is licensed under a
-<a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons
+<a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons
 Attribution 4.0 International License</a>.</p>
 </div>
 </div>
@@ -986,8 +983,8 @@ Attribution 4.0 International License</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v2.2-10-28-g71714e1-dirty<br>
-Last updated 2019-06-20 05:25:24 -0700
+Version V2.2-11-2-gbc16dca-dirty<br>
+Last updated 2019-07-24 05:39:45 -0700
 </div>
 </div>
 

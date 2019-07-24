@@ -783,10 +783,10 @@ p.tableblock.header { color: #6d6e71; }
 <p><em>flags</em> is a bit-field that is used to specify allocation and usage
 information such as the memory arena that should be used to allocate the
 buffer object and how it will be used.
-The <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#memory-flags-table">Memory Flags</a> table describes the possible values
+The <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#memory-flags-table" target="_blank" rel="noopener">Memory Flags</a> table describes the possible values
 for <em>flags</em>.
 If the value specified for <em>flags</em> is 0, the default is used which is
-CL_MEM_READ_WRITE.</p>
+<code>CL_&#8203;MEM_&#8203;READ_&#8203;WRITE</code>.</p>
 </li>
 <li>
 <p><em>size</em> is the size in bytes of the buffer memory object to be allocated.</p>
@@ -805,7 +805,7 @@ bytes.</p>
 <h2 id="_description">Description</h2>
 <div class="sectionbody">
 <table id="memory-flags-table" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. List of supported cl_mem_flags values</caption>
+<caption class="title">Table 1. List of supported memory flag values</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -818,36 +818,36 @@ bytes.</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_MEM_READ_WRITE</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;MEM_&#8203;READ_&#8203;WRITE</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This flag specifies that the memory object will be read
     and written by a kernel.
     This is the default.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_MEM_WRITE_ONLY</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;MEM_&#8203;WRITE_&#8203;ONLY</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This flag specifies that the memory object will be
     written but not read by a kernel.</p>
-<p class="tableblock">    Reading from a buffer or image object created with CL_MEM_WRITE_ONLY
+<p class="tableblock">    Reading from a buffer or image object created with <code>CL_&#8203;MEM_&#8203;WRITE_&#8203;ONLY</code>
     inside a kernel is undefined.</p>
-<p class="tableblock">    CL_MEM_READ_WRITE and CL_MEM_WRITE_ONLY are mutually exclusive.</p></td>
+<p class="tableblock">    <code>CL_&#8203;MEM_&#8203;READ_&#8203;WRITE</code> and <code>CL_&#8203;MEM_&#8203;WRITE_&#8203;ONLY</code> are mutually exclusive.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_MEM_READ_ONLY</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;MEM_&#8203;READ_&#8203;ONLY</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This flag specifies that the memory object is a
     readonly memory object when used inside a kernel.</p>
-<p class="tableblock">    Writing to a buffer or image object created with CL_MEM_READ_ONLY inside
+<p class="tableblock">    Writing to a buffer or image object created with <code>CL_&#8203;MEM_&#8203;READ_&#8203;ONLY</code> inside
     a kernel is undefined.</p>
-<p class="tableblock">    CL_MEM_READ_WRITE or CL_MEM_WRITE_ONLY and CL_MEM_READ_ONLY are mutually
+<p class="tableblock">    <code>CL_&#8203;MEM_&#8203;READ_&#8203;WRITE</code> or <code>CL_&#8203;MEM_&#8203;WRITE_&#8203;ONLY</code> and <code>CL_&#8203;MEM_&#8203;READ_&#8203;ONLY</code> are mutually
     exclusive.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_MEM_USE_HOST_PTR</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;MEM_&#8203;USE_&#8203;HOST_&#8203;PTR</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This flag is valid only if host_ptr is not <code>NULL</code>.
     If specified, it indicates that the application wants the OpenCL
     implementation to use memory referenced by host_ptr as the storage bits
     for the memory object.</p>
 <p class="tableblock">    The contents of the memory pointed to by host_ptr at the time of the
-    clCreateBuffer call define the initial contents of the buffer object.</p>
+    <strong>clCreateBuffer</strong> call define the initial contents of the buffer object.</p>
 <p class="tableblock">    OpenCL implementations are allowed to cache the buffer contents pointed
     to by host_ptr in device memory.
     This cached copy can be used when kernels are executed on a device.</p>
@@ -856,13 +856,13 @@ bytes.</p>
     is considered to be undefined.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_MEM_ALLOC_HOST_PTR</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;MEM_&#8203;ALLOC_&#8203;HOST_&#8203;PTR</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This flag specifies that the application wants the OpenCL implementation
     to allocate memory from host accessible memory.</p>
-<p class="tableblock">    CL_MEM_ALLOC_HOST_PTR and CL_MEM_USE_HOST_PTR are mutually exclusive.</p></td>
+<p class="tableblock">    <code>CL_&#8203;MEM_&#8203;ALLOC_&#8203;HOST_&#8203;PTR</code> and <code>CL_&#8203;MEM_&#8203;USE_&#8203;HOST_&#8203;PTR</code> are mutually exclusive.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_MEM_COPY_HOST_PTR</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;MEM_&#8203;COPY_&#8203;HOST_&#8203;PTR</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This flag is valid only if host_ptr is not <code>NULL</code>.
     If specified, it indicates that the application wants the OpenCL
     implementation to allocate memory for the memory object and copy the
@@ -870,13 +870,13 @@ bytes.</p>
     The implementation will copy the memory immediately and host_ptr is
     available for reuse by the application when the <strong>clCreateBuffer</strong> or
     <strong>clCreateImage</strong> operation returns.</p>
-<p class="tableblock">    CL_MEM_COPY_HOST_PTR and CL_MEM_USE_HOST_PTR are mutually exclusive.</p>
-<p class="tableblock">    CL_MEM_COPY_HOST_PTR can be used with CL_MEM_ALLOC_HOST_PTR to
+<p class="tableblock">    <code>CL_&#8203;MEM_&#8203;COPY_&#8203;HOST_&#8203;PTR</code> and <code>CL_&#8203;MEM_&#8203;USE_&#8203;HOST_&#8203;PTR</code> are mutually exclusive.</p>
+<p class="tableblock">    <code>CL_&#8203;MEM_&#8203;COPY_&#8203;HOST_&#8203;PTR</code> can be used with <code>CL_&#8203;MEM_&#8203;ALLOC_&#8203;HOST_&#8203;PTR</code> to
     initialize the contents of the cl_mem object allocated using
     host-accessible (e.g. PCIe) memory.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_MEM_HOST_WRITE_ONLY</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;MEM_&#8203;HOST_&#8203;WRITE_&#8203;ONLY</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This flag specifies that the host will only write to the memory object
     (using OpenCL APIs that enqueue a write or a map for write).
     This can be used to optimize write access from the host (e.g. enable
@@ -884,18 +884,26 @@ bytes.</p>
     communicate with the host over a system bus such as PCIe).</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_MEM_HOST_READ_ONLY</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;MEM_&#8203;HOST_&#8203;READ_&#8203;ONLY</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This flag specifies that the host will only read
     the memory object (using OpenCL APIs that enqueue a read or a map for
     read).</p>
-<p class="tableblock">    CL_MEM_HOST_WRITE_ONLY and CL_MEM_HOST_READ_ONLY are mutually exclusive.</p></td>
+<p class="tableblock">    <code>CL_&#8203;MEM_&#8203;HOST_&#8203;WRITE_&#8203;ONLY</code> and <code>CL_&#8203;MEM_&#8203;HOST_&#8203;READ_&#8203;ONLY</code> are mutually exclusive.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_MEM_HOST_NO_ACCESS</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;MEM_&#8203;HOST_&#8203;NO_&#8203;ACCESS</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This flag specifies that the host will not read or
     write the memory object.</p>
-<p class="tableblock">    CL_MEM_HOST_WRITE_ONLY or CL_MEM_HOST_READ_ONLY and
-    CL_MEM_HOST_NO_ACCESS are mutually exclusive.</p></td>
+<p class="tableblock">    <code>CL_&#8203;MEM_&#8203;HOST_&#8203;WRITE_&#8203;ONLY</code> or <code>CL_&#8203;MEM_&#8203;HOST_&#8203;READ_&#8203;ONLY</code> and
+    <code>CL_&#8203;MEM_&#8203;HOST_&#8203;NO_&#8203;ACCESS</code> are mutually exclusive.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;MEM_&#8203;KERNEL_&#8203;READ_&#8203;AND_&#8203;WRITE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This flag is only used by <strong>clGetSupportedImageFormats</strong> to query image
+    formats that may be both read from and written to by the same kernel
+    instance.
+    To create a memory object that may be read from and written to use
+    <code>CL_&#8203;MEM_&#8203;READ_&#8203;WRITE</code>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -903,7 +911,7 @@ bytes.</p>
 <p>The user is responsible for ensuring that data passed into and out of OpenCL
 images are natively aligned relative to the start of the buffer as per
 kernel language or IL requirements.
-OpenCL buffers created with CL_MEM_USE_HOST_PTR need to provide an
+OpenCL buffers created with <code>CL_&#8203;MEM_&#8203;USE_&#8203;HOST_&#8203;PTR</code> need to provide an
 appropriately aligned host memory pointer that is aligned to the data types
 used to access these buffers in a kernel(s).</p>
 </div>
@@ -912,14 +920,14 @@ used to access these buffers in a kernel(s).</p>
 If <em>errcode_ret</em> is <code>NULL</code>, no error code is returned.</p>
 </div>
 <div class="paragraph">
-<p>If <strong>clCreateBuffer</strong> is called with CL_MEM_USE_HOST_PTR set in its <em>flags</em>
+<p>If <strong>clCreateBuffer</strong> is called with <code>CL_&#8203;MEM_&#8203;USE_&#8203;HOST_&#8203;PTR</code> set in its <em>flags</em>
 argument, the contents of the memory pointed to by <em>host_ptr</em> at the time
 of the <strong>clCreateBuffer</strong> call define the initial contents of the
 buffer object.</p>
 </div>
 <div class="paragraph">
 <p>If <strong>clCreateBuffer</strong> is called with a pointer returned by <strong>clSVMAlloc</strong> as its
-<em>host_ptr</em> argument, and CL_MEM_USE_HOST_PTR is set in its <em>flags</em> argument,
+<em>host_ptr</em> argument, and <code>CL_&#8203;MEM_&#8203;USE_&#8203;HOST_&#8203;PTR</code> is set in its <em>flags</em> argument,
 <strong>clCreateBuffer</strong> will succeed and return a valid non-zero buffer object as
 long as the <em>size</em> argument to <strong>clCreateBuffer</strong> is no larger than the <em>size</em>
 argument passed in the original <strong>clSVMAlloc</strong> call.
@@ -931,45 +939,45 @@ model.</p>
 </div>
 <div class="paragraph">
 <p><strong>clCreateBuffer</strong> returns a valid non-zero buffer object and <em>errcode_ret</em> is
-set to CL_SUCCESS if the buffer object is created successfully.
+set to <code>CL_&#8203;SUCCESS</code> if the buffer object is created successfully.
 Otherwise, it returns a <code>NULL</code> value with one of the following error values
 returned in <em>errcode_ret</em>:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>CL_INVALID_CONTEXT if <em>context</em> is not a valid context.</p>
+<p><code>CL_&#8203;INVALID_&#8203;CONTEXT</code> if <em>context</em> is not a valid context.</p>
 </li>
 <li>
-<p>CL_INVALID_VALUE if values specified in <em>flags</em> are not valid as defined
-in the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#memory-flags-table">Memory Flags</a> table.</p>
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if values specified in <em>flags</em> are not valid as defined
+in the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#memory-flags-table" target="_blank" rel="noopener">Memory Flags</a> table.</p>
 </li>
 <li>
-<p>CL_INVALID_BUFFER_SIZE if <em>size</em> is 0<sup>4</sup>.</p>
+<p><code>CL_&#8203;INVALID_&#8203;BUFFER_&#8203;SIZE</code> if <em>size</em> is 0<sup>4</sup>.</p>
 </li>
 <li>
-<p>CL_INVALID_HOST_PTR if <em>host_ptr</em> is <code>NULL</code> and CL_MEM_USE_HOST_PTR or
-CL_MEM_COPY_HOST_PTR are set in <em>flags</em> or if <em>host_ptr</em> is not <code>NULL</code>
-but CL_MEM_COPY_HOST_PTR or CL_MEM_USE_HOST_PTR are not set in <em>flags</em>.</p>
+<p><code>CL_&#8203;INVALID_&#8203;HOST_&#8203;PTR</code> if <em>host_ptr</em> is <code>NULL</code> and <code>CL_&#8203;MEM_&#8203;USE_&#8203;HOST_&#8203;PTR</code> or
+<code>CL_&#8203;MEM_&#8203;COPY_&#8203;HOST_&#8203;PTR</code> are set in <em>flags</em> or if <em>host_ptr</em> is not <code>NULL</code>
+but <code>CL_&#8203;MEM_&#8203;COPY_&#8203;HOST_&#8203;PTR</code> or <code>CL_&#8203;MEM_&#8203;USE_&#8203;HOST_&#8203;PTR</code> are not set in <em>flags</em>.</p>
 </li>
 <li>
-<p>CL_MEM_OBJECT_ALLOCATION_FAILURE if there is a failure to allocate
+<p><code>CL_&#8203;MEM_&#8203;OBJECT_&#8203;ALLOCATION_&#8203;FAILURE</code> if there is a failure to allocate
 memory for buffer object.</p>
 </li>
 <li>
-<p>CL_OUT_OF_RESOURCES if there is a failure to allocate resources required
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;RESOURCES</code> if there is a failure to allocate resources required
 by the OpenCL implementation on the device.</p>
 </li>
 <li>
-<p>CL_OUT_OF_HOST_MEMORY if there is a failure to allocate resources
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;HOST_&#8203;MEMORY</code> if there is a failure to allocate resources
 required by the OpenCL implementation on the host.</p>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">4</dt>
 <dd>
-<p>Implementations may return CL_INVALID_BUFFER_SIZE if size is greater
-than CL_DEVICE_MAX_MEM_ALLOC_SIZE value specified in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#device-queries-table">Device Queries</a> table for all devices in
+<p>Implementations may return <code>CL_&#8203;INVALID_&#8203;BUFFER_&#8203;SIZE</code> if size is greater
+than <code>CL_&#8203;DEVICE_&#8203;MAX_&#8203;MEM_&#8203;ALLOC_&#8203;SIZE</code> value specified in the
+<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#device-queries-table" target="_blank" rel="noopener">Device Queries</a> table for all devices in
 context.</p>
 </dd>
 </dl>
@@ -991,10 +999,7 @@ context.</p>
 <h2 id="_document_notes">Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Specification at URL</p>
-</div>
-<div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clCreateBuffer" class="bare">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clCreateBuffer</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clCreateBuffer" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the OpenCL Specification.
@@ -1007,7 +1012,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Copyright (c) 2014-2019 Khronos Group. This work is licensed under a
-<a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons
+<a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons
 Attribution 4.0 International License</a>.</p>
 </div>
 </div>
@@ -1015,8 +1020,8 @@ Attribution 4.0 International License</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v2.2-10-28-g71714e1-dirty<br>
-Last updated 2019-06-20 05:25:24 -0700
+Version V2.2-11-2-gbc16dca-dirty<br>
+Last updated 2019-07-24 05:39:45 -0700
 </div>
 </div>
 

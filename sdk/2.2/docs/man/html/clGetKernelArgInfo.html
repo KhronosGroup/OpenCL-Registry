@@ -790,7 +790,7 @@ declared by a kernel.</p>
 <p><em>param_name</em> specifies the argument information to query.
 The list of supported <em>param_name</em> types and the information returned in
 <em>param_value</em> by <strong>clGetKernelArgInfo</strong> is described in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#kernel-argument-info-table">Kernel Argument Queries</a> table.</p>
+<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#kernel-argument-info-table" target="_blank" rel="noopener">Kernel Argument Queries</a> table.</p>
 </li>
 <li>
 <p><em>param_value</em> is a pointer to memory where the appropriate result being
@@ -801,7 +801,7 @@ If <em>param_value</em> is <code>NULL</code>, it is ignored.</p>
 <p><em>param_value_size</em> is used to specify the size in bytes of memory pointed to
 by <em>param_value</em>.
 This size must be &gt; size of return type as described in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#kernel-argument-info-table">Kernel Argument Queries</a> table.</p>
+<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#kernel-argument-info-table" target="_blank" rel="noopener">Kernel Argument Queries</a> table.</p>
 </li>
 <li>
 <p><em>param_value_size ret</em> returns the actual size in bytes of data being
@@ -822,11 +822,11 @@ program executable was built with the <code>-cl-kernel-arg-info option</code> sp
 in options argument to <strong>clBuildProgram</strong> or <strong>clCompileProgram</strong>.</p>
 </div>
 <table id="kernel-argument-info-table" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. <strong>clGetKernelArgInfo</strong> parameter queries</caption>
+<caption class="title">Table 1. List of supported param_names by <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetKernelArgInfo" class="bare" target="_blank" rel="noopener">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetKernelArgInfo</a></caption>
 <colgroup>
-<col style="width: 34%;">
-<col style="width: 33%;">
-<col style="width: 33%;">
+<col style="width: 33.3333%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0001%;">
 </colgroup>
 <thead>
 <tr>
@@ -837,35 +837,35 @@ in options argument to <strong>clBuildProgram</strong> or <strong>clCompileProgr
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_KERNEL_ARG_ADDRESS_QUALIFIER</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;KERNEL_&#8203;ARG_&#8203;ADDRESS_&#8203;QUALIFIER</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_kernel_arg_address_qualifier</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the address qualifier specified for the argument given by
         <em>arg_indx</em>.
         This can be one of the following values:</p>
-<p class="tableblock">        CL_KERNEL_ARG_ADDRESS_GLOBAL<br>
-        CL_KERNEL_ARG_ADDRESS_LOCAL<br>
-        CL_KERNEL_ARG_ADDRESS_CONSTANT<br>
-        CL_KERNEL_ARG_ADDRESS_PRIVATE</p>
+<p class="tableblock">        <code>CL_&#8203;KERNEL_&#8203;ARG_&#8203;ADDRESS_&#8203;GLOBAL</code><br>
+        <code>CL_&#8203;KERNEL_&#8203;ARG_&#8203;ADDRESS_&#8203;LOCAL</code><br>
+        <code>CL_&#8203;KERNEL_&#8203;ARG_&#8203;ADDRESS_&#8203;CONSTANT</code><br>
+        <code>CL_&#8203;KERNEL_&#8203;ARG_&#8203;ADDRESS_&#8203;PRIVATE</code></p>
 <p class="tableblock">        If no address qualifier is specified, the default address qualifier
-        which is CL_KERNEL_ARG_ADDRESS_PRIVATE is returned.</p></td>
+        which is <code>CL_&#8203;KERNEL_&#8203;ARG_&#8203;ADDRESS_&#8203;PRIVATE</code> is returned.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_KERNEL_ARG_ACCESS_QUALIFIER</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;KERNEL_&#8203;ARG_&#8203;ACCESS_&#8203;QUALIFIER</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_kernel_arg_access_qualifier</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the access qualifier specified for the argument given by
         <em>arg_indx</em>.
         This can be one of the following values:</p>
-<p class="tableblock">        CL_KERNEL_ARG_ACCESS_READ_ONLY<br>
-        CL_KERNEL_ARG_ACCESS_WRITE_ONLY<br>
-        CL_KERNEL_ARG_ACCESS_READ_WRITE<br>
-        CL_KERNEL_ARG_ACCESS_NONE</p>
+<p class="tableblock">        <code>CL_&#8203;KERNEL_&#8203;ARG_&#8203;ACCESS_&#8203;READ_&#8203;ONLY</code><br>
+        <code>CL_&#8203;KERNEL_&#8203;ARG_&#8203;ACCESS_&#8203;WRITE_&#8203;ONLY</code><br>
+        <code>CL_&#8203;KERNEL_&#8203;ARG_&#8203;ACCESS_&#8203;READ_&#8203;WRITE</code><br>
+        <code>CL_&#8203;KERNEL_&#8203;ARG_&#8203;ACCESS_&#8203;NONE</code></p>
 <p class="tableblock">        If argument is not an image type and is not declared with the pipe
-        qualifier, CL_KERNEL_ARG_ACCESS_NONE is returned.
+        qualifier, <code>CL_&#8203;KERNEL_&#8203;ARG_&#8203;ACCESS_&#8203;NONE</code> is returned.
         If argument is an image type, the access qualifier specified or the
         default access qualifier is returned.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_KERNEL_ARG_TYPE_NAME</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;KERNEL_&#8203;ARG_&#8203;TYPE_&#8203;NAME</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">char[]</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the type name specified for the argument given by
         <em>arg_indx</em>.
@@ -878,19 +878,21 @@ in options argument to <strong>clBuildProgram</strong> or <strong>clCompileProgr
         qualifiers.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_KERNEL_ARG_TYPE_QUALIFIER</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;KERNEL_&#8203;ARG_&#8203;TYPE_&#8203;QUALIFIER</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_kernel_arg_type_qualifier</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the type qualifier specified for the argument given by
-        <em>arg_indx</em>.
-        The returned value can be: CL_KERNEL_ARG_TYPE_CONST<sup>17</sup>,
-        CL_KERNEL_ARG_TYPE_RESTRICT, CL_KERNEL_ARG_TYPE_VOLATILE<sup>18</sup>, a
-        combination of the above enums, CL_KERNEL_ARG_TYPE_PIPE or
-        CL_KERNEL_ARG_TYPE_NONE.</p>
-<p class="tableblock">        CL_KERNEL_ARG_TYPE_NONE is returned for all parameters passed by
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns a bitfield describing one or more type qualifiers specified
+        for the argument given by <em>arg_indx</em>.
+        The returned values can be:</p>
+<p class="tableblock">        <code>CL_&#8203;KERNEL_&#8203;ARG_&#8203;TYPE_&#8203;CONST</code><sup>17</sup><br>
+        <code>CL_&#8203;KERNEL_&#8203;ARG_&#8203;TYPE_&#8203;RESTRICT</code><br>
+        <code>CL_&#8203;KERNEL_&#8203;ARG_&#8203;TYPE_&#8203;VOLATILE</code><sup>18</sup><br>
+        <code>CL_&#8203;KERNEL_&#8203;ARG_&#8203;TYPE_&#8203;PIPE</code>, or<br>
+        <code>CL_&#8203;KERNEL_&#8203;ARG_&#8203;TYPE_&#8203;NONE</code></p>
+<p class="tableblock">        <code>CL_&#8203;KERNEL_&#8203;ARG_&#8203;TYPE_&#8203;NONE</code> is returned for all parameters passed by
         value.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_KERNEL_ARG_NAME</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;KERNEL_&#8203;ARG_&#8203;NAME</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">char[]</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the name specified for the argument given by <em>arg_indx</em>.</p></td>
 </tr>
@@ -900,28 +902,28 @@ in options argument to <strong>clBuildProgram</strong> or <strong>clCompileProgr
 <dl>
 <dt class="hdlist1">17</dt>
 <dd>
-<p>CL_KERNEL_ARG_TYPE_CONST is returned for
-CL_KERNEL_ARG_TYPE_QUALIFIER if the argument is declared with the
+<p><code>CL_&#8203;KERNEL_&#8203;ARG_&#8203;TYPE_&#8203;CONST</code> is returned for
+<code>CL_&#8203;KERNEL_&#8203;ARG_&#8203;TYPE_&#8203;QUALIFIER</code> if the argument is declared with the
 <code>constant</code> address space qualifier.</p>
 </dd>
 <dt class="hdlist1">18</dt>
 <dd>
-<p>CL_KERNEL_ARG_TYPE_VOLATILE is returned for
-CL_KERNEL_ARG_TYPE_QUALIFIER if the argument is a pointer and the
+<p><code>CL_&#8203;KERNEL_&#8203;ARG_&#8203;TYPE_&#8203;VOLATILE</code> is returned for
+<code>CL_&#8203;KERNEL_&#8203;ARG_&#8203;TYPE_&#8203;QUALIFIER</code> if the argument is a pointer and the
 referenced type is declared with the volatile qualifier.
 For example, a kernel argument declared as <code>global int volatile *x</code>
-returns CL_KERNEL_ARG_TYPE_VOLATILE but a kernel argument declared
+returns <code>CL_&#8203;KERNEL_&#8203;ARG_&#8203;TYPE_&#8203;VOLATILE</code> but a kernel argument declared
 as <code>global int * volatile x</code> does not.
-Similarly, CL_KERNEL_ARG_TYPE_CONST is returned if the argument is a
+Similarly, <code>CL_&#8203;KERNEL_&#8203;ARG_&#8203;TYPE_&#8203;CONST</code> is returned if the argument is a
 pointer and the referenced type is declared with the restrict or
 const qualifier.
 For example, a kernel argument declared as <code>global int const *x</code>
-returns CL_KERNEL_ARG_TYPE_CONST but a kernel argument declared as
+returns <code>CL_&#8203;KERNEL_&#8203;ARG_&#8203;TYPE_&#8203;CONST</code> but a kernel argument declared as
 <code>global int * const x</code> does not.
-CL_KERNEL_ARG_TYPE_RESTRICT will be returned if the pointer type is
+<code>CL_&#8203;KERNEL_&#8203;ARG_&#8203;TYPE_&#8203;RESTRICT</code> will be returned if the pointer type is
 marked <code>restrict</code>.
 For example, <code>global int * restrict x</code> returns
-CL_KERNEL_ARG_TYPE_RESTRICT.</p>
+<code>CL_&#8203;KERNEL_&#8203;ARG_&#8203;TYPE_&#8203;RESTRICT</code>.</p>
 </dd>
 </dl>
 </div>
@@ -933,20 +935,20 @@ Otherwise, it returns one of the following errors:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>CL_INVALID_ARG_INDEX if <em>arg_indx</em> is not a valid argument index.</p>
+<p><code>CL_&#8203;INVALID_&#8203;ARG_&#8203;INDEX</code> if <em>arg_indx</em> is not a valid argument index.</p>
 </li>
 <li>
-<p>CL_INVALID_VALUE if <em>param_name</em> is not valid, or if size in bytes
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if <em>param_name</em> is not valid, or if size in bytes
 specified by <em>param_value</em> size is &lt; size of return type as described in
-the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#kernel-argument-info-table">Kernel Argument Queries</a> table and
+the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#kernel-argument-info-table" target="_blank" rel="noopener">Kernel Argument Queries</a> table and
 <em>param_value</em> is not <code>NULL</code>.</p>
 </li>
 <li>
-<p>CL_KERNEL_ARG_INFO_NOT_AVAILABLE if the argument information is not
+<p><code>CL_&#8203;KERNEL_&#8203;ARG_&#8203;INFO_&#8203;NOT_&#8203;AVAILABLE</code> if the argument information is not
 available for kernel.</p>
 </li>
 <li>
-<p>CL_INVALID_KERNEL if <em>kernel</em> is a not a valid kernel object.</p>
+<p><code>CL_&#8203;INVALID_&#8203;KERNEL</code> if <em>kernel</em> is a not a valid kernel object.</p>
 </li>
 </ul>
 </div>
@@ -964,10 +966,7 @@ available for kernel.</p>
 <h2 id="_document_notes">Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Specification at URL</p>
-</div>
-<div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetKernelArgInfo" class="bare">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetKernelArgInfo</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetKernelArgInfo" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the OpenCL Specification.
@@ -980,7 +979,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Copyright (c) 2014-2019 Khronos Group. This work is licensed under a
-<a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons
+<a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons
 Attribution 4.0 International License</a>.</p>
 </div>
 </div>
@@ -988,8 +987,8 @@ Attribution 4.0 International License</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v2.2-10-28-g71714e1-dirty<br>
-Last updated 2019-06-20 05:25:24 -0700
+Version V2.2-11-2-gbc16dca-dirty<br>
+Last updated 2019-07-24 05:39:45 -0700
 </div>
 </div>
 

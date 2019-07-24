@@ -789,7 +789,7 @@ function:</p>
 <p><em>param_name</em> specifies the information to query.
 The list of supported <em>param_name</em> types and the information returned in
 <em>param_value</em> by <strong>clGetProgramBuildInfo</strong> is described in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#program-build-info-table">Program Build Queries</a> table.</p>
+<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#program-build-info-table" target="_blank" rel="noopener">Program Build Queries</a> table.</p>
 </li>
 <li>
 <p><em>param_value</em> is a pointer to memory where the appropriate result being
@@ -800,7 +800,7 @@ If <em>param_value</em> is <code>NULL</code>, it is ignored.</p>
 <p><em>param_value_size</em> is used to specify the size in bytes of memory pointed to
 by <em>param_value</em>.
 This size must be ≥ size of return type as described in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#program-build-info-table">Program Build Queries</a> table.</p>
+<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#program-build-info-table" target="_blank" rel="noopener">Program Build Queries</a> table.</p>
 </li>
 <li>
 <p><em>param_value_size_ret</em> returns the actual size in bytes of data being
@@ -815,7 +815,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <h2 id="_description">Description</h2>
 <div class="sectionbody">
 <table id="program-build-info-table" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. <strong>clGetProgramBuildInfo</strong> parameter queries.</caption>
+<caption class="title">Table 1. List of supported param_names by <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetProgramBuildInfo" class="bare" target="_blank" rel="noopener">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetProgramBuildInfo</a></caption>
 <colgroup>
 <col style="width: 34%;">
 <col style="width: 33%;">
@@ -830,69 +830,69 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CL_PROGRAM_BUILD_STATUS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;PROGRAM_&#8203;BUILD_&#8203;STATUS</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_build_status</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the build, compile or link status, whichever was performed
-        last on program for device.</p>
+        last on the specified <em>program</em> object for <em>device</em>.</p>
 <p class="tableblock">        This can be one of the following:</p>
-<p class="tableblock">        CL_BUILD_NONE - The build status returned if no <strong>clBuildProgram</strong>,
+<p class="tableblock">        <code>CL_&#8203;BUILD_&#8203;NONE</code> - The build status returned if no <strong>clBuildProgram</strong>,
         <strong>clCompileProgram</strong> or <strong>clLinkProgram</strong> has been performed on the
-        specified program object for device.</p>
-<p class="tableblock">        CL_BUILD_ERROR - The build status returned if <strong>clBuildProgram</strong>,
-        <strong>clCompileProgram</strong> or <strong>clLinkProgram</strong> whichever was performed last
-        on the specified program object for device generated an error.</p>
-<p class="tableblock">        CL_BUILD_SUCCESS - The build status returned if <strong>clBuildProgram</strong>,
-        <strong>clCompileProgram</strong> or <strong>clLinkProgram</strong> whichever was performed last
-        on the specified program object for device was successful.</p>
-<p class="tableblock">        CL_BUILD_IN_PROGRESS - The build status returned if
-        <strong>clBuildProgram</strong>, <strong>clCompileProgram</strong> or <strong>clLinkProgram</strong> whichever
-        was performed last on the specified program object for device has
+        specified <em>program</em> object for <em>device</em>).</p>
+<p class="tableblock">        <code>CL_&#8203;BUILD_&#8203;ERROR</code> - The build status returned if <strong>clBuildProgram</strong>,
+        <strong>clCompileProgram</strong> or <strong>clLinkProgram</strong> - whichever was performed last
+        on the specified <em>program</em> object for <em>device</em> - generated an error.</p>
+<p class="tableblock">        <code>CL_&#8203;BUILD_&#8203;SUCCESS</code> - The build status returned if <strong>clBuildProgram</strong>,
+        <strong>clCompileProgram</strong> or <strong>clLinkProgram</strong> - whichever was performed last
+        on the specified <em>program</em> object for <em>device</em> - was successful.</p>
+<p class="tableblock">        <code>CL_&#8203;BUILD_&#8203;IN_&#8203;PROGRESS</code> - The build status returned if
+        <strong>clBuildProgram</strong>, <strong>clCompileProgram</strong> or <strong>clLinkProgram</strong> - whichever
+        was performed last on the specified <em>program</em> object for <em>device</em> - has
         not finished.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CL_PROGRAM_BUILD_OPTIONS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;PROGRAM_&#8203;BUILD_&#8203;OPTIONS</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">char[]</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return the build, compile or link options specified by the options
         argument in <strong>clBuildProgram</strong>, <strong>clCompileProgram</strong> or <strong>clLinkProgram</strong>,
-        whichever was performed last on program for device.</p>
-<p class="tableblock">        If build status of program for device is CL_BUILD_NONE, an empty
-        string is returned.</p></td>
+        whichever was performed last on the specified <em>program</em> object for
+        <em>device</em>.</p>
+<p class="tableblock">        If build status of the specified <em>program</em> for <em>device</em> is
+        <code>CL_&#8203;BUILD_&#8203;NONE</code>, an empty string is returned.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CL_PROGRAM_BUILD_LOG</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;PROGRAM_&#8203;BUILD_&#8203;LOG</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">char[]</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return the build, compile or link log for <strong>clBuildProgram</strong>,
         <strong>clCompileProgram</strong> or <strong>clLinkProgram</strong>, whichever was performed last
         on program for device.</p>
-<p class="tableblock">        If build status of program for device is CL_BUILD_NONE, an empty
-        string is returned.</p></td>
+<p class="tableblock">        If build status of the specified <em>program</em> for <em>device</em> is
+        <code>CL_&#8203;BUILD_&#8203;NONE</code>, an empty string is returned.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CL_PROGRAM_BINARY_TYPE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;PROGRAM_&#8203;BINARY_&#8203;TYPE</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_program_binary_type</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return the program binary type for device.
         This can be one of the following values:</p>
-<p class="tableblock">        CL_PROGRAM_BINARY_TYPE_NONE - There is no binary associated with
-        device.</p>
-<p class="tableblock">        CL_PROGRAM_BINARY_TYPE_COMPILED_OBJECT - A compiled binary is
-        associated with device.
-        This is the case if program was created using
-        <strong>clCreateProgramWithSource</strong> and compiled using <strong>clCompileProgram</strong> or
-        a compiled binary is loaded using <strong>clCreateProgramWithBinary</strong>.</p>
-<p class="tableblock">        CL_PROGRAM_BINARY_TYPE_LIBRARY - A library binary is associated with
-        device.
-        This is the case if program was created by <strong>clLinkProgram</strong> which is
-        called with the <code>-create-library</code> link option or if a library binary
-        is loaded using <strong>clCreateProgramWithBinary</strong>.</p>
-<p class="tableblock">        CL_PROGRAM_BINARY_TYPE_EXECUTABLE - An executable binary is
-        associated with device.
-        This is the case if program was created by <strong>clLinkProgram</strong> without
-        the <code>-create-library link</code> option or program was created by
-        <strong>clBuildProgram</strong> or an executable binary is loaded using
-        <strong>clCreateProgramWithBinary</strong>.</p></td>
+<p class="tableblock">        <code>CL_&#8203;PROGRAM_&#8203;BINARY_&#8203;TYPE_&#8203;NONE</code> - There is no binary associated
+        with the specified <em>program</em> object for <em>device</em>.</p>
+<p class="tableblock">        <code>CL_&#8203;PROGRAM_&#8203;BINARY_&#8203;TYPE_&#8203;COMPILED_&#8203;OBJECT</code> - A compiled binary is
+        associated with <em>device</em>.
+        This is the case when the specified <em>program</em> object was created using
+        <strong>clCreateProgramWithSource</strong> and compiled using <strong>clCompileProgram</strong>, or
+        when a compiled binary was loaded using <strong>clCreateProgramWithBinary</strong>.</p>
+<p class="tableblock">        <code>CL_&#8203;PROGRAM_&#8203;BINARY_&#8203;TYPE_&#8203;LIBRARY</code> - A library binary is
+        associated with <em>device</em>.
+        This is the case when the specified <em>program</em> object was linked by
+        <strong>clLinkProgram</strong> using the <code>-create-library</code> link option, or when a
+        compiled library binary was loaded using <strong>clCreateProgramWithBinary</strong>.</p>
+<p class="tableblock">        <code>CL_&#8203;PROGRAM_&#8203;BINARY_&#8203;TYPE_&#8203;EXECUTABLE</code> - An executable binary is
+        associated with <em>device</em>.
+        This is the case when the specified <em>program</em> object was linked by
+        <strong>clLinkProgram</strong> without the <code>-create-library</code> link option, or when an
+        executable binary was built using <strong>clBuildProgram</strong>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_PROGRAM_BUILD_GLOBAL_VARIABLE_TOTAL_SIZE</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;PROGRAM_&#8203;BUILD_&#8203;GLOBAL_&#8203;VARIABLE_&#8203;TOTAL_&#8203;SIZE</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">size_t</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The total amount of storage, in bytes, used by program variables in
         the global address space.</p></td>
@@ -900,31 +900,31 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </tbody>
 </table>
 <div class="paragraph">
-<p><strong>clGetProgramBuildInfo</strong> returns CL_SUCCESS if the function is executed
+<p><strong>clGetProgramBuildInfo</strong> returns <code>CL_&#8203;SUCCESS</code> if the function is executed
 successfully.
 Otherwise, it returns one of the following errors:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>CL_INVALID_DEVICE if <em>device</em> is not in the list of devices associated
+<p><code>CL_&#8203;INVALID_&#8203;DEVICE</code> if <em>device</em> is not in the list of devices associated
 with <em>program</em>.</p>
 </li>
 <li>
-<p>CL_INVALID_VALUE if <em>param_name</em> is not valid, or if size in bytes
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if <em>param_name</em> is not valid, or if size in bytes
 specified by <em>param_value_size</em> is &lt; size of return type as described in
-the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#program-build-info-table">Program Build Queries</a> table and
+the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#program-build-info-table" target="_blank" rel="noopener">Program Build Queries</a> table and
 <em>param_value</em> is not <code>NULL</code>.</p>
 </li>
 <li>
-<p>CL_INVALID_PROGRAM if <em>program</em> is a not a valid program object.</p>
+<p><code>CL_&#8203;INVALID_&#8203;PROGRAM</code> if <em>program</em> is a not a valid program object.</p>
 </li>
 <li>
-<p>CL_OUT_OF_RESOURCES if there is a failure to allocate resources required
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;RESOURCES</code> if there is a failure to allocate resources required
 by the OpenCL implementation on the device.</p>
 </li>
 <li>
-<p>CL_OUT_OF_HOST_MEMORY if there is a failure to allocate resources
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;HOST_&#8203;MEMORY</code> if there is a failure to allocate resources
 required by the OpenCL implementation on the host.</p>
 </li>
 </ul>
@@ -966,10 +966,7 @@ device or sub-devices thereof.</p>
 <h2 id="_document_notes">Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Specification at URL</p>
-</div>
-<div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetProgramBuildInfo" class="bare">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetProgramBuildInfo</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetProgramBuildInfo" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the OpenCL Specification.
@@ -982,7 +979,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Copyright (c) 2014-2019 Khronos Group. This work is licensed under a
-<a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons
+<a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons
 Attribution 4.0 International License</a>.</p>
 </div>
 </div>
@@ -990,8 +987,8 @@ Attribution 4.0 International License</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v2.2-10-28-g71714e1-dirty<br>
-Last updated 2019-06-20 05:25:24 -0700
+Version V2.2-11-2-gbc16dca-dirty<br>
+Last updated 2019-07-24 05:39:45 -0700
 </div>
 </div>
 

@@ -857,9 +857,9 @@ type, or a user defined structure type in the global or constant address
 space, the memory object specified as argument value must be a buffer object
 (or <code>NULL</code>).
 If the argument is declared with the <code>constant</code> qualifier, the size in bytes
-of the memory object cannot exceed CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE and
+of the memory object cannot exceed <code>CL_&#8203;DEVICE_&#8203;MAX_&#8203;CONSTANT_&#8203;BUFFER_&#8203;SIZE</code> and
 the number of arguments declared as pointers to <code>constant</code> memory cannot
-exceed CL_DEVICE_MAX_CONSTANT_ARGS.</p>
+exceed <code>CL_&#8203;DEVICE_&#8203;MAX_&#8203;CONSTANT_&#8203;ARGS</code>.</p>
 </div>
 <div class="paragraph">
 <p>The memory object specified as argument value must be a pipe object if the
@@ -869,7 +869,7 @@ argument is declared with the <em>pipe</em> qualifier.</p>
 <p>The memory object specified as argument value must be a 2D image object if
 the argument is declared to be of type <em>image2d_t</em>.
 The memory object specified as argument value must be a 2D image object with
-image channel order = CL_DEPTH if the argument is declared to be of type
+image channel order = <code>CL_&#8203;DEPTH</code> if the argument is declared to be of type
 <em>image2d_depth_t</em>.
 The memory object specified as argument value must be a 3D image object if
 argument is declared to be of type <em>image3d_t</em>.
@@ -882,7 +882,7 @@ object if argument is declared to be of type <em>image1d_array_t</em>.
 The memory object specified as argument value must be a 2D image array
 object if argument is declared to be of type <em>image2d_array_t</em>.
 The memory object specified as argument value must be a 2D image array
-object with image channel order = CL_DEPTH if argument is declared to be of
+object with image channel order = <code>CL_&#8203;DEPTH</code> if argument is declared to be of
 type <em>image2d_array_depth_t</em>.</p>
 </div>
 <div class="paragraph">
@@ -909,70 +909,70 @@ user to tell the kernel to release that ownership right.
 If the kernel holds ownership rights on kernel args, that would make it
 impossible for the user to tell with certainty when he may safely
 release user allocated resources associated with OpenCL objects such as
-the cl_mem backing store used with CL_MEM_USE_HOST_PTR.</p>
+the cl_mem backing store used with <code>CL_&#8203;MEM_&#8203;USE_&#8203;HOST_&#8203;PTR</code>.</p>
 </div>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p><strong>clSetKernelArg</strong> returns CL_SUCCESS if the function was executed
+<p><strong>clSetKernelArg</strong> returns <code>CL_&#8203;SUCCESS</code> if the function was executed
 successfully.
 Otherwise, it returns one of the following errors:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>CL_INVALID_KERNEL if <em>kernel</em> is not a valid kernel object.</p>
+<p><code>CL_&#8203;INVALID_&#8203;KERNEL</code> if <em>kernel</em> is not a valid kernel object.</p>
 </li>
 <li>
-<p>CL_INVALID_ARG_INDEX if <em>arg_index</em> is not a valid argument index.</p>
+<p><code>CL_&#8203;INVALID_&#8203;ARG_&#8203;INDEX</code> if <em>arg_index</em> is not a valid argument index.</p>
 </li>
 <li>
-<p>CL_INVALID_ARG_VALUE if <em>arg_value</em> specified is not a valid value.</p>
+<p><code>CL_&#8203;INVALID_&#8203;ARG_&#8203;VALUE</code> if <em>arg_value</em> specified is not a valid value.</p>
 </li>
 <li>
-<p>CL_INVALID_MEM_OBJECT for an argument declared to be a memory object
+<p><code>CL_&#8203;INVALID_&#8203;MEM_&#8203;OBJECT</code> for an argument declared to be a memory object
 when the specified <em>arg_value</em> is not a valid memory object.</p>
 </li>
 <li>
-<p>CL_INVALID_SAMPLER for an argument declared to be of type <em>sampler_t</em>
+<p><code>CL_&#8203;INVALID_&#8203;SAMPLER</code> for an argument declared to be of type <em>sampler_t</em>
 when the specified <em>arg_value</em> is not a valid sampler object.</p>
 </li>
 <li>
-<p>CL_INVALID_DEVICE_QUEUE for an argument declared to be of type <em>queue_t</em>
+<p><code>CL_&#8203;INVALID_&#8203;DEVICE_&#8203;QUEUE</code> for an argument declared to be of type <em>queue_t</em>
 when the specified <em>arg_value</em> is not a valid device queue object.</p>
 </li>
 <li>
-<p>CL_INVALID_ARG_SIZE if <em>arg_size</em> does not match the size of the data
+<p><code>CL_&#8203;INVALID_&#8203;ARG_&#8203;SIZE</code> if <em>arg_size</em> does not match the size of the data
 type for an argument that is not a memory object or if the argument is a
 memory object and <em>arg_size</em> != <code>sizeof(cl_mem)</code> or if <em>arg_size</em> is
 zero and the argument is declared with the local qualifier or if the
 argument is a sampler and <em>arg_size</em> != <code>sizeof(cl_sampler)</code>.</p>
 </li>
 <li>
-<p>CL_MAX_SIZE_RESTRICTION_EXCEEDED if the size in bytes of the memory
+<p><code>CL_&#8203;MAX_&#8203;SIZE_&#8203;RESTRICTION_&#8203;EXCEEDED</code> if the size in bytes of the memory
 object (if the argument was declared with constant qualifier) or
 <em>arg_size</em> (if the argument was declared with local qualifier) exceed
 the maximum size restriction that was set with the optional language
 attribute.
-The optional attribute can be <code>cl::max_size</code> defined in OpenCL 2.2 C++
+The optional attribute can be <code>cl::max_size</code> defined in OpenCL 2.2 C&#43;&#43;
 Kernel Language specification or <code>SpvDecorationMaxByteOffset</code> defined
 in SPIR-V 1.2 Specification.</p>
 </li>
 <li>
-<p>CL_INVALID_ARG_VALUE if the argument is an image declared with the
+<p><code>CL_&#8203;INVALID_&#8203;ARG_&#8203;VALUE</code> if the argument is an image declared with the
 <code>read_only</code> qualifier and <em>arg_value</em> refers to an image object created
-with <em>cl_mem_flags</em> of CL_MEM_WRITE_ONLY or if the image argument is
+with <em>cl_mem_flags</em> of <code>CL_&#8203;MEM_&#8203;WRITE_&#8203;ONLY</code> or if the image argument is
 declared with the <code>write_only</code> qualifier and <em>arg_value</em> refers to an
-image object created with <em>cl_mem_flags</em> of CL_MEM_READ_ONLY.</p>
+image object created with <em>cl_mem_flags</em> of <code>CL_&#8203;MEM_&#8203;READ_&#8203;ONLY</code>.</p>
 </li>
 <li>
-<p>CL_OUT_OF_RESOURCES if there is a failure to allocate resources required
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;RESOURCES</code> if there is a failure to allocate resources required
 by the OpenCL implementation on the device.</p>
 </li>
 <li>
-<p>CL_OUT_OF_HOST_MEMORY if there is a failure to allocate resources
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;HOST_&#8203;MEMORY</code> if there is a failure to allocate resources
 required by the OpenCL implementation on the host.</p>
 </li>
 </ul>
@@ -991,10 +991,7 @@ required by the OpenCL implementation on the host.</p>
 <h2 id="_document_notes">Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Specification at URL</p>
-</div>
-<div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clSetKernelArg" class="bare">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clSetKernelArg</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clSetKernelArg" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the OpenCL Specification.
@@ -1007,7 +1004,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Copyright (c) 2014-2019 Khronos Group. This work is licensed under a
-<a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons
+<a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons
 Attribution 4.0 International License</a>.</p>
 </div>
 </div>
@@ -1015,8 +1012,8 @@ Attribution 4.0 International License</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v2.2-10-28-g71714e1-dirty<br>
-Last updated 2019-06-20 05:25:24 -0700
+Version V2.2-11-2-gbc16dca-dirty<br>
+Last updated 2019-07-24 05:39:45 -0700
 </div>
 </div>
 

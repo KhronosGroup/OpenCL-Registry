@@ -782,7 +782,7 @@ the function</p>
 <li>
 <p><em>param_name</em> specifies the information to be passed to kernel.
 The list of supported <em>param_name</em> types and the corresponding values passed
-in <em>param_value</em> is described in the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#kernel-exec-info-table">Kernel
+in <em>param_value</em> is described in the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#kernel-exec-info-table" target="_blank" rel="noopener">Kernel
 Execution Properties</a> table.</p>
 </li>
 <li>
@@ -801,7 +801,7 @@ by <em>param_name</em> are specified.</p>
 <h2 id="_description">Description</h2>
 <div class="sectionbody">
 <table id="kernel-exec-info-table" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. <strong>clSetKernelExecInfo_</strong> parameter values</caption>
+<caption class="title">Table 1. List of supported param_names by <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clSetKernelExecInfo" class="bare" target="_blank" rel="noopener">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clSetKernelExecInfo</a></caption>
 <colgroup>
 <col style="width: 34%;">
 <col style="width: 33%;">
@@ -816,7 +816,7 @@ by <em>param_name</em> are specified.</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_KERNEL_EXEC_INFO_SVM_PTRS</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;KERNEL_&#8203;EXEC_&#8203;INFO_&#8203;SVM_&#8203;PTRS</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">void *[]</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SVM pointers must reference locations contained entirely within
         buffers that are passed to kernel as arguments, or that are passed
@@ -827,7 +827,7 @@ by <em>param_name</em> are specified.</p>
         allocations.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_KERNEL_EXEC_INFO_SVM_FINE_GRAIN_SYSTEM</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;KERNEL_&#8203;EXEC_&#8203;INFO_&#8203;SVM_&#8203;FINE_&#8203;GRAIN_&#8203;SYSTEM</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_bool</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This flag indicates whether the kernel uses pointers that are fine
         grain system SVM allocations.
@@ -837,31 +837,31 @@ by <em>param_name</em> are specified.</p>
 </tbody>
 </table>
 <div class="paragraph">
-<p><strong>clSetKernelExecInfo</strong> returns CL_SUCCESS if the function is executed
+<p><strong>clSetKernelExecInfo</strong> returns <code>CL_&#8203;SUCCESS</code> if the function is executed
 successfully.
 Otherwise, it returns one of the following errors:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>CL_INVALID_KERNEL if <em>kernel</em> is a not a valid kernel object.</p>
+<p><code>CL_&#8203;INVALID_&#8203;KERNEL</code> if <em>kernel</em> is a not a valid kernel object.</p>
 </li>
 <li>
-<p>CL_INVALID_VALUE if <em>param_name</em> is not valid, if <em>param_value</em> is
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if <em>param_name</em> is not valid, if <em>param_value</em> is
 <code>NULL</code> or if the size specified by <em>param_value_size</em> is not valid.</p>
 </li>
 <li>
-<p>CL_INVALID_OPERATION if <em>param_name</em> =
-CL_KERNEL_EXEC_INFO_SVM_FINE_GRAIN_SYSTEM and <em>param_value</em> = CL_TRUE
+<p><code>CL_&#8203;INVALID_&#8203;OPERATION</code> if <em>param_name</em> =
+<code>CL_&#8203;KERNEL_&#8203;EXEC_&#8203;INFO_&#8203;SVM_&#8203;FINE_&#8203;GRAIN_&#8203;SYSTEM</code> and <em>param_value</em> = <code>CL_&#8203;TRUE</code>
 but no devices in context associated with <em>kernel</em> support fine-grain
 system SVM allocations.</p>
 </li>
 <li>
-<p>CL_OUT_OF_RESOURCES if there is a failure to allocate resources required
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;RESOURCES</code> if there is a failure to allocate resources required
 by the OpenCL implementation on the device.</p>
 </li>
 <li>
-<p>CL_OUT_OF_HOST_MEMORY if there is a failure to allocate resources
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;HOST_&#8203;MEMORY</code> if there is a failure to allocate resources
 required by the OpenCL implementation on the host.</p>
 </li>
 </ul>
@@ -880,10 +880,7 @@ required by the OpenCL implementation on the host.</p>
 <h2 id="_document_notes">Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Specification at URL</p>
-</div>
-<div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clSetKernelExecInfo" class="bare">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clSetKernelExecInfo</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clSetKernelExecInfo" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the OpenCL Specification.
@@ -896,7 +893,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Copyright (c) 2014-2019 Khronos Group. This work is licensed under a
-<a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons
+<a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons
 Attribution 4.0 International License</a>.</p>
 </div>
 </div>
@@ -904,8 +901,8 @@ Attribution 4.0 International License</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v2.2-10-28-g71714e1-dirty<br>
-Last updated 2019-06-20 05:25:24 -0700
+Version V2.2-11-2-gbc16dca-dirty<br>
+Last updated 2019-07-24 05:39:45 -0700
 </div>
 </div>
 

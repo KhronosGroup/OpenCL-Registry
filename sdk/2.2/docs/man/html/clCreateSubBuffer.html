@@ -783,18 +783,18 @@ existing buffer object, call the function</p>
 <li>
 <p><em>flags</em> is a bit-field that is used to specify allocation and usage
 information about the sub-buffer memory object being created and is
-described in the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#memory-flags-table">Memory Flags</a> table.
-If the CL_MEM_READ_WRITE, CL_MEM_READ_ONLY or CL_MEM_WRITE_ONLY values are
+described in the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#memory-flags-table" target="_blank" rel="noopener">Memory Flags</a> table.
+If the <code>CL_&#8203;MEM_&#8203;READ_&#8203;WRITE</code>, <code>CL_&#8203;MEM_&#8203;READ_&#8203;ONLY</code>, or <code>CL_&#8203;MEM_&#8203;WRITE_&#8203;ONLY</code> values are
 not specified in <em>flags</em>, they are inherited from the corresponding memory
 access qualifiers associated with <em>buffer</em>.
-The CL_MEM_USE_HOST_PTR, CL_MEM_ALLOC_HOST_PTR and CL_MEM_COPY_HOST_PTR
+The <code>CL_&#8203;MEM_&#8203;USE_&#8203;HOST_&#8203;PTR</code>, <code>CL_&#8203;MEM_&#8203;ALLOC_&#8203;HOST_&#8203;PTR</code>, and <code>CL_&#8203;MEM_&#8203;COPY_&#8203;HOST_&#8203;PTR</code>
 values cannot be specified in <em>flags</em> but are inherited from the
 corresponding memory access qualifiers associated with <em>buffer</em>.
-If CL_MEM_COPY_HOST_PTR is specified in the memory access qualifier values
+If <code>CL_&#8203;MEM_&#8203;COPY_&#8203;HOST_&#8203;PTR</code> is specified in the memory access qualifier values
 associated with <em>buffer</em> it does not imply any additional copies when the
 sub-buffer is created from <em>buffer</em>.
-If the CL_MEM_HOST_WRITE_ONLY, CL_MEM_HOST_READ_ONLY or
-CL_MEM_HOST_NO_ACCESS values are not specified in <em>flags</em>, they are
+If the <code>CL_&#8203;MEM_&#8203;HOST_&#8203;WRITE_&#8203;ONLY</code>, <code>CL_&#8203;MEM_&#8203;HOST_&#8203;READ_&#8203;ONLY</code>, or
+<code>CL_&#8203;MEM_&#8203;HOST_&#8203;NO_&#8203;ACCESS</code> values are not specified in <em>flags</em>, they are
 inherited from the corresponding memory access qualifiers associated with
 <em>buffer</em>.</p>
 </li>
@@ -803,7 +803,7 @@ inherited from the corresponding memory access qualifiers associated with
 object to be created.
 The list of supported values for <em>buffer_create_type</em> and corresponding
 descriptor that <em>buffer_create_info</em> points to is described in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#subbuffer-create-info-table">SubBuffer Attributes</a> table.</p>
+<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#subbuffer-create-info-table" target="_blank" rel="noopener">SubBuffer Attributes</a> table.</p>
 </li>
 </ul>
 </div>
@@ -813,7 +813,7 @@ descriptor that <em>buffer_create_info</em> points to is described in the
 <h2 id="_description">Description</h2>
 <div class="sectionbody">
 <table id="subbuffer-create-info-table" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. List of supported names and values in <strong>clCreateSubBuffer</strong></caption>
+<caption class="title">Table 1. List of supported buffer creation types by <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clCreateSubBuffer" class="bare" target="_blank" rel="noopener">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clCreateSubBuffer</a></caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -826,11 +826,11 @@ descriptor that <em>buffer_create_info</em> points to is described in the
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_BUFFER_CREATE_TYPE_REGION</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;BUFFER_&#8203;CREATE_&#8203;TYPE_&#8203;REGION</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Create a buffer object that represents a specific region in <em>buffer</em>.</p>
-<p class="tableblock">    <em>buffer_create_info</em> is a pointer to a <strong><a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#cl_buffer_region" class="bare">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#cl_buffer_region</a></strong> structure
+<p class="tableblock">    <em>buffer_create_info</em> is a pointer to a <strong><a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#cl_buffer_region" class="bare" target="_blank" rel="noopener">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#cl_buffer_region</a></strong> structure
     specifying a region of the buffer.</p>
-<p class="tableblock">    If <em>buffer</em> is created with CL_MEM_USE_HOST_PTR, the <em>host_ptr</em>
+<p class="tableblock">    If <em>buffer</em> is created with <code>CL_&#8203;MEM_&#8203;USE_&#8203;HOST_&#8203;PTR</code>, the <em>host_ptr</em>
     associated with the buffer object returned is <em>host_ptr + origin</em>.</p>
 <p class="tableblock">    The buffer object returned references the data store allocated for
     buffer and points to the region specified by <em>buffer_create_info</em> in
@@ -839,64 +839,64 @@ descriptor that <em>buffer_create_info</em> points to is described in the
 </tbody>
 </table>
 <div class="paragraph">
-<p><strong>clCreateSubBuffer</strong> returns CL_SUCCESS if the function is executed
+<p><strong>clCreateSubBuffer</strong> returns <code>CL_&#8203;SUCCESS</code> if the function is executed
 successfully.
 Otherwise, it returns one of the following errors in <em>errcode_ret</em>:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>CL_INVALID_MEM_OBJECT if <em>buffer</em> is not a valid buffer object or is a
+<p><code>CL_&#8203;INVALID_&#8203;MEM_&#8203;OBJECT</code> if <em>buffer</em> is not a valid buffer object or is a
 sub-buffer object.</p>
 </li>
 <li>
-<p>CL_INVALID_VALUE if <em>buffer</em> was created with CL_MEM_WRITE_ONLY and
-<em>flags</em> specifies CL_MEM_READ_WRITE or CL_MEM_READ_ONLY, or if <em>buffer</em>
-was created with CL_MEM_READ_ONLY and <em>flags</em> specifies
-CL_MEM_READ_WRITE or CL_MEM_WRITE_ONLY, or if <em>flags</em> specifies
-CL_MEM_USE_HOST_PTR or CL_MEM_ALLOC_HOST_PTR or CL_MEM_COPY_HOST_PTR.</p>
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if <em>buffer</em> was created with <code>CL_&#8203;MEM_&#8203;WRITE_&#8203;ONLY</code> and
+<em>flags</em> specifies <code>CL_&#8203;MEM_&#8203;READ_&#8203;WRITE</code> or <code>CL_&#8203;MEM_&#8203;READ_&#8203;ONLY</code>, or if <em>buffer</em>
+was created with <code>CL_&#8203;MEM_&#8203;READ_&#8203;ONLY</code> and <em>flags</em> specifies
+<code>CL_&#8203;MEM_&#8203;READ_&#8203;WRITE</code> or <code>CL_&#8203;MEM_&#8203;WRITE_&#8203;ONLY</code>, or if <em>flags</em> specifies
+<code>CL_&#8203;MEM_&#8203;USE_&#8203;HOST_&#8203;PTR</code> or <code>CL_&#8203;MEM_&#8203;ALLOC_&#8203;HOST_&#8203;PTR</code> or <code>CL_&#8203;MEM_&#8203;COPY_&#8203;HOST_&#8203;PTR</code>.</p>
 </li>
 <li>
-<p>CL_INVALID_VALUE if <em>buffer</em> was created with CL_MEM_HOST_WRITE_ONLY and
-<em>flags</em> specify CL_MEM_HOST_READ_ONLY, or if <em>buffer</em> was created with
-CL_MEM_HOST_READ_ONLY and <em>flags</em> specify CL_MEM_HOST_WRITE_ONLY, or if
-<em>buffer</em> was created with CL_MEM_HOST_NO_ACCESS and <em>flags</em> specify
-CL_MEM_HOST_READ_ONLY or CL_MEM_HOST_WRITE_ONLY.</p>
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if <em>buffer</em> was created with <code>CL_&#8203;MEM_&#8203;HOST_&#8203;WRITE_&#8203;ONLY</code> and
+<em>flags</em> specify <code>CL_&#8203;MEM_&#8203;HOST_&#8203;READ_&#8203;ONLY</code>, or if <em>buffer</em> was created with
+<code>CL_&#8203;MEM_&#8203;HOST_&#8203;READ_&#8203;ONLY</code> and <em>flags</em> specify <code>CL_&#8203;MEM_&#8203;HOST_&#8203;WRITE_&#8203;ONLY</code>, or if
+<em>buffer</em> was created with <code>CL_&#8203;MEM_&#8203;HOST_&#8203;NO_&#8203;ACCESS</code> and <em>flags</em> specify
+<code>CL_&#8203;MEM_&#8203;HOST_&#8203;READ_&#8203;ONLY</code> or <code>CL_&#8203;MEM_&#8203;HOST_&#8203;WRITE_&#8203;ONLY</code>.</p>
 </li>
 <li>
-<p>CL_INVALID_VALUE if the value specified in <em>buffer_create_type</em> is not
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if the value specified in <em>buffer_create_type</em> is not
 valid.</p>
 </li>
 <li>
-<p>CL_INVALID_VALUE if value(s) specified in <em>buffer_create_info</em> (for a
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if value(s) specified in <em>buffer_create_info</em> (for a
 given <em>buffer_create_type</em>) is not valid or if <em>buffer_create_info</em> is
 <code>NULL</code>.</p>
 </li>
 <li>
-<p>CL_MEM_OBJECT_ALLOCATION_FAILURE if there is a failure to allocate
+<p><code>CL_&#8203;MEM_&#8203;OBJECT_&#8203;ALLOCATION_&#8203;FAILURE</code> if there is a failure to allocate
 memory for sub-buffer object.</p>
 </li>
 <li>
-<p>CL_OUT_OF_RESOURCES if there is a failure to allocate resources required
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;RESOURCES</code> if there is a failure to allocate resources required
 by the OpenCL implementation on the device.</p>
 </li>
 <li>
-<p>CL_OUT_OF_HOST_MEMORY if there is a failure to allocate resources
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;HOST_&#8203;MEMORY</code> if there is a failure to allocate resources
 required by the OpenCL implementation on the host.</p>
 </li>
 <li>
-<p>CL_INVALID_VALUE if the region specified by the <strong><a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#cl_buffer_region" class="bare">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#cl_buffer_region</a></strong>
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if the region specified by the <strong><a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#cl_buffer_region" class="bare" target="_blank" rel="noopener">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#cl_buffer_region</a></strong>
 structure passed in <em>buffer_create_info</em> is out of bounds in <em>buffer</em>.</p>
 </li>
 <li>
-<p>CL_INVALID_BUFFER_SIZE if the <em>size</em> field of the <strong><a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#cl_buffer_region" class="bare">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#cl_buffer_region</a></strong>
+<p><code>CL_&#8203;INVALID_&#8203;BUFFER_&#8203;SIZE</code> if the <em>size</em> field of the <strong><a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#cl_buffer_region" class="bare" target="_blank" rel="noopener">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#cl_buffer_region</a></strong>
 structure passed in <em>buffer_create_info</em> is 0.</p>
 </li>
 <li>
-<p>CL_MISALIGNED_SUB_BUFFER_OFFSET if there are no devices in the context
+<p><code>CL_&#8203;MISALIGNED_&#8203;SUB_&#8203;BUFFER_&#8203;OFFSET</code> if there are no devices in <em>context</em>
 associated with <em>buffer</em> for which the <em>origin</em> field of the
-<strong><a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#cl_buffer_region" class="bare">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#cl_buffer_region</a></strong> structure passed in <em>buffer_create_info</em> is
-aligned to the CL_DEVICE_MEM_BASE_ADDR_ALIGN value.</p>
+<strong><a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#cl_buffer_region" class="bare" target="_blank" rel="noopener">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#cl_buffer_region</a></strong> structure passed in <em>buffer_create_info</em> is
+aligned to the <code>CL_&#8203;DEVICE_&#8203;MEM_&#8203;BASE_&#8203;ADDR_&#8203;ALIGN</code> value.</p>
 </li>
 </ul>
 </div>
@@ -933,10 +933,7 @@ from multiple overlapping sub-buffer objects is defined.</p>
 <h2 id="_document_notes">Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Specification at URL</p>
-</div>
-<div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clCreateSubBuffer" class="bare">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clCreateSubBuffer</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clCreateSubBuffer" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the OpenCL Specification.
@@ -949,7 +946,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Copyright (c) 2014-2019 Khronos Group. This work is licensed under a
-<a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons
+<a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons
 Attribution 4.0 International License</a>.</p>
 </div>
 </div>
@@ -957,8 +954,8 @@ Attribution 4.0 International License</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v2.2-10-28-g71714e1-dirty<br>
-Last updated 2019-06-20 05:25:24 -0700
+Version V2.2-11-2-gbc16dca-dirty<br>
+Last updated 2019-07-24 05:39:45 -0700
 </div>
 </div>
 

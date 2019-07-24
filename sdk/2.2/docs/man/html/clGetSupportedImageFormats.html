@@ -783,25 +783,23 @@ specified context, image type, and allocation information, call the function</p>
 created.</p>
 </li>
 <li>
-<p><em>flags</em> is a bit-field that is used to specify allocation and usage
-information about the image memory object being queried and is described in
-the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#memory-flags-table">Memory Flags</a> table.
-To get a list of supported image formats that can be read from or written to
-by a kernel, <em>flags</em> must be set to CL_MEM_READ_WRITE (get a list of images
-that can be read from and written to by different kernel instances when
-correctly ordered by event dependencies), CL_MEM_READ_ONLY (list of images
-that can be read from by a kernel) or CL_MEM_WRITE_ONLY (list of images that
-can be written to by a kernel).
-To get a list of supported image formats that can be both read from and
-written to by the same kernel instance, <em>flags</em> must be set to
-CL_MEM_KERNEL_READ_AND_WRITE.
-Please see <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#image-format-mapping">Image Format Mapping</a> for clarification.</p>
+<p><em>flags</em> is a bit-field that is used to specify usage
+information about the image formats being queried and is described in
+the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#memory-flags-table" target="_blank" rel="noopener">Memory Flags</a> table.
+<em>flags</em> may be <code>CL_&#8203;MEM_&#8203;READ_&#8203;WRITE</code> to query image formats that may be read
+from and written to by different kernel instances when correctly ordered by
+event dependencies, or <code>CL_&#8203;MEM_&#8203;READ_&#8203;ONLY</code> to query image formats that may
+be read from by a kernel, or <code>CL_&#8203;MEM_&#8203;WRITE_&#8203;ONLY</code> to query image formats that
+may be written to by a kernel, or <code>CL_&#8203;MEM_&#8203;KERNEL_&#8203;READ_&#8203;AND_&#8203;WRITE</code> to query
+image formats that may be both read from and written to by the same kernel
+instance.
+Please see <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#image-format-mapping" target="_blank" rel="noopener">Image Format Mapping</a> for clarification.</p>
 </li>
 <li>
 <p><em>image_type</em> describes the image type and must be either
-CL_MEM_OBJECT_IMAGE1D, CL_MEM_OBJECT_IMAGE1D_BUFFER, CL_MEM_OBJECT_IMAGE2D,
-CL_MEM_OBJECT_IMAGE3D, CL_MEM_OBJECT_IMAGE1D_ARRAY or
-CL_MEM_OBJECT_IMAGE2D_ARRAY.</p>
+<code>CL_&#8203;MEM_&#8203;OBJECT_&#8203;IMAGE1D</code>, <code>CL_&#8203;MEM_&#8203;OBJECT_&#8203;IMAGE1D_&#8203;BUFFER</code>, <code>CL_&#8203;MEM_&#8203;OBJECT_&#8203;IMAGE2D</code>,
+<code>CL_&#8203;MEM_&#8203;OBJECT_&#8203;IMAGE3D</code>, <code>CL_&#8203;MEM_&#8203;OBJECT_&#8203;IMAGE1D_&#8203;ARRAY</code>, or
+<code>CL_&#8203;MEM_&#8203;OBJECT_&#8203;IMAGE2D_&#8203;ARRAY</code>.</p>
 </li>
 <li>
 <p><em>num_entries</em> specifies the number of entries that can be returned in the
@@ -831,38 +829,38 @@ If <em>num_image_formats</em> is <code>NULL</code>, it is ignored.</p>
 all devices in the context.</p>
 </div>
 <div class="paragraph">
-<p><strong>clGetSupportedImageFormats</strong> returns CL_SUCCESS if the function is executed
+<p><strong>clGetSupportedImageFormats</strong> returns <code>CL_&#8203;SUCCESS</code> if the function is executed
 successfully.
 Otherwise, it returns one of the following errors:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>CL_INVALID_CONTEXT if <em>context</em> is not a valid context.</p>
+<p><code>CL_&#8203;INVALID_&#8203;CONTEXT</code> if <em>context</em> is not a valid context.</p>
 </li>
 <li>
-<p>CL_INVALID_VALUE if <em>flags</em> or <em>image_type</em> are not valid, or if
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if <em>flags</em> or <em>image_type</em> are not valid, or if
 <em>num_entries</em> is 0 and <em>image_formats</em> is not <code>NULL</code>.</p>
 </li>
 <li>
-<p>CL_OUT_OF_RESOURCES if there is a failure to allocate resources required
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;RESOURCES</code> if there is a failure to allocate resources required
 by the OpenCL implementation on the device.</p>
 </li>
 <li>
-<p>CL_OUT_OF_HOST_MEMORY if there is a failure to allocate resources
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;HOST_&#8203;MEMORY</code> if there is a failure to allocate resources
 required by the OpenCL implementation on the host.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>If CL_DEVICE_IMAGE_SUPPORT specified in the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#device-queries-table">Device
-Queries</a> table is CL_TRUE, the values assigned to
-CL_DEVICE_MAX_READ_IMAGE_ARGS, CL_DEVICE_MAX_WRITE_IMAGE_ARGS,
-CL_DEVICE_IMAGE2D_MAX_WIDTH, CL_DEVICE_IMAGE2D_MAX_HEIGHT,
-CL_DEVICE_IMAGE3D_MAX_WIDTH, CL_DEVICE_IMAGE3D_MAX_HEIGHT,
-CL_DEVICE_IMAGE3D_MAX_DEPTH and CL_DEVICE_MAX_SAMPLERS by the implementation
+<p>If <code>CL_&#8203;DEVICE_&#8203;IMAGE_&#8203;SUPPORT</code> specified in the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#device-queries-table" target="_blank" rel="noopener">Device
+Queries</a> table is <code>CL_&#8203;TRUE</code>, the values assigned to
+<code>CL_&#8203;DEVICE_&#8203;MAX_&#8203;READ_&#8203;IMAGE_&#8203;ARGS</code>, <code>CL_&#8203;DEVICE_&#8203;MAX_&#8203;WRITE_&#8203;IMAGE_&#8203;ARGS</code>
+<code>CL_&#8203;DEVICE_&#8203;IMAGE2D_&#8203;MAX_&#8203;WIDTH</code>, <code>CL_&#8203;DEVICE_&#8203;IMAGE2D_&#8203;MAX_&#8203;HEIGHT</code>
+<code>CL_&#8203;DEVICE_&#8203;IMAGE3D_&#8203;MAX_&#8203;WIDTH</code>, <code>CL_&#8203;DEVICE_&#8203;IMAGE3D_&#8203;MAX_&#8203;HEIGHT</code>
+<code>CL_&#8203;DEVICE_&#8203;IMAGE3D_&#8203;MAX_&#8203;DEPTH</code>, and <code>CL_&#8203;DEVICE_&#8203;MAX_&#8203;SAMPLERS</code> by the implementation
 must be greater than or equal to the minimum values specified in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#device-queries-table">Device Queries</a> table.</p>
+<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#device-queries-table" target="_blank" rel="noopener">Device Queries</a> table.</p>
 </div>
 </div>
 </div>
@@ -878,10 +876,7 @@ must be greater than or equal to the minimum values specified in the
 <h2 id="_document_notes">Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Specification at URL</p>
-</div>
-<div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetSupportedImageFormats" class="bare">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetSupportedImageFormats</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetSupportedImageFormats" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the OpenCL Specification.
@@ -894,7 +889,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Copyright (c) 2014-2019 Khronos Group. This work is licensed under a
-<a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons
+<a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons
 Attribution 4.0 International License</a>.</p>
 </div>
 </div>
@@ -902,8 +897,8 @@ Attribution 4.0 International License</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v2.2-10-28-g71714e1-dirty<br>
-Last updated 2019-06-20 05:25:24 -0700
+Version V2.2-11-2-gbc16dca-dirty<br>
+Last updated 2019-07-24 05:39:45 -0700
 </div>
 </div>
 

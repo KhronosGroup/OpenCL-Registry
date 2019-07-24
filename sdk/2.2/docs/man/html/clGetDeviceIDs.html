@@ -787,7 +787,7 @@ If <em>platform</em> is <code>NULL</code>, the behavior is implementation-define
 The <em>device_type</em> can be used to query specific OpenCL devices or all OpenCL
 devices available.
 The valid values for <em>device_type</em> are specified in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#device-categories-table">Device Categories</a> table.</p>
+<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#device-categories-table" target="_blank" rel="noopener">Device Categories</a> table.</p>
 </li>
 <li>
 <p><em>num_entries</em> is the number of cl_device_id entries that can be added to
@@ -825,7 +825,7 @@ devices present in the platform and that match <em>device_type</em>.</p>
 </dl>
 </div>
 <table id="device-categories-table" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. List of OpenCL Device Categories</caption>
+<caption class="title">Table 1. List of supported device_types by <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetDeviceIDs" class="bare" target="_blank" rel="noopener">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetDeviceIDs</a></caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -838,67 +838,67 @@ devices present in the platform and that match <em>device_type</em>.</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_DEVICE_TYPE_CPU</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;TYPE_&#8203;CPU</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">An OpenCL device that is the host processor.
     The host processor runs the OpenCL implementations and is a single or
     multi-core CPU.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_DEVICE_TYPE_GPU</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;TYPE_&#8203;GPU</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">An OpenCL device that is a GPU.
     By this we mean that the device can also be used to accelerate a 3D API
     such as OpenGL or DirectX.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_DEVICE_TYPE_ACCELERATOR</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;TYPE_&#8203;ACCELERATOR</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Dedicated OpenCL accelerators (for example the IBM CELL Blade).
     These devices communicate with the host processor using a peripheral
     interconnect such as PCIe.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_DEVICE_TYPE_CUSTOM</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;TYPE_&#8203;CUSTOM</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Dedicated accelerators that do not support programs written in an OpenCL
     kernel language,</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_DEVICE_TYPE_DEFAULT</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;TYPE_&#8203;DEFAULT</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The default OpenCL device in the system.
-    The default device cannot be a <strong>CL_DEVICE_TYPE_CUSTOM</strong> device.</p></td>
+    The default device cannot be a <code>CL_&#8203;DEVICE_&#8203;TYPE_&#8203;CUSTOM</code> device.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_DEVICE_TYPE_ALL</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;TYPE_&#8203;ALL</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">All OpenCL devices available in the system except
-    <strong>CL_DEVICE_TYPE_CUSTOM</strong> devices..</p></td>
+    <code>CL_&#8203;DEVICE_&#8203;TYPE_&#8203;CUSTOM</code> devices..</p></td>
 </tr>
 </tbody>
 </table>
 <div class="paragraph">
-<p><strong>clGetDeviceIDs</strong> returns CL_SUCCESS if the function is executed
+<p><strong>clGetDeviceIDs</strong> returns <code>CL_&#8203;SUCCESS</code> if the function is executed
 successfully.
 Otherwise, it returns one of the following errors:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>CL_INVALID_PLATFORM if <em>platform</em> is not a valid platform.</p>
+<p><code>CL_&#8203;INVALID_&#8203;PLATFORM</code> if <em>platform</em> is not a valid platform.</p>
 </li>
 <li>
-<p>CL_INVALID_DEVICE_TYPE if <em>device_type</em> is not a valid value.</p>
+<p><code>CL_&#8203;INVALID_&#8203;DEVICE_&#8203;TYPE</code> if <em>device_type</em> is not a valid value.</p>
 </li>
 <li>
-<p>CL_INVALID_VALUE if <em>num_entries</em> is equal to zero and <em>devices</em> is not
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if <em>num_entries</em> is equal to zero and <em>devices</em> is not
 <code>NULL</code> or if both <em>num_devices</em> and <em>devices</em> are <code>NULL</code>.</p>
 </li>
 <li>
-<p>CL_DEVICE_NOT_FOUND if no OpenCL devices that matched <em>device_type</em> were
+<p><code>CL_&#8203;DEVICE_&#8203;NOT_&#8203;FOUND</code> if no OpenCL devices that matched <em>device_type</em> were
 found.</p>
 </li>
 <li>
-<p>CL_OUT_OF_RESOURCES if there is a failure to allocate resources required
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;RESOURCES</code> if there is a failure to allocate resources required
 by the OpenCL implementation on the device.</p>
 </li>
 <li>
-<p>CL_OUT_OF_HOST_MEMORY if there is a failure to allocate resources
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;HOST_&#8203;MEMORY</code> if there is a failure to allocate resources
 required by the OpenCL implementation on the host.</p>
 </li>
 </ul>
@@ -922,10 +922,7 @@ This can be used by the application to determine which device(s) to use.</p>
 <h2 id="_document_notes">Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Specification at URL</p>
-</div>
-<div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetDeviceIDs" class="bare">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetDeviceIDs</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetDeviceIDs" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the OpenCL Specification.
@@ -938,7 +935,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Copyright (c) 2014-2019 Khronos Group. This work is licensed under a
-<a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons
+<a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons
 Attribution 4.0 International License</a>.</p>
 </div>
 </div>
@@ -946,8 +943,8 @@ Attribution 4.0 International License</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v2.2-10-28-g71714e1-dirty<br>
-Last updated 2019-06-20 05:25:24 -0700
+Version V2.2-11-2-gbc16dca-dirty<br>
+Last updated 2019-07-24 05:39:45 -0700
 </div>
 </div>
 

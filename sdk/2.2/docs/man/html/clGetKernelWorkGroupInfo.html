@@ -793,7 +793,7 @@ can be a <code>NULL</code> value.</p>
 <p><em>param_name</em> specifies the information to query.
 The list of supported <em>param_name</em> types and the information returned in
 <em>param_value</em> by <strong>clGetKernelWorkGroupInfo</strong> is described in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#kernel-workgroup-info-table">Kernel Object Device Queries</a> table.</p>
+<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#kernel-workgroup-info-table" target="_blank" rel="noopener">Kernel Object Device Queries</a> table.</p>
 </li>
 <li>
 <p><em>param_value</em> is a pointer to memory where the appropriate result being
@@ -804,7 +804,7 @@ If <em>param_value</em> is <code>NULL</code>, it is ignored.</p>
 <p><em>param_value_size</em> is used to specify the size in bytes of memory pointed to
 by <em>param_value</em>.
 This size must be ≥ size of return type as described in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#kernel-workgroup-info-table">Kernel Object Device Queries</a> table.</p>
+<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#kernel-workgroup-info-table" target="_blank" rel="noopener">Kernel Object Device Queries</a> table.</p>
 </li>
 <li>
 <p><em>param_value_size_ret</em> returns the actual size in bytes of data being
@@ -819,7 +819,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <h2 id="_description">Description</h2>
 <div class="sectionbody">
 <table id="kernel-workgroup-info-table" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. <strong>clGetKernelWorkGroupInfo</strong> parameter queries</caption>
+<caption class="title">Table 1. List of supported param_names by <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetKernelWorkGroupInfo" class="bare" target="_blank" rel="noopener">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetKernelWorkGroupInfo</a></caption>
 <colgroup>
 <col style="width: 34%;">
 <col style="width: 33%;">
@@ -834,7 +834,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_KERNEL_GLOBAL_WORK_SIZE</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;KERNEL_&#8203;GLOBAL_&#8203;WORK_&#8203;SIZE</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">size_t[3]</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This provides a mechanism for the application to query the maximum
         global size that can be used to execute a kernel (i.e.
@@ -843,10 +843,10 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
         given by device.</p>
 <p class="tableblock">        If device is not a custom device and kernel is not a built-in
         kernel, <strong>clGetKernelWorkGroupInfo</strong> returns the error
-        CL_INVALID_VALUE.</p></td>
+        <code>CL_&#8203;INVALID_&#8203;VALUE</code>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_KERNEL_WORK_GROUP_SIZE</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;KERNEL_&#8203;WORK_&#8203;GROUP_&#8203;SIZE</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">size_t</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This provides a mechanism for the application to query the maximum
         workgroup size that can be used to execute the kernel on a specific
@@ -854,20 +854,20 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
         The OpenCL implementation uses the resource requirements of the
         kernel (register usage etc.) to determine what this work-group size
         should be.</p>
-<p class="tableblock">        As a result and unlike CL_DEVICE_MAX_WORK_GROUP_SIZE this value may
+<p class="tableblock">        As a result and unlike <code>CL_&#8203;DEVICE_&#8203;MAX_&#8203;WORK_&#8203;GROUP_&#8203;SIZE</code> this value may
         vary from one kernel to another as well as one device to another.</p>
-<p class="tableblock">        CL_KERNEL_WORK_GROUP_SIZE will be less than or equal to
-        CL_DEVICE_MAX_WORK_GROUP_SIZE for a given kernel object.</p></td>
+<p class="tableblock">        <code>CL_&#8203;KERNEL_&#8203;WORK_&#8203;GROUP_&#8203;SIZE</code> will be less than or equal to
+        <code>CL_&#8203;DEVICE_&#8203;MAX_&#8203;WORK_&#8203;GROUP_&#8203;SIZE</code> for a given kernel object.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_KERNEL_COMPILE_WORK_GROUP_SIZE</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;KERNEL_&#8203;COMPILE_&#8203;WORK_&#8203;GROUP_&#8203;SIZE</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">size_t[3]</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the work-group size specified in the kernel source or IL.</p>
 <p class="tableblock">        If the work-group size is not specified in the kernel source or IL,
         (0, 0, 0) is returned.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_KERNEL_LOCAL_MEM_SIZE</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;KERNEL_&#8203;LOCAL_&#8203;MEM_&#8203;SIZE</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_ulong</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the amount of local memory in bytes being used by a kernel.
         This includes local memory that may be needed by an implementation
@@ -880,7 +880,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
         its size is assumed to be 0.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_KERNEL_PREFERRED_WORK_GROUP_SIZE_MULTIPLE</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;KERNEL_&#8203;PREFERRED_&#8203;WORK_&#8203;GROUP_&#8203;SIZE_&#8203;MULTIPLE</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">size_t</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the preferred multiple of work-group size for launch.
         This is a performance hint.
@@ -891,7 +891,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
         device maximum.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_KERNEL_PRIVATE_MEM_SIZE</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;KERNEL_&#8203;PRIVATE_&#8203;MEM_&#8203;SIZE</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_ulong</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the minimum amount of private memory, in bytes, used by each
         work-item in the kernel.
@@ -903,36 +903,36 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </tbody>
 </table>
 <div class="paragraph">
-<p><strong>clGetKernelWorkGroupInfo</strong> returns CL_SUCCESS if the function is executed
+<p><strong>clGetKernelWorkGroupInfo</strong> returns <code>CL_&#8203;SUCCESS</code> if the function is executed
 successfully.
 Otherwise, it returns one of the following errors:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>CL_INVALID_DEVICE if <em>device</em> is not in the list of devices associated
+<p><code>CL_&#8203;INVALID_&#8203;DEVICE</code> if <em>device</em> is not in the list of devices associated
 with <em>kernel</em> or if <em>device</em> is <code>NULL</code> but there is more than one device
 associated with <em>kernel</em>.</p>
 </li>
 <li>
-<p>CL_INVALID_VALUE if <em>param_name</em> is not valid, or if size in bytes
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if <em>param_name</em> is not valid, or if size in bytes
 specified by <em>param_value_size</em> is &lt; size of return type as described in
-the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#kernel-workgroup-info-table">Kernel Object Device Queries</a> table
+the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#kernel-workgroup-info-table" target="_blank" rel="noopener">Kernel Object Device Queries</a> table
 and <em>param_value</em> is not <code>NULL</code>.</p>
 </li>
 <li>
-<p>CL_INVALID_VALUE if <em>param_name</em> is CL_KERNEL_GLOBAL_WORK_SIZE and
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if <em>param_name</em> is <code>CL_&#8203;KERNEL_&#8203;GLOBAL_&#8203;WORK_&#8203;SIZE</code> and
 <em>device</em> is not a custom device and <em>kernel</em> is not a built-in kernel.</p>
 </li>
 <li>
-<p>CL_INVALID_KERNEL if <em>kernel</em> is a not a valid kernel object.</p>
+<p><code>CL_&#8203;INVALID_&#8203;KERNEL</code> if <em>kernel</em> is a not a valid kernel object.</p>
 </li>
 <li>
-<p>CL_OUT_OF_RESOURCES if there is a failure to allocate resources required
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;RESOURCES</code> if there is a failure to allocate resources required
 by the OpenCL implementation on the device.</p>
 </li>
 <li>
-<p>CL_OUT_OF_HOST_MEMORY if there is a failure to allocate resources
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;HOST_&#8203;MEMORY</code> if there is a failure to allocate resources
 required by the OpenCL implementation on the host.</p>
 </li>
 </ul>
@@ -951,10 +951,7 @@ required by the OpenCL implementation on the host.</p>
 <h2 id="_document_notes">Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Specification at URL</p>
-</div>
-<div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetKernelWorkGroupInfo" class="bare">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetKernelWorkGroupInfo</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetKernelWorkGroupInfo" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the OpenCL Specification.
@@ -967,7 +964,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Copyright (c) 2014-2019 Khronos Group. This work is licensed under a
-<a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons
+<a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons
 Attribution 4.0 International License</a>.</p>
 </div>
 </div>
@@ -975,8 +972,8 @@ Attribution 4.0 International License</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v2.2-10-28-g71714e1-dirty<br>
-Last updated 2019-06-20 05:25:24 -0700
+Version V2.2-11-2-gbc16dca-dirty<br>
+Last updated 2019-07-24 05:39:45 -0700
 </div>
 </div>
 

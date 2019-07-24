@@ -766,8 +766,8 @@ function</p>
     cl_command_queue command_queue,
     cl_mem src_image,
     cl_mem dst_buffer,
-    const size_t* src_origin[3],
-    const size_t* region[3],
+    const size_t* src_origin,
+    const size_t* region,
     size_t dst_offset,
     cl_uint num_events_in_wait_list,
     const cl_event* event_wait_list,
@@ -864,75 +864,75 @@ array.</p>
 <h2 id="_description">Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><strong>clEnqueueCopyImageToBuffer</strong> returns CL_SUCCESS if the function is executed
+<p><strong>clEnqueueCopyImageToBuffer</strong> returns <code>CL_&#8203;SUCCESS</code> if the function is executed
 successfully.
 Otherwise, it returns one of the following errors:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>CL_INVALID_COMMAND_QUEUE if <em>command_queue</em> is not a valid host
+<p><code>CL_&#8203;INVALID_&#8203;COMMAND_&#8203;QUEUE</code> if <em>command_queue</em> is not a valid host
 command-queue.</p>
 </li>
 <li>
-<p>CL_INVALID_CONTEXT if the context associated with <em>command_queue</em>,
+<p><code>CL_&#8203;INVALID_&#8203;CONTEXT</code> if the context associated with <em>command_queue</em>,
 <em>src_image</em> and <em>dst_buffer</em> are not the same or if the context
 associated with <em>command_queue</em> and events in <em>event_wait_list</em> are not
 the same.</p>
 </li>
 <li>
-<p>CL_INVALID_MEM_OBJECT if <em>src_image</em> is not a valid image object or
+<p><code>CL_&#8203;INVALID_&#8203;MEM_&#8203;OBJECT</code> if <em>src_image</em> is not a valid image object or
 <em>dst_buffer</em> is not a valid buffer object or if <em>src_image</em> is a 1D
 image buffer object created from <em>dst_buffer</em>.</p>
 </li>
 <li>
-<p>CL_INVALID_VALUE if the 1D, 2D or 3D rectangular region specified by
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if the 1D, 2D or 3D rectangular region specified by
 <em>src_origin</em> and <em>src_origin</em> + <em>region</em> refers to a region outside
 <em>src_image</em>, or if the region specified by <em>dst_offset</em> and <em>dst_offset</em>
 + <em>dst_cb</em> to a region outside <em>dst_buffer</em>.</p>
 </li>
 <li>
-<p>CL_INVALID_VALUE if values in <em>src_origin</em> and <em>region</em> do not follow
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if values in <em>src_origin</em> and <em>region</em> do not follow
 rules described in the argument description for <em>src_origin</em> and
 <em>region</em>.</p>
 </li>
 <li>
-<p>CL_INVALID_EVENT_WAIT_LIST if <em>event_wait_list</em> is <code>NULL</code> and
+<p><code>CL_&#8203;INVALID_&#8203;EVENT_&#8203;WAIT_&#8203;LIST</code> if <em>event_wait_list</em> is <code>NULL</code> and
 <em>num_events_in_wait_list</em> &gt; 0, or <em>event_wait_list</em> is not <code>NULL</code> and
 <em>num_events_in_wait_list</em> is 0, or if event objects in <em>event_wait_list</em>
 are not valid events.</p>
 </li>
 <li>
-<p>CL_MISALIGNED_SUB_BUFFER_OFFSET if <em>dst_buffer</em> is a sub-buffer object
+<p><code>CL_&#8203;MISALIGNED_&#8203;SUB_&#8203;BUFFER_&#8203;OFFSET</code> if <em>dst_buffer</em> is a sub-buffer object
 and <em>offset</em> specified when the sub-buffer object is created is not
-aligned to CL_DEVICE_MEM_BASE_ADDR_ALIGN value for device associated
+aligned to <code>CL_&#8203;DEVICE_&#8203;MEM_&#8203;BASE_&#8203;ADDR_&#8203;ALIGN</code> value for device associated
 with <em>queue</em>.</p>
 </li>
 <li>
-<p>CL_INVALID_IMAGE_SIZE if image dimensions (image width, height,
+<p><code>CL_&#8203;INVALID_&#8203;IMAGE_&#8203;SIZE</code> if image dimensions (image width, height,
 specified or compute row and/or slice pitch) for <em>src_image</em> are not
 supported by device associated with <em>queue</em>.</p>
 </li>
 <li>
-<p>CL_IMAGE_FORMAT_NOT_SUPPORTED if image format (image channel order and
+<p><code>CL_&#8203;IMAGE_&#8203;FORMAT_&#8203;NOT_&#8203;SUPPORTED</code> if image format (image channel order and
 data type) for <em>src_image</em> are not supported by device associated with
 <em>queue</em>.</p>
 </li>
 <li>
-<p>CL_MEM_OBJECT_ALLOCATION_FAILURE if there is a failure to allocate
+<p><code>CL_&#8203;MEM_&#8203;OBJECT_&#8203;ALLOCATION_&#8203;FAILURE</code> if there is a failure to allocate
 memory for data store associated with <em>src_image</em> or <em>dst_buffer</em>.</p>
 </li>
 <li>
-<p>CL_INVALID_OPERATION if the device associated with <em>command_queue</em> does
-not support images (i.e. CL_DEVICE_IMAGE_SUPPORT specified in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#device-queries-table">Device Queries</a> table is CL_FALSE).</p>
+<p><code>CL_&#8203;INVALID_&#8203;OPERATION</code> if the device associated with <em>command_queue</em> does
+not support images (i.e. <code>CL_&#8203;DEVICE_&#8203;IMAGE_&#8203;SUPPORT</code> specified in the
+<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#device-queries-table" target="_blank" rel="noopener">Device Queries</a> table is <code>CL_&#8203;FALSE</code>).</p>
 </li>
 <li>
-<p>CL_OUT_OF_RESOURCES if there is a failure to allocate resources required
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;RESOURCES</code> if there is a failure to allocate resources required
 by the OpenCL implementation on the device.</p>
 </li>
 <li>
-<p>CL_OUT_OF_HOST_MEMORY if there is a failure to allocate resources
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;HOST_&#8203;MEMORY</code> if there is a failure to allocate resources
 required by the OpenCL implementation on the host.</p>
 </li>
 </ul>
@@ -951,10 +951,7 @@ required by the OpenCL implementation on the host.</p>
 <h2 id="_document_notes">Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Specification at URL</p>
-</div>
-<div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clEnqueueCopyImageToBuffer" class="bare">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clEnqueueCopyImageToBuffer</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clEnqueueCopyImageToBuffer" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the OpenCL Specification.
@@ -967,7 +964,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Copyright (c) 2014-2019 Khronos Group. This work is licensed under a
-<a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons
+<a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons
 Attribution 4.0 International License</a>.</p>
 </div>
 </div>
@@ -975,8 +972,8 @@ Attribution 4.0 International License</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v2.2-10-28-g71714e1-dirty<br>
-Last updated 2019-06-20 05:25:24 -0700
+Version V2.2-11-2-gbc16dca-dirty<br>
+Last updated 2019-07-24 05:39:45 -0700
 </div>
 </div>
 

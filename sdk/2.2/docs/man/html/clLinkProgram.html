@@ -798,7 +798,7 @@ specified in this list for which a compiled object is available.</p>
 <li>
 <p><em>options</em> is a pointer to a null-terminated string of characters that
 describes the link options to be used for building the program executable.
-The list of supported options is as described in <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#linker-options">Linker
+The list of supported options is as described in <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#linker-options" target="_blank" rel="noopener">Linker
 Options</a>.
 If the program was created using <strong>clCreateProgramWithBinary</strong> and <em>options</em>
 is a <code>NULL</code> pointer, the program will be linked as if <em>options</em> were the
@@ -832,7 +832,7 @@ In this case, no link is performed and there will be no program
 executable generated for this device.</p>
 </li>
 <li>
-<p>All other cases will return a CL_INVALID_OPERATION error.</p>
+<p>All other cases will return a <code>CL_&#8203;INVALID_&#8203;OPERATION</code> error.</p>
 </li>
 </ul>
 </div>
@@ -878,7 +878,7 @@ has completed.</p>
 <p><strong>clLinkProgram</strong> creates a new program object which contains the library or
 executable.
 The library or executable binary can be queried using
-<strong>clGetProgramInfo</strong>(<em>program</em>, CL_PROGRAM_BINARIES, &#8230;&#8203;) and can be specified
+<strong>clGetProgramInfo</strong>(<em>program</em>, <code>CL_&#8203;PROGRAM_&#8203;BINARIES</code>, &#8230;&#8203;) and can be specified
 to <strong>clCreateProgramWithBinary</strong> to create a new program object.</p>
 </div>
 <div class="paragraph">
@@ -894,16 +894,16 @@ If the linking operation can begin, <strong>clLinkProgram</strong> returns a val
 program object.</p>
 </div>
 <div class="paragraph">
-<p>If <em>pfn_notify</em> is <code>NULL</code>, the <em>errcode_ret</em> will be set to CL_SUCCESS if
-the link operation was successful and CL_LINK_PROGRAM_FAILURE if there is a
+<p>If <em>pfn_notify</em> is <code>NULL</code>, the <em>errcode_ret</em> will be set to <code>CL_&#8203;SUCCESS</code> if
+the link operation was successful and <code>CL_&#8203;LINK_&#8203;PROGRAM_&#8203;FAILURE</code> if there is a
 failure to link the compiled binaries and/or libraries.</p>
 </div>
 <div class="paragraph">
 <p>If <em>pfn_notify</em> is not <code>NULL</code>, <strong>clLinkProgram</strong> does not have to wait until
-the linker to complete and can return CL_SUCCESS in <em>errcode_ret</em> if the
+the linker to complete and can return <code>CL_&#8203;SUCCESS</code> in <em>errcode_ret</em> if the
 linking operation can begin.
-The <em>pfn_notify</em> callback function will return a CL_SUCCESS or
-CL_LINK_PROGRAM_FAILURE if the linking operation was successful or not.</p>
+The <em>pfn_notify</em> callback function will return a <code>CL_&#8203;SUCCESS</code> or
+<code>CL_&#8203;LINK_&#8203;PROGRAM_&#8203;FAILURE</code> if the linking operation was successful or not.</p>
 </div>
 <div class="paragraph">
 <p>Otherwise <strong>clLinkProgram</strong> returns a <code>NULL</code> program object with an
@@ -915,59 +915,59 @@ The list of errors that can be returned are:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>CL_INVALID_CONTEXT if <em>context</em> is not a valid context.</p>
+<p><code>CL_&#8203;INVALID_&#8203;CONTEXT</code> if <em>context</em> is not a valid context.</p>
 </li>
 <li>
-<p>CL_INVALID_VALUE if <em>device_list</em> is <code>NULL</code> and <em>num_devices</em> is greater
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if <em>device_list</em> is <code>NULL</code> and <em>num_devices</em> is greater
 than zero, or if <em>device_list</em> is not <code>NULL</code> and <em>num_devices</em> is zero.</p>
 </li>
 <li>
-<p>CL_INVALID_VALUE if <em>num_input_programs</em> is zero and <em>input_programs</em> is
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if <em>num_input_programs</em> is zero and <em>input_programs</em> is
 <code>NULL</code> or if <em>num_input_programs</em> is zero and <em>input_programs</em> is not
 <code>NULL</code> or if <em>num_input_programs</em> is not zero and <em>input_programs</em> is
 <code>NULL</code>.</p>
 </li>
 <li>
-<p>CL_INVALID_PROGRAM if programs specified in <em>input_programs</em> are not
+<p><code>CL_&#8203;INVALID_&#8203;PROGRAM</code> if programs specified in <em>input_programs</em> are not
 valid program objects.</p>
 </li>
 <li>
-<p>CL_INVALID_VALUE if <em>pfn_notify</em> is <code>NULL</code> but <em>user_data</em> is not
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if <em>pfn_notify</em> is <code>NULL</code> but <em>user_data</em> is not
 <code>NULL</code>.</p>
 </li>
 <li>
-<p>CL_INVALID_DEVICE if OpenCL devices listed in <em>device_list</em> are not in
+<p><code>CL_&#8203;INVALID_&#8203;DEVICE</code> if OpenCL devices listed in <em>device_list</em> are not in
 the list of devices associated with <em>context</em></p>
 </li>
 <li>
-<p>CL_INVALID_LINKER_OPTIONS if the linker options specified by <em>options</em>
+<p><code>CL_&#8203;INVALID_&#8203;LINKER_&#8203;OPTIONS</code> if the linker options specified by <em>options</em>
 are invalid.</p>
 </li>
 <li>
-<p>CL_INVALID_OPERATION if the compilation or build of a program executable
+<p><code>CL_&#8203;INVALID_&#8203;OPERATION</code> if the compilation or build of a program executable
 for any of the devices listed in <em>device_list</em> by a previous call to
 <strong>clCompileProgram</strong> or <strong>clBuildProgram</strong> for <em>program</em> has not completed.</p>
 </li>
 <li>
-<p>CL_INVALID_OPERATION if the rules for devices containing compiled
+<p><code>CL_&#8203;INVALID_&#8203;OPERATION</code> if the rules for devices containing compiled
 binaries or libraries as described in <em>input_programs</em> argument above
 are not followed.</p>
 </li>
 <li>
-<p>CL_LINKER_NOT_AVAILABLE if a linker is not available i.e.
-CL_DEVICE_LINKER_AVAILABLE specified in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#device-queries-table">Device Queries</a> table is set to CL_FALSE.</p>
+<p><code>CL_&#8203;LINKER_&#8203;NOT_&#8203;AVAILABLE</code> if a linker is not available i.e.
+<code>CL_&#8203;DEVICE_&#8203;LINKER_&#8203;AVAILABLE</code> specified in the
+<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#device-queries-table" target="_blank" rel="noopener">Device Queries</a> table is set to <code>CL_&#8203;FALSE</code>.</p>
 </li>
 <li>
-<p>CL_LINK_PROGRAM_FAILURE if there is a failure to link the compiled
+<p><code>CL_&#8203;LINK_&#8203;PROGRAM_&#8203;FAILURE</code> if there is a failure to link the compiled
 binaries and/or libraries.</p>
 </li>
 <li>
-<p>CL_OUT_OF_RESOURCES if there is a failure to allocate resources required
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;RESOURCES</code> if there is a failure to allocate resources required
 by the OpenCL implementation on the device.</p>
 </li>
 <li>
-<p>CL_OUT_OF_HOST_MEMORY if there is a failure to allocate resources
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;HOST_&#8203;MEMORY</code> if there is a failure to allocate resources
 required by the OpenCL implementation on the host.</p>
 </li>
 </ul>
@@ -986,10 +986,7 @@ required by the OpenCL implementation on the host.</p>
 <h2 id="_document_notes">Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Specification at URL</p>
-</div>
-<div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clLinkProgram" class="bare">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clLinkProgram</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clLinkProgram" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the OpenCL Specification.
@@ -1002,7 +999,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Copyright (c) 2014-2019 Khronos Group. This work is licensed under a
-<a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons
+<a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons
 Attribution 4.0 International License</a>.</p>
 </div>
 </div>
@@ -1010,8 +1007,8 @@ Attribution 4.0 International License</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v2.2-10-28-g71714e1-dirty<br>
-Last updated 2019-06-20 05:25:24 -0700
+Version V2.2-11-2-gbc16dca-dirty<br>
+Last updated 2019-07-24 05:39:45 -0700
 </div>
 </div>
 

@@ -795,8 +795,8 @@ same.</p>
 <em>pattern</em> will be used to fill a region in <em>buffer</em> starting at <em>offset</em> and
 is <em>size</em> bytes in size.
 The data pattern must be a scalar or vector integer or floating-point data
-type supported by OpenCL as described in <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#scalar-data-types">Shared
-Application Scalar Data Types</a> and <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#vector-data-types">Supported
+type supported by OpenCL as described in <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#scalar-data-types" target="_blank" rel="noopener">Shared
+Application Scalar Data Types</a> and <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#vector-data-types" target="_blank" rel="noopener">Supported
 Application Vector Data Types</a>.
 For example, if <em>buffer</em> is to be filled with a pattern of <code>float4</code> values,
 then <em>pattern</em> will be a pointer to a <code>cl_float4</code> value and <em>pattern_size</em>
@@ -855,57 +855,57 @@ argument value specified when <em>buffer</em> is created is ignored by
 <strong>clEnqueueFillBuffer</strong>.</p>
 </div>
 <div class="paragraph">
-<p><strong>clEnqueueFillBuffer</strong> returns CL_SUCCESS if the function is executed
+<p><strong>clEnqueueFillBuffer</strong> returns <code>CL_&#8203;SUCCESS</code> if the function is executed
 successfully.
 Otherwise, it returns one of the following errors:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>CL_INVALID_COMMAND_QUEUE if <em>command_queue</em> is not a valid host
+<p><code>CL_&#8203;INVALID_&#8203;COMMAND_&#8203;QUEUE</code> if <em>command_queue</em> is not a valid host
 command-queue.</p>
 </li>
 <li>
-<p>CL_INVALID_CONTEXT if the context associated with <em>command_queue</em> and
+<p><code>CL_&#8203;INVALID_&#8203;CONTEXT</code> if the context associated with <em>command_queue</em> and
 <em>buffer</em> are not the same or if the context associated with
 <em>command_queue</em> and events in <em>event_wait_list</em> are not the same.</p>
 </li>
 <li>
-<p>CL_INVALID_MEM_OBJECT if <em>buffer</em> is not a valid buffer object.</p>
+<p><code>CL_&#8203;INVALID_&#8203;MEM_&#8203;OBJECT</code> if <em>buffer</em> is not a valid buffer object.</p>
 </li>
 <li>
-<p>CL_INVALID_VALUE if <em>offset</em> or <em>offset</em> + <em>size</em> require accessing
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if <em>offset</em> or <em>offset</em> + <em>size</em> require accessing
 elements outside the <em>buffer</em> buffer object respectively.</p>
 </li>
 <li>
-<p>CL_INVALID_VALUE if <em>pattern</em> is <code>NULL</code> or if <em>pattern_size</em> is 0 or if
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if <em>pattern</em> is <code>NULL</code> or if <em>pattern_size</em> is 0 or if
 <em>pattern_size</em> is not one of { 1, 2, 4, 8, 16, 32, 64, 128 }.</p>
 </li>
 <li>
-<p>CL_INVALID_VALUE if <em>offset</em> and <em>size</em> are not a multiple of
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if <em>offset</em> and <em>size</em> are not a multiple of
 <em>pattern_size</em>.</p>
 </li>
 <li>
-<p>CL_INVALID_EVENT_WAIT_LIST if <em>event_wait_list</em> is <code>NULL</code> and
+<p><code>CL_&#8203;INVALID_&#8203;EVENT_&#8203;WAIT_&#8203;LIST</code> if <em>event_wait_list</em> is <code>NULL</code> and
 <em>num_events_in_wait_list</em> &gt; 0, or <em>event_wait_list</em> is not <code>NULL</code> and
 <em>num_events_in_wait_list</em> is 0, or if event objects in <em>event_wait_list</em>
 are not valid events.</p>
 </li>
 <li>
-<p>CL_MISALIGNED_SUB_BUFFER_OFFSET if <em>buffer</em> is a sub-buffer object and
+<p><code>CL_&#8203;MISALIGNED_&#8203;SUB_&#8203;BUFFER_&#8203;OFFSET</code> if <em>buffer</em> is a sub-buffer object and
 offset specified when the sub-buffer object is created is not aligned to
-CL_DEVICE_MEM_BASE_ADDR_ALIGN value for device associated with <em>queue</em>.</p>
+<code>CL_&#8203;DEVICE_&#8203;MEM_&#8203;BASE_&#8203;ADDR_&#8203;ALIGN</code> value for device associated with <em>queue</em>.</p>
 </li>
 <li>
-<p>CL_MEM_OBJECT_ALLOCATION_FAILURE if there is a failure to allocate
+<p><code>CL_&#8203;MEM_&#8203;OBJECT_&#8203;ALLOCATION_&#8203;FAILURE</code> if there is a failure to allocate
 memory for data store associated with <em>buffer</em>.</p>
 </li>
 <li>
-<p>CL_OUT_OF_RESOURCES if there is a failure to allocate resources required
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;RESOURCES</code> if there is a failure to allocate resources required
 by the OpenCL implementation on the device.</p>
 </li>
 <li>
-<p>CL_OUT_OF_HOST_MEMORY if there is a failure to allocate resources
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;HOST_&#8203;MEMORY</code> if there is a failure to allocate resources
 required by the OpenCL implementation on the host.</p>
 </li>
 </ul>
@@ -924,10 +924,7 @@ required by the OpenCL implementation on the host.</p>
 <h2 id="_document_notes">Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Specification at URL</p>
-</div>
-<div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clEnqueueFillBuffer" class="bare">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clEnqueueFillBuffer</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clEnqueueFillBuffer" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the OpenCL Specification.
@@ -940,7 +937,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Copyright (c) 2014-2019 Khronos Group. This work is licensed under a
-<a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons
+<a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons
 Attribution 4.0 International License</a>.</p>
 </div>
 </div>
@@ -948,8 +945,8 @@ Attribution 4.0 International License</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v2.2-10-28-g71714e1-dirty<br>
-Last updated 2019-06-20 05:25:24 -0700
+Version V2.2-11-2-gbc16dca-dirty<br>
+Last updated 2019-07-24 05:39:45 -0700
 </div>
 </div>
 

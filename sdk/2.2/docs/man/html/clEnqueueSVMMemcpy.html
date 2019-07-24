@@ -790,7 +790,7 @@ OpenCL context allocated against must match that of <em>command_queue</em>.</p>
 <em>non-blocking</em>.</p>
 </li>
 <li>
-<p>If <em>blocking_copy</em> is CL_TRUE i.e. the copy command is blocking,
+<p>If <em>blocking_copy</em> is <code>CL_&#8203;TRUE</code> i.e. the copy command is blocking,
 <strong>clEnqueueSVMMemcpy</strong> does not return until the buffer data has been copied
 into memory pointed to by <em>dst_ptr</em>.</p>
 </li>
@@ -839,7 +839,7 @@ array.</p>
 <h2 id="_description">Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>If <em>blocking_copy</em> is CL_FALSE i.e. the copy command is non-blocking,
+<p>If <em>blocking_copy</em> is <code>CL_&#8203;FALSE</code> i.e. the copy command is non-blocking,
 <strong>clEnqueueSVMMemcpy</strong> queues a non-blocking copy command and returns.
 The contents of the buffer that <em>dst_ptr</em> points to cannot be used until the
 copy command has completed.
@@ -854,44 +854,44 @@ allocated using <strong>clSVMAlloc</strong> and either is not allocated from the
 context from which <em>command_queue</em> was created the behavior is undefined.</p>
 </div>
 <div class="paragraph">
-<p><strong>clEnqueueSVMMemcpy</strong> returns CL_SUCCESS if the function is executed
+<p><strong>clEnqueueSVMMemcpy</strong> returns <code>CL_&#8203;SUCCESS</code> if the function is executed
 successfully.
 Otherwise, it returns one of the following errors:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>CL_INVALID_COMMAND_QUEUE if <em>command_queue</em> is not a valid host
+<p><code>CL_&#8203;INVALID_&#8203;COMMAND_&#8203;QUEUE</code> if <em>command_queue</em> is not a valid host
 command-queue.</p>
 </li>
 <li>
-<p>CL_INVALID_CONTEXT if the context associated with <em>command_queue</em> and
+<p><code>CL_&#8203;INVALID_&#8203;CONTEXT</code> if the context associated with <em>command_queue</em> and
 events in <em>event_wait_list</em> are not the same.</p>
 </li>
 <li>
-<p>CL_INVALID_EVENT_WAIT_LIST if <em>event_wait_list</em> is <code>NULL</code> and
+<p><code>CL_&#8203;INVALID_&#8203;EVENT_&#8203;WAIT_&#8203;LIST</code> if <em>event_wait_list</em> is <code>NULL</code> and
 <em>num_events_in_wait_list</em> &gt; 0, or <em>event_wait_list</em> is not <code>NULL</code> and
 <em>num_events_in_wait_list</em> is 0, or if event objects in <em>event_wait_list</em>
 are not valid events.</p>
 </li>
 <li>
-<p>CL_EXEC_STATUS_ERROR_FOR_EVENTS_IN_WAIT_LIST if the copy operation is
+<p><code>CL_&#8203;EXEC_&#8203;STATUS_&#8203;ERROR_&#8203;FOR_&#8203;EVENTS_&#8203;IN_&#8203;WAIT_&#8203;LIST</code> if the copy operation is
 blocking and the execution status of any of the events in
 <em>event_wait_list</em> is a negative integer value.</p>
 </li>
 <li>
-<p>CL_INVALID_VALUE if <em>dst_ptr</em> or <em>src_ptr</em> are <code>NULL</code>.</p>
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if <em>dst_ptr</em> or <em>src_ptr</em> are <code>NULL</code>.</p>
 </li>
 <li>
-<p>CL_MEM_COPY_OVERLAP if the values specified for <em>dst_ptr</em>, <em>src_ptr</em> and
+<p><code>CL_&#8203;MEM_&#8203;COPY_&#8203;OVERLAP</code> if the values specified for <em>dst_ptr</em>, <em>src_ptr</em> and
 <em>size</em> result in an overlapping copy.</p>
 </li>
 <li>
-<p>CL_OUT_OF_RESOURCES if there is a failure to allocate resources required
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;RESOURCES</code> if there is a failure to allocate resources required
 by the OpenCL implementation on the device.</p>
 </li>
 <li>
-<p>CL_OUT_OF_HOST_MEMORY if there is a failure to allocate resources
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;HOST_&#8203;MEMORY</code> if there is a failure to allocate resources
 required by the OpenCL implementation on the host.</p>
 </li>
 </ul>
@@ -910,10 +910,7 @@ required by the OpenCL implementation on the host.</p>
 <h2 id="_document_notes">Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Specification at URL</p>
-</div>
-<div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clEnqueueSVMMemcpy" class="bare">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clEnqueueSVMMemcpy</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clEnqueueSVMMemcpy" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the OpenCL Specification.
@@ -926,7 +923,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Copyright (c) 2014-2019 Khronos Group. This work is licensed under a
-<a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons
+<a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons
 Attribution 4.0 International License</a>.</p>
 </div>
 </div>
@@ -934,8 +931,8 @@ Attribution 4.0 International License</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v2.2-10-28-g71714e1-dirty<br>
-Last updated 2019-06-20 05:25:24 -0700
+Version V2.2-11-2-gbc16dca-dirty<br>
+Last updated 2019-07-24 05:39:45 -0700
 </div>
 </div>
 

@@ -768,8 +768,8 @@ call the function</p>
     cl_mem image,
     cl_bool blocking_map,
     cl_map_flags map_flags,
-    const size_t* origin[3],
-    const size_t* region[3],
+    const size_t* origin,
+    const size_t* region,
     size_t* image_row_pitch,
     size_t* image_slice_pitch,
     cl_uint num_events_in_wait_list,
@@ -799,7 +799,7 @@ same.</p>
 </li>
 <li>
 <p><em>map_flags</em> is a bit-field and is described in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#memory-map-flags-table">Memory Map Flags</a> table.</p>
+<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#memory-map-flags-table" target="_blank" rel="noopener">Memory Map Flags</a> table.</p>
 </li>
 <li>
 <p><em>origin</em> defines the (<em>x</em>, <em>y</em>, <em>z</em>) offset in pixels in the 1D, 2D or 3D
@@ -876,13 +876,13 @@ If <em>errcode_ret</em> is <code>NULL</code>, no error code is returned.</p>
 <h2 id="_description">Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>If <em>blocking_map</em> is CL_TRUE, <strong>clEnqueueMapImage</strong> does not return until the
+<p>If <em>blocking_map</em> is <code>CL_&#8203;TRUE</code>, <strong>clEnqueueMapImage</strong> does not return until the
 specified region in <em>image</em> is mapped into the host address space and the
 application can access the contents of the mapped region using the pointer
 returned by <strong>clEnqueueMapImage</strong>.</p>
 </div>
 <div class="paragraph">
-<p>If <em>blocking_map</em> is CL_FALSE i.e. map operation is non-blocking, the
+<p>If <em>blocking_map</em> is <code>CL_&#8203;FALSE</code> i.e. map operation is non-blocking, the
 pointer to the mapped region returned by <strong>clEnqueueMapImage</strong> cannot be used
 until the map command has completed.
 The <em>event</em> argument returns an event object which can be used to query the
@@ -892,7 +892,7 @@ of the mapped region using the pointer returned by <strong>clEnqueueMapImage</st
 </div>
 <div class="paragraph">
 <p><strong>clEnqueueMapImage</strong> will return a pointer to the mapped region.
-The <em>errcode_ret</em> is set to CL_SUCCESS.</p>
+The <em>errcode_ret</em> is set to <code>CL_&#8203;SUCCESS</code>.</p>
 </div>
 <div class="paragraph">
 <p>A <code>NULL</code> pointer is returned otherwise with one of the following error
@@ -901,86 +901,86 @@ values returned in <em>errcode_ret</em>:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>CL_INVALID_COMMAND_QUEUE if <em>command_queue</em> is not a valid host
+<p><code>CL_&#8203;INVALID_&#8203;COMMAND_&#8203;QUEUE</code> if <em>command_queue</em> is not a valid host
 command-queue.</p>
 </li>
 <li>
-<p>CL_INVALID_CONTEXT if context associated with <em>command_queue</em> and
+<p><code>CL_&#8203;INVALID_&#8203;CONTEXT</code> if context associated with <em>command_queue</em> and
 <em>image</em> are not the same or if context associated with <em>command_queue</em>
 and events in <em>event_wait_list</em> are not the same.</p>
 </li>
 <li>
-<p>CL_INVALID_MEM_OBJECT if <em>image</em> is not a valid image object.</p>
+<p><code>CL_&#8203;INVALID_&#8203;MEM_&#8203;OBJECT</code> if <em>image</em> is not a valid image object.</p>
 </li>
 <li>
-<p>CL_INVALID_VALUE if region being mapped given by (<em>origin</em>,
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if region being mapped given by (<em>origin</em>,
 <em>origin+region</em>) is out of bounds or if values specified in <em>map_flags</em>
 are not valid.</p>
 </li>
 <li>
-<p>CL_INVALID_VALUE if values in <em>origin</em> and <em>region</em> do not follow rules
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if values in <em>origin</em> and <em>region</em> do not follow rules
 described in the argument description for <em>origin</em> and <em>region</em>.</p>
 </li>
 <li>
-<p>CL_INVALID_VALUE if <em>image_row_pitch</em> is <code>NULL</code>.</p>
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if <em>image_row_pitch</em> is <code>NULL</code>.</p>
 </li>
 <li>
-<p>CL_INVALID_VALUE if <em>image</em> is a 3D image, 1D or 2D image array object
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if <em>image</em> is a 3D image, 1D or 2D image array object
 and <em>image_slice_pitch</em> is <code>NULL</code>.</p>
 </li>
 <li>
-<p>CL_INVALID_EVENT_WAIT_LIST if <em>event_wait_list</em> is <code>NULL</code> and
+<p><code>CL_&#8203;INVALID_&#8203;EVENT_&#8203;WAIT_&#8203;LIST</code> if <em>event_wait_list</em> is <code>NULL</code> and
 <em>num_events_in_wait_list</em> &gt; 0, or <em>event_wait_list</em> is not <code>NULL</code> and
 <em>num_events_in_wait_list</em> is 0, or if event objects in <em>event_wait_list</em>
 are not valid events.</p>
 </li>
 <li>
-<p>CL_INVALID_IMAGE_SIZE if image dimensions (image width, height,
+<p><code>CL_&#8203;INVALID_&#8203;IMAGE_&#8203;SIZE</code> if image dimensions (image width, height,
 specified or compute row and/or slice pitch) for <em>image</em> are not
 supported by device associated with <em>queue</em>.</p>
 </li>
 <li>
-<p>CL_IMAGE_FORMAT_NOT_SUPPORTED if image format (image channel order and
+<p><code>CL_&#8203;IMAGE_&#8203;FORMAT_&#8203;NOT_&#8203;SUPPORTED</code> if image format (image channel order and
 data type) for <em>image</em> are not supported by device associated with
 <em>queue</em>.</p>
 </li>
 <li>
-<p>CL_MAP_FAILURE if there is a failure to map the requested region into
+<p><code>CL_&#8203;MAP_&#8203;FAILURE</code> if there is a failure to map the requested region into
 the host address space.
 This error cannot occur for image objects created with
-CL_MEM_USE_HOST_PTR or CL_MEM_ALLOC_HOST_PTR.</p>
+<code>CL_&#8203;MEM_&#8203;USE_&#8203;HOST_&#8203;PTR</code> or <code>CL_&#8203;MEM_&#8203;ALLOC_&#8203;HOST_&#8203;PTR</code>.</p>
 </li>
 <li>
-<p>CL_EXEC_STATUS_ERROR_FOR_EVENTS_IN_WAIT_LIST if the map operation is
+<p><code>CL_&#8203;EXEC_&#8203;STATUS_&#8203;ERROR_&#8203;FOR_&#8203;EVENTS_&#8203;IN_&#8203;WAIT_&#8203;LIST</code> if the map operation is
 blocking and the execution status of any of the events in
 <em>event_wait_list</em> is a negative integer value.</p>
 </li>
 <li>
-<p>CL_MEM_OBJECT_ALLOCATION_FAILURE if there is a failure to allocate
+<p><code>CL_&#8203;MEM_&#8203;OBJECT_&#8203;ALLOCATION_&#8203;FAILURE</code> if there is a failure to allocate
 memory for data store associated with <em>image</em>.</p>
 </li>
 <li>
-<p>CL_INVALID_OPERATION if the device associated with <em>command_queue</em> does
-not support images (i.e. CL_DEVICE_IMAGE_SUPPORT specified in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#device-queries-table">Device Queries</a> table is CL_FALSE).</p>
+<p><code>CL_&#8203;INVALID_&#8203;OPERATION</code> if the device associated with <em>command_queue</em> does
+not support images (i.e. <code>CL_&#8203;DEVICE_&#8203;IMAGE_&#8203;SUPPORT</code> specified in the
+<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#device-queries-table" target="_blank" rel="noopener">Device Queries</a> table is <code>CL_&#8203;FALSE</code>).</p>
 </li>
 <li>
-<p>CL_INVALID_OPERATION if <em>image</em> has been created with
-CL_MEM_HOST_WRITE_ONLY or CL_MEM_HOST_NO_ACCESS and CL_MAP_READ is set
-in <em>map_flags</em> or if <em>image</em> has been created with CL_MEM_HOST_READ_ONLY
-or CL_MEM_HOST_NO_ACCESS and CL_MAP_WRITE or
-CL_MAP_WRITE_INVALIDATE_REGION is set in <em>map_flags</em>.</p>
+<p><code>CL_&#8203;INVALID_&#8203;OPERATION</code> if <em>image</em> has been created with
+<code>CL_&#8203;MEM_&#8203;HOST_&#8203;WRITE_&#8203;ONLY</code> or <code>CL_&#8203;MEM_&#8203;HOST_&#8203;NO_&#8203;ACCESS</code> and <code>CL_&#8203;MAP_&#8203;READ</code> is set
+in <em>map_flags</em> or if <em>image</em> has been created with <code>CL_&#8203;MEM_&#8203;HOST_&#8203;READ_&#8203;ONLY</code>
+or <code>CL_&#8203;MEM_&#8203;HOST_&#8203;NO_&#8203;ACCESS</code> and <code>CL_&#8203;MAP_&#8203;WRITE</code> or
+<code>CL_&#8203;MAP_&#8203;WRITE_&#8203;INVALIDATE_&#8203;REGION</code> is set in <em>map_flags</em>.</p>
 </li>
 <li>
-<p>CL_OUT_OF_RESOURCES if there is a failure to allocate resources required
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;RESOURCES</code> if there is a failure to allocate resources required
 by the OpenCL implementation on the device.</p>
 </li>
 <li>
-<p>CL_OUT_OF_HOST_MEMORY if there is a failure to allocate resources
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;HOST_&#8203;MEMORY</code> if there is a failure to allocate resources
 required by the OpenCL implementation on the host.</p>
 </li>
 <li>
-<p>CL_INVALID_OPERATION if mapping would lead to overlapping regions being
+<p><code>CL_&#8203;INVALID_&#8203;OPERATION</code> if mapping would lead to overlapping regions being
 mapped for writing.</p>
 </li>
 </ul>
@@ -994,7 +994,7 @@ in size for a 3D image.
 The result of a memory access outside this region is undefined.</p>
 </div>
 <div class="paragraph">
-<p>If the image object is created with CL_MEM_USE_HOST_PTR set in <em>mem_flags</em>,
+<p>If the image object is created with <code>CL_&#8203;MEM_&#8203;USE_&#8203;HOST_&#8203;PTR</code> set in <em>mem_flags</em>,
 the following will be true:</p>
 </div>
 <div class="ulist">
@@ -1012,7 +1012,7 @@ the <em>host_ptr</em> specified when the image object is created.</p>
 </div>
 <div class="paragraph">
 <p>Mapped image objects are unmapped using <strong>clEnqueueUnmapMemObject</strong>.
-This is described in <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#unmapping-mapped-memory">Unmapping Mapped Memory
+This is described in <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#unmapping-mapped-memory" target="_blank" rel="noopener">Unmapping Mapped Memory
 Objects</a>.</p>
 </div>
 </div>
@@ -1029,10 +1029,7 @@ Objects</a>.</p>
 <h2 id="_document_notes">Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Specification at URL</p>
-</div>
-<div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clEnqueueMapImage" class="bare">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clEnqueueMapImage</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clEnqueueMapImage" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the OpenCL Specification.
@@ -1045,7 +1042,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Copyright (c) 2014-2019 Khronos Group. This work is licensed under a
-<a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons
+<a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons
 Attribution 4.0 International License</a>.</p>
 </div>
 </div>
@@ -1053,8 +1050,8 @@ Attribution 4.0 International License</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v2.2-10-28-g71714e1-dirty<br>
-Last updated 2019-06-20 05:25:24 -0700
+Version V2.2-11-2-gbc16dca-dirty<br>
+Last updated 2019-07-24 05:39:45 -0700
 </div>
 </div>
 

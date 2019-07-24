@@ -799,7 +799,7 @@ specified in this list.</p>
 describes the compilation options to be used for building the program
 executable.
 Certain options are ignored when program is created with IL.
-The list of supported options is as described in <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#compiler-options">Compiler Options</a>.</p>
+The list of supported options is as described in <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#compiler-options" target="_blank" rel="noopener">Compiler Options</a>.</p>
 </li>
 <li>
 <p><em>num_input_headers</em> specifies the number of programs that describe headers
@@ -818,7 +818,7 @@ The corresponding entry in <em>input_headers</em> identifies the program object
 which contains the header source to be used.
 The embedded headers are first searched before the headers in the list of
 directories specified by the <code>-I</code> compile option (as described in
-<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#preprocessor-options">Preprocessor options</a>).
+<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#preprocessor-options" target="_blank" rel="noopener">Preprocessor options</a>).
 If multiple entries in <em>header_include_names</em> refer to the same header name,
 the first one encountered will be used.</p>
 </li>
@@ -861,7 +861,7 @@ is thread-safe.</p>
 The compiled binary is built for all devices associated with <em>program</em> or
 the list of devices specified.
 The compiled binary can be queried using <strong>clGetProgramInfo</strong>(<em>program</em>,
-CL_PROGRAM_BINARIES, &#8230;&#8203;) and can be passed to <strong>clCreateProgramWithBinary</strong>
+<code>CL_&#8203;PROGRAM_&#8203;BINARIES</code>, &#8230;&#8203;) and can be passed to <strong>clCreateProgramWithBinary</strong>
 to create a new program object.</p>
 </div>
 <div class="paragraph">
@@ -912,67 +912,67 @@ clCompileProgram(program_A,
 </div>
 </div>
 <div class="paragraph">
-<p><strong>clCompileProgram</strong> returns CL_SUCCESS if the function is executed
+<p><strong>clCompileProgram</strong> returns <code>CL_&#8203;SUCCESS</code> if the function is executed
 successfully.
 Otherwise, it returns one of the following errors:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>CL_INVALID_PROGRAM if <em>program</em> is not a valid program object.</p>
+<p><code>CL_&#8203;INVALID_&#8203;PROGRAM</code> if <em>program</em> is not a valid program object.</p>
 </li>
 <li>
-<p>CL_INVALID_VALUE if <em>device_list</em> is <code>NULL</code> and <em>num_devices</em> is greater
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if <em>device_list</em> is <code>NULL</code> and <em>num_devices</em> is greater
 than zero, or if <em>device_list</em> is not <code>NULL</code> and <em>num_devices</em> is zero.</p>
 </li>
 <li>
-<p>CL_INVALID_VALUE if <em>num_input_headers</em> is zero and
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if <em>num_input_headers</em> is zero and
 <em>header_include_names</em> or <em>input_headers</em> are not <code>NULL</code> or if
 <em>num_input_headers</em> is not zero and <em>header_include_names</em> or
 <em>input_headers</em> are <code>NULL</code>.</p>
 </li>
 <li>
-<p>CL_INVALID_VALUE if <em>pfn_notify</em> is <code>NULL</code> but <em>user_data</em> is not
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if <em>pfn_notify</em> is <code>NULL</code> but <em>user_data</em> is not
 <code>NULL</code>.</p>
 </li>
 <li>
-<p>CL_INVALID_DEVICE if OpenCL devices listed in <em>device_list</em> are not in
+<p><code>CL_&#8203;INVALID_&#8203;DEVICE</code> if OpenCL devices listed in <em>device_list</em> are not in
 the list of devices associated with <em>program</em></p>
 </li>
 <li>
-<p>CL_INVALID_COMPILER_OPTIONS if the compiler options specified by
+<p><code>CL_&#8203;INVALID_&#8203;COMPILER_&#8203;OPTIONS</code> if the compiler options specified by
 <em>options</em> are invalid.</p>
 </li>
 <li>
-<p>CL_INVALID_OPERATION if the compilation or build of a program executable
+<p><code>CL_&#8203;INVALID_&#8203;OPERATION</code> if the compilation or build of a program executable
 for any of the devices listed in <em>device_list</em> by a previous call to
 <strong>clCompileProgram</strong> or <strong>clBuildProgram</strong> for <em>program</em> has not completed.</p>
 </li>
 <li>
-<p>CL_COMPILER_NOT_AVAILABLE if a compiler is not available i.e.
-CL_DEVICE_COMPILER_AVAILABLE specified in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#device-queries-table">Device Queries</a> table is set to CL_FALSE.</p>
+<p><code>CL_&#8203;COMPILER_&#8203;NOT_&#8203;AVAILABLE</code> if a compiler is not available i.e.
+<code>CL_&#8203;DEVICE_&#8203;COMPILER_&#8203;AVAILABLE</code> specified in the
+<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#device-queries-table" target="_blank" rel="noopener">Device Queries</a> table is set to <code>CL_&#8203;FALSE</code>.</p>
 </li>
 <li>
-<p>CL_COMPILE_PROGRAM_FAILURE if there is a failure to compile the program
+<p><code>CL_&#8203;COMPILE_&#8203;PROGRAM_&#8203;FAILURE</code> if there is a failure to compile the program
 source.
 This error will be returned if <strong>clCompileProgram</strong> does not return until
 the compile has completed.</p>
 </li>
 <li>
-<p>CL_INVALID_OPERATION if there are kernel objects attached to <em>program</em>.</p>
+<p><code>CL_&#8203;INVALID_&#8203;OPERATION</code> if there are kernel objects attached to <em>program</em>.</p>
 </li>
 <li>
-<p>CL_INVALID_OPERATION if <em>program</em> has no source or IL available, i.e. it
+<p><code>CL_&#8203;INVALID_&#8203;OPERATION</code> if <em>program</em> has no source or IL available, i.e. it
 has not been created with <strong>clCreateProgramWithSource</strong> or
 <strong>clCreateProgramWithIL</strong>.</p>
 </li>
 <li>
-<p>CL_OUT_OF_RESOURCES if there is a failure to allocate resources required
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;RESOURCES</code> if there is a failure to allocate resources required
 by the OpenCL implementation on the device.</p>
 </li>
 <li>
-<p>CL_OUT_OF_HOST_MEMORY if there is a failure to allocate resources
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;HOST_&#8203;MEMORY</code> if there is a failure to allocate resources
 required by the OpenCL implementation on the host.</p>
 </li>
 </ul>
@@ -991,10 +991,7 @@ required by the OpenCL implementation on the host.</p>
 <h2 id="_document_notes">Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Specification at URL</p>
-</div>
-<div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clCompileProgram" class="bare">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clCompileProgram</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clCompileProgram" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the OpenCL Specification.
@@ -1007,7 +1004,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Copyright (c) 2014-2019 Khronos Group. This work is licensed under a
-<a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons
+<a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons
 Attribution 4.0 International License</a>.</p>
 </div>
 </div>
@@ -1015,8 +1012,8 @@ Attribution 4.0 International License</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v2.2-10-28-g71714e1-dirty<br>
-Last updated 2019-06-20 05:25:24 -0700
+Version V2.2-11-2-gbc16dca-dirty<br>
+Last updated 2019-07-24 05:39:45 -0700
 </div>
 </div>
 

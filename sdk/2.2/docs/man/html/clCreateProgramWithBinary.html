@@ -849,10 +849,10 @@ converted to the device-specific code.</p>
 <li>
 <p><em>binary_status</em> returns whether the program binary for each device specified
 in <em>device_list</em> was loaded successfully or not.
-It is an array of <em>num_devices</em> entries and returns CL_SUCCESS in
+It is an array of <em>num_devices</em> entries and returns <code>CL_&#8203;SUCCESS</code> in
 <em>binary_status</em>[i] if binary was successfully loaded for device specified by
-<em>device_list</em>[i]; otherwise returns CL_INVALID_VALUE if <em>lengths</em>[i] is zero
-or if <em>binaries</em>[i] is a <code>NULL</code> value or CL_INVALID_BINARY in
+<em>device_list</em>[i]; otherwise returns <code>CL_&#8203;INVALID_&#8203;VALUE</code> if <em>lengths</em>[i] is zero
+or if <em>binaries</em>[i] is a <code>NULL</code> value or <code>CL_&#8203;INVALID_&#8203;BINARY</code> in
 <em>binary_status</em>[i] if program binary is not a valid binary for the specified
 device.
 If <em>binary_status</em> is <code>NULL</code>, it is ignored.</p>
@@ -875,7 +875,7 @@ help significantly reduce the application initialization time.</p>
 </div>
 <div class="paragraph">
 <p><strong>clCreateProgramWithBinary</strong> returns a valid non-zero program object and
-<em>errcode_ret</em> is set to CL_SUCCESS if the program object is created
+<em>errcode_ret</em> is set to <code>CL_&#8203;SUCCESS</code> if the program object is created
 successfully.
 Otherwise, it returns a <code>NULL</code> value with one of the following error values
 returned in <em>errcode_ret</em>:</p>
@@ -883,30 +883,30 @@ returned in <em>errcode_ret</em>:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>CL_INVALID_CONTEXT if <em>context</em> is not a valid context.</p>
+<p><code>CL_&#8203;INVALID_&#8203;CONTEXT</code> if <em>context</em> is not a valid context.</p>
 </li>
 <li>
-<p>CL_INVALID_VALUE if <em>device_list</em> is <code>NULL</code> or <em>num_devices</em> is zero.</p>
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if <em>device_list</em> is <code>NULL</code> or <em>num_devices</em> is zero.</p>
 </li>
 <li>
-<p>CL_INVALID_DEVICE if OpenCL devices listed in <em>device_list</em> are not in
+<p><code>CL_&#8203;INVALID_&#8203;DEVICE</code> if OpenCL devices listed in <em>device_list</em> are not in
 the list of devices associated with <em>context</em>.</p>
 </li>
 <li>
-<p>CL_INVALID_VALUE if <em>lengths</em> or <em>binaries</em> are <code>NULL</code> or if any entry
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if <em>lengths</em> or <em>binaries</em> are <code>NULL</code> or if any entry
 in <em>lengths</em>[i] is zero or <em>binaries</em>[i] is <code>NULL</code>.</p>
 </li>
 <li>
-<p>CL_INVALID_BINARY if an invalid program binary was encountered for any
+<p><code>CL_&#8203;INVALID_&#8203;BINARY</code> if an invalid program binary was encountered for any
 device.
 <em>binary_status</em> will return specific status for each device.</p>
 </li>
 <li>
-<p>CL_OUT_OF_RESOURCES if there is a failure to allocate resources required
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;RESOURCES</code> if there is a failure to allocate resources required
 by the OpenCL implementation on the device.</p>
 </li>
 <li>
-<p>CL_OUT_OF_HOST_MEMORY if there is a failure to allocate resources
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;HOST_&#8203;MEMORY</code> if there is a failure to allocate resources
 required by the OpenCL implementation on the host.</p>
 </li>
 </ul>
@@ -925,10 +925,7 @@ required by the OpenCL implementation on the host.</p>
 <h2 id="_document_notes">Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Specification at URL</p>
-</div>
-<div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clCreateProgramWithBinary" class="bare">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clCreateProgramWithBinary</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clCreateProgramWithBinary" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the OpenCL Specification.
@@ -941,7 +938,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Copyright (c) 2014-2019 Khronos Group. This work is licensed under a
-<a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons
+<a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons
 Attribution 4.0 International License</a>.</p>
 </div>
 </div>
@@ -949,8 +946,8 @@ Attribution 4.0 International License</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v2.2-10-28-g71714e1-dirty<br>
-Last updated 2019-06-20 05:25:24 -0700
+Version V2.2-11-2-gbc16dca-dirty<br>
+Last updated 2019-07-24 05:39:45 -0700
 </div>
 </div>
 

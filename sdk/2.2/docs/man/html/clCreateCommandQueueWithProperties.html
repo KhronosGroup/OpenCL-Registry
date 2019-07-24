@@ -806,7 +806,7 @@ command-queue properties will be used.</p>
 <h2 id="_description">Description</h2>
 <div class="sectionbody">
 <table id="queue-properties-table" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. List of supported cl_queue_properties values and description</caption>
+<caption class="title">Table 1. List of supported queue creation properties by <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clCreateCommandQueueWithProperties" class="bare" target="_blank" rel="noopener">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clCreateCommandQueueWithProperties</a></caption>
 <colgroup>
 <col style="width: 34%;">
 <col style="width: 33%;">
@@ -821,39 +821,39 @@ command-queue properties will be used.</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_QUEUE_PROPERTIES</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;QUEUE_&#8203;PROPERTIES</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_bitfield</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This is a bitfield and can be set to a combination of the following
         values:</p>
-<p class="tableblock">        CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE - Determines whether the
+<p class="tableblock">        <code>CL_&#8203;QUEUE_&#8203;OUT_&#8203;OF_&#8203;ORDER_&#8203;EXEC_&#8203;MODE_&#8203;ENABLE</code> - Determines whether the
         commands queued in the command-queue are executed in-order or
         out-of-order.
         If set, the commands in the command-queue are executed out-of-order.
         Otherwise, commands are executed in-order.</p>
-<p class="tableblock">        CL_QUEUE_PROFILING_ENABLE - Enable or disable profiling of commands
+<p class="tableblock">        <code>CL_&#8203;QUEUE_&#8203;PROFILING_&#8203;ENABLE</code> - Enable or disable profiling of commands
         in the command-queue.
         If set, the profiling of commands is enabled.
         Otherwise profiling of commands is disabled.</p>
-<p class="tableblock">        CL_QUEUE_ON_DEVICE - Indicates that this is a device queue.
-        If CL_QUEUE_ON_DEVICE is set,
-        CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE<sup>1</sup> must also be set.</p>
-<p class="tableblock">        CL_QUEUE_ON_DEVICE_DEFAULT<sup>2</sup> - indicates that this is the default
+<p class="tableblock">        <code>CL_&#8203;QUEUE_&#8203;ON_&#8203;DEVICE</code> - Indicates that this is a device queue.
+        If <code>CL_&#8203;QUEUE_&#8203;ON_&#8203;DEVICE</code> is set,
+        <code>CL_&#8203;QUEUE_&#8203;OUT_&#8203;OF_&#8203;ORDER_&#8203;EXEC_&#8203;MODE_&#8203;ENABLE</code><sup>1</sup> must also be set.</p>
+<p class="tableblock">        <code>CL_&#8203;QUEUE_&#8203;ON_&#8203;DEVICE_&#8203;DEFAULT</code><sup>2</sup> - indicates that this is the default
         device queue.
-        This can only be used with CL_QUEUE_ON_DEVICE.</p>
-<p class="tableblock">        If CL_QUEUE_PROPERTIES is not specified an in-order host command
+        This can only be used with <code>CL_&#8203;QUEUE_&#8203;ON_&#8203;DEVICE</code>.</p>
+<p class="tableblock">        If <code>CL_&#8203;QUEUE_&#8203;PROPERTIES</code> is not specified an in-order host command
         queue is created for the specified device</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_QUEUE_SIZE</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;QUEUE_&#8203;SIZE</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_uint</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the size of the device queue in bytes.</p>
-<p class="tableblock">        This can only be specified if CL_QUEUE_ON_DEVICE is set in
-        CL_QUEUE_PROPERTIES.
-        This must be a value ≤ CL_DEVICE_QUEUE_ON_DEVICE_MAX_SIZE.</p>
+<p class="tableblock">        This can only be specified if <code>CL_&#8203;QUEUE_&#8203;ON_&#8203;DEVICE</code> is set in
+        <code>CL_&#8203;QUEUE_&#8203;PROPERTIES</code>.
+        This must be a value ≤ <code>CL_&#8203;DEVICE_&#8203;QUEUE_&#8203;ON_&#8203;DEVICE_&#8203;MAX_&#8203;SIZE</code>.</p>
 <p class="tableblock">        For best performance, this should be ≤
-        CL_DEVICE_QUEUE_ON_DEVICE_PREFERRED_SIZE.</p>
-<p class="tableblock">        If CL_QUEUE_SIZE is not specified, the device queue is created with
-        CL_DEVICE_QUEUE_ON_DEVICE_PREFERRED_SIZE as the size of the queue.</p></td>
+        <code>CL_&#8203;DEVICE_&#8203;QUEUE_&#8203;ON_&#8203;DEVICE_&#8203;PREFERRED_&#8203;SIZE</code>.</p>
+<p class="tableblock">        If <code>CL_&#8203;QUEUE_&#8203;SIZE</code> is not specified, the device queue is created with
+        <code>CL_&#8203;DEVICE_&#8203;QUEUE_&#8203;ON_&#8203;DEVICE_&#8203;PREFERRED_&#8203;SIZE</code> as the size of the queue.</p></td>
 </tr>
 </tbody>
 </table>
@@ -869,8 +869,8 @@ command-queue properties will be used.</p>
 containing calls to get_default_queue are enqueued.
 There can only be one default device queue for each device within a
 context.
-<strong>clCreateCommandQueueWithProperties</strong> with CL_QUEUE_PROPERTIES set to
-CL_QUEUE_ON_DEVICE or CL_QUEUE_ON_DEVICE_DEFAULT will return the default
+<strong>clCreateCommandQueueWithProperties</strong> with <code>CL_&#8203;QUEUE_&#8203;PROPERTIES</code> set to
+<code>CL_&#8203;QUEUE_&#8203;ON_&#8203;DEVICE</code> or <code>CL_&#8203;QUEUE_&#8203;ON_&#8203;DEVICE_&#8203;DEFAULT</code> will return the default
 device queue that has already been created and increment its retain
 count by 1.</p>
 <div class="ulist">
@@ -886,7 +886,7 @@ If <em>errcode_ret</em> is <code>NULL</code>, no error code is returned.</p>
 </div>
 <div class="paragraph">
 <p><strong>clCreateCommandQueueWithProperties</strong> returns a valid non-zero command-queue
-and <em>errcode_ret</em> is set to CL_SUCCESS if the command-queue is created
+and <em>errcode_ret</em> is set to <code>CL_&#8203;SUCCESS</code> if the command-queue is created
 successfully.
 Otherwise, it returns a <code>NULL</code> value with one of the following error values
 returned in <em>errcode_ret</em>:</p>
@@ -894,25 +894,25 @@ returned in <em>errcode_ret</em>:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>CL_INVALID_CONTEXT if <em>context</em> is not a valid context.</p>
+<p><code>CL_&#8203;INVALID_&#8203;CONTEXT</code> if <em>context</em> is not a valid context.</p>
 </li>
 <li>
-<p>CL_INVALID_DEVICE if <em>device</em> is not a valid device or is not associated
+<p><code>CL_&#8203;INVALID_&#8203;DEVICE</code> if <em>device</em> is not a valid device or is not associated
 with <em>context</em>.</p>
 </li>
 <li>
-<p>CL_INVALID_VALUE if values specified in <em>properties</em> are not valid.</p>
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if values specified in <em>properties</em> are not valid.</p>
 </li>
 <li>
-<p>CL_INVALID_QUEUE_PROPERTIES if values specified in <em>properties</em> are
+<p><code>CL_&#8203;INVALID_&#8203;QUEUE_&#8203;PROPERTIES</code> if values specified in <em>properties</em> are
 valid but are not supported by the device.</p>
 </li>
 <li>
-<p>CL_OUT_OF_RESOURCES if there is a failure to allocate resources required
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;RESOURCES</code> if there is a failure to allocate resources required
 by the OpenCL implementation on the device.</p>
 </li>
 <li>
-<p>CL_OUT_OF_HOST_MEMORY if there is a failure to allocate resources
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;HOST_&#8203;MEMORY</code> if there is a failure to allocate resources
 required by the OpenCL implementation on the host.</p>
 </li>
 </ul>
@@ -931,10 +931,7 @@ required by the OpenCL implementation on the host.</p>
 <h2 id="_document_notes">Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Specification at URL</p>
-</div>
-<div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clCreateCommandQueueWithProperties" class="bare">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clCreateCommandQueueWithProperties</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clCreateCommandQueueWithProperties" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the OpenCL Specification.
@@ -947,7 +944,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Copyright (c) 2014-2019 Khronos Group. This work is licensed under a
-<a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons
+<a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons
 Attribution 4.0 International License</a>.</p>
 </div>
 </div>
@@ -955,8 +952,8 @@ Attribution 4.0 International License</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v2.2-10-28-g71714e1-dirty<br>
-Last updated 2019-06-20 05:25:24 -0700
+Version V2.2-11-2-gbc16dca-dirty<br>
+Last updated 2019-07-24 05:39:45 -0700
 </div>
 </div>
 

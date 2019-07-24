@@ -767,8 +767,8 @@ host memory.</p>
     cl_command_queue command_queue,
     cl_mem image,
     cl_bool blocking_read,
-    const size_t* origin[3],
-    const size_t* region[3],
+    const size_t* origin,
+    const size_t* region,
     size_t row_pitch,
     size_t slice_pitch,
     void* ptr,
@@ -783,8 +783,8 @@ host memory.</p>
     cl_command_queue command_queue,
     cl_mem image,
     cl_bool blocking_write,
-    const size_t* origin[3],
-    const size_t* region[3],
+    const size_t* origin,
+    const size_t* region,
     size_t input_row_pitch,
     size_t input_slice_pitch,
     const void* ptr,
@@ -860,7 +860,7 @@ pitch is calculated based on the <em>row_pitch</em> × <em>height</em>.</p>
 <p><em>ptr</em> is the pointer to a buffer in host memory where image data is to be
 read from or to be written to.
 The alignment requirements for ptr are specified in
-<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#alignment-app-data-types">Alignment of Application Data Types</a>.</p>
+<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#alignment-app-data-types" target="_blank" rel="noopener">Alignment of Application Data Types</a>.</p>
 </li>
 <li>
 <p><em>event_wait_list</em> and <em>num_events_in_wait_list</em> specify events that need to
@@ -896,12 +896,12 @@ array.</p>
 <h2 id="_description">Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>If <em>blocking_read</em> is CL_TRUE i.e. the read command is blocking,
+<p>If <em>blocking_read</em> is <code>CL_&#8203;TRUE</code> i.e. the read command is blocking,
 <strong>clEnqueueReadImage</strong> does not return until the buffer data has been read and
 copied into memory pointed to by <em>ptr</em>.</p>
 </div>
 <div class="paragraph">
-<p>If <em>blocking_read</em> is CL_FALSE i.e. the read command is non-blocking,
+<p>If <em>blocking_read</em> is <code>CL_&#8203;FALSE</code> i.e. the read command is non-blocking,
 <strong>clEnqueueReadImage</strong> queues a non-blocking read command and returns.
 The contents of the buffer that <em>ptr</em> points to cannot be used until the
 read command has completed.
@@ -911,13 +911,13 @@ When the read command has completed, the contents of the buffer that <em>ptr</em
 points to can be used by the application.</p>
 </div>
 <div class="paragraph">
-<p>If <em>blocking_write</em> is CL_TRUE, the write command is blocking and does not
+<p>If <em>blocking_write</em> is <code>CL_&#8203;TRUE</code>, the write command is blocking and does not
 return until the command is complete, including transfer of the data.
 The memory pointed to by <em>ptr</em> can be reused by the application after the
 <strong>clEnqueueWriteImage</strong> call returns.</p>
 </div>
 <div class="paragraph">
-<p>If <em>blocking_write</em> is CL_FALSE, the OpenCL implementation will use <em>ptr</em> to
+<p>If <em>blocking_write</em> is <code>CL_&#8203;FALSE</code>, the OpenCL implementation will use <em>ptr</em> to
 perform a non-blocking write.
 As the write is non-blocking the implementation can return immediately.
 The memory pointed to by <em>ptr</em> cannot be reused by the application after the
@@ -928,76 +928,76 @@ When the write command has completed, the memory pointed to by <em>ptr</em> can
 then be reused by the application.</p>
 </div>
 <div class="paragraph">
-<p><strong>clEnqueueReadImage</strong> and <strong>clEnqueueWriteImage</strong> return CL_SUCCESS if the
+<p><strong>clEnqueueReadImage</strong> and <strong>clEnqueueWriteImage</strong> return <code>CL_&#8203;SUCCESS</code> if the
 function is executed successfully.
 Otherwise, it returns one of the following errors:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>CL_INVALID_COMMAND_QUEUE if <em>command_queue</em> is not a valid host
+<p><code>CL_&#8203;INVALID_&#8203;COMMAND_&#8203;QUEUE</code> if <em>command_queue</em> is not a valid host
 command-queue.</p>
 </li>
 <li>
-<p>CL_INVALID_CONTEXT if the context associated with <em>command_queue</em> and
+<p><code>CL_&#8203;INVALID_&#8203;CONTEXT</code> if the context associated with <em>command_queue</em> and
 <em>image</em> are not the same or if the context associated with
 <em>command_queue</em> and events in <em>event_wait_list</em> are not the same.</p>
 </li>
 <li>
-<p>CL_INVALID_MEM_OBJECT if i_mage_ is not a valid image object.</p>
+<p><code>CL_&#8203;INVALID_&#8203;MEM_&#8203;OBJECT</code> if i_mage_ is not a valid image object.</p>
 </li>
 <li>
-<p>CL_INVALID_VALUE if the region being read or written specified by
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if the region being read or written specified by
 <em>origin</em> and <em>region</em> is out of bounds or if <em>ptr</em> is a <code>NULL</code> value.</p>
 </li>
 <li>
-<p>CL_INVALID_VALUE if values in <em>origin</em> and <em>region</em> do not follow rules
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if values in <em>origin</em> and <em>region</em> do not follow rules
 described in the argument description for <em>origin</em> and <em>region</em>.</p>
 </li>
 <li>
-<p>CL_INVALID_EVENT_WAIT_LIST if <em>event_wait_list</em> is <code>NULL</code> and
+<p><code>CL_&#8203;INVALID_&#8203;EVENT_&#8203;WAIT_&#8203;LIST</code> if <em>event_wait_list</em> is <code>NULL</code> and
 <em>num_events_in_wait_list</em> &gt; 0, or <em>event_wait_list</em> is not <code>NULL</code> and
 <em>num_events_in_wait_list</em> is 0, or if event objects in <em>event_wait_list</em>
 are not valid events.</p>
 </li>
 <li>
-<p>CL_INVALID_IMAGE_SIZE if image dimensions (image width, height,
+<p><code>CL_&#8203;INVALID_&#8203;IMAGE_&#8203;SIZE</code> if image dimensions (image width, height,
 specified or compute row and/or slice pitch) for <em>image</em> are not
 supported by device associated with <em>queue</em>.</p>
 </li>
 <li>
-<p>CL_IMAGE_FORMAT_NOT_SUPPORTED if image format (image channel order and
+<p><code>CL_&#8203;IMAGE_&#8203;FORMAT_&#8203;NOT_&#8203;SUPPORTED</code> if image format (image channel order and
 data type) for <em>image</em> are not supported by device associated with
 <em>queue</em>.</p>
 </li>
 <li>
-<p>CL_MEM_OBJECT_ALLOCATION_FAILURE if there is a failure to allocate
+<p><code>CL_&#8203;MEM_&#8203;OBJECT_&#8203;ALLOCATION_&#8203;FAILURE</code> if there is a failure to allocate
 memory for data store associated with <em>image</em>.</p>
 </li>
 <li>
-<p>CL_INVALID_OPERATION if the device associated with <em>command_queue</em> does
-not support images (i.e. CL_DEVICE_IMAGE_SUPPORT specified in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#device-queries-table">Device Queries</a> table is CL_FALSE).</p>
+<p><code>CL_&#8203;INVALID_&#8203;OPERATION</code> if the device associated with <em>command_queue</em> does
+not support images (i.e. <code>CL_&#8203;DEVICE_&#8203;IMAGE_&#8203;SUPPORT</code> specified in the
+<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#device-queries-table" target="_blank" rel="noopener">Device Queries</a> table is <code>CL_&#8203;FALSE</code>).</p>
 </li>
 <li>
-<p>CL_INVALID_OPERATION if <strong>clEnqueueReadImage</strong> is called on <em>image</em> which
-has been created with CL_MEM_HOST_WRITE_ONLY or CL_MEM_HOST_NO_ACCESS.</p>
+<p><code>CL_&#8203;INVALID_&#8203;OPERATION</code> if <strong>clEnqueueReadImage</strong> is called on <em>image</em> which
+has been created with <code>CL_&#8203;MEM_&#8203;HOST_&#8203;WRITE_&#8203;ONLY</code> or <code>CL_&#8203;MEM_&#8203;HOST_&#8203;NO_&#8203;ACCESS</code>.</p>
 </li>
 <li>
-<p>CL_INVALID_OPERATION if <strong>clEnqueueWriteImage</strong> is called on <em>image</em> which
-has been created with CL_MEM_HOST_READ_ONLY or CL_MEM_HOST_NO_ACCESS.</p>
+<p><code>CL_&#8203;INVALID_&#8203;OPERATION</code> if <strong>clEnqueueWriteImage</strong> is called on <em>image</em> which
+has been created with <code>CL_&#8203;MEM_&#8203;HOST_&#8203;READ_&#8203;ONLY</code> or <code>CL_&#8203;MEM_&#8203;HOST_&#8203;NO_&#8203;ACCESS</code>.</p>
 </li>
 <li>
-<p>CL_EXEC_STATUS_ERROR_FOR_EVENTS_IN_WAIT_LIST if the read and write
+<p><code>CL_&#8203;EXEC_&#8203;STATUS_&#8203;ERROR_&#8203;FOR_&#8203;EVENTS_&#8203;IN_&#8203;WAIT_&#8203;LIST</code> if the read and write
 operations are blocking and the execution status of any of the events in
 <em>event_wait_list</em> is a negative integer value.</p>
 </li>
 <li>
-<p>CL_OUT_OF_RESOURCES if there is a failure to allocate resources required
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;RESOURCES</code> if there is a failure to allocate resources required
 by the OpenCL implementation on the device.</p>
 </li>
 <li>
-<p>CL_OUT_OF_HOST_MEMORY if there is a failure to allocate resources
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;HOST_&#8203;MEMORY</code> if there is a failure to allocate resources
 required by the OpenCL implementation on the host.</p>
 </li>
 </ul>
@@ -1014,7 +1014,7 @@ required by the OpenCL implementation on the host.</p>
 argument value set to <em>host_ptr</em> + (<em>origin</em>[2] × <em>image slice pitch</em>
 +  <em>origin</em>[1] × <em>image row pitch</em> + <em>origin</em>[0] × <em>bytes
 per pixel</em>), where <em>host_ptr</em> is a pointer to the memory region specified
-when the <em>image</em> being read is created with CL_MEM_USE_HOST_PTR, must meet
+when the <em>image</em> being read is created with <code>CL_&#8203;MEM_&#8203;USE_&#8203;HOST_&#8203;PTR</code>, must meet
 the following requirements in order to avoid undefined behavior:</p>
 </div>
 <div class="ulist">
@@ -1042,7 +1042,7 @@ has finished execution.</p>
 × <em>image slice pitch</em> + <em>origin</em>[1] × <em>image row pitch</em> + 
 <em>origin</em>[0] × <em>bytes per pixel</em>), where <em>host_ptr</em> is a pointer to the
 memory region specified when the <em>image</em> being written is created with
-CL_MEM_USE_HOST_PTR, must meet the following requirements in order to avoid
+<code>CL_&#8203;MEM_&#8203;USE_&#8203;HOST_&#8203;PTR</code>, must meet the following requirements in order to avoid
 undefined behavior:</p>
 </div>
 <div class="ulist">
@@ -1083,10 +1083,7 @@ command has finished execution.</p>
 <h2 id="_document_notes">Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Specification at URL</p>
-</div>
-<div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clEnqueueReadImage" class="bare">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clEnqueueReadImage</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clEnqueueReadImage" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the OpenCL Specification.
@@ -1099,7 +1096,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Copyright (c) 2014-2019 Khronos Group. This work is licensed under a
-<a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons
+<a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons
 Attribution 4.0 International License</a>.</p>
 </div>
 </div>
@@ -1107,8 +1104,8 @@ Attribution 4.0 International License</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v2.2-10-28-g71714e1-dirty<br>
-Last updated 2019-06-20 05:25:24 -0700
+Version V2.2-11-2-gbc16dca-dirty<br>
+Last updated 2019-07-24 05:39:45 -0700
 </div>
 </div>
 

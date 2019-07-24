@@ -783,15 +783,15 @@ status, call the function</p>
 <p><em>command_exec_callback_type</em> specifies the command execution status for
 which the callback is registered.
 The command execution callback values for which a callback can be registered
-are: CL_SUBMITTED, CL_RUNNING or CL_COMPLETE<sup>21</sup>.
+are: <code>CL_&#8203;SUBMITTED</code>, <code>CL_&#8203;RUNNING</code>, or <code>CL_&#8203;COMPLETE</code><sup>21</sup>.
 There is no guarantee that the callback functions registered for various
 execution status values for an event will be called in the exact order that
 the execution status of a command changes.
 Furthermore, it should be noted that receiving a call back for an event with
-a status other than CL_COMPLETE, in no way implies that the memory model or
+a status other than <code>CL_&#8203;COMPLETE</code>, in no way implies that the memory model or
 execution model as defined by the OpenCL specification has changed.
 For example, it is not valid to assume that a corresponding memory transfer
-has completed unless the event is in a state CL_COMPLETE.</p>
+has completed unless the event is in a state <code>CL_&#8203;COMPLETE</code>.</p>
 </li>
 <li>
 <p><em>pfn_event_notify</em> is the event callback function that can be registered by
@@ -809,7 +809,7 @@ The parameters to this callback function are:</p>
 <li>
 <p><em>event_command_exec_status</em> is equal to the <em>command_exec_callback_type</em>
 used while registering the callback.
-Refer to the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#kernel-argument-info-table">Kernel Argument Queries</a>
+Refer to the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#kernel-argument-info-table" target="_blank" rel="noopener">Kernel Argument Queries</a>
 table for the command execution status values.
 If the callback is called as the result of the command associated with
 event being abnormally terminated, an appropriate error code for the
@@ -839,7 +839,7 @@ called.
 <dt class="hdlist1">21</dt>
 <dd>
 <p>The callback function registered for a command_exec_callback_type value
-of CL_COMPLETE will be called when the command has completed
+of <code>CL_&#8203;COMPLETE</code> will be called when the command has completed
 successfully or is abnormally terminated.</p>
 </dd>
 </dl>
@@ -907,26 +907,26 @@ queue before returning or arrange for <strong>clFlush</strong> to be called late
 another thread.</p>
 </div>
 <div class="paragraph">
-<p><strong>clSetEventCallback</strong> returns CL_SUCCESS if the function is executed
+<p><strong>clSetEventCallback</strong> returns <code>CL_&#8203;SUCCESS</code> if the function is executed
 successfully.
 Otherwise, it returns one of the following errors:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>CL_INVALID_EVENT if <em>event</em> is not a valid event object.</p>
+<p><code>CL_&#8203;INVALID_&#8203;EVENT</code> if <em>event</em> is not a valid event object.</p>
 </li>
 <li>
-<p>CL_INVALID_VALUE if <em>pfn_event_notify</em> is <code>NULL</code> or if
-<em>command_exec_callback_type</em> is not CL_SUBMITTED, CL_RUNNING or
-CL_COMPLETE.</p>
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if <em>pfn_event_notify</em> is <code>NULL</code> or if
+<em>command_exec_callback_type</em> is not <code>CL_&#8203;SUBMITTED</code>, <code>CL_&#8203;RUNNING</code>, or
+<code>CL_&#8203;COMPLETE</code>.</p>
 </li>
 <li>
-<p>CL_OUT_OF_RESOURCES if there is a failure to allocate resources required
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;RESOURCES</code> if there is a failure to allocate resources required
 by the OpenCL implementation on the device.</p>
 </li>
 <li>
-<p>CL_OUT_OF_HOST_MEMORY if there is a failure to allocate resources
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;HOST_&#8203;MEMORY</code> if there is a failure to allocate resources
 required by the OpenCL implementation on the host.</p>
 </li>
 </ul>
@@ -945,10 +945,7 @@ required by the OpenCL implementation on the host.</p>
 <h2 id="_document_notes">Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Specification at URL</p>
-</div>
-<div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clSetEventCallback" class="bare">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clSetEventCallback</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clSetEventCallback" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the OpenCL Specification.
@@ -961,7 +958,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Copyright (c) 2014-2019 Khronos Group. This work is licensed under a
-<a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons
+<a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons
 Attribution 4.0 International License</a>.</p>
 </div>
 </div>
@@ -969,8 +966,8 @@ Attribution 4.0 International License</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v2.2-10-28-g71714e1-dirty<br>
-Last updated 2019-06-20 05:25:24 -0700
+Version V2.2-11-2-gbc16dca-dirty<br>
+Last updated 2019-07-24 05:39:45 -0700
 </div>
 </div>
 

@@ -783,7 +783,7 @@ be associated with, call the function</p>
 <p><em>command_queue</em> is a valid host command-queue.
 The specified set of memory objects in <em>mem_objects</em> will be migrated to the
 OpenCL device associated with <em>command_queue</em> or to the host if the
-CL_MIGRATE_MEM_OBJECT_HOST has been specified.</p>
+<code>CL_&#8203;MIGRATE_&#8203;MEM_&#8203;OBJECT_&#8203;HOST</code> has been specified.</p>
 </li>
 <li>
 <p><em>num_mem_objects</em> is the number of memory objects specified in
@@ -794,7 +794,7 @@ CL_MIGRATE_MEM_OBJECT_HOST has been specified.</p>
 </li>
 <li>
 <p><em>flags</em> is a bit-field that is used to specify migration options.
-The <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#migration-flags-table">Memory Migration Flags</a> describes the possible
+The <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#migration-flags-table" target="_blank" rel="noopener">Memory Migration Flags</a> describes the possible
 values for flags.</p>
 </li>
 <li>
@@ -844,12 +844,12 @@ array.</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_MIGRATE_MEM_OBJECT_HOST</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;MIGRATE_&#8203;MEM_&#8203;OBJECT_&#8203;HOST</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This flag indicates that the specified set of memory objects are to be
     migrated to the host, regardless of the target command-queue.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_MIGRATE_MEM_OBJECT_CONTENT_UNDEFINED</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;MIGRATE_&#8203;MEM_&#8203;OBJECT_&#8203;CONTENT_&#8203;UNDEFINED</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This flag indicates that the contents of the set of memory objects are
     undefined after migration.
     The specified set of memory objects are migrated to the device
@@ -888,50 +888,50 @@ Improperly specified event dependencies passed to
 <strong>clEnqueueMigrateMemObjects</strong> could result in undefined results.</p>
 </div>
 <div class="paragraph">
-<p><strong>clEnqueueMigrateMemObjects</strong> return CL_SUCCESS if the function is executed
+<p><strong>clEnqueueMigrateMemObjects</strong> return <code>CL_&#8203;SUCCESS</code> if the function is executed
 successfully.
 Otherwise, it returns one of the following errors:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>CL_INVALID_COMMAND_QUEUE if <em>command_queue</em> is not a valid host
+<p><code>CL_&#8203;INVALID_&#8203;COMMAND_&#8203;QUEUE</code> if <em>command_queue</em> is not a valid host
 command-queue.</p>
 </li>
 <li>
-<p>CL_INVALID_CONTEXT if the context associated with <em>command_queue</em> and
+<p><code>CL_&#8203;INVALID_&#8203;CONTEXT</code> if the context associated with <em>command_queue</em> and
 memory objects in <em>mem_objects</em> are not the same or if the context
 associated with <em>command_queue</em> and events in <em>event_wait_list</em> are not
 the same.</p>
 </li>
 <li>
-<p>CL_INVALID_MEM_OBJECT if any of the memory objects in <em>mem_objects</em> is
+<p><code>CL_&#8203;INVALID_&#8203;MEM_&#8203;OBJECT</code> if any of the memory objects in <em>mem_objects</em> is
 not a valid memory object.</p>
 </li>
 <li>
-<p>CL_INVALID_VALUE if <em>num_mem_objects</em> is zero or if <em>mem_objects</em> is
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if <em>num_mem_objects</em> is zero or if <em>mem_objects</em> is
 <code>NULL</code>.</p>
 </li>
 <li>
-<p>CL_INVALID_VALUE if <em>flags</em> is not 0 or is not any of the values
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if <em>flags</em> is not 0 or is not any of the values
 described in the table above.</p>
 </li>
 <li>
-<p>CL_INVALID_EVENT_WAIT_LIST if <em>event_wait_list</em> is <code>NULL</code> and
+<p><code>CL_&#8203;INVALID_&#8203;EVENT_&#8203;WAIT_&#8203;LIST</code> if <em>event_wait_list</em> is <code>NULL</code> and
 <em>num_events_in_wait_list</em> &gt; 0, or <em>event_wait_list</em> is not <code>NULL</code> and
 <em>num_events_in_wait_list</em> is 0, or if event objects in <em>event_wait_list</em>
 are not valid events.</p>
 </li>
 <li>
-<p>CL_MEM_OBJECT_ALLOCATION_FAILURE if there is a failure to allocate
+<p><code>CL_&#8203;MEM_&#8203;OBJECT_&#8203;ALLOCATION_&#8203;FAILURE</code> if there is a failure to allocate
 memory for the specified set of memory objects in <em>mem_objects</em>.</p>
 </li>
 <li>
-<p>CL_OUT_OF_RESOURCES if there is a failure to allocate resources required
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;RESOURCES</code> if there is a failure to allocate resources required
 by the OpenCL implementation on the device.</p>
 </li>
 <li>
-<p>CL_OUT_OF_HOST_MEMORY if there is a failure to allocate resources
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;HOST_&#8203;MEMORY</code> if there is a failure to allocate resources
 required by the OpenCL implementation on the host.</p>
 </li>
 </ul>
@@ -950,10 +950,7 @@ required by the OpenCL implementation on the host.</p>
 <h2 id="_document_notes">Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Specification at URL</p>
-</div>
-<div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clEnqueueMigrateMemObjects" class="bare">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clEnqueueMigrateMemObjects</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clEnqueueMigrateMemObjects" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the OpenCL Specification.
@@ -966,7 +963,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Copyright (c) 2014-2019 Khronos Group. This work is licensed under a
-<a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons
+<a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons
 Attribution 4.0 International License</a>.</p>
 </div>
 </div>
@@ -974,8 +971,8 @@ Attribution 4.0 International License</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v2.2-10-28-g71714e1-dirty<br>
-Last updated 2019-06-20 05:25:24 -0700
+Version V2.2-11-2-gbc16dca-dirty<br>
+Last updated 2019-07-24 05:39:45 -0700
 </div>
 </div>
 

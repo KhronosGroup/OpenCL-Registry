@@ -784,7 +784,7 @@ objects), call the function</p>
 <p><em>param_name</em> specifies the information to query.
 The list of supported <em>param_name</em> types and the information returned in
 <em>param_value</em> by <strong>clGetMemObjectInfo</strong> is described in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#mem-info-table">Memory Object Info</a> table.</p>
+<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#mem-info-table" target="_blank" rel="noopener">Memory Object Info</a> table.</p>
 </li>
 <li>
 <p><em>param_value</em> is a pointer to memory where the appropriate result being
@@ -795,7 +795,7 @@ If <em>param_value</em> is <code>NULL</code>, it is ignored.</p>
 <p><em>param_value_size</em> is used to specify the size in bytes of memory pointed to
 by <em>param_value</em>.
 This size must be ≥ size of return type as described in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#mem-info-table">Memory Object Info</a> table.</p>
+<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#mem-info-table" target="_blank" rel="noopener">Memory Object Info</a> table.</p>
 </li>
 <li>
 <p><em>param_value_size_ret</em> returns the actual size in bytes of data being
@@ -810,7 +810,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <h2 id="_description">Description</h2>
 <div class="sectionbody">
 <table id="mem-info-table" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. List of supported param_names by <strong>clGetMemObjectInfo</strong></caption>
+<caption class="title">Table 1. List of supported param_names by <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetMemObjectInfo" class="bare" target="_blank" rel="noopener">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetMemObjectInfo</a></caption>
 <colgroup>
 <col style="width: 34%;">
 <col style="width: 33%;">
@@ -825,17 +825,17 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_MEM_TYPE</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;MEM_&#8203;TYPE</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_mem_object_type</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns one of the following values:</p>
-<p class="tableblock">        CL_MEM_OBJECT_BUFFER if <em>memobj</em> is created with <strong>clCreateBuffer</strong> or
+<p class="tableblock">        <code>CL_&#8203;MEM_&#8203;OBJECT_&#8203;BUFFER</code> if <em>memobj</em> is created with <strong>clCreateBuffer</strong> or
         <strong>clCreateSubBuffer</strong>.</p>
 <p class="tableblock">        cl_image_desc.image_type argument value if <em>memobj</em> is created with
         <strong>clCreateImage</strong>.</p>
-<p class="tableblock">        CL_MEM_OBJECT_PIPE if <em>memobj</em> is created with <strong>clCreatePipe</strong>.</p></td>
+<p class="tableblock">        <code>CL_&#8203;MEM_&#8203;OBJECT_&#8203;PIPE</code> if <em>memobj</em> is created with <strong>clCreatePipe</strong>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_MEM_FLAGS</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;MEM_&#8203;FLAGS</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_mem_flags</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return the flags argument value specified when <em>memobj</em> is created
         with <strong>clCreateBuffer</strong>,<br>
@@ -846,37 +846,37 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
         from parent buffer is also returned.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_MEM_SIZE</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;MEM_&#8203;SIZE</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">size_t</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return actual size of the data store associated with <em>memobj</em> in
         bytes.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_MEM_HOST_PTR</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;MEM_&#8203;HOST_&#8203;PTR</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">void *</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">If <em>memobj</em> is created with <strong>clCreateBuffer</strong> or <strong>clCreateImage</strong> and
-        CL_MEM_USE_HOST_PTR is specified in mem_flags, return the host_ptr
+        <code>CL_&#8203;MEM_&#8203;USE_&#8203;HOST_&#8203;PTR</code> is specified in mem_flags, return the host_ptr
         argument value specified when <em>memobj</em> is created.
         Otherwise a <code>NULL</code> value is returned.</p>
 <p class="tableblock">        If <em>memobj</em> is created with <strong>clCreateSubBuffer</strong>, return the host_ptr
         +  origin value specified when <em>memobj</em> is created.
         host_ptr is the argument value specified to <strong>clCreateBuffer</strong> and
-        CL_MEM_USE_HOST_PTR is specified in mem_flags for memory object from
+        <code>CL_&#8203;MEM_&#8203;USE_&#8203;HOST_&#8203;PTR</code> is specified in mem_flags for memory object from
         which <em>memobj</em> is created.
         Otherwise a <code>NULL</code> value is returned.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_MEM_MAP_COUNT</strong><sup>11</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;MEM_&#8203;MAP_&#8203;COUNT</code><sup>11</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_uint</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Map count.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_MEM_REFERENCE_COUNT</strong><sup>12</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;MEM_&#8203;REFERENCE_&#8203;COUNT</code><sup>12</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_uint</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return <em>memobj</em> reference count.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_MEM_CONTEXT</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;MEM_&#8203;CONTEXT</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_context</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return context specified when memory object is created.
         If <em>memobj</em> is created using <strong>clCreateSubBuffer</strong>, the context
@@ -884,7 +884,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
         to <strong>clCreateSubBuffer</strong> is returned.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_MEM_ASSOCIATED_MEMOBJECT</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;MEM_&#8203;ASSOCIATED_&#8203;MEMOBJECT</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_mem</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return memory object from which <em>memobj</em> is created.
         This returns the memory object specified as buffer argument to
@@ -895,20 +895,20 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <p class="tableblock">        Otherwise a <code>NULL</code> value is returned.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_MEM_OFFSET</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;MEM_&#8203;OFFSET</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">size_t</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return offset if <em>memobj</em> is a sub-buffer object created using
         <strong>clCreateSubBuffer</strong>.</p>
 <p class="tableblock">        This return 0 if <em>memobj</em> is not a subbuffer object.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_MEM_USES_SVM_POINTER</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;MEM_&#8203;USES_&#8203;SVM_&#8203;POINTER</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_bool</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Return CL_TRUE if <em>memobj</em> is a buffer object that was created with
-        CL_MEM_USE_HOST_PTR or is a sub-buffer object of a buffer object
-        that was created with CL_MEM_USE_HOST_PTR and the <em>host_ptr</em>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Return <code>CL_&#8203;TRUE</code> if <em>memobj</em> is a buffer object that was created with
+        <code>CL_&#8203;MEM_&#8203;USE_&#8203;HOST_&#8203;PTR</code> or is a sub-buffer object of a buffer object
+        that was created with <code>CL_&#8203;MEM_&#8203;USE_&#8203;HOST_&#8203;PTR</code> and the <em>host_ptr</em>
         specified when the buffer object was created is a SVM pointer;
-        otherwise returns CL_FALSE.</p></td>
+        otherwise returns <code>CL_&#8203;FALSE</code>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -929,27 +929,27 @@ This feature is provided for identifying memory leaks.</p>
 </dl>
 </div>
 <div class="paragraph">
-<p><strong>clGetMemObjectInfo</strong> returns CL_SUCCESS if the function is executed
+<p><strong>clGetMemObjectInfo</strong> returns  <code>CL_&#8203;SUCCESS</code> if the function is executed
 successfully.
 Otherwise, it returns one of the following errors:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>CL_INVALID_VALUE if <em>param_name</em> is not valid, or if size in bytes
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if <em>param_name</em> is not valid, or if size in bytes
 specified by <em>param_value_size</em> is &lt; size of return type as described in
-the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#mem-info-table">Memory Object Info</a> table and <em>param_value</em> is not
+the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#mem-info-table" target="_blank" rel="noopener">Memory Object Info</a> table and <em>param_value</em> is not
 <code>NULL</code>.</p>
 </li>
 <li>
-<p>CL_INVALID_MEM_OBJECT if <em>memobj</em> is a not a valid memory object.</p>
+<p><code>CL_&#8203;INVALID_&#8203;MEM_&#8203;OBJECT</code> if <em>memobj</em> is a not a valid memory object.</p>
 </li>
 <li>
-<p>CL_OUT_OF_RESOURCES if there is a failure to allocate resources required
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;RESOURCES</code> if there is a failure to allocate resources required
 by the OpenCL implementation on the device.</p>
 </li>
 <li>
-<p>CL_OUT_OF_HOST_MEMORY if there is a failure to allocate resources
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;HOST_&#8203;MEMORY</code> if there is a failure to allocate resources
 required by the OpenCL implementation on the host.</p>
 </li>
 </ul>
@@ -968,10 +968,7 @@ required by the OpenCL implementation on the host.</p>
 <h2 id="_document_notes">Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Specification at URL</p>
-</div>
-<div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetMemObjectInfo" class="bare">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetMemObjectInfo</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetMemObjectInfo" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the OpenCL Specification.
@@ -984,7 +981,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Copyright (c) 2014-2019 Khronos Group. This work is licensed under a
-<a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons
+<a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons
 Attribution 4.0 International License</a>.</p>
 </div>
 </div>
@@ -992,8 +989,8 @@ Attribution 4.0 International License</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v2.2-10-28-g71714e1-dirty<br>
-Last updated 2019-06-20 05:25:24 -0700
+Version V2.2-11-2-gbc16dca-dirty<br>
+Last updated 2019-07-24 05:39:45 -0700
 </div>
 </div>
 

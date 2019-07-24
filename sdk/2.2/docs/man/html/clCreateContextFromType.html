@@ -783,13 +783,13 @@ corresponding values.
 Each property name is immediately followed by the corresponding desired
 value.
 The list of supported properties is described in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#context-properties-table">Context Properties</a> table.
+<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#context-properties-table" target="_blank" rel="noopener">Context Properties</a> table.
 <em>properties</em> can also be <code>NULL</code> in which case the platform that is selected
 is implementation-defined.</p>
 </li>
 <li>
 <p><em>device_type</em> is a bit-field that identifies the type of device and is
-described in the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#device-categories-table">Device Categories</a> table.</p>
+described in the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#device-categories-table" target="_blank" rel="noopener">Device Categories</a> table.</p>
 </li>
 <li>
 <p><em>pfn_notify</em> and <em>user_data</em> are described in <strong>clCreateContext</strong>.</p>
@@ -815,51 +815,51 @@ from these devices.</p>
 <dl>
 <dt class="hdlist1">11</dt>
 <dd>
-<p><strong>clCreateContextfromType</strong> may return all or a subset of the actual
+<p><strong>clCreateContextFromType</strong> may return all or a subset of the actual
 physical devices present in the platform and that match device_type.</p>
 </dd>
 </dl>
 </div>
 <div class="paragraph">
 <p><strong>clCreateContextFromType</strong> returns a valid non-zero context and <em>errcode_ret</em>
-is set to CL_SUCCESS if the context is created successfully.
+is set to <code>CL_&#8203;SUCCESS</code> if the context is created successfully.
 Otherwise, it returns a <code>NULL</code> value with the following error values
 returned in <em>errcode_ret</em>:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>CL_INVALID_PLATFORM if <em>properties</em> is <code>NULL</code> and no platform could be
+<p><code>CL_&#8203;INVALID_&#8203;PLATFORM</code> if <em>properties</em> is <code>NULL</code> and no platform could be
 selected or if platform value specified in <em>properties</em> is not a valid
 platform.</p>
 </li>
 <li>
-<p>CL_INVALID_PROPERTY if context property name in <em>properties</em> is not a
+<p><code>CL_&#8203;INVALID_&#8203;PROPERTY</code> if context property name in <em>properties</em> is not a
 supported property name, if the value specified for a supported property
 name is not valid, or if the same property name is specified more than
 once.</p>
 </li>
 <li>
-<p>CL_INVALID_VALUE if <em>pfn_notify</em> is <code>NULL</code> but <em>user_data</em> is not
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if <em>pfn_notify</em> is <code>NULL</code> but <em>user_data</em> is not
 <code>NULL</code>.</p>
 </li>
 <li>
-<p>CL_INVALID_DEVICE_TYPE if <em>device_type</em> is not a valid value.</p>
+<p><code>CL_&#8203;INVALID_&#8203;DEVICE_&#8203;TYPE</code> if <em>device_type</em> is not a valid value.</p>
 </li>
 <li>
-<p>CL_DEVICE_NOT_AVAILABLE if no devices that match <em>device_type</em> and
+<p><code>CL_&#8203;DEVICE_&#8203;NOT_&#8203;AVAILABLE</code> if no devices that match <em>device_type</em> and
 property values specified in <em>properties</em> are currently available.</p>
 </li>
 <li>
-<p>CL_DEVICE_NOT_FOUND if no devices that match <em>device_type</em> and property
+<p><code>CL_&#8203;DEVICE_&#8203;NOT_&#8203;FOUND</code> if no devices that match <em>device_type</em> and property
 values specified in <em>properties</em> were found.</p>
 </li>
 <li>
-<p>CL_OUT_OF_RESOURCES if there is a failure to allocate resources required
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;RESOURCES</code> if there is a failure to allocate resources required
 by the OpenCL implementation on the device.</p>
 </li>
 <li>
-<p>CL_OUT_OF_HOST_MEMORY if there is a failure to allocate resources
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;HOST_&#8203;MEMORY</code> if there is a failure to allocate resources
 required by the OpenCL implementation on the host.</p>
 </li>
 </ul>
@@ -878,10 +878,7 @@ required by the OpenCL implementation on the host.</p>
 <h2 id="_document_notes">Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Specification at URL</p>
-</div>
-<div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clCreateContextFromType" class="bare">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clCreateContextFromType</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clCreateContextFromType" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the OpenCL Specification.
@@ -894,7 +891,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Copyright (c) 2014-2019 Khronos Group. This work is licensed under a
-<a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons
+<a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons
 Attribution 4.0 International License</a>.</p>
 </div>
 </div>
@@ -902,8 +899,8 @@ Attribution 4.0 International License</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v2.2-10-28-g71714e1-dirty<br>
-Last updated 2019-06-20 05:25:24 -0700
+Version V2.2-11-2-gbc16dca-dirty<br>
+Last updated 2019-07-24 05:39:45 -0700
 </div>
 </div>
 

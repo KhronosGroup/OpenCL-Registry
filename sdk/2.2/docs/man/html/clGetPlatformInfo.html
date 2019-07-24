@@ -786,11 +786,11 @@ If <em>platform</em> is <code>NULL</code>, the behavior is implementation-define
 <p><em>param_name</em> is an enumeration constant that identifies the platform
 information being queried.
 It can be one of the following values as specified in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#platform-queries-table">Platform Queries</a> table.</p>
+<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#platform-queries-table" target="_blank" rel="noopener">Platform Queries</a> table.</p>
 </li>
 <li>
 <p><em>param_value</em> is a pointer to memory location where appropriate values for a
-given <em>param_name</em>, as specified in the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#platform-queries-table">Platform
+given <em>param_name</em>, as specified in the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#platform-queries-table" target="_blank" rel="noopener">Platform
 Queries</a> table, will be returned.
 If <em>param_value</em> is <code>NULL</code>, it is ignored.</p>
 </li>
@@ -798,7 +798,7 @@ If <em>param_value</em> is <code>NULL</code>, it is ignored.</p>
 <p><em>param_value_size</em> specifies the size in bytes of memory pointed to by
 <em>param_value</em>.
 This size in bytes must be ≥ size of return type specified in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#platform-queries-table">Platform Queries</a> table.</p>
+<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#platform-queries-table" target="_blank" rel="noopener">Platform Queries</a> table.</p>
 </li>
 <li>
 <p><em>param_value_size_ret</em> returns the actual size in bytes of data being
@@ -814,10 +814,10 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The information that can be queried using <strong>clGetPlatformInfo</strong> is specified
-in the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#platform-queries-table">Platform Queries</a> table.</p>
+in the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#platform-queries-table" target="_blank" rel="noopener">Platform Queries</a> table.</p>
 </div>
 <table id="platform-queries-table" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. OpenCL Platform Queries</caption>
+<caption class="title">Table 1. List of supported param_names by <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetPlatformInfo" class="bare" target="_blank" rel="noopener">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetPlatformInfo</a></caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 10%;">
@@ -832,7 +832,7 @@ in the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_AP
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_PLATFORM_PROFILE</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;PLATFORM_&#8203;PROFILE</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">char[]<sup>1</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">OpenCL profile string.
         Returns the profile name supported by the implementation.
@@ -845,10 +845,10 @@ in the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_AP
         The embedded profile is defined to be a subset for each version of
         OpenCL.
         The embedded profile for OpenCL 2.2 is described in
-        <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#opencl-embedded-profile">OpenCL Embedded Profile</a>.</p></td>
+        <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#opencl-embedded-profile" target="_blank" rel="noopener">OpenCL Embedded Profile</a>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_PLATFORM_VERSION</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;PLATFORM_&#8203;VERSION</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">char[]</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">OpenCL version string.
         Returns the OpenCL version supported by the implementation.
@@ -858,17 +858,17 @@ in the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_AP
 <p class="tableblock">        The <em>major_version.minor_version</em> value returned will be 2.2.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_PLATFORM_NAME</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;PLATFORM_&#8203;NAME</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">char[]</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Platform name string.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_PLATFORM_VENDOR</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;PLATFORM_&#8203;VENDOR</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">char[]</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Platform vendor string.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_PLATFORM_EXTENSIONS</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;PLATFORM_&#8203;EXTENSIONS</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">char[]</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns a space separated list of extension names (the extension
         names themselves do not contain any spaces) supported by the
@@ -877,7 +877,7 @@ in the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_AP
         platform must be reported here.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_PLATFORM_HOST_TIMER_RESOLUTION</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;PLATFORM_&#8203;HOST_&#8203;TIMER_&#8203;RESOLUTION</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_ulong</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the resolution of the host timer in nanoseconds as used by
         <strong>clGetDeviceAndHostTimer</strong>.</p></td>
@@ -885,23 +885,23 @@ in the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_AP
 </tbody>
 </table>
 <div class="paragraph">
-<p><strong>clGetPlatformInfo</strong> returns CL_SUCCESS if the function is executed
+<p><strong>clGetPlatformInfo</strong> returns <code>CL_&#8203;SUCCESS</code> if the function is executed
 successfully.
 Otherwise, it returns one of the following errors<sup>2</sup>.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>CL_INVALID_PLATFORM if <em>platform</em> is not a valid platform.</p>
+<p><code>CL_&#8203;INVALID_&#8203;PLATFORM</code> if <em>platform</em> is not a valid platform.</p>
 </li>
 <li>
-<p>CL_INVALID_VALUE if <em>param_name</em> is not one of the supported values or
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if <em>param_name</em> is not one of the supported values or
 if size in bytes specified by <em>param_value_size</em> is &lt; size of return
-type as specified in the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#platform-queries-table">OpenCL Platform
+type as specified in the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#platform-queries-table" target="_blank" rel="noopener">OpenCL Platform
 Queries</a> table, and <em>param_value</em> is not a <code>NULL</code> value.</p>
 </li>
 <li>
-<p>CL_OUT_OF_HOST_MEMORY if there is a failure to allocate resources
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;HOST_&#8203;MEMORY</code> if there is a failure to allocate resources
 required by the OpenCL implementation on the host.</p>
 <div class="dlist">
 <dl>
@@ -934,10 +934,7 @@ error codes returned by API calls.</p>
 <h2 id="_document_notes">Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Specification at URL</p>
-</div>
-<div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetPlatformInfo" class="bare">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetPlatformInfo</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetPlatformInfo" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the OpenCL Specification.
@@ -950,7 +947,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Copyright (c) 2014-2019 Khronos Group. This work is licensed under a
-<a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons
+<a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons
 Attribution 4.0 International License</a>.</p>
 </div>
 </div>
@@ -958,8 +955,8 @@ Attribution 4.0 International License</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v2.2-10-28-g71714e1-dirty<br>
-Last updated 2019-06-20 05:25:24 -0700
+Version V2.2-11-2-gbc16dca-dirty<br>
+Last updated 2019-07-24 05:39:45 -0700
 </div>
 </div>
 

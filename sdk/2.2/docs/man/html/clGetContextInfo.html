@@ -792,7 +792,7 @@ If <em>param_value</em> is <code>NULL</code>, it is ignored.</p>
 <p><em>param_value_size</em> specifies the size in bytes of memory pointed to by
 <em>param_value</em>.
 This size must be greater than or equal to the size of return type as
-described in the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#context-info-table">Context Attributes</a> table.</p>
+described in the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#context-info-table" target="_blank" rel="noopener">Context Attributes</a> table.</p>
 </li>
 <li>
 <p><em>param_value_size_ret</em> returns the actual size in bytes of data being
@@ -809,10 +809,10 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <div class="paragraph">
 <p>The list of supported <em>param_name</em> values and the information returned in
 <em>param_value</em> by <strong>clGetContextInfo</strong> is described in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#context-info-table">Context Attributes</a> table.</p>
+<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#context-info-table" target="_blank" rel="noopener">Context Attributes</a> table.</p>
 </div>
 <table id="context-info-table" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. List of supported param_names by <strong>clGetContextInfo</strong></caption>
+<caption class="title">Table 1. List of supported param_names by <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetContextInfo" class="bare" target="_blank" rel="noopener">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetContextInfo</a></caption>
 <colgroup>
 <col style="width: 34%;">
 <col style="width: 33%;">
@@ -827,22 +827,22 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_CONTEXT_REFERENCE_COUNT</strong><sup>12</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;CONTEXT_&#8203;REFERENCE_&#8203;COUNT</code><sup>12</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_uint</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return the <em>context</em> reference count.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_CONTEXT_NUM_DEVICES</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;CONTEXT_&#8203;NUM_&#8203;DEVICES</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_uint</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return the number of devices in <em>context</em>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_CONTEXT_DEVICES</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;CONTEXT_&#8203;DEVICES</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_device_id[]</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return the list of devices and sub-devices in <em>context</em>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_CONTEXT_PROPERTIES</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;CONTEXT_&#8203;PROPERTIES</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_context_properties[]</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return the properties argument specified in <strong>clCreateContext</strong> or
         <strong>clCreateContextFromType</strong>.</p>
@@ -871,27 +871,27 @@ This feature is provided for identifying memory leaks.</p>
 </dl>
 </div>
 <div class="paragraph">
-<p><strong>clGetContextInfo</strong> returns CL_SUCCESS if the function is executed
+<p><strong>clGetContextInfo</strong> returns <code>CL_&#8203;SUCCESS</code> if the function is executed
 successfully.
 Otherwise, it returns one of the following errors:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>CL_INVALID_CONTEXT if <em>context</em> is not a valid context.</p>
+<p><code>CL_&#8203;INVALID_&#8203;CONTEXT</code> if <em>context</em> is not a valid context.</p>
 </li>
 <li>
-<p>CL_INVALID_VALUE if <em>param_name</em> is not one of the supported values or
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if <em>param_name</em> is not one of the supported values or
 if size in bytes specified by <em>param_value_size</em> is &lt; size of return
-type as specified in the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#context-info-table">Context Attributes</a>
+type as specified in the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#context-info-table" target="_blank" rel="noopener">Context Attributes</a>
 table and <em>param_value</em> is not a <code>NULL</code> value.</p>
 </li>
 <li>
-<p>CL_OUT_OF_RESOURCES if there is a failure to allocate resources required
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;RESOURCES</code> if there is a failure to allocate resources required
 by the OpenCL implementation on the device.</p>
 </li>
 <li>
-<p>CL_OUT_OF_HOST_MEMORY if there is a failure to allocate resources
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;HOST_&#8203;MEMORY</code> if there is a failure to allocate resources
 required by the OpenCL implementation on the host.</p>
 </li>
 </ul>
@@ -910,10 +910,7 @@ required by the OpenCL implementation on the host.</p>
 <h2 id="_document_notes">Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Specification at URL</p>
-</div>
-<div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetContextInfo" class="bare">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetContextInfo</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetContextInfo" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the OpenCL Specification.
@@ -926,7 +923,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Copyright (c) 2014-2019 Khronos Group. This work is licensed under a
-<a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons
+<a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons
 Attribution 4.0 International License</a>.</p>
 </div>
 </div>
@@ -934,8 +931,8 @@ Attribution 4.0 International License</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v2.2-10-28-g71714e1-dirty<br>
-Last updated 2019-06-20 05:25:24 -0700
+Version V2.2-11-2-gbc16dca-dirty<br>
+Last updated 2019-07-24 05:39:45 -0700
 </div>
 </div>
 

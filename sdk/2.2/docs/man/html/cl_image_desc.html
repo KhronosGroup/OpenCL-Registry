@@ -791,39 +791,39 @@ dimensions of an image or image array, and is defined as:</p>
 <ul>
 <li>
 <p><code>image_type</code> describes the image type and must be either
-CL_MEM_OBJECT_IMAGE1D, CL_MEM_OBJECT_IMAGE1D_BUFFER,
-CL_MEM_OBJECT_IMAGE1D_ARRAY, CL_MEM_OBJECT_IMAGE2D,
-CL_MEM_OBJECT_IMAGE2D_ARRAY or CL_MEM_OBJECT_IMAGE3D.</p>
+<code>CL_&#8203;MEM_&#8203;OBJECT_&#8203;IMAGE1D</code>, <code>CL_&#8203;MEM_&#8203;OBJECT_&#8203;IMAGE1D_&#8203;BUFFER</code>,
+<code>CL_&#8203;MEM_&#8203;OBJECT_&#8203;IMAGE1D_&#8203;ARRAY</code>, <code>CL_&#8203;MEM_&#8203;OBJECT_&#8203;IMAGE2D</code>,
+<code>CL_&#8203;MEM_&#8203;OBJECT_&#8203;IMAGE2D_&#8203;ARRAY</code>, or <code>CL_&#8203;MEM_&#8203;OBJECT_&#8203;IMAGE3D</code>.</p>
 </li>
 <li>
 <p><code>image_width</code> is the width of the image in pixels.
 For a 2D image and image array, the image width must be a value ≥ 1 and
-≤ CL_DEVICE_IMAGE2D_MAX_WIDTH.
+≤ <code>CL_&#8203;DEVICE_&#8203;IMAGE2D_&#8203;MAX_&#8203;WIDTH</code>.
 For a 3D image, the image width must be a value ≥1 and ≤
-CL_DEVICE_IMAGE3D_MAX_WIDTH.
+<code>CL_&#8203;DEVICE_&#8203;IMAGE3D_&#8203;MAX_&#8203;WIDTH</code>.
 For a 1D image buffer, the image width must be a value ≥1 and ≤
-CL_DEVICE_IMAGE_MAX_BUFFER_SIZE.
+<code>CL_&#8203;DEVICE_&#8203;IMAGE_&#8203;MAX_&#8203;BUFFER_&#8203;SIZE</code>.
 For a 1D image and 1D image array, the image width must be a value ≥1
-and ≤ CL_DEVICE_IMAGE2D_MAX_WIDTH.</p>
+and ≤ <code>CL_&#8203;DEVICE_&#8203;IMAGE2D_&#8203;MAX_&#8203;WIDTH</code>.</p>
 </li>
 <li>
 <p><code>image_height</code> is the height of the image in pixels.
 This is only used if the image is a 2D or 3D image, or a 2D image array.
 For a 2D image or image array, the image height must be a value ≥ 1 and
-≤ CL_DEVICE_IMAGE2D_MAX_HEIGHT.
+≤ <code>CL_&#8203;DEVICE_&#8203;IMAGE2D_&#8203;MAX_&#8203;HEIGHT</code>.
 For a 3D image, the image height must be a value ≥ 1 and ≤
-CL_DEVICE_IMAGE3D_MAX_HEIGHT.</p>
+<code>CL_&#8203;DEVICE_&#8203;IMAGE3D_&#8203;MAX_&#8203;HEIGHT</code>.</p>
 </li>
 <li>
 <p><code>image_depth</code> is the depth of the image in pixels.
 This is only used if the image is a 3D image and must be a value ≥ 1 and
-≤ CL_DEVICE_IMAGE3D_MAX_DEPTH.</p>
+≤ <code>CL_&#8203;DEVICE_&#8203;IMAGE3D_&#8203;MAX_&#8203;DEPTH</code>.</p>
 </li>
 <li>
 <p><code>image_array_size</code><sup>5</sup> is the number of images in the image array.
 This is only used if the image is a 1D or 2D image array.
 The values for <code>image_array_size</code>, if specified, must be a value ≥ 1 and
-≤ CL_DEVICE_IMAGE_MAX_ARRAY_SIZE.</p>
+≤ <code>CL_&#8203;DEVICE_&#8203;IMAGE_&#8203;MAX_&#8203;ARRAY_&#8203;SIZE</code>.</p>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">5</dt>
@@ -844,8 +844,8 @@ If <code>image_row_pitch</code> is not 0, it must be a multiple of the image ele
 size in bytes.
 For a 2D image created from a buffer, the pitch specified (or computed if
 pitch specified is 0) must be a multiple of the maximum of the
-CL_DEVICE_IMAGE_PITCH_ALIGNMENT value for all devices in the context
-associated with the buffer specified by <em>mem_object</em> that support images.</p>
+<code>CL_&#8203;DEVICE_&#8203;IMAGE_&#8203;PITCH_&#8203;ALIGNMENT</code> value for all devices in the context
+associated with the buffer specified by <code>mem_object</code> that support images.</p>
 </li>
 <li>
 <p><code>image_slice_pitch</code> is the size in bytes of each 2D slice in the 3D image or
@@ -866,9 +866,9 @@ If <code>image_slice_pitch</code> is not 0, it must be a multiple of the
 <li>
 <p><code>mem_object</code> may refer to a valid buffer or image memory object.
 <code>mem_object</code> can be a buffer memory object if <code>image_type</code> is
-CL_MEM_OBJECT_IMAGE1D_BUFFER or CL_MEM_OBJECT_IMAGE2D<sup>6</sup>.
+<code>CL_&#8203;MEM_&#8203;OBJECT_&#8203;IMAGE1D_&#8203;BUFFER</code> or <code>CL_&#8203;MEM_&#8203;OBJECT_&#8203;IMAGE2D</code><sup>6</sup>.
 <code>mem_object</code> can be an image object if <code>image_type</code> is
-CL_MEM_OBJECT_IMAGE2D<sup>7</sup>.
+<code>CL_&#8203;MEM_&#8203;OBJECT_&#8203;IMAGE2D</code><sup>7</sup>.
 Otherwise it must be <code>NULL</code>.
 The image pixels are taken from the memory objects data store.
 When the contents of the specified memory objects data store are modified,
@@ -918,14 +918,14 @@ descriptor information associated with <code>mem_object</code>.</p>
 </div>
 <div class="paragraph">
 <p>Image elements are stored according to their image format as described in
-<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#image-format-descriptor">Image Format Descriptor</a>.</p>
+<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#image-format-descriptor" target="_blank" rel="noopener">Image Format Descriptor</a>.</p>
 </div>
 <div class="paragraph">
-<p>If the buffer object specified by <em>mem_object</em> was created with
-CL_MEM_USE_HOST_PTR, the <em>host_ptr</em> specified to <strong>clCreateBuffer</strong> must be
-aligned to the maximum of the <strong>CL_DEVICE_IMAGE_BASE_ADDRESS_ALIGNMENT</strong> value
+<p>If the buffer object specified by <code>mem_object</code> was created with
+<code>CL_&#8203;MEM_&#8203;USE_&#8203;HOST_&#8203;PTR</code>, the <em>host_ptr</em> specified to <strong>clCreateBuffer</strong> must be
+aligned to the maximum of the <code>CL_&#8203;DEVICE_&#8203;IMAGE_&#8203;BASE_&#8203;ADDRESS_&#8203;ALIGNMENT</code> value
 for all devices in the context associated with the buffer specified by
-<em>mem_object</em> that support images.</p>
+<code>mem_object</code> that support images.</p>
 </div>
 <div class="paragraph">
 <p>Creating a 2D image object from another 2D image object allows users to
@@ -944,7 +944,7 @@ the image descriptor information associated with <code>mem_object</code>.</p>
 equivalent to image descriptor information associated with <code>mem_object</code>.
 To ensure the values in <em>`image_desc</em> will match one can query
 <code>mem_object</code> for associated information using <strong>clGetImageInfo</strong> function
-described in <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#image-object-queries">Image Object Queries</a>.</p>
+described in <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#image-object-queries" target="_blank" rel="noopener">Image Object Queries</a>.</p>
 </li>
 <li>
 <p>the channel data type specified in <code>image_format</code> must match the channel
@@ -967,10 +967,7 @@ The channel order values<sup>8</sup> supported are:</p>
 <h2 id="_document_notes">Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Specification at URL</p>
-</div>
-<div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#cl_image_desc" class="bare">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#cl_image_desc</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#cl_image_desc" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the OpenCL Specification.
@@ -983,7 +980,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Copyright (c) 2014-2019 Khronos Group. This work is licensed under a
-<a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons
+<a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons
 Attribution 4.0 International License</a>.</p>
 </div>
 </div>
@@ -991,8 +988,8 @@ Attribution 4.0 International License</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v2.2-10-28-g71714e1-dirty<br>
-Last updated 2019-06-20 05:25:24 -0700
+Version V2.2-11-2-gbc16dca-dirty<br>
+Last updated 2019-07-24 05:39:45 -0700
 </div>
 </div>
 

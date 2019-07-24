@@ -784,7 +784,7 @@ Each sampler property name is immediately followed by the corresponding
 desired value.
 The list is terminated with 0.
 The list of supported properties is described in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#sampler-properties-table">Sampler Properties</a> table.
+<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#sampler-properties-table" target="_blank" rel="noopener">Sampler Properties</a> table.
 If a supported property and its value is not specified in
 <em>sampler_properties</em>, its default value will be used.
 <em>sampler_properties</em> can be <code>NULL</code> in which case the default values for
@@ -798,11 +798,11 @@ supported sampler properties will be used.</p>
 <h2 id="_description">Description</h2>
 <div class="sectionbody">
 <table id="sampler-properties-table" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. List of supported cl_sampler_properties values and description</caption>
+<caption class="title">Table 1. List of supported sampler creation properties by <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clCreateSamplerWithProperties" class="bare" target="_blank" rel="noopener">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clCreateSamplerWithProperties</a></caption>
 <colgroup>
-<col style="width: 34%;">
-<col style="width: 33%;">
-<col style="width: 33%;">
+<col style="width: 33.3333%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0001%;">
 </colgroup>
 <thead>
 <tr>
@@ -813,35 +813,44 @@ supported sampler properties will be used.</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_SAMPLER_NORMALIZED_COORDS</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;SAMPLER_&#8203;NORMALIZED_&#8203;COORDS</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_bool</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A boolean value that specifies whether the image coordinates
         specified are normalized or not.</p>
 <p class="tableblock">        The default value (i.e. the value used if this property is not
-        specified in sampler_properties) is CL_TRUE.</p></td>
+        specified in sampler_properties) is <code>CL_&#8203;TRUE</code>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_SAMPLER_ADDRESSING_MODE</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;SAMPLER_&#8203;ADDRESSING_&#8203;MODE</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_addressing_mode</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Specifies how out-of-range image coordinates are handled when
-        reading from an image.</p>
-<p class="tableblock">        Valid values are:</p>
-<p class="tableblock">        CL_ADDRESS_MIRRORED_REPEAT<br>
-        CL_ADDRESS_REPEAT<br>
-        CL_ADDRESS_CLAMP_TO_EDGE<br>
-        CL_ADDRESS_CLAMP<br>
-        CL_ADDRESS_NONE</p>
-<p class="tableblock">        The default is CL_ADDRESS_CLAMP.</p></td>
+        reading from an image.
+        Valid values are:</p>
+<p class="tableblock">        <code>CL_&#8203;ADDRESS_&#8203;NONE</code> - Behavior is undefined for out-of-range
+        image coordinates.</p>
+<p class="tableblock">        <code>CL_&#8203;ADDRESS_&#8203;CLAMP_&#8203;TO_&#8203;EDGE</code> - Out-of-range image coordinates
+        are clamped to the edge of the image.</p>
+<p class="tableblock">        <code>CL_&#8203;ADDRESS_&#8203;CLAMP</code> - Out-of-range image coordinates are
+        assigned a border color value.</p>
+<p class="tableblock">        <code>CL_&#8203;ADDRESS_&#8203;REPEAT</code> - Out-of-range image coordinates read
+        from the image as-if the image data were replicated in all dimensions.</p>
+<p class="tableblock">        <code>CL_&#8203;ADDRESS_&#8203;MIRRORED_&#8203;REPEAT</code> - Out-of-range image coordinates
+        read from the image as-if the image data were replicated in all
+        dimensions, mirroring the image contents at the edge of each
+        replication.</p>
+<p class="tableblock">        The default is <code>CL_&#8203;ADDRESS_&#8203;CLAMP</code>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_SAMPLER_FILTER_MODE</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;SAMPLER_&#8203;FILTER_&#8203;MODE</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_filter_mode</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the type of filter that must be applied when reading an
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the type of filter that is applied when reading an
         image.
         Valid values are:</p>
-<p class="tableblock">        CL_FILTER_NEAREST<br>
-        CL_FILTER_LINEAR</p>
-<p class="tableblock">        The default value is CL_FILTER_NEAREST.</p></td>
+<p class="tableblock">        <code>CL_&#8203;FILTER_&#8203;NEAREST</code> - Returns the image element nearest
+        to the image coordinate.</p>
+<p class="tableblock">        <code>CL_&#8203;FILTER_&#8203;LINEAR</code> - Returns a weighted average of the
+        four image elements nearest to the image coordinate.</p>
+<p class="tableblock">        The default value is <code>CL_&#8203;FILTER_&#8203;NEAREST</code>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -855,7 +864,7 @@ If <em>errcode_ret</em> is <code>NULL</code>, no error code is returned.</p>
 </div>
 <div class="paragraph">
 <p><strong>clCreateSamplerWithProperties</strong> returns a valid non-zero sampler object and
-<em>errcode_ret</em> is set to CL_SUCCESS if the sampler object is created
+<em>errcode_ret</em> is set to <code>CL_&#8203;SUCCESS</code> if the sampler object is created
 successfully.
 Otherwise, it returns a <code>NULL</code> value with one of the following error values
 returned in <em>errcode_ret</em>:</p>
@@ -863,25 +872,25 @@ returned in <em>errcode_ret</em>:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>CL_INVALID_CONTEXT if <em>context</em> is not a valid context.</p>
+<p><code>CL_&#8203;INVALID_&#8203;CONTEXT</code> if <em>context</em> is not a valid context.</p>
 </li>
 <li>
-<p>CL_INVALID_VALUE if the property name in <em>sampler_properties</em> is not a
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if the property name in <em>sampler_properties</em> is not a
 supported property name, if the value specified for a supported property
 name is not valid, or if the same property name is specified more than
 once.</p>
 </li>
 <li>
-<p>CL_INVALID_OPERATION if images are not supported by any device
-associated with <em>context</em> (i.e. CL_DEVICE_IMAGE_SUPPORT specified in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#device-queries-table">Device Queries</a> table is CL_FALSE).</p>
+<p><code>CL_&#8203;INVALID_&#8203;OPERATION</code> if images are not supported by any device
+associated with <em>context</em> (i.e. <code>CL_&#8203;DEVICE_&#8203;IMAGE_&#8203;SUPPORT</code> specified in the
+<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#device-queries-table" target="_blank" rel="noopener">Device Queries</a> table is <code>CL_&#8203;FALSE</code>).</p>
 </li>
 <li>
-<p>CL_OUT_OF_RESOURCES if there is a failure to allocate resources required
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;RESOURCES</code> if there is a failure to allocate resources required
 by the OpenCL implementation on the device.</p>
 </li>
 <li>
-<p>CL_OUT_OF_HOST_MEMORY if there is a failure to allocate resources
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;HOST_&#8203;MEMORY</code> if there is a failure to allocate resources
 required by the OpenCL implementation on the host.</p>
 </li>
 </ul>
@@ -900,10 +909,7 @@ required by the OpenCL implementation on the host.</p>
 <h2 id="_document_notes">Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Specification at URL</p>
-</div>
-<div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clCreateSamplerWithProperties" class="bare">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clCreateSamplerWithProperties</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clCreateSamplerWithProperties" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the OpenCL Specification.
@@ -916,7 +922,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Copyright (c) 2014-2019 Khronos Group. This work is licensed under a
-<a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons
+<a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons
 Attribution 4.0 International License</a>.</p>
 </div>
 </div>
@@ -924,8 +930,8 @@ Attribution 4.0 International License</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v2.2-10-28-g71714e1-dirty<br>
-Last updated 2019-06-20 05:25:24 -0700
+Version V2.2-11-2-gbc16dca-dirty<br>
+Last updated 2019-07-24 05:39:45 -0700
 </div>
 </div>
 

@@ -786,7 +786,7 @@ Each partition name is immediately followed by the corresponding desired
 value.
 The list is terminated with 0.
 The list of supported partitioning schemes is described in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#subdevice-partition-table">Subdevice Partition</a> table.
+<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#subdevice-partition-table" target="_blank" rel="noopener">Subdevice Partition</a> table.
 Only one of the listed partitioning schemes can be specified in
 <em>properties</em>.</p>
 </li>
@@ -825,7 +825,7 @@ When a command-queue is created against a sub-device, the commands enqueued
 on the queue are executed only on the sub-device.</p>
 </div>
 <table id="subdevice-partition-table" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. <em>List of supported partition schemes by</em> <strong>clCreateSubDevices</strong></caption>
+<caption class="title">Table 1. List of supported partition schemes by <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clCreateSubDevices" class="bare" target="_blank" rel="noopener">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clCreateSubDevices</a></caption>
 <colgroup>
 <col style="width: 30%;">
 <col style="width: 20%;">
@@ -840,63 +840,61 @@ on the queue are executed only on the sub-device.</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_DEVICE_PARTITION_EQUALLY</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;PARTITION_&#8203;EQUALLY</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_uint</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Split the aggregate device into as many smaller aggregate devices as
         can be created, each containing <em>n</em> compute units.
         The value <em>n</em> is passed as the value accompanying this property.
         If <em>n</em> does not divide evenly into
-        CL_DEVICE_PARTITION_MAX_COMPUTE_UNITS, then the remaining compute
+        <code>CL_&#8203;DEVICE_&#8203;MAX_&#8203;COMPUTE_&#8203;UNITS</code>, then the remaining compute
         units are not used.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_DEVICE_PARTITION_BY_COUNTS</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;PARTITION_&#8203;BY_&#8203;COUNTS</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_uint</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">This property is followed by a
-        CL_DEVICE_PARTITION_BY_COUNTS_LIST_END terminated list of compute
-        unit counts.
+<td class="tableblock halign-left valign-top"><p class="tableblock">This property is followed by a list of compute unit counts
+        terminated with 0 or <code>CL_&#8203;DEVICE_&#8203;PARTITION_&#8203;BY_&#8203;COUNTS_&#8203;LIST_&#8203;END</code>.
         For each non-zero count <em>m</em> in the list, a sub-device is created
-        with <em>m</em> compute units in it.
-        CL_DEVICE_PARTITION_BY_COUNTS_LIST_END is defined to be 0.</p>
+        with <em>m</em> compute units in it.</p>
 <p class="tableblock">        The number of non-zero count entries in the list may not exceed
-        CL_DEVICE_PARTITION_MAX_SUB_DEVICES.</p>
+        <code>CL_&#8203;DEVICE_&#8203;PARTITION_&#8203;MAX_&#8203;SUB_&#8203;DEVICES</code>.</p>
 <p class="tableblock">        The total number of compute units specified may not exceed
-        CL_DEVICE_PARTITION_MAX_COMPUTE_UNITS.</p></td>
+        <code>CL_&#8203;DEVICE_&#8203;MAX_&#8203;COMPUTE_&#8203;UNITS</code>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_DEVICE_PARTITION_BY_AFFINITY_DOMAIN</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">cl_device_affinity_domain</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;PARTITION_&#8203;BY_&#8203;AFFINITY_&#8203;DOMAIN</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">cl_device_affinity_ domain</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Split the device into smaller aggregate devices containing one or
         more compute units that all share part of a cache hierarchy.
         The value accompanying this property may be drawn from the following
         list:</p>
-<p class="tableblock">        CL_DEVICE_AFFINITY_DOMAIN_NUMA - Split the device into sub-devices
+<p class="tableblock">        <code>CL_&#8203;DEVICE_&#8203;AFFINITY_&#8203;DOMAIN_&#8203;NUMA</code> - Split the device into sub-devices
         comprised of compute units that share a NUMA node.</p>
-<p class="tableblock">        CL_DEVICE_AFFINITY_DOMAIN_L4_CACHE - Split the device into
+<p class="tableblock">        <code>CL_&#8203;DEVICE_&#8203;AFFINITY_&#8203;DOMAIN_&#8203;L4_&#8203;CACHE</code> - Split the device into
         sub-devices comprised of compute units that share a level 4 data
         cache.</p>
-<p class="tableblock">        CL_DEVICE_AFFINITY_DOMAIN_L3_CACHE - Split the device into
+<p class="tableblock">        <code>CL_&#8203;DEVICE_&#8203;AFFINITY_&#8203;DOMAIN_&#8203;L3_&#8203;CACHE</code> - Split the device into
         sub-devices comprised of compute units that share a level 3 data
         cache.</p>
-<p class="tableblock">        CL_DEVICE_AFFINITY_DOMAIN_L2_CACHE - Split the device into
+<p class="tableblock">        <code>CL_&#8203;DEVICE_&#8203;AFFINITY_&#8203;DOMAIN_&#8203;L2_&#8203;CACHE</code> - Split the device into
         sub-devices comprised of compute units that share a level 2 data
         cache.</p>
-<p class="tableblock">        CL_DEVICE_AFFINITY_DOMAIN_L1_CACHE - Split the device into
+<p class="tableblock">        <code>CL_&#8203;DEVICE_&#8203;AFFINITY_&#8203;DOMAIN_&#8203;L1_&#8203;CACHE</code> - Split the device into
         sub-devices comprised of compute units that share a level 1 data
         cache.</p>
-<p class="tableblock">        CL_DEVICE_AFFINITY_DOMAIN_NEXT_PARTITIONABLE - Split the device
+<p class="tableblock">        <code>CL_&#8203;DEVICE_&#8203;AFFINITY_&#8203;DOMAIN_&#8203;NEXT_&#8203;PARTITIONABLE</code> - Split the device
         along the next partitionable affinity domain.
         The implementation shall find the first level along which the device
         or sub-device may be further subdivided in the order NUMA, L4, L3,
         L2, L1, and partition the device into sub-devices comprised of
         compute units that share memory subsystems at this level.</p>
 <p class="tableblock">        The user may determine what happened by calling
-        <strong>clGetDeviceInfo</strong>(CL_DEVICE_PARTITION_TYPE) on the sub-devices.</p></td>
+        <strong>clGetDeviceInfo</strong>(<code>CL_&#8203;DEVICE_&#8203;PARTITION_&#8203;TYPE</code>) on the sub-devices.</p></td>
 </tr>
 </tbody>
 </table>
 <div class="paragraph">
-<p><strong>clCreateSubDevices</strong> returns CL_SUCCESS if the partition is created
+<p><strong>clCreateSubDevices</strong> returns <code>CL_&#8203;SUCCESS</code> if the partition is created
 successfully.
 Otherwise, it returns a <code>NULL</code> value with the following error values
 returned in <em>errcode_ret</em>:</p>
@@ -904,37 +902,37 @@ returned in <em>errcode_ret</em>:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>CL_INVALID_DEVICE if <em>in_device</em> is not valid.</p>
+<p><code>CL_&#8203;INVALID_&#8203;DEVICE</code> if <em>in_device</em> is not valid.</p>
 </li>
 <li>
-<p>CL_INVALID_VALUE if values specified in <em>properties</em> are not valid or if
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if values specified in <em>properties</em> are not valid or if
 values specified in <em>properties</em> are valid but not supported by the
 device.</p>
 </li>
 <li>
-<p>CL_INVALID_VALUE if <em>out_devices</em> is not <code>NULL</code> and <em>num_devices</em> is
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if <em>out_devices</em> is not <code>NULL</code> and <em>num_devices</em> is
 less than the number of sub-devices created by the partition scheme.</p>
 </li>
 <li>
-<p>CL_DEVICE_PARTITION_FAILED if the partition name is supported by the
+<p><code>CL_&#8203;DEVICE_&#8203;PARTITION_&#8203;FAILED</code> if the partition name is supported by the
 implementation but in_device could not be further partitioned.</p>
 </li>
 <li>
-<p>CL_INVALID_DEVICE_PARTITION_COUNT if the partition name specified in
-<em>properties</em> is CL_DEVICE_PARTITION_BY_COUNTS and the number of
-sub-devices requested exceeds CL_DEVICE_PARTITION_MAX_SUB_DEVICES or the
+<p><code>CL_&#8203;INVALID_&#8203;DEVICE_&#8203;PARTITION_&#8203;COUNT</code> if the partition name specified in
+<em>properties</em> is <code>CL_&#8203;DEVICE_&#8203;PARTITION_&#8203;BY_&#8203;COUNTS</code> and the number of
+sub-devices requested exceeds <code>CL_&#8203;DEVICE_&#8203;PARTITION_&#8203;MAX_&#8203;SUB_&#8203;DEVICES</code> or the
 total number of compute units requested exceeds
-CL_DEVICE_PARTITION_MAX_COMPUTE_UNITS for <em>in_device</em>, or the number of
+<code>CL_&#8203;DEVICE_&#8203;MAX_&#8203;COMPUTE_&#8203;UNITS</code> for <em>in_device</em>, or the number of
 compute units requested for one or more sub-devices is less than zero or
 the number of sub-devices requested exceeds
-CL_DEVICE_PARTITION_MAX_COMPUTE_UNITS for <em>in_device</em>.</p>
+<code>CL_&#8203;DEVICE_&#8203;MAX_&#8203;COMPUTE_&#8203;UNITS</code> for <em>in_device</em>.</p>
 </li>
 <li>
-<p>CL_OUT_OF_RESOURCES if there is a failure to allocate resources required
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;RESOURCES</code> if there is a failure to allocate resources required
 by the OpenCL implementation on the device.</p>
 </li>
 <li>
-<p>CL_OUT_OF_HOST_MEMORY if there is a failure to allocate resources
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;HOST_&#8203;MEMORY</code> if there is a failure to allocate resources
 required by the OpenCL implementation on the host.</p>
 </li>
 </ul>
@@ -988,10 +986,7 @@ following in properties argument:</p>
 <h2 id="_document_notes">Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Specification at URL</p>
-</div>
-<div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clCreateSubDevices" class="bare">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clCreateSubDevices</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clCreateSubDevices" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the OpenCL Specification.
@@ -1004,7 +999,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Copyright (c) 2014-2019 Khronos Group. This work is licensed under a
-<a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons
+<a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons
 Attribution 4.0 International License</a>.</p>
 </div>
 </div>
@@ -1012,8 +1007,8 @@ Attribution 4.0 International License</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v2.2-10-28-g71714e1-dirty<br>
-Last updated 2019-06-20 05:25:24 -0700
+Version V2.2-11-2-gbc16dca-dirty<br>
+Last updated 2019-07-24 05:39:45 -0700
 </div>
 </div>
 

@@ -784,7 +784,7 @@ profiling is enabled, call the function</p>
 <p><em>param_name</em> specifies the profiling data to query.
 The list of supported <em>param_name</em> types and the information returned in
 <em>param_value</em> by <strong>clGetEventProfilingInfo</strong> is described in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#event-profiling-info-table">Event Profiling Queries</a> table.</p>
+<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#event-profiling-info-table" target="_blank" rel="noopener">Event Profiling Queries</a> table.</p>
 </li>
 <li>
 <p><em>param_value</em> is a pointer to memory where the appropriate result being
@@ -795,7 +795,7 @@ If <em>param_value</em> is <code>NULL</code>, it is ignored.</p>
 <p><em>param_value_size</em> is used to specify the size in bytes of memory pointed to
 by <em>param_value</em>.
 This size must be ≥ size of return type as described in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#event-profiling-info-table">Event Profiling Queries</a> table.</p>
+<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#event-profiling-info-table" target="_blank" rel="noopener">Event Profiling Queries</a> table.</p>
 </li>
 <li>
 <p><em>param_value_size_ret</em> returns the actual size in bytes of data being
@@ -810,7 +810,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <h2 id="_description">Description</h2>
 <div class="sectionbody">
 <table id="event-profiling-info-table" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. <strong>clGetEventProfilingInfo</strong> parameter queries</caption>
+<caption class="title">Table 1. List of supported param_names by <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetEventProfilingInfo" class="bare" target="_blank" rel="noopener">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetEventProfilingInfo</a></caption>
 <colgroup>
 <col style="width: 34%;">
 <col style="width: 33%;">
@@ -825,14 +825,14 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_PROFILING_COMMAND_QUEUED</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;PROFILING_&#8203;COMMAND_&#8203;QUEUED</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_ulong</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A 64-bit value that describes the current device time counter in
         nanoseconds when the command identified by event is enqueued in a
         command-queue by the host.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_PROFILING_COMMAND_SUBMIT</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;PROFILING_&#8203;COMMAND_&#8203;SUBMIT</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_ulong</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A 64-bit value that describes the current device time counter in
         nanoseconds when the command identified by event that has been
@@ -840,21 +840,21 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
         command-queue.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_PROFILING_COMMAND_START</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;PROFILING_&#8203;COMMAND_&#8203;START</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_ulong</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A 64-bit value that describes the current device time counter in
         nanoseconds when the command identified by event starts execution on
         the device.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_PROFILING_COMMAND_END</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;PROFILING_&#8203;COMMAND_&#8203;END</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_ulong</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A 64-bit value that describes the current device time counter in
         nanoseconds when the command identified by event has finished
         execution on the device.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_PROFILING_COMMAND_COMPLETE</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;PROFILING_&#8203;COMMAND_&#8203;COMPLETE</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_ulong</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A 64-bit value that describes the current device time counter in
         nanoseconds when the command identified by event and any child
@@ -870,38 +870,38 @@ nano-seconds consumed by OpenCL commands.</p>
 <div class="paragraph">
 <p>OpenCL devices are required to correctly track time across changes in device
 frequency and power states.
-The CL_DEVICE_PROFILING_TIMER_RESOLUTION specifies the resolution of the
+The <code>CL_&#8203;DEVICE_&#8203;PROFILING_&#8203;TIMER_&#8203;RESOLUTION</code> specifies the resolution of the
 timer i.e. the number of nanoseconds elapsed before the timer is
 incremented.</p>
 </div>
 <div class="paragraph">
-<p><strong>clGetEventProfilingInfo</strong> returns CL_SUCCESS if the function is executed
+<p><strong>clGetEventProfilingInfo</strong> returns <code>CL_&#8203;SUCCESS</code> if the function is executed
 successfully and the profiling information has been recorded.
 Otherwise, it returns one of the following errors:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>CL_PROFILING_INFO_NOT_AVAILABLE if the CL_QUEUE_PROFILING_ENABLE flag is
+<p><code>CL_&#8203;PROFILING_&#8203;INFO_&#8203;NOT_&#8203;AVAILABLE</code> if the <code>CL_&#8203;QUEUE_&#8203;PROFILING_&#8203;ENABLE</code> flag is
 not set for the command-queue, if the execution status of the command
-identified by <em>event</em> is not CL_COMPLETE or if <em>event</em> is a user event
+identified by <em>event</em> is not <code>CL_&#8203;COMPLETE</code> or if <em>event</em> is a user event
 object.</p>
 </li>
 <li>
-<p>CL_INVALID_VALUE if <em>param_name</em> is not valid, or if size in bytes
+<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if <em>param_name</em> is not valid, or if size in bytes
 specified by <em>param_value_size</em> is &lt; size of return type as described in
-the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#event-profiling-info-table">Event Profiling Queries</a> table and
+the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#event-profiling-info-table" target="_blank" rel="noopener">Event Profiling Queries</a> table and
 <em>param_value</em> is not <code>NULL</code>.</p>
 </li>
 <li>
-<p>CL_INVALID_EVENT if <em>event</em> is a not a valid event object.</p>
+<p><code>CL_&#8203;INVALID_&#8203;EVENT</code> if <em>event</em> is a not a valid event object.</p>
 </li>
 <li>
-<p>CL_OUT_OF_RESOURCES if there is a failure to allocate resources required
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;RESOURCES</code> if there is a failure to allocate resources required
 by the OpenCL implementation on the device.</p>
 </li>
 <li>
-<p>CL_OUT_OF_HOST_MEMORY if there is a failure to allocate resources
+<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;HOST_&#8203;MEMORY</code> if there is a failure to allocate resources
 required by the OpenCL implementation on the host.</p>
 </li>
 </ul>
@@ -920,10 +920,7 @@ required by the OpenCL implementation on the host.</p>
 <h2 id="_document_notes">Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Specification at URL</p>
-</div>
-<div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetEventProfilingInfo" class="bare">https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetEventProfilingInfo</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#clGetEventProfilingInfo" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the OpenCL Specification.
@@ -936,7 +933,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Copyright (c) 2014-2019 Khronos Group. This work is licensed under a
-<a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons
+<a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons
 Attribution 4.0 International License</a>.</p>
 </div>
 </div>
@@ -944,8 +941,8 @@ Attribution 4.0 International License</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v2.2-10-28-g71714e1-dirty<br>
-Last updated 2019-06-20 05:25:24 -0700
+Version V2.2-11-2-gbc16dca-dirty<br>
+Last updated 2019-07-24 05:39:45 -0700
 </div>
 </div>
 
