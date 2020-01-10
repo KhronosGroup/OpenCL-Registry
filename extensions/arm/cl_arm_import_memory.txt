@@ -30,7 +30,7 @@ IP Status
 
 Version
 
-    Revision: #6, Jan 5th, 2018
+    Revision: #8, Aug 21st, 2019
 
 Number
 
@@ -133,11 +133,19 @@ New Procedures and Functions
 
       Valid <memory> pointer is dependent on the TYPE passed in properties.
 
+      <size> must be greater than 0 and represents the size of the memory
+      object to be created.
+
     Errors
 
       CL_INVALID_CONTEXT on invalid context.
 
       CL_INVALID_VALUE on invalid flag input.
+
+      CL_INVALID_BUFFER_SIZE when size is 0.
+
+      CL_INVALID_BUFFER_SIZE when size is greater than the size of the
+      allocation being imported.
 
       CL_INVALID_PROPERTY when invalid properties or combination of properties
       are passed.
@@ -203,6 +211,9 @@ New memory import types
 
       dma_buf allocations are page-aligned and their size is a whole number of
       pages.
+
+      <size> must be less than or equal to the size of the imported dma_buf
+      allocation.
 
       If an application only requires communication between the host CPU and
       the GPU, it should favour using host imports as described further.
@@ -309,14 +320,14 @@ Sample Code
       #define HEIGHT 512
 
       // tightly packed buffer we will treat as RGB565
-      char *buffer = malloc( WIDTH * HEIGHT * 2 );
+      char *allocptr = malloc( WIDTH * HEIGHT * 2 );
 
       // The type CL_IMPORT_TYPE_HOST_ARM can be omitted as it is the default
       cl_int error = CL_SUCCESS;
       cl_mem buffer = clImportMemoryARM( ctx,
                                          CL_MEM_READ_WRITE,
                                          NULL,
-                                         buffer,
+                                         allocptr,
                                          WIDTH * HEIGHT * 2,
                                          &error );
 
@@ -369,3 +380,5 @@ Revision History
     Revision: #6, Jan 5th, 2018  - Support creating a sub-buffer from an imported
                                    buffer.
     Revision: #7, Jun 19th, 2018 - Add support for protected memory imports.
+    Revision: #8, Aug 21st, 2019 - Clarified requirements on the size
+                                   parameter to clImportMemoryARM.
