@@ -8,6 +8,7 @@ Name Strings
     cl_arm_import_memory_host
     cl_arm_import_memory_dma_buf
     cl_arm_import_memory_protected
+    cl_arm_import_memory_android_hardware_buffer
 
     cl_arm_import_memory will be reported if at least one of the other extension
     strings is also reported.
@@ -30,7 +31,7 @@ IP Status
 
 Version
 
-    Revision: #8, Aug 21st, 2019
+    Revision: #9, Jan 10th, 2020
 
 Number
 
@@ -114,6 +115,7 @@ New Procedures and Functions
 
         * CL_IMPORT_TYPE_HOST_ARM - this is the default
         * CL_IMPORT_TYPE_DMA_BUF_ARM
+        * CL_IMPORT_TYPE_ANDROID_HARDWARE_BUFFER_ARM
 
       Valid values for CL_IMPORT_TYPE_PROTECTED_ARM are:
 
@@ -267,6 +269,18 @@ New memory import types
       allowed. If the property's value is set to CL_TRUE, then the memory
       is imported as protected memory.
 
+    Android hardware buffer
+
+      This allows to directly import a AHardwareBuffer. This will acquire
+      a reference on the AHardwareBuffer object that will not be released until
+      the cl_mem is destroyed.
+
+      Multiplanar buffers are only supported when backed by a single dma_buf.
+
+      <size> may be set to CL_IMPORT_MEMORY_WHOLE_ALLOCATION_ARM to require
+      that the memory object have the same size as the imported
+      AHardwareBuffer.
+
 New Tokens
 
     None
@@ -363,6 +377,28 @@ Sample Code
           // Use <buffer> as cl_mem buffer, observing the usage restrictions above.
       }
 
+    CL_IMPORT_TYPE_ANDROID_HARDWARE_BUFFER_ARM
+
+      AHardwareBuffer *ahb = ...
+
+      cl_int error = CL_SUCCESS;
+
+      const cl_import_properties_arm properties = {
+          CL_IMPORT_TYPE_ARM, CL_IMPORT_TYPE_ANDROID_HARDWARE_BUFFER_ARM,
+          0
+      };
+      cl_mem buffer = clImportMemoryARM( context,
+                                         CL_MEM_READ_WRITE,
+                                         properties,
+                                         ahb,
+                                         CL_IMPORT_MEMORY_WHOLE_ALLOCATION_ARM,
+                                         &error );
+
+      if( error == CL_SUCCESS )
+      {
+          // Use <buffer> as cl_mem buffer, observing the usage restrictions above.
+      }
+
 Conformance Tests
 
     None
@@ -382,3 +418,4 @@ Revision History
     Revision: #7, Jun 19th, 2018 - Add support for protected memory imports.
     Revision: #8, Aug 21st, 2019 - Clarified requirements on the size
                                    parameter to clImportMemoryARM.
+    Revision: #9, Jan 10th, 2020 - Add support for Android harware buffers.
