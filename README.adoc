@@ -6,24 +6,24 @@ the enumerant registry. It is also used as a backing store for the web view
 of the registry at https://www.khronos.org/registry/cl/ ; commits to the
 master branch of this repository will be reflected there.
 
-Please file issues with the OpenCL API itself (specification bugs, feature
+Please file issues with the OpenCL API (specification bugs, feature
 requests, etc.) on the companion https://github.com/KhronosGroup/OpenCL-Docs
 repository.
 
-Issues that should be filed in *this* repository include reserving OpenCL
-enumerant ranges, adding OpenCL extension specifications, and problems with
-the content of the registry *itself*.
+Issues that should be filed in *this* repository include adding OpenCL
+extension specifications, and problems with the content of the registry
+*itself*.
 
 == Reserving OpenCL Enumerant Ranges
 
-OpenCL enumerants are documented in the specification repository
+OpenCL enumerants are now documented in the specification repository
 https://github.com/KhronosGroup/OpenCL-Docs in the file
 https://github.com/KhronosGroup/OpenCL-Docs/blob/master/xml/cl.xml
 
 New enumerant ranges can be allocated by proposing a pull request to master
-branch of that repository modifying `cl.xml`, following the
+branch of OpenCL-Docs modifying `cl.xml`, following the
 existing examples. Allocate ranges starting at the lowest free values
-available (search for "Reserved for vendor extensions"). Ranges are not
+available (search for "`Reserved for vendor extensions`"). Ranges are not
 officially allocated until your pull request is *accepted* into master
 branch of the OpenCL-Docs repository. At that point you can use values from
 your assigned range for API extensions.
@@ -69,8 +69,11 @@ Interesting files in this repository include:
 ** 'extensions/makeindex.py' - create HTML extension indices from 'registry.py'.
 ** 'extensions/nextfree.py' - determine the next free extension number in
    'registry.py'.
-* 'sdk/' - OpenCL reference pages and reference cards. There are separate sets
-  for each API version.
+* 'sdk/' - OpenCL reference pages and reference cards. There are separate
+  sets for each API version. The current (OpenCL 2.2) reference pages are
+  extracted from the OpenCL Specification, so problems with these pages
+  should be filed in the OpenCL-Docs repository - only the generated HTML
+  for the reference pages is published here.
 * 'specs/' - OpenCL specification documents.
 
 
