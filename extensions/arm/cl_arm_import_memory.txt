@@ -31,7 +31,7 @@ IP Status
 
 Version
 
-    Revision: #9, Jan 10th, 2020
+    Revision: #10, Feb 13th, 2020
 
 Number
 
@@ -110,6 +110,7 @@ New Procedures and Functions
 
         * CL_IMPORT_TYPE_ARM
         * CL_IMPORT_TYPE_PROTECTED_ARM
+        * CL_IMPORT_DMA_BUF_DATA_CONSISTENCY_WITH_HOST_ARM
 
       Valid values for CL_IMPORT_TYPE_ARM are:
 
@@ -130,6 +131,13 @@ New Procedures and Functions
           are rejected. If host access flags are omitted, then this is assumed.
         * CL_IMPORT_TYPE_DMA_BUF_ARM is the only valid value for
           CL_IMPORT_TYPE_ARM.
+
+      Valid values for CL_IMPORT_DMA_BUF_DATA_CONSISTENCY_WITH_HOST_ARM are:
+
+        * CL_FALSE - maintaining data consistency between memory and the host's
+                     view of it is the application's responsibility (default).
+        * CL_TRUE - data consistency between memory and the host's view is
+                    managed by the OpenCL runtime.
 
       If <properties> is NULL, default values are taken.
 
@@ -197,13 +205,18 @@ New memory import types
       If the extension string cl_arm_import_memory_dma_buf is exposed then
       importing from dma_buf file handles is supported.
 
-      The CL runtime manages dma_buf memory coherency between the host CPU and
-      GPU. It is the application's responsibility to ensure visibility in memory
-      of changes done by devices which aren't in the same coherency domain as
-      the GPU and CPU before using that memory from an OpenCL command. This can
-      be achieved either by not enqueueing the workload until the data is
-      visible, or by using a user event to prevent the command from being
-      executed until the expected data has reached memory.
+      When CL_IMPORT_DMA_BUF_DATA_CONSISTENCY_WITH_HOST_ARM is set to CL_TRUE,
+      the OpenCL runtime manages data consistency between the host CPU and the
+      memory backing the dma_buf allocation. The application is still responsible
+      for ensuring that changes to the memory done outside of the coherency domain
+      in which the host CPU and the OpenCL device reside are made visibible to
+      that coherency domain before using that memory from an OpenCL command. This
+      can be achieved either by not enqueueing the workload until the data is
+      visible, or by using a user event to prevent the command from being executed
+      until the expected data has reached memory.
+
+      Prior to the introduction of CL_IMPORT_DMA_BUF_DATA_CONSISTENCY_WITH_HOST_ARM
+      drivers always managed data consistency between the host CPU and memory.
 
       Flags attached to a dma_buf file handle take precedence over memory flags
       supplied to clImportMemoryARM. For example, if a dma_buf allocation
@@ -216,9 +229,6 @@ New memory import types
 
       <size> must be less than or equal to the size of the imported dma_buf
       allocation.
-
-      If an application only requires communication between the host CPU and
-      the GPU, it should favour using host imports as described further.
 
       See also, the code example below.
 
@@ -419,3 +429,4 @@ Revision History
     Revision: #8, Aug 21st, 2019 - Clarified requirements on the size
                                    parameter to clImportMemoryARM.
     Revision: #9, Jan 10th, 2020 - Add support for Android harware buffers.
+    Revision: #10, Feb 13th, 2020 - Make dma_buf <-> host data consistency optional.
