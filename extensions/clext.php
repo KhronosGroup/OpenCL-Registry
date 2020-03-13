@@ -115,4 +115,8 @@
 </li>
 <li value=58><a href="extensions/arm/cl_arm_job_slot_selection.txt">cl_arm_job_slot_selection</a>
 </li>
+<li value=59><a href="extensions/intel/cl_intel_subgroups_char.html">cl_intel_subgroups_char</a>
+</li>
+<li value=60><a href="extensions/intel/cl_intel_subgroups_long.html">cl_intel_subgroups_long</a>
+</li>
 </ol>
