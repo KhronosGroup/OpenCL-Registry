@@ -776,109 +776,6 @@ The former syntax is preferred.</p>
 <div class="dlist">
 <dl>
 <dt class="hdlist1"><code>aligned (<em>alignment</em>)</code> </dt>
-<dd>
-<p>This attribute specifies a minimum alignment (in bytes) for variables of the
-specified type.
-For example, the declarations:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">struct S { short f[3]; } __attribute__ ((aligned (8)));
-typedef int more_aligned_int __attribute__ ((aligned (8)));</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>force the compiler to insure (as far as it can) that each variable whose
-type is <code>struct S</code> or <code>more_aligned_int</code> will be allocated and aligned <em>at
-least</em> on a 8-byte boundary.</p>
-</div>
-<div class="paragraph">
-<p>Note that the alignment of any given struct or union type is required by the
-ISO C standard to be at least a perfect multiple of the lowest common
-multiple of the alignments of all of the members of the struct or union in
-question and must also be a power of two.
-This means that you <em>can</em> effectively adjust the alignment of a struct or
-union type by attaching an aligned attribute to any one of the members of
-such a type, but the notation illustrated in the example above is a more
-obvious, intuitive, and readable way to request the compiler to adjust the
-alignment of an entire struct or union type.</p>
-</div>
-<div class="paragraph">
-<p>As in the preceding example, you can explicitly specify the alignment (in
-bytes) that you wish the compiler to use for a given struct or union type.
-Alternatively, you can leave out the alignment factor and just ask the
-compiler to align a type to the maximum useful alignment for the target
-machine you are compiling for.
-For example, you could write:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">struct S { short f[3]; } __attribute__ ((aligned));</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Whenever you leave out the alignment factor in an aligned attribute
-specification, the compiler automatically sets the alignment for the type to
-the largest alignment which is ever used for any data type on the target
-machine you are compiling for.
-In the example above, the size of each <code>short</code> is 2 bytes, and therefore the
-size of the entire <code>struct S</code> type is 6 bytes.
-The smallest power of two which is greater than or equal to that is 8, so
-the compiler sets the alignment for the entire <code>struct S</code> type to 8 bytes.</p>
-</div>
-<div class="paragraph">
-<p>Note that the effectiveness of aligned attributes may be limited by inherent
-limitations of the OpenCL device and compiler.
-For some devices, the OpenCL compiler may only be able to arrange for
-variables to be aligned up to a certain maximum alignment.
-If the OpenCL compiler is only able to align variables up to a maximum of 8
-byte alignment, then specifying <code>aligned(16)</code> in an <code>__attribute__</code> will
-still only provide you with 8 byte alignment.
-See your platform-specific documentation for further information.</p>
-</div>
-<div class="paragraph">
-<p>The aligned attribute can only increase the alignment; but you can decrease
-it by specifying packed as well.
-See below.</p>
-</div>
-</dd>
-<dt class="hdlist1"><code>packed</code> </dt>
-<dd>
-<p>This attribute, attached to struct or union type definition, specifies that
-each member of the structure or union is placed to minimize the memory
-required.
-When attached to an enum definition, it indicates that the smallest integral
-type should be used.</p>
-<div class="paragraph">
-<p>Specifying this attribute for struct and union types is equivalent to
-specifying the packed attribute on each of the structure or union members.</p>
-</div>
-<div class="paragraph">
-<p>In the following example struct <code>my_packed_struct&#8217;s members are packed
-closely together, but the internal layout of its `s</code> member is not packed.
-To do that, struct <code>my_unpacked_struct</code> would need to be packed, too.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">struct my_unpacked_struct
-{
-    char c;
-    int i;
-};
-
-struct __attribute__ ((packed)) my_packed_struct
-{
-    char c;
-    int i;
-    struct my_unpacked_struct s;
-};</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>You may only specify this attribute on the definition of a enum, struct or
-union, not on a <code>typedef</code> which does not also define the enumerated type,
-structure or union.</p>
-</div>
-</dd>
 </dl>
 </div>
 </div>
@@ -907,7 +804,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright">Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright (c) 2014-2019 Khronos Group. This work is licensed under a
+<p>Copyright (c) 2014-2020 Khronos Group. This work is licensed under a
 <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons
 Attribution 4.0 International License</a>.</p>
 </div>
@@ -916,8 +813,8 @@ Attribution 4.0 International License</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version V2.2-11-2-gbc16dca-dirty<br>
-Last updated 2019-07-24 05:39:45 -0700
+Version V2.2-11-107-g6eaa3d2-dirty<br>
+Last updated 2020-03-27 04:16:12 -0700
 </div>
 </div>
 

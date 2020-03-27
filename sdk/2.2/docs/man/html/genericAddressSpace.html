@@ -809,9 +809,9 @@ kernel void k2(global int *a)
 </div>
 </div>
 <div class="paragraph">
-<p>In the example below, <code>var</code> is in the unnamed generic address space which
-gets mapped to the <code>global</code> or <code>local</code> address space depending on the result
-of the conditional expression.</p>
+<p>In the example below, <code>var</code> is a pointer to the unnamed generic address space.
+A pointer to the <code>global</code> or <code>local</code> address space may be assigned to <code>var</code>
+depending on the result of a conditional expression.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -829,8 +829,12 @@ of the conditional expression.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>The example below is an example with one unnamed generic address space
-pointer with multiple named address space assignments.</p>
+<p>In the example below, the same pointer to the unnamed generic address
+space is used to point to objects allocated in different named address spaces.
+A pointer to the unnamed generic address space may point to
+objects in the <code>global</code>, <code>local</code>, and <code>private</code> address spaces,
+but it is not legal for a pointer to the unnamed generic address to
+point to an object in the <code>constant</code> address space.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -849,25 +853,35 @@ ptr = &amp;c; // illegal</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The example below is an example with one unnamed generic address space
-pointer being assigned to point to several named address spaces.</p>
+<p>In the example below, pointers to named address spaces are assigned to
+a pointer to the unnamed generic address space.
+It is legal to assign a pointer to the <code>global</code>, <code>local</code>, and <code>private</code>
+address spaces to a pointer to the unnamed generic address space without
+an explicit cast.
+It is not legal to assign a pointer to the <code>constant</code> address space to
+a pointer to the unnamed generic address space.
+It is also not legal to assign a pointer to the unnamed generic address
+space to a pointer to a named address space without a cast.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-c" data-lang="c">global int *gp;
 local int *lp;
 private int *pp;
+constant int *cp;
 
 int *p;
 p = gp; // legal
 p = lp; // legal
 p = pp; // legal
+p = cp; // illegal
 
 // it is illegal to convert from a generic pointer
 // to an explicit address space pointer without a cast:
 gp = p; // compile-time error
 lp = p; // compile-time error
-pp = p; // compile-time error</code></pre>
+pp = p; // compile-time error
+cp = p; // compile-time error</code></pre>
 </div>
 </div>
 </div>
@@ -896,7 +910,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright">Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright (c) 2014-2019 Khronos Group. This work is licensed under a
+<p>Copyright (c) 2014-2020 Khronos Group. This work is licensed under a
 <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons
 Attribution 4.0 International License</a>.</p>
 </div>
@@ -905,8 +919,8 @@ Attribution 4.0 International License</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version V2.2-11-2-gbc16dca-dirty<br>
-Last updated 2019-07-24 05:39:45 -0700
+Version V2.2-11-107-g6eaa3d2-dirty<br>
+Last updated 2020-03-27 04:16:12 -0700
 </div>
 </div>
 

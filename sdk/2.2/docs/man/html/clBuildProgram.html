@@ -802,7 +802,9 @@ as when the program binary was originally built.
 If the program was created using <strong>clCreateProgramWithBinary</strong> and <em>options</em>
 string contains anything other than the same options in the same order
 (whitespace ignored) as when the program binary was originally built, then
-the behavior is implementation defined.</p>
+the behavior is implementation defined.
+Otherwise, if <em>options</em> is a <code>NULL</code> pointer then it will have the same
+result as the empty string.</p>
 </li>
 <li>
 <p><em>pfn_notify</em> is a function pointer to a notification routine.
@@ -875,8 +877,8 @@ than zero, or if <em>device_list</em> is not <code>NULL</code> and <em>num_devic
 <code>NULL</code>.</p>
 </li>
 <li>
-<p><code>CL_&#8203;INVALID_&#8203;DEVICE</code> if OpenCL devices listed in <em>device_list</em> are not in
-the list of devices associated with <em>program</em></p>
+<p><code>CL_&#8203;INVALID_&#8203;DEVICE</code> if any device in <em>device_list</em> is not in
+the list of devices associated with <em>program</em>.</p>
 </li>
 <li>
 <p><code>CL_&#8203;INVALID_&#8203;BINARY</code> if <em>program</em> is created with
@@ -948,7 +950,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright">Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright (c) 2014-2019 Khronos Group. This work is licensed under a
+<p>Copyright (c) 2014-2020 Khronos Group. This work is licensed under a
 <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons
 Attribution 4.0 International License</a>.</p>
 </div>
@@ -957,8 +959,8 @@ Attribution 4.0 International License</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version V2.2-11-2-gbc16dca-dirty<br>
-Last updated 2019-07-24 05:39:45 -0700
+Version V2.2-11-107-g6eaa3d2-dirty<br>
+Last updated 2020-03-27 04:16:11 -0700
 </div>
 </div>
 

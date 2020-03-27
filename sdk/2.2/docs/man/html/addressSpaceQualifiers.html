@@ -764,8 +764,7 @@ the region of memory that is used to allocate the object.
 The C syntax for type qualifiers is extended in OpenCL to include an address
 space name as a valid type qualifier.
 If the type of an object is qualified by an address space name, the object
-is allocated in the specified address name; otherwise, the object is
-allocated in the generic address space.</p>
+is allocated in the specified address space name.</p>
 </div>
 <div class="paragraph">
 <p>The address space names without the <code>__</code> prefix, i.e. <code>global</code>, <code>local</code>,
@@ -778,7 +777,9 @@ variables of a function is <code>__private</code>.
 All function arguments shall be in the <code>__private</code> address space.
 The address space for a variable at program scope, a <code>static</code> or <code>extern</code>
 variable inside a function can either be <code>__global</code> or <code>__constant</code>, but
-defaults to <code>__global</code> if not specified.</p>
+defaults to <code>__global</code> if not specified.
+The address space for all other variables defaults to <code>__private</code> if not
+specified.</p>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -801,13 +802,11 @@ void foo (...)
 <p>OpenCL 2.0 adds support for an unnamed generic address space.
 Pointers that are declared without pointing to a named address space point
 to the generic address space.
-Before referring to the region pointed to, the pointer must be associated
-with a named address space.
-Functions written with pointer arguments and return values which do not
-declare an address space are defined to point to the generic address space.</p>
+Pointer function arguments and return values which do not declare an address
+space are defined to point to the generic address space.</p>
 </div>
 <div class="paragraph">
-<p>kernel function arguments declared to be a pointer or an array of a type
+<p>Kernel function arguments declared to be a pointer or an array of a type
 must point to one of the named address spaces <code>__global</code>, <code>__local</code> or
 <code>__constant</code>.</p>
 </div>
@@ -818,7 +817,7 @@ for the <code>constant</code> address space.</p>
 <div class="paragraph">
 <p>A pointer to address space A can only be assigned to a pointer to the same
 address space A or a pointer to the generic address space.
-Casting a pointer to address space A to a pointer to address space is
+Casting a pointer to address space A to a pointer to address space B is
 illegal if A and B are named address spaces and A is not the same as B.</p>
 </div>
 <div class="paragraph">
@@ -881,7 +880,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright">Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright (c) 2014-2019 Khronos Group. This work is licensed under a
+<p>Copyright (c) 2014-2020 Khronos Group. This work is licensed under a
 <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons
 Attribution 4.0 International License</a>.</p>
 </div>
@@ -890,8 +889,8 @@ Attribution 4.0 International License</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version V2.2-11-2-gbc16dca-dirty<br>
-Last updated 2019-07-24 05:39:45 -0700
+Version V2.2-11-107-g6eaa3d2-dirty<br>
+Last updated 2020-03-27 04:16:12 -0700
 </div>
 </div>
 

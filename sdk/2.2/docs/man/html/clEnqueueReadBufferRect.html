@@ -780,6 +780,18 @@ region to a buffer object from host memory.</p>
     cl_event* event);</code></pre>
 </div>
 </div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<strong>clEnqueueReadBufferRect</strong> is <a href="#unified-spec">missing before</a> version 1.1.
+</td>
+</tr>
+</table>
+</div>
 <div id="clEnqueueWriteBufferRect" class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-c++" data-lang="c++">cl_int clEnqueueWriteBufferRect(
@@ -936,7 +948,7 @@ then be reused by the application.</p>
 <div class="paragraph">
 <p><strong>clEnqueueReadBufferRect</strong> and <strong>clEnqueueWriteBufferRect</strong> return <code>CL_&#8203;SUCCESS</code>
 if the function is executed successfully.
-Otherwise, it returns one of the following errors:</p>
+Otherwise, they return one of the following errors:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -991,12 +1003,14 @@ are not valid events.</p>
 <p><code>CL_&#8203;MISALIGNED_&#8203;SUB_&#8203;BUFFER_&#8203;OFFSET</code> if <em>buffer</em> is a sub-buffer object and
 <em>offset</em> specified when the sub-buffer object is created is not aligned
 to <code>CL_&#8203;DEVICE_&#8203;MEM_&#8203;BASE_&#8203;ADDR_&#8203;ALIGN</code> value for device associated with
-<em>queue</em>.</p>
+<em>queue</em>.
+This error code is <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.1.</p>
 </li>
 <li>
 <p><code>CL_&#8203;EXEC_&#8203;STATUS_&#8203;ERROR_&#8203;FOR_&#8203;EVENTS_&#8203;IN_&#8203;WAIT_&#8203;LIST</code> if the read and write
 operations are blocking and the execution status of any of the events in
-<em>event_wait_list</em> is a negative integer value.</p>
+<em>event_wait_list</em> is a negative integer value.
+This error code is <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.1.</p>
 </li>
 <li>
 <p><code>CL_&#8203;MEM_&#8203;OBJECT_&#8203;ALLOCATION_&#8203;FAILURE</code> if there is a failure to allocate
@@ -1141,7 +1155,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright">Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright (c) 2014-2019 Khronos Group. This work is licensed under a
+<p>Copyright (c) 2014-2020 Khronos Group. This work is licensed under a
 <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons
 Attribution 4.0 International License</a>.</p>
 </div>
@@ -1150,8 +1164,8 @@ Attribution 4.0 International License</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version V2.2-11-2-gbc16dca-dirty<br>
-Last updated 2019-07-24 05:39:45 -0700
+Version V2.2-11-107-g6eaa3d2-dirty<br>
+Last updated 2020-03-27 04:16:11 -0700
 </div>
 </div>
 

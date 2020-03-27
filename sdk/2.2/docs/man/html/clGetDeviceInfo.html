@@ -864,7 +864,7 @@ device except for the following queries:</p>
         <code>CL_&#8203;DEVICE_&#8203;TYPE_&#8203;CUSTOM</code>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;VENDOR_&#8203;ID</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;VENDOR_&#8203;ID</code><sup>4</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_uint</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A unique device vendor identifier.
         An example of a unique device identifier could be the PCIe ID.</p></td>
@@ -915,7 +915,9 @@ device except for the following queries:</p>
   <code>CL_&#8203;DEVICE_&#8203;PREFERRED_&#8203;VECTOR_&#8203;WIDTH_&#8203;LONG</code>  <br>
   <code>CL_&#8203;DEVICE_&#8203;PREFERRED_&#8203;VECTOR_&#8203;WIDTH_&#8203;FLOAT</code> <br>
   <code>CL_&#8203;DEVICE_&#8203;PREFERRED_&#8203;VECTOR_&#8203;WIDTH_&#8203;DOUBLE</code><br>
-  <code>CL_&#8203;DEVICE_&#8203;PREFERRED_&#8203;VECTOR_&#8203;WIDTH_&#8203;HALF</code></p></td>
+  <code>CL_&#8203;DEVICE_&#8203;PREFERRED_&#8203;VECTOR_&#8203;WIDTH_&#8203;HALF</code></p>
+<p class="tableblock">  <code>CL_&#8203;DEVICE_&#8203;PREFERRED_&#8203;VECTOR_&#8203;WIDTH_&#8203;HALF</code> is <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a>
+  version 1.1.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_uint</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Preferred native vector width size for built-in scalar types that
         can be put into vectors.
@@ -933,7 +935,8 @@ device except for the following queries:</p>
   <code>CL_&#8203;DEVICE_&#8203;NATIVE_&#8203;VECTOR_&#8203;WIDTH_&#8203;LONG</code>  <br>
   <code>CL_&#8203;DEVICE_&#8203;NATIVE_&#8203;VECTOR_&#8203;WIDTH_&#8203;FLOAT</code> <br>
   <code>CL_&#8203;DEVICE_&#8203;NATIVE_&#8203;VECTOR_&#8203;WIDTH_&#8203;DOUBLE</code><br>
-  <code>CL_&#8203;DEVICE_&#8203;NATIVE_&#8203;VECTOR_&#8203;WIDTH_&#8203;HALF</code></p></td>
+  <code>CL_&#8203;DEVICE_&#8203;NATIVE_&#8203;VECTOR_&#8203;WIDTH_&#8203;HALF</code></p>
+<p class="tableblock"><a href="#unified-spec">Missing before</a> version 1.1.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_uint</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the native ISA vector width.
         The vector width is defined as the number of scalar elements that
@@ -951,7 +954,10 @@ device except for the following queries:</p>
         For devices with multiple clock domains, the clock frequency for any
         of the clock domains may be returned.
         For devices that dynamically change frequency for power or thermal
-        reasons, the returned clock frequency may be any valid frequency.</p></td>
+        reasons, the returned clock frequency may be any valid frequency.
+        Note: This definition is <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.2.</p>
+<p class="tableblock">        Maximum configured clock frequency of the device in MHz.
+        Note: This definition is <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">deprecated by</a> version 2.2.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;ADDRESS_&#8203;BITS</code></p></td>
@@ -975,86 +981,103 @@ device except for the following queries:</p>
         otherwise.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;MAX_&#8203;READ_&#8203;IMAGE_&#8203;ARGS</code><sup>4</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;MAX_&#8203;READ_&#8203;IMAGE_&#8203;ARGS</code><sup>5</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_uint</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Max number of image objects arguments of a kernel declared with the
         read_only qualifier.
-        The minimum value is 128 if <code>CL_&#8203;DEVICE_&#8203;IMAGE_&#8203;SUPPORT</code> is <code>CL_&#8203;TRUE</code>.</p></td>
+        The minimum value is 128 if <code>CL_&#8203;DEVICE_&#8203;IMAGE_&#8203;SUPPORT</code> is <code>CL_&#8203;TRUE</code>, the
+        value is 0 otherwise.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;MAX_&#8203;WRITE_&#8203;IMAGE_&#8203;ARGS</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_uint</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Max number of image objects arguments of a kernel declared with the
         write_only qualifier.
-        The minimum value is 64 if <code>CL_&#8203;DEVICE_&#8203;IMAGE_&#8203;SUPPORT</code> is <code>CL_&#8203;TRUE</code>.</p></td>
+        The minimum value is 64 if <code>CL_&#8203;DEVICE_&#8203;IMAGE_&#8203;SUPPORT</code> is <code>CL_&#8203;TRUE</code>, the
+        value is 0 otherwise.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;MAX_&#8203;READ_&#8203;WRITE_&#8203;IMAGE_&#8203;ARGS</code><sup>5</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;MAX_&#8203;READ_&#8203;WRITE_&#8203;IMAGE_&#8203;ARGS</code><sup>6</sup></p>
+<p class="tableblock"><a href="#unified-spec">Missing before</a> version 2.0.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_uint</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Max number of image objects arguments of a kernel declared with the
         write_only or read_write qualifier.
-        The minimum value is 64 if <code>CL_&#8203;DEVICE_&#8203;IMAGE_&#8203;SUPPORT</code> is <code>CL_&#8203;TRUE</code>.</p></td>
+        The minimum value is 64 if <code>CL_&#8203;DEVICE_&#8203;IMAGE_&#8203;SUPPORT</code> is <code>CL_&#8203;TRUE</code>, the
+        value is 0 otherwise.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;IL_&#8203;VERSION</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;IL_&#8203;VERSION</code></p>
+<p class="tableblock"><a href="#unified-spec">Missing before</a> version 2.1.
+Also see extension <strong>cl_khr_il_program</strong>.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">char[]</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The intermediate languages that can be supported by
         <strong>clCreateProgramWithIL</strong> for this device.
         Returns a space-separated list of IL version strings of the form
         &lt;IL_Prefix&gt;_&lt;Major_Version&gt;.&lt;Minor_Version&gt;.
-        For OpenCL 2.2, SPIR-V is a required IL prefix.</p></td>
+        For OpenCL 2.1 and 2.2, SPIR-V is a required IL prefix.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;IMAGE2D_&#8203;MAX_&#8203;WIDTH</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">size_t</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Max width of 2D image or 1D image not created from a buffer object
         in pixels.</p>
-<p class="tableblock">        The minimum value is 16384 if <code>CL_&#8203;DEVICE_&#8203;IMAGE_&#8203;SUPPORT</code> is <code>CL_&#8203;TRUE</code>.</p></td>
+<p class="tableblock">        The minimum value is 16384 if <code>CL_&#8203;DEVICE_&#8203;IMAGE_&#8203;SUPPORT</code> is <code>CL_&#8203;TRUE</code>,
+        the value is 0 otherwise.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;IMAGE2D_&#8203;MAX_&#8203;HEIGHT</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">size_t</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Max height of 2D image in pixels.</p>
-<p class="tableblock">        The minimum value is 16384 if <code>CL_&#8203;DEVICE_&#8203;IMAGE_&#8203;SUPPORT</code> is <code>CL_&#8203;TRUE</code>.</p></td>
+<p class="tableblock">        The minimum value is 16384 if <code>CL_&#8203;DEVICE_&#8203;IMAGE_&#8203;SUPPORT</code> is <code>CL_&#8203;TRUE</code>,
+        the value is 0 otherwise.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;IMAGE3D_&#8203;MAX_&#8203;WIDTH</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">size_t</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Max width of 3D image in pixels.</p>
-<p class="tableblock">        The minimum value is 2048 if <code>CL_&#8203;DEVICE_&#8203;IMAGE_&#8203;SUPPORT</code> is <code>CL_&#8203;TRUE</code>.</p></td>
+<p class="tableblock">        The minimum value is 2048 if <code>CL_&#8203;DEVICE_&#8203;IMAGE_&#8203;SUPPORT</code> is <code>CL_&#8203;TRUE</code>,
+        the value is 0 otherwise.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;IMAGE3D_&#8203;MAX_&#8203;HEIGHT</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">size_t</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Max height of 3D image in pixels.</p>
-<p class="tableblock">        The minimum value is 2048 if <code>CL_&#8203;DEVICE_&#8203;IMAGE_&#8203;SUPPORT</code> is <code>CL_&#8203;TRUE</code>.</p></td>
+<p class="tableblock">        The minimum value is 2048 if <code>CL_&#8203;DEVICE_&#8203;IMAGE_&#8203;SUPPORT</code> is <code>CL_&#8203;TRUE</code>,
+        the value is 0 otherwise.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;IMAGE3D_&#8203;MAX_&#8203;DEPTH</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">size_t</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Max depth of 3D image in pixels.</p>
-<p class="tableblock">        The minimum value is 2048 if <code>CL_&#8203;DEVICE_&#8203;IMAGE_&#8203;SUPPORT</code> is <code>CL_&#8203;TRUE</code>.</p></td>
+<p class="tableblock">        The minimum value is 2048 if <code>CL_&#8203;DEVICE_&#8203;IMAGE_&#8203;SUPPORT</code> is <code>CL_&#8203;TRUE</code>,
+        the value is 0 otherwise.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;IMAGE_&#8203;MAX_&#8203;BUFFER_&#8203;SIZE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;IMAGE_&#8203;MAX_&#8203;BUFFER_&#8203;SIZE</code></p>
+<p class="tableblock"><a href="#unified-spec">Missing before</a> version 1.2.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">size_t</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Max number of pixels for a 1D image created from a buffer object.</p>
-<p class="tableblock">        The minimum value is 65536 if <code>CL_&#8203;DEVICE_&#8203;IMAGE_&#8203;SUPPORT</code> is <code>CL_&#8203;TRUE</code>.</p></td>
+<p class="tableblock">        The minimum value is 65536 if <code>CL_&#8203;DEVICE_&#8203;IMAGE_&#8203;SUPPORT</code> is <code>CL_&#8203;TRUE</code>,
+        the value is 0 otherwise.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;IMAGE_&#8203;MAX_&#8203;ARRAY_&#8203;SIZE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;IMAGE_&#8203;MAX_&#8203;ARRAY_&#8203;SIZE</code></p>
+<p class="tableblock"><a href="#unified-spec">Missing before</a> version 1.2.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">size_t</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Max number of images in a 1D or 2D image array.</p>
-<p class="tableblock">        The minimum value is 2048 if <code>CL_&#8203;DEVICE_&#8203;IMAGE_&#8203;SUPPORT</code> is <code>CL_&#8203;TRUE</code>.</p></td>
+<p class="tableblock">        The minimum value is 2048 if <code>CL_&#8203;DEVICE_&#8203;IMAGE_&#8203;SUPPORT</code> is <code>CL_&#8203;TRUE</code>,
+        the value is 0 otherwise.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;MAX_&#8203;SAMPLERS</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_uint</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Maximum number of samplers that can be used in a kernel.</p>
-<p class="tableblock">        The minimum value is 16 if <code>CL_&#8203;DEVICE_&#8203;IMAGE_&#8203;SUPPORT</code> is <code>CL_&#8203;TRUE</code>.</p></td>
+<p class="tableblock">        The minimum value is 16 if <code>CL_&#8203;DEVICE_&#8203;IMAGE_&#8203;SUPPORT</code> is <code>CL_&#8203;TRUE</code>,
+        the value is 0 otherwise.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;IMAGE_&#8203;PITCH_&#8203;ALIGNMENT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;IMAGE_&#8203;PITCH_&#8203;ALIGNMENT</code></p>
+<p class="tableblock"><a href="#unified-spec">Missing before</a> version 2.0.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_uint</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The row pitch alignment size in pixels for 2D images created from a
         buffer.
@@ -1062,7 +1085,8 @@ device except for the following queries:</p>
 <p class="tableblock">        If the device does not support images, this value must be 0.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;IMAGE_&#8203;BASE_&#8203;ADDRESS_&#8203;ALIGNMENT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;IMAGE_&#8203;BASE_&#8203;ADDRESS_&#8203;ALIGNMENT</code></p>
+<p class="tableblock"><a href="#unified-spec">Missing before</a> version 2.0.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_uint</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This query should be used when a 2D image is created from a buffer
         which was created using <code>CL_&#8203;MEM_&#8203;USE_&#8203;HOST_&#8203;PTR</code>.
@@ -1072,14 +1096,16 @@ device except for the following queries:</p>
 <p class="tableblock">        If the device does not support images, this value must be 0.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;MAX_&#8203;PIPE_&#8203;ARGS</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;MAX_&#8203;PIPE_&#8203;ARGS</code></p>
+<p class="tableblock"><a href="#unified-spec">Missing before</a> version 2.0.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_uint</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The maximum number of pipe objects that can be passed as arguments
         to a kernel.
         The minimum value is 16.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;PIPE_&#8203;MAX_&#8203;ACTIVE_&#8203;RESERVATIONS</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;PIPE_&#8203;MAX_&#8203;ACTIVE_&#8203;RESERVATIONS</code></p>
+<p class="tableblock"><a href="#unified-spec">Missing before</a> version 2.0.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_uint</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The maximum number of reservations that can be active for a pipe per
         work-item in a kernel.
@@ -1088,7 +1114,8 @@ device except for the following queries:</p>
         The minimum value is 1.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;PIPE_&#8203;MAX_&#8203;PACKET_&#8203;SIZE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;PIPE_&#8203;MAX_&#8203;PACKET_&#8203;SIZE</code></p>
+<p class="tableblock"><a href="#unified-spec">Missing before</a> version 2.0.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_uint</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The maximum size of pipe packet in bytes.
         The minimum value is 1024 bytes.</p></td>
@@ -1112,7 +1139,15 @@ device except for the following queries:</p>
         type <code>CL_&#8203;DEVICE_&#8203;TYPE_&#8203;CUSTOM</code>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;SINGLE_&#8203;FP_&#8203;CONFIG</code><sup>6</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;MIN_&#8203;DATA_&#8203;TYPE_&#8203;ALIGN_&#8203;SIZE</code></p>
+<p class="tableblock"><a href="#unified-spec">Deprecated by</a> version 1.2.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">cl_uint</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The minimum value is the size (in bytes) of the largest OpenCL data
+        type supported by the device (<code>long16</code> in FULL profile, <code>long16</code> or
+        <code>int16</code> in EMBEDDED profile).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;SINGLE_&#8203;FP_&#8203;CONFIG</code><sup>7</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_device_fp_config</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Describes single precision floating-point capability of the device.
         This is a bit-field that describes one or more of the following
@@ -1136,7 +1171,9 @@ device except for the following queries:</p>
         <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#embedded-profile-single-fp-config-requirements" target="_blank" rel="noopener">dedicated table</a>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;DOUBLE_&#8203;FP_&#8203;CONFIG</code><sup>7</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;DOUBLE_&#8203;FP_&#8203;CONFIG</code><sup>8</sup></p>
+<p class="tableblock"><a href="#unified-spec">Missing before</a> version 1.2.
+Also see extension <strong>cl_khr_fp64</strong>.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_device_fp_config</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Describes double precision floating-point capability of the OpenCL
         device.
@@ -1199,7 +1236,8 @@ device except for the following queries:</p>
         <code>CL_&#8203;DEVICE_&#8203;TYPE_&#8203;CUSTOM</code>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;MAX_&#8203;GLOBAL_&#8203;VARIABLE_&#8203;SIZE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;MAX_&#8203;GLOBAL_&#8203;VARIABLE_&#8203;SIZE</code></p>
+<p class="tableblock"><a href="#unified-spec">Missing before</a> version 2.0.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">size_t</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The maximum number of bytes of storage that may be allocated for any
         single variable in program scope or inside a function in an OpenCL
@@ -1207,7 +1245,8 @@ device except for the following queries:</p>
 <p class="tableblock">        The minimum value is 64 KB.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;GLOBAL_&#8203;VARIABLE_&#8203;PREFERRED_&#8203;TOTAL_&#8203;SIZE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;GLOBAL_&#8203;VARIABLE_&#8203;PREFERRED_&#8203;TOTAL_&#8203;SIZE</code></p>
+<p class="tableblock"><a href="#unified-spec">Missing before</a> version 2.0.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">size_t</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Maximum preferred total size, in bytes, of all program variables in
         the global address space.
@@ -1241,6 +1280,13 @@ device except for the following queries:</p>
         Is <code>CL_&#8203;FALSE</code> if the device does not implement such error correction.</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;HOST_&#8203;UNIFIED_&#8203;MEMORY</code></p>
+<p class="tableblock"><a href="#unified-spec">Missing before</a> version 1.1 and <a href="#unified-spec">deprecated by</a> version 2.0.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">cl_bool</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Is <code>CL_&#8203;TRUE</code> if the device and the host have a unified memory subsystem
+        and is <code>CL_&#8203;FALSE</code> otherwise.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;PROFILING_&#8203;TIMER_&#8203;RESOLUTION</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">size_t</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Describes the resolution of device timer.
@@ -1269,7 +1315,8 @@ device except for the following queries:</p>
         This can be <code>CL_&#8203;FALSE</code> for the embedded platform profile only.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;LINKER_&#8203;AVAILABLE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;LINKER_&#8203;AVAILABLE</code></p>
+<p class="tableblock"><a href="#unified-spec">Missing before</a> version 1.2.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_bool</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Is <code>CL_&#8203;FALSE</code> if the implementation does not have a linker available.
         Is <code>CL_&#8203;TRUE</code> if the linker is available.</p>
@@ -1288,7 +1335,14 @@ device except for the following queries:</p>
 <p class="tableblock">        The mandated minimum capability is: <code>CL_&#8203;EXEC_&#8203;KERNEL</code>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;QUEUE_&#8203;ON_&#8203;HOST_&#8203;PROPERTIES</code><sup>8</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;QUEUE_&#8203;PROPERTIES</code></p>
+<p class="tableblock"><a href="#unified-spec">Deprecated by</a> version 2.0.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">cl_command_queue_properties</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">See description of <code>CL_&#8203;DEVICE_&#8203;QUEUE_&#8203;ON_&#8203;HOST_&#8203;PROPERTIES</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;QUEUE_&#8203;ON_&#8203;HOST_&#8203;PROPERTIES</code></p>
+<p class="tableblock"><a href="#unified-spec">Missing before</a> version 2.0.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_command_queue_properties</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Describes the on host command-queue properties supported by the
         device.
@@ -1300,7 +1354,8 @@ device except for the following queries:</p>
 <p class="tableblock">        The mandated minimum capability is: <code>CL_&#8203;QUEUE_&#8203;PROFILING_&#8203;ENABLE</code>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;QUEUE_&#8203;ON_&#8203;DEVICE_&#8203;PROPERTIES</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;QUEUE_&#8203;ON_&#8203;DEVICE_&#8203;PROPERTIES</code></p>
+<p class="tableblock"><a href="#unified-spec">Missing before</a> version 2.0.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_command_queue_properties</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Describes the on device command-queue properties supported by the
         device.
@@ -1313,7 +1368,8 @@ device except for the following queries:</p>
         <code>CL_&#8203;QUEUE_&#8203;OUT_&#8203;OF_&#8203;ORDER_&#8203;EXEC_&#8203;MODE_&#8203;ENABLE</code> | <code>CL_&#8203;QUEUE_&#8203;PROFILING_&#8203;ENABLE</code>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;QUEUE_&#8203;ON_&#8203;DEVICE_&#8203;PREFERRED_&#8203;SIZE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;QUEUE_&#8203;ON_&#8203;DEVICE_&#8203;PREFERRED_&#8203;SIZE</code></p>
+<p class="tableblock"><a href="#unified-spec">Missing before</a> version 2.0.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_uint</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The size of the device queue in bytes preferred by the
         implementation.
@@ -1322,21 +1378,24 @@ device except for the following queries:</p>
 <p class="tableblock">        The minimum value is 16 KB</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;QUEUE_&#8203;ON_&#8203;DEVICE_&#8203;MAX_&#8203;SIZE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;QUEUE_&#8203;ON_&#8203;DEVICE_&#8203;MAX_&#8203;SIZE</code></p>
+<p class="tableblock"><a href="#unified-spec">Missing before</a> version 2.0.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_uint</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The max. size of the device queue in bytes.
         The minimum value is 256 KB for the full profile and 64 KB for the
         embedded profile</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;MAX_&#8203;ON_&#8203;DEVICE_&#8203;QUEUES</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;MAX_&#8203;ON_&#8203;DEVICE_&#8203;QUEUES</code></p>
+<p class="tableblock"><a href="#unified-spec">Missing before</a> version 2.0.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_uint</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The maximum number of device queues that can be created for this
         device in a single context.</p>
 <p class="tableblock">        The minimum value is 1.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;MAX_&#8203;ON_&#8203;DEVICE_&#8203;EVENTS</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;MAX_&#8203;ON_&#8203;DEVICE_&#8203;EVENTS</code></p>
+<p class="tableblock"><a href="#unified-spec">Missing before</a> version 2.0.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_uint</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The maximum number of events in use by a device queue.
         These refer to events returned by the <code>enqueue_</code> built-in functions
@@ -1345,7 +1404,8 @@ device except for the following queries:</p>
 <p class="tableblock">        The minimum value is 1024.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;BUILT_&#8203;IN_&#8203;KERNELS</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;BUILT_&#8203;IN_&#8203;KERNELS</code></p>
+<p class="tableblock"><a href="#unified-spec">Missing before</a> version 1.2.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">char[]</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A semi-colon separated list of built-in kernels supported by the
         device.
@@ -1397,7 +1457,8 @@ device except for the following queries:</p>
         1.1, 1.2, 2.0, 2.1 or 2.2.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;OPENCL_&#8203;C_&#8203;VERSION</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;OPENCL_&#8203;C_&#8203;VERSION</code></p>
+<p class="tableblock"><a href="#unified-spec">Missing before</a> version 1.1.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">char[]</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">OpenCL C version string.
         Returns the highest OpenCL C version supported by the compiler for
@@ -1419,43 +1480,37 @@ device except for the following queries:</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">char[]</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns a space separated list of extension names (the extension
         names themselves do not contain any spaces) supported by the device.
-        The list of extension names returned can be vendor supported
-        extension names and one or more of the following Khronos approved
-        extension names:</p>
-<p class="tableblock">        <strong>cl_khr_int64_base_atomics</strong><br>
-        <strong>cl_khr_int64_extended_atomics</strong><br>
-        <strong>cl_khr_fp16</strong><br>
-        <strong>cl_khr_gl_sharing</strong><br>
-        <strong>cl_khr_gl_event</strong><br>
-        <strong>cl_khr_d3d10_sharing</strong><br>
-        <strong>cl_khr_dx9_media_sharing</strong><br>
-        <strong>cl_khr_d3d11_sharing</strong><br>
-        <strong>cl_khr_gl_depth_images</strong><br>
-        <strong>cl_khr_gl_msaa_sharing</strong><br>
-        <strong>cl_khr_initialize_memory</strong><br>
-        <strong>cl_khr_terminate_context</strong><br>
-        <strong>cl_khr_spir</strong><br>
-        <strong>cl_khr_srgb_image_writes</strong></p>
-<p class="tableblock">        The following approved Khronos extension names must be returned by
-        all devices that support OpenCL C 2.0:</p>
+        The list of extension names may include Khronos approved extension
+        names and vendor specified extension names.</p>
+<p class="tableblock">        The following Khronos extension names must be returned by
+        all devices that support OpenCL 1.1:</p>
 <p class="tableblock">        <strong>cl_khr_byte_addressable_store</strong><br>
-        <strong>cl_khr_fp64</strong> (for backward compatibility if double precision is
-        supported)<br>
-        <strong>cl_khr_3d_image_writes</strong><br>
-        <strong>cl_khr_image2d_from_buffer</strong><br>
-        <strong>cl_khr_depth_images</strong></p>
-<p class="tableblock">        Please refer to the OpenCL Extension Specification for a
-        detailed description of these extensions.</p></td>
+        <strong>cl_khr_global_int32_base_atomics</strong><br>
+        <strong>cl_khr_global_int32_extended_atomics</strong><br>
+        <strong>cl_khr_local_int32_base_atomics</strong><br>
+        <strong>cl_khr_local_int32_extended_atomics</strong></p>
+<p class="tableblock">        Additionally, the following Khronos extension names must be returned
+        by all devices that support OpenCL 1.2:</p>
+<p class="tableblock">        <strong>cl_khr_fp64</strong> (if double precision is supported)</p>
+<p class="tableblock">        Additionally, the following Khronos extension names must be returned
+        by all devices that support OpenCL 2.0:</p>
+<p class="tableblock">        <strong>cl_khr_3d_image_writes</strong><br>
+        <strong>cl_khr_depth_images</strong><br>
+        <strong>cl_khr_image2d_from_buffer</strong></p>
+<p class="tableblock">        Please refer to the OpenCL Extension Specification or vendor
+        provided documentation for a detailed description of these extensions.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;PRINTF_&#8203;BUFFER_&#8203;SIZE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;PRINTF_&#8203;BUFFER_&#8203;SIZE</code></p>
+<p class="tableblock"><a href="#unified-spec">Missing before</a> version 1.2.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">size_t</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Maximum size in bytes of the internal buffer that holds the output
         of printf calls from a kernel.
         The minimum value for the FULL profile is 1 MB.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;PREFERRED_&#8203;INTEROP_&#8203;USER_&#8203;SYNC</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;PREFERRED_&#8203;INTEROP_&#8203;USER_&#8203;SYNC</code></p>
+<p class="tableblock"><a href="#unified-spec">Missing before</a> version 1.2.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_bool</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Is <code>CL_&#8203;TRUE</code> if the devices preference is for the user to be
         responsible for synchronization, when sharing memory objects between
@@ -1465,21 +1520,24 @@ device except for the following queries:</p>
         DirectX.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;PARENT_&#8203;DEVICE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;PARENT_&#8203;DEVICE</code></p>
+<p class="tableblock"><a href="#unified-spec">Missing before</a> version 1.2.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_device_id</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the cl_device_id of the parent device to which this
         sub-device belongs.
         If <em>device</em> is a root-level device, a <code>NULL</code> value is returned.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;PARTITION_&#8203;MAX_&#8203;SUB_&#8203;DEVICES</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;PARTITION_&#8203;MAX_&#8203;SUB_&#8203;DEVICES</code></p>
+<p class="tableblock"><a href="#unified-spec">Missing before</a> version 1.2.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_uint</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the maximum number of sub-devices that can be created when a
         device is partitioned.</p>
 <p class="tableblock">        The value returned cannot exceed <code>CL_&#8203;DEVICE_&#8203;MAX_&#8203;COMPUTE_&#8203;UNITS</code>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;PARTITION_&#8203;PROPERTIES</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;PARTITION_&#8203;PROPERTIES</code></p>
+<p class="tableblock"><a href="#unified-spec">Missing before</a> version 1.2.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_device_partition_ property[]</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the list of partition types supported by <em>device</em>.
         This is an array of cl_device_partition_property values drawn from
@@ -1492,7 +1550,8 @@ device except for the following queries:</p>
         subdevices), a value of 0 will be returned.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;PARTITION_&#8203;AFFINITY_&#8203;DOMAIN</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;PARTITION_&#8203;AFFINITY_&#8203;DOMAIN</code></p>
+<p class="tableblock"><a href="#unified-spec">Missing before</a> version 1.2.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_device_affinity_ domain</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the list of supported affinity domains for partitioning the
         device using <code>CL_&#8203;DEVICE_&#8203;PARTITION_&#8203;BY_&#8203;AFFINITY_&#8203;DOMAIN</code>.
@@ -1508,7 +1567,8 @@ device except for the following queries:</p>
         will be returned.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;PARTITION_&#8203;TYPE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;PARTITION_&#8203;TYPE</code></p>
+<p class="tableblock"><a href="#unified-spec">Missing before</a> version 1.2.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_device_partition_property[]</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the properties argument specified in <strong>clCreateSubDevices</strong> if
         device is a sub-device.
@@ -1529,14 +1589,16 @@ device except for the following queries:</p>
         <em>param_value</em> points to.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;REFERENCE_&#8203;COUNT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;REFERENCE_&#8203;COUNT</code></p>
+<p class="tableblock"><a href="#unified-spec">Missing before</a> version 1.2.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_uint</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the <em>device</em> reference count.
         If the device is a root-level device, a reference count of one is
         returned.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;SVM_&#8203;CAPABILITIES</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;SVM_&#8203;CAPABILITIES</code></p>
+<p class="tableblock"><a href="#unified-spec">Missing before</a> version 2.0.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_device_svm_capabilities</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Describes the various shared virtual memory (a.k.a. SVM) memory
         allocation types the device supports.
@@ -1563,7 +1625,8 @@ device except for the following queries:</p>
         <code>CL_&#8203;DEVICE_&#8203;SVM_&#8203;COARSE_&#8203;GRAIN_&#8203;BUFFER</code>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;PREFERRED_&#8203;PLATFORM_&#8203;ATOMIC_&#8203;ALIGNMENT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;PREFERRED_&#8203;PLATFORM_&#8203;ATOMIC_&#8203;ALIGNMENT</code></p>
+<p class="tableblock"><a href="#unified-spec">Missing before</a> version 2.0.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_uint</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the value representing the preferred alignment in bytes for
         OpenCL 2.0 fine-grained SVM atomic types.
@@ -1571,7 +1634,8 @@ device except for the following queries:</p>
         is aligned to the natural size of the type.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;PREFERRED_&#8203;GLOBAL_&#8203;ATOMIC_&#8203;ALIGNMENT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;PREFERRED_&#8203;GLOBAL_&#8203;ATOMIC_&#8203;ALIGNMENT</code></p>
+<p class="tableblock"><a href="#unified-spec">Missing before</a> version 2.0.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_uint</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the value representing the preferred alignment in bytes for
         OpenCL 2.0 atomic types to global memory.
@@ -1579,7 +1643,8 @@ device except for the following queries:</p>
         is aligned to the natural size of the type.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;PREFERRED_&#8203;LOCAL_&#8203;ATOMIC_&#8203;ALIGNMENT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;PREFERRED_&#8203;LOCAL_&#8203;ATOMIC_&#8203;ALIGNMENT</code></p>
+<p class="tableblock"><a href="#unified-spec">Missing before</a> version 2.0.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_uint</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the value representing the preferred alignment in bytes for
         OpenCL 2.0 atomic types to local memory.
@@ -1587,7 +1652,8 @@ device except for the following queries:</p>
         is aligned to the natural size of the type.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;MAX_&#8203;NUM_&#8203;SUB_&#8203;GROUPS</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;MAX_&#8203;NUM_&#8203;SUB_&#8203;GROUPS</code></p>
+<p class="tableblock"><a href="#unified-spec">Missing before</a> version 2.1.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_uint</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Maximum number of sub-groups in a work-group that a device is
         capable of executing on a single compute unit, for any given
@@ -1596,7 +1662,8 @@ device except for the following queries:</p>
         (Refer also to <strong>clGetKernelSubGroupInfo</strong>.)</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;SUB_&#8203;GROUP_&#8203;INDEPENDENT_&#8203;FORWARD_&#8203;PROGRESS</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;DEVICE_&#8203;SUB_&#8203;GROUP_&#8203;INDEPENDENT_&#8203;FORWARD_&#8203;PROGRESS</code></p>
+<p class="tableblock"><a href="#unified-spec">Missing before</a> version 2.1.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_bool</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Is <code>CL_&#8203;TRUE</code> if this device supports independent forward progress of
         sub-groups, <code>CL_&#8203;FALSE</code> otherwise.
@@ -1609,6 +1676,23 @@ device except for the following queries:</p>
 <dl>
 <dt class="hdlist1">4</dt>
 <dd>
+<p>OpenCL adopters must report a valid vendor ID for their implementation.
+If there is no valid PCI vendor ID defined for the physical device,
+implementations must obtain a Khronos vendor ID. This is a unique
+identifier greater than the largest PCI vendor ID(0x10000) and is
+representable by a <code>cl_uint</code>. Khronos vendor IDs are synchronized across
+APIs by utilizing Vulkan&#8217;s vk.xml as the central Khronos vendor ID registry.
+An ID must be reserved here prior to use in OpenCL, regardless of whether a
+vendor implements Vulkan. Only once the ID has been allotted may it be
+exposed to OpenCL by proposing a merge request against cl.xml, in the master
+branch of the OpenCL-Docs project. The merge must define a new enumerant by
+adding an <code>&lt;enum&gt;</code> tag to the <code>cl_khronos_vendor_id</code> <code>&lt;enums&gt;</code> tag, with the
+<code>&lt;value&gt;</code> attribute set as the acquired Khronos vendor ID. The <code>&lt;name&gt;</code>
+attribute must identify the vendor/adopter, and be of the form
+<code>CL_KHRONOS_VENDOR_ID_&lt;vendor&gt;</code>.</p>
+</dd>
+<dt class="hdlist1">5</dt>
+<dd>
 <p>A kernel that uses an image argument with the write_only or read_write
 image qualifier may result in additional read_only images resources being
 created internally by an implementation.
@@ -1617,18 +1701,11 @@ supported read image arguments given by <code>CL_&#8203;DEVICE_&#8203;MAX_&#8203
 Enqueuing a kernel that requires more images than the implementation can
 support will result in a <code>CL_&#8203;OUT_&#8203;OF_&#8203;RESOURCES</code> error being returned.</p>
 </dd>
-<dt class="hdlist1">5</dt>
+<dt class="hdlist1">6</dt>
 <dd>
 <p>NOTE: <code>CL_&#8203;DEVICE_&#8203;MAX_&#8203;WRITE_&#8203;IMAGE_&#8203;ARGS</code> is only there for backward
 compatibility.
 <code>CL_&#8203;DEVICE_&#8203;MAX_&#8203;READ_&#8203;WRITE_&#8203;IMAGE_&#8203;ARGS</code> should be used instead.</p>
-</dd>
-<dt class="hdlist1">6</dt>
-<dd>
-<p>The optional rounding modes should be included as a device capability
-only if it is supported natively.
-All explicit conversion functions with specific rounding modes must
-still operate correctly.</p>
 </dd>
 <dt class="hdlist1">7</dt>
 <dd>
@@ -1639,8 +1716,10 @@ still operate correctly.</p>
 </dd>
 <dt class="hdlist1">8</dt>
 <dd>
-<p><code>CL_&#8203;DEVICE_&#8203;QUEUE_&#8203;PROPERTIES</code> is deprecated and replaced by
-<code>CL_&#8203;DEVICE_&#8203;QUEUE_&#8203;ON_&#8203;HOST_&#8203;PROPERTIES</code>.</p>
+<p>The optional rounding modes should be included as a device capability
+only if it is supported natively.
+All explicit conversion functions with specific rounding modes must
+still operate correctly.</p>
 </dd>
 <dt class="hdlist1">9</dt>
 <dd>
@@ -1664,7 +1743,7 @@ Otherwise, it returns one of the following errors:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_&#8203;INVALID_&#8203;DEVICE</code> if <em>device</em> is not valid.</p>
+<p><code>CL_&#8203;INVALID_&#8203;DEVICE</code> if <em>device</em> is not a valid device.</p>
 </li>
 <li>
 <p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if <em>param_name</em> is not one of the supported values or
@@ -1710,7 +1789,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright">Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright (c) 2014-2019 Khronos Group. This work is licensed under a
+<p>Copyright (c) 2014-2020 Khronos Group. This work is licensed under a
 <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons
 Attribution 4.0 International License</a>.</p>
 </div>
@@ -1719,8 +1798,8 @@ Attribution 4.0 International License</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version V2.2-11-2-gbc16dca-dirty<br>
-Last updated 2019-07-24 05:39:45 -0700
+Version V2.2-11-107-g6eaa3d2-dirty<br>
+Last updated 2020-03-27 04:16:11 -0700
 </div>
 </div>
 

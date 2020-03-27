@@ -831,7 +831,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <p class="tableblock">        <code>CL_&#8203;MEM_&#8203;OBJECT_&#8203;BUFFER</code> if <em>memobj</em> is created with <strong>clCreateBuffer</strong> or
         <strong>clCreateSubBuffer</strong>.</p>
 <p class="tableblock">        cl_image_desc.image_type argument value if <em>memobj</em> is created with
-        <strong>clCreateImage</strong>.</p>
+        <strong>clCreateImage</strong>, <strong>clCreateImage2D</strong> or <strong>clCreateImage3D</strong>.</p>
 <p class="tableblock">        <code>CL_&#8203;MEM_&#8203;OBJECT_&#8203;PIPE</code> if <em>memobj</em> is created with <strong>clCreatePipe</strong>.</p></td>
 </tr>
 <tr>
@@ -841,6 +841,8 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
         with <strong>clCreateBuffer</strong>,<br>
         <strong>clCreateSubBuffer</strong>,<br>
         <strong>clCreateImage</strong> or<br>
+        <strong>clCreateImage2D</strong> or<br>
+        <strong>clCreateImage3D</strong> or<br>
         <strong>clCreatePipe</strong>.</p>
 <p class="tableblock">        If <em>memobj</em> is a sub-buffer the memory access qualifiers inherited
         from parent buffer is also returned.</p></td>
@@ -854,10 +856,10 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;MEM_&#8203;HOST_&#8203;PTR</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">void *</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">If <em>memobj</em> is created with <strong>clCreateBuffer</strong> or <strong>clCreateImage</strong> and
-        <code>CL_&#8203;MEM_&#8203;USE_&#8203;HOST_&#8203;PTR</code> is specified in mem_flags, return the host_ptr
-        argument value specified when <em>memobj</em> is created.
-        Otherwise a <code>NULL</code> value is returned.</p>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If <em>memobj</em> is created with <strong>clCreateBuffer</strong>, <strong>clCreateImage</strong>,
+        <strong>clCreateImage2D</strong> or <strong>clCreateImage3D</strong> and <code>CL_&#8203;MEM_&#8203;USE_&#8203;HOST_&#8203;PTR</code> is
+        specified in mem_flags, return the host_ptr argument value specified
+        when <em>memobj</em> is created.  Otherwise a <code>NULL</code> value is returned.</p>
 <p class="tableblock">        If <em>memobj</em> is created with <strong>clCreateSubBuffer</strong>, return the host_ptr
         +  origin value specified when <em>memobj</em> is created.
         host_ptr is the argument value specified to <strong>clCreateBuffer</strong> and
@@ -884,7 +886,8 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
         to <strong>clCreateSubBuffer</strong> is returned.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;MEM_&#8203;ASSOCIATED_&#8203;MEMOBJECT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;MEM_&#8203;ASSOCIATED_&#8203;MEMOBJECT</code></p>
+<p class="tableblock"><a href="#unified-spec">Missing before</a> version 1.1.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_mem</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return memory object from which <em>memobj</em> is created.
         This returns the memory object specified as buffer argument to
@@ -895,14 +898,16 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <p class="tableblock">        Otherwise a <code>NULL</code> value is returned.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;MEM_&#8203;OFFSET</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;MEM_&#8203;OFFSET</code></p>
+<p class="tableblock"><a href="#unified-spec">Missing before</a> version 1.1.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">size_t</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return offset if <em>memobj</em> is a sub-buffer object created using
         <strong>clCreateSubBuffer</strong>.</p>
 <p class="tableblock">        This return 0 if <em>memobj</em> is not a subbuffer object.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;MEM_&#8203;USES_&#8203;SVM_&#8203;POINTER</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;MEM_&#8203;USES_&#8203;SVM_&#8203;POINTER</code></p>
+<p class="tableblock"><a href="#unified-spec">Missing before</a> version 2.0.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cl_bool</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return <code>CL_&#8203;TRUE</code> if <em>memobj</em> is a buffer object that was created with
         <code>CL_&#8203;MEM_&#8203;USE_&#8203;HOST_&#8203;PTR</code> or is a sub-buffer object of a buffer object
@@ -980,7 +985,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright">Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright (c) 2014-2019 Khronos Group. This work is licensed under a
+<p>Copyright (c) 2014-2020 Khronos Group. This work is licensed under a
 <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons
 Attribution 4.0 International License</a>.</p>
 </div>
@@ -989,8 +994,8 @@ Attribution 4.0 International License</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version V2.2-11-2-gbc16dca-dirty<br>
-Last updated 2019-07-24 05:39:45 -0700
+Version V2.2-11-107-g6eaa3d2-dirty<br>
+Last updated 2020-03-27 04:16:11 -0700
 </div>
 </div>
 

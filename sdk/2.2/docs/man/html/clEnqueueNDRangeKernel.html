@@ -959,7 +959,13 @@ does not point to a named address space.</p>
 </li>
 <li>
 <p><code>CL_&#8203;INVALID_&#8203;WORK_&#8203;DIMENSION</code> if <em>work_dim</em> is not a valid value (i.e. a
-value between 1 and 3).</p>
+value between 1 and <code>CL_&#8203;DEVICE_&#8203;MAX_&#8203;WORK_&#8203;ITEM_&#8203;DIMENSIONS</code>).</p>
+</li>
+<li>
+<p><code>CL_&#8203;INVALID_&#8203;GLOBAL_&#8203;WORK_&#8203;SIZE</code> if <em>global_work_size</em> is NULL or if any of
+the values specified in <em>global_work_size</em>[0], &#8230;&#8203;
+<em>global_work_size</em>[<em>work_dim</em> - 1] are 0.
+Returning this error code under these circumstances is  <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">deprecated by</a> version 2.0.</p>
 </li>
 <li>
 <p><code>CL_&#8203;INVALID_&#8203;GLOBAL_&#8203;WORK_&#8203;SIZE</code> if any of the values specified in
@@ -1008,7 +1014,8 @@ greater than the corresponding values specified by
 <p><code>CL_&#8203;MISALIGNED_&#8203;SUB_&#8203;BUFFER_&#8203;OFFSET</code> if a sub-buffer object is specified as
 the value for an argument that is a buffer object and the <em>offset</em>
 specified when the sub-buffer object is created is not aligned to
-<code>CL_&#8203;DEVICE_&#8203;MEM_&#8203;BASE_&#8203;ADDR_&#8203;ALIGN</code> value for device associated with <em>queue</em>.</p>
+<code>CL_&#8203;DEVICE_&#8203;MEM_&#8203;BASE_&#8203;ADDR_&#8203;ALIGN</code> value for device associated with <em>queue</em>.
+This error code is <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.1.</p>
 </li>
 <li>
 <p><code>CL_&#8203;INVALID_&#8203;IMAGE_&#8203;SIZE</code> if an image object is specified as an argument
@@ -1089,7 +1096,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright">Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright (c) 2014-2019 Khronos Group. This work is licensed under a
+<p>Copyright (c) 2014-2020 Khronos Group. This work is licensed under a
 <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons
 Attribution 4.0 International License</a>.</p>
 </div>
@@ -1098,8 +1105,8 @@ Attribution 4.0 International License</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version V2.2-11-2-gbc16dca-dirty<br>
-Last updated 2019-07-24 05:39:45 -0700
+Version V2.2-11-107-g6eaa3d2-dirty<br>
+Last updated 2020-03-27 04:16:11 -0700
 </div>
 </div>
 

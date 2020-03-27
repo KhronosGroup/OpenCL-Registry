@@ -16,6 +16,60 @@ RewriteEngine on
 RewriteCond %{ENV:REDIRECT_STATUS} 200
 RewriteRule ^ - [L]
 
+# Redirects for aliased static pages
+
+# These are all for enumerated types in enums.html
+RewriteRule ^cl_addressing_mode.html$ enums.html
+RewriteRule ^cl_bool.html$ enums.html
+RewriteRule ^cl_buffer_create_type.html$ enums.html
+RewriteRule ^cl_build_status.html$ enums.html
+RewriteRule ^cl_channel_order.html$ enums.html
+RewriteRule ^cl_channel_type.html$ enums.html
+RewriteRule ^cl_command_queue_info.html$ enums.html
+RewriteRule ^cl_command_queue_properties.html$ enums.html
+RewriteRule ^cl_command_type.html$ enums.html
+RewriteRule ^cl_context_info.html$ enums.html
+RewriteRule ^cl_context_properties.html$ enums.html
+RewriteRule ^cl_d3d10_device_set_khr.html$ enums.html
+RewriteRule ^cl_d3d10_device_source_khr.html$ enums.html
+RewriteRule ^cl_device_affinity_domain.html$ enums.html
+RewriteRule ^cl_device_exec_capabilities.html$ enums.html
+RewriteRule ^cl_device_fp_config.html$ enums.html
+RewriteRule ^cl_device_info.html$ enums.html
+RewriteRule ^cl_device_local_mem_type.html$ enums.html
+RewriteRule ^cl_device_mem_cache_type.html$ enums.html
+RewriteRule ^cl_device_partition_property.html$ enums.html
+RewriteRule ^cl_device_type.html$ enums.html
+RewriteRule ^cl_event_info.html$ enums.html
+RewriteRule ^cl_filter_mode.html$ enums.html
+RewriteRule ^cl_gl_context_info.html$ enums.html
+RewriteRule ^cl_gl_object_type.html$ enums.html
+RewriteRule ^cl_gl_texture_info.html$ enums.html
+RewriteRule ^cl_image_info.html$ enums.html
+RewriteRule ^cl_kernel_arg_address_qualifier.html$ enums.html
+RewriteRule ^cl_kernel_arg_access_qualifier.html$ enums.html
+RewriteRule ^cl_kernel_arg_info.html$ enums.html
+RewriteRule ^cl_kernel_arg_type_qualifier.html$ enums.html
+RewriteRule ^cl_kernel_exec_info.html$ enums.html
+RewriteRule ^cl_kernel_info.html$ enums.html
+RewriteRule ^cl_kernel_work_group_info.html$ enums.html
+RewriteRule ^cl_map_flags.html$ enums.html
+RewriteRule ^cl_mem_fence_flags.html$ enums.html
+RewriteRule ^cl_mem_flags.html$ enums.html
+RewriteRule ^cl_mem_info.html$ enums.html
+RewriteRule ^cl_mem_migration_flags.html$ enums.html
+RewriteRule ^cl_mem_object_type.html$ enums.html
+RewriteRule ^cl_pipe_info.html$ enums.html
+RewriteRule ^cl_platform_info.html$ enums.html
+RewriteRule ^cl_profiling_info.html$ enums.html
+RewriteRule ^cl_program_binary_type.html$ enums.html
+RewriteRule ^cl_program_build_info.html$ enums.html
+RewriteRule ^cl_program_info.html$ enums.html
+RewriteRule ^cl_sampler_info.html$ enums.html
+RewriteRule ^cl_sampler_properties.html$ enums.html
+RewriteRule ^cl_svm_mem_flags.html$ enums.html
+RewriteRule ^memory_order.html$ enums.html
+RewriteRule ^memory_scope.html$ enums.html
 RewriteRule ^abs.html$ integerFunctions.html
 RewriteRule ^acosh.html$ mathFunctions.html
 RewriteRule ^acos.html$ mathFunctions.html
@@ -34,6 +88,8 @@ RewriteRule ^atanh.html$ mathFunctions.html
 RewriteRule ^atan.html$ mathFunctions.html
 RewriteRule ^atanpi.html$ mathFunctions.html
 RewriteRule ^atomic_double.html$ atomicTypes.html
+RewriteRule ^atomic_flag_test_and_set_explicit.html$ atomicFlagTestAndSet.html
+RewriteRule ^atomic_flag_test_and_set.html$ atomicFlagTestAndSet.html
 RewriteRule ^atomic_float.html$ atomicTypes.html
 RewriteRule ^atomic_int.html$ atomicTypes.html
 RewriteRule ^atomic_intptr_t.html$ atomicTypes.html
@@ -48,8 +104,7 @@ RewriteRule ^bitselect.html$ relationalFunctions.html
 RewriteRule ^capture_event_profiling_info.html$ eventFunctions.html
 RewriteRule ^cbrt.html$ mathFunctions.html
 RewriteRule ^ceil.html$ mathFunctions.html
-RewriteRule ^clamp_common.html$ integerFunctions.html
-RewriteRule ^clamp_integer.html$ commonFunctions.html
+RewriteRule ^clamp_integer.html$ integerFunctions.html
 RewriteRule ^cl_char.html$ appScalarTypes.html
 RewriteRule ^cl_charn.html$ appVectorTypes.html
 RewriteRule ^cl_double.html$ appScalarTypes.html
@@ -78,6 +133,9 @@ RewriteRule ^cl_ushortn.html$ appVectorTypes.html
 RewriteRule ^clz.html$ integerFunctions.html
 RewriteRule ^commit_read_pipe.html$ pipeFunctions.html
 RewriteRule ^commit_write_pipe.html$ pipeFunctions.html
+RewriteRule ^commonClamp.html$ commonFunctions.html
+RewriteRule ^commonMax.html$ commonFunctions.html
+RewriteRule ^commonMin.html$ commonFunctions.html
 RewriteRule ^copysign.html$ mathFunctions.html
 RewriteRule ^cosh.html$ mathFunctions.html
 RewriteRule ^cos.html$ mathFunctions.html
@@ -87,6 +145,7 @@ RewriteRule ^cross.html$ geometricFunctions.html
 RewriteRule ^ctz.html$ integerFunctions.html
 RewriteRule ^degrees.html$ commonFunctions.html
 RewriteRule ^distance.html$ geometricFunctions.html
+RewriteRule ^divide.html$ mathFunctions.html
 RewriteRule ^dot.html$ geometricFunctions.html
 RewriteRule ^erfc.html$ mathFunctions.html
 RewriteRule ^erf.html$ mathFunctions.html
@@ -187,9 +246,7 @@ RewriteRule ^mad_hi.html$ integerFunctions.html
 RewriteRule ^mad.html$ mathFunctions.html
 RewriteRule ^mad_sat.html$ integerFunctions.html
 RewriteRule ^MAXFLOAT.html$ mathConstants.html
-RewriteRule ^max.html$ commonFunctions.html
 RewriteRule ^maxmag.html$ mathFunctions.html
-RewriteRule ^min.html$ commonFunctions.html
 RewriteRule ^minmag.html$ mathFunctions.html
 RewriteRule ^mix.html$ commonFunctions.html
 RewriteRule ^modf.html$ mathFunctions.html
@@ -228,6 +285,7 @@ RewriteRule ^read_imagef.html$ imageReadFunctions.html
 RewriteRule ^read_imagei.html$ imageReadFunctions.html
 RewriteRule ^read_imageui.html$ imageReadFunctions.html
 RewriteRule ^read_pipe.html$ pipeFunctions.html
+RewriteRule ^recip.html$ mathFunctions.html
 RewriteRule ^release_event.html$ eventFunctions.html
 RewriteRule ^remainder.html$ mathFunctions.html
 RewriteRule ^remquo.html$ mathFunctions.html
@@ -267,6 +325,14 @@ RewriteRule ^typedef.html$ storageSpecifiers.html
 RewriteRule ^upsample.html$ integerFunctions.html
 RewriteRule ^vec_step.html$ miscVectorFunctions.html
 RewriteRule ^vec_type_hint.html$ optionalAttributeQualifiers.html
+RewriteRule ^vloada_halfn.html$ vectorDataLoadandStoreFunctions.html
+RewriteRule ^vload_half.html$ vectorDataLoadandStoreFunctions.html
+RewriteRule ^vload_halfn.html$ vectorDataLoadandStoreFunctions.html
+RewriteRule ^vloadn.html$ vectorDataLoadandStoreFunctions.html
+RewriteRule ^vstorea_halfn.html$ vectorDataLoadandStoreFunctions.html
+RewriteRule ^vstore_half.html$ vectorDataLoadandStoreFunctions.html
+RewriteRule ^vstore_halfn.html$ vectorDataLoadandStoreFunctions.html
+RewriteRule ^vstoren.html$ vectorDataLoadandStoreFunctions.html
 RewriteRule ^wait_group_events.html$ asyncCopyFunctions.html
 RewriteRule ^work_group_all.html$ workGroupFunctions.html
 RewriteRule ^work_group_any.html$ workGroupFunctions.html
