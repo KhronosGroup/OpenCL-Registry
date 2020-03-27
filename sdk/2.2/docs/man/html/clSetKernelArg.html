@@ -787,8 +787,8 @@ declared by a kernel (see below).</p>
 </li>
 <li>
 <p><em>arg_size</em> specifies the size of the argument value.
-If the argument is a memory object, the size is the size of the memory
-object.
+If the argument is a memory object, the <em>arg_size</em> value must be equal to
+<code>sizeof(cl_mem)</code>.
 For arguments declared with the <code>local</code> qualifier, the size specified will
 be the size in bytes of the buffer that must be allocated for the <code>local</code>
 argument.
@@ -805,8 +805,8 @@ The argument data pointed to by <em>arg_value</em> is copied and the <em>arg_val
 pointer can therefore be reused by the application after <strong>clSetKernelArg</strong>
 returns.
 The argument value specified is the value used by all API calls that enqueue
-<em>kernel</em> (<strong>clEnqueueNDRangeKernel</strong>) until the argument value is changed by a
-call to <strong>clSetKernelArg</strong> for <em>kernel</em>.</p>
+<em>kernel</em> (<strong>clEnqueueNDRangeKernel</strong> and <strong>clEnqueueTask</strong>) until the argument
+value is changed by a call to <strong>clSetKernelArg</strong> for <em>kernel</em>.</p>
 </li>
 </ul>
 </div>
@@ -941,7 +941,8 @@ when the specified <em>arg_value</em> is not a valid sampler object.</p>
 </li>
 <li>
 <p><code>CL_&#8203;INVALID_&#8203;DEVICE_&#8203;QUEUE</code> for an argument declared to be of type <em>queue_t</em>
-when the specified <em>arg_value</em> is not a valid device queue object.</p>
+when the specified <em>arg_value</em> is not a valid device queue object.
+This error code is <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.0.</p>
 </li>
 <li>
 <p><code>CL_&#8203;INVALID_&#8203;ARG_&#8203;SIZE</code> if <em>arg_size</em> does not match the size of the data
@@ -952,13 +953,11 @@ argument is a sampler and <em>arg_size</em> != <code>sizeof(cl_sampler)</code>.<
 </li>
 <li>
 <p><code>CL_&#8203;MAX_&#8203;SIZE_&#8203;RESTRICTION_&#8203;EXCEEDED</code> if the size in bytes of the memory
-object (if the argument was declared with constant qualifier) or
-<em>arg_size</em> (if the argument was declared with local qualifier) exceed
-the maximum size restriction that was set with the optional language
-attribute.
-The optional attribute can be <code>cl::max_size</code> defined in OpenCL 2.2 C&#43;&#43;
-Kernel Language specification or <code>SpvDecorationMaxByteOffset</code> defined
-in SPIR-V 1.2 Specification.</p>
+object (if the argument is a memory object) or <em>arg_size</em> (if the
+argument is declared with <code>local</code> qualifier) exceeds a language-
+specified maximum size restriction for this argument, such as the
+<strong>MaxByteOffset</strong> SPIR-V decoration.
+This error code is <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.2.</p>
 </li>
 <li>
 <p><code>CL_&#8203;INVALID_&#8203;ARG_&#8203;VALUE</code> if the argument is an image declared with the
@@ -1003,7 +1002,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright">Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright (c) 2014-2019 Khronos Group. This work is licensed under a
+<p>Copyright (c) 2014-2020 Khronos Group. This work is licensed under a
 <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons
 Attribution 4.0 International License</a>.</p>
 </div>
@@ -1012,8 +1011,8 @@ Attribution 4.0 International License</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version V2.2-11-2-gbc16dca-dirty<br>
-Last updated 2019-07-24 05:39:45 -0700
+Version V2.2-11-107-g6eaa3d2-dirty<br>
+Last updated 2020-03-27 04:16:11 -0700
 </div>
 </div>
 

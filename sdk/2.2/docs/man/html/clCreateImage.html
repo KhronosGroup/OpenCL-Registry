@@ -785,31 +785,31 @@ created.</p>
 <li>
 <p><em>flags</em> is a bit-field that is used to specify allocation and usage
 information about the image memory object being created and is described in
-the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#memory-flags-table" target="_blank" rel="noopener">Memory Flags</a> table.</p>
+the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#memory-flags-table" target="_blank" rel="noopener">supported memory flag values</a> table.</p>
 </li>
 <li>
 <p><em>image_format</em> is a pointer to a structure that describes format properties
 of the image to be allocated.
 A 1D image buffer or 2D image can be created from a buffer by specifying a
-buffer object in the <em>image_desc&#8594;mem_object</em>.
+buffer object in the <em>image_desc</em>&#8594;<em>mem_object</em>.
 A 2D image can be created from another 2D image object by specifying an
-image object in the <em>image_desc</em>&#8594;_mem_object_.
-Refer to <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#image-format-descriptor" target="_blank" rel="noopener">Image Format Descriptor</a> for a detailed
-description of the image format descriptor.</p>
+image object in the <em>image_desc</em>&#8594;<em>mem_object</em>.
+Refer to the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#image-format-descriptor" target="_blank" rel="noopener">Image Format Descriptor</a> section
+for a detailed description of the image format descriptor.</p>
 </li>
 <li>
 <p><em>image_desc</em> is a pointer to a structure that describes type and dimensions
 of the image to be allocated.
-Refer to <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#image-descriptor" target="_blank" rel="noopener">Image Descriptor</a> for a detailed description
-of the image descriptor.</p>
+Refer to the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#image-descriptor" target="_blank" rel="noopener">Image Descriptor</a> section for a detailed
+description of the image descriptor.</p>
 </li>
 <li>
 <p><em>host_ptr</em> is a pointer to the image data that may already be allocated by
 the application.
 It is only used to initialize the image, and can be freed after the call to
 <strong>clCreateImage</strong>.
-Refer to table below for a description of how large the buffer that
-<em>host_ptr</em> points to must be.</p>
+Refer to the <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#host-ptr-buffer-size-table" target="_blank" rel="noopener">table below</a> for a description
+of how large the buffer that <em>host_ptr</em> points to must be.</p>
 </li>
 </ul>
 </div>
@@ -819,8 +819,8 @@ Refer to table below for a description of how large the buffer that
 <h2 id="_description">Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For all image types except <code>CL_&#8203;MEM_&#8203;OBJECT_&#8203;IMAGE1D_&#8203;BUFFER</code>, if value specified
-for <em>flags</em> is 0, the default is used which is <code>CL_&#8203;MEM_&#8203;READ_&#8203;WRITE</code>.</p>
+<p>For all image types except <code>CL_&#8203;MEM_&#8203;OBJECT_&#8203;IMAGE1D_&#8203;BUFFER</code>, if the value
+specified for <em>flags</em> is 0, the default is used which is <code>CL_&#8203;MEM_&#8203;READ_&#8203;WRITE</code>.</p>
 </div>
 <div class="paragraph">
 <p>For <code>CL_&#8203;MEM_&#8203;OBJECT_&#8203;IMAGE1D_&#8203;BUFFER</code> image type, or an image created from
@@ -839,7 +839,8 @@ If the <code>CL_&#8203;MEM_&#8203;HOST_&#8203;WRITE_&#8203;ONLY</code>, <code>CL
 inherited from the corresponding memory access qualifiers associated with
 <em>mem_object</em>.</p>
 </div>
-<table class="tableblock frame-all grid-all stretch">
+<table id="host-ptr-buffer-size-table" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Required <em>host_ptr</em> buffer sizes for images</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -852,11 +853,13 @@ inherited from the corresponding memory access qualifiers associated with
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;MEM_&#8203;OBJECT_&#8203;IMAGE1D</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;MEM_&#8203;OBJECT_&#8203;IMAGE1D</code></p>
+<p class="tableblock"><a href="#unified-spec">Missing before</a> version 1.2.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">≥ image_row_pitch</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;MEM_&#8203;OBJECT_&#8203;IMAGE1D_&#8203;BUFFER</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;MEM_&#8203;OBJECT_&#8203;IMAGE1D_&#8203;BUFFER</code></p>
+<p class="tableblock"><a href="#unified-spec">Missing before</a> version 1.2.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">≥ image_row_pitch</p></td>
 </tr>
 <tr>
@@ -868,11 +871,13 @@ inherited from the corresponding memory access qualifiers associated with
 <td class="tableblock halign-left valign-top"><p class="tableblock">≥ image_slice_pitch × image_depth</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;MEM_&#8203;OBJECT_&#8203;IMAGE1D_&#8203;ARRAY</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;MEM_&#8203;OBJECT_&#8203;IMAGE1D_&#8203;ARRAY</code></p>
+<p class="tableblock"><a href="#unified-spec">Missing before</a> version 1.2.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">≥ image_slice_pitch × image_array_size</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;MEM_&#8203;OBJECT_&#8203;IMAGE2D_&#8203;ARRAY</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;MEM_&#8203;OBJECT_&#8203;IMAGE2D_&#8203;ARRAY</code></p>
+<p class="tableblock"><a href="#unified-spec">Missing before</a> version 1.2.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">≥ image_slice_pitch × image_array_size</p></td>
 </tr>
 </tbody>
@@ -900,12 +905,16 @@ adjacent elements.</p>
 stored as a single scanline which is a linear sequence of adjacent elements.</p>
 </div>
 <div class="paragraph">
-<p>Image elements are stored according to their image format as described in
-<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#image-format-descriptor" target="_blank" rel="noopener">Image Format Descriptor</a>.</p>
+<p>Image elements are stored according to their image format as described in the
+<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#image-format-descriptor" target="_blank" rel="noopener">Image Format Descriptor</a> section.</p>
 </div>
-<div class="paragraph">
+<div class="ulist">
+<ul>
+<li>
 <p><em>errcode_ret</em> will return an appropriate error code.
 If <em>errcode_ret</em> is <code>NULL</code>, no error code is returned.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p><strong>clCreateImage</strong> returns a valid non-zero image object created and the
@@ -1016,7 +1025,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright">Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright (c) 2014-2019 Khronos Group. This work is licensed under a
+<p>Copyright (c) 2014-2020 Khronos Group. This work is licensed under a
 <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons
 Attribution 4.0 International License</a>.</p>
 </div>
@@ -1025,8 +1034,8 @@ Attribution 4.0 International License</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version V2.2-11-2-gbc16dca-dirty<br>
-Last updated 2019-07-24 05:39:45 -0700
+Version V2.2-11-107-g6eaa3d2-dirty<br>
+Last updated 2020-03-27 04:16:11 -0700
 </div>
 </div>
 

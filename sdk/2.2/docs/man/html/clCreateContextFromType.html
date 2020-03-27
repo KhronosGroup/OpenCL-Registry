@@ -757,7 +757,7 @@ p.tableblock.header { color: #6d6e71; }
 <h2 id="_c_specification">C Specification</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To create an OpenCL context from a specific device type<sup>11</sup>, call the
+<p>To create an OpenCL context from a specific device type<sup>10</sup>, call the
 function:</p>
 </div>
 <div id="clCreateContextFromType" class="listingblock">
@@ -765,7 +765,7 @@ function:</p>
 <pre class="highlight"><code class="language-c++" data-lang="c++">cl_context clCreateContextFromType(
     const cl_context_properties* properties,
     cl_device_type device_type,
-    void (CL_CALLBACK* pfn_notify)(const char*, const void*, size_t, void*),
+    void (CL_CALLBACK* pfn_notify)(const char* errinfo, const void* private_info, size_t cb, void* user_data),
     void* user_data,
     cl_int* errcode_ret);</code></pre>
 </div>
@@ -813,7 +813,7 @@ from these devices.</p>
 </div>
 <div class="dlist">
 <dl>
-<dt class="hdlist1">11</dt>
+<dt class="hdlist1">10</dt>
 <dd>
 <p><strong>clCreateContextFromType</strong> may return all or a subset of the actual
 physical devices present in the platform and that match device_type.</p>
@@ -837,7 +837,8 @@ platform.</p>
 <p><code>CL_&#8203;INVALID_&#8203;PROPERTY</code> if context property name in <em>properties</em> is not a
 supported property name, if the value specified for a supported property
 name is not valid, or if the same property name is specified more than
-once.</p>
+once.
+This error code is <a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.1.</p>
 </li>
 <li>
 <p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if <em>pfn_notify</em> is <code>NULL</code> but <em>user_data</em> is not
@@ -890,7 +891,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright">Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright (c) 2014-2019 Khronos Group. This work is licensed under a
+<p>Copyright (c) 2014-2020 Khronos Group. This work is licensed under a
 <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons
 Attribution 4.0 International License</a>.</p>
 </div>
@@ -899,8 +900,8 @@ Attribution 4.0 International License</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version V2.2-11-2-gbc16dca-dirty<br>
-Last updated 2019-07-24 05:39:45 -0700
+Version V2.2-11-107-g6eaa3d2-dirty<br>
+Last updated 2020-03-27 04:16:11 -0700
 </div>
 </div>
 
