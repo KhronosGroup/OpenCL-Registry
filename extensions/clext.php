@@ -119,4 +119,8 @@
 </li>
 <li value=60><a href="extensions/intel/cl_intel_subgroups_long.html">cl_intel_subgroups_long</a>
 </li>
+<li value=61><a href="extensions/intel/cl_intel_create_buffer_with_properties.html">cl_intel_create_buffer_with_properties</a>
+</li>
+<li value=62><a href="extensions/intel/cl_intel_mem_channel_property.html">cl_intel_mem_channel_property</a>
+</li>
 </ol>
