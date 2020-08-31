@@ -175,9 +175,6 @@ include_once("../../assets/static_pages/khr_page_top.php");
      OpenCL 1.2 Reference Pages.</a> </li>
 <li> <a href="http://www.khronos.org/registry/OpenCL//sdk/1.2/docs/OpenCL-1.2-refcard.pdf">
      OpenCL 1.2 Quick Reference Card.</a> </li>
-<li> OpenCL 1.2 C++ Bindings
-     <a href="specs/opencl-cplusplus-1.2.pdf">
-     Specification </a> </li>
 </ul>
 
 
@@ -195,9 +192,6 @@ include_once("../../assets/static_pages/khr_page_top.php");
      OpenCL 1.1 Reference Pages.</a> </li>
 <li> <a href="http://www.khronos.org/registry/OpenCL//sdk/1.1/docs/OpenCL-1.1-refcard.pdf">
      OpenCL 1.1 Reference Card.</a> </li>
-<li> OpenCL 1.1 C++ Bindings
-     <a href="specs/opencl-cplusplus-1.1.pdf">
-     Specification </a> </li>
 </ul>
 
 
