@@ -126,6 +126,11 @@ registry = {
         'flags' : { 'public' },
         'url' : 'extensions/intel/cl_intel_advanced_motion_estimation.txt',
     },
+    'cl_intel_create_buffer_with_properties' : {
+        'number' : 61,
+        'flags' : { 'public' },
+        'url' : 'extensions/intel/cl_intel_create_buffer_with_properties.html',
+    },
     'cl_intel_d3d11_nv12_media_sharing' : {
         'number' : 31,
         'flags' : { 'public' },
@@ -160,6 +165,11 @@ registry = {
         'number' : 51,
         'flags' : { 'public' },
         'url' : 'extensions/intel/cl_intel_media_block_io.txt',
+    },
+    'cl_intel_mem_channel_property' : {
+        'number' : 62,
+        'flags' : { 'public' },
+        'url' : 'extensions/intel/cl_intel_mem_channel_property.html',
     },
     'cl_intel_motion_estimation' : {
         'number' : 23,
