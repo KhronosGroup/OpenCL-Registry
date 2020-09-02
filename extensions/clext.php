@@ -123,4 +123,6 @@
 </li>
 <li value=62><a href="extensions/intel/cl_intel_mem_channel_property.html">cl_intel_mem_channel_property</a>
 </li>
+<li value=63><a href="extensions/arm/cl_arm_scheduling_controls.html">cl_arm_scheduling_controls</a>
+</li>
 </ol>

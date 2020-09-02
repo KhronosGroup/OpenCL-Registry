@@ -81,6 +81,11 @@ registry = {
         'flags' : { 'public' },
         'url' : 'extensions/arm/cl_arm_integer_dot_product.txt',
     },
+    'cl_arm_scheduling_controls' : {
+        'number' : 63,
+        'flags' : { 'public' },
+        'url' : 'extensions/arm/cl_arm_scheduling_controls.html',
+    },
     'cl_ext_atomic_counters_32' : {
         'number' : 12,
         'flags' : { 'public' },
