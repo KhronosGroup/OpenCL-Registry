@@ -96,6 +96,11 @@ registry = {
         'flags' : { 'public' },
         'url' : 'extensions/ext/cl_ext_atomic_counters_64.txt',
     },
+    'cl_ext_cxx_for_opencl' : {
+        'number' : 64,
+        'flags' : { 'public' },
+        'url' : 'extensions/ext/cl_ext_cxx_for_opencl.html',
+    },
     'cl_ext_device_fission' : {
         'number' : 11,
         'flags' : { 'public' },
