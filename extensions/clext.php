@@ -125,4 +125,6 @@
 </li>
 <li value=63><a href="extensions/arm/cl_arm_scheduling_controls.html">cl_arm_scheduling_controls</a>
 </li>
+<li value=64><a href="extensions/ext/cl_ext_cxx_for_opencl.html">cl_ext_cxx_for_opencl</a>
+</li>
 </ol>
