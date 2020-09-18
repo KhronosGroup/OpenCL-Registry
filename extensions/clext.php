@@ -127,4 +127,6 @@
 </li>
 <li value=64><a href="extensions/ext/cl_ext_cxx_for_opencl.html">cl_ext_cxx_for_opencl</a>
 </li>
+<li value=65><a href="extensions/intel/cl_intel_mem_force_host_memory.html">cl_intel_mem_force_host_memory</a>
+</li>
 </ol>
