@@ -181,6 +181,11 @@ registry = {
         'flags' : { 'public' },
         'url' : 'extensions/intel/cl_intel_mem_channel_property.html',
     },
+    'cl_intel_mem_force_host_memory' : {
+        'number' : 65,
+        'flags' : { 'public' },
+        'url' : 'extensions/intel/cl_intel_mem_force_host_memory.html',
+    },
     'cl_intel_motion_estimation' : {
         'number' : 23,
         'flags' : { 'public' },
