@@ -841,9 +841,9 @@ table.CodeRay td.code>pre{padding:0}
 <h1>The OpenCL<sup>&#8482;</sup> SPIR-V Environment Specification</h1>
 <div class="details">
 <span id="author" class="author">Khronos<sup>&#174;</sup> OpenCL Working Group</span><br>
-<span id="revnumber">version v3.0.1-Provisional,</span>
-<span id="revdate">Mon, 27 Apr 2020 04:09:40 +0000</span>
-<br><span id="revremark">from git branch: master commit: fafc202e2b6a80bd2276596227317696d76e1f63</span>
+<span id="revnumber">version v3.0.5,</span>
+<span id="revdate">Wed, 30 Sep 2020 00:00:00 +0000</span>
+<br><span id="revremark">from git branch: master commit: 4d8a36725aa8af9658ab5cb62fdbf52adb44bcca</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -859,6 +859,7 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#_image_channel_order_mapping">2.6. Image Channel Order Mapping</a></li>
 <li><a href="#_image_channel_data_type_mapping">2.7. Image Channel Data Type Mapping</a></li>
 <li><a href="#_kernels">2.8. Kernels</a></li>
+<li><a href="#_built_in_variables">2.9. Built-in Variables</a></li>
 </ul>
 </li>
 <li><a href="#required-capabilities">3. Required Capabilities</a>
@@ -951,7 +952,7 @@ respective owners.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="introduction">1. Introduction</h2>
+<h2 id="introduction"><a class="anchor" href="#introduction"></a>1. Introduction</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><a href="#opencl-spec">OpenCL</a> is an open, royalty-free, standard for general
@@ -980,28 +981,10 @@ modules intended to be consumed by the OpenCL API, for implementors of the
 OpenCL API who are consuming SPIR-V modules, and for software developers who
 are using SPIR-V modules with the OpenCL API.</p>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>The OpenCL 3.0 SPIR-V Environment described in this specification is provisional.
-It has been Ratified under the Khronos Intellectual Property Framework, and is being made publicly available to enable review and feedback from the community.</p>
-</div>
-<div class="paragraph">
-<p>If you have feedback please create an issue on <a href="https://github.com/KhronosGroup/OpenCL-Docs/" class="bare">https://github.com/KhronosGroup/OpenCL-Docs/</a></p>
-</div>
-</td>
-</tr>
-</table>
-</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="common-properties">2. Common Properties</h2>
+<h2 id="common-properties"><a class="anchor" href="#common-properties"></a>2. Common Properties</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This section describes common properties of all OpenCL environments that
@@ -1015,24 +998,24 @@ The first few words of the SPIR-V module must be a magic number and a SPIR-V
 version number, as described in the SPIR-V specification.</p>
 </div>
 <div class="sect2">
-<h3 id="_supported_spir_v_versions">2.1. Supported SPIR-V Versions</h3>
+<h3 id="_supported_spir_v_versions"><a class="anchor" href="#_supported_spir_v_versions"></a>2.1. Supported SPIR-V Versions</h3>
 <div class="paragraph">
 <p>An OpenCL environment describes the versions of SPIR-V modules that it
-supports using the <code>CL_&#8203;DEVICE_&#8203;IL_&#8203;VERSION</code> query in OpenCL 2.1 or newer,
-the <code>CL_&#8203;DEVICE_&#8203;ILS_&#8203;WITH_&#8203;VERSION</code> query in OpenCL 3.0 or newer, or the
-<code>CL_&#8203;DEVICE_&#8203;IL_&#8203;VERSION_&#8203;KHR</code> query in the <code>cl_khr_il_program</code> extension.</p>
+supports using the <code>CL_DEVICE_<wbr>IL_<wbr>VERSION</code> query in OpenCL 2.1 or newer,
+the <code>CL_DEVICE_<wbr>ILS_<wbr>WITH_<wbr>VERSION</code> query in OpenCL 3.0 or newer, or the
+<code>CL_DEVICE_<wbr>IL_<wbr>VERSION_<wbr>KHR</code> query in the <code>cl_khr_il_program</code> extension.</p>
 </div>
 <div class="paragraph">
 <p>OpenCL environments that support the <code>cl_khr_il_program</code> extension or
 OpenCL 2.1 must support SPIR-V 1.0 modules.  OpenCL environments that support
 OpenCL 2.2 must support SPIR-V 1.0, 1.1, and 1.2 modules.
-Use the <code>CL_&#8203;DEVICE_&#8203;IL_&#8203;VERSION</code> or <code>CL_&#8203;DEVICE_&#8203;ILS_&#8203;WITH_&#8203;VERSION</code> query
+Use the <code>CL_DEVICE_<wbr>IL_<wbr>VERSION</code> or <code>CL_DEVICE_<wbr>ILS_<wbr>WITH_<wbr>VERSION</code> query
 to determine the versions of SPIR-V modules that are supported by
 OpenCL environments that support OpenCL 3.0.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_extended_instruction_sets">2.2. Extended Instruction Sets</h3>
+<h3 id="_extended_instruction_sets"><a class="anchor" href="#_extended_instruction_sets"></a>2.2. Extended Instruction Sets</h3>
 <div class="paragraph">
 <p>OpenCL environments supporting SPIR-V must support SPIR-V modules that import
 the <strong>OpenCL.std</strong>
@@ -1046,7 +1029,7 @@ using <strong>OpExtInstImport</strong>. For example:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_source_language_encoding">2.3. Source Language Encoding</h3>
+<h3 id="_source_language_encoding"><a class="anchor" href="#_source_language_encoding"></a>2.3. Source Language Encoding</h3>
 <div class="paragraph">
 <p>If a SPIR-V module represents a program written in OpenCL C, then the
 <em>Source Language</em> operand for the <strong>OpSource</strong> instruction should be
@@ -1070,7 +1053,7 @@ meaning.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_numerical_type_formats">2.4. Numerical Type Formats</h3>
+<h3 id="_numerical_type_formats"><a class="anchor" href="#_numerical_type_formats"></a>2.4. Numerical Type Formats</h3>
 <div class="paragraph">
 <p>For all OpenCL environments, floating-point types are represented and stored
 using <a href="#ieee-754-spec">IEEE-754</a> semantics.
@@ -1078,7 +1061,7 @@ All integer formats are represented and stored using 2&#8217;s-complement format
 </div>
 </div>
 <div class="sect2">
-<h3 id="_supported_types">2.5. Supported Types</h3>
+<h3 id="_supported_types"><a class="anchor" href="#_supported_types"></a>2.5. Supported Types</h3>
 <div class="paragraph">
 <p>The following types are supported by OpenCL environments.
 Note that some types may require additional capabilities, and may not be
@@ -1090,7 +1073,7 @@ declared using <strong>OpTypeStruct</strong>, functions declared using <strong>O
 and pointers declared using <strong>OpTypePointer</strong>.</p>
 </div>
 <div class="sect3">
-<h4 id="_basic_scalar_and_vector_types">2.5.1. Basic Scalar and Vector Types</h4>
+<h4 id="_basic_scalar_and_vector_types"><a class="anchor" href="#_basic_scalar_and_vector_types"></a>2.5.1. Basic Scalar and Vector Types</h4>
 <div class="paragraph">
 <p><strong>OpTypeVoid</strong> is supported.</p>
 </div>
@@ -1119,7 +1102,7 @@ Supported vector <em>Component Counts</em> are 2, 3, 4, 8, or 16.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_image_related_data_types">2.5.2. Image-Related Data Types</h4>
+<h4 id="_image_related_data_types"><a class="anchor" href="#_image_related_data_types"></a>2.5.2. Image-Related Data Types</h4>
 <div class="paragraph">
 <p>The following table describes the <strong>OpTypeImage</strong> image types supported by
 OpenCL environments:</p>
@@ -1196,7 +1179,7 @@ OpenCL environments:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_other_data_types">2.5.3. Other Data Types</h4>
+<h4 id="_other_data_types"><a class="anchor" href="#_other_data_types"></a>2.5.3. Other Data Types</h4>
 <div class="paragraph">
 <p>The following table describes other data types that may be used in an
 OpenCL environment:</p>
@@ -1239,7 +1222,7 @@ OpenCL environment:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_image_channel_order_mapping">2.6. Image Channel Order Mapping</h3>
+<h3 id="_image_channel_order_mapping"><a class="anchor" href="#_image_channel_order_mapping"></a>2.6. Image Channel Order Mapping</h3>
 <div class="paragraph">
 <p>The following table describes how the results of the SPIR-V
 <strong>OpImageQueryOrder</strong> instruction correspond to the OpenCL host API image
@@ -1338,7 +1321,7 @@ channel orders.</p>
 </table>
 </div>
 <div class="sect2">
-<h3 id="_image_channel_data_type_mapping">2.7. Image Channel Data Type Mapping</h3>
+<h3 id="_image_channel_data_type_mapping"><a class="anchor" href="#_image_channel_data_type_mapping"></a>2.7. Image Channel Data Type Mapping</h3>
 <div class="paragraph">
 <p>The following table describes how the results of the SPIR-V
 <strong>OpImageQueryFormat</strong> instruction correspond to the OpenCL host API image
@@ -1390,6 +1373,10 @@ channel data types.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_UNORM_INT_101010</code></p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>UnormInt101010_2</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_UNORM_INT_101010_2</code></p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>SignedInt8</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_SIGNED_INT8</code></p></td>
 </tr>
@@ -1425,21 +1412,21 @@ channel data types.</p>
 </table>
 </div>
 <div class="sect2">
-<h3 id="_kernels">2.8. Kernels</h3>
+<h3 id="_kernels"><a class="anchor" href="#_kernels"></a>2.8. Kernels</h3>
 <div class="paragraph">
 <p>An <strong>OpFunction</strong> in a SPIR-V module that is identified with <strong>OpEntryPoint</strong>
 defines an OpenCL kernel that may be invoked using the OpenCL host API
 enqueue kernel interfaces.</p>
 </div>
 <div class="sect3">
-<h4 id="_kernel_return_types">2.8.1. Kernel Return Types</h4>
+<h4 id="_kernel_return_types"><a class="anchor" href="#_kernel_return_types"></a>2.8.1. Kernel Return Types</h4>
 <div class="paragraph">
 <p>The <em>Result Type</em> for an <strong>OpFunction</strong> identified with <strong>OpEntryPoint</strong> must be
 <strong>OpTypeVoid</strong>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_kernel_arguments">2.8.2. Kernel Arguments</h4>
+<h4 id="_kernel_arguments"><a class="anchor" href="#_kernel_arguments"></a>2.8.2. Kernel Arguments</h4>
 <div class="paragraph">
 <p>An <strong>OpFunctionParameter</strong> for an <strong>OpFunction</strong> that is identified with
 <strong>OpEntryPoint</strong> defines an OpenCL kernel argument.
@@ -1531,13 +1518,21 @@ additional types in an entry point&#8217;s parameter list.</p>
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_built_in_variables"><a class="anchor" href="#_built_in_variables"></a>2.9. Built-in Variables</h3>
+<div class="paragraph">
+<p>An <strong>OpVariable</strong> in a SPIR-V module with the <strong>BuiltIn</strong> decoration represents
+a built-in variable.
+All built-in variables must be in the <strong>Input</strong> storage class.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="required-capabilities">3. Required Capabilities</h2>
+<h2 id="required-capabilities"><a class="anchor" href="#required-capabilities"></a>3. Required Capabilities</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="required-capabilities-1.0">3.1. SPIR-V 1.0</h3>
+<h3 id="required-capabilities-1.0"><a class="anchor" href="#required-capabilities-1.0"></a>3.1. SPIR-V 1.0</h3>
 <div class="paragraph">
 <p>An OpenCL environment that supports SPIR-V 1.0 must support SPIR-V 1.0
 modules that declare the following capabilities:</p>
@@ -1580,7 +1575,7 @@ modules that declare the following capabilities:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>For OpenCL 2.0, OpenCL 2.1, OpenCL 2.2, or OpenCL 3.0 devices supporting Device-Side Enqueue (where <code>CL_&#8203;DEVICE_&#8203;DEVICE_&#8203;ENQUEUE_&#8203;SUPPORT</code> is <code>CL_&#8203;TRUE</code>).</p>
+<p>For OpenCL 2.0, OpenCL 2.1, OpenCL 2.2, or OpenCL 3.0 devices supporting Device-Side Enqueue (where <code>CL_DEVICE_<wbr>DEVICE_<wbr>ENQUEUE_<wbr>CAPABILITIES</code> is not <code>0</code>).</p>
 </li>
 </ul>
 </div>
@@ -1590,7 +1585,7 @@ modules that declare the following capabilities:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>For OpenCL 2.0, OpenCL 2.1, OpenCL 2.2, or OpenCL 3.0 devices supporting the Generic Address Space (where <code>CL_&#8203;DEVICE_&#8203;GENERIC_&#8203;ADDRESS_&#8203;SPACE_&#8203;SUPPORT</code> is <code>CL_&#8203;TRUE</code>).</p>
+<p>For OpenCL 2.0, OpenCL 2.1, OpenCL 2.2, or OpenCL 3.0 devices supporting the Generic Address Space (where <code>CL_DEVICE_<wbr>GENERIC_<wbr>ADDRESS_<wbr>SPACE_<wbr>SUPPORT</code> is <code>CL_TRUE</code>).</p>
 </li>
 </ul>
 </div>
@@ -1600,7 +1595,7 @@ modules that declare the following capabilities:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>For OpenCL 2.0, OpenCL 2.1, OpenCL 2.2, or OpenCL 3.0 devices supporting Subgroups (where <code>CL_&#8203;DEVICE_&#8203;MAX_&#8203;NUM_&#8203;SUB_&#8203;GROUPS</code> is not <code>0</code>) or Work Group Collective Functions (where <code>CL_&#8203;DEVICE_&#8203;WORK_&#8203;GROUP_&#8203;COLLECTIVE_&#8203;FUNCTIONS_&#8203;SUPPORT</code> is <code>CL_&#8203;TRUE</code>).</p>
+<p>For OpenCL 2.0, OpenCL 2.1, OpenCL 2.2, or OpenCL 3.0 devices supporting Subgroups (where <code>CL_DEVICE_<wbr>MAX_<wbr>NUM_<wbr>SUB_<wbr>GROUPS</code> is not <code>0</code>) or Work Group Collective Functions (where <code>CL_DEVICE_<wbr>WORK_<wbr>GROUP_<wbr>COLLECTIVE_<wbr>FUNCTIONS_<wbr>SUPPORT</code> is <code>CL_TRUE</code>).</p>
 </li>
 </ul>
 </div>
@@ -1610,7 +1605,7 @@ modules that declare the following capabilities:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>For OpenCL 2.0, OpenCL 2.1, OpenCL 2.2, or OpenCL 3.0 devices supporting Pipes (where <code>CL_&#8203;DEVICE_&#8203;PIPE_&#8203;SUPPORT</code> is <code>CL_&#8203;TRUE</code>).</p>
+<p>For OpenCL 2.0, OpenCL 2.1, OpenCL 2.2, or OpenCL 3.0 devices supporting Pipes (where <code>CL_DEVICE_<wbr>PIPE_<wbr>SUPPORT</code> is <code>CL_TRUE</code>).</p>
 </li>
 </ul>
 </div>
@@ -1620,7 +1615,7 @@ modules that declare the following capabilities:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>For devices supporting Images (where <code>CL_&#8203;DEVICE_&#8203;IMAGE_&#8203;SUPPORT</code> is <code>CL_&#8203;TRUE</code>)</p>
+<p>For devices supporting Images (where <code>CL_DEVICE_<wbr>IMAGE_<wbr>SUPPORT</code> is <code>CL_TRUE</code>)</p>
 </li>
 </ul>
 </div>
@@ -1630,7 +1625,7 @@ modules that declare the following capabilities:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>For devices supporting Double Precision Floating-Point (where <code>CL_&#8203;DEVICE_&#8203;DOUBLE_&#8203;FP_&#8203;CONFIG</code> is not <code>0</code>)</p>
+<p>For devices supporting Double Precision Floating-Point (where <code>CL_DEVICE_<wbr>DOUBLE_<wbr>FP_<wbr>CONFIG</code> is not <code>0</code>)</p>
 </li>
 </ul>
 </div>
@@ -1663,7 +1658,7 @@ the following capabilities must also be supported:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>For OpenCL 2.0, OpenCL 2.1, OpenCL 2.2, or OpenCL 3.0 devices supporting Read-Write Images (where <code>CL_&#8203;DEVICE_&#8203;MAX_&#8203;READ_&#8203;WRITE_&#8203;IMAGE_&#8203;ARGS</code> is not <code>0</code>)</p>
+<p>For OpenCL 2.0, OpenCL 2.1, OpenCL 2.2, or OpenCL 3.0 devices supporting Read-Write Images (where <code>CL_DEVICE_<wbr>MAX_<wbr>READ_<wbr>WRITE_<wbr>IMAGE_<wbr>ARGS</code> is not <code>0</code>)</p>
 </li>
 </ul>
 </div>
@@ -1672,7 +1667,7 @@ the following capabilities must also be supported:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="required-capabilities-1.1">3.2. SPIR-V 1.1</h3>
+<h3 id="required-capabilities-1.1"><a class="anchor" href="#required-capabilities-1.1"></a>3.2. SPIR-V 1.1</h3>
 <div class="paragraph">
 <p>An OpenCL environment supporting SPIR-V 1.1 must support SPIR-V 1.1
 modules that declare the capabilities required for SPIR-V 1.0 modules,
@@ -1689,7 +1684,7 @@ SPIR-V 1.1 modules that declare the following capabilities:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>For OpenCL 2.2 devices, or OpenCL 3.0 devices supporting Subgroups (where <code>CL_&#8203;DEVICE_&#8203;MAX_&#8203;NUM_&#8203;SUB_&#8203;GROUPS</code> is not <code>0</code>)</p>
+<p>For OpenCL 2.2 devices, or OpenCL 3.0 devices supporting Subgroups (where <code>CL_DEVICE_<wbr>MAX_<wbr>NUM_<wbr>SUB_<wbr>GROUPS</code> is not <code>0</code>)</p>
 </li>
 </ul>
 </div>
@@ -1708,7 +1703,7 @@ SPIR-V 1.1 modules that declare the following capabilities:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="required-capabilities-1.2">3.3. SPIR-V 1.2</h3>
+<h3 id="required-capabilities-1.2"><a class="anchor" href="#required-capabilities-1.2"></a>3.3. SPIR-V 1.2</h3>
 <div class="paragraph">
 <p>An OpenCL environment supporting SPIR-V 1.2 must support SPIR-V 1.2
 modules that declare the capabilities required for SPIR-V 1.1 modules,
@@ -1721,7 +1716,7 @@ above.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="validation-rules">4. Validation Rules</h2>
+<h2 id="validation-rules"><a class="anchor" href="#validation-rules"></a>4. Validation Rules</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The following are a list of validation rules that apply to SPIR-V modules
@@ -1736,10 +1731,10 @@ executing in all OpenCL environments:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Physical32</strong> (for OpenCL devices reporting <code>32</code> for <code>CL_&#8203;DEVICE_&#8203;ADDRESS_&#8203;BITS</code>)</p>
+<p><strong>Physical32</strong> (for OpenCL devices reporting <code>32</code> for <code>CL_DEVICE_<wbr>ADDRESS_<wbr>BITS</code>)</p>
 </li>
 <li>
-<p><strong>Physical64</strong> (for OpenCL devices reporting <code>64</code> for <code>CL_&#8203;DEVICE_&#8203;ADDRESS_&#8203;BITS</code>)</p>
+<p><strong>Physical64</strong> (for OpenCL devices reporting <code>64</code> for <code>CL_DEVICE_<wbr>ADDRESS_<wbr>BITS</code>)</p>
 </li>
 </ul>
 </div>
@@ -1840,7 +1835,7 @@ be one of:</p>
 <li>
 <p>For OpenCL 2.0, OpenCL 2.1, OpenCL 2.2, or OpenCL 3.0 devices
 supporting Work Group Collective Functions (where
-<code>CL_&#8203;DEVICE_&#8203;WORK_&#8203;GROUP_&#8203;COLLECTIVE_&#8203;FUNCTIONS_&#8203;SUPPORT</code> is <code>CL_&#8203;TRUE</code>).</p>
+<code>CL_DEVICE_<wbr>WORK_<wbr>GROUP_<wbr>COLLECTIVE_<wbr>FUNCTIONS_<wbr>SUPPORT</code> is <code>CL_TRUE</code>).</p>
 </li>
 </ul>
 </div>
@@ -1851,7 +1846,7 @@ supporting Work Group Collective Functions (where
 <ul>
 <li>
 <p>For OpenCL 2.1, OpenCL 2.2, or OpenCL 3.0 devices supporting
-Subgroups (where <code>CL_&#8203;DEVICE_&#8203;MAX_&#8203;NUM_&#8203;SUB_&#8203;GROUPS</code> is not <code>0</code>)</p>
+Subgroups (where <code>CL_DEVICE_<wbr>MAX_<wbr>NUM_<wbr>SUB_<wbr>GROUPS</code> is not <code>0</code>)</p>
 </li>
 </ul>
 </div>
@@ -1872,7 +1867,7 @@ Subgroups (where <code>CL_&#8203;DEVICE_&#8203;MAX_&#8203;NUM_&#8203;SUB_&#8203;
 <ul>
 <li>
 <p>For OpenCL 2.1, OpenCL 2.2, or OpenCL 3.0 devices supporting
-Subgroups (where <code>CL_&#8203;DEVICE_&#8203;MAX_&#8203;NUM_&#8203;SUB_&#8203;GROUPS</code> is not <code>0</code>)</p>
+Subgroups (where <code>CL_DEVICE_<wbr>MAX_<wbr>NUM_<wbr>SUB_<wbr>GROUPS</code> is not <code>0</code>)</p>
 </li>
 </ul>
 </div>
@@ -1894,8 +1889,8 @@ Otherwise, <em>Scope</em> for <em>Memory</em> must be one of:</p>
 <ul>
 <li>
 <p>For OpenCL 2.0, OpenCL 2.1, OpenCL 2.2, or OpenCL 3.0 devices
-supporting <code>CL_&#8203;DEVICE_&#8203;ATOMIC_&#8203;SCOPE_&#8203;ALL_&#8203;DEVICES</code> in
-<code>CL_&#8203;DEVICE_&#8203;ATOMIC_&#8203;FENCE_&#8203;CAPABILITIES</code>.</p>
+supporting <code>CL_DEVICE_<wbr>ATOMIC_<wbr>SCOPE_<wbr>ALL_<wbr>DEVICES</code> in
+<code>CL_DEVICE_<wbr>ATOMIC_<wbr>FENCE_<wbr>CAPABILITIES</code>.</p>
 </li>
 </ul>
 </div>
@@ -1906,8 +1901,8 @@ supporting <code>CL_&#8203;DEVICE_&#8203;ATOMIC_&#8203;SCOPE_&#8203;ALL_&#8203;D
 <ul>
 <li>
 <p>For OpenCL 2.0, OpenCL 2.1, OpenCL 2.2, or OpenCL 3.0 devices
-supporting <code>CL_&#8203;DEVICE_&#8203;ATOMIC_&#8203;SCOPE_&#8203;DEVICE</code> in
-<code>CL_&#8203;DEVICE_&#8203;ATOMIC_&#8203;FENCE_&#8203;CAPABILITIES</code>.</p>
+supporting <code>CL_DEVICE_<wbr>ATOMIC_<wbr>SCOPE_<wbr>DEVICE</code> in
+<code>CL_DEVICE_<wbr>ATOMIC_<wbr>FENCE_<wbr>CAPABILITIES</code>.</p>
 </li>
 </ul>
 </div>
@@ -1918,8 +1913,8 @@ supporting <code>CL_&#8203;DEVICE_&#8203;ATOMIC_&#8203;SCOPE_&#8203;DEVICE</code
 <ul>
 <li>
 <p>For OpenCL 2.0, OpenCL 2.1, OpenCL 2.2, or OpenCL 3.0 devices
-supporting <code>CL_&#8203;DEVICE_&#8203;ATOMIC_&#8203;SCOPE_&#8203;WORK_&#8203;GROUP</code> in
-<code>CL_&#8203;DEVICE_&#8203;ATOMIC_&#8203;FENCE_&#8203;CAPABILITIES</code>.</p>
+supporting <code>CL_DEVICE_<wbr>ATOMIC_<wbr>SCOPE_<wbr>WORK_<wbr>GROUP</code> in
+<code>CL_DEVICE_<wbr>ATOMIC_<wbr>FENCE_<wbr>CAPABILITIES</code>.</p>
 </li>
 </ul>
 </div>
@@ -1930,7 +1925,7 @@ supporting <code>CL_&#8203;DEVICE_&#8203;ATOMIC_&#8203;SCOPE_&#8203;WORK_&#8203;
 <ul>
 <li>
 <p>For OpenCL 2.1, OpenCL 2.2, or OpenCL 3.0 devices supporting
-Subgroups (where <code>CL_&#8203;DEVICE_&#8203;MAX_&#8203;NUM_&#8203;SUB_&#8203;GROUPS</code> is not <code>0</code>).</p>
+Subgroups (where <code>CL_DEVICE_<wbr>MAX_<wbr>NUM_<wbr>SUB_<wbr>GROUPS</code> is not <code>0</code>).</p>
 </li>
 </ul>
 </div>
@@ -1941,8 +1936,8 @@ Subgroups (where <code>CL_&#8203;DEVICE_&#8203;MAX_&#8203;NUM_&#8203;SUB_&#8203;
 <ul>
 <li>
 <p>For OpenCL 2.0, OpenCL 2.1, OpenCL 2.2, or OpenCL 3.0 devices
-supporting <code>CL_&#8203;DEVICE_&#8203;ATOMIC_&#8203;SCOPE_&#8203;WORK_&#8203;ITEM</code> in
-<code>CL_&#8203;DEVICE_&#8203;ATOMIC_&#8203;FENCE_&#8203;CAPABILITIES</code>.</p>
+supporting <code>CL_DEVICE_<wbr>ATOMIC_<wbr>SCOPE_<wbr>WORK_<wbr>ITEM</code> in
+<code>CL_DEVICE_<wbr>ATOMIC_<wbr>FENCE_<wbr>CAPABILITIES</code>.</p>
 </li>
 </ul>
 </div>
@@ -1960,8 +1955,8 @@ supporting <code>CL_&#8203;DEVICE_&#8203;ATOMIC_&#8203;SCOPE_&#8203;WORK_&#8203;
 <ul>
 <li>
 <p>For OpenCL 2.0, OpenCL 2.1, OpenCL 2.2, or OpenCL 3.0 devices
-supporting <code>CL_&#8203;DEVICE_&#8203;ATOMIC_&#8203;ORDER_&#8203;RELAXED</code> in
-<code>CL_&#8203;DEVICE_&#8203;ATOMIC_&#8203;FENCE_&#8203;CAPABILITIES</code>.</p>
+supporting <code>CL_DEVICE_<wbr>ATOMIC_<wbr>ORDER_<wbr>RELAXED</code> in
+<code>CL_DEVICE_<wbr>ATOMIC_<wbr>FENCE_<wbr>CAPABILITIES</code>.</p>
 </li>
 </ul>
 </div>
@@ -1972,8 +1967,8 @@ supporting <code>CL_&#8203;DEVICE_&#8203;ATOMIC_&#8203;ORDER_&#8203;RELAXED</cod
 <ul>
 <li>
 <p>For OpenCL 2.0, OpenCL 2.1, OpenCL 2.2, or OpenCL 3.0 devices
-supporting <code>CL_&#8203;DEVICE_&#8203;ATOMIC_&#8203;ORDER_&#8203;ACQ_&#8203;REL</code> in
-<code>CL_&#8203;DEVICE_&#8203;ATOMIC_&#8203;FENCE_&#8203;CAPABILITIES</code>.</p>
+supporting <code>CL_DEVICE_<wbr>ATOMIC_<wbr>ORDER_<wbr>ACQ_<wbr>REL</code> in
+<code>CL_DEVICE_<wbr>ATOMIC_<wbr>FENCE_<wbr>CAPABILITIES</code>.</p>
 </li>
 </ul>
 </div>
@@ -1984,8 +1979,8 @@ supporting <code>CL_&#8203;DEVICE_&#8203;ATOMIC_&#8203;ORDER_&#8203;ACQ_&#8203;R
 <ul>
 <li>
 <p>For OpenCL 2.0, OpenCL 2.1, OpenCL 2.2, or OpenCL 3.0 devices
-supporting <code>CL_&#8203;DEVICE_&#8203;ATOMIC_&#8203;ORDER_&#8203;SEQ_&#8203;CST</code> in
-<code>CL_&#8203;DEVICE_&#8203;ATOMIC_&#8203;FENCE_&#8203;CAPABILITIES</code>.</p>
+supporting <code>CL_DEVICE_<wbr>ATOMIC_<wbr>ORDER_<wbr>SEQ_<wbr>CST</code> in
+<code>CL_DEVICE_<wbr>ATOMIC_<wbr>FENCE_<wbr>CAPABILITIES</code>.</p>
 </li>
 </ul>
 </div>
@@ -2006,8 +2001,8 @@ Otherwise, <em>Scope</em> for <em>Memory</em> must be one of:</p>
 <ul>
 <li>
 <p>For OpenCL 2.0, OpenCL 2.1, OpenCL 2.2, or OpenCL 3.0 devices
-supporting <code>CL_&#8203;DEVICE_&#8203;ATOMIC_&#8203;SCOPE_&#8203;ALL_&#8203;DEVICES</code> in
-<code>CL_&#8203;DEVICE_&#8203;ATOMIC_&#8203;MEMORY_&#8203;CAPABILITIES</code>.</p>
+supporting <code>CL_DEVICE_<wbr>ATOMIC_<wbr>SCOPE_<wbr>ALL_<wbr>DEVICES</code> in
+<code>CL_DEVICE_<wbr>ATOMIC_<wbr>MEMORY_<wbr>CAPABILITIES</code>.</p>
 </li>
 </ul>
 </div>
@@ -2018,8 +2013,8 @@ supporting <code>CL_&#8203;DEVICE_&#8203;ATOMIC_&#8203;SCOPE_&#8203;ALL_&#8203;D
 <ul>
 <li>
 <p>For OpenCL 2.0, OpenCL 2.1, OpenCL 2.2, or OpenCL 3.0 devices
-supporting <code>CL_&#8203;DEVICE_&#8203;ATOMIC_&#8203;SCOPE_&#8203;DEVICE</code> in
-<code>CL_&#8203;DEVICE_&#8203;ATOMIC_&#8203;MEMORY_&#8203;CAPABILITIES</code>.</p>
+supporting <code>CL_DEVICE_<wbr>ATOMIC_<wbr>SCOPE_<wbr>DEVICE</code> in
+<code>CL_DEVICE_<wbr>ATOMIC_<wbr>MEMORY_<wbr>CAPABILITIES</code>.</p>
 </li>
 </ul>
 </div>
@@ -2030,8 +2025,8 @@ supporting <code>CL_&#8203;DEVICE_&#8203;ATOMIC_&#8203;SCOPE_&#8203;DEVICE</code
 <ul>
 <li>
 <p>For OpenCL 2.0, OpenCL 2.1, OpenCL 2.2, or OpenCL 3.0 devices
-supporting <code>CL_&#8203;DEVICE_&#8203;ATOMIC_&#8203;SCOPE_&#8203;WORK_&#8203;GROUP</code> in
-<code>CL_&#8203;DEVICE_&#8203;ATOMIC_&#8203;MEMORY_&#8203;CAPABILITIES</code>.</p>
+supporting <code>CL_DEVICE_<wbr>ATOMIC_<wbr>SCOPE_<wbr>WORK_<wbr>GROUP</code> in
+<code>CL_DEVICE_<wbr>ATOMIC_<wbr>MEMORY_<wbr>CAPABILITIES</code>.</p>
 </li>
 </ul>
 </div>
@@ -2042,7 +2037,7 @@ supporting <code>CL_&#8203;DEVICE_&#8203;ATOMIC_&#8203;SCOPE_&#8203;WORK_&#8203;
 <ul>
 <li>
 <p>For OpenCL 2.1, OpenCL 2.2, or OpenCL 3.0 devices supporting
-Subgroups (where <code>CL_&#8203;DEVICE_&#8203;MAX_&#8203;NUM_&#8203;SUB_&#8203;GROUPS</code> is not <code>0</code>).</p>
+Subgroups (where <code>CL_DEVICE_<wbr>MAX_<wbr>NUM_<wbr>SUB_<wbr>GROUPS</code> is not <code>0</code>).</p>
 </li>
 </ul>
 </div>
@@ -2060,8 +2055,8 @@ Subgroups (where <code>CL_&#8203;DEVICE_&#8203;MAX_&#8203;NUM_&#8203;SUB_&#8203;
 <ul>
 <li>
 <p>For OpenCL 2.0, OpenCL 2.1, OpenCL 2.2, or OpenCL 3.0 devices
-supporting <code>CL_&#8203;DEVICE_&#8203;ATOMIC_&#8203;ORDER_&#8203;RELAXED</code> in
-<code>CL_&#8203;DEVICE_&#8203;ATOMIC_&#8203;MEMORY_&#8203;CAPABILITIES</code>.</p>
+supporting <code>CL_DEVICE_<wbr>ATOMIC_<wbr>ORDER_<wbr>RELAXED</code> in
+<code>CL_DEVICE_<wbr>ATOMIC_<wbr>MEMORY_<wbr>CAPABILITIES</code>.</p>
 </li>
 </ul>
 </div>
@@ -2072,8 +2067,8 @@ supporting <code>CL_&#8203;DEVICE_&#8203;ATOMIC_&#8203;ORDER_&#8203;RELAXED</cod
 <ul>
 <li>
 <p>For OpenCL 2.0, OpenCL 2.1, OpenCL 2.2, or OpenCL 3.0 devices
-supporting <code>CL_&#8203;DEVICE_&#8203;ATOMIC_&#8203;ORDER_&#8203;ACQ_&#8203;REL</code> in
-<code>CL_&#8203;DEVICE_&#8203;ATOMIC_&#8203;MEMORY_&#8203;CAPABILITIES</code>.</p>
+supporting <code>CL_DEVICE_<wbr>ATOMIC_<wbr>ORDER_<wbr>ACQ_<wbr>REL</code> in
+<code>CL_DEVICE_<wbr>ATOMIC_<wbr>MEMORY_<wbr>CAPABILITIES</code>.</p>
 </li>
 </ul>
 </div>
@@ -2084,8 +2079,8 @@ supporting <code>CL_&#8203;DEVICE_&#8203;ATOMIC_&#8203;ORDER_&#8203;ACQ_&#8203;R
 <ul>
 <li>
 <p>For OpenCL 2.0, OpenCL 2.1, OpenCL 2.2, or OpenCL 3.0 devices
-supporting <code>CL_&#8203;DEVICE_&#8203;ATOMIC_&#8203;ORDER_&#8203;SEQ_&#8203;CST</code> in
-<code>CL_&#8203;DEVICE_&#8203;ATOMIC_&#8203;MEMORY_&#8203;CAPABILITIES</code>.</p>
+supporting <code>CL_DEVICE_<wbr>ATOMIC_<wbr>ORDER_<wbr>SEQ_<wbr>CST</code> in
+<code>CL_DEVICE_<wbr>ATOMIC_<wbr>MEMORY_<wbr>CAPABILITIES</code>.</p>
 </li>
 </ul>
 </div>
@@ -2102,7 +2097,7 @@ undefined if the <strong>Generic</strong> pointer represents a pointer to the
 </div>
 </div>
 <div class="sect1">
-<h2 id="opencl_extensions">5. OpenCL Extensions</h2>
+<h2 id="opencl_extensions"><a class="anchor" href="#opencl_extensions"></a>5. OpenCL Extensions</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>An OpenCL environment may be modified by <a href="#opencl-extension-spec">OpenCL
@@ -2123,7 +2118,7 @@ the OpenCL environment in their individual extension specifications.  The
 Khronos OpenCL extensions require no corresponding SPIR-V extensions.</p>
 </div>
 <div class="sect2">
-<h3 id="_declaring_spir_v_extensions">5.1. Declaring SPIR-V Extensions</h3>
+<h3 id="_declaring_spir_v_extensions"><a class="anchor" href="#_declaring_spir_v_extensions"></a>5.1. Declaring SPIR-V Extensions</h3>
 <div class="paragraph">
 <p>A SPIR-V module declares use of a SPIR-V extension using <strong>OpExtension</strong> and
 the name of the SPIR-V extension.  For example:</p>
@@ -2140,9 +2135,9 @@ in a SPIR-V module using <strong>OpExtension</strong>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_full_and_embedded_profile_extensions">5.2. Full and Embedded Profile Extensions</h3>
+<h3 id="_full_and_embedded_profile_extensions"><a class="anchor" href="#_full_and_embedded_profile_extensions"></a>5.2. Full and Embedded Profile Extensions</h3>
 <div class="sect3">
-<h4 id="_cl_khr_3d_image_writes">5.2.1. <code>cl_khr_3d_image_writes</code></h4>
+<h4 id="_cl_khr_3d_image_writes"><a class="anchor" href="#_cl_khr_3d_image_writes"></a>5.2.1. <code>cl_khr_3d_image_writes</code></h4>
 <div class="paragraph">
 <p>If the OpenCL environment supports the extension <code>cl_khr_3d_image_writes</code>,
 then the environment must accept <em>Image</em> operands to <strong>OpImageWrite</strong> that
@@ -2150,7 +2145,7 @@ are declared with with dimensionality <em>Dim</em> equal to <strong>3D</strong>.
 </div>
 </div>
 <div class="sect3">
-<h4 id="_cl_khr_depth_images">5.2.2. <code>cl_khr_depth_images</code></h4>
+<h4 id="_cl_khr_depth_images"><a class="anchor" href="#_cl_khr_depth_images"></a>5.2.2. <code>cl_khr_depth_images</code></h4>
 <div class="paragraph">
 <p>If the OpenCL environment supports the extension <code>cl_khr_depth_images</code>,
 then the environment must accept modules that declare 2D depth image types
@@ -2171,7 +2166,7 @@ equal to  1, indicating a depth image.  2D depth images may optionally be
 </div>
 </div>
 <div class="sect3">
-<h4 id="_cl_khr_device_enqueue_local_arg_types">5.2.3. <code>cl_khr_device_enqueue_local_arg_types</code></h4>
+<h4 id="_cl_khr_device_enqueue_local_arg_types"><a class="anchor" href="#_cl_khr_device_enqueue_local_arg_types"></a>5.2.3. <code>cl_khr_device_enqueue_local_arg_types</code></h4>
 <div class="paragraph">
 <p>If the OpenCL environment supports the extension
 <code>cl_khr_device_enqueue_local_arg_types</code>, then then environment will allow
@@ -2180,7 +2175,7 @@ memory pointer parameters of any type.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_cl_khr_fp16">5.2.4. <code>cl_khr_fp16</code></h4>
+<h4 id="_cl_khr_fp16"><a class="anchor" href="#_cl_khr_fp16"></a>5.2.4. <code>cl_khr_fp16</code></h4>
 <div class="paragraph">
 <p>If the OpenCL environment supports the extension <code>cl_khr_fp16</code>, then the
 environment must accept modules that declare the following SPIR-V
@@ -2195,7 +2190,7 @@ capabilities:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_cl_khr_fp64">5.2.5. <code>cl_khr_fp64</code></h4>
+<h4 id="_cl_khr_fp64"><a class="anchor" href="#_cl_khr_fp64"></a>5.2.5. <code>cl_khr_fp64</code></h4>
 <div class="paragraph">
 <p>If the OpenCL environment supports the extension <code>cl_khr_fp64</code>, then the
 environment must accept modules that declare the following SPIR-V
@@ -2210,7 +2205,7 @@ capabilities:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_cl_khr_gl_depth_images">5.2.6. <code>cl_khr_gl_depth_images</code></h4>
+<h4 id="_cl_khr_gl_depth_images"><a class="anchor" href="#_cl_khr_gl_depth_images"></a>5.2.6. <code>cl_khr_gl_depth_images</code></h4>
 <div class="paragraph">
 <p>If the OpenCL environment supports the extension <code>cl_khr_gl_depth_images</code>,
 then the following Image Channel Orders may additionally be returned by
@@ -2236,7 +2231,7 @@ then the following Image Channel Orders may additionally be returned by
 </div>
 </div>
 <div class="sect3">
-<h4 id="_cl_khr_gl_msaa_sharing">5.2.7. <code>cl_khr_gl_msaa_sharing</code></h4>
+<h4 id="_cl_khr_gl_msaa_sharing"><a class="anchor" href="#_cl_khr_gl_msaa_sharing"></a>5.2.7. <code>cl_khr_gl_msaa_sharing</code></h4>
 <div class="paragraph">
 <p>If the OpenCL environment supports the extension <code>cl_khr_gl_msaa_sharing</code>,
 then the environment must accept modules that declare 2D multi-sampled
@@ -2268,7 +2263,7 @@ may optionally be <em>Arrayed</em> or <em>Depth</em> images, if supported.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_cl_khr_int64_base_atomics_and_cl_khr_int64_extended_atomics">5.2.8. <code>cl_khr_int64_base_atomics</code> and <code>cl_khr_int64_extended_atomics</code></h4>
+<h4 id="_cl_khr_int64_base_atomics_and_cl_khr_int64_extended_atomics"><a class="anchor" href="#_cl_khr_int64_base_atomics_and_cl_khr_int64_extended_atomics"></a>5.2.8. <code>cl_khr_int64_base_atomics</code> and <code>cl_khr_int64_extended_atomics</code></h4>
 <div class="paragraph">
 <p>If the OpenCL environment supports the extension <code>cl_khr_int64_base_atomics</code>
 or <code>cl_khr_int64_extended_atomics</code>, then the environment must accept modules
@@ -2292,7 +2287,7 @@ of these extensions.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_cl_khr_mipmap_image">5.2.9. <code>cl_khr_mipmap_image</code></h4>
+<h4 id="_cl_khr_mipmap_image"><a class="anchor" href="#_cl_khr_mipmap_image"></a>5.2.9. <code>cl_khr_mipmap_image</code></h4>
 <div class="paragraph">
 <p>If the OpenCL environment supports the extension <code>cl_khr_mipmap_image</code>,
 then the environment must accept non-zero optional <strong>Lod</strong> <em>Image Operands</em>
@@ -2318,7 +2313,7 @@ require non-zero optional <strong>Lod</strong> <em>Image Operands</em> for <stro
 </div>
 </div>
 <div class="sect3">
-<h4 id="_cl_khr_mipmap_image_writes">5.2.10. <code>cl_khr_mipmap_image_writes</code></h4>
+<h4 id="_cl_khr_mipmap_image_writes"><a class="anchor" href="#_cl_khr_mipmap_image_writes"></a>5.2.10. <code>cl_khr_mipmap_image_writes</code></h4>
 <div class="paragraph">
 <p>If the OpenCL environment supports the extension <code>cl_khr_mipmap_image_writes</code>,
 then the environment must accept non-zero optional <strong>Lod</strong> <em>Image Operands</em>
@@ -2338,7 +2333,7 @@ guarantee support for the <strong>ImageMipmap</strong> capability.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_cl_khr_subgroups">5.2.11. <code>cl_khr_subgroups</code></h4>
+<h4 id="_cl_khr_subgroups"><a class="anchor" href="#_cl_khr_subgroups"></a>5.2.11. <code>cl_khr_subgroups</code></h4>
 <div class="paragraph">
 <p>If the OpenCL environment supports the extension <code>cl_khr_subgroups</code>, then
 for all instructions except <strong>OpGroupAsyncCopy</strong> and <strong>OpGroupWaitEvents</strong>
@@ -2364,7 +2359,7 @@ OpenCL 1.2 environment, the <em>Scope</em> for <em>Memory</em> may be:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_cl_khr_subgroup_named_barrier">5.2.12. <code>cl_khr_subgroup_named_barrier</code></h4>
+<h4 id="_cl_khr_subgroup_named_barrier"><a class="anchor" href="#_cl_khr_subgroup_named_barrier"></a>5.2.12. <code>cl_khr_subgroup_named_barrier</code></h4>
 <div class="paragraph">
 <p>If the OpenCL environment supports the extension
 <code>cl_khr_subgroup_named_barrier</code>, then the environment must accept modules
@@ -2379,7 +2374,7 @@ that declare the following SPIR-V capabilities:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_cl_khr_spirv_no_integer_wrap_decoration">5.2.13. <code>cl_khr_spirv_no_integer_wrap_decoration</code></h4>
+<h4 id="_cl_khr_spirv_no_integer_wrap_decoration"><a class="anchor" href="#_cl_khr_spirv_no_integer_wrap_decoration"></a>5.2.13. <code>cl_khr_spirv_no_integer_wrap_decoration</code></h4>
 <div class="paragraph">
 <p>If the OpenCL environment supports the extension <code>cl_khr_spirv_no_integer_wrap_decoration</code>, then the environment must accept modules that declare use of the extension <code>SPV_KHR_no_integer_wrap_decoration</code> via <strong>OpExtension</strong>.</p>
 </div>
@@ -2389,9 +2384,9 @@ that declare the following SPIR-V capabilities:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_embedded_profile_extensions">5.3. Embedded Profile Extensions</h3>
+<h3 id="_embedded_profile_extensions"><a class="anchor" href="#_embedded_profile_extensions"></a>5.3. Embedded Profile Extensions</h3>
 <div class="sect3">
-<h4 id="_cles_khr_int64">5.3.1. <code>cles_khr_int64</code></h4>
+<h4 id="_cles_khr_int64"><a class="anchor" href="#_cles_khr_int64"></a>5.3.1. <code>cles_khr_int64</code></h4>
 <div class="paragraph">
 <p>If the OpenCL environment supports the extension <code>cles_khr_int64</code>, then the
 environment must accept modules that declare the following SPIR-V
@@ -2409,7 +2404,7 @@ capabilities:</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="numerical_compliance">6. OpenCL Numerical Compliance</h2>
+<h2 id="numerical_compliance"><a class="anchor" href="#numerical_compliance"></a>6. OpenCL Numerical Compliance</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This section describes features of the <a href="#cpp14-spec">C++14</a> and
@@ -2426,7 +2421,7 @@ Double precision floating-point is also an optional feature indicated by the
 <strong>Float64</strong> capability.</p>
 </div>
 <div class="sect2">
-<h3 id="_rounding_modes">6.1. Rounding Modes</h3>
+<h3 id="_rounding_modes"><a class="anchor" href="#_rounding_modes"></a>6.1. Rounding Modes</h3>
 <div class="paragraph">
 <p>Floating-point calculations may be carried out internally with extra
 precision and then rounded to fit into the destination type.
@@ -2478,7 +2473,7 @@ spec is not supported.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_rounding_modes_for_conversions">6.2. Rounding Modes for Conversions</h3>
+<h3 id="_rounding_modes_for_conversions"><a class="anchor" href="#_rounding_modes_for_conversions"></a>6.2. Rounding Modes for Conversions</h3>
 <div class="paragraph">
 <p>Results of the following conversion instructions may include an optional
 <strong>FPRoundingMode</strong> decoration:</p>
@@ -2522,7 +2517,7 @@ decoration, then the default rounding mode for conversion operations is:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_out_of_range_conversions">6.3. Out-of-Range Conversions</h3>
+<h3 id="_out_of_range_conversions"><a class="anchor" href="#_out_of_range_conversions"></a>6.3. Out-of-Range Conversions</h3>
 <div class="paragraph">
 <p>When a conversion operand is either greater than the greatest representable
 destination value or less than the least representable destination value,
@@ -2538,7 +2533,7 @@ a <strong>SaturatedConversion</strong> decoration is implementation-defined.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_inf_nan_and_denormalized_numbers">6.4. INF, NaN, and Denormalized Numbers</h3>
+<h3 id="_inf_nan_and_denormalized_numbers"><a class="anchor" href="#_inf_nan_and_denormalized_numbers"></a>6.4. INF, NaN, and Denormalized Numbers</h3>
 <div class="paragraph">
 <p>INFs and NaNs must be supported.
 Support for signaling NaNs is not required.</p>
@@ -2559,7 +2554,7 @@ floating-point.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_floating_point_exceptions">6.5. Floating-Point Exceptions</h3>
+<h3 id="_floating_point_exceptions"><a class="anchor" href="#_floating_point_exceptions"></a>6.5. Floating-Point Exceptions</h3>
 <div class="paragraph">
 <p>Floating-point exceptions are disabled in OpenCL.
 The result of a floating-point exception must match the IEEE 754 spec for
@@ -2592,7 +2587,7 @@ floating-point state if any) is reused is implementation-defined.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="relative-error-as-ulps">6.6. Relative Error as ULPs</h3>
+<h3 id="relative-error-as-ulps"><a class="anchor" href="#relative-error-as-ulps"></a>6.6. Relative Error as ULPs</h3>
 <div class="paragraph">
 <p>In this section we discuss the maximum relative error defined as ulp (units
 in the last place).
@@ -2626,7 +2621,7 @@ The reference value used to compute the ULP value is the infinitely precise
 result.</p>
 </div>
 <div class="sect3">
-<h4 id="_ulp_values_for_math_instructions_full_profile">6.6.1. ULP Values for Math Instructions - Full Profile</h4>
+<h4 id="_ulp_values_for_math_instructions_full_profile"><a class="anchor" href="#_ulp_values_for_math_instructions_full_profile"></a>6.6.1. ULP Values for Math Instructions - Full Profile</h4>
 <div class="paragraph">
 <p>The ULP Values for Math Instructions table below describes the minimum
 accuracy of floating-point math arithmetic instructions for full profile
@@ -3352,7 +3347,7 @@ devices given as ULP values.</p>
 </table>
 </div>
 <div class="sect3">
-<h4 id="_ulp_values_for_math_instructions_embedded_profile">6.6.2. ULP Values for Math Instructions - Embedded Profile</h4>
+<h4 id="_ulp_values_for_math_instructions_embedded_profile"><a class="anchor" href="#_ulp_values_for_math_instructions_embedded_profile"></a>6.6.2. ULP Values for Math Instructions - Embedded Profile</h4>
 <div class="paragraph">
 <p>The ULP Values for Math instructions for Embedded Profile table below
 describes the minimum accuracy of floating-point math arithmetic operations
@@ -4027,7 +4022,7 @@ given as ULP values for the embedded profile.</p>
 </table>
 </div>
 <div class="sect3">
-<h4 id="_ulp_values_for_math_instructions_unsafe_math_optimizations_enabled">6.6.3. ULP Values for Math Instructions - Unsafe Math Optimizations Enabled</h4>
+<h4 id="_ulp_values_for_math_instructions_unsafe_math_optimizations_enabled"><a class="anchor" href="#_ulp_values_for_math_instructions_unsafe_math_optimizations_enabled"></a>6.6.3. ULP Values for Math Instructions - Unsafe Math Optimizations Enabled</h4>
 <div class="paragraph">
 <p>The ULP Values for Math Instructions with Unsafe Math Optimizations table below
 describes the minimum accuracy of commonly used single precision
@@ -4287,7 +4282,7 @@ profile.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_edge_case_behavior">6.7. Edge Case Behavior</h3>
+<h3 id="_edge_case_behavior"><a class="anchor" href="#_edge_case_behavior"></a>6.7. Edge Case Behavior</h3>
 <div class="paragraph">
 <p>The edge case behavior of the math functions shall conform to sections F.9
 and G.6 of ISO/IEC 9899:TC 2, except where noted below in the
@@ -4295,7 +4290,7 @@ and G.6 of ISO/IEC 9899:TC 2, except where noted below in the
 Beyond ISO/IEC 9899:TC2</a> section</em>.</p>
 </div>
 <div class="sect3">
-<h4 id="additional-requirements-beyond-isoiec-9899tc2">6.7.1. Additional Requirements Beyond ISO/IEC 9899:TC2</h4>
+<h4 id="additional-requirements-beyond-isoiec-9899tc2"><a class="anchor" href="#additional-requirements-beyond-isoiec-9899tc2"></a>6.7.1. Additional Requirements Beyond ISO/IEC 9899:TC2</h4>
 <div class="paragraph">
 <p>All functions that return a NaN should return a quiet NaN.</p>
 </div>
@@ -4764,7 +4759,7 @@ representable.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="changes-to-isoiec-9899-tc2-behavior">6.7.2. Changes to ISO/IEC 9899: TC2 Behavior</h4>
+<h4 id="changes-to-isoiec-9899-tc2-behavior"><a class="anchor" href="#changes-to-isoiec-9899-tc2-behavior"></a>6.7.2. Changes to ISO/IEC 9899: TC2 Behavior</h4>
 <div class="paragraph">
 <p><strong>OpExtInst</strong> <strong>modf</strong> behaves as though implemented by:</p>
 </div>
@@ -4783,7 +4778,7 @@ mode even if the caller is in some other rounding mode.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="edge-case-behavior-in-flush-to-zero-mode">6.7.3. Edge Case Behavior in Flush To Zero Mode</h4>
+<h4 id="edge-case-behavior-in-flush-to-zero-mode"><a class="anchor" href="#edge-case-behavior-in-flush-to-zero-mode"></a>6.7.3. Edge Case Behavior in Flush To Zero Mode</h4>
 <div class="paragraph">
 <p>If denormals are flushed to zero, then a function may return one of four
 results:</p>
@@ -4846,13 +4841,13 @@ normalization, its radix-2 exponent is less than (TYPE_MIN_EXP - 1).
 </div>
 </div>
 <div class="sect1">
-<h2 id="image_addressing_and_filtering">7. Image Addressing and Filtering</h2>
+<h2 id="image_addressing_and_filtering"><a class="anchor" href="#image_addressing_and_filtering"></a>7. Image Addressing and Filtering</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This section describes how image operations behave in an OpenCL environment.</p>
 </div>
 <div class="sect2">
-<h3 id="image-coordinates">7.1. Image Coordinates</h3>
+<h3 id="image-coordinates"><a class="anchor" href="#image-coordinates"></a>7.1. Image Coordinates</h3>
 <div class="paragraph">
 <p>Let <code>w<sub>t</sub></code>, <code>h<sub>t</sub></code> and <code>d<sub>t</sub></code> be the width, height (or image array size for a 1D image array) and depth (or image array size for a 2D image array) of the image in pixels.
 Let <code>coord.xy</code> (also referred to as <code>(s,t)</code>) or <code>coord.xyz</code> (also referred to as <code>(s,t,r)</code>) be the coordinates specified to an image read instruction (such as <strong>OpImageRead</strong>) or an image write instruction (such as <strong>OpImageWrite</strong>).</p>
@@ -4872,17 +4867,17 @@ For image arrays, the image array coordinate (i.e. <code>t</code> if it is a 1D 
 </div>
 </div>
 <div class="sect2">
-<h3 id="addressing-and-filter-modes">7.2. Addressing and Filter Modes</h3>
+<h3 id="addressing-and-filter-modes"><a class="anchor" href="#addressing-and-filter-modes"></a>7.2. Addressing and Filter Modes</h3>
 <div class="paragraph">
 <p>After generating the image coordinate <code>(u,v,w)</code> we apply the appropriate addressing and filter mode to generate the appropriate sample locations to read from the image.</p>
 </div>
 <div class="sect3">
-<h4 id="clamp-addressing">7.2.1. Clamp and None Addressing Modes</h4>
+<h4 id="clamp-addressing"><a class="anchor" href="#clamp-addressing"></a>7.2.1. Clamp and None Addressing Modes</h4>
 <div class="paragraph">
 <p>We first describe how the addressing and filter modes are applied to generate the appropriate sample locations to read from the image if the addressing mode is <code>CL_ADDRESS_CLAMP</code>, <code>CL_ADDRESS_CLAMP_TO_EDGE</code>, or <code>CL_ADDRESS_NONE</code>.</p>
 </div>
 <div class="sect4">
-<h5 id="clamp-nearest_filtering">Nearest Filtering</h5>
+<h5 id="clamp-nearest_filtering"><a class="anchor" href="#clamp-nearest_filtering"></a>7.2.1.1. Nearest Filtering</h5>
 <div class="paragraph">
 <p>When the filter mode is <code>CL_FILTER_NEAREST</code>, the result of the image read instruction is the image element that is nearest (in Manhattan distance) to the image element location <code>(i,j,k)</code>.
 The image element location <code>(i,j,k)</code> is computed as:</p>
@@ -4963,7 +4958,7 @@ clamp(a, b, c) &amp; = return (a &lt; b) ? b : ((a &gt; c) ? c : a)
 </div>
 </div>
 <div class="sect4">
-<h5 id="clamp-linear-filtering">Linear Filtering</h5>
+<h5 id="clamp-linear-filtering"><a class="anchor" href="#clamp-linear-filtering"></a>7.2.1.2. Linear Filtering</h5>
 <div class="paragraph">
 <p>When the filter mode is <code>CL_FILTER_LINEAR</code>, a 2 x 2 square of image elements (for a 2D image) or a 2 x 2 x 2 cube of image elements (for a 3D image is selected).
 This 2 x 2 square or 2 x 2 x 2 cube is obtained as follows.</p>
@@ -5044,12 +5039,12 @@ T &amp;=&amp; (1 - a) \times (1 - b) \times T_{i0j0}\\
 </div>
 </div>
 <div class="sect3">
-<h4 id="repeat-addressing">7.2.2. Repeat Addressing Mode</h4>
+<h4 id="repeat-addressing"><a class="anchor" href="#repeat-addressing"></a>7.2.2. Repeat Addressing Mode</h4>
 <div class="paragraph">
 <p>We now discuss how the addressing and filter modes are applied to generate the appropriate sample locations to read from the image if the addressing mode is <code>CL_ADDRESS_REPEAT</code>.</p>
 </div>
 <div class="sect4">
-<h5 id="repeat-nearest-filtering">Nearest Filtering</h5>
+<h5 id="repeat-nearest-filtering"><a class="anchor" href="#repeat-nearest-filtering"></a>7.2.2.1. Nearest Filtering</h5>
 <div class="paragraph">
 <p>When filter mode is <code>CL_FILTER_NEAREST</code>, the result of the image read instruction is the image element that is nearest (in Manhattan distance) to the image element location <code>(i,j,k)</code>.
 The image element location <code>(i,j,k)</code> is computed as:</p>
@@ -5078,7 +5073,7 @@ For a 2D image, the image element at location (i, j) becomes the color value.</p
 </div>
 </div>
 <div class="sect4">
-<h5 id="repeat-linear-filtering">Linear Filtering</h5>
+<h5 id="repeat-linear-filtering"><a class="anchor" href="#repeat-linear-filtering"></a>7.2.2.2. Linear Filtering</h5>
 <div class="paragraph">
 <p>When filter mode is <code>CL_FILTER_LINEAR</code>, a 2 x 2 square of image elements for a 2D image or a 2 x 2 x 2 cube of image elements for a 3D image is selected.
 This 2 x 2 square or 2 x 2 x 2 cube is obtained as follows.</p>
@@ -5158,13 +5153,13 @@ T &amp;=&amp;(1 - a) \times (1 - b) \times T_{i0j0}\\
 </div>
 </div>
 <div class="sect3">
-<h4 id="mirrored-repeat-addressing">7.2.3. Mirrored Repeat Addressing Mode</h4>
+<h4 id="mirrored-repeat-addressing"><a class="anchor" href="#mirrored-repeat-addressing"></a>7.2.3. Mirrored Repeat Addressing Mode</h4>
 <div class="paragraph">
 <p>We now discuss how the addressing and filter modes are applied to generate the appropriate sample locations to read from the image if the addressing mode is <code>CL_ADDRESS_MIRRORED_REPEAT</code>.
 The <code>CL_ADDRESS_MIRRORED_REPEAT</code> addressing mode causes the image to be read as if it is tiled at every integer seam, with the interpretation of the image data flipped at each integer crossing.</p>
 </div>
 <div class="sect4">
-<h5 id="mirrored-repeat-nearest-filtering">Nearest Filtering</h5>
+<h5 id="mirrored-repeat-nearest-filtering"><a class="anchor" href="#mirrored-repeat-nearest-filtering"></a>7.2.3.1. Nearest Filtering</h5>
 <div class="paragraph">
 <p>When filter mode is <code>CL_FILTER_NEAREST</code>, the result of the image read instruction is the image element that is nearest (in Manhattan distance) to the image element location <code>(i,j,k)</code>.
 The image element location <code>(i,j,k)</code> is computed as:</p>
@@ -5196,7 +5191,7 @@ For a 2D image, the image element at location (i, j) becomes the color value.</p
 </div>
 </div>
 <div class="sect4">
-<h5 id="mirrored-repeat-linear-filtering">Linear Filtering</h5>
+<h5 id="mirrored-repeat-linear-filtering"><a class="anchor" href="#mirrored-repeat-linear-filtering"></a>7.2.3.2. Linear Filtering</h5>
 <div class="paragraph">
 <p>When filter mode is <code>CL_FILTER_LINEAR</code>, a 2 x 2 square of image elements for a 2D image or a 2 x 2 x 2 cube of image elements for a 3D image is selected.
 This 2 x 2 square or 2 x 2 x 2 cube is obtained as follows.</p>
@@ -5290,7 +5285,7 @@ T &amp;=&amp; (1 - a) \times T_i0 + a \times T_i1
 </div>
 </div>
 <div class="sect2">
-<h3 id="precision-of-addressing-and-filter-modes">7.3. Precision of Addressing and Filter Modes</h3>
+<h3 id="precision-of-addressing-and-filter-modes"><a class="anchor" href="#precision-of-addressing-and-filter-modes"></a>7.3. Precision of Addressing and Filter Modes</h3>
 <div class="paragraph">
 <p>If the sampler is specified as using unnormalized coordinates (floating-point or integer coordinates), filter mode set to <code>CL_FILTER_NEAREST</code> and addressing mode set to one of the following modes - <code>CL_ADDRESS_CLAMP</code>, <code>CL_ADDRESS_CLAMP_TO_EDGE</code> or <code>CL_ADDRESS_NONE</code> - the location of the image element in the image given by <code>(i,j,k)</code> will be computed without any loss of precision.</p>
 </div>
@@ -5300,17 +5295,17 @@ To ensure precision of image addressing and filter calculations across any OpenC
 </div>
 </div>
 <div class="sect2">
-<h3 id="conversion-rules">7.4. Conversion Rules</h3>
+<h3 id="conversion-rules"><a class="anchor" href="#conversion-rules"></a>7.4. Conversion Rules</h3>
 <div class="paragraph">
 <p>In this section we discuss conversion rules that are applied when reading and writing images in a kernel.</p>
 </div>
 <div class="sect3">
-<h4 id="conversion-rules-for-normalized-integer-channel-data-types">7.4.1. Conversion Rules for Normalized Integer Channel Data Types</h4>
+<h4 id="conversion-rules-for-normalized-integer-channel-data-types"><a class="anchor" href="#conversion-rules-for-normalized-integer-channel-data-types"></a>7.4.1. Conversion Rules for Normalized Integer Channel Data Types</h4>
 <div class="paragraph">
 <p>In this section we discuss converting normalized integer channel data types to half-precision and single-precision floating-point values and vice-versa.</p>
 </div>
 <div class="sect4">
-<h5 id="converting-normalized-integer-channel-data-types-to-half-precision-floating-point-values">Converting Normalized Integer Channel Data Types to Half Precision Floating-point Values</h5>
+<h5 id="converting-normalized-integer-channel-data-types-to-half-precision-floating-point-values"><a class="anchor" href="#converting-normalized-integer-channel-data-types-to-half-precision-floating-point-values"></a>7.4.1.1. Converting Normalized Integer Channel Data Types to Half Precision Floating-point Values</h5>
 <div class="paragraph">
 <p>For images created with image channel data type of <code>CL_UNORM_INT8</code> and <code>CL_UNORM_INT16</code>, image read instructions will convert the channel values from an 8-bit or 16-bit unsigned integer to normalized half precision floating-point values in the range [0.0h &#8230;&#8203; 1.0h].</p>
 </div>
@@ -5440,7 +5435,7 @@ To ensure precision of image addressing and filter calculations across any OpenC
 </div>
 </div>
 <div class="sect4">
-<h5 id="converting-half-precision-floating-point-values-to-normalized-integer-channel-data-types">Converting Half Precision Floating-point Values to Normalized Integer Channel Data Types</h5>
+<h5 id="converting-half-precision-floating-point-values-to-normalized-integer-channel-data-types"><a class="anchor" href="#converting-half-precision-floating-point-values-to-normalized-integer-channel-data-types"></a>7.4.1.2. Converting Half Precision Floating-point Values to Normalized Integer Channel Data Types</h5>
 <div class="paragraph">
 <p>For images created with image channel data type of <code>CL_UNORM_INT8</code> and <code>CL_UNORM_INT16</code>, image write instructions will convert the half precision floating-point color value to an 8-bit or 16-bit unsigned integer.</p>
 </div>
@@ -5552,7 +5547,7 @@ When approximate rounding is used instead of the preferred rounding, the result 
 </div>
 </div>
 <div class="sect4">
-<h5 id="converting-normalized-integer-channel-data-types-to-floating-point-values">Converting Normalized Integer Channel Data Types to Floating-point Values</h5>
+<h5 id="converting-normalized-integer-channel-data-types-to-floating-point-values"><a class="anchor" href="#converting-normalized-integer-channel-data-types-to-floating-point-values"></a>7.4.1.3. Converting Normalized Integer Channel Data Types to Floating-point Values</h5>
 <div class="paragraph">
 <p>For images created with image channel data type of <code>CL_UNORM_INT8</code> and <code>CL_UNORM_INT16</code>, image read instructions will convert the channel values from an 8-bit or 16-bit unsigned integer to normalized floating-point values in the range [0.0f &#8230;&#8203; 1.0f].</p>
 </div>
@@ -5682,7 +5677,7 @@ When approximate rounding is used instead of the preferred rounding, the result 
 </div>
 </div>
 <div class="sect4">
-<h5 id="converting-floating-point-values-to-normalized-integer-channel-data-types">Converting Floating-point Values to Normalized Integer Channel Data Types</h5>
+<h5 id="converting-floating-point-values-to-normalized-integer-channel-data-types"><a class="anchor" href="#converting-floating-point-values-to-normalized-integer-channel-data-types"></a>7.4.1.4. Converting Floating-point Values to Normalized Integer Channel Data Types</h5>
 <div class="paragraph">
 <p>For images created with image channel data type of <code>CL_UNORM_INT8</code> and <code>CL_UNORM_INT16</code>, image write instructions will convert the floating-point color value to an 8-bit or 16-bit unsigned integer.</p>
 </div>
@@ -5818,7 +5813,7 @@ When approximate rounding is used instead of the preferred rounding, the result 
 </div>
 </div>
 <div class="sect3">
-<h4 id="conversion-rules-for-half-precision-floating-point-channel-data-type">7.4.2. Conversion Rules for Half Precision Floating-point Channel Data Type</h4>
+<h4 id="conversion-rules-for-half-precision-floating-point-channel-data-type"><a class="anchor" href="#conversion-rules-for-half-precision-floating-point-channel-data-type"></a>7.4.2. Conversion Rules for Half Precision Floating-point Channel Data Type</h4>
 <div class="paragraph">
 <p>For images created with a channel data type of <code>CL_HALF_FLOAT</code>, the conversions of half to float and half to half are lossless.
 Conversions from float to half round the mantissa using the round to nearest even or round to zero rounding mode.
@@ -5828,7 +5823,7 @@ A float INF must be converted to an appropriate INF in the half type.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="conversion-rules-for-floating-point-channel-data-type">7.4.3. Conversion Rules for Floating-point Channel Data Type</h4>
+<h4 id="conversion-rules-for-floating-point-channel-data-type"><a class="anchor" href="#conversion-rules-for-floating-point-channel-data-type"></a>7.4.3. Conversion Rules for Floating-point Channel Data Type</h4>
 <div class="paragraph">
 <p>The following rules apply for reading and writing images created with channel data type of <code>CL_FLOAT</code>.</p>
 </div>
@@ -5847,7 +5842,7 @@ A float INF must be converted to an appropriate INF in the half type.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="conversion-rules-for-signed-and-unsigned-8-bit-16-bit-and-32-bit-integer-channel-data-types">7.4.4. Conversion Rules for Signed and Unsigned 8-bit, 16-bit and 32-bit Integer Channel Data Types</h4>
+<h4 id="conversion-rules-for-signed-and-unsigned-8-bit-16-bit-and-32-bit-integer-channel-data-types"><a class="anchor" href="#conversion-rules-for-signed-and-unsigned-8-bit-16-bit-and-32-bit-integer-channel-data-types"></a>7.4.4. Conversion Rules for Signed and Unsigned 8-bit, 16-bit and 32-bit Integer Channel Data Types</h4>
 <div class="paragraph">
 <p>For images created with image channel data type of <code>CL_SIGNED_INT8</code>, <code>CL_SIGNED_INT16</code> and <code>CL_SIGNED_INT32</code>, image read instructions will return the unmodified integer values stored in the image at specified location.</p>
 </div>
@@ -5914,7 +5909,7 @@ A float INF must be converted to an appropriate INF in the half type.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="conversion-rules-for-srgba-and-sbgra-images">7.4.5. Conversion Rules for sRGBA and sBGRA Images</h4>
+<h4 id="conversion-rules-for-srgba-and-sbgra-images"><a class="anchor" href="#conversion-rules-for-srgba-and-sbgra-images"></a>7.4.5. Conversion Rules for sRGBA and sBGRA Images</h4>
 <div class="paragraph">
 <p>Standard RGB data, which roughly displays colors in a linear ramp of luminosity levels such that an average observer, under average viewing conditions, can view them as perceptually equal steps on an average display.
 All 0s maps to 0.0f, and all 1s maps to 1.0f.
@@ -6025,7 +6020,7 @@ Conversion to sRGB space is automatically done by the image write instruction if
 </div>
 </div>
 <div class="sect2">
-<h3 id="selecting-an-image-from-an-image-array">7.5. Selecting an Image from an Image Array</h3>
+<h3 id="selecting-an-image-from-an-image-array"><a class="anchor" href="#selecting-an-image-from-an-image-array"></a>7.5. Selecting an Image from an Image Array</h3>
 <div class="paragraph">
 <p>Let <code>(u,v,w)</code> represent the unnormalized image coordinate values for reading from and/or writing to a 2D image in a 2D image array.</p>
 </div>
@@ -6072,7 +6067,7 @@ Conversion to sRGB space is automatically done by the image write instruction if
 </div>
 </div>
 <div class="sect2">
-<h3 id="_data_format_for_reading_and_writing_images">7.6. Data Format for Reading and Writing Images</h3>
+<h3 id="_data_format_for_reading_and_writing_images"><a class="anchor" href="#_data_format_for_reading_and_writing_images"></a>7.6. Data Format for Reading and Writing Images</h3>
 <div class="paragraph">
 <p>This section describes how image element data is returned by an
 image read instruction or passed as the <em>Texel</em> data that is
@@ -6195,7 +6190,7 @@ to the data vector component type or scalar type:</p>
 </table>
 </div>
 <div class="sect2">
-<h3 id="_sampled_and_sampler_less_reads">7.7. Sampled and Sampler-less Reads</h3>
+<h3 id="_sampled_and_sampler_less_reads"><a class="anchor" href="#_sampled_and_sampler_less_reads"></a>7.7. Sampled and Sampler-less Reads</h3>
 <div class="paragraph">
 <p>SPIR-V instructions that read from an image without a sampler (such as <strong>OpImageRead</strong>) behave exactly the same as the corresponding image read instruction with a sampler that has <em>Sampler Filter Mode</em> set to <strong>Nearest</strong>, <strong>Non-Normalized</strong> coordinates, and <em>Sampler Addressing Mode</em> set to <strong>None</strong>.</p>
 </div>
@@ -6208,7 +6203,7 @@ The coordinates must be between 0 and image size in that dimension, non inclusiv
 </div>
 </div>
 <div class="sect1">
-<h2 id="references">8. Normative References</h2>
+<h2 id="references"><a class="anchor" href="#references"></a>8. Normative References</h2>
 <div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">
@@ -6274,8 +6269,8 @@ Default RGB colour space - sRGB&#8221;,
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.1-Provisional<br>
-Last updated 2020-04-26 21:05:33 -0700
+Version v3.0.5<br>
+Last updated 2020-09-28 14:46:56 -0700
 </div>
 </div>
 

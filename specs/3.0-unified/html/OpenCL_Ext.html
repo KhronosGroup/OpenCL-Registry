@@ -841,9 +841,9 @@ table.CodeRay td.code>pre{padding:0}
 <h1>The OpenCL<sup>&#8482;</sup> Extension Specification</h1>
 <div class="details">
 <span id="author" class="author">Khronos<sup>&#174;</sup> OpenCL Working Group</span><br>
-<span id="revnumber">version v3.0.1-Provisional,</span>
-<span id="revdate">Mon, 27 Apr 2020 04:09:41 +0000</span>
-<br><span id="revremark">from git branch: master commit: fafc202e2b6a80bd2276596227317696d76e1f63</span>
+<span id="revnumber">version v3.0.5,</span>
+<span id="revdate">Wed, 30 Sep 2020 00:00:00 +0000</span>
+<br><span id="revremark">from git branch: master commit: 4d8a36725aa8af9658ab5cb62fdbf52adb44bcca</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -883,7 +883,8 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#cl_khr_subgroup_named_barrier">33. Named Barriers for Subgroups</a></li>
 <li><a href="#cl_khr_extended_async_copies">34. Extended Async Copies (Provisional)</a></li>
 <li><a href="#cl_khr_async_work_group_copy_fence">35. Async Work Group Copy Fence (Provisional)</a></li>
-<li><a href="#spirv_extensions">36. Extensions to the OpenCL SPIR-V Environment</a></li>
+<li><a href="#cl_khr_device_uuid">36. Unique Device Identifiers</a></li>
+<li><a href="#spirv_extensions">37. Extensions to the OpenCL SPIR-V Environment</a></li>
 <li><a href="#_extensions_promoted_to_core_features">Appendix A: Extensions Promoted to Core Features</a></li>
 <li><a href="#_deprecated_extensions">Appendix B: Deprecated Extensions</a></li>
 <li><a href="#_quick_reference">Appendix C: Quick Reference</a></li>
@@ -938,7 +939,7 @@ respective owners.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="extensions-overview">1. Extensions Overview</h2>
+<h2 id="extensions-overview"><a class="anchor" href="#extensions-overview"></a>1. Extensions Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This document describes the list of optional features supported by OpenCL.
@@ -963,7 +964,7 @@ backwards compatibility and for devices that wish to support the feature
 but that are unable to support the newer core OpenCL version.</p>
 </div>
 <div class="sect2">
-<h3 id="naming-convention-for-optional-extensions">1.1. Naming Convention for Optional Extensions</h3>
+<h3 id="naming-convention-for-optional-extensions"><a class="anchor" href="#naming-convention-for-optional-extensions"></a>1.1. Naming Convention for Optional Extensions</h3>
 <div class="paragraph">
 <p>OpenCL extensions approved by the OpenCL working group use the following
 naming convention:</p>
@@ -1020,7 +1021,7 @@ form <strong>CL_&lt;<em>enum_name</em>&gt;_&lt;<em>vendor_name</em>&gt;.</strong
 </div>
 </div>
 <div class="sect2">
-<h3 id="compiler-directives-for-optional-extensions">1.2. Compiler Directives for Optional Extensions</h3>
+<h3 id="compiler-directives-for-optional-extensions"><a class="anchor" href="#compiler-directives-for-optional-extensions"></a>1.2. Compiler Directives for Optional Extensions</h3>
 <div class="paragraph">
 <p>The <strong>#pragma OPENCL EXTENSION</strong> directive controls the behavior of the OpenCL
 compiler with respect to extensions.
@@ -1120,7 +1121,7 @@ A kernel can now use this preprocessor <code>#define</code> to do something like
 </div>
 </div>
 <div class="sect2">
-<h3 id="getting-opencl-api-extension-function-pointers">1.3. Getting OpenCL API Extension Function Pointers</h3>
+<h3 id="getting-opencl-api-extension-function-pointers"><a class="anchor" href="#getting-opencl-api-extension-function-pointers"></a>1.3. Getting OpenCL API Extension Function Pointers</h3>
 <div class="paragraph">
 <p>The function
 </p>
@@ -1231,10 +1232,10 @@ This extension would add the following to cl_gl_ext.h:</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="cl_khr_icd-opencl">2. Installable Client Drivers</h2>
+<h2 id="cl_khr_icd-opencl"><a class="anchor" href="#cl_khr_icd-opencl"></a>2. Installable Client Drivers</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="cl_khr_icd-overview">2.1. Overview</h3>
+<h3 id="cl_khr_icd-overview"><a class="anchor" href="#cl_khr_icd-overview"></a>2.1. Overview</h3>
 <div class="paragraph">
 <p>This section describes a platform extension which defines a simple mechanism
 through which the Khronos OpenCL installable client driver loader (ICD
@@ -1251,9 +1252,9 @@ implementation, the string <strong>cl_khr_icd</strong> will be present in the
 </div>
 </div>
 <div class="sect2">
-<h3 id="_general_information">2.2. General information</h3>
+<h3 id="_general_information"><a class="anchor" href="#_general_information"></a>2.2. General information</h3>
 <div class="sect3">
-<h4 id="_version_history">2.2.1. Version history</h4>
+<h4 id="_version_history"><a class="anchor" href="#_version_history"></a>2.2.1. Version history</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 20%;">
@@ -1278,7 +1279,7 @@ implementation, the string <strong>cl_khr_icd</strong> will be present in the
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_icd-inferring-vendors-from-function-call-arguments">2.3. Inferring Vendors from Function Call Arguments</h3>
+<h3 id="cl_khr_icd-inferring-vendors-from-function-call-arguments"><a class="anchor" href="#cl_khr_icd-inferring-vendors-from-function-call-arguments"></a>2.3. Inferring Vendors from Function Call Arguments</h3>
 <div class="paragraph">
 <p>At every OpenCL function call, the ICD Loader infers the vendor ICD function
 to call from the arguments to the function.
@@ -1313,7 +1314,7 @@ may be inferred have been deprecated and may be ignored.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_icd-icd-data">2.4. ICD Data</h3>
+<h3 id="cl_khr_icd-icd-data"><a class="anchor" href="#cl_khr_icd-icd-data"></a>2.4. ICD Data</h3>
 <div class="paragraph">
 <p>A Vendor ICD is defined by two pieces of data:</p>
 </div>
@@ -1334,7 +1335,7 @@ The vendor suffix string is optional.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_icd-icd-loader-vendor-enumeration-on-windows">2.5. ICD Loader Vendor Enumeration on Windows</h3>
+<h3 id="cl_khr_icd-icd-loader-vendor-enumeration-on-windows"><a class="anchor" href="#cl_khr_icd-icd-loader-vendor-enumeration-on-windows"></a>2.5. ICD Loader Vendor Enumeration on Windows</h3>
 <div class="paragraph">
 <p>To enumerate Vendor ICDs on Windows, the ICD Loader will first
 scan for REG_SZ string values in the "Display Adapter" and
@@ -1417,7 +1418,7 @@ of the registry value.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_icd-icd-loader-vendor-enumeration-on-linux">2.6. ICD Loader Vendor Enumeration on Linux</h3>
+<h3 id="cl_khr_icd-icd-loader-vendor-enumeration-on-linux"><a class="anchor" href="#cl_khr_icd-icd-loader-vendor-enumeration-on-linux"></a>2.6. ICD Loader Vendor Enumeration on Linux</h3>
 <div class="paragraph">
 <p>To enumerate vendor ICDs on Linux, the ICD Loader scans the files in the
 path <code>/etc/OpenCL/vendors</code>.
@@ -1449,7 +1450,7 @@ Note that the library specified may be an absolute path or just a file name.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_icd-icd-loader-vendor-enumeration-on-android">2.7. ICD Loader Vendor Enumeration on Android</h3>
+<h3 id="cl_khr_icd-icd-loader-vendor-enumeration-on-android"><a class="anchor" href="#cl_khr_icd-icd-loader-vendor-enumeration-on-android"></a>2.7. ICD Loader Vendor Enumeration on Android</h3>
 <div class="paragraph">
 <p>To enumerate vendor ICDs on Android, the ICD Loader scans the files in the
 path <code>/system/vendor/Khronos/OpenCL/vendors</code>.
@@ -1481,7 +1482,7 @@ Note that the library specified may be an absolute path or just a file name.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_icd-adding-a-vendor-library">2.8. Adding a Vendor Library</h3>
+<h3 id="cl_khr_icd-adding-a-vendor-library"><a class="anchor" href="#cl_khr_icd-adding-a-vendor-library"></a>2.8. Adding a Vendor Library</h3>
 <div class="paragraph">
 <p>Upon successfully loading a Vendor ICD&#8217;s library, the ICD Loader queries the
 following functions from the library: <strong>clIcdGetPlatformIDsKHR</strong>,
@@ -1505,7 +1506,7 @@ continue on to the next.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_icd-new-procedures-and-functions">2.9. New Procedures and Functions</h3>
+<h3 id="cl_khr_icd-new-procedures-and-functions"><a class="anchor" href="#cl_khr_icd-new-procedures-and-functions"></a>2.9. New Procedures and Functions</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="c">cl_int clIcdGetPlatformIDsKHR(cl_uint num_entries,
@@ -1515,7 +1516,7 @@ continue on to the next.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_icd-new-tokens">2.10. New Tokens</h3>
+<h3 id="cl_khr_icd-new-tokens"><a class="anchor" href="#cl_khr_icd-new-tokens"></a>2.10. New Tokens</h3>
 <div class="paragraph">
 <p>Accepted as <em>param_name</em> to the function <strong>clGetPlatformInfo</strong>:</p>
 </div>
@@ -1534,7 +1535,7 @@ continue on to the next.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_icd-additions-to-chapter-4">2.11. Additions to Chapter 4 of the OpenCL 2.2 Specification</h3>
+<h3 id="cl_khr_icd-additions-to-chapter-4"><a class="anchor" href="#cl_khr_icd-additions-to-chapter-4"></a>2.11. Additions to Chapter 4 of the OpenCL 2.2 Specification</h3>
 <div class="paragraph">
 <p>In <em>section 4.1</em>, replace the description of the return values of
 <strong>clGetPlatformIDs</strong> with:</p>
@@ -1616,7 +1617,7 @@ It returns CL_INVALID_VALUE if <em>num_entries</em> is equal to zero and
 </table>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_icd-source-code">2.12. Source Code</h3>
+<h3 id="cl_khr_icd-source-code"><a class="anchor" href="#cl_khr_icd-source-code"></a>2.12. Source Code</h3>
 <div class="paragraph">
 <p>The official source for the ICD loader is available on github, at:</p>
 </div>
@@ -1629,7 +1630,7 @@ It returns CL_INVALID_VALUE if <em>num_entries</em> is equal to zero and
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_icd-issues">2.13. Issues</h3>
+<h3 id="cl_khr_icd-issues"><a class="anchor" href="#cl_khr_icd-issues"></a>2.13. Issues</h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1704,7 +1705,7 @@ values corresponding to the object in question.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="cl_khr_byte_addressable_store">3. Byte Addressable Stores</h2>
+<h2 id="cl_khr_byte_addressable_store"><a class="anchor" href="#cl_khr_byte_addressable_store"></a>3. Byte Addressable Stores</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This section describes the <strong>cl_khr_byte_addressable_store</strong> extension.
@@ -1715,9 +1716,9 @@ With this extension, applications are able to read from and write to pointers to
 <p>This extension became a core feature in OpenCL 1.1.</p>
 </div>
 <div class="sect2">
-<h3 id="_general_information_2">3.1. General information</h3>
+<h3 id="_general_information_2"><a class="anchor" href="#_general_information_2"></a>3.1. General information</h3>
 <div class="sect3">
-<h4 id="_version_history_2">3.1.1. Version history</h4>
+<h4 id="_version_history_2"><a class="anchor" href="#_version_history_2"></a>3.1.1. Version history</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 20%;">
@@ -1744,7 +1745,7 @@ With this extension, applications are able to read from and write to pointers to
 </div>
 </div>
 <div class="sect1">
-<h2 id="cl_khr_3d_image_writes">4. Writing to 3D Image Objects</h2>
+<h2 id="cl_khr_3d_image_writes"><a class="anchor" href="#cl_khr_3d_image_writes"></a>4. Writing to 3D Image Objects</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This section describes the <strong>cl_khr_3d_image_writes</strong> extension.</p>
@@ -1756,9 +1757,9 @@ With this extension, applications are able to read from and write to pointers to
 <p>This extension became a core feature in OpenCL 2.0.</p>
 </div>
 <div class="sect2">
-<h3 id="_general_information_3">4.1. General information</h3>
+<h3 id="_general_information_3"><a class="anchor" href="#_general_information_3"></a>4.1. General information</h3>
 <div class="sect3">
-<h4 id="_version_history_3">4.1.1. Version history</h4>
+<h4 id="_version_history_3"><a class="anchor" href="#_version_history_3"></a>4.1.1. Version history</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 20%;">
@@ -1836,7 +1837,7 @@ The behavior of <strong>write_imagef</strong>, <strong>write_imagei</strong>, an
 </div>
 </div>
 <div class="sect1">
-<h2 id="cl_khr_fp16">5. Half Precision Floating-Point</h2>
+<h2 id="cl_khr_fp16"><a class="anchor" href="#cl_khr_fp16"></a>5. Half Precision Floating-Point</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This section describes the <strong>cl_khr_fp16</strong> extension.
@@ -1844,9 +1845,9 @@ This extension adds support for half scalar and vector types as built-in
 types that can be used for arithmetic operations, conversions etc.</p>
 </div>
 <div class="sect2">
-<h3 id="_general_information_4">5.1. General information</h3>
+<h3 id="_general_information_4"><a class="anchor" href="#_general_information_4"></a>5.1. General information</h3>
 <div class="sect3">
-<h4 id="_version_history_4">5.1.1. Version history</h4>
+<h4 id="_version_history_4"><a class="anchor" href="#_version_history_4"></a>5.1.1. Version history</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 20%;">
@@ -1871,7 +1872,7 @@ types that can be used for arithmetic operations, conversions etc.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_fp16-additions-to-chapter-6-of-the-opencl-2.0-specification">5.2. Additions to Chapter 6 of the OpenCL 2.0 C Specification</h3>
+<h3 id="cl_khr_fp16-additions-to-chapter-6-of-the-opencl-2.0-specification"><a class="anchor" href="#cl_khr_fp16-additions-to-chapter-6-of-the-opencl-2.0-specification"></a>5.2. Additions to Chapter 6 of the OpenCL 2.0 C Specification</h3>
 <div class="paragraph">
 <p>The list of built-in scalar, and vector data types defined in <em>tables 6.1</em>,
 and <em>6.2</em> are extended to include the following:</p>
@@ -1962,7 +1963,7 @@ shall produce a scalar <code>int</code> and vector <code>shortn</code> result re
 indicating the literal is typed as a half.</p>
 </div>
 <div class="sect3">
-<h4 id="cl_khr_fp16-conversions">5.2.1. Conversions</h4>
+<h4 id="cl_khr_fp16-conversions"><a class="anchor" href="#cl_khr_fp16-conversions"></a>5.2.1. Conversions</h4>
 <div class="paragraph">
 <p>The implicit conversion rules specified in <em>section 6.2.1</em> now include the
 <code>half</code> scalar and <code>halfn</code> vector data types.</p>
@@ -1982,7 +1983,7 @@ to take a <code>half</code> scalar data type and a <code>halfn</code> vector dat
 </div>
 </div>
 <div class="sect3">
-<h4 id="cl_khr_fp16-math-functions">5.2.2. Math Functions</h4>
+<h4 id="cl_khr_fp16-math-functions"><a class="anchor" href="#cl_khr_fp16-math-functions"></a>5.2.2. Math Functions</h4>
 <div class="paragraph">
 <p>The built-in math functions defined in <em>table 6.8</em> (also listed below) are
 extended to include appropriate versions of functions that take <code>half</code> and
@@ -2223,7 +2224,7 @@ all arguments and the return type.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>mad</strong> (gentype <em>a</em>, gentype <em>b</em>, gentype <em>c</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>mad</strong> computes <em>a</em> * <em>b</em> + <em>c</em>.
   The function may compute <em>a</em> * <em>b</em> + <em>c</em> with reduced accuracy
-  in the embedded profile.  See the SPIR-V OpenCL environment specification
+  in the embedded profile.  See the OpenCL SPIR-V Environment Specification
   for details. On some hardware the mad instruction may provide better
   performance than expanded computation of <em>a</em> * <em>b</em> + <em>c</em>.</p>
 <p class="tableblock">  Note: For some usages, e.g. <strong>mad</strong>(a, b, -a*b), the half precision
@@ -2533,7 +2534,7 @@ type.</p>
 </table>
 </div>
 <div class="sect3">
-<h4 id="cl_khr_fp16-common-functions">5.2.3. Common Functions</h4>
+<h4 id="cl_khr_fp16-common-functions"><a class="anchor" href="#cl_khr_fp16-common-functions"></a>5.2.3. Common Functions</h4>
 <div class="paragraph">
 <p>The built-in common functions defined in <em>table 6.12</em> (also listed below)
 are extended to include appropriate versions of functions that take <code>half</code>
@@ -2624,7 +2625,7 @@ These are described below.</p>
 </table>
 </div>
 <div class="sect3">
-<h4 id="cl_khr_fp16-geometric-functions">5.2.4. Geometric Functions</h4>
+<h4 id="cl_khr_fp16-geometric-functions"><a class="anchor" href="#cl_khr_fp16-geometric-functions"></a>5.2.4. Geometric Functions</h4>
 <div class="paragraph">
 <p>The built-in geometric functions defined in <em>table 6.13</em> (also listed below)
 are extended to include appropriate versions of functions that take <code>half</code>
@@ -2677,7 +2678,7 @@ contractions such as <strong>mad</strong> or <strong>fma</strong>.</p>
 </table>
 </div>
 <div class="sect3">
-<h4 id="cl_khr_fp16-relational-functions">5.2.5. Relational Functions</h4>
+<h4 id="cl_khr_fp16-relational-functions"><a class="anchor" href="#cl_khr_fp16-relational-functions"></a>5.2.5. Relational Functions</h4>
 <div class="paragraph">
 <p>The scalar and vector relational functions described in <em>table 6.14</em> are
 extended to include versions that take <code>half</code>, <code>half2</code>, <code>half3</code>, <code>half4</code>,
@@ -2826,7 +2827,7 @@ vector types.</p>
 </table>
 </div>
 <div class="sect3">
-<h4 id="cl_khr_fp16-vector-data-load-and-store-functions">5.2.6. Vector Data Load and Store Functions</h4>
+<h4 id="cl_khr_fp16-vector-data-load-and-store-functions"><a class="anchor" href="#cl_khr_fp16-vector-data-load-and-store-functions"></a>5.2.6. Vector Data Load and Store Functions</h4>
 <div class="paragraph">
 <p>The vector data load (<strong>vload<em>n</em></strong>) and store (<strong>vstore<em>n</em></strong>) functions
 described in <em>table 6.13</em> (also listed below) are extended to include
@@ -2863,8 +2864,8 @@ components from a 3-component vector to address (<em>p</em> + (<em>offset</em> *
 <p class="tableblock">  gentype<em>n</em> <strong>vload<em>n</em></strong>(size_t <em>offset</em>, const gentype *<em>p</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return sizeof (gentype<em>n</em>) bytes of data read from address
   (<em>p</em> + (<em>offset * n</em>)).
-  The read address computed as (<em>p</em> + (<em>offset * n</em>)) must be 16-bit
-  aligned.</p></td>
+  If gentype is half, the read address computed as (<em>p</em> + (<em>offset * n</em>))
+  must be 16-bit aligned.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">void <strong>vstore<em>n</em></strong>(gentype<em>n</em> <em>data</em>, size_t <em>offset</em>, __global gentype *<em>p</em>)<br>
@@ -2875,14 +2876,14 @@ components from a 3-component vector to address (<em>p</em> + (<em>offset</em> *
 <p class="tableblock">  void <strong>vstore<em>n</em></strong>(gentype<em>n</em> <em>data</em>, size_t <em>offset</em>, gentype *<em>p</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Write sizeof (gentype<em>n</em>) bytes given by <em>data</em> to address
   (<em>p</em> + (<em>offset * n</em>)).
-  The write address computed as (<em>p</em> + (<em>offset * n</em>)) must be 16-bit
-  aligned.</p></td>
+  If gentype is half, the write address computed as (<em>p</em> + (<em>offset * n</em>))
+  must be 16-bit aligned.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="sect3">
-<h4 id="cl_khr_fp16-async-copies-from-global-to-local-memory-local-to-global-memory-and-prefetch">5.2.7. Async Copies from Global to Local Memory, Local to Global Memory, and Prefetch</h4>
+<h4 id="cl_khr_fp16-async-copies-from-global-to-local-memory-local-to-global-memory-and-prefetch"><a class="anchor" href="#cl_khr_fp16-async-copies-from-global-to-local-memory-local-to-global-memory-and-prefetch"></a>5.2.7. Async Copies from Global to Local Memory, Local to Global Memory, and Prefetch</h4>
 <div class="paragraph">
 <p>The OpenCL C programming language implements the following functions that
 provide asynchronous copies between global and local memory and a prefetch
@@ -2994,14 +2995,14 @@ from global memory.</p>
 </table>
 </div>
 <div class="sect3">
-<h4 id="cl_khr_fp16-image-read-and-write-functions">5.2.8. Image Read and Write Functions</h4>
+<h4 id="cl_khr_fp16-image-read-and-write-functions"><a class="anchor" href="#cl_khr_fp16-image-read-and-write-functions"></a>5.2.8. Image Read and Write Functions</h4>
 <div class="paragraph">
 <p>The image read and write functions defined in <em>tables 6.23</em>, <em>6.24</em> and
 <em>6.25</em> are extended to support image color values that are a <code>half</code> type.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_built_in_image_read_functions">5.2.9. Built-in Image Read Functions</h4>
+<h4 id="_built_in_image_read_functions"><a class="anchor" href="#_built_in_image_read_functions"></a>5.2.9. Built-in Image Read Functions</h4>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 8. <em>Half Precision Built-in Image Read Functions</em></caption>
 <colgroup>
@@ -3181,7 +3182,7 @@ from global memory.</p>
 </table>
 </div>
 <div class="sect3">
-<h4 id="_built_in_image_sampler_less_read_functions">5.2.10. Built-in Image Sampler-less Read Functions</h4>
+<h4 id="_built_in_image_sampler_less_read_functions"><a class="anchor" href="#_built_in_image_sampler_less_read_functions"></a>5.2.10. Built-in Image Sampler-less Read Functions</h4>
 <div class="paragraph">
 <p><em>aQual</em> in Table 6.24 refers to one of the access qualifiers.
 For sampler-less read functions this may be <em>read_only</em> or <em>read_write</em>.</p>
@@ -3301,7 +3302,7 @@ For sampler-less read functions this may be <em>read_only</em> or <em>read_write
 </table>
 </div>
 <div class="sect3">
-<h4 id="_built_in_image_write_functions">5.2.11. Built-in Image Write Functions</h4>
+<h4 id="_built_in_image_write_functions"><a class="anchor" href="#_built_in_image_write_functions"></a>5.2.11. Built-in Image Write Functions</h4>
 <div class="paragraph">
 <p><em>aQual</em> in Table 6.25 refers to one of the access qualifiers.
 For write functions this may be <em>write_only</em> or <em>read_write</em>.</p>
@@ -3439,7 +3440,7 @@ For write functions this may be <em>write_only</em> or <em>read_write</em>.</p>
 </table>
 </div>
 <div class="sect3">
-<h4 id="cl_khr_fp16-ieee754-compliance">5.2.12. IEEE754 Compliance</h4>
+<h4 id="cl_khr_fp16-ieee754-compliance"><a class="anchor" href="#cl_khr_fp16-ieee754-compliance"></a>5.2.12. IEEE754 Compliance</h4>
 <div class="paragraph">
 <p>The following table entry describes the additions to <em>table 4.3,</em> which
 allows applications to query the configuration information using
@@ -3482,7 +3483,7 @@ floating-point.</p>
 </table>
 </div>
 <div class="sect3">
-<h4 id="cl_khr_fp16-rounding-modes">5.2.13. Rounding Modes</h4>
+<h4 id="cl_khr_fp16-rounding-modes"><a class="anchor" href="#cl_khr_fp16-rounding-modes"></a>5.2.13. Rounding Modes</h4>
 <div class="paragraph">
 <p>If CL_FP_ROUND_TO_NEAREST is supported, the default rounding mode for
 half-precision floating-point operations will be round to nearest even;
@@ -3502,7 +3503,7 @@ All conversions from half to floating point formats are exact.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="cl_khr_fp16-relative-error-as-ulps">5.2.14. Relative Error as ULPs</h4>
+<h4 id="cl_khr_fp16-relative-error-as-ulps"><a class="anchor" href="#cl_khr_fp16-relative-error-as-ulps"></a>5.2.14. Relative Error as ULPs</h4>
 <div class="paragraph">
 <p>In this section we discuss the maximum relative error defined as <em>ulp</em>
 (units in the last place).</p>
@@ -3971,19 +3972,283 @@ type as a storage only format</em>.</p>
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="cl_khr_fp16-additions-to-chapter-8-of-the-opencl-2.0-specification"><a class="anchor" href="#cl_khr_fp16-additions-to-chapter-8-of-the-opencl-2.0-specification"></a>5.3. Additions to Chapter 8 of the OpenCL 2.0 C Specification</h3>
+<div class="paragraph">
+<p>Add new sub-sections to <em>section 8.3.1. Conversion rules for normalized integer channel data types</em>:</p>
+</div>
+<div class="sect3">
+<h4 id="cl_khr_fp16-converting-normalized-integer-channel-data-types-to-floating-point-values"><a class="anchor" href="#cl_khr_fp16-converting-normalized-integer-channel-data-types-to-floating-point-values"></a>5.3.1. Converting normalized integer channel data types to half precision floating-point values</h4>
+<div class="paragraph">
+<p>For images created with image channel data type of <code>CL_UNORM_INT8</code> and
+<code>CL_UNORM_INT16</code>, <strong>read_imagef</strong> will convert the channel values from an
+8-bit or 16-bit unsigned integer to normalized half precision
+floating-point values in the range [<code>0.0h</code>, <code>1.0h</code>].</p>
+</div>
+<div class="paragraph">
+<p>For images created with image channel data type of <code>CL_SNORM_INT8</code> and
+<code>CL_SNORM_INT16</code>, <strong>read_imagef</strong> will convert the channel values from an
+8-bit or 16-bit signed integer to normalized half precision floating-point
+values in the range [<code>-1.0h</code>, <code>1.0h</code>].</p>
+</div>
+<div class="paragraph">
+<p>These conversions are performed as follows:</p>
+</div>
+<div class="paragraph">
+<p><code>CL_UNORM_INT8</code> (8-bit unsigned integer) → <code>half</code></p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>normalized <code>half</code> value = <code>round_to_half(c / 255)</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><code>CL_UNORM_INT_101010</code> (10-bit unsigned integer) → <code>half</code></p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>normalized <code>half</code> value = <code>round_to_half(c / 1023)</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><code>CL_UNORM_INT16</code> (16-bit unsigned integer) → <code>half</code></p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>normalized <code>half</code> value = <code>round_to_half(c / 65535)</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><code>CL_SNORM_INT8</code> (8-bit signed integer) → <code>half</code></p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>normalized <code>half</code> value = <code>max(-1.0h, round_to_half(c / 127))</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><code>CL_SNORM_INT16</code> (16-bit signed integer) → <code>half</code></p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>normalized <code>half</code> value = <code>max(-1.0h, round_to_half(c / 32767))</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The accuracy of the above conversions must be &lt;= 1.5 ulp except for the
+following cases.</p>
+</div>
+<div class="paragraph">
+<p>For <code>CL_UNORM_INT8</code></p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>0 must convert to <code>0.0h</code> and</p>
+</li>
+<li>
+<p>255 must convert to <code>1.0h</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For <code>CL_UNORM_INT_101010</code></p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>0 must convert to <code>0.0h</code> and</p>
+</li>
+<li>
+<p>1023 must convert to <code>1.0h</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For <code>CL_UNORM_INT16</code></p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>0 must convert to <code>0.0h</code> and</p>
+</li>
+<li>
+<p>65535 must convert to <code>1.0h</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For <code>CL_SNORM_INT8</code></p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>-128 and -127 must convert to <code>-1.0h</code>,</p>
+</li>
+<li>
+<p>0 must convert to <code>0.0h</code> and</p>
+</li>
+<li>
+<p>127 must convert to <code>1.0h</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For <code>CL_SNORM_INT16</code></p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>-32768 and -32767 must convert to <code>-1.0h</code>,</p>
+</li>
+<li>
+<p>0 must convert to <code>0.0h</code> and</p>
+</li>
+<li>
+<p>32767 must convert to <code>1.0h</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="cl_khr_fp16-converting-floating-point-values-to-normalized-integer-channel-data-types"><a class="anchor" href="#cl_khr_fp16-converting-floating-point-values-to-normalized-integer-channel-data-types"></a>5.3.2. Converting half precision floating-point values to normalized integer channel data types</h4>
+<div class="paragraph">
+<p>For images created with image channel data type of <code>CL_UNORM_INT8</code> and
+<code>CL_UNORM_INT16</code>, <strong>write_imagef</strong> will convert the floating-point color value
+to an 8-bit or 16-bit unsigned integer.</p>
+</div>
+<div class="paragraph">
+<p>For images created with image channel data type of <code>CL_SNORM_INT8</code> and
+<code>CL_SNORM_INT16</code>, <strong>write_imagef</strong> will convert the floating-point color value
+to an 8-bit or 16-bit signed integer.</p>
+</div>
+<div class="paragraph">
+<p>The preferred conversion uses the round to nearest even (<code>_rte</code>) rounding
+mode, but OpenCL implementations may choose to approximate the rounding mode
+used in the conversions described below.
+When approximate rounding is used instead of the preferred rounding,
+the result of the conversion must satisfy the bound given below.</p>
+</div>
+<div class="paragraph">
+<p><code>half</code> → <code>CL_UNORM_INT8</code> (8-bit unsigned integer)</p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>Let f<sub>exact</sub> = <strong>max</strong>(<code>0</code>, <strong>min</strong>(<code>f * 255</code>, <code>255</code>))</p>
+</li>
+<li>
+<p>Let f<sub>preferred</sub> = <strong>convert_uchar_sat_rte</strong>(<code>f * 255.0f</code>)</p>
+</li>
+<li>
+<p>Let f<sub>approx</sub> = <strong>convert_uchar_sat_&lt;impl-rounding-mode&gt;</strong>(<code>f * 255.0f</code>)</p>
+</li>
+<li>
+<p><strong>fabs</strong>(f<sub>exact</sub> - f<sub>approx</sub>) must be &lt;= 0.6</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><code>half</code> → <code>CL_UNORM_INT_101010</code> (10-bit unsigned integer)</p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>Let f<sub>exact</sub> = <strong>max</strong>(<code>0</code>, <strong>min</strong>(<code>f * 1023</code>, <code>1023</code>))</p>
+</li>
+<li>
+<p>Let f<sub>preferred</sub> = <strong>min</strong>(<strong>convert_ushort_sat_rte</strong>(<code>f * 1023.0f</code>), <code>1023</code>)</p>
+</li>
+<li>
+<p>Let f<sub>approx</sub> = <strong>convert_ushort_sat_&lt;impl-rounding-mode&gt;</strong>(<code>f * 1023.0f</code>)</p>
+</li>
+<li>
+<p><strong>fabs</strong>(f<sub>exact</sub> - f<sub>approx</sub>) must be &lt;= 0.6</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><code>half</code> → <code>CL_UNORM_INT16</code> (16-bit unsigned integer)</p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>Let f<sub>exact</sub> = <strong>max</strong>(<code>0</code>, <strong>min</strong>(<code>f * 65535</code>, <code>65535</code>))</p>
+</li>
+<li>
+<p>Let f<sub>preferred</sub> = <strong>convert_ushort_sat_rte</strong>(<code>f * 65535.0f</code>)</p>
+</li>
+<li>
+<p>Let f<sub>approx</sub> = <strong>convert_ushort_sat_&lt;impl-rounding-mode&gt;</strong>(<code>f * 65535.0f</code>)</p>
+</li>
+<li>
+<p><strong>fabs</strong>(f<sub>exact</sub> - f<sub>approx</sub>) must be &lt;= 0.6</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><code>half</code> → <code>CL_SNORM_INT8</code> (8-bit signed integer)</p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>Let f<sub>exact</sub> = <strong>max</strong>(<code>-128</code>, <strong>min</strong>(<code>f * 127</code>, <code>127</code>))</p>
+</li>
+<li>
+<p>Let f<sub>preferred</sub> = <strong>convert_char_sat_rte</strong>(<code>f * 127.0f</code>)</p>
+</li>
+<li>
+<p>Let f<sub>approx</sub> = <strong>convert_char_sat_&lt;impl_rounding_mode&gt;</strong>(<code>f * 127.0f</code>)</p>
+</li>
+<li>
+<p><strong>fabs</strong>(f<sub>exact</sub> - f<sub>approx</sub>) must be &lt;= 0.6</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><code>half</code> → <code>CL_SNORM_INT16</code> (16-bit signed integer)</p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>Let f<sub>exact</sub> = <strong>max</strong>(<code>-32768</code>, <strong>min</strong>(<code>f * 32767</code>, <code>32767</code>))</p>
+</li>
+<li>
+<p>Let f<sub>preferred</sub> = <strong>convert_short_sat_rte</strong>(<code>f * 32767.0f</code>)</p>
+</li>
+<li>
+<p>Let f<sub>approx</sub> = <strong>convert_short_sat_&lt;impl-rounding-mode&gt;</strong>(<code>f * 32767.0f</code>)</p>
+</li>
+<li>
+<p><strong>fabs</strong>(f<sub>exact</sub> - f<sub>approx</sub>) must be &lt;= 0.6</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="cl_khr_fp64">6. Double Precision Floating-Point</h2>
+<h2 id="cl_khr_fp64"><a class="anchor" href="#cl_khr_fp64"></a>6. Double Precision Floating-Point</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This section describes the <strong>cl_khr_fp64</strong> extension.
 This extension became an optional core feature in OpenCL 1.2.</p>
 </div>
 <div class="sect2">
-<h3 id="_general_information_5">6.1. General information</h3>
+<h3 id="_general_information_5"><a class="anchor" href="#_general_information_5"></a>6.1. General information</h3>
 <div class="sect3">
-<h4 id="_version_history_5">6.1.1. Version history</h4>
+<h4 id="_version_history_5"><a class="anchor" href="#_version_history_5"></a>6.1.1. Version history</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 20%;">
@@ -4008,7 +4273,7 @@ This extension became an optional core feature in OpenCL 1.2.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_fp64-additions-to-chapter-6">6.2. Additions to Chapter 6</h3>
+<h3 id="cl_khr_fp64-additions-to-chapter-6"><a class="anchor" href="#cl_khr_fp64-additions-to-chapter-6"></a>6.2. Additions to Chapter 6</h3>
 <div class="paragraph">
 <p>The list of built-in scalar, and vector data types defined in <em>tables 6.1</em>
 and <em>6.2</em> are extended to include the following:</p>
@@ -4108,7 +4373,7 @@ available to the application:</p>
 Conversions from half to double are lossless.</p>
 </div>
 <div class="sect3">
-<h4 id="cl_khr_fp64-conversions">6.2.1. Conversions</h4>
+<h4 id="cl_khr_fp64-conversions"><a class="anchor" href="#cl_khr_fp64-conversions"></a>6.2.1. Conversions</h4>
 <div class="paragraph">
 <p>The implicit conversion rules specified in <em>section 6.2.1</em> now include the
 <code>double</code> scalar and <code>doublen</code> vector data types.</p>
@@ -4128,7 +4393,7 @@ to take a <code>double</code> scalar data type and a <code>doublen</code> vector
 </div>
 </div>
 <div class="sect3">
-<h4 id="cl_khr_fp64-math-functions">6.2.2. Math Functions</h4>
+<h4 id="cl_khr_fp64-math-functions"><a class="anchor" href="#cl_khr_fp64-math-functions"></a>6.2.2. Math Functions</h4>
 <div class="paragraph">
 <p>The built-in math functions defined in <em>table 6.8</em> (also listed below) are
 extended to include appropriate versions of functions that take <code>double</code> and
@@ -4286,19 +4551,19 @@ all arguments and the return type.</p>
   Returns <em>x</em> - <em>y</em> * <strong>trunc</strong> (<em>x</em>/<em>y</em>) .</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>fract</strong> (gentype <em>x</em>, __global gentype <strong><em>iptr</em>)<br>
-  gentype *fract</strong> (gentype <em>x</em>, __local gentype <strong><em>iptr</em>)<br>
-  gentype *fract</strong> (gentype <em>x</em>, __private gentype *<em>iptr</em>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>fract</strong> (gentype <em>x</em>, __global gentype *<em>iptr</em>)<br>
+  gentype <strong>fract</strong> (gentype <em>x</em>, __local gentype *<em>iptr</em>)<br>
+  gentype <strong>fract</strong> (gentype <em>x</em>, __private gentype *<em>iptr</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns <strong>fmin</strong>( <em>x</em> - <strong>floor</strong> (<em>x</em>), 0x1. fffffffffffffp-1 ).</p>
 <p class="tableblock">  <strong>floor</strong>(x) is returned in <em>iptr</em>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">double<em>n</em> <strong>frexp</strong> (double<em>n x</em>, __global int<em>n</em> <strong>exp)<br>
-  double<em>n</em> *frexp</strong> (double<em>n x</em>, __local int<em>n</em> <strong>exp)<br>
-  double<em>n</em> *frexp</strong> (double<em>n x</em>, __private int<em>n</em> <strong>exp)<br>
-  double *frexp</strong> (double <em>x</em>, __global int <strong>exp)<br>
-  double *frexp</strong> (double <em>x</em>, __local int <strong>exp)<br>
-  double *frexp</strong> (double <em>x</em>, __private int *exp)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">double<em>n</em> <strong>frexp</strong> (double<em>n x</em>, __global int<em>n</em> *exp)<br>
+  double<em>n</em> <strong>frexp</strong> (double<em>n x</em>, __local int<em>n</em> *exp)<br>
+  double<em>n</em> <strong>frexp</strong> (double<em>n x</em>, __private int<em>n</em> *exp)<br>
+  double <strong>frexp</strong> (double <em>x</em>, __global int *exp)<br>
+  double <strong>frexp</strong> (double <em>x</em>, __local int *exp)<br>
+  double <strong>frexp</strong> (double <em>x</em>, __private int *exp)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Extract mantissa and exponent from <em>x</em>.
   For each component the mantissa returned is a float with magnitude in the
   interval [1/2, 1) or 0.
@@ -4306,7 +4571,7 @@ all arguments and the return type.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>hypot</strong> (gentype <em>x</em>, gentype <em>y</em>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Compute the value of the square root of <em>x</em>2+ <em>y</em>2  without undue
+<td class="tableblock halign-left valign-top"><p class="tableblock">Compute the value of the square root of <em>x</em><sup>2</sup>+ <em>y</em><sup>2</sup> without undue
   overflow or underflow.</p></td>
 </tr>
 <tr>
@@ -4358,7 +4623,7 @@ all arguments and the return type.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>mad</strong> (gentype <em>a</em>, gentype <em>b</em>, gentype <em>c</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>mad</strong> computes <em>a</em> * <em>b</em> + <em>c</em>.
   The function may compute <em>a</em> * <em>b</em> + <em>c</em> with reduced accuracy
-  in the embedded profile.  See the SPIR-V OpenCL environment specification
+  in the embedded profile.  See the OpenCL SPIR-V Environment Specification
   for details. On some hardware the mad instruction may provide better
   performance than expanded computation of <em>a</em> * <em>b</em> + <em>c</em>.</p></td>
 </tr>
@@ -4373,9 +4638,9 @@ all arguments and the return type.</p>
   <strong>fmin</strong>(<em>x</em>, <em>y</em>).</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>modf</strong> (gentype <em>x</em>, __global gentype <strong><em>iptr</em>)<br>
-  gentype *modf</strong> (gentype <em>x</em>, __local gentype <strong><em>iptr</em>)<br>
-  gentype *modf</strong> (gentype <em>x</em>, __private gentype *<em>iptr</em>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>modf</strong> (gentype <em>x</em>, __global gentype *<em>iptr</em>)<br>
+  gentype <strong>modf</strong> (gentype <em>x</em>, __local gentype *<em>iptr</em>)<br>
+  gentype <strong>modf</strong> (gentype <em>x</em>, __private gentype *<em>iptr</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Decompose a floating-point number.
   The <strong>modf</strong> function breaks the argument <em>x</em> into integral and fractional
   parts, each of which has the same sign as the argument.
@@ -4438,7 +4703,7 @@ all arguments and the return type.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">double<em>n</em> <strong>rootn</strong> (double<em>n</em> <em>x</em>, int<em>n</em> <em>y</em>)<br>
-  double<em>n</em> <strong>rootn</strong> (double <em>x</em>, int <em>y</em>)</p></td>
+  double <strong>rootn</strong> (double <em>x</em>, int <em>y</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Compute <em>x</em> to the power 1/<em>y</em>.</p></td>
 </tr>
 <tr>
@@ -4455,9 +4720,9 @@ all arguments and the return type.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Compute sine.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>sincos</strong> (gentype <em>x</em>, __global gentype <strong><em>cosval</em>)<br>
-  gentype *sincos</strong> (gentype <em>x</em>, __local gentype <strong><em>cosval</em>)<br>
-  gentype *sincos</strong> (gentype <em>x</em>, __private gentype *<em>cosval</em>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>sincos</strong> (gentype <em>x</em>, __global gentype *<em>cosval</em>)<br>
+  gentype <strong>sincos</strong> (gentype <em>x</em>, __local gentype *<em>cosval</em>)<br>
+  gentype <strong>sincos</strong> (gentype <em>x</em>, __private gentype *<em>cosval</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Compute sine and cosine of x.
   The computed sine is the return value and computed cosine is returned in
   <em>cosval</em>.</p></td>
@@ -4662,7 +4927,7 @@ type.</p>
 </table>
 </div>
 <div class="sect3">
-<h4 id="cl_khr_fp64-common-functions">6.2.3. Common Functions</h4>
+<h4 id="cl_khr_fp64-common-functions"><a class="anchor" href="#cl_khr_fp64-common-functions"></a>6.2.3. Common Functions</h4>
 <div class="paragraph">
 <p>The built-in common functions defined in <em>table 6.12</em> (also listed below)
 are extended to include appropriate versions of functions that take <code>double</code>
@@ -4753,7 +5018,7 @@ These are described below.</p>
 </table>
 </div>
 <div class="sect3">
-<h4 id="cl_khr_fp64-geometric-functions">6.2.4. Geometric Functions</h4>
+<h4 id="cl_khr_fp64-geometric-functions"><a class="anchor" href="#cl_khr_fp64-geometric-functions"></a>6.2.4. Geometric Functions</h4>
 <div class="paragraph">
 <p>The built-in geometric functions defined in <em>table 6.13</em> (also listed below)
 are extended to include appropriate versions of functions that take <code>double</code>
@@ -4806,7 +5071,7 @@ contractions such as <strong>mad</strong> or <strong>fma</strong>.</p>
 </table>
 </div>
 <div class="sect3">
-<h4 id="cl_khr_fp64-relational-functions">6.2.5. Relational Functions</h4>
+<h4 id="cl_khr_fp64-relational-functions"><a class="anchor" href="#cl_khr_fp64-relational-functions"></a>6.2.5. Relational Functions</h4>
 <div class="paragraph">
 <p>The scalar and vector relational functions described in <em>table 6.14</em> are
 extended to include versions that take <code>double</code>, <code>double2</code>, <code>double3</code>, <code>double4</code>,
@@ -4955,7 +5220,7 @@ vector types.</p>
 </table>
 </div>
 <div class="sect3">
-<h4 id="cl_khr_fp64-vector-data-load-and-store-functions">6.2.6. Vector Data Load and Store Functions</h4>
+<h4 id="cl_khr_fp64-vector-data-load-and-store-functions"><a class="anchor" href="#cl_khr_fp64-vector-data-load-and-store-functions"></a>6.2.6. Vector Data Load and Store Functions</h4>
 <div class="paragraph">
 <p>The vector data load (<strong>vload<em>n</em></strong>) and store (<strong>vstore<em>n</em></strong>) functions
 described in <em>table 6.13</em> (also listed below) are extended to include
@@ -5003,10 +5268,8 @@ on hardware that can take advantage of the increased alignment.</p>
 <p class="tableblock">  gentype<em>n</em> <strong>vload<em>n</em></strong>(size_t <em>offset</em>, const __private gentype *<em>p</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return sizeof (gentype<em>n</em>) bytes of data read from address
   (<em>p</em> + (<em>offset * n</em>)).
-  The read address computed as (<em>p</em> + (<em>offset * n</em>)) must be 8-bit aligned
-  if gentype is char, uchar; 16-bit aligned if gentype is short, ushort;
-  32-bit aligned if gentype is int, uint, float; 64-bit aligned if
-  gentype is long, ulong or double.</p></td>
+  If gentype is double, the read address computed as (<em>p</em> + (<em>offset * n</em>))
+  must be 64-bit aligned.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">void <strong>vstore<em>n</em></strong>(gentype<em>n</em> <em>data</em>, size_t <em>offset</em>, __global gentype *<em>p</em>)</p>
@@ -5014,10 +5277,8 @@ on hardware that can take advantage of the increased alignment.</p>
 <p class="tableblock">  void <strong>vstore<em>n</em></strong>(gentype<em>n</em> <em>data</em>, size_t <em>offset</em>, __private gentype *<em>p</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Write sizeof (gentype<em>n</em>) bytes given by <em>data</em> to address
   (<em>p</em> + (<em>offset * n</em>)).
-  The address computed as (<em>p</em> + (<em>offset * n</em>)) must be 8-bit aligned
-  if gentype is char, uchar; 16-bit aligned if gentype is short, ushort;
-  32-bit aligned if gentype is int, uint, float; 64-bit aligned
-  if gentype is long, ulong or double.</p></td>
+  If gentype is double, the write address computed as (<em>p</em> + (<em>offset * n</em>))
+  must be 64-bit aligned.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">void <strong>vstore_half</strong>(double <em>data</em>, size_t <em>offset</em>, __global half *<em>p</em>)<br>
@@ -5102,7 +5363,7 @@ on hardware that can take advantage of the increased alignment.</p>
 </table>
 </div>
 <div class="sect3">
-<h4 id="cl_khr_fp64-async-copies-from-global-to-local-memory-local-to-global-memory-and-prefetch">6.2.7. Async Copies from Global to Local Memory, Local to Global Memory, and Prefetch</h4>
+<h4 id="cl_khr_fp64-async-copies-from-global-to-local-memory-local-to-global-memory-and-prefetch"><a class="anchor" href="#cl_khr_fp64-async-copies-from-global-to-local-memory-local-to-global-memory-and-prefetch"></a>6.2.7. Async Copies from Global to Local Memory, Local to Global Memory, and Prefetch</h4>
 <div class="paragraph">
 <p>The OpenCL C programming language implements the following functions that
 provide asynchronous copies between global and local memory and a prefetch
@@ -5214,7 +5475,7 @@ from global memory.</p>
 </table>
 </div>
 <div class="sect3">
-<h4 id="cl_khr_fp64-ieee754-compliance">6.2.8. IEEE754 Compliance</h4>
+<h4 id="cl_khr_fp64-ieee754-compliance"><a class="anchor" href="#cl_khr_fp64-ieee754-compliance"></a>6.2.8. IEEE754 Compliance</h4>
 <div class="paragraph">
 <p>The following table entry describes the additions to <em>table 4.3,</em> which
 allows applications to query the configuration information using
@@ -5267,7 +5528,7 @@ on double precision floating-point numbers.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="cl_khr_fp64-relative-error-as-ulps">6.2.9. Relative Error as ULPs</h4>
+<h4 id="cl_khr_fp64-relative-error-as-ulps"><a class="anchor" href="#cl_khr_fp64-relative-error-as-ulps"></a>6.2.9. Relative Error as ULPs</h4>
 <div class="paragraph">
 <p>In this section we discuss the maximum relative error defined as <em>ulp</em>
 (units in the last place).</p>
@@ -5644,7 +5905,7 @@ is the infinitely precise result.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="cl_khr_int32_atomics">7. 32-bit Atomics</h2>
+<h2 id="cl_khr_int32_atomics"><a class="anchor" href="#cl_khr_int32_atomics"></a>7. 32-bit Atomics</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This section describes the extensions <strong>cl_khr_global_int32_base_atomics</strong>, <strong>cl_khr_global_int32_extended_atomics</strong>, <strong>cl_khr_local_int32_base_atomics</strong>, and <strong>cl_khr_local_int32_extended_atomics</strong>.
@@ -5654,9 +5915,9 @@ These extensions allow atomic operations to be performed on 32-bit signed and un
 <p>These extensions became core features in OpenCL 1.1, except the built-in atomic function names are changed to use the <strong>atomic_</strong> prefix instead of <strong>atom_</strong> and the volatile qualifier was added to the pointer parameter <em>p</em>.</p>
 </div>
 <div class="sect2">
-<h3 id="_general_information_6">7.1. General information</h3>
+<h3 id="_general_information_6"><a class="anchor" href="#_general_information_6"></a>7.1. General information</h3>
 <div class="sect3">
-<h4 id="_version_history_6">7.1.1. Version history</h4>
+<h4 id="_version_history_6"><a class="anchor" href="#_version_history_6"></a>7.1.1. Version history</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 20%;">
@@ -5681,9 +5942,9 @@ These extensions allow atomic operations to be performed on 32-bit signed and un
 </div>
 </div>
 <div class="sect2">
-<h3 id="_global_atomics_for_32_bit_integers">7.2. Global Atomics for 32-bit Integers</h3>
+<h3 id="_global_atomics_for_32_bit_integers"><a class="anchor" href="#_global_atomics_for_32_bit_integers"></a>7.2. Global Atomics for 32-bit Integers</h3>
 <div class="sect3">
-<h4 id="_base_atomics">7.2.1. Base Atomics</h4>
+<h4 id="_base_atomics"><a class="anchor" href="#_base_atomics"></a>7.2.1. Base Atomics</h4>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 19. <em>Built-in Atomic Functions for</em> <strong>cl_khr_global_int32_base_atomics</strong></caption>
 <colgroup>
@@ -5742,7 +6003,7 @@ result at location pointed by <em>p</em>. The function returns <em>old</em>.</p>
 </table>
 </div>
 <div class="sect3">
-<h4 id="_extended_atomics">7.2.2. Extended Atomics</h4>
+<h4 id="_extended_atomics"><a class="anchor" href="#_extended_atomics"></a>7.2.2. Extended Atomics</h4>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 20. <em>Built-in Atomic Functions for</em> <strong>cl_khr_global_int32_extended_atomics</strong></caption>
 <colgroup>
@@ -5796,9 +6057,9 @@ pointed by <em>p</em>. The function returns <em>old</em>.</p></td>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_local_atomics_for_32_bit_integers">7.3. Local Atomics for 32-bit Integers</h3>
+<h3 id="_local_atomics_for_32_bit_integers"><a class="anchor" href="#_local_atomics_for_32_bit_integers"></a>7.3. Local Atomics for 32-bit Integers</h3>
 <div class="sect3">
-<h4 id="_base_atomics_2">7.3.1. Base Atomics</h4>
+<h4 id="_base_atomics_2"><a class="anchor" href="#_base_atomics_2"></a>7.3.1. Base Atomics</h4>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 21. <em>Built-in Atomic Functions for</em> <strong>cl_khr_local_int32_base_atomics</strong></caption>
 <colgroup>
@@ -5857,7 +6118,7 @@ result at location pointed by <em>p</em>. The function returns <em>old</em>.</p>
 </table>
 </div>
 <div class="sect3">
-<h4 id="_extended_atomics_2">7.3.2. Extended Atomics</h4>
+<h4 id="_extended_atomics_2"><a class="anchor" href="#_extended_atomics_2"></a>7.3.2. Extended Atomics</h4>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 22. <em>Built-in Atomic Functions for</em> <strong>cl_khr_local_int32_extended_atomics</strong></caption>
 <colgroup>
@@ -5913,15 +6174,15 @@ pointed by <em>p</em>. The function returns <em>old</em>.</p></td>
 </div>
 </div>
 <div class="sect1">
-<h2 id="cl_khr_int64_atomics">8. 64-bit Atomics</h2>
+<h2 id="cl_khr_int64_atomics"><a class="anchor" href="#cl_khr_int64_atomics"></a>8. 64-bit Atomics</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This section describes the <strong>cl_khr_int64_base_atomics</strong> and <strong>cl_khr_int64_extended_atomics</strong> extensions. These extensions allow atomic operations to be performed on 64-bit signed and unsigned integers in global and local memory.</p>
 </div>
 <div class="sect2">
-<h3 id="_general_information_7">8.1. General information</h3>
+<h3 id="_general_information_7"><a class="anchor" href="#_general_information_7"></a>8.1. General information</h3>
 <div class="sect3">
-<h4 id="_version_history_7">8.1.1. Version history</h4>
+<h4 id="_version_history_7"><a class="anchor" href="#_version_history_7"></a>8.1.1. Version history</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 20%;">
@@ -6091,7 +6352,7 @@ float) are also atomic w.r.t. each other.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="cl_khr_select_fprounding_mode">9. Selecting the Rounding Mode <strong>(DEPRECATED)</strong></h2>
+<h2 id="cl_khr_select_fprounding_mode"><a class="anchor" href="#cl_khr_select_fprounding_mode"></a>9. Selecting the Rounding Mode <strong>(DEPRECATED)</strong></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This section describes the <strong>cl_khr_select_fprounding_mode</strong> extension.
@@ -6101,9 +6362,9 @@ It allows an application to specify the rounding mode for an instruction or grou
 <p><strong>This extension was deprecated in OpenCL 1.1 and its use is not recommended.</strong></p>
 </div>
 <div class="sect2">
-<h3 id="_general_information_8">9.1. General information</h3>
+<h3 id="_general_information_8"><a class="anchor" href="#_general_information_8"></a>9.1. General information</h3>
 <div class="sect3">
-<h4 id="_version_history_8">9.1.1. Version history</h4>
+<h4 id="_version_history_8"><a class="anchor" href="#_version_history_8"></a>9.1.1. Version history</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 20%;">
@@ -6128,7 +6389,7 @@ It allows an application to specify the rounding mode for an instruction or grou
 </div>
 </div>
 <div class="sect2">
-<h3 id="_changes_to_opencl_c_specification">9.2. Changes to OpenCL C specification</h3>
+<h3 id="_changes_to_opencl_c_specification"><a class="anchor" href="#_changes_to_opencl_c_specification"></a>9.2. Changes to OpenCL C specification</h3>
 <div class="paragraph">
 <p>With this extension, the rounding mode may be specified using the following <strong>#pragma</strong> in the OpenCL program source:</p>
 </div>
@@ -6194,10 +6455,10 @@ Conversions from floating-point to integer type always use <code>rtz</code> mode
 </div>
 </div>
 <div class="sect1">
-<h2 id="cl_khr_gl_sharing">10. Creating an OpenCL Context from an OpenGL Context or Share Group</h2>
+<h2 id="cl_khr_gl_sharing"><a class="anchor" href="#cl_khr_gl_sharing"></a>10. Creating an OpenCL Context from an OpenGL Context or Share Group</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="cl_khr_gl_sharing-overview">10.1. Overview</h3>
+<h3 id="cl_khr_gl_sharing-overview"><a class="anchor" href="#cl_khr_gl_sharing-overview"></a>10.1. Overview</h3>
 <div class="paragraph">
 <p>This section describes functionality in the <strong>cl_khr_gl_sharing</strong> extension
 to associate an OpenCL context with an OpenGL context or share group object.
@@ -6212,9 +6473,9 @@ and buffer object images with OpenCL is required by this extension.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_general_information_9">10.2. General information</h3>
+<h3 id="_general_information_9"><a class="anchor" href="#_general_information_9"></a>10.2. General information</h3>
 <div class="sect3">
-<h4 id="_version_history_9">10.2.1. Version history</h4>
+<h4 id="_version_history_9"><a class="anchor" href="#_version_history_9"></a>10.2.1. Version history</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 20%;">
@@ -6239,7 +6500,7 @@ and buffer object images with OpenCL is required by this extension.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_gl_sharing-new-procedures-and-functions">10.3. New Procedures and Functions</h3>
+<h3 id="cl_khr_gl_sharing-new-procedures-and-functions"><a class="anchor" href="#cl_khr_gl_sharing-new-procedures-and-functions"></a>10.3. New Procedures and Functions</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="c">cl_int clGetGLContextInfoKHR(<span class="directive">const</span> cl_context_properties *properties,
@@ -6251,7 +6512,7 @@ and buffer object images with OpenCL is required by this extension.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_gl_sharing-new-tokens">10.4. New Tokens</h3>
+<h3 id="cl_khr_gl_sharing-new-tokens"><a class="anchor" href="#cl_khr_gl_sharing-new-tokens"></a>10.4. New Tokens</h3>
 <div class="paragraph">
 <p>Returned by <strong>clCreateContext</strong>, <strong>clCreateContextFromType</strong>, and
 <strong>clGetGLContextInfoKHR</strong> when an invalid OpenGL context or share group object
@@ -6286,7 +6547,7 @@ CL_CGL_SHAREGROUP_KHR</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_gl_sharing-additions-to-chapter-4">10.5. Additions to Chapter 4 of the OpenCL 2.2 Specification</h3>
+<h3 id="cl_khr_gl_sharing-additions-to-chapter-4"><a class="anchor" href="#cl_khr_gl_sharing-additions-to-chapter-4"></a>10.5. Additions to Chapter 4 of the OpenCL 2.2 Specification</h3>
 <div class="paragraph">
 <p>In <em>section 4.4</em>, replace the description of <em>properties</em> under
 <strong>clCreateContext</strong> with:</p>
@@ -6494,7 +6755,7 @@ same two new errors described above for <strong>clCreateContext</strong>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_gl_sharing-additions-to-chapter-5">10.6. Additions to Chapter 5 of the OpenCL 2.2 Specification</h3>
+<h3 id="cl_khr_gl_sharing-additions-to-chapter-5"><a class="anchor" href="#cl_khr_gl_sharing-additions-to-chapter-5"></a>10.6. Additions to Chapter 5 of the OpenCL 2.2 Specification</h3>
 <div class="paragraph">
 <p>Add a new section to describe the new API for querying OpenCL devices that
 support sharing with OpenGL:</p>
@@ -6674,7 +6935,7 @@ the host.`"</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_gl_sharing-issues">10.7. Issues</h3>
+<h3 id="cl_khr_gl_sharing-issues"><a class="anchor" href="#cl_khr_gl_sharing-issues"></a>10.7. Issues</h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -6841,7 +7102,7 @@ binding layer API in use.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="cl_khr_gl_sharing__memobjs">11. Creating OpenCL Memory Objects from OpenGL Objects</h2>
+<h2 id="cl_khr_gl_sharing__memobjs"><a class="anchor" href="#cl_khr_gl_sharing__memobjs"></a>11. Creating OpenCL Memory Objects from OpenGL Objects</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This section describes functionality in the <strong>cl_khr_gl_sharing</strong> extension
@@ -6861,9 +7122,9 @@ or share group object may be shared, with the exception of the default
 OpenGL objects (i.e. objects named zero), which may not be shared.</p>
 </div>
 <div class="sect2">
-<h3 id="_general_information_10">11.1. General information</h3>
+<h3 id="_general_information_10"><a class="anchor" href="#_general_information_10"></a>11.1. General information</h3>
 <div class="sect3">
-<h4 id="_version_history_10">11.1.1. Version history</h4>
+<h4 id="_version_history_10"><a class="anchor" href="#_version_history_10"></a>11.1.1. Version history</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 20%;">
@@ -6888,7 +7149,7 @@ OpenGL objects (i.e. objects named zero), which may not be shared.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_gl_sharing__memobjs-lifetime-of-shared-objects">11.2. Lifetime of Shared Objects</h3>
+<h3 id="cl_khr_gl_sharing__memobjs-lifetime-of-shared-objects"><a class="anchor" href="#cl_khr_gl_sharing__memobjs-lifetime-of-shared-objects"></a>11.2. Lifetime of Shared Objects</h3>
 <div class="paragraph">
 <p>An OpenCL memory object created from an OpenGL object (hereinafter referred
 to as a &#8220;shared CL/GL object&#8221;) remains valid as long as the corresponding
@@ -6911,7 +7172,7 @@ destroying the corresponding GL share group or contexts</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_gl_sharing__memobjs-cl-buffer-objects-from-gl-buffer-objects">11.3. OpenCL Buffer Objects from OpenGL Buffer Objects</h3>
+<h3 id="cl_khr_gl_sharing__memobjs-cl-buffer-objects-from-gl-buffer-objects"><a class="anchor" href="#cl_khr_gl_sharing__memobjs-cl-buffer-objects-from-gl-buffer-objects"></a>11.3. OpenCL Buffer Objects from OpenGL Buffer Objects</h3>
 <div class="paragraph">
 <p>The function
 </p>
@@ -6997,7 +7258,7 @@ create a CL 1D image buffer object.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_gl_sharing__memobjs-cl-image-objects-from-gl-textures">11.4. OpenCL Image Objects from OpenGL Textures</h3>
+<h3 id="cl_khr_gl_sharing__memobjs-cl-image-objects-from-gl-textures"><a class="anchor" href="#cl_khr_gl_sharing__memobjs-cl-image-objects-from-gl-textures"></a>11.4. OpenCL Image Objects from OpenGL Textures</h3>
 <div class="paragraph">
 <p>The function
 </p>
@@ -7149,7 +7410,7 @@ object will result in undefined behavior.</p>
 retain and release the image objects.</p>
 </div>
 <div class="sect3">
-<h4 id="cl_khr_gl_sharing__memobjs-list-of-opengl-and-corresponding-opencl-image-formats">11.4.1. List of OpenGL and corresponding OpenCL Image Formats</h4>
+<h4 id="cl_khr_gl_sharing__memobjs-list-of-opengl-and-corresponding-opencl-image-formats"><a class="anchor" href="#cl_khr_gl_sharing__memobjs-list-of-opengl-and-corresponding-opencl-image-formats"></a>11.4.1. List of OpenGL and corresponding OpenCL Image Formats</h4>
 <div class="paragraph">
 <p>The table below describes the list of OpenGL texture internal formats and
 the corresponding OpenCL image formats.
@@ -7367,7 +7628,7 @@ format.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_gl_sharing__memobjs-cl-image-objects-from-gl-renderbuffers">11.5. OpenCL Image Objects from OpenGL Renderbuffers</h3>
+<h3 id="cl_khr_gl_sharing__memobjs-cl-image-objects-from-gl-renderbuffers"><a class="anchor" href="#cl_khr_gl_sharing__memobjs-cl-image-objects-from-gl-renderbuffers"></a>11.5. OpenCL Image Objects from OpenGL Renderbuffers</h3>
 <div class="paragraph">
 <p>The function
 </p>
@@ -7471,7 +7732,7 @@ OpenGL for that format.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_gl_sharing__memobjs-querying-gl-object-information-from-a-cl-memory-object">11.6. Querying OpenGL object information from an OpenCL memory object</h3>
+<h3 id="cl_khr_gl_sharing__memobjs-querying-gl-object-information-from-a-cl-memory-object"><a class="anchor" href="#cl_khr_gl_sharing__memobjs-querying-gl-object-information-from-a-cl-memory-object"></a>11.6. Querying OpenGL object information from an OpenCL memory object</h3>
 <div class="paragraph">
 <p>The OpenGL object used to create the OpenCL memory object and information
 about the object type i.e. whether it is a texture, renderbuffer or buffer
@@ -7617,7 +7878,7 @@ required by the OpenCL implementation on the host.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_gl_sharing__memobjs-sharing-memory-objects-that-map-to-gl-objects-between-gl-and-cl-contexts">11.7. Sharing memory objects that map to GL objects between GL and CL contexts</h3>
+<h3 id="cl_khr_gl_sharing__memobjs-sharing-memory-objects-that-map-to-gl-objects-between-gl-and-cl-contexts"><a class="anchor" href="#cl_khr_gl_sharing__memobjs-sharing-memory-objects-that-map-to-gl-objects-between-gl-and-cl-contexts"></a>11.7. Sharing memory objects that map to GL objects between GL and CL contexts</h3>
 <div class="paragraph">
 <p>The function
 </p>
@@ -7670,14 +7931,13 @@ The events specified in</p>
 <p><em>event_wait_list</em> act as synchronization points.</p>
 </div>
 <div class="paragraph">
-<p><em>event</em> returns an event object that identifies this command and can be used
-to query or queue a wait for the command to complete.
-<em>event</em> can be <code>NULL</code> in which case it will not be possible for the
-application to query the status of this command or queue a wait for this
-command to complete.
-If the <em>event_wait_list</em> and the <em>event</em> arguments are not <code>NULL</code>, the
-<em>event</em> argument should not refer to an element of the <em>event_wait_list</em>
-array.</p>
+<p><em>event</em> returns an event object that identifies this command
+and can be used to query wait for this command to complete.
+If <em>event</em> is <code>NULL</code> or the enqueue is unsuccessful, no event will be
+created and therefore it will not be possible to query the status of this
+command or to wait for this command to complete.
+If <em>event_wait_list</em> and <em>event</em> are not <code>NULL</code>, <em>event</em> must not refer
+to an element of the <em>event_wait_list</em> array.</p>
 </div>
 <div class="paragraph">
 <p><strong>clEnqueueAcquireGLObjects</strong> returns CL_SUCCESS if the function is executed
@@ -7765,15 +8025,13 @@ greater than 0.
 The events specified in <em>event_wait_list</em> act as synchronization points.</p>
 </div>
 <div class="paragraph">
-<p><em>event</em> returns an event object that identifies this particular
-command and can be used to query or queue a wait for the command to
-complete.
-<em>event</em> can be`NULL` in which case it will not be possible for the
-application to query the status of this command or queue a wait for this
-command to complete.
-If the <em>event_wait_list</em> and the <em>event</em> arguments are not <code>NULL</code>, the
-<em>event</em> argument should not refer to an element of the <em>event_wait_list</em>
-array.</p>
+<p><em>event</em> returns an event object that identifies this command
+and can be used to query or wait for this command to complete.
+If <em>event</em> is <code>NULL</code> or the enqueue is unsuccessful, no event will be
+created and therefore it will not be possible to query the status of this
+command or to wait for this command to complete.
+If <em>event_wait_list</em> and <em>event</em> are not <code>NULL</code>, <em>event</em> must not refer
+to an element of the <em>event_wait_list</em> array.</p>
 </div>
 <div class="paragraph">
 <p><strong>clEnqueueReleaseGLObjects</strong> returns CL_SUCCESS if the function is executed
@@ -7821,7 +8079,7 @@ required by the OpenCL implementation on the host.</p>
 </ul>
 </div>
 <div class="sect3">
-<h4 id="cl_khr_gl_sharing__memobjs-synchronizing-opencl-and-opengl-access-to-shared-objects">11.7.1. Synchronizing OpenCL and OpenGL Access to Shared Objects</h4>
+<h4 id="cl_khr_gl_sharing__memobjs-synchronizing-opencl-and-opengl-access-to-shared-objects"><a class="anchor" href="#cl_khr_gl_sharing__memobjs-synchronizing-opencl-and-opengl-access-to-shared-objects"></a>11.7.1. Synchronizing OpenCL and OpenGL Access to Shared Objects</h4>
 <div class="paragraph">
 <p>In order to ensure data integrity, the application is responsible for
 synchronizing access to shared CL/GL objects by their respective APIs.
@@ -7876,14 +8134,45 @@ has been acquired by the OpenCL command queue, or after it has been
 released, will result in undefined behavior.</p>
 </div>
 </div>
+<div class="sect3">
+<h4 id="cl_khr_gl_sharing__memobjs-event-command-types"><a class="anchor" href="#cl_khr_gl_sharing__memobjs-event-command-types"></a>11.7.2. Event Command Types for Sharing memory objects that map to GL objects</h4>
+<div class="paragraph">
+<p>The following table describes the event command types for the OpenCL commands
+to acquire and release OpenCL memory objects that have been created from
+OpenGL objects:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 29. List of supported event command types</caption>
+<colgroup>
+<col style="width: 40%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Events Created By</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Event Command Type</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>clEnqueueAcquireGLObjects</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_COMMAND_<wbr>ACQUIRE_<wbr>GL_<wbr>OBJECTS</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>clEnqueueReleaseGLObjects</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_COMMAND_<wbr>RELEASE_<wbr>GL_<wbr>OBJECTS</code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="cl_khr_gl_event">12. Creating OpenCL Event Objects from OpenGL Sync Objects</h2>
+<h2 id="cl_khr_gl_event"><a class="anchor" href="#cl_khr_gl_event"></a>12. Creating OpenCL Event Objects from OpenGL Sync Objects</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="cl_khr_gl_event-overview">12.1. Overview</h3>
+<h3 id="cl_khr_gl_event-overview"><a class="anchor" href="#cl_khr_gl_event-overview"></a>12.1. Overview</h3>
 <div class="paragraph">
 <p>This section describes the <strong>cl_khr_gl_event</strong> extension.
 This extension allows creating OpenCL event objects linked to OpenGL fence
@@ -7900,9 +8189,9 @@ the OpenCL context.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_general_information_11">12.2. General information</h3>
+<h3 id="_general_information_11"><a class="anchor" href="#_general_information_11"></a>12.2. General information</h3>
 <div class="sect3">
-<h4 id="_version_history_11">12.2.1. Version history</h4>
+<h4 id="_version_history_11"><a class="anchor" href="#_version_history_11"></a>12.2.1. Version history</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 20%;">
@@ -7927,7 +8216,7 @@ the OpenCL context.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_gl_event-new-procedures-and-functions">12.3. New Procedures and Functions</h3>
+<h3 id="cl_khr_gl_event-new-procedures-and-functions"><a class="anchor" href="#cl_khr_gl_event-new-procedures-and-functions"></a>12.3. New Procedures and Functions</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="c">cl_event clCreateEventFromGLsyncKHR(cl_context context,
@@ -7937,7 +8226,7 @@ the OpenCL context.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_gl_event-new-tokens">12.4. New Tokens</h3>
+<h3 id="cl_khr_gl_event-new-tokens"><a class="anchor" href="#cl_khr_gl_event-new-tokens"></a>12.4. New Tokens</h3>
 <div class="paragraph">
 <p>Returned by <strong>clGetEventInfo</strong> when <em>param_name</em> is CL_EVENT_COMMAND_TYPE:</p>
 </div>
@@ -7948,7 +8237,7 @@ the OpenCL context.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_gl_event-additions-to-chapter-5">12.5. Additions to Chapter 5 of the OpenCL 2.2 Specification</h3>
+<h3 id="cl_khr_gl_event-additions-to-chapter-5"><a class="anchor" href="#cl_khr_gl_event-additions-to-chapter-5"></a>12.5. Additions to Chapter 5 of the OpenCL 2.2 Specification</h3>
 <div class="paragraph">
 <p>Add following to the fourth paragraph of <em>section 5.11</em> (prior to the
 description of <strong>clWaitForEvents</strong>):</p>
@@ -8058,7 +8347,7 @@ a CL_INVALID_EVENT error.`"</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_gl_event-additions-to-extension-specification">12.6. Additions to the OpenCL Extension Specification</h3>
+<h3 id="cl_khr_gl_event-additions-to-extension-specification"><a class="anchor" href="#cl_khr_gl_event-additions-to-extension-specification"></a>12.6. Additions to the OpenCL Extension Specification</h3>
 <div class="paragraph">
 <p>Add following the paragraph describing parameter <em>event</em> to
 <strong>clEnqueueAcquireGLObjects</strong>:</p>
@@ -8160,7 +8449,7 @@ avoided if the <strong>cl_khr_gl_event</strong> extension is supported on a plat
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_gl_event-issues">12.7. Issues</h3>
+<h3 id="cl_khr_gl_event-issues"><a class="anchor" href="#cl_khr_gl_event-issues"></a>12.7. Issues</h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -8261,10 +8550,10 @@ events in all other commands accepting them as parameters.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="cl_khr_d3d10_sharing">13. Creating OpenCL Memory Objects from Direct3D 10 Buffers and Textures</h2>
+<h2 id="cl_khr_d3d10_sharing"><a class="anchor" href="#cl_khr_d3d10_sharing"></a>13. Creating OpenCL Memory Objects from Direct3D 10 Buffers and Textures</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="cl_khr_d3d10_sharing-overview">13.1. Overview</h3>
+<h3 id="cl_khr_d3d10_sharing-overview"><a class="anchor" href="#cl_khr_d3d10_sharing-overview"></a>13.1. Overview</h3>
 <div class="paragraph">
 <p>This section describes the <strong>cl_khr_d3d10_sharing</strong> extension.
 The goal of this extension is to provide interoperability between OpenCL and
@@ -8272,9 +8561,9 @@ Direct3D 10.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_general_information_12">13.2. General information</h3>
+<h3 id="_general_information_12"><a class="anchor" href="#_general_information_12"></a>13.2. General information</h3>
 <div class="sect3">
-<h4 id="_version_history_12">13.2.1. Version history</h4>
+<h4 id="_version_history_12"><a class="anchor" href="#_version_history_12"></a>13.2.1. Version history</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 20%;">
@@ -8299,7 +8588,7 @@ Direct3D 10.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_d3d10_sharing-new-procedures-and-functions">13.3. New Procedures and Functions</h3>
+<h3 id="cl_khr_d3d10_sharing-new-procedures-and-functions"><a class="anchor" href="#cl_khr_d3d10_sharing-new-procedures-and-functions"></a>13.3. New Procedures and Functions</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="c">cl_int clGetDeviceIDsFromD3D10KHR(cl_platform_id platform,
@@ -8344,7 +8633,7 @@ cl_int clEnqueueReleaseD3D10ObjectsKHR(cl_command_queue command_queue,
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_d3d10_sharing-new-tokens">13.4. New Tokens</h3>
+<h3 id="cl_khr_d3d10_sharing-new-tokens"><a class="anchor" href="#cl_khr_d3d10_sharing-new-tokens"></a>13.4. New Tokens</h3>
 <div class="paragraph">
 <p>Accepted as a Direct3D 10 device source in the <em>d3d_device_source</em> parameter
 of <strong>clGetDeviceIDsFromD3D10KHR</strong>:</p>
@@ -8452,7 +8741,7 @@ not currently acquired by OpenCL:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_d3d10_sharing-additions-to-chapter-4">13.5. Additions to Chapter 4 of the OpenCL 2.2 Specification</h3>
+<h3 id="cl_khr_d3d10_sharing-additions-to-chapter-4"><a class="anchor" href="#cl_khr_d3d10_sharing-additions-to-chapter-4"></a>13.5. Additions to Chapter 4 of the OpenCL 2.2 Specification</h3>
 <div class="paragraph">
 <p>In <em>section 4.4</em>, replace the description of <em>properties</em> under
 <strong>clCreateContext</strong> with:</p>
@@ -8543,7 +8832,7 @@ described above for <strong>clCreateContext</strong>.</p>
 </table>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_d3d10_sharing-additions-to-chapter-5">13.6. Additions to Chapter 5 of the OpenCL 2.2 Specification</h3>
+<h3 id="cl_khr_d3d10_sharing-additions-to-chapter-5"><a class="anchor" href="#cl_khr_d3d10_sharing-additions-to-chapter-5"></a>13.6. Additions to Chapter 5 of the OpenCL 2.2 Specification</h3>
 <div class="paragraph">
 <p>Add to the list of errors for <strong>clGetMemObjectInfo</strong>:</p>
 </div>
@@ -8633,7 +8922,7 @@ CL_COMMAND_RELEASE_D3D10_OBJECTS_KHR</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_d3d10_sharing-sharing-memory-objects-with-direct3d-10-resources">13.7. Sharing Memory Objects with Direct3D 10 Resources</h3>
+<h3 id="cl_khr_d3d10_sharing-sharing-memory-objects-with-direct3d-10-resources"><a class="anchor" href="#cl_khr_d3d10_sharing-sharing-memory-objects-with-direct3d-10-resources"></a>13.7. Sharing Memory Objects with Direct3D 10 Resources</h3>
 <div class="paragraph">
 <p>This section discusses OpenCL functions that allow applications to use
 Direct3D 10 resources as OpenCL memory objects.
@@ -8646,7 +8935,7 @@ OpenCL memory objects may be created from Direct3D 10 objects if and only if
 the OpenCL context has been created from a Direct3D 10 device.</p>
 </div>
 <div class="sect3">
-<h4 id="cl_khr_d3d10_sharing-querying-opencl-devices-corresponding-to-direct3d-10-devices">13.7.1. Querying OpenCL Devices Corresponding to Direct3D 10 Devices</h4>
+<h4 id="cl_khr_d3d10_sharing-querying-opencl-devices-corresponding-to-direct3d-10-devices"><a class="anchor" href="#cl_khr_d3d10_sharing-querying-opencl-devices-corresponding-to-direct3d-10-devices"></a>13.7.1. Querying OpenCL Devices Corresponding to Direct3D 10 Devices</h4>
 <div class="paragraph">
 <p>The OpenCL devices corresponding to a Direct3D 10 device may be queried.
 The OpenCL devices corresponding to a DXGI adapter may also be queried.
@@ -8728,7 +9017,7 @@ were found.</p>
 </ul>
 </div>
 <table id="cl_khr_d3d10_sharing-clGetDeviceIDsFromD3D10KHR-object-type" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 29. <em>Direct3D 10 object types that may be used by</em> <strong>clGetDeviceIDsFromD3D10KHR</strong></caption>
+<caption class="title">Table 30. <em>Direct3D 10 object types that may be used by</em> <strong>clGetDeviceIDsFromD3D10KHR</strong></caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -8751,7 +9040,7 @@ were found.</p>
 </tbody>
 </table>
 <table id="cl_khr_d3d10_sharing-clGetDeviceIDsFromD3D10KHR-devices" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 30. <em>Sets of devices queriable using</em> <strong>clGetDeviceIDsFromD3D10KHR</strong></caption>
+<caption class="title">Table 31. <em>Sets of devices queriable using</em> <strong>clGetDeviceIDsFromD3D10KHR</strong></caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -8779,7 +9068,7 @@ were found.</p>
 </table>
 </div>
 <div class="sect3">
-<h4 id="cl_khr_d3d10_sharing-lifetime-of-shared-objects">13.7.2. Lifetime of Shared Objects</h4>
+<h4 id="cl_khr_d3d10_sharing-lifetime-of-shared-objects"><a class="anchor" href="#cl_khr_d3d10_sharing-lifetime-of-shared-objects"></a>13.7.2. Lifetime of Shared Objects</h4>
 <div class="paragraph">
 <p>An OpenCL memory object created from a Direct3D 10 resource remains valid as
 long as the corresponding Direct3D 10 resource has not been deleted.
@@ -8808,7 +9097,7 @@ termination.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="cl_khr_d3d10_sharing-sharing-direct3d-10-buffer-resources-as-opencl-buffer-objects">13.7.3. Sharing Direct3D 10 Buffer Resources as OpenCL Buffer Objects</h4>
+<h4 id="cl_khr_d3d10_sharing-sharing-direct3d-10-buffer-resources-as-opencl-buffer-objects"><a class="anchor" href="#cl_khr_d3d10_sharing-sharing-direct3d-10-buffer-resources-as-opencl-buffer-objects"></a>13.7.3. Sharing Direct3D 10 Buffer Resources as OpenCL Buffer Objects</h4>
 <div class="paragraph">
 <p>The function
 </p>
@@ -8880,7 +9169,7 @@ zero.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="cl_khr_d3d10_sharing-sharing-direct3d-10-texture-and-resources-as-opencl-image-objects">13.7.4. Sharing Direct3D 10 Texture and Resources as OpenCL Image Objects</h4>
+<h4 id="cl_khr_d3d10_sharing-sharing-direct3d-10-texture-and-resources-as-opencl-image-objects"><a class="anchor" href="#cl_khr_d3d10_sharing-sharing-direct3d-10-texture-and-resources-as-opencl-image-objects"></a>13.7.4. Sharing Direct3D 10 Texture and Resources as OpenCL Image Objects</h4>
 <div class="paragraph">
 <p>The function
 </p>
@@ -9061,7 +9350,7 @@ the OpenCL reference count on the returned OpenCL memory object drops to
 zero.</p>
 </div>
 <table id="cl_khr_d3d10_sharing-mapping-of-image-formats" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 31. <em>Direct3D 10 formats and corresponding OpenCL image formats</em></caption>
+<caption class="title">Table 32. <em>Direct3D 10 formats and corresponding OpenCL image formats</em></caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -9259,7 +9548,7 @@ zero.</p>
 </table>
 </div>
 <div class="sect3">
-<h4 id="cl_khr_d3d10_sharing-querying-direct3d-properties-of-memory-objects-created-from-direct3d-10-resources">13.7.5. Querying Direct3D properties of memory objects created from Direct3D 10 resources</h4>
+<h4 id="cl_khr_d3d10_sharing-querying-direct3d-properties-of-memory-objects-created-from-direct3d-10-resources"><a class="anchor" href="#cl_khr_d3d10_sharing-querying-direct3d-properties-of-memory-objects-created-from-direct3d-10-resources"></a>13.7.5. Querying Direct3D properties of memory objects created from Direct3D 10 resources</h4>
 <div class="paragraph">
 <p>Properties of Direct3D 10 objects may be queried using <strong>clGetMemObjectInfo</strong>
 and <strong>clGetImageInfo</strong> with <em>param_name</em> CL_MEM_D3D10_RESOURCE_KHR and</p>
@@ -9270,7 +9559,7 @@ and <em>5.3.6</em>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="cl_khr_d3d10_sharing-sharing-memory-objects-created-from-direct3d-10-resources-between-direct3d-10-and-opencl-contexts">13.7.6. Sharing memory objects created from Direct3D 10 resources between Direct3D 10 and OpenCL contexts</h4>
+<h4 id="cl_khr_d3d10_sharing-sharing-memory-objects-created-from-direct3d-10-resources-between-direct3d-10-and-opencl-contexts"><a class="anchor" href="#cl_khr_d3d10_sharing-sharing-memory-objects-created-from-direct3d-10-resources-between-direct3d-10-and-opencl-contexts"></a>13.7.6. Sharing memory objects created from Direct3D 10 resources between Direct3D 10 and OpenCL contexts</h4>
 <div class="paragraph">
 <p>The function
 </p>
@@ -9335,15 +9624,13 @@ greater than 0.
 The events specified in <em>event_wait_list</em> act as synchronization points.</p>
 </div>
 <div class="paragraph">
-<p><em>event</em> returns an event object that identifies this particular command and
-can be used to query or queue a wait for this particular command to
-complete.
-<em>event</em> can be <code>NULL</code> in which case it will not be possible for the
-application to query the status of this command or queue a wait for this
-command to complete.
-If the <em>event_wait_list</em> and the <em>event</em> arguments are not <code>NULL</code>, the
-<em>event</em> argument should not refer to an element of the <em>event_wait_list</em>
-array.</p>
+<p><em>event</em> returns an event object that identifies this command and
+can be used to query or wait for this command to complete.
+If <em>event</em> is <code>NULL</code> or the enqueue is unsuccessful, no event will be
+created and therefore it will not be possible to query the status of this
+command or to wait for this command to complete.
+If <em>event_wait_list</em> and <em>event</em> are not <code>NULL</code>, <em>event</em> must not refer
+to an element of the <em>event_wait_list</em> array.</p>
 </div>
 <div class="paragraph">
 <p><strong>clEnqueueAcquireD3D10ObjectsKHR</strong> returns CL_SUCCESS if the function is
@@ -9449,16 +9736,16 @@ on any event to complete.
 If <em>event_wait_list</em> is <code>NULL</code>, <em>num_events_in_wait_list</em> must be 0.
 If <em>event_wait_list</em> is not <code>NULL</code>, the list of events pointed to by
 <em>event_wait_list</em> must be valid and <em>num_events_in_wait_list</em> must be
-greater than 0.
-The event specified by <em>event</em> returns an event object that identifies this
-particular command and can be used to query or queue a wait for this
-particular command to complete.
-<em>event</em> can be <code>NULL</code> in which case it will not be possible for the
-application to query the status of this command or queue a wait for this
-command to complete.
-If the <em>event_wait_list</em> and the <em>event</em> arguments are not <code>NULL</code>, the
-<em>event</em> argument should not refer to an element of the <em>event_wait_list</em>
-array.</p>
+greater than 0.</p>
+</div>
+<div class="paragraph">
+<p><em>event</em> returns an event object that identifies this command and
+can be used to query or wait for this command to complete.
+If <em>event</em> is <code>NULL</code> or the enqueue is unsuccessful, no event will be
+created and therefore it will not be possible to query the status of this
+command or to wait for this command to complete.
+If <em>event_wait_list</em> and <em>event</em> are not <code>NULL</code>, <em>event</em> must not refer
+to an element of the <em>event_wait_list</em> array.</p>
 </div>
 <div class="paragraph">
 <p><strong>clEnqueueReleaseD3D10ObjectsKHR</strong> returns CL_SUCCESS if the function is
@@ -9506,9 +9793,40 @@ required by the OpenCL implementation on the host.</p>
 </ul>
 </div>
 </div>
+<div class="sect3">
+<h4 id="cl_khr_d3d10_sharing-event-command-types"><a class="anchor" href="#cl_khr_d3d10_sharing-event-command-types"></a>13.7.7. Event Command Types for Sharing memory objects that map to Direct3D 10 objects</h4>
+<div class="paragraph">
+<p>The following table describes the event command types for the OpenCL commands
+to acquire and release OpenCL memory objects that have been created from
+Direct3D 10 objects:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 33. List of supported event command types</caption>
+<colgroup>
+<col style="width: 40%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Events Created By</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Event Command Type</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>clEnqueueAcquireD3D10ObjectsKHR</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_COMMAND_<wbr>ACQUIRE_<wbr>D3D10_<wbr>OBJECTS_<wbr>KHR</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>clEnqueueReleaseD3D10ObjectsKHR</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_COMMAND_<wbr>RELEASE_<wbr>D3D10_<wbr>OBJECTS_<wbr>KHR</code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_d3d10_sharing-issues">13.8. Issues</h3>
+<h3 id="cl_khr_d3d10_sharing-issues"><a class="anchor" href="#cl_khr_d3d10_sharing-issues"></a>13.8. Issues</h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -9626,10 +9944,10 @@ this information.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="cl_khr_d3d11_sharing">14. Creating OpenCL Memory Objects from Direct3D 11 Buffers and Textures</h2>
+<h2 id="cl_khr_d3d11_sharing"><a class="anchor" href="#cl_khr_d3d11_sharing"></a>14. Creating OpenCL Memory Objects from Direct3D 11 Buffers and Textures</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="cl_khr_d3d11_sharing-overview">14.1. Overview</h3>
+<h3 id="cl_khr_d3d11_sharing-overview"><a class="anchor" href="#cl_khr_d3d11_sharing-overview"></a>14.1. Overview</h3>
 <div class="paragraph">
 <p>This section describes the <strong>cl_khr_d3d11_sharing</strong> extension.
 The goal of this extension is to provide interoperability between OpenCL and
@@ -9637,9 +9955,9 @@ Direct3D 11.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_general_information_13">14.2. General information</h3>
+<h3 id="_general_information_13"><a class="anchor" href="#_general_information_13"></a>14.2. General information</h3>
 <div class="sect3">
-<h4 id="_version_history_13">14.2.1. Version history</h4>
+<h4 id="_version_history_13"><a class="anchor" href="#_version_history_13"></a>14.2.1. Version history</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 20%;">
@@ -9664,7 +9982,7 @@ Direct3D 11.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_d3d11_sharing-new-procedures-and-functions">14.3. New Procedures and Functions</h3>
+<h3 id="cl_khr_d3d11_sharing-new-procedures-and-functions"><a class="anchor" href="#cl_khr_d3d11_sharing-new-procedures-and-functions"></a>14.3. New Procedures and Functions</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="c">cl_int clGetDeviceIDsFromD3D11KHR(cl_platform_id platform,
@@ -9709,7 +10027,7 @@ cl_int clEnqueueReleaseD3D11ObjectsKHR(cl_command_queue command_queue,
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_d3d11_sharing-new-tokens">14.4. New Tokens</h3>
+<h3 id="cl_khr_d3d11_sharing-new-tokens"><a class="anchor" href="#cl_khr_d3d11_sharing-new-tokens"></a>14.4. New Tokens</h3>
 <div class="paragraph">
 <p>Accepted as a Direct3D 11 device source in the <em>d3d_device_source</em> parameter
 of <strong>clGetDeviceIDsFromD3D11KHR</strong>:</p>
@@ -9817,7 +10135,7 @@ not currently acquired by OpenCL:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_d3d11_sharing-additions-to-chapter-4">14.5. Additions to Chapter 4 of the OpenCL 2.2 Specification</h3>
+<h3 id="cl_khr_d3d11_sharing-additions-to-chapter-4"><a class="anchor" href="#cl_khr_d3d11_sharing-additions-to-chapter-4"></a>14.5. Additions to Chapter 4 of the OpenCL 2.2 Specification</h3>
 <div class="paragraph">
 <p>In <em>section 4.4</em>, replace the description of <em>properties</em> under
 <strong>clCreateContext</strong> with:</p>
@@ -9908,7 +10226,7 @@ described above for <strong>clCreateContext</strong>.</p>
 </table>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_d3d11_sharing-additions-to-chapter-5">14.6. Additions to Chapter 5 of the OpenCL 2.2 Specification</h3>
+<h3 id="cl_khr_d3d11_sharing-additions-to-chapter-5"><a class="anchor" href="#cl_khr_d3d11_sharing-additions-to-chapter-5"></a>14.6. Additions to Chapter 5 of the OpenCL 2.2 Specification</h3>
 <div class="paragraph">
 <p>Add to the list of errors for <strong>clGetMemObjectInfo</strong>:</p>
 </div>
@@ -9998,7 +10316,7 @@ CL_COMMAND_RELEASE_D3D11_OBJECTS_KHR</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_d3d11_sharing-sharing-memory-objects-with-direct3d-11-resources">14.7. Sharing Memory Objects with Direct3D 11 Resources</h3>
+<h3 id="cl_khr_d3d11_sharing-sharing-memory-objects-with-direct3d-11-resources"><a class="anchor" href="#cl_khr_d3d11_sharing-sharing-memory-objects-with-direct3d-11-resources"></a>14.7. Sharing Memory Objects with Direct3D 11 Resources</h3>
 <div class="paragraph">
 <p>This section discusses OpenCL functions that allow applications to use
 Direct3D 11 resources as OpenCL memory objects.
@@ -10011,7 +10329,7 @@ OpenCL memory objects may be created from Direct3D 11 objects if and only if
 the OpenCL context has been created from a Direct3D 11 device.</p>
 </div>
 <div class="sect3">
-<h4 id="cl_khr_d3d11_sharing-querying-opencl-devices-corresponding-to-direct3d-11-devices">14.7.1. Querying OpenCL Devices Corresponding to Direct3D 11 Devices</h4>
+<h4 id="cl_khr_d3d11_sharing-querying-opencl-devices-corresponding-to-direct3d-11-devices"><a class="anchor" href="#cl_khr_d3d11_sharing-querying-opencl-devices-corresponding-to-direct3d-11-devices"></a>14.7.1. Querying OpenCL Devices Corresponding to Direct3D 11 Devices</h4>
 <div class="paragraph">
 <p>The OpenCL devices corresponding to a Direct3D 11 device may be queried.
 The OpenCL devices corresponding to a DXGI adapter may also be queried.
@@ -10093,7 +10411,7 @@ were found.</p>
 </ul>
 </div>
 <table id="cl_khr_d3d11_sharing-clGetDeviceIDsFromD3D11KHR-object-type" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 32. <em>Direct3D 11 object types that may be used by</em> <strong>clGetDeviceIDsFromD3D11KHR</strong></caption>
+<caption class="title">Table 34. <em>Direct3D 11 object types that may be used by</em> <strong>clGetDeviceIDsFromD3D11KHR</strong></caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -10116,7 +10434,7 @@ were found.</p>
 </tbody>
 </table>
 <table id="cl_khr_d3d11_sharing-clGetDeviceIDsFromD3D10KHR-devices" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 33. <em>Sets of devices queriable using</em> <strong>clGetDeviceIDsFromD3D11KHR</strong></caption>
+<caption class="title">Table 35. <em>Sets of devices queriable using</em> <strong>clGetDeviceIDsFromD3D11KHR</strong></caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -10144,7 +10462,7 @@ were found.</p>
 </table>
 </div>
 <div class="sect3">
-<h4 id="cl_khr_d3d11_sharing-lifetime-of-shared-objects">14.7.2. Lifetime of Shared Objects</h4>
+<h4 id="cl_khr_d3d11_sharing-lifetime-of-shared-objects"><a class="anchor" href="#cl_khr_d3d11_sharing-lifetime-of-shared-objects"></a>14.7.2. Lifetime of Shared Objects</h4>
 <div class="paragraph">
 <p>An OpenCL memory object created from a Direct3D 11 resource remains valid as
 long as the corresponding Direct3D 11 resource has not been deleted.
@@ -10173,7 +10491,7 @@ termination.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="cl_khr_d3d11_sharing-sharing-direct3d-11-buffer-resources-as-opencl-buffer-objects">14.7.3. Sharing Direct3D 11 Buffer Resources as OpenCL Buffer Objects</h4>
+<h4 id="cl_khr_d3d11_sharing-sharing-direct3d-11-buffer-resources-as-opencl-buffer-objects"><a class="anchor" href="#cl_khr_d3d11_sharing-sharing-direct3d-11-buffer-resources-as-opencl-buffer-objects"></a>14.7.3. Sharing Direct3D 11 Buffer Resources as OpenCL Buffer Objects</h4>
 <div class="paragraph">
 <p>The function
 </p>
@@ -10245,7 +10563,7 @@ zero.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="cl_khr_d3d11_sharing-sharing-direct3d-11-texture-and-resources-as-opencl-image-objects">14.7.4. Sharing Direct3D 11 Texture and Resources as OpenCL Image Objects</h4>
+<h4 id="cl_khr_d3d11_sharing-sharing-direct3d-11-texture-and-resources-as-opencl-image-objects"><a class="anchor" href="#cl_khr_d3d11_sharing-sharing-direct3d-11-texture-and-resources-as-opencl-image-objects"></a>14.7.4. Sharing Direct3D 11 Texture and Resources as OpenCL Image Objects</h4>
 <div class="paragraph">
 <p>The function
 </p>
@@ -10426,7 +10744,7 @@ the OpenCL reference count on the returned OpenCL memory object drops to
 zero.</p>
 </div>
 <table id="cl_khr_d3d11_sharing-mapping-of-image-formats" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 34. <em>Direct3D 11 formats and corresponding OpenCL image formats</em></caption>
+<caption class="title">Table 36. <em>Direct3D 11 formats and corresponding OpenCL image formats</em></caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -10624,7 +10942,7 @@ zero.</p>
 </table>
 </div>
 <div class="sect3">
-<h4 id="cl_khr_d3d11_sharing-querying-direct3d-properties-of-memory-objects-created-from-direct3d-11-resources">14.7.5. Querying Direct3D properties of memory objects created from Direct3D 11 resources</h4>
+<h4 id="cl_khr_d3d11_sharing-querying-direct3d-properties-of-memory-objects-created-from-direct3d-11-resources"><a class="anchor" href="#cl_khr_d3d11_sharing-querying-direct3d-properties-of-memory-objects-created-from-direct3d-11-resources"></a>14.7.5. Querying Direct3D properties of memory objects created from Direct3D 11 resources</h4>
 <div class="paragraph">
 <p>Properties of Direct3D 11 objects may be queried using <strong>clGetMemObjectInfo</strong>
 and <strong>clGetImageInfo</strong> with <em>param_name</em> CL_MEM_D3D11_RESOURCE_KHR and</p>
@@ -10635,7 +10953,7 @@ and <em>5.3.6</em>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="cl_khr_d3d11_sharing-sharing-memory-objects-created-from-direct3d-11-resources-between-direct3d-11-and-opencl-contexts">14.7.6. Sharing memory objects created from Direct3D 11 resources between Direct3D 11 and OpenCL contexts</h4>
+<h4 id="cl_khr_d3d11_sharing-sharing-memory-objects-created-from-direct3d-11-resources-between-direct3d-11-and-opencl-contexts"><a class="anchor" href="#cl_khr_d3d11_sharing-sharing-memory-objects-created-from-direct3d-11-resources-between-direct3d-11-and-opencl-contexts"></a>14.7.6. Sharing memory objects created from Direct3D 11 resources between Direct3D 11 and OpenCL contexts</h4>
 <div class="paragraph">
 <p>The function
 </p>
@@ -10700,15 +11018,13 @@ greater than 0.
 The events specified in <em>event_wait_list</em> act as synchronization points.</p>
 </div>
 <div class="paragraph">
-<p><em>event</em> returns an event object that identifies this particular command and
-can be used to query or queue a wait for this particular command to
-complete.
-<em>event</em> can be <code>NULL</code> in which case it will not be possible for the
-application to query the status of this command or queue a wait for this
-command to complete.
-If the <em>event_wait_list</em> and the <em>event</em> arguments are not <code>NULL</code>, the
-<em>event</em> argument should not refer to an element of the <em>event_wait_list</em>
-array.</p>
+<p><em>event</em> returns an event object that identifies this command and
+can be used to query or wait for this command to complete.
+If <em>event</em> is <code>NULL</code> or the enqueue is unsuccessful, no event will be
+created and therefore it will not be possible to query the status of this
+command or to wait for this command to complete.
+If <em>event_wait_list</em> and <em>event</em> are not <code>NULL</code>, <em>event</em> must not refer
+to an element of the <em>event_wait_list</em> array.</p>
 </div>
 <div class="paragraph">
 <p><strong>clEnqueueAcquireD3D11ObjectsKHR</strong> returns CL_SUCCESS if the function is
@@ -10814,16 +11130,16 @@ on any event to complete.
 If <em>event_wait_list</em> is <code>NULL</code>, <em>num_events_in_wait_list</em> must be 0.
 If <em>event_wait_list</em> is not <code>NULL</code>, the list of events pointed to by
 <em>event_wait_list</em> must be valid and <em>num_events_in_wait_list</em> must be
-greater than 0.
-The event specified by <em>event</em> returns an event object that identifies this
-particular command and can be used to query or queue a wait for this
-particular command to complete.
-<em>event</em> can be <code>NULL</code> in which case it will not be possible for the
-application to query the status of this command or queue a wait for this
-command to complete.
-If the <em>event_wait_list</em> and the <em>event</em> arguments are not <code>NULL</code>, the
-<em>event</em> argument should not refer to an element of the <em>event_wait_list</em>
-array.</p>
+greater than 0.</p>
+</div>
+<div class="paragraph">
+<p><em>event</em> returns an event object that identifies this command and
+can be used to query or wait for this command to complete.
+If <em>event</em> is <code>NULL</code> or the enqueue is unsuccessful, no event will be
+created and therefore it will not be possible to query the status of this
+command or to wait for this command to complete.
+If <em>event_wait_list</em> and <em>event</em> are not <code>NULL</code>, <em>event</em> must not refer
+to an element of the <em>event_wait_list</em> array.</p>
 </div>
 <div class="paragraph">
 <p><strong>clEnqueueReleaseD3D11ObjectsKHR</strong> returns CL_SUCCESS if the function is
@@ -10871,14 +11187,45 @@ required by the OpenCL implementation on the host.</p>
 </ul>
 </div>
 </div>
+<div class="sect3">
+<h4 id="cl_khr_d3d11_sharing-event-command-types"><a class="anchor" href="#cl_khr_d3d11_sharing-event-command-types"></a>14.7.7. Event Command Types for Sharing memory objects that map to Direct3D 11 objects</h4>
+<div class="paragraph">
+<p>The following table describes the event command types for the OpenCL commands
+to acquire and release OpenCL memory objects that have been created from
+Direct3D 11 objects:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 37. List of supported event command types</caption>
+<colgroup>
+<col style="width: 40%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Events Created By</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Event Command Type</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>clEnqueueAcquireD3D11ObjectsKHR</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_COMMAND_<wbr>ACQUIRE_<wbr>D3D11_<wbr>OBJECTS_<wbr>KHR</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>clEnqueueReleaseD3D11ObjectsKHR</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_COMMAND_<wbr>RELEASE_<wbr>D3D11_<wbr>OBJECTS_<wbr>KHR</code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="cl_khr_dx9_media_sharing">15. Creating OpenCL Memory Objects from DirectX 9 Media Surfaces</h2>
+<h2 id="cl_khr_dx9_media_sharing"><a class="anchor" href="#cl_khr_dx9_media_sharing"></a>15. Creating OpenCL Memory Objects from DirectX 9 Media Surfaces</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="cl_khr_dx9_media_sharing-overview">15.1. Overview</h3>
+<h3 id="cl_khr_dx9_media_sharing-overview"><a class="anchor" href="#cl_khr_dx9_media_sharing-overview"></a>15.1. Overview</h3>
 <div class="paragraph">
 <p>This section describes the <strong>cl_khr_dx9_media_sharing</strong> extension.
 The goal of this extension is to allow applications to use media surfaces as
@@ -10894,9 +11241,9 @@ adapter.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_general_information_14">15.2. General information</h3>
+<h3 id="_general_information_14"><a class="anchor" href="#_general_information_14"></a>15.2. General information</h3>
 <div class="sect3">
-<h4 id="_version_history_14">15.2.1. Version history</h4>
+<h4 id="_version_history_14"><a class="anchor" href="#_version_history_14"></a>15.2.1. Version history</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 20%;">
@@ -10921,7 +11268,7 @@ adapter.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_dx9_media_sharing-new-procedures-and-functions">15.3. New Procedures and Functions</h3>
+<h3 id="cl_khr_dx9_media_sharing-new-procedures-and-functions"><a class="anchor" href="#cl_khr_dx9_media_sharing-new-procedures-and-functions"></a>15.3. New Procedures and Functions</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="c">cl_int clGetDeviceIDsFromDX9MediaAdapterKHR(
@@ -10958,7 +11305,7 @@ cl_int clEnqueueReleaseDX9MediaSurfacesKHR(cl_command_queue command_queue,
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_dx9_media_sharing-new-tokens">15.4. New Tokens</h3>
+<h3 id="cl_khr_dx9_media_sharing-new-tokens"><a class="anchor" href="#cl_khr_dx9_media_sharing-new-tokens"></a>15.4. New Tokens</h3>
 <div class="paragraph">
 <p>Accepted by the <em>media_adapter_type</em> parameter of
 <strong>clGetDeviceIDsFromDX9MediaAdapterKHR</strong>:</p>
@@ -11065,7 +11412,7 @@ are not currently acquired by OpenCL:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_dx9_media_sharing-additions-to-chapter-4">15.5. Additions to Chapter 4 of the OpenCL 2.2 Specification</h3>
+<h3 id="cl_khr_dx9_media_sharing-additions-to-chapter-4"><a class="anchor" href="#cl_khr_dx9_media_sharing-additions-to-chapter-4"></a>15.5. Additions to Chapter 4 of the OpenCL 2.2 Specification</h3>
 <div class="paragraph">
 <p>In <em>section 4.4</em>, replace the description of <em>properties</em> under
 <strong>clCreateContext</strong> with:</p>
@@ -11134,7 +11481,7 @@ described above for <strong>clCreateContext</strong>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_dx9_media_sharing-additions-to-chapter-5">15.6. Additions to Chapter 5 of the OpenCL 2.2 Specification</h3>
+<h3 id="cl_khr_dx9_media_sharing-additions-to-chapter-5"><a class="anchor" href="#cl_khr_dx9_media_sharing-additions-to-chapter-5"></a>15.6. Additions to Chapter 5 of the OpenCL 2.2 Specification</h3>
 <div class="paragraph">
 <p>Add to the list of errors for <strong>clGetMemObjectInfo</strong>:</p>
 </div>
@@ -11227,7 +11574,7 @@ CL_COMMAND_RELEASE_DX9_MEDIA_SURFACES_KHR</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_dx9_media_sharing-sharing-media-surfaces-with-opencl">15.7. Sharing Media Surfaces with OpenCL</h3>
+<h3 id="cl_khr_dx9_media_sharing-sharing-media-surfaces-with-opencl"><a class="anchor" href="#cl_khr_dx9_media_sharing-sharing-media-surfaces-with-opencl"></a>15.7. Sharing Media Surfaces with OpenCL</h3>
 <div class="paragraph">
 <p>This section discusses OpenCL functions that allow applications to use media
 surfaces as OpenCL memory objects.
@@ -11239,7 +11586,7 @@ OpenCL memory objects may be created from media surfaces if and only if the
 OpenCL context has been created from a media adapter.</p>
 </div>
 <div class="sect3">
-<h4 id="cl_khr_dx9_media_sharing-querying-opencl-devices-corresponding-to-media-adapters">15.7.1. Querying OpenCL Devices corresponding to Media Adapters</h4>
+<h4 id="cl_khr_dx9_media_sharing-querying-opencl-devices-corresponding-to-media-adapters"><a class="anchor" href="#cl_khr_dx9_media_sharing-querying-opencl-devices-corresponding-to-media-adapters"></a>15.7.1. Querying OpenCL Devices corresponding to Media Adapters</h4>
 <div class="paragraph">
 <p>Media adapters are an abstraction associated with devices that provide media
 capabilities.</p>
@@ -11278,7 +11625,7 @@ Each entry specifies the type of media adapter and must be one of the values
 described in the table below.</p>
 </div>
 <table id="cl_khr_dx9_media_sharing-media-adapter-types" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 35. <em>cl_dx9_media_adapter_type_khr values</em></caption>
+<caption class="title">Table 38. <em>cl_dx9_media_adapter_type_khr values</em></caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -11305,7 +11652,7 @@ described in the table below.</p>
 </tbody>
 </table>
 <table id="cl_khr_dx9_media_sharing-media-adapter-sets" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 36. <em>cl_dx9_media_adapter_set_khr values</em></caption>
+<caption class="title">Table 39. <em>cl_dx9_media_adapter_set_khr values</em></caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -11399,7 +11746,7 @@ required by the OpenCL implementation on the host.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="cl_khr_dx9_media_sharing-creating-media-resources-as-opencl-image-objects">15.7.2. Creating Media Resources as OpenCL Image Objects</h4>
+<h4 id="cl_khr_dx9_media_sharing-creating-media-resources-as-opencl-image-objects"><a class="anchor" href="#cl_khr_dx9_media_sharing-creating-media-resources-as-opencl-image-objects"></a>15.7.2. Creating Media Resources as OpenCL Image Objects</h4>
 <div class="paragraph">
 <p>The function
 </p>
@@ -11538,7 +11885,7 @@ to zero.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="cl_khr_dx9_media_sharing-querying-media-surface-properties-of-memory-objects-created-from-media-surfaces">15.7.3. Querying Media Surface Properties of Memory Objects created from Media Surfaces</h4>
+<h4 id="cl_khr_dx9_media_sharing-querying-media-surface-properties-of-memory-objects-created-from-media-surfaces"><a class="anchor" href="#cl_khr_dx9_media_sharing-querying-media-surface-properties-of-memory-objects-created-from-media-surfaces"></a>15.7.3. Querying Media Surface Properties of Memory Objects created from Media Surfaces</h4>
 <div class="paragraph">
 <p>Properties of media surface objects may be queried using
 <strong>clGetMemObjectInfo</strong> and <strong>clGetImageInfo</strong> with <em>param_name</em>
@@ -11547,7 +11894,7 @@ CL_IMAGE_DX9_MEDIA_PLANE_KHR as described in <em>sections 5.4.3</em> and <em>5.3
 </div>
 </div>
 <div class="sect3">
-<h4 id="cl_khr_dx9_media_sharing-sharing-memory-objects-created-from-media-surfaces-between-a-media-adapter-and-opencl">15.7.4. Sharing Memory Objects created from Media Surfaces between a Media Adapter and OpenCL</h4>
+<h4 id="cl_khr_dx9_media_sharing-sharing-memory-objects-created-from-media-surfaces-between-a-media-adapter-and-opencl"><a class="anchor" href="#cl_khr_dx9_media_sharing-sharing-memory-objects-created-from-media-surfaces-between-a-media-adapter-and-opencl"></a>15.7.4. Sharing Memory Objects created from Media Surfaces between a Media Adapter and OpenCL</h4>
 <div class="paragraph">
 <p>The function
 </p>
@@ -11614,15 +11961,13 @@ greater than 0.
 The events specified in <em>event_wait_list</em> act as synchronization points.</p>
 </div>
 <div class="paragraph">
-<p><em>event</em> returns an event object that identifies this particular command and
-can be used to query or queue a wait for this particular command to
-complete.
-<em>event</em> can be <code>NULL</code> in which case it will not be possible for the
-application to query the status of this command or queue a wait for this
-command to complete.
-If the <em>event_wait_list</em> and the <em>event</em> arguments are not <code>NULL</code>, the
-<em>event</em> argument should not refer to an element of the <em>event_wait_list</em>
-array.</p>
+<p><em>event</em> returns an event object that identifies this command and
+can be used to query or wait for this command to complete.
+If <em>event</em> is <code>NULL</code> or the enqueue is unsuccessful, no event will be
+created and therefore it will not be possible to query the status of this
+command or to wait for this command to complete.
+If <em>event_wait_list</em> and <em>event</em> are not <code>NULL</code>, <em>event</em> must not refer
+to an element of the <em>event_wait_list</em> array.</p>
 </div>
 <div class="paragraph">
 <p><strong>clEnqueueAcquireDX9MediaSurfacesKHR</strong> returns CL_SUCCESS if the function is
@@ -11729,16 +12074,16 @@ on any event to complete.
 If <em>event_wait_list</em> is <code>NULL</code>, <em>num_events_in_wait_list</em> must be 0.
 If <em>event_wait_list</em> is not <code>NULL</code>, the list of events pointed to by
 <em>event_wait_list</em> must be valid and <em>num_events_in_wait_list</em> must be
-greater than 0.
-The event specified by <em>event</em> returns an event object that identifies this
-particular command and can be used to query or queue a wait for this
-particular command to complete.
-<em>event</em> can be <code>NULL</code> in which case it will not be possible for the
-application to query the status of this command or queue a wait for this
-command to complete.
-If the <em>event_wait_list</em> and the <em>event</em> arguments are not <code>NULL</code>, the
-<em>event</em> argument should not refer to an element of the <em>event_wait_list</em>
-array.</p>
+greater than 0.</p>
+</div>
+<div class="paragraph">
+<p><em>event</em> returns an event object that identifies this command and
+can be used to query or wait for this command to complete.
+If <em>event</em> is <code>NULL</code> or the enqueue is unsuccessful, no event will be
+created and therefore it will not be possible to query the status of this
+command or to wait for this command to complete.
+If <em>event_wait_list</em> and <em>event</em> are not <code>NULL</code>, <em>event</em> must not refer
+to an element of the <em>event_wait_list</em> array.</p>
 </div>
 <div class="paragraph">
 <p><strong>clEnqueueReleaseDX9MediaSurfaceKHR</strong> returns CL_SUCCESS if the function is
@@ -11787,7 +12132,38 @@ required by the OpenCL implementation on the host.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="cl_khr_dx9_media_sharing-surface-formats-for-media-surface-sharing">15.7.5. Surface formats for Media Surface Sharing</h4>
+<h4 id="cl_khr_dx9_media_sharing-event-command-types"><a class="anchor" href="#cl_khr_dx9_media_sharing-event-command-types"></a>15.7.5. Event Command Types for Sharing Memory Objects created from Media Surfaces</h4>
+<div class="paragraph">
+<p>The following table describes the event command types for the OpenCL commands
+to acquire and release OpenCL memory objects that have been created from
+media surfaces:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 40. List of supported event command types</caption>
+<colgroup>
+<col style="width: 40%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Events Created By</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Event Command Type</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>clEnqueueAcquireDX9MediaSurfacesKHR</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_COMMAND_<wbr>ACQUIRE_<wbr>DX9_<wbr>MEDIA_<wbr>SURFACES_<wbr>KHR</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>clEnqueueReleaseDX9MediaSurfacesKHR</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_COMMAND_<wbr>RELEASE_<wbr>DX9_<wbr>MEDIA_<wbr>SURFACES_<wbr>KHR</code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="cl_khr_dx9_media_sharing-surface-formats-for-media-surface-sharing"><a class="anchor" href="#cl_khr_dx9_media_sharing-surface-formats-for-media-surface-sharing"></a>15.7.6. Surface formats for Media Surface Sharing</h4>
 <div class="paragraph">
 <p>This section includes the D3D surface formats that are supported when the
 adapter type is one of the Direct 3D lineage .
@@ -11805,7 +12181,7 @@ corresponding OpenCL image format</em></a> or in the table
 corresponding OpenCL image formats</em></a>.</p>
 </div>
 <table id="cl_khr_dx9_media_sharing-fourcc-image-formats" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 37. <em>YUV FourCC codes and corresponding OpenCL image format</em></caption>
+<caption class="title">Table 41. <em>YUV FourCC codes and corresponding OpenCL image format</em></caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -11852,7 +12228,7 @@ Note that the YUV formats map to CL_R and CL_RG but do not perform any YUV
 to RGB conversion and vice-versa.</p>
 </div>
 <table id="cl_khr_dx9_media_sharing-d3d-image-formats" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 38. <em>Direct3D formats and corresponding OpenCL image formats</em></caption>
+<caption class="title">Table 42. <em>Direct3D formats and corresponding OpenCL image formats</em></caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -11951,7 +12327,7 @@ is the same as CL_RGBA, CL_FLOAT.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="cl_khr_depth_images">16. Depth Images</h2>
+<h2 id="cl_khr_depth_images"><a class="anchor" href="#cl_khr_depth_images"></a>16. Depth Images</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This section describes the <strong>cl_khr_depth_images</strong> extension.</p>
@@ -11963,9 +12339,9 @@ is the same as CL_RGBA, CL_FLOAT.</p>
 <p>This extension became a core feature in OpenCL 2.0.</p>
 </div>
 <div class="sect2">
-<h3 id="_general_information_15">16.1. General information</h3>
+<h3 id="_general_information_15"><a class="anchor" href="#_general_information_15"></a>16.1. General information</h3>
 <div class="sect3">
-<h4 id="_version_history_15">16.1.1. Version history</h4>
+<h4 id="_version_history_15"><a class="anchor" href="#_version_history_15"></a>16.1.1. Version history</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 20%;">
@@ -11990,7 +12366,7 @@ is the same as CL_RGBA, CL_FLOAT.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_depth_images-additions-to-chapter-5">16.2. Additions to Chapter 5 of the OpenCL 1.2 Specification</h3>
+<h3 id="cl_khr_depth_images-additions-to-chapter-5"><a class="anchor" href="#cl_khr_depth_images-additions-to-chapter-5"></a>16.2. Additions to Chapter 5 of the OpenCL 1.2 Specification</h3>
 <div class="paragraph">
 <p>This extension adds the following new image formats for depth images to <em>tables 5.6 and 5.7</em> of the OpenCL 1.2 specification.</p>
 </div>
@@ -12035,7 +12411,7 @@ is the same as CL_RGBA, CL_FLOAT.</p>
 <p>This extension adds the following new image format to the minimum list of supported image formats described in <em>table 5.8</em>:</p>
 </div>
 <table id="cl_khr_depth_images-required-image-formats" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 39. <em>Required Image Formats for</em> <strong>cl_khr_depth_images</strong></caption>
+<caption class="title">Table 43. <em>Required Image Formats for</em> <strong>cl_khr_depth_images</strong></caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -12082,7 +12458,7 @@ for a depth memory object or memory array object argument.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_depth_images-additions-to-chapter-6">16.3. Additions to Chapter 6 of the OpenCL 1.2 Specification</h3>
+<h3 id="cl_khr_depth_images-additions-to-chapter-6"><a class="anchor" href="#cl_khr_depth_images-additions-to-chapter-6"></a>16.3. Additions to Chapter 6 of the OpenCL 1.2 Specification</h3>
 <div class="paragraph">
 <p>Add the following new data types to <em>table 6.3</em> in <em>section 6.1.3</em> of the OpenCL 1.2 specification:</p>
 </div>
@@ -12370,7 +12746,7 @@ supplied to <strong>write_imagef</strong>.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="cl_khr_gl_depth_images">17. Sharing OpenGL and OpenGL ES Depth and Depth-Stencil Images</h2>
+<h2 id="cl_khr_gl_depth_images"><a class="anchor" href="#cl_khr_gl_depth_images"></a>17. Sharing OpenGL and OpenGL ES Depth and Depth-Stencil Images</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This section describes the <strong>cl_khr_gl_depth_images</strong> extension.
@@ -12381,9 +12757,9 @@ Objects</a> to allow an OpenCL image to be created from an OpenGL depth or
 depth-stencil texture.</p>
 </div>
 <div class="sect2">
-<h3 id="_general_information_16">17.1. General information</h3>
+<h3 id="_general_information_16"><a class="anchor" href="#_general_information_16"></a>17.1. General information</h3>
 <div class="sect3">
-<h4 id="_version_history_16">17.1.1. Version history</h4>
+<h4 id="_version_history_16"><a class="anchor" href="#_version_history_16"></a>17.1.1. Version history</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 20%;">
@@ -12408,7 +12784,7 @@ depth-stencil texture.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_gl_depth_images-additions-to-chapter-5">17.2. Additions to Chapter 5 of the OpenCL 2.2 Specification</h3>
+<h3 id="cl_khr_gl_depth_images-additions-to-chapter-5"><a class="anchor" href="#cl_khr_gl_depth_images-additions-to-chapter-5"></a>17.2. Additions to Chapter 5 of the OpenCL 2.2 Specification</h3>
 <div class="paragraph">
 <p>The <strong>cl_khr_gl_depth_images</strong> extension extends OpenCL / OpenGL sharing by
 allowing an OpenCL depth image to be created from an OpenGL depth or
@@ -12464,7 +12840,7 @@ to <em>table 5.6 and 5.7</em> of the OpenCL 2.2 specification.</p>
 supported image formats described in <em>tables 5.8.a</em> and <em>5.8.b</em>.</p>
 </div>
 <table id="cl_khr_gl_depth_images-required-image-formats" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 40. <em>Required Image Formats for</em> <strong>cl_khr_gl_depth_images</strong></caption>
+<caption class="title">Table 44. <em>Required Image Formats for</em> <strong>cl_khr_gl_depth_images</strong></caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 25%;">
@@ -12511,7 +12887,7 @@ CL_INVALID_OPERATION error.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_gl_depth_images-additions-to-extension-specification">17.3. Additions to the OpenCL Extension Specification</h3>
+<h3 id="cl_khr_gl_depth_images-additions-to-extension-specification"><a class="anchor" href="#cl_khr_gl_depth_images-additions-to-extension-specification"></a>17.3. Additions to the OpenCL Extension Specification</h3>
 <div class="paragraph">
 <p>The following new image formats are added to the table of
 <a href="#cl_khr_gl_sharing__memobjs-mapping-of-image-formats">OpenGL internal
@@ -12557,7 +12933,7 @@ one of the corresponding OpenCL image format(s) in that table.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="cl_khr_gl_msaa_sharing">18. Creating OpenCL Memory Objects from OpenGL MSAA Textures</h2>
+<h2 id="cl_khr_gl_msaa_sharing"><a class="anchor" href="#cl_khr_gl_msaa_sharing"></a>18. Creating OpenCL Memory Objects from OpenGL MSAA Textures</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This extension extends the OpenCL / OpenGL sharing (the
@@ -12572,9 +12948,9 @@ MSAA) texture (color or depth).</p>
 This extension requires <strong>cl_khr_gl_depth_images</strong>.</p>
 </div>
 <div class="sect2">
-<h3 id="_general_information_17">18.1. General information</h3>
+<h3 id="_general_information_17"><a class="anchor" href="#_general_information_17"></a>18.1. General information</h3>
 <div class="sect3">
-<h4 id="_version_history_17">18.1.1. Version history</h4>
+<h4 id="_version_history_17"><a class="anchor" href="#_version_history_17"></a>18.1.1. Version history</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 20%;">
@@ -12599,7 +12975,7 @@ This extension requires <strong>cl_khr_gl_depth_images</strong>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_gl_msaa_sharing-additions-to-extension-specification">18.2. Additions to the OpenCL Extension Specification</h3>
+<h3 id="cl_khr_gl_msaa_sharing-additions-to-extension-specification"><a class="anchor" href="#cl_khr_gl_msaa_sharing-additions-to-extension-specification"></a>18.2. Additions to the OpenCL Extension Specification</h3>
 <div class="paragraph">
 <p>Allow <em>texture_target</em> argument to <strong>clCreateFromGLTexture</strong> to be
 GL_TEXTURE_2D_MULTISAMPLE or GL_TEXTURE_2D_MULTISAMPLE_ARRAY.</p>
@@ -12651,7 +13027,7 @@ that may be queried with clGetGLTextureInfo</a>:</strong></p>
 </table>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_gl_msaa_sharing-additions-to-chapter-5">18.3. Additions to Chapter 5 of the OpenCL 2.2 Specification</h3>
+<h3 id="cl_khr_gl_msaa_sharing-additions-to-chapter-5"><a class="anchor" href="#cl_khr_gl_msaa_sharing-additions-to-chapter-5"></a>18.3. Additions to Chapter 5 of the OpenCL 2.2 Specification</h3>
 <div class="paragraph">
 <p>The formats described in tables 5.8.a and 5.8.b of the OpenCL 2.2
 specification and the additional formats described in
@@ -12688,7 +13064,7 @@ argument.&#8221;</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_gl_msaa_sharing-additions-to-chapter-6">18.4. Additions to Chapter 6 of the OpenCL 2.2 Specification</h3>
+<h3 id="cl_khr_gl_msaa_sharing-additions-to-chapter-6"><a class="anchor" href="#cl_khr_gl_msaa_sharing-additions-to-chapter-6"></a>18.4. Additions to Chapter 6 of the OpenCL 2.2 Specification</h3>
 <div class="paragraph">
 <p><strong>Add the following new data types to <em>table 6.3</em> in <em>section 6.1.3</em> of the
 OpenCL 2.2 specification:</strong></p>
@@ -13089,10 +13465,10 @@ component.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="cl_khr_egl_event">19. Creating OpenCL Event Objects from EGL Sync Objects</h2>
+<h2 id="cl_khr_egl_event"><a class="anchor" href="#cl_khr_egl_event"></a>19. Creating OpenCL Event Objects from EGL Sync Objects</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="cl_khr_egl_event-overview">19.1. Overview</h3>
+<h3 id="cl_khr_egl_event-overview"><a class="anchor" href="#cl_khr_egl_event-overview"></a>19.1. Overview</h3>
 <div class="paragraph">
 <p>This section describes the <strong>cl_khr_egl_event</strong> extension.
 This extension allows creating OpenCL event objects linked to EGL fence sync
@@ -13103,9 +13479,9 @@ functionality of creating an EGL sync object from an OpenCL event object.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_general_information_18">19.2. General information</h3>
+<h3 id="_general_information_18"><a class="anchor" href="#_general_information_18"></a>19.2. General information</h3>
 <div class="sect3">
-<h4 id="_version_history_18">19.2.1. Version history</h4>
+<h4 id="_version_history_18"><a class="anchor" href="#_version_history_18"></a>19.2.1. Version history</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 20%;">
@@ -13130,7 +13506,7 @@ functionality of creating an EGL sync object from an OpenCL event object.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_egl_event-new-procedures-and-functions">19.3. New Procedures and Functions</h3>
+<h3 id="cl_khr_egl_event-new-procedures-and-functions"><a class="anchor" href="#cl_khr_egl_event-new-procedures-and-functions"></a>19.3. New Procedures and Functions</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="c">cl_event clCreateEventFromEGLSyncKHR(cl_context context,
@@ -13141,7 +13517,7 @@ functionality of creating an EGL sync object from an OpenCL event object.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_egl_event-new-tokens">19.4. New Tokens</h3>
+<h3 id="cl_khr_egl_event-new-tokens"><a class="anchor" href="#cl_khr_egl_event-new-tokens"></a>19.4. New Tokens</h3>
 <div class="paragraph">
 <p>Returned by clCreateEventFromEGLSyncKHR if <em>sync</em> is not a valid EGLSyncKHR
 handle created with respect to EGLDisplay <em>display</em>:</p>
@@ -13161,7 +13537,7 @@ handle created with respect to EGLDisplay <em>display</em>:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_egl_event-additions-to-chapter-5">19.5. Additions to Chapter 5 of the OpenCL 2.2 Specification</h3>
+<h3 id="cl_khr_egl_event-additions-to-chapter-5"><a class="anchor" href="#cl_khr_egl_event-additions-to-chapter-5"></a>19.5. Additions to Chapter 5 of the OpenCL 2.2 Specification</h3>
 <div class="paragraph">
 <p>Add following to the fourth paragraph of <em>section 5.11</em> (prior to the
 description of <strong>clWaitForEvents</strong>):</p>
@@ -13283,7 +13659,7 @@ a CL_INVALID_EVENT error.`"</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_egl_event-additions-to-extension-specification">19.6. Additions to the OpenCL Extension Specification</h3>
+<h3 id="cl_khr_egl_event-additions-to-extension-specification"><a class="anchor" href="#cl_khr_egl_event-additions-to-extension-specification"></a>19.6. Additions to the OpenCL Extension Specification</h3>
 <div class="paragraph">
 <p>Replace the second paragraph of
 <a href="#cl_khr_gl_sharing__memobjs-synchronizing-opencl-and-opengl-access-to-shared-objects">Synchronizing OpenCL and OpenGL Access to Shared Objects</a> with:</p>
@@ -13317,7 +13693,7 @@ the cl_khr_egl_event extension is supported on a platform.`"</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_egl_event-issues">19.7. Issues</h3>
+<h3 id="cl_khr_egl_event-issues"><a class="anchor" href="#cl_khr_egl_event-issues"></a>19.7. Issues</h3>
 <div class="paragraph">
 <p>Most issues are shared with <strong>cl_khr_gl_event</strong> and are resolved as described
 in that extension.</p>
@@ -13377,10 +13753,10 @@ CL_INVALID_EGL_OBJECT_KHR if unsupported.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="cl_khr_egl_image">20. Creating OpenCL Memory Objects from EGL Images</h2>
+<h2 id="cl_khr_egl_image"><a class="anchor" href="#cl_khr_egl_image"></a>20. Creating OpenCL Memory Objects from EGL Images</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="cl_khr_egl_image-overview">20.1. Overview</h3>
+<h3 id="cl_khr_egl_image-overview"><a class="anchor" href="#cl_khr_egl_image-overview"></a>20.1. Overview</h3>
 <div class="paragraph">
 <p>This section describes the <strong>cl_khr_egl_image</strong> extension.
 This extension provides a mechanism to creating OpenCL memory objects from
@@ -13388,9 +13764,9 @@ from EGLImages.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_general_information_19">20.2. General information</h3>
+<h3 id="_general_information_19"><a class="anchor" href="#_general_information_19"></a>20.2. General information</h3>
 <div class="sect3">
-<h4 id="_version_history_19">20.2.1. Version history</h4>
+<h4 id="_version_history_19"><a class="anchor" href="#_version_history_19"></a>20.2.1. Version history</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 20%;">
@@ -13415,7 +13791,7 @@ from EGLImages.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_egl_image-new-procedures-and-functions">20.3. New Procedures and Functions</h3>
+<h3 id="cl_khr_egl_image-new-procedures-and-functions"><a class="anchor" href="#cl_khr_egl_image-new-procedures-and-functions"></a>20.3. New Procedures and Functions</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="c">cl_mem clCreateFromEGLImageKHR(cl_context context,
@@ -13442,7 +13818,7 @@ cl_int clEnqueueReleaseEGLObjectsKHR(cl_command_queue command_queue,
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_egl_image-new-tokens">20.4. New Tokens</h3>
+<h3 id="cl_khr_egl_image-new-tokens"><a class="anchor" href="#cl_khr_egl_image-new-tokens"></a>20.4. New Tokens</h3>
 <div class="paragraph">
 <p>New error codes:</p>
 </div>
@@ -13463,7 +13839,7 @@ CL_COMMAND_RELEASE_EGL_OBJECTS_KHR</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_egl_image-additions-to-chapter-5">20.5. Additions to Chapter 5 of the OpenCL 2.2 Specification</h3>
+<h3 id="cl_khr_egl_image-additions-to-chapter-5"><a class="anchor" href="#cl_khr_egl_image-additions-to-chapter-5"></a>20.5. Additions to Chapter 5 of the OpenCL 2.2 Specification</h3>
 <div class="paragraph">
 <p>In section 5.2.4, add the following text after the paragraph defining
 clCreateImage:</p>
@@ -13571,7 +13947,7 @@ or if the flags passed are not supported for that image type.`"</p>
 </ul>
 </div>
 <div class="sect3">
-<h4 id="cl_khr_egl_image-lifetime-of-shared-objects">20.5.1. Lifetime of Shared Objects</h4>
+<h4 id="cl_khr_egl_image-lifetime-of-shared-objects"><a class="anchor" href="#cl_khr_egl_image-lifetime-of-shared-objects"></a>20.5.1. Lifetime of Shared Objects</h4>
 <div class="paragraph">
 <p>An OpenCL memory object created from an EGL image remains valid according to
 the lifetime behavior as described in EGL_KHR_image_base.</p>
@@ -13585,7 +13961,7 @@ cl_mem (the EGL sibling), the image remains valid.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="cl_khr_egl_image-synchronizing-opengl-and-egl-access-to-shared-objects">20.5.2. Synchronizing OpenCL and EGL Access to Shared Objects</h4>
+<h4 id="cl_khr_egl_image-synchronizing-opengl-and-egl-access-to-shared-objects"><a class="anchor" href="#cl_khr_egl_image-synchronizing-opengl-and-egl-access-to-shared-objects"></a>20.5.2. Synchronizing OpenCL and EGL Access to Shared Objects</h4>
 <div class="paragraph">
 <p>In order to ensure data integrity, the application is responsible for
 synchronizing access to shared CL/EGL objects by their respective APIs.
@@ -13622,7 +13998,7 @@ released, will result in undefined behavior.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="cl_khr_egl_image-sharing-memory-objects-created-from-egl-resources-between-egldisplays-and-opencl-contexts">20.5.3. Sharing memory objects created from EGL resources between EGLDisplays and OpenCL contexts</h4>
+<h4 id="cl_khr_egl_image-sharing-memory-objects-created-from-egl-resources-between-egldisplays-and-opencl-contexts"><a class="anchor" href="#cl_khr_egl_image-sharing-memory-objects-created-from-egl-resources-between-egldisplays-and-opencl-contexts"></a>20.5.3. Sharing memory objects created from EGL resources between EGLDisplays and OpenCL contexts</h4>
 <div class="paragraph">
 <p>The function
 </p>
@@ -13674,12 +14050,13 @@ greater than 0.
 The events specified in <em>event_wait_list</em> act as synchronization points.</p>
 </div>
 <div class="paragraph">
-<p><em>event</em> returns an event object that identifies this particular command and
-can be used to query or queue a wait for this particular command to
-complete.
-<em>event</em> can be <code>NULL</code> in which case it will not be possible for the
-application to query the status of this command or queue a wait for this
-command to complete.</p>
+<p><em>event</em> returns an event object that identifies this command and
+can be used to query or wait for this command to complete.
+If <em>event</em> is <code>NULL</code> or the enqueue is unsuccessful, no event will be
+created and therefore it will not be possible to query the status of this
+command or to wait for this command to complete.
+If <em>event_wait_list</em> and <em>event</em> are not <code>NULL</code>, <em>event</em> must not refer
+to an element of the <em>event_wait_list</em> array.</p>
 </div>
 <div class="paragraph">
 <p><strong>clEnqueueAcquireEGLObjectsKHR</strong> returns CL_SUCCESS if the function is
@@ -13774,12 +14151,13 @@ greater than 0.
 The events specified in <em>event_wait_list</em> act as synchronization points.</p>
 </div>
 <div class="paragraph">
-<p><em>event</em> returns an event object that identifies this particular command and
-can be used to query or queue a wait for this particular command to
-complete.
-<em>event</em> can be <code>NULL</code> in which case it will not be possible for the
-application to query the status of this command or queue a wait for this
-command to complete.</p>
+<p><em>event</em> returns an event object that identifies this command and
+can be used to query or wait for this command to complete.
+If <em>event</em> is <code>NULL</code> or the enqueue is unsuccessful, no event will be
+created and therefore it will not be possible to query the status of this
+command or to wait for this command to complete.
+If <em>event_wait_list</em> and <em>event</em> are not <code>NULL</code>, <em>event</em> must not refer
+to an element of the <em>event_wait_list</em> array.</p>
 </div>
 <div class="paragraph">
 <p><strong>clEnqueueReleaseEGLObjectsKHR</strong> returns CL_SUCCESS if the function is
@@ -13823,9 +14201,40 @@ required by the OpenCL implementation on the host.</p>
 </ul>
 </div>
 </div>
+<div class="sect3">
+<h4 id="cl_khr_egl_image-event-command-types"><a class="anchor" href="#cl_khr_egl_image-event-command-types"></a>20.5.4. Event Command Types for Sharing memory objects created from EGL resources</h4>
+<div class="paragraph">
+<p>The following table describes the event command types for the OpenCL commands
+to acquire and release OpenCL memory objects that have been created from
+EGL resources:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 45. List of supported event command types</caption>
+<colgroup>
+<col style="width: 40%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Events Created By</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Event Command Type</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>clEnqueueAcquireEGLObjectsKHR</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_COMMAND_<wbr>ACQUIRE_<wbr>EGL_<wbr>OBJECTS_<wbr>KHR</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>clEnqueueReleaseEGLObjectsKHR</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_COMMAND_<wbr>RELEASE_<wbr>EGL_<wbr>OBJECTS_<wbr>KHR</code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_egl_image-issues">20.6. Issues</h3>
+<h3 id="cl_khr_egl_image-issues"><a class="anchor" href="#cl_khr_egl_image-issues"></a>20.6. Issues</h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -13931,7 +14340,7 @@ described in those extensions.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="cl_khr_image2d_from_buffer">21. Creating a 2D Image From A Buffer</h2>
+<h2 id="cl_khr_image2d_from_buffer"><a class="anchor" href="#cl_khr_image2d_from_buffer"></a>21. Creating a 2D Image From A Buffer</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This section describes the <strong>cl_khr_image2d_from_buffer</strong> extension.</p>
@@ -13943,9 +14352,9 @@ described in those extensions.</p>
 <p>This extension became a core feature in OpenCL 2.0.</p>
 </div>
 <div class="sect2">
-<h3 id="_general_information_20">21.1. General information</h3>
+<h3 id="_general_information_20"><a class="anchor" href="#_general_information_20"></a>21.1. General information</h3>
 <div class="sect3">
-<h4 id="_version_history_20">21.1.1. Version history</h4>
+<h4 id="_version_history_20"><a class="anchor" href="#_version_history_20"></a>21.1.1. Version history</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 20%;">
@@ -13970,7 +14379,7 @@ described in those extensions.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_additions_to_chapter_4_of_the_opencl_1_2_specification">21.2. Additions to Chapter 4 of the OpenCL 1.2 Specification</h3>
+<h3 id="_additions_to_chapter_4_of_the_opencl_1_2_specification"><a class="anchor" href="#_additions_to_chapter_4_of_the_opencl_1_2_specification"></a>21.2. Additions to Chapter 4 of the OpenCL 1.2 Specification</h3>
 <div class="paragraph">
 <p>The following table entry describes the additions to <em>table 4.3,</em> which allows applications to query the configuration information using <strong>clGetDeviceInfo</strong> for an OpenCL device that supports creating a 2D image from a buffer.</p>
 </div>
@@ -14010,7 +14419,7 @@ If the device does not support images, this value should be 0.</p></td>
 </table>
 </div>
 <div class="sect2">
-<h3 id="_additions_to_chapter_5_of_the_opencl_1_2_specification">21.3. Additions to Chapter 5 of the OpenCL 1.2 Specification</h3>
+<h3 id="_additions_to_chapter_5_of_the_opencl_1_2_specification"><a class="anchor" href="#_additions_to_chapter_5_of_the_opencl_1_2_specification"></a>21.3. Additions to Chapter 5 of the OpenCL 1.2 Specification</h3>
 <div class="paragraph">
 <p>Add to Section 5.3.1: Creating Image Objects:</p>
 </div>
@@ -14048,7 +14457,7 @@ Concurrent reading from, writing to, and copying between both a buffer object an
 </div>
 </div>
 <div class="sect1">
-<h2 id="cl_khr_initialize_memory">22. Local and Private Memory Initialization</h2>
+<h2 id="cl_khr_initialize_memory"><a class="anchor" href="#cl_khr_initialize_memory"></a>22. Local and Private Memory Initialization</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Memory is allocated in various forms in OpenCL both explicitly (global
@@ -14067,9 +14476,9 @@ a kernel begins execution.
 This extension name is <strong>cl_khr_initialize_memory</strong>.</p>
 </div>
 <div class="sect2">
-<h3 id="_general_information_21">22.1. General information</h3>
+<h3 id="_general_information_21"><a class="anchor" href="#_general_information_21"></a>22.1. General information</h3>
 <div class="sect3">
-<h4 id="_version_history_21">22.1.1. Version history</h4>
+<h4 id="_version_history_21"><a class="anchor" href="#_version_history_21"></a>22.1.1. Version history</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 20%;">
@@ -14094,7 +14503,7 @@ This extension name is <strong>cl_khr_initialize_memory</strong>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_initialize_memory-additions-to-chapter-4">22.2. Additions to Chapter 4 of the OpenCL 2.2 Specification</h3>
+<h3 id="cl_khr_initialize_memory-additions-to-chapter-4"><a class="anchor" href="#cl_khr_initialize_memory-additions-to-chapter-4"></a>22.2. Additions to Chapter 4 of the OpenCL 2.2 Specification</h3>
 <div class="paragraph">
 <p>Add a new context property to <em>table 4.5</em> in <em>section 4.4</em>.</p>
 </div>
@@ -14126,7 +14535,7 @@ This extension name is <strong>cl_khr_initialize_memory</strong>.</p>
 </table>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_initialize_memory-additions-to-chapter-6">22.3. Additions to Chapter 6 of the OpenCL 2.2 Specification</h3>
+<h3 id="cl_khr_initialize_memory-additions-to-chapter-6"><a class="anchor" href="#cl_khr_initialize_memory-additions-to-chapter-6"></a>22.3. Additions to Chapter 6 of the OpenCL 2.2 Specification</h3>
 <div class="paragraph">
 <p>Updates to <em>section 6.9</em>&#8201;&#8212;&#8201;Restrictions</p>
 </div>
@@ -14143,7 +14552,7 @@ context, which can be read during a kernel execution.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="cl_khr_terminate_context">23. Terminating OpenCL contexts</h2>
+<h2 id="cl_khr_terminate_context"><a class="anchor" href="#cl_khr_terminate_context"></a>23. Terminating OpenCL contexts</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Today, OpenCL provides an API to release a context.
@@ -14172,9 +14581,9 @@ terminate an OpenCL context and adds an API to terminate a context.</p>
 <p>The extension name is <strong>cl_khr_terminate_context</strong>.</p>
 </div>
 <div class="sect2">
-<h3 id="_general_information_22">23.1. General information</h3>
+<h3 id="_general_information_22"><a class="anchor" href="#_general_information_22"></a>23.1. General information</h3>
 <div class="sect3">
-<h4 id="_version_history_22">23.1.1. Version history</h4>
+<h4 id="_version_history_22"><a class="anchor" href="#_version_history_22"></a>23.1.1. Version history</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 20%;">
@@ -14199,7 +14608,7 @@ terminate an OpenCL context and adds an API to terminate a context.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_terminate_context-additions-to-chapter-4">23.2. Additions to Chapter 4 of the OpenCL 2.2 Specification</h3>
+<h3 id="cl_khr_terminate_context-additions-to-chapter-4"><a class="anchor" href="#cl_khr_terminate_context-additions-to-chapter-4"></a>23.2. Additions to Chapter 4 of the OpenCL 2.2 Specification</h3>
 <div class="paragraph">
 <p>Add a new device property to <em>table 4.3</em> in <em>section 4.2</em>.</p>
 </div>
@@ -14283,7 +14692,7 @@ associated with the context being terminated.</p>
 <p>The execution status of enqueued commands will be CL_TERMINATED_KHR.
 Event objects can be queried using <strong>clGetEventInfo</strong>.
 Event callbacks can be registered and registered event callbacks will be
-called with <em>event_command_exec_status</em> set to CL_TERMINATED_KHR.
+called with <em>event_command_status</em> set to CL_TERMINATED_KHR.
 <strong>clWaitForEvents</strong> will return as immediately for commands associated
 with event objects specified in event_list.
 The status of user events can be set.
@@ -14357,7 +14766,7 @@ with this context (i.e. doing a <strong>clFinish</strong>).</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="cl_khr_spir">24. Standard Portable Intermediate Representation Binaries</h2>
+<h2 id="cl_khr_spir"><a class="anchor" href="#cl_khr_spir"></a>24. Standard Portable Intermediate Representation Binaries</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This extension adds the ability to create an OpenCL program object from a
@@ -14372,9 +14781,9 @@ representation, which is supported by the <strong>cl_khr_il_program</strong> ext
 and is a core feature in OpenCL 2.1.</p>
 </div>
 <div class="sect2">
-<h3 id="_general_information_23">24.1. General information</h3>
+<h3 id="_general_information_23"><a class="anchor" href="#_general_information_23"></a>24.1. General information</h3>
 <div class="sect3">
-<h4 id="_version_history_23">24.1.1. Version history</h4>
+<h4 id="_version_history_23"><a class="anchor" href="#_version_history_23"></a>24.1.1. Version history</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 20%;">
@@ -14399,7 +14808,7 @@ and is a core feature in OpenCL 2.1.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_spir-additions-to-chapter-4">24.2. Additions to Chapter 4 of the OpenCL 2.2 Specification</h3>
+<h3 id="cl_khr_spir-additions-to-chapter-4"><a class="anchor" href="#cl_khr_spir-additions-to-chapter-4"></a>24.2. Additions to Chapter 4 of the OpenCL 2.2 Specification</h3>
 <div class="paragraph">
 <p><strong>Add a new device property to <em>table 4.3</em> in <em>section 4.2</em>:</strong></p>
 </div>
@@ -14428,7 +14837,7 @@ and is a core feature in OpenCL 2.1.</p>
 </table>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_spir-additions-to-chapter-5">24.3. Additions to Chapter 5 of the OpenCL 2.2 Specification</h3>
+<h3 id="cl_khr_spir-additions-to-chapter-5"><a class="anchor" href="#cl_khr_spir-additions-to-chapter-5"></a>24.3. Additions to Chapter 5 of the OpenCL 2.2 Specification</h3>
 <div class="paragraph">
 <p><strong>Additions to <em>section 5.8.1</em>&#8201;&#8212;&#8201;Creating Program Objects:</strong></p>
 </div>
@@ -14513,7 +14922,7 @@ program object associated with <em>kernel</em> is created with
 </div>
 </div>
 <div class="sect1">
-<h2 id="cl_khr_il_program">25. Intermediate Language Programs</h2>
+<h2 id="cl_khr_il_program"><a class="anchor" href="#cl_khr_il_program"></a>25. Intermediate Language Programs</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This section describes the <strong>cl_khr_il_program</strong> extension.</p>
@@ -14528,9 +14937,9 @@ the OpenCL environment may be found in the OpenCL SPIR-V Environment Specificati
 <p>This functionality described by this extension is a core feature in OpenCL 2.1.</p>
 </div>
 <div class="sect2">
-<h3 id="_general_information_24">25.1. General information</h3>
+<h3 id="_general_information_24"><a class="anchor" href="#_general_information_24"></a>25.1. General information</h3>
 <div class="sect3">
-<h4 id="_version_history_24">25.1.1. Version history</h4>
+<h4 id="_version_history_24"><a class="anchor" href="#_version_history_24"></a>25.1.1. Version history</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 20%;">
@@ -14555,7 +14964,7 @@ the OpenCL environment may be found in the OpenCL SPIR-V Environment Specificati
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_il_program-new-procedures-and-functions">25.2. New Procedures and Functions</h3>
+<h3 id="cl_khr_il_program-new-procedures-and-functions"><a class="anchor" href="#cl_khr_il_program-new-procedures-and-functions"></a>25.2. New Procedures and Functions</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="c">cl_program clCreateProgramWithILKHR(cl_context context,
@@ -14566,7 +14975,7 @@ the OpenCL environment may be found in the OpenCL SPIR-V Environment Specificati
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_il_program-new-tokens">25.3. New Tokens</h3>
+<h3 id="cl_khr_il_program-new-tokens"><a class="anchor" href="#cl_khr_il_program-new-tokens"></a>25.3. New Tokens</h3>
 <div class="paragraph">
 <p>Accepted as a new <em>param_name</em> argument to <strong>clGetDeviceInfo</strong>:</p>
 </div>
@@ -14585,7 +14994,7 @@ the OpenCL environment may be found in the OpenCL SPIR-V Environment Specificati
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_il_program-additions-to-chapter-3">25.4. Additions to Chapter 3 of the OpenCL 2.0 Specification</h3>
+<h3 id="cl_khr_il_program-additions-to-chapter-3"><a class="anchor" href="#cl_khr_il_program-additions-to-chapter-3"></a>25.4. Additions to Chapter 3 of the OpenCL 2.0 Specification</h3>
 <div class="paragraph">
 <p>In section 3.1, replace the fourth paragraph with:</p>
 </div>
@@ -14594,7 +15003,7 @@ the OpenCL environment may be found in the OpenCL SPIR-V Environment Specificati
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_il_program-additions-to-chapter-4">25.5. Additions to Chapter 4 of the OpenCL 2.0 Specification</h3>
+<h3 id="cl_khr_il_program-additions-to-chapter-4"><a class="anchor" href="#cl_khr_il_program-additions-to-chapter-4"></a>25.5. Additions to Chapter 4 of the OpenCL 2.0 Specification</h3>
 <div class="paragraph">
 <p>Add a new device property to <strong>Table 4.3</strong> <em>OpenCL Device Queries</em>:</p>
 </div>
@@ -14627,7 +15036,7 @@ A device that supports the <strong>cl_khr_il_program</strong> extension must sup
 </table>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_il_program-additions-to-chapter-5">25.6. Additions to Chapter 5 of the OpenCL 2.0 Specification</h3>
+<h3 id="cl_khr_il_program-additions-to-chapter-5"><a class="anchor" href="#cl_khr_il_program-additions-to-chapter-5"></a>25.6. Additions to Chapter 5 of the OpenCL 2.0 Specification</h3>
 <div class="paragraph">
 <p>Add to Section 5.8.1: Creating Program Objects:</p>
 </div>
@@ -14790,10 +15199,10 @@ If program is created with <strong>clCreateProgramWithSource</strong>, <strong>c
 </div>
 </div>
 <div class="sect1">
-<h2 id="cl_khr_create_command_queue">26. Creating Command Queues with Properties</h2>
+<h2 id="cl_khr_create_command_queue"><a class="anchor" href="#cl_khr_create_command_queue"></a>26. Creating Command Queues with Properties</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_overview">26.1. Overview</h3>
+<h3 id="_overview"><a class="anchor" href="#_overview"></a>26.1. Overview</h3>
 <div class="paragraph">
 <p>The section describes the <strong>cl_khr_create_command_queue</strong> extension.</p>
 </div>
@@ -14820,9 +15229,9 @@ extension API.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_general_information_25">26.2. General information</h3>
+<h3 id="_general_information_25"><a class="anchor" href="#_general_information_25"></a>26.2. General information</h3>
 <div class="sect3">
-<h4 id="_version_history_25">26.2.1. Version history</h4>
+<h4 id="_version_history_25"><a class="anchor" href="#_version_history_25"></a>26.2.1. Version history</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 20%;">
@@ -14847,7 +15256,7 @@ extension API.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_new_api_functions">26.3. New API Functions</h3>
+<h3 id="_new_api_functions"><a class="anchor" href="#_new_api_functions"></a>26.3. New API Functions</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="c">cl_command_queue clCreateCommandQueueWithPropertiesKHR(
@@ -14859,15 +15268,15 @@ extension API.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_new_api_types">26.4. New API Types</h3>
+<h3 id="_new_api_types"><a class="anchor" href="#_new_api_types"></a>26.4. New API Types</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="c"><span class="keyword">typedef</span> cl_bitfield cl_queue_properties_khr;</code></pre>
+<pre class="CodeRay highlight"><code data-lang="c"><span class="keyword">typedef</span> cl_properties cl_queue_properties_khr;</code></pre>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_modifications_to_the_opencl_1_2_specification">26.5. Modifications to the OpenCL 1.2 Specification</h3>
+<h3 id="_modifications_to_the_opencl_1_2_specification"><a class="anchor" href="#_modifications_to_the_opencl_1_2_specification"></a>26.5. Modifications to the OpenCL 1.2 Specification</h3>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">(Add to Table 5.2 for CL_QUEUE_PROPERTIES in Section 5.1) </dt>
@@ -15025,7 +15434,7 @@ by the OpenCL implementation on the host.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="cl_khr_device_enqueue_local_arg_types">27. Device Enqueue Local Argument Types</h2>
+<h2 id="cl_khr_device_enqueue_local_arg_types"><a class="anchor" href="#cl_khr_device_enqueue_local_arg_types"></a>27. Device Enqueue Local Argument Types</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This extension allows arguments to blocks that are passed to the <strong>enqueue_kernel</strong> built-in
@@ -15036,9 +15445,9 @@ requiring arguments to blocks to be pointers to void in local memory.</p>
 <p>The name of this extension is <strong>cl_khr_device_enqueue_local_arg_types</strong>.</p>
 </div>
 <div class="sect2">
-<h3 id="_general_information_26">27.1. General information</h3>
+<h3 id="_general_information_26"><a class="anchor" href="#_general_information_26"></a>27.1. General information</h3>
 <div class="sect3">
-<h4 id="_version_history_26">27.1.1. Version history</h4>
+<h4 id="_version_history_26"><a class="anchor" href="#_version_history_26"></a>27.1.1. Version history</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 20%;">
@@ -15063,7 +15472,7 @@ requiring arguments to blocks to be pointers to void in local memory.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_device_enqueue_local_arg_types-additions-to-chapter-6-of-the-opencl-2.0-specification">27.2. Additions to Chapter 6 of the OpenCL 2.0 C Specification</h3>
+<h3 id="cl_khr_device_enqueue_local_arg_types-additions-to-chapter-6-of-the-opencl-2.0-specification"><a class="anchor" href="#cl_khr_device_enqueue_local_arg_types-additions-to-chapter-6-of-the-opencl-2.0-specification"></a>27.2. Additions to Chapter 6 of the OpenCL 2.0 C Specification</h3>
 <div class="paragraph">
 <p>Modify the second paragraph of Section 6.13.17: Enqueuing Kernels:</p>
 </div>
@@ -15099,7 +15508,7 @@ enqueue functions listed in table 6.31."</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="cl_khr_subgroups">28. Subgroups</h2>
+<h2 id="cl_khr_subgroups"><a class="anchor" href="#cl_khr_subgroups"></a>28. Subgroups</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This section describes the <strong>cl_khr_subgroups</strong> extension.</p>
@@ -15118,14 +15527,14 @@ Subgroups within a work group are independent, may make forward progress with re
 <p>The subgroup OpenCL C built-in functions described by this extension must still be accessed as an OpenCL C extension in OpenCL 2.1.</p>
 </li>
 <li>
-<p>Subgroup independent forward progress is an optional device property in OpenCL 2.1, see <code>CL_&#8203;DEVICE_&#8203;SUB_&#8203;GROUP_&#8203;INDEPENDENT_&#8203;FORWARD_&#8203;PROGRESS</code>.</p>
+<p>Subgroup independent forward progress is an optional device property in OpenCL 2.1, see <code>CL_DEVICE_<wbr>SUB_<wbr>GROUP_<wbr>INDEPENDENT_<wbr>FORWARD_<wbr>PROGRESS</code>.</p>
 </li>
 </ul>
 </div>
 <div class="sect2">
-<h3 id="_general_information_27">28.1. General information</h3>
+<h3 id="_general_information_27"><a class="anchor" href="#_general_information_27"></a>28.1. General information</h3>
 <div class="sect3">
-<h4 id="_version_history_27">28.1.1. Version history</h4>
+<h4 id="_version_history_27"><a class="anchor" href="#_version_history_27"></a>28.1.1. Version history</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 20%;">
@@ -15150,11 +15559,11 @@ Subgroups within a work group are independent, may make forward progress with re
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_subgroups-additions-to-chapter-3-of-the-opencl-2.0-specification">28.2. Additions to Chapter 3 of the OpenCL 2.0 Specification</h3>
+<h3 id="cl_khr_subgroups-additions-to-chapter-3-of-the-opencl-2.0-specification"><a class="anchor" href="#cl_khr_subgroups-additions-to-chapter-3-of-the-opencl-2.0-specification"></a>28.2. Additions to Chapter 3 of the OpenCL 2.0 Specification</h3>
 
 </div>
 <div class="sect2">
-<h3 id="cl_khr_subgroups-additions-to-section-3.2-execution-model">28.3. Additions to section 3.2&#8201;&#8212;&#8201;Execution Model</h3>
+<h3 id="cl_khr_subgroups-additions-to-section-3.2-execution-model"><a class="anchor" href="#cl_khr_subgroups-additions-to-section-3.2-execution-model"></a>28.3. Additions to section 3.2&#8201;&#8212;&#8201;Execution Model</h3>
 <div class="paragraph">
 <p>Within a work-group work-items may be divided into sub-groups.
 The mapping of work-items to sub-groups is implementation-defined and may be queried at runtime.
@@ -15175,7 +15584,7 @@ In this situation all sub-group scope functions alias their work-group level equ
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_subgroups-additions-to-chapter-5-of-the-opencl-2.0-specification">28.4. Additions to Chapter 5 of the OpenCL 2.0 Specification</h3>
+<h3 id="cl_khr_subgroups-additions-to-chapter-5-of-the-opencl-2.0-specification"><a class="anchor" href="#cl_khr_subgroups-additions-to-chapter-5-of-the-opencl-2.0-specification"></a>28.4. Additions to Chapter 5 of the OpenCL 2.0 Specification</h3>
 <div class="paragraph">
 <p>The function</p>
 </div>
@@ -15241,7 +15650,7 @@ queried by <em>param_name</em>.
 If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </div>
 <table id="cl_khr_subgroups-kernel-subgroup-info-table" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 41. <strong>clGetKernelSubGroupInfoKHR</strong> parameter queries</caption>
+<caption class="title">Table 46. <strong>clGetKernelSubGroupInfoKHR</strong> parameter queries</caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 25%;">
@@ -15258,7 +15667,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;KERNEL_&#8203;MAX_&#8203;SUB_&#8203;GROUP_&#8203;SIZE_&#8203;FOR_&#8203;NDRANGE_&#8203;KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_KERNEL_<wbr>MAX_<wbr>SUB_<wbr>GROUP_<wbr>SIZE_<wbr>FOR_<wbr>NDRANGE_<wbr>KHR</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">size_t *</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">size_t</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the maximum sub-group size for this kernel.
@@ -15272,7 +15681,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
             the value specified for <em>input_value_size</em>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_&#8203;KERNEL_&#8203;SUB_&#8203;GROUP_&#8203;COUNT_&#8203;FOR_&#8203;NDRANGE_&#8203;KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_KERNEL_<wbr>SUB_<wbr>GROUP_<wbr>COUNT_<wbr>FOR_<wbr>NDRANGE_<wbr>KHR</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">size_t *</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">size_t</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the number of sub-groups that will be present in each
@@ -15296,39 +15705,39 @@ Otherwise, it returns one of the following errors:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_&#8203;INVALID_&#8203;DEVICE</code> if <em>device</em> is not in the list of devices associated
+<p><code>CL_INVALID_<wbr>DEVICE</code> if <em>device</em> is not in the list of devices associated
 with <em>kernel</em> or if <em>device</em> is <code>NULL</code> but there is more than one device
 associated with <em>kernel</em>.</p>
 </li>
 <li>
-<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if <em>param_name</em> is not valid, or if size in bytes
+<p><code>CL_INVALID_<wbr>VALUE</code> if <em>param_name</em> is not valid, or if size in bytes
 specified by <em>param_value_size</em> is &lt; size of return type as described in
 the <a href="#kernel-subgroup-info-table">Kernel Object Subgroup Queries</a> table
 and <em>param_value</em> is not <code>NULL</code>.</p>
 </li>
 <li>
-<p><code>CL_&#8203;INVALID_&#8203;VALUE</code> if <em>param_name</em> is
-<code>CL_&#8203;KERNEL_&#8203;MAX_&#8203;SUB_&#8203;GROUP_&#8203;SIZE_&#8203;FOR_&#8203;NDRANGE_&#8203;KHR</code> and the size in bytes specified by
+<p><code>CL_INVALID_<wbr>VALUE</code> if <em>param_name</em> is
+<code>CL_KERNEL_<wbr>MAX_<wbr>SUB_<wbr>GROUP_<wbr>SIZE_<wbr>FOR_<wbr>NDRANGE_<wbr>KHR</code> and the size in bytes specified by
 <em>input_value_size</em> is not valid or if <em>input_value</em> is <code>NULL</code>.</p>
 </li>
 <li>
-<p><code>CL_&#8203;INVALID_&#8203;KERNEL</code> if <em>kernel</em> is a not a valid kernel object.</p>
+<p><code>CL_INVALID_<wbr>KERNEL</code> if <em>kernel</em> is a not a valid kernel object.</p>
 </li>
 <li>
-<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;RESOURCES</code> if there is a failure to allocate resources required
+<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources required
 by the OpenCL implementation on the device.</p>
 </li>
 <li>
-<p><code>CL_&#8203;OUT_&#8203;OF_&#8203;HOST_&#8203;MEMORY</code> if there is a failure to allocate resources
+<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code> if there is a failure to allocate resources
 required by the OpenCL implementation on the host.</p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_subgroups-additions-to-chapter-6-of-the-opencl-2.0-specification">28.5. Additions to Chapter 6 of the OpenCL 2.0 C Specification</h3>
+<h3 id="cl_khr_subgroups-additions-to-chapter-6-of-the-opencl-2.0-specification"><a class="anchor" href="#cl_khr_subgroups-additions-to-chapter-6-of-the-opencl-2.0-specification"></a>28.5. Additions to Chapter 6 of the OpenCL 2.0 C Specification</h3>
 <div class="sect3">
-<h4 id="cl_khr_subgroups-additions-to-section-6.13.1-work-item-functions">28.5.1. Additions to section 6.13.1&#8201;&#8212;&#8201;Work Item Functions</h4>
+<h4 id="cl_khr_subgroups-additions-to-section-6.13.1-work-item-functions"><a class="anchor" href="#cl_khr_subgroups-additions-to-section-6.13.1-work-item-functions"></a>28.5.1. Additions to section 6.13.1&#8201;&#8212;&#8201;Work Item Functions</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 50%;">
@@ -15402,7 +15811,7 @@ required by the OpenCL implementation on the host.</p>
 </table>
 </div>
 <div class="sect3">
-<h4 id="cl_khr_subgroups-additions-to-section-6.13.8-synchronization-functions">28.5.2. Additions to section 6.13.8&#8201;&#8212;&#8201;Synchronization Functions</h4>
+<h4 id="cl_khr_subgroups-additions-to-section-6.13.8-synchronization-functions"><a class="anchor" href="#cl_khr_subgroups-additions-to-section-6.13.8-synchronization-functions"></a>28.5.2. Additions to section 6.13.8&#8201;&#8212;&#8201;Synchronization Functions</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 30%;">
@@ -15456,7 +15865,7 @@ required by the OpenCL implementation on the host.</p>
 </table>
 </div>
 <div class="sect3">
-<h4 id="cl_khr_subgroups-additions-to-section-6.13.11-atomic-functions">28.5.3. Additions to section 6.13.11&#8201;&#8212;&#8201;Atomic Functions</h4>
+<h4 id="cl_khr_subgroups-additions-to-section-6.13.11-atomic-functions"><a class="anchor" href="#cl_khr_subgroups-additions-to-section-6.13.11-atomic-functions"></a>28.5.3. Additions to section 6.13.11&#8201;&#8212;&#8201;Atomic Functions</h4>
 <div class="paragraph">
 <p>Add the following new value to the enumerated type <code>memory_scope</code> defined in
 <em>section 6.13.11.4</em>.</p>
@@ -15474,7 +15883,7 @@ local memory.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="cl_khr_subgroups-add-a-new-section-6.13.X-sub-group-functions">28.5.4. Add a new section 6.13.X&#8201;&#8212;&#8201;Sub-Group Functions</h4>
+<h4 id="cl_khr_subgroups-add-a-new-section-6.13.X-sub-group-functions"><a class="anchor" href="#cl_khr_subgroups-add-a-new-section-6.13.X-sub-group-functions"></a>28.5.4. Add a new section 6.13.X&#8201;&#8212;&#8201;Sub-Group Functions</h4>
 <div class="paragraph">
 <p>The table below describes OpenCL C programming language built-in functions that operate on a subgroup level.
 These built-in functions must be encountered by all work items in the subgroup executing the kernel.
@@ -15571,7 +15980,7 @@ The order of these floating-point operations is also non-deterministic for a giv
 </div>
 </div>
 <div class="sect3">
-<h4 id="cl_khr_subgroups-additions-to-section-6.13.16-pipe-functions">28.5.5. Additions to section 6.13.16&#8201;&#8212;&#8201;Pipe Functions</h4>
+<h4 id="cl_khr_subgroups-additions-to-section-6.13.16-pipe-functions"><a class="anchor" href="#cl_khr_subgroups-additions-to-section-6.13.16-pipe-functions"></a>28.5.5. Additions to section 6.13.16&#8201;&#8212;&#8201;Pipe Functions</h4>
 <div class="paragraph">
 <p>The OpenCL C programming language implements the following built-in pipe
 functions that operate at a subgroup level.
@@ -15630,7 +16039,7 @@ groups is implementation defined.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="cl_khr_subgroups-additions-to-section-6.13.17.6-enqueuing-kernels-kernel-query-functions">28.5.6. Additions to section 6.13.17.6&#8201;&#8212;&#8201;Enqueuing Kernels (Kernel Query Functions)</h4>
+<h4 id="cl_khr_subgroups-additions-to-section-6.13.17.6-enqueuing-kernels-kernel-query-functions"><a class="anchor" href="#cl_khr_subgroups-additions-to-section-6.13.17.6-enqueuing-kernels-kernel-query-functions"></a>28.5.6. Additions to section 6.13.17.6&#8201;&#8212;&#8201;Enqueuing Kernels (Kernel Query Functions)</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 55.5555%;">
@@ -15671,7 +16080,7 @@ groups is implementation defined.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="cl_khr_mipmap_image">29. Mipmaps</h2>
+<h2 id="cl_khr_mipmap_image"><a class="anchor" href="#cl_khr_mipmap_image"></a>29. Mipmaps</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This section describes OpenCL support for mipmaps.</p>
@@ -15688,9 +16097,9 @@ If the <strong>cl_khr_mipmap_image_writes</strong> extension is supported by the
 device, the <strong>cl_khr_mipmap_image</strong> extension must also be supported.</p>
 </div>
 <div class="sect2">
-<h3 id="_general_information_28">29.1. General information</h3>
+<h3 id="_general_information_28"><a class="anchor" href="#_general_information_28"></a>29.1. General information</h3>
 <div class="sect3">
-<h4 id="_version_history_28">29.1.1. Version history</h4>
+<h4 id="_version_history_28"><a class="anchor" href="#_version_history_28"></a>29.1.1. Version history</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 20%;">
@@ -15715,13 +16124,13 @@ device, the <strong>cl_khr_mipmap_image</strong> extension must also be supporte
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_mipmap_image-additions-to-chapter-5">29.2. Additions to Chapter 5 of the OpenCL 2.2 Specification</h3>
+<h3 id="cl_khr_mipmap_image-additions-to-chapter-5"><a class="anchor" href="#cl_khr_mipmap_image-additions-to-chapter-5"></a>29.2. Additions to Chapter 5 of the OpenCL 2.2 Specification</h3>
 <div class="sect3">
-<h4 id="cl_khr_mipmap_image-additions-to-section-5.3">29.2.1. Additions to section 5.3&#8201;&#8212;&#8201;Image Objects</h4>
+<h4 id="cl_khr_mipmap_image-additions-to-section-5.3"><a class="anchor" href="#cl_khr_mipmap_image-additions-to-section-5.3"></a>29.2.1. Additions to section 5.3&#8201;&#8212;&#8201;Image Objects</h4>
 <div class="paragraph">
 <p>A mip-mapped 1D image, 1D image array, 2D image, 2D image array or 3D image
 is created by specifying <em>num_mip_levels</em> to be a value greater than one in
-the <em>cl_image_desc</em> passed to <strong>clCreateImage</strong>.
+the <em>image_desc</em> passed to <strong>clCreateImage</strong>.
 The dimensions of a mip-mapped image can be a power of two or a non-power of
 two.
 Each successively smaller mipmap level is half the size of the previous
@@ -15799,7 +16208,7 @@ mip-level to use.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="cl_khr_mipmap_image-additions-to-section-5.7">29.2.2. Additions to section 5.7&#8201;&#8212;&#8201;Sampler Objects</h4>
+<h4 id="cl_khr_mipmap_image-additions-to-section-5.7"><a class="anchor" href="#cl_khr_mipmap_image-additions-to-section-5.7"></a>29.2.2. Additions to section 5.7&#8201;&#8212;&#8201;Sampler Objects</h4>
 <div class="paragraph">
 <p>Add the following sampler properties <em>to table 5.14</em> that can be specified
 when a sampler object is created using <strong>clCreateSamplerWithProperties</strong>.</p>
@@ -15847,9 +16256,9 @@ argument to a kernel.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_mipmap_image-additions-to-chapter-6-of-the-opencl-2.0-specification">29.3. Additions to Chapter 6 of the OpenCL 2.0 Specification</h3>
+<h3 id="cl_khr_mipmap_image-additions-to-chapter-6-of-the-opencl-2.0-specification"><a class="anchor" href="#cl_khr_mipmap_image-additions-to-chapter-6-of-the-opencl-2.0-specification"></a>29.3. Additions to Chapter 6 of the OpenCL 2.0 Specification</h3>
 <div class="sect3">
-<h4 id="cl_khr_mipmap_image-additions-to-section-6.13.14-image-read-write-and-query-functions">29.3.1. Additions to section 6.13.14 – Image Read, Write and Query Functions</h4>
+<h4 id="cl_khr_mipmap_image-additions-to-section-6.13.14-image-read-write-and-query-functions"><a class="anchor" href="#cl_khr_mipmap_image-additions-to-section-6.13.14-image-read-write-and-query-functions"></a>29.3.1. Additions to section 6.13.14 – Image Read, Write and Query Functions</h4>
 <div class="paragraph">
 <p>The image read and write functions described in <em>sections 6.13.14.2</em>,
 <em>6.13.14.3</em> and <em>6.13.14.4</em> read from and write to mip-level 0 if the
@@ -16379,7 +16788,7 @@ specified by <em>lod</em> – 1, 0 .. image height – 1 specified by <em>lod</e
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_mipmap_image-additions-to-creating-opencl-memory-objects-from-opengl-objects">29.4. Additions to <a href="#cl_khr_gl_sharing__memobjs">Creating OpenCL Memory Objects from OpenGL Objects</a></h3>
+<h3 id="cl_khr_mipmap_image-additions-to-creating-opencl-memory-objects-from-opengl-objects"><a class="anchor" href="#cl_khr_mipmap_image-additions-to-creating-opencl-memory-objects-from-opengl-objects"></a>29.4. Additions to <a href="#cl_khr_gl_sharing__memobjs">Creating OpenCL Memory Objects from OpenGL Objects</a></h3>
 <div class="paragraph">
 <p>If both the <strong><code>cl_khr_mipmap_image</code></strong> and <strong><code>cl_khr_gl_sharing</code></strong> extensions are
 supported by the OpenCL device, the <strong><code>cl_khr_gl_sharing</code></strong> extension may also
@@ -16400,7 +16809,7 @@ please refer to <em>section 3.9.7</em> of the OpenGL 3.0 specification.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="cl_khr_srgb_image_writes">30. sRGB Image Writes</h2>
+<h2 id="cl_khr_srgb_image_writes"><a class="anchor" href="#cl_khr_srgb_image_writes"></a>30. sRGB Image Writes</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This section describes the <strong>cl_khr_srgb_image_writes</strong> extension.</p>
@@ -16414,9 +16823,9 @@ The sRGB image formats that may be written to will be returned by <strong>clGetS
 Only the R, G, and B components are converted from linear to sRGB; the A component is written as-is.</p>
 </div>
 <div class="sect2">
-<h3 id="_general_information_29">30.1. General information</h3>
+<h3 id="_general_information_29"><a class="anchor" href="#_general_information_29"></a>30.1. General information</h3>
 <div class="sect3">
-<h4 id="_version_history_29">30.1.1. Version history</h4>
+<h4 id="_version_history_29"><a class="anchor" href="#_version_history_29"></a>30.1.1. Version history</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 20%;">
@@ -16443,7 +16852,7 @@ Only the R, G, and B components are converted from linear to sRGB; the A compone
 </div>
 </div>
 <div class="sect1">
-<h2 id="cl_khr_priority_hints">31. Priority Hints</h2>
+<h2 id="cl_khr_priority_hints"><a class="anchor" href="#cl_khr_priority_hints"></a>31. Priority Hints</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This section describes the <strong>cl_khr_priority_hints</strong> extension.
@@ -16454,9 +16863,9 @@ which supports this extension will describe the scheduling behavior
 guarantees.</p>
 </div>
 <div class="sect2">
-<h3 id="_general_information_30">31.1. General information</h3>
+<h3 id="_general_information_30"><a class="anchor" href="#_general_information_30"></a>31.1. General information</h3>
 <div class="sect3">
-<h4 id="_version_history_30">31.1.1. Version history</h4>
+<h4 id="_version_history_30"><a class="anchor" href="#_version_history_30"></a>31.1.1. Version history</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 20%;">
@@ -16481,7 +16890,7 @@ guarantees.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_priority_hints-host-side-api-modifications">31.2. Host-side API modifications</h3>
+<h3 id="cl_khr_priority_hints-host-side-api-modifications"><a class="anchor" href="#cl_khr_priority_hints-host-side-api-modifications"></a>31.2. Host-side API modifications</h3>
 <div class="paragraph">
 <p>The function <strong><code>clCreateCommandQueueWithProperties</code></strong> (Section 5.1) is
 extended to support a priority value as part of the <em>properties</em> argument.</p>
@@ -16527,7 +16936,7 @@ specified and the queue is a <code>CL_QUEUE_ON_DEVICE</code>.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="cl_khr_throttle_hints">32. Throttle Hints</h2>
+<h2 id="cl_khr_throttle_hints"><a class="anchor" href="#cl_khr_throttle_hints"></a>32. Throttle Hints</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This section describes the <strong>cl_khr_throttle_hints</strong> extension.
@@ -16544,9 +16953,9 @@ but should at the same time be executed at an optimized throttle setting
 (<code>CL_QUEUE_THROTTLE_LOW</code>).</p>
 </div>
 <div class="sect2">
-<h3 id="_general_information_31">32.1. General information</h3>
+<h3 id="_general_information_31"><a class="anchor" href="#_general_information_31"></a>32.1. General information</h3>
 <div class="sect3">
-<h4 id="_version_history_31">32.1.1. Version history</h4>
+<h4 id="_version_history_31"><a class="anchor" href="#_version_history_31"></a>32.1.1. Version history</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 20%;">
@@ -16571,7 +16980,7 @@ but should at the same time be executed at an optimized throttle setting
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_throttle_hints-host-side-api-modifications">32.2. Host-side API modifications</h3>
+<h3 id="cl_khr_throttle_hints-host-side-api-modifications"><a class="anchor" href="#cl_khr_throttle_hints-host-side-api-modifications"></a>32.2. Host-side API modifications</h3>
 <div class="paragraph">
 <p>The function <strong><code>clCreateCommandQueueWithProperties</code></strong> (Section 5.1) is
 extended to support a new <code>CL_QUEUE_THROTTLE_KHR</code> value as part of the
@@ -16614,7 +17023,7 @@ specified and the queue is a <code>CL_QUEUE_ON_DEVICE</code>.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="cl_khr_subgroup_named_barrier">33. Named Barriers for Subgroups</h2>
+<h2 id="cl_khr_subgroup_named_barrier"><a class="anchor" href="#cl_khr_subgroup_named_barrier"></a>33. Named Barriers for Subgroups</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This section describes the <strong>cl_khr_subgroup_named_barrier</strong> extension.
@@ -16627,9 +17036,9 @@ the OpenCL C++ specification for descriptions of the subgroup named
 barrier built-in functions in the OpenCL C++ kernel language.</p>
 </div>
 <div class="sect2">
-<h3 id="_general_information_32">33.1. General information</h3>
+<h3 id="_general_information_32"><a class="anchor" href="#_general_information_32"></a>33.1. General information</h3>
 <div class="sect3">
-<h4 id="_version_history_32">33.1.1. Version history</h4>
+<h4 id="_version_history_32"><a class="anchor" href="#_version_history_32"></a>33.1.1. Version history</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 20%;">
@@ -16654,7 +17063,7 @@ barrier built-in functions in the OpenCL C++ kernel language.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_changes_to_opencl_specification">33.2. Changes to OpenCL specification</h3>
+<h3 id="_changes_to_opencl_specification"><a class="anchor" href="#_changes_to_opencl_specification"></a>33.2. Changes to OpenCL specification</h3>
 <div class="paragraph">
 <p>Add to <em>table 4.3</em>:</p>
 </div>
@@ -16685,7 +17094,7 @@ barrier built-in functions in the OpenCL C++ kernel language.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="cl_khr_extended_async_copies">34. Extended Async Copies (Provisional)</h2>
+<h2 id="cl_khr_extended_async_copies"><a class="anchor" href="#cl_khr_extended_async_copies"></a>34. Extended Async Copies (Provisional)</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This section describes the <strong>cl_khr_extended_async_copies</strong> provisional extension.
@@ -16703,9 +17112,9 @@ to support more patterns:</p>
 </ol>
 </div>
 <div class="sect2">
-<h3 id="_general_information_33">34.1. General information</h3>
+<h3 id="_general_information_33"><a class="anchor" href="#_general_information_33"></a>34.1. General information</h3>
 <div class="sect3">
-<h4 id="_version_history_33">34.1.1. Version history</h4>
+<h4 id="_version_history_33"><a class="anchor" href="#_version_history_33"></a>34.1.1. Version history</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 20%;">
@@ -16730,7 +17139,7 @@ to support more patterns:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_extended_async_copies-additions-to-chapter-6-of-the-opencl-specification">34.2. Additions to Chapter 6 of the OpenCL C Specification</h3>
+<h3 id="cl_khr_extended_async_copies-additions-to-chapter-6-of-the-opencl-specification"><a class="anchor" href="#cl_khr_extended_async_copies-additions-to-chapter-6-of-the-opencl-specification"></a>34.2. Additions to Chapter 6 of the OpenCL C Specification</h3>
 <div class="paragraph">
 <p>The following new built-in functions are added to the <em>Async Copies from Global to
 Local Memory, Local to Global Memory, and Prefetch</em> functions described in <em>section 6.12.10</em>
@@ -16884,16 +17293,16 @@ This is a preview of an OpenCL provisional extension specification that has been
 </div>
 </div>
 <div class="sect1">
-<h2 id="cl_khr_async_work_group_copy_fence">35. Async Work Group Copy Fence (Provisional)</h2>
+<h2 id="cl_khr_async_work_group_copy_fence"><a class="anchor" href="#cl_khr_async_work_group_copy_fence"></a>35. Async Work Group Copy Fence (Provisional)</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This section describes the <strong>cl_khr_async_work_group_copy_fence</strong> provisional extension.
 The extension adds a new built-in function to OpenCL C to establish a memory synchronization ordering of asynchronous copies.</p>
 </div>
 <div class="sect2">
-<h3 id="_general_information_34">35.1. General information</h3>
+<h3 id="_general_information_34"><a class="anchor" href="#_general_information_34"></a>35.1. General information</h3>
 <div class="sect3">
-<h4 id="_version_history_34">35.1.1. Version history</h4>
+<h4 id="_version_history_34"><a class="anchor" href="#_version_history_34"></a>35.1.1. Version history</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 20%;">
@@ -16918,7 +17327,7 @@ The extension adds a new built-in function to OpenCL C to establish a memory syn
 </div>
 </div>
 <div class="sect2">
-<h3 id="cl_khr_async_work_group_copy_fence-additions-to-chapter-6-of-the-opencl-specification">35.2. Additions to Chapter 6 of the OpenCL C Specification</h3>
+<h3 id="cl_khr_async_work_group_copy_fence-additions-to-chapter-6-of-the-opencl-specification"><a class="anchor" href="#cl_khr_async_work_group_copy_fence-additions-to-chapter-6-of-the-opencl-specification"></a>35.2. Additions to Chapter 6 of the OpenCL C Specification</h3>
 <div class="paragraph">
 <p>The following new built-in function is added to the <em>Async Copies from Global to
 Local Memory, Local to Global Memory, and Prefetch</em> functions described in <em>section 6.12.10</em>
@@ -16979,7 +17388,118 @@ This is a preview of an OpenCL provisional extension specification that has been
 </div>
 </div>
 <div class="sect1">
-<h2 id="spirv_extensions">36. Extensions to the OpenCL SPIR-V Environment</h2>
+<h2 id="cl_khr_device_uuid"><a class="anchor" href="#cl_khr_device_uuid"></a>36. Unique Device Identifiers</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section describes the <strong>cl_khr_device_uuid</strong> extension.</p>
+</div>
+<div class="paragraph">
+<p>This extension adds the ability to query a universally unique identifier
+(UUID) for an OpenCL driver and OpenCL device.
+The UUIDs returned by the query may be used to identify drivers and devices
+across processes or APIs.</p>
+</div>
+<div class="sect2">
+<h3 id="_general_information_35"><a class="anchor" href="#_general_information_35"></a>36.1. General information</h3>
+<div class="sect3">
+<h4 id="_version_history_35"><a class="anchor" href="#_version_history_35"></a>36.1.1. Version history</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Date</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Version</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2020-08-27</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">First assigned version.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_additions_to_chapter_4_of_the_opencl_3_0_api_specification"><a class="anchor" href="#_additions_to_chapter_4_of_the_opencl_3_0_api_specification"></a>36.2. Additions to Chapter 4 of the OpenCL 3.0 API Specification</h3>
+<div class="paragraph">
+<p>Add to Table 5 - OpenCL Device Queries:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 5. OpenCL Device Queries</caption>
+<colgroup>
+<col style="width: 30%;">
+<col style="width: 20%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>cl_device_info</strong></th>
+<th class="tableblock halign-left valign-top">Return Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_UUID_KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_uchar[CL_UUID_SIZE_KHR]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns a universally unique identifier (UUID) for the device.</p>
+<p class="tableblock">      Device UUIDs must be immutable for a given device across processes, driver APIs, driver versions, and system reboots.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DRIVER_UUID_KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_uchar[CL_UUID_SIZE_KHR]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns a universally unique identifier (UUID) for the software driver for the device.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_LUID_VALID_KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_bool</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns <code>CL_TRUE</code> if the device has a valid LUID and <code>CL_FALSE</code> otherwise.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_LUID_KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_uchar[CL_LUID_SIZE_KHR]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns a locally unique identifier (LUID) for the device.</p>
+<p class="tableblock">      It is not an error to query <code>CL_DEVICE_LUID_KHR</code> when <code>CL_DEVICE_LUID_VALID_KHR</code> returns <code>CL_FALSE</code>, but in this case the returned LUID value is undefined.</p>
+<p class="tableblock">      When <code>CL_DEVICE_LUID_VALID_KHR</code> returns <code>CL_TRUE</code>, and the OpenCL device is running on the Windows operating system, the returned LUID value can be cast to an <code>LUID</code> object and must be equal to the locally unique identifier of an <code>IDXGIAdapter1</code> object that corresponds to the OpenCL device.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_NODE_MASK_KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_uint</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns a node mask for the device.</p>
+<p class="tableblock">      It is not an error to query <code>CL_DEVICE_NODE_MASK_KHR</code> when <code>CL_DEVICE_LUID_VALID_KHR</code> returns <code>CL_FALSE</code>, but in this case the returned node mask is undefined.</p>
+<p class="tableblock">      When <code>CL_DEVICE_LUID_VALID_KHR</code> returns <code>CL_TRUE</code>, the returned node mask must contain exactly one bit.
+      If the OpenCL device is running on an operating system that supports the Direct3D 12 API and the OpenCL device corresponds to an individual device in a linked device adapter, the returned node mask identifies the Direct3D 12 node corresponding to the OpenCL device.
+      Otherwise, the returned node mask must be <code>1</code>.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+While <code>CL_DEVICE_UUID_KHR</code> is specified to remain consistent across driver versions and system reboots, it is not intended to be usable as a serializable persistent identifier for a device.
+It may change when a device is physically added to, removed from, or moved to a different connector in a system while that system is powered down.
+Further, there is no reasonable way to verify with conformance testing that a given device retains the same UUID in a given system across all driver versions supported in that system.
+While implementations should make every effort to report consistent device UUIDs across driver versions, applications should avoid relying on the persistence of this value for uses other than identifying compatible devices for external object sharing purposes.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="spirv_extensions"><a class="anchor" href="#spirv_extensions"></a>37. Extensions to the OpenCL SPIR-V Environment</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>An OpenCL SPIR-V environment may be modified by OpenCL extensions.
@@ -16996,10 +17516,10 @@ In addition to the extensions described in this document, the OpenCL SPIR-V Envi
 </div>
 </div>
 <div class="sect1">
-<h2 id="_extensions_promoted_to_core_features">Appendix A: Extensions Promoted to Core Features</h2>
+<h2 id="_extensions_promoted_to_core_features"><a class="anchor" href="#_extensions_promoted_to_core_features"></a>Appendix A: Extensions Promoted to Core Features</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_for_opencl_1_1">A.1. For OpenCL 1.1:</h3>
+<h3 id="_for_opencl_1_1"><a class="anchor" href="#_for_opencl_1_1"></a>A.1. For OpenCL 1.1:</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -17012,7 +17532,7 @@ In addition to the extensions described in this document, the OpenCL SPIR-V Envi
 </div>
 </div>
 <div class="sect2">
-<h3 id="_for_opencl_1_2">A.2. For OpenCL 1.2:</h3>
+<h3 id="_for_opencl_1_2"><a class="anchor" href="#_for_opencl_1_2"></a>A.2. For OpenCL 1.2:</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -17022,7 +17542,7 @@ In addition to the extensions described in this document, the OpenCL SPIR-V Envi
 </div>
 </div>
 <div class="sect2">
-<h3 id="_for_opencl_2_0">A.3. For OpenCL 2.0:</h3>
+<h3 id="_for_opencl_2_0"><a class="anchor" href="#_for_opencl_2_0"></a>A.3. For OpenCL 2.0:</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -17041,7 +17561,7 @@ In addition to the extensions described in this document, the OpenCL SPIR-V Envi
 </div>
 </div>
 <div class="sect2">
-<h3 id="_for_opencl_2_1">A.4. For OpenCL 2.1:</h3>
+<h3 id="_for_opencl_2_1"><a class="anchor" href="#_for_opencl_2_1"></a>A.4. For OpenCL 2.1:</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -17053,13 +17573,23 @@ In addition to the extensions described in this document, the OpenCL SPIR-V Envi
 </ul>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_for_opencl_3_0"><a class="anchor" href="#_for_opencl_3_0"></a>A.5. For OpenCL 3.0:</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>The built-in functions described by <strong>cl_khr_subgroups</strong> are now supported in OpenCL C 3.0 when the <code>__opencl_c_subgroups</code> feature is supported.</p>
+</li>
+</ul>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_deprecated_extensions">Appendix B: Deprecated Extensions</h2>
+<h2 id="_deprecated_extensions"><a class="anchor" href="#_deprecated_extensions"></a>Appendix B: Deprecated Extensions</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_for_opencl_1_1_2">B.1. For OpenCL 1.1:</h3>
+<h3 id="_for_opencl_1_1_2"><a class="anchor" href="#_for_opencl_1_1_2"></a>B.1. For OpenCL 1.1:</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -17072,7 +17602,7 @@ Its use is no longer recommended.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_quick_reference">Appendix C: Quick Reference</h2>
+<h2 id="_quick_reference"><a class="anchor" href="#_quick_reference"></a>Appendix C: Quick Reference</h2>
 <div class="sectionbody">
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -17126,6 +17656,11 @@ Its use is no longer recommended.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#cl_khr_device_enqueue_local_arg_types">cl_khr_device_enqueue_local_arg_types</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Pass Non-Void Local Pointers to Child Kernels</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extension</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#cl_khr_device_uuid">cl_khr_device_uuid</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unique Device and Driver Identifier Queries</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Extension</p></td>
 </tr>
 <tr>
@@ -17285,8 +17820,8 @@ Its use is no longer recommended.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.1-Provisional<br>
-Last updated 2020-04-26 21:05:33 -0700
+Version v3.0.5<br>
+Last updated 2020-09-29 09:40:19 -0700
 </div>
 </div>
 
