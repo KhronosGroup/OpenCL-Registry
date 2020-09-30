@@ -20,69 +20,32 @@ include_once("../../assets/static_pages/khr_page_top.php");
     </a> GitHub repository. </p>
 
 
-<h6> OpenCL 3.0 Provisional </h6>
+<h6> OpenCL 3.0 Unified Specifications </h6>
 
-<p> The latest provisional version of OpenCL is OpenCL 3.0. </p>
+<p> The latest version of OpenCL is OpenCL 3.0. </p>
 
-<p> The OpenCL 3.0 Provisional specifications have been ratified under the
-    Khronos Intellectual Property framework and are being made publicly
-    available to enable review and feedback from the community. </p>
-
-<p> To provide feedback, please file an issue on the
-    <a href="https://github.com/KhronosGroup/OpenCL-Docs/issues">
-    OpenCL-Docs </a> GitHub repository. </p>
+<p> The OpenCL specifications are now unified so they describe OpenCL 3.0
+    and all previous versions of OpenCL. </p>
 
 <ul>
 <li> OpenCL API Specification
      (<a href="specs/3.0-unified/html/OpenCL_API.html">HTML</a>)
      (<a href="specs/3.0-unified/pdf/OpenCL_API.pdf">PDF</a>)
-     (April 27, 2020). </li>
+     (September 30, 2020). </li>
+<li> OpenCL C Language Specification
+     (<a href="specs/3.0-unified/html/OpenCL_C.html">HTML</a>)
+     (<a href="specs/3.0-unified/pdf/OpenCL_C.pdf">PDF</a>)
+     (September 30, 2020). </li>
 <li> OpenCL Extension Specification
      (<a href="specs/3.0-unified/html/OpenCL_Ext.html">HTML</a>)
      (<a href="specs/3.0-unified/pdf/OpenCL_Ext.pdf">PDF</a>)
-     (April 27, 2020. </li>
+     (September 30, 2020. </li>
 <li> OpenCL SPIR-V Environment Specification
      (<a href="specs/3.0-unified/html/OpenCL_Env.html">HTML</a>)
      (<a href="specs/3.0-unified/pdf/OpenCL_Env.pdf">PDF</a>)
-     (April 27, 2020). </li>
-<li> OpenCL C 3.0 Language Specification
-     (<a href="specs/3.0-unified/html/OpenCL_C.html">HTML</a>)
-     (<a href="specs/3.0-unified/pdf/OpenCL_C.pdf">PDF</a>)
-     (April 27, 2020). </li>
+     (September 30, 2020). </li>
 <li> <a href="https://www.khronos.org/files/opencl30-reference-guide.pdf">
      OpenCL 3.0 Reference Guide.</a> </li>
-</ul>
-
-
-<h6> OpenCL 2.2 </h6>
-
-<p> The latest non-provisional version of OpenCL is OpenCL 2.2. </p>
-
-<ul>
-<li> OpenCL 2.2 API Specification
-     (<a href="specs/2.2/html/OpenCL_API.html">HTML</a>)
-     (<a href="specs/2.2/pdf/OpenCL_API.pdf">PDF</a>)
-     (July 19, 2019). </li>
-<li> OpenCL Extension Specification
-     (<a href="specs/2.2/html/OpenCL_Ext.html">HTML</a>)
-     (<a href="specs/2.2/pdf/OpenCL_Ext.pdf">PDF</a>)
-     (July 19, 2019). </li>
-<li> OpenCL SPIR-V Environment Specification
-     (<a href="specs/2.2/html/OpenCL_Env.html">HTML</a>)
-     (<a href="specs/2.2/pdf/OpenCL_Env.pdf">PDF</a>)
-     (July 19, 2019). </li>
-<li> OpenCL C Language Specification
-     (<a href="specs/2.2/html/OpenCL_C.html">HTML</a>)
-     (<a href="specs/2.2/pdf/OpenCL_C.pdf">PDF</a>)
-     (July 19, 2019). </li>
-<li> OpenCL C++ Language Specification
-     (<a href="specs/2.2/html/OpenCL_Cxx.html">HTML</a>)
-     (<a href="specs/2.2/pdf/OpenCL_Cxx.pdf">PDF</a>)
-     (July 19, 2019). </li>
-<li> <a href="http://www.khronos.org/registry/OpenCL//sdk/2.2/docs/man/html/">
-     OpenCL 2.2 Reference Pages.</a> </li>
-<li> <a href="https://www.khronos.org/files/opencl22-reference-guide.pdf">
-     OpenCL 2.2 Reference Guide.</a> </li>
 </ul>
 
 
@@ -123,6 +86,36 @@ include_once("../../assets/static_pages/khr_page_top.php");
 <h6> Older Specifications </h6>
 
 <p> Older versions of OpenCL are provided for reference. </p>
+
+<p> OpenCL 2.2. </p>
+
+<ul>
+<li> OpenCL 2.2 API Specification
+     (<a href="specs/2.2/html/OpenCL_API.html">HTML</a>)
+     (<a href="specs/2.2/pdf/OpenCL_API.pdf">PDF</a>)
+     (July 19, 2019). </li>
+<li> OpenCL Extension Specification
+     (<a href="specs/2.2/html/OpenCL_Ext.html">HTML</a>)
+     (<a href="specs/2.2/pdf/OpenCL_Ext.pdf">PDF</a>)
+     (July 19, 2019). </li>
+<li> OpenCL SPIR-V Environment Specification
+     (<a href="specs/2.2/html/OpenCL_Env.html">HTML</a>)
+     (<a href="specs/2.2/pdf/OpenCL_Env.pdf">PDF</a>)
+     (July 19, 2019). </li>
+<li> OpenCL C Language Specification
+     (<a href="specs/2.2/html/OpenCL_C.html">HTML</a>)
+     (<a href="specs/2.2/pdf/OpenCL_C.pdf">PDF</a>)
+     (July 19, 2019). </li>
+<li> OpenCL C++ Language Specification
+     (<a href="specs/2.2/html/OpenCL_Cxx.html">HTML</a>)
+     (<a href="specs/2.2/pdf/OpenCL_Cxx.pdf">PDF</a>)
+     (July 19, 2019). </li>
+<li> <a href="http://www.khronos.org/registry/OpenCL//sdk/2.2/docs/man/html/">
+     OpenCL 2.2 Reference Pages.</a> </li>
+<li> <a href="https://www.khronos.org/files/opencl22-reference-guide.pdf">
+     OpenCL 2.2 Reference Guide.</a> </li>
+</ul>
+
 
 <p> OpenCL 2.1 </p>
 
