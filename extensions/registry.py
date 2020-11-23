@@ -131,6 +131,11 @@ registry = {
         'flags' : { 'public' },
         'url' : 'extensions/img/cl_img_generate_mipmap.html',
     },
+    'cl_img_mem_properties' : {
+        'number' : 67,
+        'flags' : { 'public' },
+        'url' : 'extensions/img/cl_img_mem_properties.html',
+    },
     'cl_intel_accelerator' : {
         'number' : 24,
         'flags' : { 'public' },
