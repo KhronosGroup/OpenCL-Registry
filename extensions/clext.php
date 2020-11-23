@@ -85,11 +85,11 @@
 </li>
 <li value=43><a href="extensions/intel/cl_intel_required_subgroup_size.html">cl_intel_required_subgroup_size</a>
 </li>
-<li value=44><a href="extensions/img/cl_img_cached_allocations.txt">cl_img_cached_allocations</a>
+<li value=44><a href="extensions/img/cl_img_cached_allocations.html">cl_img_cached_allocations</a>
 </li>
-<li value=45><a href="extensions/img/cl_img_use_gralloc_ptr.txt">cl_img_use_gralloc_ptr</a>
+<li value=45><a href="extensions/img/cl_img_use_gralloc_ptr.html">cl_img_use_gralloc_ptr</a>
 </li>
-<li value=46><a href="extensions/img/cl_img_yuv_image.txt">cl_img_yuv_image</a>
+<li value=46><a href="extensions/img/cl_img_yuv_image.html">cl_img_yuv_image</a>
 </li>
 <li value=47><a href="extensions/intel/cl_intel_driver_diagnostics.txt">cl_intel_driver_diagnostics</a>
 </li>
@@ -128,5 +128,9 @@
 <li value=64><a href="extensions/ext/cl_ext_cxx_for_opencl.html">cl_ext_cxx_for_opencl</a>
 </li>
 <li value=65><a href="extensions/intel/cl_intel_mem_force_host_memory.html">cl_intel_mem_force_host_memory</a>
+</li>
+<li value=66><a href="extensions/img/cl_img_generate_mipmap.html">cl_img_generate_mipmap</a>
+</li>
+<li value=67><a href="extensions/img/cl_img_mem_properties.html">cl_img_mem_properties</a>
 </li>
 </ol>
