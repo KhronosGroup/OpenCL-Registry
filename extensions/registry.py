@@ -126,6 +126,11 @@ registry = {
         'flags' : { 'public' },
         'url' : 'extensions/img/cl_img_yuv_image.html',
     },
+    'cl_img_generate_mipmap' : {
+        'number' : 66,
+        'flags' : { 'public' },
+        'url' : 'extensions/img/cl_img_generate_mipmap.html',
+    },
     'cl_intel_accelerator' : {
         'number' : 24,
         'flags' : { 'public' },
