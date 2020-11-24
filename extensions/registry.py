@@ -114,17 +114,27 @@ registry = {
     'cl_img_cached_allocations' : {
         'number' : 44,
         'flags' : { 'public' },
-        'url' : 'extensions/img/cl_img_cached_allocations.txt',
+        'url' : 'extensions/img/cl_img_cached_allocations.html',
+    },
+    'cl_img_generate_mipmap' : {
+        'number' : 66,
+        'flags' : { 'public' },
+        'url' : 'extensions/img/cl_img_generate_mipmap.html',
+    },
+    'cl_img_mem_properties' : {
+        'number' : 67,
+        'flags' : { 'public' },
+        'url' : 'extensions/img/cl_img_mem_properties.html',
     },
     'cl_img_use_gralloc_ptr' : {
         'number' : 45,
         'flags' : { 'public' },
-        'url' : 'extensions/img/cl_img_use_gralloc_ptr.txt',
+        'url' : 'extensions/img/cl_img_use_gralloc_ptr.html',
     },
     'cl_img_yuv_image' : {
         'number' : 46,
         'flags' : { 'public' },
-        'url' : 'extensions/img/cl_img_yuv_image.txt',
+        'url' : 'extensions/img/cl_img_yuv_image.html',
     },
     'cl_intel_accelerator' : {
         'number' : 24,
