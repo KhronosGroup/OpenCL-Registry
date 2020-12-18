@@ -841,9 +841,9 @@ table.CodeRay td.code>pre{padding:0}
 <h1>The OpenCL<sup>&#8482;</sup> SPIR-V Environment Specification</h1>
 <div class="details">
 <span id="author" class="author">Khronos<sup>&#174;</sup> OpenCL Working Group</span><br>
-<span id="revnumber">version v3.0.5,</span>
-<span id="revdate">Wed, 30 Sep 2020 00:00:00 +0000</span>
-<br><span id="revremark">from git branch: master commit: 4d8a36725aa8af9658ab5cb62fdbf52adb44bcca</span>
+<span id="revnumber">version v3.0.6,</span>
+<span id="revdate">Fri, 18 Dec 2020 12:00:00 +0000</span>
+<br><span id="revremark">from git branch: master commit: e9a4d468b1a0a38c1e10b8af484bb2bbb495e2b7</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -860,6 +860,7 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#_image_channel_data_type_mapping">2.7. Image Channel Data Type Mapping</a></li>
 <li><a href="#_kernels">2.8. Kernels</a></li>
 <li><a href="#_built_in_variables">2.9. Built-in Variables</a></li>
+<li><a href="#_alignment_of_types">2.10. Alignment of Types</a></li>
 </ul>
 </li>
 <li><a href="#required-capabilities">3. Required Capabilities</a>
@@ -1526,6 +1527,28 @@ a built-in variable.
 All built-in variables must be in the <strong>Input</strong> storage class.</p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_alignment_of_types"><a class="anchor" href="#_alignment_of_types"></a>2.10. Alignment of Types</h3>
+<div class="paragraph">
+<p>Objects of type <strong>OpTypeInt</strong>, <strong>OpTypeFloat</strong>, and <strong>OpTypePointer</strong> must be aligned
+in memory to the size of the type in bytes. Objects of type <strong>OpTypeVector</strong> with
+these component types must be aligned in memory to the size of the vector type
+in bytes. For 3-component vector types, the size of the vector type is four
+times the size the component type.</p>
+</div>
+<div class="paragraph">
+<p>The compiler is responsible for aligning objects allocated by <strong>OpVariable</strong> to
+the appropriate alignment as required by the <em>Result Type</em>.</p>
+</div>
+<div class="paragraph">
+<p>For <strong>OpTypePointer</strong> arguments to a function, the compiler may assume that the
+pointer is appropriately aligned as required by the <em>Type</em> that the pointer
+points to.</p>
+</div>
+<div class="paragraph">
+<p>Behavior of an unaligned load or store is undefined.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1988,6 +2011,12 @@ supporting <code>CL_DEVICE_<wbr>ATOMIC_<wbr>ORDER_<wbr>SEQ_<wbr>CST</code> in
 </ul>
 </div>
 <div class="paragraph">
+<p>In all OpenCL environments, for the <strong>Barrier Instruction</strong> <strong>OpControlBarrier</strong>,
+when the <em>Scope</em> for <em>Execution</em> is <strong>Subgroup</strong>, behavior is undefined unless
+all invocations in the subgroup execute the same dynamic instance of the
+instruction.</p>
+</div>
+<div class="paragraph">
 <p>In an OpenCL 1.2 environment,
 for the <strong>Atomic Instructions</strong>, the <em>Scope</em> for <em>Memory</em> must be <strong>Device</strong>,
 and the memory-order constraint in <em>Memory Semantics</em> must be <strong>Relaxed</strong>.
@@ -2382,6 +2411,360 @@ that declare the following SPIR-V capabilities:</p>
 <p>If the OpenCL environment supports the extension <code>cl_khr_spirv_no_integer_wrap_decoration</code> and use of the SPIR-V extension <code>SPV_KHR_no_integer_wrap_decoration</code> is declared in the module via <strong>OpExtension</strong>, then the environment must accept modules that include the <strong>NoSignedWrap</strong> or <strong>NoUnsignedWrap</strong> decorations.</p>
 </div>
 </div>
+<div class="sect3">
+<h4 id="_cl_khr_subgroup_extended_types"><a class="anchor" href="#_cl_khr_subgroup_extended_types"></a>5.2.14. <code>cl_khr_subgroup_extended_types</code></h4>
+<div class="paragraph">
+<p>If the OpenCL environment supports the extension <code>cl_khr_subgroup_extended_types</code>, then additional types are valid for the following for <strong>Groups</strong> instructions with <em>Scope</em> for <em>Execution</em> equal to <strong>Subgroup</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>OpGroupBroadcast</strong></p>
+</li>
+<li>
+<p><strong>OpGroupIAdd</strong>, <strong>OpGroupFAdd</strong></p>
+</li>
+<li>
+<p><strong>OpGroupSMin</strong>, <strong>OpGroupUMin</strong>, <strong>OpGroupFMin</strong></p>
+</li>
+<li>
+<p><strong>OpGroupSMax</strong>, <strong>OpGroupUMax</strong>, <strong>OpGroupFMax</strong></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For these instructions, valid types for <em>Value</em> are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Scalars of supported types:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>OpTypeInt</strong> (equivalent to <code>char</code>, <code>uchar</code>, <code>short</code>, <code>ushort</code>, <code>int</code>, <code>uint</code>, <code>long</code>, and <code>ulong</code>)</p>
+</li>
+<li>
+<p><strong>OpTypeFloat</strong> (equivalent to <code>half</code>, <code>float</code>, and <code>double</code>)</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Additionally, for <strong>OpGroupBroadcast</strong>, valid types for <em>Value</em> are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>OpTypeVectors</strong> with 2, 3, 4, 8, or 16 <em>Component Count</em> components of supported types:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>OpTypeInt</strong> (equivalent to <code>char<em>n</em></code>, <code>uchar<em>n</em></code>, <code>short<em>n</em></code>, <code>ushort<em>n</em></code>, <code>int<em>n</em></code>, <code>uint<em>n</em></code>, <code>long<em>n</em></code>, and <code>ulong<em>n</em></code>)</p>
+</li>
+<li>
+<p><strong>OpTypeFloat</strong> (equivalent to <code>half<em>n</em></code>, <code>float<em>n</em></code>, and <code>double<em>n</em></code>)</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_cl_khr_subgroup_non_uniform_vote"><a class="anchor" href="#_cl_khr_subgroup_non_uniform_vote"></a>5.2.15. <code>cl_khr_subgroup_non_uniform_vote</code></h4>
+<div class="paragraph">
+<p>If the OpenCL environment supports the extension <code>cl_khr_subgroup_non_uniform_vote</code>, then the environment must accept SPIR-V modules that declare the following SPIR-V capabilities:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>GroupNonUniform</strong></p>
+</li>
+<li>
+<p><strong>GroupNonUniformVote</strong></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For instructions requiring these capabilities, <em>Scope</em> for <em>Execution</em> may be:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Subgroup</strong></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For the instruction <strong>OpGroupNonUniformAllEqual</strong>, valid types for <em>Value</em> are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Scalars of supported types:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>OpTypeInt</strong> (equivalent to <code>char</code>, <code>uchar</code>, <code>short</code>, <code>ushort</code>, <code>int</code>, <code>uint</code>, <code>long</code>, and <code>ulong</code>)</p>
+</li>
+<li>
+<p><strong>OpTypeFloat</strong> (equivalent to <code>half</code>, <code>float</code>, and <code>double</code>)</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_cl_khr_subgroup_ballot"><a class="anchor" href="#_cl_khr_subgroup_ballot"></a>5.2.16. <code>cl_khr_subgroup_ballot</code></h4>
+<div class="paragraph">
+<p>If the OpenCL environment supports the extension <code>cl_khr_subgroup_ballot</code>, then the environment must accept SPIR-V modules that declare the following SPIR-V capabilities:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>GroupNonUniformBallot</strong></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For instructions requiring these capabilities, <em>Scope</em> for <em>Execution</em> may be:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Subgroup</strong></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For the non-uniform broadcast instruction <strong>OpGroupNonUniformBroadcast</strong>, valid types for <em>Value</em> are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Scalars of supported types:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>OpTypeInt</strong> (equivalent to <code>char</code>, <code>uchar</code>, <code>short</code>, <code>ushort</code>, <code>int</code>, <code>uint</code>, <code>long</code>, and <code>ulong</code>)</p>
+</li>
+<li>
+<p><strong>OpTypeFloat</strong> (equivalent to <code>half</code>, <code>float</code>, and <code>double</code>)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>OpTypeVectors</strong> with 2, 3, 4, 8, or 16 <em>Component Count</em> components of supported types:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>OpTypeInt</strong> (equivalent to <code>char<em>n</em></code>, <code>uchar<em>n</em></code>, <code>short<em>n</em></code>, <code>ushort<em>n</em></code>, <code>int<em>n</em></code>, <code>uint<em>n</em></code>, <code>long<em>n</em></code>, and <code>ulong<em>n</em></code>)</p>
+</li>
+<li>
+<p><strong>OpTypeFloat</strong> (equivalent to <code>half<em>n</em></code>, <code>float<em>n</em></code>, and <code>double<em>n</em></code>)</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For the instruction <strong>OpGroupNonUniformBroadcastFirst</strong>, valid types for <em>Value</em> are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Scalars of supported types:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>OpTypeInt</strong> (equivalent to <code>char</code>, <code>uchar</code>, <code>short</code>, <code>ushort</code>, <code>int</code>, <code>uint</code>, <code>long</code>, and <code>ulong</code>)</p>
+</li>
+<li>
+<p><strong>OpTypeFloat</strong> (equivalent to <code>half</code>, <code>float</code>, and <code>double</code>)</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For the instruction <strong>OpGroupNonUniformBallot</strong>, the valid <em>Result Type</em> is an <strong>OpTypeVector</strong> with four <em>Component Count</em> components of <strong>OpTypeInt</strong>, with <em>Width</em> equal to 32 and <em>Signedness</em> equal to 0 (equivalent to <code>uint4</code>).</p>
+</div>
+<div class="paragraph">
+<p>For the instructions <strong>OpGroupNonUniformInverseBallot</strong>, <strong>OpGroupNonUniformBallotBitExtract</strong>, <strong>OpGroupNonUniformBallotBitCount</strong>, <strong>OpGroupNonUniformBallotFindLSB</strong>, and <strong>OpGroupNonUniformBallotFindMSB</strong>, the valid type for <em>Value</em> is an <strong>OpTypeVector</strong> with four <em>Component Count</em> components of <strong>OpTypeInt</strong>, with <em>Width</em> equal to 32 and <em>Signedness</em> equal to 0 (equivalent to <code>uint4</code>).</p>
+</div>
+<div class="paragraph">
+<p>For built-in variables decorated with <strong>SubgroupEqMask</strong>, <strong>SubgroupGeMask</strong>, <strong>SubgroupGtMask</strong>, <strong>SubgroupLeMask</strong>, or <strong>SubgroupLtMask</strong>, the supported variable type is an <strong>OpTypeVector</strong> with four <em>Component Count</em> components of <strong>OpTypeInt</strong>, with <em>Width</em> equal to 32 and <em>Signedness</em> equal to 0 (equivalent to <code>uint4</code>).</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_cl_khr_subgroup_non_uniform_arithmetic"><a class="anchor" href="#_cl_khr_subgroup_non_uniform_arithmetic"></a>5.2.17. <code>cl_khr_subgroup_non_uniform_arithmetic</code></h4>
+<div class="paragraph">
+<p>If the OpenCL environment supports the extension <code>cl_khr_subgroup_non_uniform_arithmetic</code>, then the environment must accept SPIR-V modules that declare the following SPIR-V capabilities:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>GroupNonUniformArithmetic</strong></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For instructions requiring these capabilities, <em>Scope</em> for <em>Execution</em> may be:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Subgroup</strong></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For the instructions <strong>OpGroupNonUniformLogicalAnd</strong>, <strong>OpGroupNonUniformLogicalOr</strong>, and <strong>OpGroupNonUniformLogicalXor</strong>, the valid type for <em>Value</em> is <strong>OpTypeBool</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Otherwise, for the <strong>GroupNonUniformArithmetic</strong> scan and reduction instructions, valid types for <em>Value</em> are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Scalars of supported types:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>OpTypeInt</strong> (equivalent to <code>char</code>, <code>uchar</code>, <code>short</code>, <code>ushort</code>, <code>int</code>, <code>uint</code>, <code>long</code>, and <code>ulong</code>)</p>
+</li>
+<li>
+<p><strong>OpTypeFloat</strong> (equivalent to <code>half</code>, <code>float</code>, and <code>double</code>)</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For the <strong>GroupNonUniformArithmetic</strong> scan and reduction instructions, the optional <em>ClusterSize</em> operand must not be present.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_cl_khr_subgroup_shuffle"><a class="anchor" href="#_cl_khr_subgroup_shuffle"></a>5.2.18. <code>cl_khr_subgroup_shuffle</code></h4>
+<div class="paragraph">
+<p>If the OpenCL environment supports the extension <code>cl_khr_subgroup_shuffle</code>, then the environment must accept SPIR-V modules that declare the following SPIR-V capabilities:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>GroupNonUniformShuffle</strong></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For instructions requiring these capabilities, <em>Scope</em> for <em>Execution</em> may be:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Subgroup</strong></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For the instructions <strong>OpGroupNonUniformShuffle</strong> and <strong>OpGroupNonUniformShuffleXor</strong> requiring these capabilities, valid types for <em>Value</em> are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Scalars of supported types:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>OpTypeInt</strong> (equivalent to <code>char</code>, <code>uchar</code>, <code>short</code>, <code>ushort</code>, <code>int</code>, <code>uint</code>, <code>long</code>, and <code>ulong</code>)</p>
+</li>
+<li>
+<p><strong>OpTypeFloat</strong> (equivalent to <code>half</code>, <code>float</code>, and <code>double</code>)</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_cl_khr_subgroup_shuffle_relative"><a class="anchor" href="#_cl_khr_subgroup_shuffle_relative"></a>5.2.19. <code>cl_khr_subgroup_shuffle_relative</code></h4>
+<div class="paragraph">
+<p>If the OpenCL environment supports the extension <code>cl_khr_subgroup_shuffle_relative</code>, then the environment must accept SPIR-V modules that declare the following SPIR-V capabilities:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>GroupNonUniformShuffleRelative</strong></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For instructions requiring these capabilities, <em>Scope</em> for <em>Execution</em> may be:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Subgroup</strong></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For the <strong>GroupNonUniformShuffleRelative</strong> instructions, valid types for <em>Value</em> are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Scalars of supported types:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>OpTypeInt</strong> (equivalent to <code>char</code>, <code>uchar</code>, <code>short</code>, <code>ushort</code>, <code>int</code>, <code>uint</code>, <code>long</code>, and <code>ulong</code>)</p>
+</li>
+<li>
+<p><strong>OpTypeFloat</strong> (equivalent to <code>half</code>, <code>float</code>, and <code>double</code>)</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_cl_khr_subgroup_clustered_reduce"><a class="anchor" href="#_cl_khr_subgroup_clustered_reduce"></a>5.2.20. <code>cl_khr_subgroup_clustered_reduce</code></h4>
+<div class="paragraph">
+<p>If the OpenCL environment supports the extension <code>cl_khr_subgroup_clustered_reduce</code>, then the environment must accept SPIR-V modules that declare the following SPIR-V capabilities:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>GroupNonUniformClustered</strong></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For instructions requiring these capabilities, <em>Scope</em> for <em>Execution</em> may be:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Subgroup</strong></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>When the <strong>GroupNonUniformClustered</strong> capability is declared, the <strong>GroupNonUniformArithmetic</strong> scan and reduction instructions may include the optional <em>ClusterSize</em> operand.</p>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_embedded_profile_extensions"><a class="anchor" href="#_embedded_profile_extensions"></a>5.3. Embedded Profile Extensions</h3>
@@ -2619,6 +3002,12 @@ with slight clarification for behavior at zero.  Refer to: <a href="#ulp-definit
 <p>0 ULP is used for math functions that do not require rounding.
 The reference value used to compute the ULP value is the infinitely precise
 result.</p>
+</div>
+<div class="paragraph">
+<p>Result overflow within the specified ULP error is permitted. Math instructions
+are allowed to return infinity for a finite reference value when the next
+floating-point number that would be representable after the finite maximum, if
+there was sufficient range, meets ULP error tolerance.</p>
 </div>
 <div class="sect3">
 <h4 id="_ulp_values_for_math_instructions_full_profile"><a class="anchor" href="#_ulp_values_for_math_instructions_full_profile"></a>6.6.1. ULP Values for Math Instructions - Full Profile</h4>
@@ -6269,8 +6658,8 @@ Default RGB colour space - sRGB&#8221;,
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.5<br>
-Last updated 2020-09-28 14:46:56 -0700
+Version v3.0.6<br>
+Last updated 2020-12-08 14:02:39 -0800
 </div>
 </div>
 

@@ -841,9 +841,9 @@ table.CodeRay td.code>pre{padding:0}
 <h1>The OpenCL<sup>&#8482;</sup> Extension Specification</h1>
 <div class="details">
 <span id="author" class="author">Khronos<sup>&#174;</sup> OpenCL Working Group</span><br>
-<span id="revnumber">version v3.0.5,</span>
-<span id="revdate">Wed, 30 Sep 2020 00:00:00 +0000</span>
-<br><span id="revremark">from git branch: master commit: 4d8a36725aa8af9658ab5cb62fdbf52adb44bcca</span>
+<span id="revnumber">version v3.0.6,</span>
+<span id="revdate">Fri, 18 Dec 2020 12:00:00 +0000</span>
+<br><span id="revremark">from git branch: master commit: e9a4d468b1a0a38c1e10b8af484bb2bbb495e2b7</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -884,7 +884,9 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#cl_khr_extended_async_copies">34. Extended Async Copies (Provisional)</a></li>
 <li><a href="#cl_khr_async_work_group_copy_fence">35. Async Work Group Copy Fence (Provisional)</a></li>
 <li><a href="#cl_khr_device_uuid">36. Unique Device Identifiers</a></li>
-<li><a href="#spirv_extensions">37. Extensions to the OpenCL SPIR-V Environment</a></li>
+<li><a href="#cl_khr_extended_versioning">37. Extended versioning</a></li>
+<li><a href="#_extended_subgroup_functions">38. Extended Subgroup Functions</a></li>
+<li><a href="#spirv_extensions">39. Extensions to the OpenCL SPIR-V Environment</a></li>
 <li><a href="#_extensions_promoted_to_core_features">Appendix A: Extensions Promoted to Core Features</a></li>
 <li><a href="#_deprecated_extensions">Appendix B: Deprecated Extensions</a></li>
 <li><a href="#_quick_reference">Appendix C: Quick Reference</a></li>
@@ -17499,7 +17501,1904 @@ While implementations should make every effort to report consistent device UUIDs
 </div>
 </div>
 <div class="sect1">
-<h2 id="spirv_extensions"><a class="anchor" href="#spirv_extensions"></a>37. Extensions to the OpenCL SPIR-V Environment</h2>
+<h2 id="cl_khr_extended_versioning"><a class="anchor" href="#cl_khr_extended_versioning"></a>37. Extended versioning</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This extension introduces new platform and device queries that return detailed
+version information to applications. It makes it possible to return the exact
+revision of the specification or intermediate languages supported by an
+implementation. It also enables implementations to communicate a version
+number for each of the extensions they support and remove the requirement
+for applications to process strings to test for the presence of an extension or
+intermediate language or built-in kernel.</p>
+</div>
+<div class="sect2">
+<h3 id="_general_information_36"><a class="anchor" href="#_general_information_36"></a>37.1. General information</h3>
+<div class="sect3">
+<h4 id="_name_strings"><a class="anchor" href="#_name_strings"></a>37.1.1. Name Strings</h4>
+<div class="paragraph">
+<p><code>cl_khr_extended_versioning</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_contributors"><a class="anchor" href="#_contributors"></a>37.1.2. Contributors</h4>
+<div class="paragraph">
+<p>Kévin Petit, Arm Ltd.<br>
+Ben Ashbaugh, Intel<br>
+Alastair Murray, Codeplay Software Ltd.<br>
+Einar Hov, Arm Ltd.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_version_history_36"><a class="anchor" href="#_version_history_36"></a>37.1.3. Version history</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Date</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Version</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2020-02-12</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Initial version.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_dependencies"><a class="anchor" href="#_dependencies"></a>37.1.4. Dependencies</h4>
+<div class="paragraph">
+<p>This extension is written against the OpenCL Specification
+Version 2.2, Revision 11.</p>
+</div>
+<div class="paragraph">
+<p>This extension requires OpenCL 1.0.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_new_api_types_2"><a class="anchor" href="#_new_api_types_2"></a>37.2. New API Types</h3>
+<div class="sect3">
+<h4 id="_version"><a class="anchor" href="#_version"></a>37.2.1. Version</h4>
+<div class="paragraph">
+<p>This extension introduces a new scheme to encode detailed
+(major, minor, patch/revision) version information into a single 32-bit unsigned
+integer:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The major version is using bits 31-22</p>
+</li>
+<li>
+<p>The minor version is using bits 21-12</p>
+</li>
+<li>
+<p>The patch version is using bits 11-0</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This scheme enables two versions to be ordered using the standard C/C++ operators.
+Macros are provided to extract individual fields or compose a full version
+from the individual fields.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c"><span class="keyword">typedef</span> cl_uint cl_version_khr;
+
+<span class="preprocessor">#define</span> CL_VERSION_MAJOR_BITS_KHR (<span class="integer">10</span>)
+<span class="preprocessor">#define</span> CL_VERSION_MINOR_BITS_KHR (<span class="integer">10</span>)
+<span class="preprocessor">#define</span> CL_VERSION_PATCH_BITS_KHR (<span class="integer">12</span>)
+
+<span class="preprocessor">#define</span> CL_VERSION_MAJOR_MASK_KHR ((<span class="integer">1</span> &lt;&lt; CL_VERSION_MAJOR_BITS_KHR) - <span class="integer">1</span>)
+<span class="preprocessor">#define</span> CL_VERSION_MINOR_MASK_KHR ((<span class="integer">1</span> &lt;&lt; CL_VERSION_MINOR_BITS_KHR) - <span class="integer">1</span>)
+<span class="preprocessor">#define</span> CL_VERSION_PATCH_MASK_KHR ((<span class="integer">1</span> &lt;&lt; CL_VERSION_PATCH_BITS_KHR) - <span class="integer">1</span>)
+
+<span class="preprocessor">#define</span> CL_VERSION_MAJOR_KHR(version) \
+        ((version) &gt;&gt; (CL_VERSION_MINOR_BITS_KHR + CL_VERSION_PATCH_BITS_KHR))
+<span class="preprocessor">#define</span> CL_VERSION_MINOR_KHR(version) \
+        (((version) &gt;&gt; CL_VERSION_PATCH_BITS_KHR) &amp; CL_VERSION_MINOR_MASK_KHR)
+<span class="preprocessor">#define</span> CL_VERSION_PATCH_KHR(version) ((version) &amp; CL_VERSION_PATCH_MASK_KHR)
+
+<span class="preprocessor">#define</span> CL_MAKE_VERSION_KHR(major, minor, patch) \
+    ((((major) &amp; CL_VERSION_MAJOR_MASK_KHR) &lt;&lt; (CL_VERSION_MINOR_BITS_KHR + CL_VERSION_PATCH_BITS_KHR)) | \
+     (((minor) &amp; CL_VERSION_MINOR_MASK_KHR) &lt;&lt; CL_VERSION_PATCH_BITS_KHR) | \
+     ((patch) &amp; CL_VERSION_PATCH_MASK_KHR))</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_name_and_version"><a class="anchor" href="#_name_and_version"></a>37.2.2. Name and version</h4>
+<div class="paragraph">
+<p>This extension adds a structure that can be used to describe a combination of a
+name alongside a version number:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c"><span class="preprocessor">#define</span> CL_NAME_VERSION_MAX_NAME_SIZE_KHR <span class="integer">64</span>
+
+<span class="keyword">typedef</span> <span class="keyword">struct</span> _cl_name_version_khr {
+    cl_version_khr version;
+    <span class="predefined-type">char</span> name[CL_NAME_VERSION_MAX_NAME_SIZE_KHR];
+} cl_name_version_khr;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>name</code> field is an array of <code>CL_NAME_VERSION_MAX_NAME_SIZE_KHR</code> bytes used as
+storage for a NUL-terminated string whose maximum length is therefore
+<code>CL_NAME_VERSION_MAX_NAME_SIZE_KHR - 1</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_new_api_enums"><a class="anchor" href="#_new_api_enums"></a>37.3. New API Enums</h3>
+<div class="paragraph">
+<p>Accepted value for the <em>param_name</em> parameter to <strong>clGetPlatformInfo</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">CL_PLATFORM_NUMERIC_VERSION_KHR
+CL_PLATFORM_EXTENSIONS_WITH_VERSION_KHR</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Accepted value for the <em>param_name</em> parameter to <strong>clGetDeviceInfo</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">CL_DEVICE_NUMERIC_VERSION_KHR
+CL_DEVICE_OPENCL_C_NUMERIC_VERSION_KHR
+CL_DEVICE_EXTENSIONS_WITH_VERSION_KHR
+CL_DEVICE_ILS_WITH_VERSION_KHR
+CL_DEVICE_BUILT_IN_KERNELS_WITH_VERSION_KHR</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_modifications_to_the_opencl_api_specification"><a class="anchor" href="#_modifications_to_the_opencl_api_specification"></a>37.4. Modifications to the OpenCL API Specification</h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">(Modify Section 4.1, <strong>Querying Platform Info</strong>) </dt>
+<dd>
+<div class="openblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">(Add the following to Table 3, <em>List of supported param_names by clGetPlatformInfo</em>) </dt>
+</dl>
+</div>
+</div>
+</div>
+</dd>
+</dl>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 37.5%;">
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">cl_platform_info</th>
+<th class="tableblock halign-left valign-top">Return Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_PLATFORM_NUMERIC_VERSION_KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_version_khr</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns detailed (major, minor, patch) numeric version information. The major
+  and minor version numbers returned must match those returned via
+  <code>CL_PLATFORM_VERSION</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_PLATFORM_EXTENSIONS_WITH_VERSION_KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_name_version_khr[]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns an array of description (name and version) structures. The same
+  extension name must not be reported more than once. The list of extensions
+  reported must match the list reported via <code>CL_PLATFORM_EXTENSIONS</code>.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">(Modify Section 4.2, <strong>Querying Devices</strong>) </dt>
+<dd>
+<div class="openblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">(Add the following to Table 5, <em>List of supported param_names by clGetDeviceInfo</em>) </dt>
+</dl>
+</div>
+</div>
+</div>
+</dd>
+</dl>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 37.5%;">
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">cl_device_info</th>
+<th class="tableblock halign-left valign-top">Return Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_NUMERIC_VERSION_KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_version_khr</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns detailed (major, minor, patch) numeric version information. The major
+  and minor version numbers returned must match those returned via
+  <code>CL_DEVICE_VERSION</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_OPENCL_C_NUMERIC_VERSION_KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_version_khr</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns detailed (major, minor, patch) numeric version information. The major
+  and minor version numbers returned must match those returned via
+  <code>CL_DEVICE_OPENCL_C_VERSION</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_EXTENSIONS_WITH_VERSION_KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_name_version_khr[]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns an array of description (name and version) structures. The same
+  extension name must not be reported more than once. The list of extensions
+  reported must match the list reported via <code>CL_DEVICE_EXTENSIONS</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_ILS_WITH_VERSION_KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_name_version_khr[]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns an array of descriptions (name and version) for all supported
+  Intermediate Languages. Intermediate Languages with the same name may be
+  reported more than once but each name and major/minor version combination
+  may only be reported once. The list of intermediate languages reported must
+  match the list reported via <code>CL_DEVICE_IL_VERSION</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_BUILT_IN_KERNELS_WITH_VERSION_KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_name_version_khr[]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns an array of descriptions for the built-in kernels supported by the device.
+  Each built-in kernel may only be reported once. The list of reported kernels must
+  match the list returned via <code>CL_DEVICE_BUILT_IN_KERNELS</code>.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="openblock">
+<div class="content">
+
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_conformance_tests"><a class="anchor" href="#_conformance_tests"></a>37.5. Conformance tests</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Each of the new queries described in this extension must be attempted and
+succeed.</p>
+</li>
+<li>
+<p>It must be verified that the information returned by all queries that
+extend existing queries is consistent with the information returned
+by existing queries.</p>
+</li>
+<li>
+<p>Some of the queries introduced by this extension impose uniqueness constraints
+on the list of returned values. It must be verified that these constraints are
+satisfied.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_issues"><a class="anchor" href="#_issues"></a>37.6. Issues</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>What compatibility policy should we define? e.g. a <em>revision</em> has to be
+backwards-compatible with previous ones</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>RESOLVED</strong>: No general rules as that wouldn&#8217;t be testable. Here&#8217;s a recommended policy:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Patch version bump: only clarifications and small/obvious bugfixes.</p>
+</li>
+<li>
+<p>Minor version bump: backwards-compatible changes only.</p>
+</li>
+<li>
+<p>Major version bump: backwards compatibility may break.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Do we want versioning for built-in kernels as returned by <code>CL_DEVICE_BUILT_IN_KERNELS</code>?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>RESOLVED</strong>: No immediate use-case for versioning but being able to get a list of
+  individual kernels without parsing a string is desirable. Adding
+  <code>CL_DEVICE_BUILT_IN_KERNELS_WITH_VERSION_KHR</code>.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>What is the behaviour of the queries that return an array of structures when
+there are no elements to return?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>RESOLVED</strong>: The query succeeds and the size returned is zero.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>What value should be returned when version information is not available?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>RESOLVED</strong>: If a patch version is not available, it should be reported as 0.
+            If no version information is available, 0.0.0 should be reported.
+            These values have been chosen as they are guaranteed to be lower
+            than or equal to any other version.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Should we add a query to report SPIR-V extended instruction sets?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>RESOLVED</strong>: It is unlikely that we will introduce many SPIR-V extended
+            instruction sets without an accompanying API extension. Decided
+            not to do this.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Should the queries for which the old-style query doesn&#8217;t exist in a given
+OpenCL version be present (e.g. <code>CL_DEVICE_BUILT_IN_KERNELS_WITH_VERSION_KHR</code>
+prior to OpenCL 2.1 or without support for <code>cl_khr_il_program</code> or
+<code>CL_DEVICE_OPENCL_C_NUMERIC_VERSION_KHR</code> on OpenCL 1.0)?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>RESOLVED</strong>: All the queries are always present.
+            <code>CL_DEVICE_BUILT_IN_KERNELS_WITH_VERSION_KHR</code> returns an empty set
+            when Intermediate Languages are not supported.
+            <code>CL_DEVICE_OPENCL_C_NUMERIC_VERSION_KHR</code> always returns 1.0 on an
+            OpenCL 1.0 platform.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Is reporting multiple Intermediate Languages with the same name and major/minor
+versions but differing patch versions allowed?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>RESOLVED</strong>: No. This isn&#8217;t aligned with the intended use for patch versions and
+            makes it harder for implementations to guarantee consistency with
+            the existing IL queries.</p>
+</div>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_extended_subgroup_functions"><a class="anchor" href="#_extended_subgroup_functions"></a>38. Extended Subgroup Functions</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="extended-subgroups"><a class="anchor" href="#extended-subgroups"></a>38.1. Overview</h3>
+<div class="paragraph">
+<p>This section describes a family of extensions that provide extended subgroup functionality.
+The extensions in this family are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>cl_khr_subgroup_extended_types</code></p>
+</li>
+<li>
+<p><code>cl_khr_subgroup_non_uniform_vote</code></p>
+</li>
+<li>
+<p><code>cl_khr_subgroup_ballot</code></p>
+</li>
+<li>
+<p><code>cl_khr_subgroup_non_uniform_arithmetic</code></p>
+</li>
+<li>
+<p><code>cl_khr_subgroup_shuffle</code></p>
+</li>
+<li>
+<p><code>cl_khr_subgroup_shuffle_relative</code></p>
+</li>
+<li>
+<p><code>cl_khr_subgroup_clustered_reduce</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The functionality added by these extensions includes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Additional data type support for subgroup broadcast, scan, and reduction functions;</p>
+</li>
+<li>
+<p>The ability to elect a single work item from a subgroup to perform a task;</p>
+</li>
+<li>
+<p>The ability to hold votes among work items in a subgroup;</p>
+</li>
+<li>
+<p>The ability to collect and operate on ballots from work items in the subgroup;</p>
+</li>
+<li>
+<p>The ability to use some subgroup functions, such as any, all, broadcasts, scans, and reductions within non-uniform flow control;</p>
+</li>
+<li>
+<p>Additional scan and reduction operators;</p>
+</li>
+<li>
+<p>Additional ways to exchange data among work items in a subgroup;</p>
+</li>
+<li>
+<p>Clustered reductions, that operate on a subset of work items in the subgroup.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This section describes changes to the OpenCL C Language for these extensions.
+There are no new API functions or enums added by these extensions.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_general_information_37"><a class="anchor" href="#_general_information_37"></a>38.2. General information</h3>
+<div class="sect3">
+<h4 id="_version_history_37"><a class="anchor" href="#_version_history_37"></a>38.2.1. Version history</h4>
+<div class="paragraph">
+<p>For all of the extensions described in this section:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Date</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Version</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2020-12-15</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">First assigned version.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="extended-subgroups-summary"><a class="anchor" href="#extended-subgroups-summary"></a>38.3. Summary of New OpenCL C Functions</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c"><span class="comment">// These functions are available to devices supporting</span>
+<span class="comment">// cl_khr_subgroup_extended_types:</span>
+
+<span class="comment">// Note: Existing functions supporting additional data types.</span>
+
+gentype sub_group_broadcast( gentype value, uint index )
+
+gentype sub_group_reduce_add( gentype value )
+gentype sub_group_reduce_min( gentype value )
+gentype sub_group_reduce_max( gentype value )
+
+gentype sub_group_scan_inclusive_add( gentype value )
+gentype sub_group_scan_inclusive_min( gentype value )
+gentype sub_group_scan_inclusive_max( gentype value )
+
+gentype sub_group_scan_exclusive_add( gentype value )
+gentype sub_group_scan_exclusive_min( gentype value )
+gentype sub_group_scan_exclusive_max( gentype value )
+
+<span class="comment">// These functions are available to devices supporting</span>
+<span class="comment">// cl_khr_subgroup_non_uniform_vote:</span>
+
+<span class="predefined-type">int</span> sub_group_elect()
+
+<span class="predefined-type">int</span> sub_group_non_uniform_all( <span class="predefined-type">int</span> predicate )
+<span class="predefined-type">int</span> sub_group_non_uniform_any( <span class="predefined-type">int</span> predicate )
+<span class="predefined-type">int</span> sub_group_non_uniform_all_equal( gentype value )
+
+<span class="comment">// These functions are available to devices supporting</span>
+<span class="comment">// cl_khr_subgroup_ballot:</span>
+
+gentype sub_group_non_uniform_broadcast( gentype value, uint index )
+gentype sub_group_broadcast_first( gentype value )
+
+uint4 sub_group_ballot( <span class="predefined-type">int</span> predicate )
+<span class="predefined-type">int</span>   sub_group_inverse_ballot( uint4 value )
+<span class="predefined-type">int</span>   sub_group_ballot_bit_extract( uint4 value, uint index )
+uint  sub_group_ballot_bit_count( uint4 value )
+uint  sub_group_ballot_inclusive_scan( uint4 value )
+uint  sub_group_ballot_exclusive_scan( uint4 value )
+uint  sub_group_ballot_find_lsb( uint4 value )
+uint  sub_group_ballot_find_msb( uint4 value )
+
+uint4 get_sub_group_eq_mask()
+uint4 get_sub_group_ge_mask()
+uint4 get_sub_group_gt_mask()
+uint4 get_sub_group_le_mask()
+uint4 get_sub_group_lt_mask()
+
+<span class="comment">// These functions are available to devices supporting</span>
+<span class="comment">// cl_khr_subgroup_non_uniform_arithmetic:</span>
+
+gentype sub_group_non_uniform_reduce_add( gentype value )
+gentype sub_group_non_uniform_reduce_mul( gentype value )
+gentype sub_group_non_uniform_reduce_min( gentype value )
+gentype sub_group_non_uniform_reduce_max( gentype value )
+gentype sub_group_non_uniform_reduce_and( gentype value )
+gentype sub_group_non_uniform_reduce_or( gentype value )
+gentype sub_group_non_uniform_reduce_xor( gentype value )
+<span class="predefined-type">int</span>     sub_group_non_uniform_reduce_logical_and( <span class="predefined-type">int</span> predicate )
+<span class="predefined-type">int</span>     sub_group_non_uniform_reduce_logical_or( <span class="predefined-type">int</span> predicate )
+<span class="predefined-type">int</span>     sub_group_non_uniform_reduce_logical_xor( <span class="predefined-type">int</span> predicate )
+
+gentype sub_group_non_uniform_scan_inclusive_add( gentype value )
+gentype sub_group_non_uniform_scan_inclusive_mul( gentype value )
+gentype sub_group_non_uniform_scan_inclusive_min( gentype value )
+gentype sub_group_non_uniform_scan_inclusive_max( gentype value )
+gentype sub_group_non_uniform_scan_inclusive_and( gentype value )
+gentype sub_group_non_uniform_scan_inclusive_or( gentype value )
+gentype sub_group_non_uniform_scan_inclusive_xor( gentype value )
+<span class="predefined-type">int</span>     sub_group_non_uniform_scan_inclusive_logical_and( <span class="predefined-type">int</span> predicate )
+<span class="predefined-type">int</span>     sub_group_non_uniform_scan_inclusive_logical_or( <span class="predefined-type">int</span> predicate )
+<span class="predefined-type">int</span>     sub_group_non_uniform_scan_inclusive_logical_xor( <span class="predefined-type">int</span> predicate )
+
+gentype sub_group_non_uniform_scan_exclusive_add( gentype value )
+gentype sub_group_non_uniform_scan_exclusive_mul( gentype value )
+gentype sub_group_non_uniform_scan_exclusive_min( gentype value )
+gentype sub_group_non_uniform_scan_exclusive_max( gentype value )
+gentype sub_group_non_uniform_scan_exclusive_and( gentype value )
+gentype sub_group_non_uniform_scan_exclusive_or( gentype value )
+gentype sub_group_non_uniform_scan_exclusive_xor( gentype value )
+<span class="predefined-type">int</span>     sub_group_non_uniform_scan_exclusive_logical_and( <span class="predefined-type">int</span> predicate )
+<span class="predefined-type">int</span>     sub_group_non_uniform_scan_exclusive_logical_or( <span class="predefined-type">int</span> predicate )
+<span class="predefined-type">int</span>     sub_group_non_uniform_scan_exclusive_logical_xor( <span class="predefined-type">int</span> predicate )
+
+<span class="comment">// These functions are available to devices supporting</span>
+<span class="comment">// cl_khr_subgroup_shuffle:</span>
+
+gentype sub_group_shuffle( gentype value, uint index )
+gentype sub_group_shuffle_xor( gentype value, uint mask )
+
+<span class="comment">// These functions are available to devices supporting</span>
+<span class="comment">// cl_khr_subgroup_shuffle_relative:</span>
+
+gentype sub_group_shuffle_up( gentype value, uint delta )
+gentype sub_group_shuffle_down( gentype value, uint delta )
+
+<span class="comment">// These functions are available to devices supporting</span>
+<span class="comment">// cl_khr_subgroup_clustered_reduce:</span>
+
+gentype sub_group_clustered_reduce_add( gentype value, uint clustersize )
+gentype sub_group_clustered_reduce_mul( gentype value, uint clustersize )
+gentype sub_group_clustered_reduce_min( gentype value, uint clustersize )
+gentype sub_group_clustered_reduce_max( gentype value, uint clustersize )
+gentype sub_group_clustered_reduce_and( gentype value, uint clustersize )
+gentype sub_group_clustered_reduce_or( gentype value, uint clustersize )
+gentype sub_group_clustered_reduce_xor( gentype value, uint clustersize )
+<span class="predefined-type">int</span>     sub_group_clustered_reduce_logical_and( <span class="predefined-type">int</span> predicate, uint clustersize )
+<span class="predefined-type">int</span>     sub_group_clustered_reduce_logical_or( <span class="predefined-type">int</span> predicate, uint clustersize )
+<span class="predefined-type">int</span>     sub_group_clustered_reduce_logical_xor( <span class="predefined-type">int</span> predicate, uint clustersize )</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="cl_khr_subgroup_extended_types"><a class="anchor" href="#cl_khr_subgroup_extended_types"></a>38.4. Extended Types</h3>
+<div class="paragraph">
+<p>This section describes functionality added by <code>cl_khr_subgroup_extended_types</code>.
+This extension adds additional supported data types to the existing subgroup broadcast, scan, and reduction functions.</p>
+</div>
+<div class="sect3">
+<h4 id="_modify_the_existing_section_describing_subgroup_functions"><a class="anchor" href="#_modify_the_existing_section_describing_subgroup_functions"></a>38.4.1. Modify the Existing Section Describing Subgroup Functions</h4>
+<div class="paragraph">
+<p>Modify the first paragraph in this section that describes <code>gentype</code> type support for the subgroup <code>broadcast</code>, <code>scan</code>, and <code>reduction</code> functions to add scalar <code>char</code>, <code>uchar</code>, <code>short</code>, and <code>ushort</code> support, and to additionally add built-in vector type support for <code>broadcast</code> specifically.
+The functions in the table and their descriptions remain unchanged by this extension:</p>
+</div>
+<div class="paragraph">
+<p>The table below describes OpenCL C programming language built-in functions that operate on a subgroup level.
+These built-in functions must be encountered by all work items in the subgroup executing the kernel.
+We use the generic type name <code>gentype</code> to indicate the built-in scalar data types <code>char</code>, <code>uchar</code>, <code>short</code>, <code>ushort</code>, <code>int</code>, <code>uint</code>, <code>long</code>, <code>ulong</code>, <code>float</code>, <code>double</code> (if double precision is supported), or <code>half</code> (if half precision is supported).</p>
+</div>
+<div class="paragraph">
+<p>For the <code>sub_group_broadcast</code> function, the generic type name <code>gentype</code> may additionally be one of the supported built-in vector data types <code>char<em>n</em></code>, <code>uchar<em>n</em></code>, <code>short<em>n</em></code>, <code>ushort<em>n</em></code>, <code>int<em>n</em></code>, <code>uint<em>n</em></code>, <code>long<em>n</em></code>, <code>ulong<em>n</em></code>, <code>float<em>n</em></code>, <code>double<em>n</em></code> (if double precision is supported), or <code>half<em>n</em></code> (if half precision is supported).</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="cl_khr_subgroup_non_uniform_vote"><a class="anchor" href="#cl_khr_subgroup_non_uniform_vote"></a>38.5. Votes and Elections</h3>
+<div class="paragraph">
+<p>This section describes functionality added by <code>cl_khr_subgroup_non_uniform_vote</code>.
+This extension adds the ability to elect a single work item from a subgroup to perform a task and to hold votes among work items in a subgroup.</p>
+</div>
+<div class="sect3">
+<h4 id="_add_a_new_section_6_15_x_subgroup_vote_and_elect_built_in_functions"><a class="anchor" href="#_add_a_new_section_6_15_x_subgroup_vote_and_elect_built_in_functions"></a>38.5.1. Add a new Section 6.15.X - Subgroup Vote and Elect Built-in Functions</h4>
+<div class="paragraph">
+<p>The table below describes the OpenCL C programming language built-in functions to elect a single work item in a subgroup to perform a task and to collectively vote to determine a boolean condition for the subgroup.
+These functions need not be encountered by all work items in a subgroup executing the kernel.
+For the functions below, the generic type name <code>gentype</code> may be the one of the supported built-in scalar data types <code>char</code>, <code>uchar</code>, <code>short</code>, <code>ushort</code>, <code>int</code>, <code>uint</code>, <code>long</code>, <code>ulong</code>, <code>float</code>, <code>double</code> (if double precision is supported), or <code>half</code> (if half precision is supported).</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Function</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c"><span class="predefined-type">int</span> sub_group_elect()</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Elects a single work item in the subgroup to perform a task.
+This function will return true (nonzero) for the active work item in the subgroup with the smallest subgroup local ID, and false (zero) for all other active work items in the subgroup.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c"><span class="predefined-type">int</span> sub_group_non_uniform_all(
+    <span class="predefined-type">int</span> predicate )</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Examines <em>predicate</em> for all active work items in the subgroup and returns a non-zero value if <em>predicate</em> is non-zero for all active work items in the subgroup and zero otherwise.</p>
+<p class="tableblock">Note: This behavior is the same as <code>sub_group_all</code> from <code>cl_khr_subgroups</code> and OpenCL 2.1, except this function need not be encountered by all work items in the subgroup executing the kernel.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c"><span class="predefined-type">int</span> sub_group_non_uniform_any(
+    <span class="predefined-type">int</span> predicate )</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Examines <em>predicate</em> for all active work items in the subgroup and returns a non-zero value if <em>predicate</em> is non-zero for any active work item in the subgroup and zero otherwise.</p>
+<p class="tableblock">Note: This behavior is the same as <code>sub_group_any</code> from <code>cl_khr_subgroups</code> and OpenCL 2.1, except this function need not be encountered by all work items in the subgroup executing the kernel.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c"><span class="predefined-type">int</span> sub_group_non_uniform_all_equal(
+    gentype value )</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Examines <em>value</em> for all active work items in the subgroup and returns a non-zero value if <em>value</em> is equivalent for all active invocations in the subgroup and zero otherwise.</p>
+<p class="tableblock">Integer types use a bitwise test for equality.  Floating-point types use an ordered floating-point test for equality.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="cl_khr_subgroup_ballot"><a class="anchor" href="#cl_khr_subgroup_ballot"></a>38.6. Ballots</h3>
+<div class="paragraph">
+<p>This section describes functionality added by <code>cl_khr_subgroup_ballot</code>.
+This extension adds the ability to collect and operate on ballots from work items in the subgroup.</p>
+</div>
+<div class="sect3">
+<h4 id="_add_a_new_section_6_15_x_subgroup_ballot_built_in_functions"><a class="anchor" href="#_add_a_new_section_6_15_x_subgroup_ballot_built_in_functions"></a>38.6.1. Add a new Section 6.15.X - Subgroup Ballot Built-in Functions</h4>
+<div class="paragraph">
+<p>The table below describes the OpenCL C programming language built-in functions to allow work items in a subgroup to collect and operate on ballots from work items in the subgroup.
+These functions need not be encountered by all work items in a subgroup executing the kernel.</p>
+</div>
+<div class="paragraph">
+<p>For the <code>sub_group_non_uniform_broadcast</code> and <code>sub_group_broadcast_first</code> functions, the generic type name <code>gentype</code> may be one of the supported built-in scalar data types <code>char</code>, <code>uchar</code>, <code>short</code>, <code>ushort</code>, <code>int</code>, <code>uint</code>, <code>long</code>, <code>ulong</code>, <code>float</code>, <code>double</code> (if double precision is supported), or <code>half</code> (if half precision is supported).</p>
+</div>
+<div class="paragraph">
+<p>For the <code>sub_group_non_uniform_broadcast</code> function, the generic type name <code>gentype</code> may additionally be one of the supported built-in vector data types <code>char<em>n</em></code>, <code>uchar<em>n</em></code>, <code>short<em>n</em></code>, <code>ushort<em>n</em></code>, <code>int<em>n</em></code>, <code>uint<em>n</em></code>, <code>long<em>n</em></code>, <code>ulong<em>n</em></code>, <code>float<em>n</em></code>, <code>double<em>n</em></code> (if double precision is supported), or <code>half<em>n</em></code> (if half precision is supported).</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Function</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">gentype sub_group_non_uniform_broadcast(
+    gentype value,
+    uint index )</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns <em>value</em> for the work item with subgroup local ID equal to <em>index</em>.</p>
+<p class="tableblock">Behavior is undefined when the value of <em>index</em> is not equivalent for all active work items in the subgroup.</p>
+<p class="tableblock">The return value is undefined if the work item with subgroup local ID equal to <em>index</em> is inactive or if <em>index</em> is greater than or equal to the size of the subgroup.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">gentype sub_group_broadcast_first(
+    gentype value )</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns <em>value</em> for the work item with the smallest subgroup local ID among active work items in the subgroup.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">uint4 sub_group_ballot(
+    <span class="predefined-type">int</span> predicate )</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns a bitfield combining the <em>predicate</em> values from all work items in the subgroup.
+Bit zero of the first vector component represents the subgroup local ID zero, with higher-order bits and subsequent vector components representing, in order, increasing subgroup local IDs.
+The representative bit in the bitfield is set if the work item is active and the <em>predicate</em> is non-zero, and is unset otherwise.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c"><span class="predefined-type">int</span> sub_group_inverse_ballot(
+    uint4 value )</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the predicate value for this work item in the subgroup from the bitfield <em>value</em> representing predicate values from all work items in the subgroup.
+The predicate return value will be non-zero if the bit in the bitfield <em>value</em> for this work item is set, and zero otherwise.</p>
+<p class="tableblock">Behavior is undefined when <em>value</em> is not equivalent for all active work items in the subgroup.</p>
+<p class="tableblock">This is a specialized function that may perform better than the equivalent <code>sub_group_ballot_bit_extract</code> on some implementations.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c"><span class="predefined-type">int</span> sub_group_ballot_bit_extract(
+    uint4 value,
+    uint index )</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the predicate value for the work item with subgroup local ID equal to <em>index</em> from the bitfield <em>value</em> representing predicate values from all work items in the subgroup.
+The predicate return value will be non-zero if the bit in the bitfield <em>value</em> for the work item with subgroup local ID equal to <em>index</em> is set, and zero otherwise.</p>
+<p class="tableblock">The predicate return value is undefined if the work item with subgroup local ID equal to <em>index</em> is greater than or equal to the size of the subgroup.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">uint sub_group_ballot_bit_count(
+    uint4 value )</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the number of bits that are set in the bitfield <em>value</em>, only considering the bits in <em>value</em> that represent predicate values from all work items in the subgroup.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">uint sub_group_ballot_inclusive_scan(
+    uint4 value )</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the number of bits that are set in the bitfield <em>value</em>, only considering the bits in <em>value</em> representing work items with a subgroup local ID less than or equal to this work item&#8217;s subgroup local ID.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">uint sub_group_ballot_exclusive_scan(
+    uint4 value )</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the number of bits that are set in the bitfield <em>value</em>, only considering the bits in <em>value</em> representing work items with a subgroup local ID less than this work item&#8217;s subgroup local ID.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">uint sub_group_ballot_find_lsb(
+    uint4 value )</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the smallest subgroup local ID with a bit set in the bitfield <em>value</em>, only considering the bits in <em>value</em> that represent predicate values from all work items in the subgroup.
+If no bits representing predicate values from all work items in the subgroup are set in the bitfield <em>value</em> then the return value is undefined.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">uint sub_group_ballot_find_msb(
+    uint4 value )</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the largest subgroup local ID with a bit set in the bitfield <em>value</em>, only considering the bits in <em>value</em> that represent predicate values from all work items in the subgroup.
+If no bits representing predicate values from all work items in the subgroup are set in the bitfield <em>value</em> then the return value is undefined.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">uint4 get_sub_group_eq_mask()</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Generates a bitmask of all work items in the subgroup, where the bit is set in the bitmask if the bit index equals the subgroup local ID and unset otherwise.
+Bit zero of the first vector component represents the subgroup local ID zero, with higher-order bits and subsequent vector components representing, in order, increasing subgroup local IDs.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">uint4 get_sub_group_ge_mask()</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Generates a bitmask of all work items in the subgroup, where the bit is set in the bitmask if the bit index is greater than or equal to the subgroup local ID and less than the maximum subgroup size, and unset otherwise.
+Bit zero of the first vector component represents the subgroup local ID zero, with higher-order bits and subsequent vector components representing, in order, increasing subgroup local IDs.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">uint4 get_sub_group_gt_mask()</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Generates a bitmask of all work items in the subgroup, where the bit is set in the bitmask if the bit index is greater than the subgroup local ID and less than the maximum subgroup size, and unset otherwise.
+Bit zero of the first vector component represents the subgroup local ID zero, with higher-order bits and subsequent vector components representing, in order, increasing subgroup local IDs.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">uint4 get_sub_group_le_mask()</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Generates a bitmask of all work items in the subgroup, where the bit is set in the bitmask if the bit index is less than or equal to the subgroup local ID and unset otherwise.
+Bit zero of the first vector component represents the subgroup local ID zero, with higher-order bits and subsequent vector components representing, in order, increasing subgroup local IDs.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">uint4 get_sub_group_lt_mask()</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Generates a bitmask of all work items in the subgroup, where the bit is set in the bitmask if the bit index is less than the subgroup local ID and unset otherwise.
+Bit zero of the first vector component represents the subgroup local ID zero, with higher-order bits and subsequent vector components representing, in order, increasing subgroup local IDs.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="cl_khr_subgroup_non_uniform_arithmetic"><a class="anchor" href="#cl_khr_subgroup_non_uniform_arithmetic"></a>38.7. Non-Uniform Arithmetic</h3>
+<div class="paragraph">
+<p>This section describes functionality added by <code>cl_khr_subgroup_non_uniform_arithmetic</code>.
+This extension adds the ability to use some subgroup functions within non-uniform flow control, including additional scan and reduction operators.</p>
+</div>
+<div class="sect3">
+<h4 id="_add_a_new_section_6_15_x_non_uniform_subgroup_scan_and_reduction_built_in_functions"><a class="anchor" href="#_add_a_new_section_6_15_x_non_uniform_subgroup_scan_and_reduction_built_in_functions"></a>38.7.1. Add a new Section 6.15.X - Non Uniform Subgroup Scan and Reduction Built-in Functions</h4>
+<div class="sect4">
+<h5 id="_arithmetic_operations"><a class="anchor" href="#_arithmetic_operations"></a>38.7.1.1. Arithmetic Operations</h5>
+<div class="paragraph">
+<p>The table below describes the OpenCL C programming language built-in functions that perform simple arithmetic operations across work items in a subgroup.
+These functions need not be encountered by all work items in a subgroup executing the kernel.
+For the functions below, the generic type name <code>gentype</code> may be one of the supported built-in scalar data types <code>char</code>, <code>uchar</code>, <code>short</code>, <code>ushort</code>, <code>int</code>, <code>uint</code>, <code>long</code>, <code>ulong</code>, <code>float</code>, <code>double</code> (if double precision is supported), or <code>half</code> (if half precision is supported).</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 60%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Function</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">gentype sub_group_non_uniform_reduce_add(
+    gentype value )
+gentype sub_group_non_uniform_reduce_min(
+    gentype value )
+gentype sub_group_non_uniform_reduce_max(
+    gentype value )
+gentype sub_group_non_uniform_reduce_mul(
+    gentype value )</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the summation, multiplication, minimum, or maximum of <em>value</em> for all active work items in the subgroup.</p>
+<p class="tableblock">Note: This behavior is the same as the <strong>add</strong>, <strong>min</strong>, and <strong>max</strong> reduction built-in functions from <code>cl_khr_subgroups</code> and OpenCL 2.1, except these functions support additional types and need not be encountered by all work items in the subgroup executing the kernel.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">gentype sub_group_non_uniform_scan_inclusive_add(
+    gentype value )
+gentype sub_group_non_uniform_scan_inclusive_min(
+    gentype value )
+gentype sub_group_non_uniform_scan_inclusive_max(
+    gentype value )
+gentype sub_group_non_uniform_scan_inclusive_mul(
+    gentype value )</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the result of an inclusive scan operation, which is the summation, multiplication, minimum, or maximum of <em>value</em> for all active work items in the subgroup with a subgroup local ID less than or equal to this work item&#8217;s subgroup local ID.</p>
+<p class="tableblock">Note: This behavior is the same as the <strong>add</strong>, <strong>min</strong>, and <strong>max</strong> inclusive scan built-in functions from <code>cl_khr_subgroups</code> and OpenCL 2.1, except these functions support additional types and need not be encountered by all work items in the subgroup executing the kernel.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">gentype sub_group_non_uniform_scan_exclusive_add(
+    gentype value )
+gentype sub_group_non_uniform_scan_exclusive_min(
+    gentype value )
+gentype sub_group_non_uniform_scan_exclusive_max(
+    gentype value )
+gentype sub_group_non_uniform_scan_exclusive_mul(
+    gentype value )</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the result of an exclusive scan operation, which is the summation, multiplication, minimum, or maximum of <em>value</em> for all active work items in the subgroup with a subgroup local ID less than this work item&#8217;s subgroup local ID.</p>
+<p class="tableblock">If there is no active work item in the subgroup with a subgroup local ID less than this work item&#8217;s subgroup local ID then an identity value <code>I</code> is returned.
+For <strong>add</strong>, the identity value is <code>0</code>.
+For <strong>min</strong>, the identity value is the largest representable value for integer types, or <code>+INF</code> for floating point types.
+For <strong>max</strong>, the identity value is the minimum representable value for integer types, or <code>-INF</code> for floating point types.
+For <strong>mul</strong>, the identity value is <code>1</code>.</p>
+<p class="tableblock">Note: This behavior is the same as the <strong>add</strong>, <strong>min</strong>, and <strong>max</strong> exclusive scan built-in functions from <code>cl_khr_subgroups</code> and OpenCL 2.1, except these functions support additional types and need not be encountered by all work items in the subgroup executing the kernel.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Note: The order of floating-point operations is not guaranteed for the subgroup scan and reduction built-in functions that operate on floating point types, and the order of operations may additionally be non-deterministic for a given subgroup.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_bitwise_operations"><a class="anchor" href="#_bitwise_operations"></a>38.7.1.2. Bitwise Operations</h5>
+<div class="paragraph">
+<p>The table below describes the OpenCL C programming language built-in functions that perform simple bitwise integer operations across work items in a subgroup.
+These functions need not be encountered by all work items in a subgroup executing the kernel.
+For the functions below, the generic type name <code>gentype</code> may be one of the supported built-in scalar data types <code>char</code>, <code>uchar</code>, <code>short</code>, <code>ushort</code>, <code>int</code>, <code>uint</code>, <code>long</code>, and <code>ulong</code>.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 60%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Function</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">gentype sub_group_non_uniform_reduce_and(
+    gentype value )
+gentype sub_group_non_uniform_reduce_or(
+    gentype value )
+gentype sub_group_non_uniform_reduce_xor(
+    gentype value )</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the bitwise <strong>and</strong>, <strong>or</strong>, or <strong>xor</strong> of <em>value</em> for all active work items in the subgroup.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">gentype sub_group_non_uniform_scan_inclusive_and(
+    gentype value )
+gentype sub_group_non_uniform_scan_inclusive_or(
+    gentype value )
+gentype sub_group_non_uniform_scan_inclusive_xor(
+    gentype value )</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the result of an inclusive scan operation, which is the bitwise <strong>and</strong>, <strong>or</strong>, or <strong>xor</strong> of <em>value</em> for all active work items in the subgroup with a subgroup local ID less than or equal to this work item&#8217;s subgroup local ID.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">gentype sub_group_non_uniform_scan_exclusive_and(
+    gentype value )
+gentype sub_group_non_uniform_scan_exclusive_or(
+    gentype value )
+gentype sub_group_non_uniform_scan_exclusive_xor(
+    gentype value )</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the result of an exclusive scan operation, which is the bitwise <strong>and</strong>, <strong>or</strong>, or <strong>xor</strong> of <em>value</em> for all active work items in the subgroup with a subgroup local ID less than this work item&#8217;s subgroup local ID.</p>
+<p class="tableblock">If there is no active work item in the subgroup with a subgroup local ID less than this work item&#8217;s subgroup local ID then an identity value <code>I</code> is returned.
+For <strong>and</strong>, the identity value is <code>~0</code> (all bits set).
+For <strong>or</strong> and <strong>xor</strong>, the identity value is <code>0</code>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect4">
+<h5 id="_logical_operations"><a class="anchor" href="#_logical_operations"></a>38.7.1.3. Logical Operations</h5>
+<div class="paragraph">
+<p>The table below describes the OpenCL C programming language built-in functions that perform simple logical operations across work items in a subgroup.
+These functions need not be encountered by all work items in a subgroup executing the kernel.
+For these functions, a non-zero <em>predicate</em> argument or return value is logically <code>true</code> and a zero <em>predicate</em> argument or return value is logically <code>false</code>.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 66.6666%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Function</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c"><span class="predefined-type">int</span> sub_group_non_uniform_reduce_logical_and(
+    <span class="predefined-type">int</span> predicate )
+<span class="predefined-type">int</span> sub_group_non_uniform_reduce_logical_or(
+    <span class="predefined-type">int</span> predicate )
+<span class="predefined-type">int</span> sub_group_non_uniform_reduce_logical_xor(
+    <span class="predefined-type">int</span> predicate )</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the logical <strong>and</strong>, <strong>or</strong>, or <strong>xor</strong> of <em>predicate</em> for all active work items in the subgroup.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c"><span class="predefined-type">int</span> sub_group_non_uniform_scan_inclusive_logical_and(
+    <span class="predefined-type">int</span> predicate )
+<span class="predefined-type">int</span> sub_group_non_uniform_scan_inclusive_logical_or(
+    <span class="predefined-type">int</span> predicate )
+<span class="predefined-type">int</span> sub_group_non_uniform_scan_inclusive_logical_xor(
+    <span class="predefined-type">int</span> predicate )</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the result of an inclusive scan operation, which is the logical <strong>and</strong>, <strong>or</strong>, or <strong>xor</strong> of <em>predicate</em> for all active work items in the subgroup with a subgroup local ID less than or equal to this work item&#8217;s subgroup local ID.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c"><span class="predefined-type">int</span> sub_group_non_uniform_scan_exclusive_logical_and(
+    <span class="predefined-type">int</span> predicate )
+<span class="predefined-type">int</span> sub_group_non_uniform_scan_exclusive_logical_or(
+    <span class="predefined-type">int</span> predicate )
+<span class="predefined-type">int</span> sub_group_non_uniform_scan_exclusive_logical_xor(
+    <span class="predefined-type">int</span> predicate )</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the result of an exclusive scan operation, which is the logical <strong>and</strong>, <strong>or</strong>, or <strong>xor</strong> of <em>predicate</em> for all active work items in the subgroup with a subgroup local ID less than this work item&#8217;s subgroup local ID.</p>
+<p class="tableblock">If there is no active work item in the subgroup with a subgroup local ID less than this work item&#8217;s subgroup local ID then an identity value <code>I</code> is returned.
+For <strong>and</strong>, the identity value is <code>true</code> (non-zero).
+For <strong>or</strong> and <strong>xor</strong>, the identity value is <code>false</code> (zero).</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="cl_khr_subgroup_shuffle"><a class="anchor" href="#cl_khr_subgroup_shuffle"></a>38.8. General Purpose Shuffles</h3>
+<div class="paragraph">
+<p>This section describes functionality added by <code>cl_khr_subgroup_shuffle</code>.
+This extension adds additional ways to exchange data among work items in a subgroup.</p>
+</div>
+<div class="sect3">
+<h4 id="_add_a_new_section_6_15_x_subgroup_shuffle_built_in_functions"><a class="anchor" href="#_add_a_new_section_6_15_x_subgroup_shuffle_built_in_functions"></a>38.8.1. Add a new Section 6.15.X - Subgroup Shuffle Built-in Functions</h4>
+<div class="paragraph">
+<p>The table below describes the OpenCL C programming language built-in functions that allow work items in a subgroup to exchange data.
+These functions need not be encountered by all work items in a subgroup executing the kernel.
+For the functions below, the generic type name <code>gentype</code> may be one of the supported built-in scalar data types <code>char</code>, <code>uchar</code>, <code>short</code>, <code>ushort</code>, <code>int</code>, <code>uint</code>, <code>long</code>, <code>ulong</code>, <code>float</code>, <code>double</code> (if double precision is supported), or <code>half</code> (if half precision is supported).</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Function</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">gentype sub_group_shuffle(
+    gentype value, uint index )</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns <em>value</em> for the work item with subgroup local ID equal to <em>index</em>.
+The shuffle <em>index</em> need not be the same for all work items in the subgroup.</p>
+<p class="tableblock">The return value is undefined if the work item with subgroup local ID equal to <em>index</em> is inactive or if <em>index</em> is greater than or equal to the size of the subgroup.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">gentype sub_group_shuffle_xor(
+    gentype value, uint mask )</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns <em>value</em> for the work item with subgroup local ID equal to this work item&#8217;s subgroup local ID xor&#8217;d with <em>mask</em>.
+The shuffle <em>mask</em> need not be the same for all work items in the subgroup.</p>
+<p class="tableblock">The return value is undefined if the work item with subgroup local ID equal to the calculated index is inactive or if the calculated index is greater than or equal to the size of the subgroup.</p>
+<p class="tableblock">This is a specialized function that may perform better than the equivalent <code>sub_group_shuffle</code> on some implementations.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="cl_khr_subgroup_shuffle_relative"><a class="anchor" href="#cl_khr_subgroup_shuffle_relative"></a>38.9. Relative Shuffles</h3>
+<div class="paragraph">
+<p>This section describes functionality added by <code>cl_khr_subgroup_shuffle_relative</code>.
+This extension adds specialized ways to exchange data among work items in a subgroup that may perform better on some implementations.</p>
+</div>
+<div class="sect3">
+<h4 id="_add_a_new_section_6_15_x_subgroup_relative_shuffle_built_in_functions"><a class="anchor" href="#_add_a_new_section_6_15_x_subgroup_relative_shuffle_built_in_functions"></a>38.9.1. Add a new Section 6.15.X - Subgroup Relative Shuffle Built-in Functions</h4>
+<div class="paragraph">
+<p>The table below describes specialized OpenCL C programming language built-in functions that allow work items in a subgroup to exchange data.
+These functions need not be encountered by all work items in a subgroup executing the kernel.
+For the functions below, the generic type name <code>gentype</code> may be one of the supported built-in scalar data types <code>char</code>, <code>uchar</code>, <code>short</code>, <code>ushort</code>, <code>int</code>, <code>uint</code>, <code>long</code>, <code>ulong</code>, <code>float</code>, <code>double</code> (if double precision is supported), or <code>half</code> (if half precision is supported).</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Function</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">gentype sub_group_shuffle_up(
+    gentype value, uint delta )</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns <em>value</em> for the work item with subgroup local ID equal to this work item&#8217;s subgroup local ID minus <em>delta</em>.
+The shuffle <em>delta</em> need not be the same for all work items in the subgroup.</p>
+<p class="tableblock">The return value is undefined if the work item with subgroup local ID equal to the calculated index is inactive, or <em>delta</em> is greater than this work item&#8217;s subgroup local ID.</p>
+<p class="tableblock">This is a specialized function that may perform better than the equivalent <code>sub_group_shuffle</code> on some implementations.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">gentype sub_group_shuffle_down(
+    gentype value, uint delta )</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns <em>value</em> for the work item with subgroup local ID equal to this work item&#8217;s subgroup local ID plus <em>delta</em>.
+The shuffle <em>delta</em> need not be the same for all work items in the subgroup.</p>
+<p class="tableblock">The return value is undefined if the work item with subgroup local ID equal to the calculated index is inactive, or this work item&#8217;s subgroup local ID plus <em>delta</em> is greater than or equal to the size of the subgroup.</p>
+<p class="tableblock">This is a specialized function that may perform better than the equivalent <code>sub_group_shuffle</code> on some implementations.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="cl_khr_subgroup_clustered_reduce"><a class="anchor" href="#cl_khr_subgroup_clustered_reduce"></a>38.10. Clustered Reductions</h3>
+<div class="paragraph">
+<p>This section describes functionality added by <code>cl_khr_subgroup_clustered_reduce</code>.
+This extension adds support for clustered reductions that operate on a subset of work items in the subgroup.</p>
+</div>
+<div class="sect3">
+<h4 id="_add_a_new_section_6_15_x_subgroup_clustered_reduction_built_in_functions"><a class="anchor" href="#_add_a_new_section_6_15_x_subgroup_clustered_reduction_built_in_functions"></a>38.10.1. Add a new Section 6.15.X - Subgroup Clustered Reduction Built-in Functions</h4>
+<div class="paragraph">
+<p>This section describes arithmetic operations that are performed subset of work items in a subgroup, referred to as a cluster.
+A cluster is described by a specified cluster size.
+Work items in a subgroup are assigned to clusters such that for cluster size <em>n</em>, the <em>n</em> work items in the subgroup with the smallest subgroup local IDs are assigned to the first cluster, then the <em>n</em> remaining work items with the smallest subgroup local IDs are assigned to the next cluster, and so on.
+The specified cluster size must be an integer constant expression that is a power-of-two.
+Behavior is undefined if the specified cluster size is greater than the maximum size of a subgroup within the dispatch.</p>
+</div>
+<div class="sect4">
+<h5 id="_arithmetic_operations_2"><a class="anchor" href="#_arithmetic_operations_2"></a>38.10.1.1. Arithmetic Operations</h5>
+<div class="paragraph">
+<p>The table below describes the OpenCL C programming language built-in functions that perform simple arithmetic operations on a cluster of work items in a subgroup.
+These functions need not be encountered by all work items in a subgroup executing the kernel.
+For the functions below, the generic type name <code>gentype</code> may be one of the supported built-in scalar data types <code>char</code>, <code>uchar</code>, <code>short</code>, <code>ushort</code>, <code>int</code>, <code>uint</code>, <code>long</code>, <code>ulong</code>, <code>float</code>, <code>double</code> (if double precision is supported), or <code>half</code> (if half precision is supported).</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Function</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">gentype sub_group_clustered_reduce_add(
+    gentype value, uint clustersize )
+gentype sub_group_clustered_reduce_mul(
+    gentype value, uint clustersize )
+gentype sub_group_clustered_reduce_min(
+    gentype value, uint clustersize )
+gentype sub_group_clustered_reduce_max(
+    gentype value, uint clustersize )</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the summation, multiplication, minimum, or maximum of <em>value</em> for all active work items in the subgroup within a cluster of the specified <em>clustersize</em>.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Note: The order of floating-point operations is not guaranteed for the subgroup clustered reduction built-in functions that operate on floating point types, and the order of operations may additionally be non-deterministic for a given subgroup.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_bitwise_operations_2"><a class="anchor" href="#_bitwise_operations_2"></a>38.10.1.2. Bitwise Operations</h5>
+<div class="paragraph">
+<p>The table below describes the OpenCL C programming language built-in functions to perform simple bitwise integer operations across a cluster of work items in a subgroup.
+These functions need not be encountered by all work items in a subgroup executing the kernel.
+For the functions below, the generic type name <code>gentype</code> may be the one of the supported built-in scalar data types <code>char</code>, <code>uchar</code>, <code>short</code>, <code>ushort</code>, <code>int</code>, <code>uint</code>, <code>long</code>, or <code>ulong</code>.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Function</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">gentype sub_group_clustered_reduce_and(
+    gentype value, uint clustersize )
+gentype sub_group_clustered_reduce_or(
+    gentype value, uint clustersize )
+gentype sub_group_clustered_reduce_xor(
+    gentype value, uint clustersize )</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the bitwise <strong>and</strong>, <strong>or</strong>, or <strong>xor</strong> of <em>value</em> for all active work items in the subgroup within a cluster of the specified <em>clustersize</em>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect4">
+<h5 id="_logical_operations_2"><a class="anchor" href="#_logical_operations_2"></a>38.10.1.3. Logical Operations</h5>
+<div class="paragraph">
+<p>The table below describes the OpenCL C programming language built-in functions to perform simple logical operations across a cluster of work items in a subgroup.
+These functions need not be encountered by all work items in a subgroup executing the kernel.
+For these functions, a non-zero <em>predicate</em> argument or return value is logically <code>true</code> and a zero <em>predicate</em> argument or return value is logically <code>false</code>.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 60%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Function</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c"><span class="predefined-type">int</span> sub_group_clustered_reduce_logical_and(
+    <span class="predefined-type">int</span> predicate, uint clustersize )
+<span class="predefined-type">int</span> sub_group_clustered_reduce_logical_or(
+    <span class="predefined-type">int</span> predicate, uint clustersize )
+<span class="predefined-type">int</span> sub_group_clustered_reduce_logical_xor(
+    <span class="predefined-type">int</span> predicate, uint clustersize )</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the logical <strong>and</strong>, <strong>or</strong>, or <strong>xor</strong> of <em>predicate</em> for all active work items in the subgroup within a cluster of the specified <em>clustersize</em>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="extended-subgroups-mapping"><a class="anchor" href="#extended-subgroups-mapping"></a>38.11. Function Mapping and Capabilities</h3>
+<div class="paragraph">
+<p>This section describes a possible mapping between OpenCL built-in functions and SPIR-V instructions and required SPIR-V capabilities.</p>
+</div>
+<div class="paragraph">
+<p>This section is informational and non-normative.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>OpenCL C Function</strong></th>
+<th class="tableblock halign-left valign-top"><strong>SPIR-V BuiltIn or Instruction</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Enabling SPIR-V Capability</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">For OpenCL 2.1 or <code>cl_khr_subgroups</code>:</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_&#8203;sub_&#8203;group_&#8203;size</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>SubgroupSize</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Kernel</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_&#8203;max_&#8203;sub_&#8203;group_&#8203;size</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>SubgroupMaxSize</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Kernel</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_&#8203;num_&#8203;sub_&#8203;groups</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>NumSubgroups</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Kernel</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_&#8203;enqueued_&#8203;num_&#8203;sub_&#8203;groups</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>NumEnqueuedSubgroups</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Kernel</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_&#8203;sub_&#8203;group_&#8203;id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>SubgroupId</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Kernel</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_&#8203;sub_&#8203;group_&#8203;local_&#8203;id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>SubgroupLocalInvocationId</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Kernel</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;barrier</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpControlBarrier</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None Needed</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;all</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupAll</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;any</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupAny</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;broadcast</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupBroadcast</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;reduce_&#8203;add</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupIAdd</strong>, <strong>OpGroupFAdd</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;reduce_&#8203;min</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupSMin</strong>, <strong>OpGroupUMin</strong>, <strong>OpGroupFMin</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;reduce_&#8203;max</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupSMax</strong>, <strong>OpGroupUMax</strong>, <strong>OpGroupFMax</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;scan_&#8203;exclusive_&#8203;add</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupIAdd</strong>, <strong>OpGroupFAdd</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;scan_&#8203;exclusive_&#8203;min</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupSMin</strong>, <strong>OpGroupUMin</strong>, <strong>OpGroupFMin</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;scan_&#8203;exclusive_&#8203;max</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupSMax</strong>, <strong>OpGroupUMax</strong>, <strong>OpGroupFMax</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;scan_&#8203;inclusive_&#8203;add</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupIAdd</strong>, <strong>OpGroupFAdd</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;scan_&#8203;inclusive_&#8203;min</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupSMin</strong>, <strong>OpGroupUMin</strong>, <strong>OpGroupFMin</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;scan_&#8203;inclusive_&#8203;max</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupSMax</strong>, <strong>OpGroupUMax</strong>, <strong>OpGroupFMax</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;reserve_&#8203;read_&#8203;pipe</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupReserveReadPipePackets</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pipes</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;reserve_&#8203;write_&#8203;pipe</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupReserveReadWritePackets</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pipes</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;commit_&#8203;read_&#8203;pipe</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupCommitReadPipe</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pipes</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;commit_&#8203;write_&#8203;pipe</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupCommitWritePipe</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pipes</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_&#8203;kernel_&#8203;sub_&#8203;group_&#8203;count_&#8203;for_&#8203;ndrange</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGetKernelNDrangeSubGroupCount</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>DeviceEnqueue</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_&#8203;kernel_&#8203;max_&#8203;sub_&#8203;group_&#8203;size_&#8203;for_&#8203;ndrange</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGetKernelNDrangeMaxSubGroupSize</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>DeviceEnqueue</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">For <code>cl_khr_subgroup_extended_types</code>:<br>
+Note: This extension adds new types to uniform subgroup operations.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;broadcast</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupBroadcast</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;reduce_&#8203;add</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupIAdd</strong>, <strong>OpGroupFAdd</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;reduce_&#8203;min</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupSMin</strong>, <strong>OpGroupUMin</strong>, <strong>OpGroupFMin</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;reduce_&#8203;max</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupSMax</strong>, <strong>OpGroupUMax</strong>, <strong>OpGroupFMax</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;scan_&#8203;exclusive_&#8203;add</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupIAdd</strong>, <strong>OpGroupFAdd</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;scan_&#8203;exclusive_&#8203;min</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupSMin</strong>, <strong>OpGroupUMin</strong>, <strong>OpGroupFMin</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;scan_&#8203;exclusive_&#8203;max</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupSMax</strong>, <strong>OpGroupUMax</strong>, <strong>OpGroupFMax</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;scan_&#8203;inclusive_&#8203;add</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupIAdd</strong>, <strong>OpGroupFAdd</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;scan_&#8203;inclusive_&#8203;min</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupSMin</strong>, <strong>OpGroupUMin</strong>, <strong>OpGroupFMin</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;scan_&#8203;inclusive_&#8203;max</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupSMax</strong>, <strong>OpGroupUMax</strong>, <strong>OpGroupFMax</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">For <code>cl_khr_subgroup_non_uniform_vote</code>:</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;elect</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformElect</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniform</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;all</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformAll</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformVote</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;any</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformAny</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformVote</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;all_&#8203;equal</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformAllEqual</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformVote</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">For <code>cl_khr_subgroup_ballot</code>:</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;broadcast</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformBroadcast</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformBallot</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;broadcast_&#8203;first</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformBroadcastFirst</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformBallot</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;ballot</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformBallot</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformBallot</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;inverse_&#8203;ballot</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformInverseBallot</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformBallot</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;ballot_&#8203;bit_&#8203;extract</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformBallotBitExtract</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformBallot</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;ballot_&#8203;bit_&#8203;count</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformBallotBitCount</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformBallot</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;ballot_&#8203;inclusive_&#8203;scan</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformBallotBitCount</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformBallot</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;ballot_&#8203;exclusive_&#8203;scan</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformBallotBitCount</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformBallot</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;ballot_&#8203;find_&#8203;lsb</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformBallotFindLSB</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformBallot</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;ballot_&#8203;find_&#8203;msb</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformBallotFindMSB</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformBallot</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_&#8203;sub_&#8203;group_&#8203;eq_&#8203;mask</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>SubgroupEqMask</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformBallot</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_&#8203;sub_&#8203;group_&#8203;ge_&#8203;mask</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>SubgroupGeMask</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformBallot</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_&#8203;sub_&#8203;group_&#8203;gt_&#8203;mask</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>SubgroupGtMask</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformBallot</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_&#8203;sub_&#8203;group_&#8203;le_&#8203;mask</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>SubgroupLeMask</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformBallot</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_&#8203;sub_&#8203;group_&#8203;lt_&#8203;mask</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>SubgroupLtMask</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformBallot</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">For <code>cl_khr_subgroup_non_uniform_arithmetic</code>:</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;reduce_&#8203;add</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformIAdd</strong>, <strong>OpGroupNonUniformFAdd</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;reduce_&#8203;mul</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformIMul</strong>, <strong>OpGroupNonUniformFMul</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;reduce_&#8203;min</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformSMin</strong>, <strong>OpGroupNonUniformUMin</strong>, <strong>OpGroupNonUniformFMin</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;reduce_&#8203;max</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformSMax</strong>, <strong>OpGroupNonUniformUMax</strong>, <strong>OpGroupNonUniformFMax</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;reduce_&#8203;and</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformBitwiseAnd</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;reduce_&#8203;or</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformBitwiseOr</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;reduce_&#8203;xor</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformBitwiseXor</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;reduce_&#8203;logical_&#8203;and</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformLogicalAnd</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;reduce_&#8203;logical_&#8203;or</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformLogicalOr</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;reduce_&#8203;logical_&#8203;xor</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformLogicalXor</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;scan_&#8203;inclusive_&#8203;add</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformIAdd</strong>, <strong>OpGroupNonUniformFAdd</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;scan_&#8203;inclusive_&#8203;mul</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformIMul</strong>, <strong>OpGroupNonUniformFMul</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;scan_&#8203;inclusive_&#8203;min</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformSMin</strong>, <strong>OpGroupNonUniformUMin</strong>, <strong>OpGroupNonUniformFMin</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;scan_&#8203;inclusive_&#8203;max</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformSMax</strong>, <strong>OpGroupNonUniformUMax</strong>, <strong>OpGroupNonUniformFMax</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;scan_&#8203;inclusive_&#8203;and</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformBitwiseAnd</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;scan_&#8203;inclusive_&#8203;or</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformBitwiseOr</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;scan_&#8203;inclusive_&#8203;xor</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformBitwiseXor</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;scan_&#8203;inclusive_&#8203;logical_&#8203;and</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformLogicalAnd</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;scan_&#8203;inclusive_&#8203;logical_&#8203;or</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformLogicalOr</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;scan_&#8203;inclusive_&#8203;logical_&#8203;xor</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformLogicalXor</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;scan_&#8203;exclusive_&#8203;add</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformIAdd</strong>, <strong>OpGroupNonUniformFAdd</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;scan_&#8203;exclusive_&#8203;mul</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformIMul</strong>, <strong>OpGroupNonUniformFMul</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;scan_&#8203;exclusive_&#8203;min</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformSMin</strong>, <strong>OpGroupNonUniformUMin</strong>, <strong>OpGroupNonUniformFMin</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;&#8203;scan_&#8203;exclusive_&#8203;max</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformSMax</strong>, <strong>OpGroupNonUniformUMax</strong>, <strong>OpGroupNonUniformFMax</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;&#8203;scan_&#8203;exclusive_&#8203;and</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformBitwiseAnd</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;&#8203;scan_&#8203;exclusive_&#8203;or</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformBitwiseOr</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;&#8203;scan_&#8203;exclusive_&#8203;xor</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformBitwiseXor</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;&#8203;scan_&#8203;exclusive_&#8203;logical_&#8203;and</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformLogicalAnd</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;&#8203;scan_&#8203;exclusive_&#8203;logical_&#8203;or</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformLogicalOr</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;&#8203;scan_&#8203;exclusive_&#8203;logical_&#8203;xor</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformLogicalXor</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">For <code>cl_khr_subgroup_shuffle</code>:</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;shuffle</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformShuffle</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformShuffle</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;shuffle_&#8203;xor</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformShuffleXor</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformShuffle</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">For <code>cl_khr_subgroup_shuffle_relative</code>:</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;shuffle_&#8203;up</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformShuffleUp</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformShuffleRelative</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;shuffle_&#8203;down</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformShuffleDown</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformShuffleRelative</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">For <code>cl_khr_subgroup_clustered_reduce</code>:</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;reduce_&#8203;clustered_&#8203;add</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformIAdd</strong>, <strong>OpGroupNonUniformFAdd</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformClustered</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;reduce_&#8203;clustered_&#8203;mul</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformIMul</strong>, <strong>OpGroupNonUniformFMul</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformClustered</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;reduce_&#8203;clustered_&#8203;min</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformSMin</strong>, <strong>OpGroupNonUniformUMin</strong>, <strong>OpGroupNonUniformFMin</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformClustered</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;reduce_&#8203;clustered_&#8203;max</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformSMax</strong>, <strong>OpGroupNonUniformUMax</strong>, <strong>OpGroupNonUniformFMax</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformClustered</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;reduce_&#8203;clustered_&#8203;and</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformBitwiseAnd</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformClustered</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;reduce_&#8203;clustered_&#8203;or</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformBitwiseOr</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformClustered</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;reduce_&#8203;clustered_&#8203;xor</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformBitwiseXor</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformClustered</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;reduce_&#8203;clustered_&#8203;logical_&#8203;and</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformLogicalAnd</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformClustered</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;reduce_&#8203;clustered_&#8203;logical_&#8203;or</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformLogicalOr</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformClustered</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;reduce_&#8203;clustered_&#8203;logical_&#8203;xor</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformLogicalXor</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformClustered</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="spirv_extensions"><a class="anchor" href="#spirv_extensions"></a>39. Extensions to the OpenCL SPIR-V Environment</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>An OpenCL SPIR-V environment may be modified by OpenCL extensions.
@@ -17684,6 +19583,11 @@ Its use is no longer recommended.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Provisional Extension</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#cl_khr_extended_versioning">cl_khr_extended_versioning</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extend versioning of platform, devices, extensions, etc.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extension</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#cl_khr_fp16">cl_khr_fp16</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Operations on 16-bit Floating-Point Values</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Extension</p></td>
@@ -17794,14 +19698,49 @@ Its use is no longer recommended.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Extension</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#cl_khr_subgroups">cl_khr_subgroups</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Sub-Groupings of Work Items</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Core Feature in OpenCL 2.1 (with minor changes)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#cl_khr_subgroup_ballot">cl_khr_subgroup_ballot</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exchange Ballots Among Sub-Groupings of Work Items</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extension</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#cl_khr_subgroup_clustered_reduce">cl_khr_subgroup_clustered_reduce</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Clustered Reductions for Sub-Groupings of Work Items</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extension</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#cl_khr_subgroup_extended_types">cl_khr_subgroup_extended_types</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Additional Type Support for Sub-Group Functions</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extension</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#cl_khr_subgroup_named_barrier">cl_khr_subgroup_named_barrier</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Barriers for Subsets of a Work Group</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Extension</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#cl_khr_subgroups">cl_khr_subgroups</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Sub-Groupings of Work Items</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Core Feature in OpenCL 2.1 (with minor changes)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#cl_khr_subgroup_non_uniform_arithmetic">cl_khr_subgroup_non_uniform_arithmetic</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Sub-Group Arithmetic Functions in Non-Uniform Control Flow</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extension</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#cl_khr_subgroup_non_uniform_vote">cl_khr_subgroup_non_uniform_vote</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hold Votes Among Sub-Groupings of Work Items</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extension</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#cl_khr_subgroup_shuffle">cl_khr_subgroup_shuffle</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">General-Purpose Shuffles Among Sub-Groupings of Work Items</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extension</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#cl_khr_subgroup_shuffle_relative">cl_khr_subgroup_shuffle_relative</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Relative Shuffles Among Sub-Groupings of Work Items</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extension</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#cl_khr_terminate_context">cl_khr_terminate_context</a></p></td>
@@ -17820,8 +19759,8 @@ Its use is no longer recommended.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.5<br>
-Last updated 2020-09-29 09:40:19 -0700
+Version v3.0.6<br>
+Last updated 2020-12-18 09:20:25 -0800
 </div>
 </div>
 

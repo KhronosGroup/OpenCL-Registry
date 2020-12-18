@@ -841,9 +841,9 @@ table.CodeRay td.code>pre{padding:0}
 <h1>The OpenCL<sup>&#8482;</sup> Specification</h1>
 <div class="details">
 <span id="author" class="author">Khronos<sup>&#174;</sup> OpenCL Working Group</span><br>
-<span id="revnumber">version v3.0.5,</span>
-<span id="revdate">Wed, 30 Sep 2020 00:00:00 +0000</span>
-<br><span id="revremark">from git branch: master commit: 4d8a36725aa8af9658ab5cb62fdbf52adb44bcca</span>
+<span id="revnumber">version v3.0.6,</span>
+<span id="revdate">Fri, 18 Dec 2020 12:00:00 +0000</span>
+<br><span id="revremark">from git branch: master commit: e9a4d468b1a0a38c1e10b8af484bb2bbb495e2b7</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -1461,7 +1461,7 @@ operations on <em>memory objects</em>.</p>
 <dt class="hdlist1">Control flow </dt>
 <dd>
 <p>The flow of instructions executed by a work-item.
-Multiple logically related work items may or may not execute the same
+Multiple logically related work-items may or may not execute the same
 control flow.
 The control flow is said to be <em>converged</em> if all the work-items in the
 set execution the same stream of instructions.
@@ -1501,7 +1501,7 @@ each point within an abstract domain of indices.</p>
 <dt class="hdlist1">Data race </dt>
 <dd>
 <p>The execution of a program contains a data race if it contains two
-actions in different work items or host threads where (1) one action
+actions in different work-items or host threads where (1) one action
 modifies a memory location and the other action reads or modifies the
 same memory location, and (2) at least one of these actions is not
 atomic, or the corresponding memory scopes are not inclusive, and (3)
@@ -1691,9 +1691,9 @@ entity (for example it does not wait on a lock held by, and thus that
 must be released by, any other entity), then its execution cannot be
 blocked by the execution of any other entity in the system (it will not
 be starved).
-Work items in a subgroup, for example, typically do not support
-independent forward progress, so one work item in a subgroup may be
-completely blocked (starved) if a different work item in the same
+Work-items in a subgroup, for example, typically do not support
+independent forward progress, so one work-item in a subgroup may be
+completely blocked (starved) if a different work-item in the same
 subgroup enters a spin loop.</p>
 </dd>
 <dt class="hdlist1">In-order Execution </dt>
@@ -2730,7 +2730,7 @@ using <code>-cl-uniform-work-group-size</code>, the size of work-groups in
 an NDRange (the local size) need not be the same for all work-groups.
 In this case, any single dimension for which the global size is not
 divisible by the local size will be partitioned into two regions.
-One region will have work-groups that have the same number of work items as
+One region will have work-groups that have the same number of work-items as
 was specified for that dimension by the programmer (the local size).
 The other region will have work-groups with less than the number of work
 items specified by the local size parameter in that dimension (the
@@ -2769,7 +2769,7 @@ size in the same dimension.
 As a result, the combination of a work-group ID and the local-ID within a
 work-group uniquely defines a work-item.
 Each work-item is identifiable in two ways; in terms of a global index, and
-in terms of a work-group index plus a local index within a work group.</p>
+in terms of a work-group index plus a local index within a work-group.</p>
 </div>
 <div class="paragraph">
 <p>For example, consider the <a href="#index-space-image">2-dimensional index space</a>
@@ -2791,7 +2791,7 @@ such that</p>
 <div class="ulist none">
 <ul class="none">
 <li>
-<p>(g<sub>x</sub> , g<sub>y</sub>) = (w<sub>x</sub> S<sub>x</sub> + s<sub>x</sub> + F<sub>x</sub>, w<sub>y</sub> S<sub>y</sub> + s<sub>y</sub> + F<sub>y</sub>)</p>
+<p>(g<sub>x</sub>, g<sub>y</sub>) = (w<sub>x</sub> × S<sub>x</sub> + s<sub>x</sub> + F<sub>x</sub>, w<sub>y</sub> × S<sub>y</sub> + s<sub>y</sub> + F<sub>y</sub>)</p>
 </li>
 </ul>
 </div>
@@ -2812,7 +2812,7 @@ is computed as:</p>
 <div class="ulist none">
 <ul class="none">
 <li>
-<p>(w<sub>x</sub>, w<sub>y</sub>) = ( (g<sub>x</sub> s<sub>x</sub> F<sub>x</sub>) / S<sub>x</sub>, (g<sub>y</sub> s<sub>y</sub> F<sub>y</sub>) / S<sub>y</sub> )</p>
+<p>(w<sub>x</sub>, w<sub>y</sub>) = ( (g<sub>x</sub> - s<sub>x</sub> - F<sub>x</sub>) / S<sub>x</sub>, (g<sub>y</sub> - s<sub>y</sub> - F<sub>y</sub>) / S<sub>y</sub> )</p>
 </li>
 </ul>
 </div>
@@ -2843,7 +2843,7 @@ Sub-groups are <a href="#unified-spec">missing before</a> version 2.1.
 </table>
 </div>
 <div class="paragraph">
-<p>Work items are mapped into sub-groups through a combination of compile-time
+<p>Work-items are mapped into sub-groups through a combination of compile-time
 decisions and the parameters of the dispatch.
 The mapping to sub-groups is invariant for the duration of a kernels
 execution, across dispatches of a given kernel with the same work-group
@@ -3506,17 +3506,19 @@ region, the type of allocation (static at compile time vs.
 dynamic at runtime) and the type of access allowed (i.e. whether the kernel
 or the host can read and/or write to a memory region).</p>
 </div>
-<table id="memory-regions-table" class="tableblock frame-all grid-all" style="width: 80%;">
+<table id="memory-regions-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. Memory Regions</caption>
 <colgroup>
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 18.75%;">
+<col style="width: 18.75%;">
+<col style="width: 18.75%;">
+<col style="width: 18.75%;">
 </colgroup>
 <thead>
 <tr>
+<th class="tableblock halign-left valign-top"></th>
 <th class="tableblock halign-left valign-top"></th>
 <th class="tableblock halign-left valign-top">Global</th>
 <th class="tableblock halign-left valign-top">Constant</th>
@@ -3526,46 +3528,45 @@ or the host can read and/or write to a memory region).</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top" rowspan="2"><p class="tableblock">Host</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Dynamic Allocation</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Dynamic Allocation</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Dynamic Allocation</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No Allocation</p></td>
+<td class="tableblock halign-left valign-top" rowspan="2"><p class="tableblock"><strong>Host</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Allocation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dynamic</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dynamic</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dynamic</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Read/Write access to buffers and images but not pipes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Read/Write access</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No access</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No access</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Access</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Read/Write to Buffers and Images, but not Pipes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Read/Write</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top" rowspan="2"><p class="tableblock">Kernel</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Static Allocation for program scope variables</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Static Allocation</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Static Allocation.</p>
-<p class="tableblock">            Dynamic allocation for child kernel</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Static Allocation</p></td>
+<td class="tableblock halign-left valign-top" rowspan="2"><p class="tableblock"><strong>Kernel</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Allocation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Static (program scope variables)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Static (program scope variables)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Static for parent kernel,
+      Dynamic for child kernels</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Static</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Read/Write access</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Read-only access</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Read/Write access.</p>
-<p class="tableblock">        No access to child&#8217;s local memory.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Read/Write access</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Access</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Read/Write</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Read-only</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Read/Write,
+      No access to child kernel memory</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Read/Write</p></td>
 </tr>
 </tbody>
 </table>
-<div class="sidebarblock">
-<div class="content">
-<div class="title">Caption</div>
 <div class="paragraph">
 <p>The <a href="#memory-regions-table">Memory Regions</a> table shows the different
 memory regions in OpenCL and how memory objects are allocated and accessed
 by the host and by an executing instance of a kernel.
-For the case of kernels, we distinguish between the behavior of local memory
-with respect to a kernel (self) and its child kernels.</p>
-</div>
-</div>
+For kernels, we distinguish between the behavior of local memory
+for a parent kernel and its child kernels.</p>
 </div>
 <div class="paragraph">
 <p>Once allocated, a memory object is made available to kernel-instances
@@ -4083,12 +4084,12 @@ semantics, if <strong>memory_order_seq_cst</strong>.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>If specified, the cl_mem_fence_flags argument must be CLK_IMAGE_MEM_FENCE,
-CLK_GLOBAL_MEM_FENCE, CLK_LOCAL_MEM_FENCE, or CLK_GLOBAL_MEM_FENCE |
-CLK_LOCAL_MEM_FENCE.</p>
+<p>If specified, the cl_mem_fence_flags argument must be <code>CLK_IMAGE_MEM_FENCE</code>,
+<code>CLK_GLOBAL_MEM_FENCE</code>, <code>CLK_LOCAL_MEM_FENCE</code>, or <code>CLK_GLOBAL_MEM_FENCE |
+CLK_LOCAL_MEM_FENCE</code>.</p>
 </div>
 <div class="paragraph">
-<p>The atomic_work_item_fence(CLK_IMAGE_MEM_FENCE) built-in function must be
+<p>The <code>atomic_work_item_fence(CLK_IMAGE_MEM_FENCE, &#8230;&#8203;)</code> built-in function must be
 used to make sure that sampler-less writes are visible to later reads by the
 same work-item.
 Without use of the atomic_work_item_fence function, write-read coherence on
@@ -4688,8 +4689,8 @@ release sequence headed by <strong>A</strong>, and the scopes of <strong>A</stro
 <a href="#iso-c11">[C11 standard, Section 7.17.4, paragraph 4, modified.]</a></p>
 </div>
 <div class="paragraph">
-<p>Let <strong>X</strong> and <strong>Y</strong> be two work item fences that each have both the
-CLK_GLOBAL_MEM_FENCE and CLK_LOCAL_MEM_FENCE flags set.
+<p>Let <strong>X</strong> and <strong>Y</strong> be two work-item fences that each have both the
+<code>CLK_GLOBAL_MEM_FENCE</code> and <code>CLK_LOCAL_MEM_FENCE</code> flags set.
 <strong>X</strong> global-synchronizes-with <strong>Y</strong> and <strong>X</strong> local synchronizes with <strong>Y</strong> if the
 conditions required for <strong>X</strong> to global-synchronize with <strong>Y</strong> are met, the
 conditions required for <strong>X</strong> to local-synchronize-with <strong>Y</strong> are met, or both
@@ -4742,12 +4743,12 @@ requested for the barrier.</p>
 <p>For each work-item the entry fence is sequenced before the exit fence.</p>
 </li>
 <li>
-<p>If the flags have CLK_GLOBAL_MEM_FENCE set then for each work-item the
+<p>If the flags have <code>CLK_GLOBAL_MEM_FENCE</code> set then for each work-item the
 entry fence global-synchronizes-with the exit fence of all other
 work-items in the same work-group.</p>
 </li>
 <li>
-<p>If the flags have CLK_LOCAL_MEM_FENCE set then for each work-item the
+<p>If the flags have <code>CLK_LOCAL_MEM_FENCE</code> set then for each work-item the
 entry fence local-synchronizes-with the exit fence of all other
 work-items in the same work-group.</p>
 </li>
@@ -4759,10 +4760,10 @@ and broadcasts, and are described in the kernel language and IL specifications.
 The use of these work-group functions implies sequenced-before relationships
 between statements within the execution of a single work-item in order to
 satisfy data dependencies.
-For example, a work item that provides a value to a work-group function must
+For example, a work-item that provides a value to a work-group function must
 behave as if it generates that value before beginning execution of that
 work-group function.
-Furthermore, the programmer must ensure that all work items in a work group
+Furthermore, the programmer must ensure that all work-items in a work-group
 must execute the same work-group function call site, or dynamic work-group
 function instance.</p>
 </div>
@@ -4825,12 +4826,12 @@ requested for the barrier.</p>
 <p>For each work-item the entry fence is sequenced before the exit fence.</p>
 </li>
 <li>
-<p>If the flags have CLK_GLOBAL_MEM_FENCE set then for each work-item the
+<p>If the flags have <code>CLK_GLOBAL_MEM_FENCE</code> set then for each work-item the
 entry fence global-synchronizes-with the exit fence of all other
 work-items in the same sub-group.</p>
 </li>
 <li>
-<p>If the flags have CLK_LOCAL_MEM_FENCE set then for each work-item the
+<p>If the flags have <code>CLK_LOCAL_MEM_FENCE</code> set then for each work-item the
 entry fence local-synchronizes-with the exit fence of all other
 work-items in the same sub-group.</p>
 </li>
@@ -4842,10 +4843,10 @@ and broadcasts, and are described in the kernel languages and IL specifications.
 The use of these sub-group functions implies sequenced-before relationships
 between statements within the execution of a single work-item in order to
 satisfy data dependencies.
-For example, a work item that provides a value to a sub-group function must
+For example, a work-item that provides a value to a sub-group function must
 behave as if it generates that value before beginning execution of that
 sub-group function.
-Furthermore, the programmer must ensure that all work items in a sub-group
+Furthermore, the programmer must ensure that all work-items in a sub-group
 must execute the same sub-group function call site, or dynamic sub-group
 function instance.</p>
 </div>
@@ -4956,15 +4957,15 @@ global-synchronizes-with <strong>X</strong>.</p>
 </li>
 <li>
 <p>The start of a kernel-instance <strong>K</strong> global-synchronizes-with all
-operations in the work items of <strong>K</strong>.
+operations in the work-items of <strong>K</strong>.
 Note that this includes the execution of any atomic operations by the
-work items in a program using fine-grain SVM.</p>
+work-items in a program using fine-grain SVM.</p>
 </li>
 <li>
-<p>All operations of all work items of a kernel-instance <strong>K</strong>
+<p>All operations of all work-items of a kernel-instance <strong>K</strong>
 global-synchronizes-with the event signaling the completion of <strong>K</strong>.
 Note that this also includes the execution of any atomic operations by
-the work items in a program using fine-grain SVM.</p>
+the work-items in a program using fine-grain SVM.</p>
 </li>
 <li>
 <p>If a callback procedure <strong>P</strong> is registered on an event <strong>E</strong>, then <strong>E</strong>
@@ -4980,12 +4981,12 @@ function call <strong>X</strong> sets the status of a user event <strong>E</stro
 </li>
 <li>
 <p>If a device enqueues a command <strong>C</strong> with the
-CLK_ENQUEUE_FLAGS_WAIT_KERNEL flag, then the end state of the parent
+<code>CLK_ENQUEUE_FLAGS_WAIT_KERNEL</code> flag, then the end state of the parent
 kernel instance global-synchronizes with <strong>C</strong>.</p>
 </li>
 <li>
 <p>If a work-group enqueues a command <strong>C</strong> with the
-CLK_ENQUEUE_FLAGS_WAIT_WORK_GROUP flag, then the end state of the
+<code>CLK_ENQUEUE_FLAGS_WAIT_WORK_GROUP</code> flag, then the end state of the
 work-group global-synchronizes with <strong>C</strong>.</p>
 </li>
 </ol>
@@ -5452,9 +5453,9 @@ in the <a href="#platform-queries-table">Platform Queries</a> table.</p>
 <table id="platform-queries-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 3. List of supported param_names by <a href="#clGetPlatformInfo">clGetPlatformInfo</a></caption>
 <colgroup>
+<col style="width: 33%;">
+<col style="width: 17%;">
 <col style="width: 50%;">
-<col style="width: 10%;">
-<col style="width: 40%;">
 </colgroup>
 <thead>
 <tr>
@@ -5800,8 +5801,8 @@ device except for the following queries:</p>
 <table id="device-queries-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 5. List of supported param_names by <a href="#clGetDeviceInfo">clGetDeviceInfo</a></caption>
 <colgroup>
-<col style="width: 30%;">
-<col style="width: 20%;">
+<col style="width: 33%;">
+<col style="width: 17%;">
 <col style="width: 50%;">
 </colgroup>
 <thead>
@@ -6558,7 +6559,7 @@ Also see extension <strong>cl_khr_fp64</strong>.</p></td>
 <p class="tableblock">        <strong>cl_khr_fp64</strong></p>
 <p class="tableblock">        Additionally, the following Khronos extension names must be returned
         by all devices that support OpenCL 2.0, OpenCL 2.1, or OpenCL 2.2.
-        For devices that support OpenCL 3.0, these extension names must only
+        For devices that support OpenCL 3.0, these extension names must
         be returned when and only when the optional feature is supported:</p>
 <p class="tableblock">        <strong>cl_khr_3d_image_writes</strong><br>
         <strong>cl_khr_depth_images</strong><br>
@@ -6760,7 +6761,7 @@ Also see extension <strong>cl_khr_fp64</strong>.</p></td>
         <a id="CL_DEVICE_ATOMIC_ORDER_ACQ_REL"></a><a href="#CL_DEVICE_ATOMIC_ORDER_ACQ_REL"><code>CL_DEVICE_<wbr>ATOMIC_<wbr>ORDER_<wbr>ACQ_<wbr>REL</code></a> - Support for the <strong>acquire</strong>, <strong>release</strong>, and <strong>acquire-release</strong> memory orders.<br>
         <a id="CL_DEVICE_ATOMIC_ORDER_SEQ_CST"></a><a href="#CL_DEVICE_ATOMIC_ORDER_SEQ_CST"><code>CL_DEVICE_<wbr>ATOMIC_<wbr>ORDER_<wbr>SEQ_<wbr>CST</code></a> - Support for the <strong>sequentially consistent</strong> memory order.</p>
 <p class="tableblock">        Because atomic memory orders are hierarchical, a device that supports a strong memory order must also support all weaker memory orders.</p>
-<p class="tableblock">        <a id="CL_DEVICE_ATOMIC_SCOPE_WORK_ITEM"></a><a href="#CL_DEVICE_ATOMIC_SCOPE_WORK_ITEM"><code>CL_DEVICE_<wbr>ATOMIC_<wbr>SCOPE_<wbr>WORK_<wbr>ITEM</code></a> <sup class="footnote">[<a id="_footnoteref_10" class="footnote" href="#_footnotedef_10" title="View footnote.">10</a>]</sup> - Support for memory ordering constraints that apply to a single work item.<br>
+<p class="tableblock">        <a id="CL_DEVICE_ATOMIC_SCOPE_WORK_ITEM"></a><a href="#CL_DEVICE_ATOMIC_SCOPE_WORK_ITEM"><code>CL_DEVICE_<wbr>ATOMIC_<wbr>SCOPE_<wbr>WORK_<wbr>ITEM</code></a> <sup class="footnote">[<a id="_footnoteref_10" class="footnote" href="#_footnotedef_10" title="View footnote.">10</a>]</sup> - Support for memory ordering constraints that apply to a single work-item.<br>
         <a id="CL_DEVICE_ATOMIC_SCOPE_WORK_GROUP"></a><a href="#CL_DEVICE_ATOMIC_SCOPE_WORK_GROUP"><code>CL_DEVICE_<wbr>ATOMIC_<wbr>SCOPE_<wbr>WORK_<wbr>GROUP</code></a> - Support for memory ordering constraints that apply to all work-items in a work-group.<br>
         <a id="CL_DEVICE_ATOMIC_SCOPE_DEVICE"></a><a href="#CL_DEVICE_ATOMIC_SCOPE_DEVICE"><code>CL_DEVICE_<wbr>ATOMIC_<wbr>SCOPE_<wbr>DEVICE</code></a> - Support for memory ordering constraints that apply to all work-items executing on the device.<br>
         <a id="CL_DEVICE_ATOMIC_SCOPE_ALL_DEVICES"></a><a href="#CL_DEVICE_ATOMIC_SCOPE_ALL_DEVICES"><code>CL_DEVICE_<wbr>ATOMIC_<wbr>SCOPE_<wbr>ALL_<wbr>DEVICES</code></a> - Support for memory ordering constraints that apply to all work-items executing across all devices that can share SVM memory with each other and the host process.</p>
@@ -6784,13 +6785,13 @@ Also see extension <strong>cl_khr_fp64</strong>.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="CL_DEVICE_NON_UNIFORM_WORK_GROUP_SUPPORT"></a><a href="#CL_DEVICE_NON_UNIFORM_WORK_GROUP_SUPPORT"><code>CL_DEVICE_<wbr>NON_<wbr>UNIFORM_<wbr>WORK_<wbr>GROUP_<wbr>SUPPORT</code></a></p>
 <p class="tableblock"><a href="#unified-spec">Missing before</a> version 3.0.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_bool</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Is <a href="#CL_TRUE"><code>CL_TRUE</code></a> if the device supports non-uniform work groups, and <a href="#CL_FALSE"><code>CL_FALSE</code></a> otherwise.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Is <a href="#CL_TRUE"><code>CL_TRUE</code></a> if the device supports non-uniform work-groups, and <a href="#CL_FALSE"><code>CL_FALSE</code></a> otherwise.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="CL_DEVICE_WORK_GROUP_COLLECTIVE_FUNCTIONS_SUPPORT"></a><a href="#CL_DEVICE_WORK_GROUP_COLLECTIVE_FUNCTIONS_SUPPORT"><code>CL_DEVICE_<wbr>WORK_<wbr>GROUP_<wbr>COLLECTIVE_<wbr>FUNCTIONS_<wbr>SUPPORT</code></a></p>
 <p class="tableblock"><a href="#unified-spec">Missing before</a> version 3.0.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_bool</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Is <a href="#CL_TRUE"><code>CL_TRUE</code></a> if the device supports work group collective functions e.g. <code>work_group_broadcast</code>, <code>work_group_reduce</code>, and <code>work_group_scan</code>, and <a href="#CL_FALSE"><code>CL_FALSE</code></a> otherwise.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Is <a href="#CL_TRUE"><code>CL_TRUE</code></a> if the device supports work-group collective functions e.g. <code>work_group_broadcast</code>, <code>work_group_reduce</code>, and <code>work_group_scan</code>, and <a href="#CL_FALSE"><code>CL_FALSE</code></a> otherwise.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="CL_DEVICE_GENERIC_ADDRESS_SPACE_SUPPORT"></a><a href="#CL_DEVICE_GENERIC_ADDRESS_SPACE_SUPPORT"><code>CL_DEVICE_<wbr>GENERIC_<wbr>ADDRESS_<wbr>SPACE_<wbr>SUPPORT</code></a></p>
@@ -7124,8 +7125,8 @@ on the queue are executed only on the sub-device.</p>
 <table id="subdevice-partition-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 6. List of supported partition schemes by <a href="#clCreateSubDevices">clCreateSubDevices</a></caption>
 <colgroup>
-<col style="width: 30%;">
-<col style="width: 20%;">
+<col style="width: 33%;">
+<col style="width: 17%;">
 <col style="width: 50%;">
 </colgroup>
 <thead>
@@ -7247,7 +7248,8 @@ containing 8 compute units, pass the following in <em>properties</em>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="c">{ CL_DEVICE_PARTITION_EQUALLY, <span class="integer">8</span>, <span class="integer">0</span> }</code></pre>
+<pre class="CodeRay highlight"><code data-lang="c">{ CL_DEVICE_PARTITION_EQUALLY, <span class="integer">8</span>,
+  <span class="integer">0</span> } <span class="comment">// 0 terminates the property list</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -7258,7 +7260,8 @@ unit, pass the following in properties argument:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="c">{ CL_DEVICE_PARTITION_BY_COUNTS,
-  <span class="integer">3</span>, <span class="integer">1</span>, CL_DEVICE_PARTITION_BY_COUNTS_LIST_END, <span class="integer">0</span> }</code></pre>
+    <span class="integer">3</span>, <span class="integer">1</span>, CL_DEVICE_PARTITION_BY_COUNTS_LIST_END,
+  <span class="integer">0</span> } <span class="comment">// 0 terminates the property list</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -7268,8 +7271,8 @@ following in properties argument:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="c">{ CL_DEVICE_PARTITION_BY_AFFINITY_DOMAIN,
-  CL_DEVICE_AFFINITY_DOMAIN_NEXT_PARTITIONABLE,
-  <span class="integer">0</span> }</code></pre>
+    CL_DEVICE_AFFINITY_DOMAIN_NEXT_PARTITIONABLE,
+  <span class="integer">0</span> } <span class="comment">// 0 terminates the property list</span></code></pre>
 </div>
 </div>
 </div>
@@ -7486,9 +7489,9 @@ on one or more devices specified in the context.</p>
 <table id="context-properties-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 7. List of supported context creation properties by <a href="#clCreateContext">clCreateContext</a></caption>
 <colgroup>
-<col style="width: 34%;">
 <col style="width: 33%;">
-<col style="width: 33%;">
+<col style="width: 17%;">
+<col style="width: 50%;">
 </colgroup>
 <thead>
 <tr>
@@ -7847,15 +7850,15 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <table id="context-info-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 8. List of supported param_names by <a href="#clGetContextInfo">clGetContextInfo</a></caption>
 <colgroup>
-<col style="width: 34%;">
 <col style="width: 33%;">
-<col style="width: 33%;">
+<col style="width: 17%;">
+<col style="width: 50%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Context Info</th>
 <th class="tableblock halign-left valign-top">Return Type</th>
-<th class="tableblock halign-left valign-top">Information returned in param_value</th>
+<th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
 <tbody>
@@ -8105,9 +8108,9 @@ If <em>errcode_ret</em> is <code>NULL</code>, no error code is returned.</p>
 <table id="queue-properties-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 9. List of supported queue creation properties by <a href="#clCreateCommandQueueWithProperties">clCreateCommandQueueWithProperties</a></caption>
 <colgroup>
-<col style="width: 34%;">
 <col style="width: 33%;">
-<col style="width: 33%;">
+<col style="width: 17%;">
+<col style="width: 50%;">
 </colgroup>
 <thead>
 <tr>
@@ -8253,7 +8256,7 @@ command-queue properties will be used.</p>
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top"><strong>Command-Queue Properties</strong></th>
+<th class="tableblock halign-left valign-top">Command-Queue Properties</th>
 <th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
@@ -8552,15 +8555,15 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <table id="command-queue-param-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 11. List of supported param_names by <a href="#clGetCommandQueueInfo">clGetCommandQueueInfo</a></caption>
 <colgroup>
-<col style="width: 34%;">
 <col style="width: 33%;">
-<col style="width: 33%;">
+<col style="width: 17%;">
+<col style="width: 50%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Queue Info</th>
 <th class="tableblock halign-left valign-top">Return Type</th>
-<th class="tableblock halign-left valign-top">Information returned in param_value</th>
+<th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
 <tbody>
@@ -9407,8 +9410,8 @@ region to a buffer object from host memory.</p>
     cl_command_queue command_queue,
     cl_mem buffer,
     cl_bool blocking_read,
-    <span class="directive">const</span> size_t* buffer_offset,
-    <span class="directive">const</span> size_t* host_offset,
+    <span class="directive">const</span> size_t* buffer_origin,
+    <span class="directive">const</span> size_t* host_origin,
     <span class="directive">const</span> size_t* region,
     size_t buffer_row_pitch,
     size_t buffer_slice_pitch,
@@ -9438,8 +9441,8 @@ region to a buffer object from host memory.</p>
     cl_command_queue command_queue,
     cl_mem buffer,
     cl_bool blocking_write,
-    <span class="directive">const</span> size_t* buffer_offset,
-    <span class="directive">const</span> size_t* host_offset,
+    <span class="directive">const</span> size_t* buffer_origin,
+    <span class="directive">const</span> size_t* host_origin,
     <span class="directive">const</span> size_t* region,
     size_t buffer_row_pitch,
     size_t buffer_slice_pitch,
@@ -9605,12 +9608,12 @@ command-queue.</p>
 <p><a href="#CL_INVALID_MEM_OBJECT"><code>CL_INVALID_<wbr>MEM_<wbr>OBJECT</code></a> if <em>buffer</em> is not a valid buffer object.</p>
 </li>
 <li>
+<p><a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> if <em>buffer_origin</em>, <em>host_origin</em>, or <em>region</em> is <code>NULL</code>.</p>
+</li>
+<li>
 <p><a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> if the region being read or written specified by
 (<em>buffer_origin</em>, <em>region</em>, <em>buffer_row_pitch</em>, <em>buffer_slice_pitch</em>) is
 out of bounds.</p>
-</li>
-<li>
-<p><a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> if <em>ptr</em> is a <code>NULL</code> value.</p>
 </li>
 <li>
 <p><a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> if any <em>region</em> array element is 0.</p>
@@ -9632,6 +9635,9 @@ out of bounds.</p>
 <p><a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> if <em>host_slice_pitch</em> is not 0 and is less than
 <em>region</em>[1] × <em>host_row_pitch</em> and not a multiple of
 <em>host_row_pitch</em>.</p>
+</li>
+<li>
+<p><a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> if <em>ptr</em> is <code>NULL</code>.</p>
 </li>
 <li>
 <p><a href="#CL_INVALID_EVENT_WAIT_LIST"><code>CL_INVALID_<wbr>EVENT_<wbr>WAIT_<wbr>LIST</code></a> if <em>event_wait_list</em> is <code>NULL</code> and
@@ -9888,8 +9894,8 @@ or sub-buffer object and the source and destination regions overlap or
 if <em>src_buffer</em> and <em>dst_buffer</em> are different sub-buffers of the same
 associated buffer object and they overlap.
 The regions overlap if <em>src_offset</em> ≤ <em>dst_offset</em> ≤
-<em>src_offset</em> + <em>size</em> 1 or if <em>dst_offset</em> ≤ <em>src_offset</em> ≤
-<em>dst_offset</em> + <em>size</em> 1.</p>
+<em>src_offset</em> + <em>size</em> - 1 or if <em>dst_offset</em> ≤ <em>src_offset</em> ≤
+<em>dst_offset</em> + <em>size</em> - 1.</p>
 </li>
 <li>
 <p><a href="#CL_MEM_OBJECT_ALLOCATION_FAILURE"><code>CL_MEM_<wbr>OBJECT_<wbr>ALLOCATION_<wbr>FAILURE</code></a> if there is a failure to allocate
@@ -10071,9 +10077,12 @@ the same.</p>
 buffer objects.</p>
 </li>
 <li>
-<p><a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> if (<em>src_origin, region, src_row_pitch,
-src_slice_pitch</em>) or (<em>dst_origin, region, dst_row_pitch,
-dst_slice_pitch</em>) require accessing elements outside the <em>src_buffer</em>
+<p><a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> if <em>src_origin</em>, <em>dst_origin</em>, or <em>region</em> is <code>NULL</code>.</p>
+</li>
+<li>
+<p><a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> if (<em>src_origin</em>, <em>region</em>, <em>src_row_pitch</em>,
+<em>src_slice_pitch</em>) or (<em>dst_origin</em>, <em>region</em>, <em>dst_row_pitch</em>,
+<em>dst_slice_pitch</em>) require accessing elements outside the <em>src_buffer</em>
 and <em>dst_buffer</em> buffer objects respectively.</p>
 </li>
 <li>
@@ -11491,9 +11500,6 @@ and dimensions of an image or image array when creating an image using
     size_t                image_slice_pitch;
     cl_uint               num_mip_levels;
     cl_uint               num_samples;
-    <span class="preprocessor">#ifdef</span> __GNUC__
-    __extension__   <span class="comment">/* Prevents warnings about anonymous union in -pedantic builds */</span>
-<span class="preprocessor">#endif</span>
     <span class="keyword">union</span> {
         cl_mem buffer;
         cl_mem mem_object;
@@ -12242,15 +12248,21 @@ command-queue.</p>
 <em>command_queue</em> and events in <em>event_wait_list</em> are not the same.</p>
 </li>
 <li>
-<p><a href="#CL_INVALID_MEM_OBJECT"><code>CL_INVALID_<wbr>MEM_<wbr>OBJECT</code></a> if i_mage_ is not a valid image object.</p>
+<p><a href="#CL_INVALID_MEM_OBJECT"><code>CL_INVALID_<wbr>MEM_<wbr>OBJECT</code></a> if <em>image</em> is not a valid image object.</p>
+</li>
+<li>
+<p><a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> if <em>origin</em> or <em>region</em> is <code>NULL</code>.</p>
 </li>
 <li>
 <p><a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> if the region being read or written specified by
-<em>origin</em> and <em>region</em> is out of bounds or if <em>ptr</em> is a <code>NULL</code> value.</p>
+<em>origin</em> and <em>region</em> is out of bounds.</p>
 </li>
 <li>
 <p><a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> if values in <em>origin</em> and <em>region</em> do not follow rules
 described in the argument description for <em>origin</em> and <em>region</em>.</p>
+</li>
+<li>
+<p><a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> if <em>ptr</em> is <code>NULL</code>.</p>
 </li>
 <li>
 <p><a href="#CL_INVALID_EVENT_WAIT_LIST"><code>CL_INVALID_<wbr>EVENT_<wbr>WAIT_<wbr>LIST</code></a> if <em>event_wait_list</em> is <code>NULL</code> and
@@ -12501,6 +12513,9 @@ objects.</p>
 same image format.</p>
 </li>
 <li>
+<p><a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> if <em>src_origin</em>, <em>dst_origin</em>, or <em>region</em> is <code>NULL</code>.</p>
+</li>
+<li>
 <p><a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> if the 2D or 3D rectangular region specified by
 <em>src_origin</em> and <em>src_origin</em> +  <em>region</em> refers to a region outside
 <em>src_image</em>, or if the 2D or 3D rectangular region specified by
@@ -12702,8 +12717,11 @@ command-queue.</p>
 <p><a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> if <em>fill_color</em> is <code>NULL</code>.</p>
 </li>
 <li>
+<p><a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> if <em>origin</em> or <em>region</em> is <code>NULL</code>.</p>
+</li>
+<li>
 <p><a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> if the region being filled as specified by <em>origin</em> and
-<em>region</em> is out of bounds or if <em>ptr</em> is a <code>NULL</code> value.</p>
+<em>region</em> is out of bounds.</p>
 </li>
 <li>
 <p><a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> if values in <em>origin</em> and <em>region</em> do not follow rules
@@ -12861,6 +12879,9 @@ the same.</p>
 <p><a href="#CL_INVALID_MEM_OBJECT"><code>CL_INVALID_<wbr>MEM_<wbr>OBJECT</code></a> if <em>src_image</em> is not a valid image object or
 <em>dst_buffer</em> is not a valid buffer object or if <em>src_image</em> is a 1D
 image buffer object created from <em>dst_buffer</em>.</p>
+</li>
+<li>
+<p><a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> if <em>src_origin</em> or <em>region</em> is <code>NULL</code>.</p>
 </li>
 <li>
 <p><a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> if the 1D, 2D or 3D rectangular region specified by
@@ -13037,6 +13058,9 @@ the same.</p>
 <p><a href="#CL_INVALID_MEM_OBJECT"><code>CL_INVALID_<wbr>MEM_<wbr>OBJECT</code></a> if <em>src_buffer</em> is not a valid buffer object or
 <em>dst_image</em> is not a valid image object or if <em>dst_image</em> is a 1D image
 buffer object created from <em>src_buffer</em>.</p>
+</li>
+<li>
+<p><a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> if <em>dst_origin</em> or <em>region</em> is <code>NULL</code>.</p>
 </li>
 <li>
 <p><a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> if the 1D, 2D or 3D rectangular region specified by
@@ -13243,8 +13267,11 @@ and events in <em>event_wait_list</em> are not the same.</p>
 <p><a href="#CL_INVALID_MEM_OBJECT"><code>CL_INVALID_<wbr>MEM_<wbr>OBJECT</code></a> if <em>image</em> is not a valid image object.</p>
 </li>
 <li>
+<p><a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> if <em>origin</em> or <em>region</em> is <code>NULL</code>.</p>
+</li>
+<li>
 <p><a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> if region being mapped given by (<em>origin</em>,
-<em>origin+region</em>) is out of bounds or if values specified in <em>map_flags</em>
+<em>origin</em> + <em>region</em>) is out of bounds or if values specified in <em>map_flags</em>
 are not valid.</p>
 </li>
 <li>
@@ -13406,15 +13433,15 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <table id="image-info-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 22. List of supported param_names by <a href="#clGetImageInfo">clGetImageInfo</a></caption>
 <colgroup>
-<col style="width: 34%;">
 <col style="width: 33%;">
-<col style="width: 33%;">
+<col style="width: 17%;">
+<col style="width: 50%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Image Info</th>
 <th class="tableblock halign-left valign-top">Return type</th>
-<th class="tableblock halign-left valign-top">Info. returned in <em>param_value</em></th>
+<th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
 <tbody>
@@ -13767,15 +13794,15 @@ required by the OpenCL implementation on the host.</p>
 <table id="pipe-info-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 23. List of supported param_names by <a href="#clGetPipeInfo">clGetPipeInfo</a></caption>
 <colgroup>
-<col style="width: 34%;">
 <col style="width: 33%;">
-<col style="width: 33%;">
+<col style="width: 17%;">
+<col style="width: 50%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Pipe Info</th>
 <th class="tableblock halign-left valign-top">Return type</th>
-<th class="tableblock halign-left valign-top">Info. returned in <em>param_value</em></th>
+<th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
 <tbody>
@@ -14529,15 +14556,15 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <table id="mem-info-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 25. List of supported param_names by <a href="#clGetMemObjectInfo">clGetMemObjectInfo</a></caption>
 <colgroup>
-<col style="width: 34%;">
 <col style="width: 33%;">
-<col style="width: 33%;">
+<col style="width: 17%;">
+<col style="width: 50%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Memory Object Info</th>
 <th class="tableblock halign-left valign-top">Return type</th>
-<th class="tableblock halign-left valign-top">Info. returned in <em>param_value</em></th>
+<th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
 <tbody>
@@ -14576,7 +14603,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="CL_MEM_HOST_PTR"></a><a href="#CL_MEM_HOST_PTR"><code>CL_MEM_<wbr>HOST_<wbr>PTR</code></a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>void</code> *</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>void</code>*</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">If <em>memobj</em> is created with <a href="#clCreateBuffer"><strong>clCreateBuffer</strong></a>, <a href="#clCreateBufferWithProperties"><strong>clCreateBufferWithProperties</strong></a>,
         <a href="#clCreateImage"><strong>clCreateImage</strong></a>, <a href="#clCreateImageWithProperties"><strong>clCreateImageWithProperties</strong></a>, <a href="#clCreateImage2D"><strong>clCreateImage2D</strong></a>, or
         <a href="#clCreateImage3D"><strong>clCreateImage3D</strong></a>, and <a href="#CL_MEM_USE_HOST_PTR"><code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code></a> is specified in mem_flags,
@@ -15321,7 +15348,7 @@ blocking and the execution status of any of the events in
 <em>event_wait_list</em> is a negative integer value.</p>
 </li>
 <li>
-<p><a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> if <em>dst_ptr</em> or <em>src_ptr</em> are <code>NULL</code>.</p>
+<p><a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> if <em>dst_ptr</em> or <em>src_ptr</em> is <code>NULL</code>.</p>
 </li>
 <li>
 <p><a href="#CL_MEM_COPY_OVERLAP"><code>CL_MEM_<wbr>COPY_<wbr>OVERLAP</code></a> if the values specified for <em>dst_ptr</em>, <em>src_ptr</em> and
@@ -16012,9 +16039,9 @@ supported sampler properties will be used.</p>
 <table id="sampler-properties-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 27. List of supported sampler creation properties by <a href="#clCreateSamplerWithProperties">clCreateSamplerWithProperties</a></caption>
 <colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 16.6666%;">
-<col style="width: 50.0001%;">
+<col style="width: 33%;">
+<col style="width: 17%;">
+<col style="width: 50%;">
 </colgroup>
 <thead>
 <tr>
@@ -16339,15 +16366,15 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <table id="sampler-info-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 28. List of supported param_names by <a href="#clGetSamplerInfo">clGetSamplerInfo</a></caption>
 <colgroup>
-<col style="width: 34%;">
 <col style="width: 33%;">
-<col style="width: 33%;">
+<col style="width: 17%;">
+<col style="width: 50%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Sampler Info</th>
 <th class="tableblock halign-left valign-top">Return Type</th>
-<th class="tableblock halign-left valign-top">Info. returned in <em>param_value</em></th>
+<th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
 <tbody>
@@ -16752,7 +16779,7 @@ returned in <em>errcode_ret</em>:</p>
 the list of devices associated with <em>context</em>.</p>
 </li>
 <li>
-<p><a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> if <em>lengths</em> or <em>binaries</em> are <code>NULL</code> or if any entry
+<p><a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> if <em>lengths</em> or <em>binaries</em> is <code>NULL</code> or if any entry
 in <em>lengths</em>[i] is zero or <em>binaries</em>[i] is <code>NULL</code>.</p>
 </li>
 <li>
@@ -17887,34 +17914,38 @@ These options are ignored for programs created with IL.</p>
 <dt class="hdlist1"><code>-D name=definition</code> </dt>
 <dd>
 <p>The contents of <em>definition</em> are tokenized and processed as if they
-appeared during translation phase three in a `#define' directive.
+appeared during translation phase three in a <code>#define</code> directive.
 In particular, the definition will be truncated by embedded newline
 characters.</p>
-</dd>
-</dl>
-</div>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
-<p>-D options are processed in the order they are given in the <em>options</em>
+<p><code>-D</code> options are processed in the order they are given in the <em>options</em>
 argument to <a href="#clBuildProgram"><strong>clBuildProgram</strong></a> or <a href="#clCompileProgram"><strong>clCompileProgram</strong></a>.
-Note that a space is required between the -D option and the symbol it
+Note that a space is required between the <code>-D</code> option and the symbol it
 defines, otherwise behavior is implementation defined.</p>
 </div>
-<div class="dlist">
-<dl>
+</div>
+</div>
+</dd>
 <dt class="hdlist1"><code>-I dir</code> </dt>
 <dd>
 <p>Add the directory <em>dir</em> to the list of directories to be searched for
 header files.
 <em>dir</em> can optionally be enclosed in double quotes.</p>
-</dd>
-</dl>
-</div>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>This option is not portable due to its dependency on host file system and
 host operating system.
 It is supported for backwards compatibility with previous OpenCL versions.
 Developers are encouraged to create and use explicit header objects by means
 of <a href="#clCompileProgram"><strong>clCompileProgram</strong></a> followed by <a href="#clLinkProgram"><strong>clLinkProgram</strong></a>.</p>
+</div>
+</div>
+</div>
+</dd>
+</dl>
 </div>
 </div>
 <div class="sect4">
@@ -18019,6 +18050,34 @@ The default is optimizations are enabled.</p>
 </div>
 </div>
 </dd>
+<dt class="hdlist1"><code>-cl-uniform-work-group-size</code> </dt>
+<dd>
+<p>This requires that the global work-size be a multiple of the work-group
+size specified to <a href="#clEnqueueNDRangeKernel"><strong>clEnqueueNDRangeKernel</strong></a>.
+Allow optimizations that are made possible by this restriction.</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>Note: This option is <a href="#unified-spec">missing before</a> version 2.0.</p>
+</div>
+</div>
+</div>
+</dd>
+<dt class="hdlist1"><code>-cl-no-subgroup-ifp</code> </dt>
+<dd>
+<p>This indicates that kernels in this program do not require subgroups to
+make independent forward progress.
+Allows optimizations that are made possible by this restriction.
+This option has no effect for devices that do not support independent
+forward progress for subgroups.</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>Note: This option is <a href="#unified-spec">missing before</a> version 2.1.</p>
+</div>
+</div>
+</div>
+</dd>
 </dl>
 </div>
 <div class="paragraph">
@@ -18076,34 +18135,6 @@ case behavior.</p>
 This option causes the preprocessor macro <code>__FAST_RELAXED_MATH__</code> to
 be defined in the OpenCL program.</p>
 </dd>
-<dt class="hdlist1"><code>-cl-uniform-work-group-size</code> </dt>
-<dd>
-<p>This requires that the global work-size be a multiple of the work-group
-size specified to <a href="#clEnqueueNDRangeKernel"><strong>clEnqueueNDRangeKernel</strong></a>.
-Allow optimizations that are made possible by this restriction.</p>
-<div class="openblock">
-<div class="content">
-<div class="paragraph">
-<p>Note: This option is <a href="#unified-spec">missing before</a> version 2.0.</p>
-</div>
-</div>
-</div>
-</dd>
-<dt class="hdlist1"><code>-cl-no-subgroup-ifp</code> </dt>
-<dd>
-<p>This indicates that kernels in this program do not require subgroups to
-make independent forward progress.
-Allows optimizations that are made possible by this restriction.
-This option has no effect for devices that do not support independent
-forward progress for subgroups.</p>
-<div class="openblock">
-<div class="content">
-<div class="paragraph">
-<p>Note: This option is <a href="#unified-spec">missing before</a> version 2.1.</p>
-</div>
-</div>
-</div>
-</dd>
 </dl>
 </div>
 </div>
@@ -18149,20 +18180,20 @@ Valid values are:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>CL1.1 Support OpenCL C language
-features defined in <em>section 6</em> of the OpenCL 1.1 specification.</p>
+<p><code>CL1.1</code>: Support OpenCL C 1.1 language features defined in <em>section 6</em> of
+the OpenCL 1.1 specification or in the unified OpenCL C specification.</p>
 </li>
 <li>
-<p>CL1.2 Support OpenCL C language
-features defined in <em>section 6</em> of the OpenCL 1.2 specification.</p>
+<p><code>CL1.2</code>: Support OpenCL C 1.2 language features defined in <em>section 6</em> of
+the OpenCL 1.2 specification or in the unified OpenCL C specification.</p>
 </li>
 <li>
-<p>CL2.0 Support OpenCL C language
-features defined in <em>section 6</em> of the OpenCL C 2.0 specification.</p>
+<p><code>CL2.0</code>: Support OpenCL C 2.0 language features defined in the OpenCL C 2.0
+specification or in the unified OpenCL C specification.</p>
 </li>
 <li>
-<p>CL3.0 Support OpenCL C language
-features defined in <em>section 6</em> of the OpenCL C 3.0 specification.</p>
+<p><code>CL3.0</code>: Support OpenCL C 3.0 language features defined in the unified
+OpenCL C specification.</p>
 </li>
 </ul>
 </div>
@@ -18246,9 +18277,6 @@ Debugging options are <a href="#unified-spec">missing before</a> version 2.0.
 </td>
 </tr>
 </table>
-</div>
-<div class="paragraph">
-<p>The following option is available.</p>
 </div>
 <div class="dlist">
 <dl>
@@ -18487,15 +18515,15 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <table id="program-info-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 29. List of supported param_names by <a href="#clGetProgramInfo">clGetProgramInfo</a></caption>
 <colgroup>
-<col style="width: 34%;">
 <col style="width: 33%;">
-<col style="width: 33%;">
+<col style="width: 17%;">
+<col style="width: 50%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Program Info</th>
 <th class="tableblock halign-left valign-top">Return Type</th>
-<th class="tableblock halign-left valign-top">Info. returned in <em>param_value</em></th>
+<th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
 <tbody>
@@ -18568,7 +18596,7 @@ Also see extension <strong>cl_khr_il_program</strong>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="CL_PROGRAM_BINARIES"></a><a href="#CL_PROGRAM_BINARIES"><code>CL_PROGRAM_<wbr>BINARIES</code></a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>unsigned char</code> *[]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>unsigned char</code>*[]</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return the program binaries (could be an executable binary, compiled
         binary or library binary) for all devices associated with program.
         For each device in program, the binary returned can be the binary
@@ -18740,15 +18768,15 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <table id="program-build-info-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 30. List of supported param_names by <a href="#clGetProgramBuildInfo">clGetProgramBuildInfo</a></caption>
 <colgroup>
-<col style="width: 34%;">
 <col style="width: 33%;">
-<col style="width: 33%;">
+<col style="width: 17%;">
+<col style="width: 50%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Program Build Info</th>
 <th class="tableblock halign-left valign-top">Return Type</th>
-<th class="tableblock halign-left valign-top">Info. returned in <em>param_value</em></th>
+<th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
 <tbody>
@@ -19295,7 +19323,7 @@ argument values to the kernel.</p>
 counts to <code>cl_kernel</code> arguments, because no mechanism is provided for the
 user to tell the kernel to release that ownership right.
 If the kernel holds ownership rights on kernel args, that would make it
-impossible for the user to tell with certainty when he may safely
+impossible for users to tell with certainty when they may safely
 release user allocated resources associated with OpenCL objects such as
 the <code>cl_mem</code> backing store used with <a href="#CL_MEM_USE_HOST_PTR"><code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code></a>.</p>
 </div>
@@ -19501,9 +19529,9 @@ by <em>param_name</em> are specified.</p>
 <table id="kernel-exec-info-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 31. List of supported param_names by <a href="#clSetKernelExecInfo">clSetKernelExecInfo</a></caption>
 <colgroup>
-<col style="width: 34%;">
 <col style="width: 33%;">
-<col style="width: 33%;">
+<col style="width: 17%;">
+<col style="width: 50%;">
 </colgroup>
 <thead>
 <tr>
@@ -19516,7 +19544,7 @@ by <em>param_name</em> are specified.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="CL_KERNEL_EXEC_INFO_SVM_PTRS"></a><a href="#CL_KERNEL_EXEC_INFO_SVM_PTRS"><code>CL_KERNEL_<wbr>EXEC_<wbr>INFO_<wbr>SVM_<wbr>PTRS</code></a></p>
 <p class="tableblock"><a href="#unified-spec">Missing before</a> version 2.0.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>void</code> *[]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>void</code>*[]</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SVM pointers must reference locations contained entirely within
         buffers that are passed to kernel as arguments, or that are passed
         through the execution information.</p>
@@ -19805,15 +19833,15 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <table id="kernel-info-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 32. List of supported param_names by <a href="#clGetKernelInfo">clGetKernelInfo</a></caption>
 <colgroup>
-<col style="width: 34%;">
 <col style="width: 33%;">
-<col style="width: 33%;">
+<col style="width: 17%;">
+<col style="width: 50%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Kernel Info</th>
 <th class="tableblock halign-left valign-top">Return Type</th>
-<th class="tableblock halign-left valign-top">Info. returned in <em>param_value</em></th>
+<th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
 <tbody>
@@ -19948,15 +19976,15 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <table id="kernel-workgroup-info-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 33. List of supported param_names by <a href="#clGetKernelWorkGroupInfo">clGetKernelWorkGroupInfo</a></caption>
 <colgroup>
-<col style="width: 34%;">
 <col style="width: 33%;">
-<col style="width: 33%;">
+<col style="width: 17%;">
+<col style="width: 50%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Kernel Work Group Info</th>
 <th class="tableblock halign-left valign-top">Return Type</th>
-<th class="tableblock halign-left valign-top">Info. returned in <em>param_value</em></th>
+<th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
 <tbody>
@@ -20158,7 +20186,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <th class="tableblock halign-left valign-top">Kernel Subgroup Info</th>
 <th class="tableblock halign-left valign-top">Input Type</th>
 <th class="tableblock halign-left valign-top">Return Type</th>
-<th class="tableblock halign-left valign-top">Info. returned in <em>param_value</em></th>
+<th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
 <tbody>
@@ -20166,7 +20194,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="CL_KERNEL_MAX_SUB_GROUP_SIZE_FOR_NDRANGE"></a><a href="#CL_KERNEL_MAX_SUB_GROUP_SIZE_FOR_NDRANGE"><code>CL_KERNEL_<wbr>MAX_<wbr>SUB_<wbr>GROUP_<wbr>SIZE_<wbr>FOR_<wbr>NDRANGE</code></a></p>
 <p class="tableblock"><a href="#unified-spec">Missing before</a> version 2.1.
 Also see extension <strong>cl_khr_subgroups</strong>.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>size_t</code> *</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>size_t</code>*</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>size_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the maximum sub-group size for this kernel.
             All sub-groups must be the same size, while the last subgroup in
@@ -20182,7 +20210,7 @@ Also see extension <strong>cl_khr_subgroups</strong>.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="CL_KERNEL_SUB_GROUP_COUNT_FOR_NDRANGE"></a><a href="#CL_KERNEL_SUB_GROUP_COUNT_FOR_NDRANGE"><code>CL_KERNEL_<wbr>SUB_<wbr>GROUP_<wbr>COUNT_<wbr>FOR_<wbr>NDRANGE</code></a></p>
 <p class="tableblock"><a href="#unified-spec">Missing before</a> version 2.1.
 Also see extension <strong>cl_khr_subgroups</strong>.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>size_t</code> *</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>size_t</code>*</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>size_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the number of sub-groups that will be present in each
             work-group for a given local work size.
@@ -20356,15 +20384,15 @@ in options argument to <a href="#clBuildProgram"><strong>clBuildProgram</strong>
 <table id="kernel-argument-info-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 35. List of supported param_names by <a href="#clGetKernelArgInfo">clGetKernelArgInfo</a></caption>
 <colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 16.6666%;">
-<col style="width: 50.0001%;">
+<col style="width: 33%;">
+<col style="width: 17%;">
+<col style="width: 50%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Kernel Arg Info</th>
 <th class="tableblock halign-left valign-top">Return Type</th>
-<th class="tableblock halign-left valign-top">Info. returned in <em>param_value</em></th>
+<th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
 <tbody>
@@ -20601,11 +20629,11 @@ Specifically, this means:</p>
 <p>If non-uniform work-groups are supported, any single dimension
 for which the global size is not divisible by the local size will be
 partitioned into two regions.
-One region will have work-groups that have the same number of work items as
+One region will have work-groups that have the same number of work-items as
 was specified by the local size parameter in that dimension.
 The other region will have work-groups with less than the number of work
 items specified by the local size parameter in that dimension.
-The global IDs and group IDs of the work items in the first region will be
+The global IDs and group IDs of the work-items in the first region will be
 numerically lower than those in the second, and the second region will be at
 most one work-group wide in that dimension.
 Work-group sizes could be non-uniform in multiple dimensions, potentially
@@ -20613,7 +20641,7 @@ producing work-groups of up to 4 different sizes in a 2D range and 8
 different sizes in a 3D range.</p>
 </div>
 <div class="paragraph">
-<p>If non-uniform work groups are supported and <em>local_work_size</em> is <code>NULL</code>, the OpenCL runtime may choose a uniform or non-uniform work-group size.</p>
+<p>If non-uniform work-groups are supported and <em>local_work_size</em> is <code>NULL</code>, the OpenCL runtime may choose a uniform or non-uniform work-group size.</p>
 </div>
 <div class="paragraph">
 <p>Otherwise, when non-uniform work-groups are not supported, the size of each work-group must be uniform.
@@ -20623,7 +20651,7 @@ If <em>local_work_size</em> is <code>NULL</code>, the OpenCL runtime must choose
 <div class="paragraph">
 <p>The work-group size to be used for <em>kernel</em> can also be specified in the
 program source or intermediate language.
-In this case the size of work group specified by <em>local_work_size</em> must
+In this case the size of work-group specified by <em>local_work_size</em> must
 match the value specified in the program source.</p>
 </div>
 <div class="paragraph">
@@ -21121,24 +21149,6 @@ qualifier counts as one image.</p>
 <div class="sect2">
 <h3 id="event-objects"><a class="anchor" href="#event-objects"></a>5.11. Event Objects</h3>
 <div class="paragraph">
-<p>Event objects can be used to refer to a kernel-instance command
-(<a href="#clEnqueueNDRangeKernel"><strong>clEnqueueNDRangeKernel</strong></a>, <a href="#clEnqueueTask"><strong>clEnqueueTask</strong></a>, <a href="#clEnqueueNativeKernel"><strong>clEnqueueNativeKernel</strong></a>), read,
-write, map and copy commands on memory objects (
-<a href="#clEnqueueReadBuffer"><strong>clEnqueueReadBuffer</strong></a>, <a href="#clEnqueueWriteBuffer"><strong>clEnqueueWriteBuffer</strong></a>,
-<a href="#clEnqueueMapBuffer"><strong>clEnqueueMapBuffer</strong></a>, <a href="#clEnqueueUnmapMemObject"><strong>clEnqueueUnmapMemObject</strong></a>,
-<a href="#clEnqueueReadBufferRect"><strong>clEnqueueReadBufferRect</strong></a>, <a href="#clEnqueueWriteBufferRect"><strong>clEnqueueWriteBufferRect</strong></a>,
-<a href="#clEnqueueReadImage"><strong>clEnqueueReadImage</strong></a>, <a href="#clEnqueueWriteImage"><strong>clEnqueueWriteImage</strong></a>, <a href="#clEnqueueMapImage"><strong>clEnqueueMapImage</strong></a>,
-<a href="#clEnqueueCopyBuffer"><strong>clEnqueueCopyBuffer</strong></a>, <a href="#clEnqueueCopyImage"><strong>clEnqueueCopyImage</strong></a>,
-<a href="#clEnqueueCopyBufferRect"><strong>clEnqueueCopyBufferRect</strong></a>,
-<a href="#clEnqueueCopyBufferToImage"><strong>clEnqueueCopyBufferToImage</strong></a>, <a href="#clEnqueueCopyImageToBuffer"><strong>clEnqueueCopyImageToBuffer</strong></a>),
-<a href="#clEnqueueSVMMemcpy"><strong>clEnqueueSVMMemcpy</strong></a>, <a href="#clEnqueueSVMMemFill"><strong>clEnqueueSVMMemFill</strong></a>,
-<a href="#clEnqueueSVMMap"><strong>clEnqueueSVMMap</strong></a>, <a href="#clEnqueueSVMUnmap"><strong>clEnqueueSVMUnmap</strong></a>, <a href="#clEnqueueSVMFree"><strong>clEnqueueSVMFree</strong></a>, <a href="#clEnqueueMarker"><strong>clEnqueueMarker</strong></a>,
-<a href="#clEnqueueMarkerWithWaitList"><strong>clEnqueueMarkerWithWaitList</strong></a>, <a href="#clEnqueueWaitForEvents"><strong>clEnqueueWaitForEvents</strong></a>, <a href="#clEnqueueBarrier"><strong>clEnqueueBarrier</strong></a>,
-<a href="#clEnqueueBarrierWithWaitList"><strong>clEnqueueBarrierWithWaitList</strong></a>,  (refer to
-<a href="#markers-barriers-waiting-for-events">Markers, Barriers and Waiting for
-Events</a>) or user events.</p>
-</div>
-<div class="paragraph">
 <p>An event object can be used to track the execution status of a command.
 The API calls that enqueue commands to a command-queue create a new event
 object that is returned in the <em>event</em> argument.
@@ -21152,17 +21162,17 @@ be one of the following:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a id="CL_QUEUED"></a><a href="#CL_QUEUED"><code>CL_QUEUED</code></a> This indicates that the command has been enqueued in a
+<p><a id="CL_QUEUED"></a><a href="#CL_QUEUED"><code>CL_QUEUED</code></a>: Indicates that the command has been enqueued in a
 command-queue.
 This is the initial state of all events except user events.</p>
 </li>
 <li>
-<p><a id="CL_SUBMITTED"></a><a href="#CL_SUBMITTED"><code>CL_SUBMITTED</code></a> This is the initial state for all user events.
-For all other events, this indicates that the command has been submitted
+<p><a id="CL_SUBMITTED"></a><a href="#CL_SUBMITTED"><code>CL_SUBMITTED</code></a>: The initial state for all user events.
+For all other events, indicates that the command has been submitted
 by the host to the device.</p>
 </li>
 <li>
-<p><a id="CL_RUNNING"></a><a href="#CL_RUNNING"><code>CL_RUNNING</code></a> This indicates that the device has started executing this
+<p><a id="CL_RUNNING"></a><a href="#CL_RUNNING"><code>CL_RUNNING</code></a>: Indicates that the device has started executing this
 command.
 In order for the execution status of an enqueued command to change from
 <a href="#CL_SUBMITTED"><code>CL_SUBMITTED</code></a> to <a href="#CL_RUNNING"><code>CL_RUNNING</code></a>, all events that this command is waiting on
@@ -21170,13 +21180,12 @@ must have completed successfully i.e. their execution status must be
 <a href="#CL_COMPLETE"><code>CL_COMPLETE</code></a>.</p>
 </li>
 <li>
-<p><a id="CL_COMPLETE"></a><a href="#CL_COMPLETE"><code>CL_COMPLETE</code></a> This indicates that the command has successfully completed.</p>
+<p><a id="CL_COMPLETE"></a><a href="#CL_COMPLETE"><code>CL_COMPLETE</code></a>: Indicates that the command has successfully completed.</p>
 </li>
 <li>
-<p>Error code The error code is a negative integer value and indicates that
-the command was abnormally terminated.
-Abnormal termination may occur for a number of reasons such as a bad
-memory access.</p>
+<p>An Error Code: A negative integer value indicating that the command was
+abnormally terminated. Abnormal termination may occur for a number of reasons,
+such as a bad memory access.</p>
 </li>
 </ul>
 </div>
@@ -21266,8 +21275,7 @@ required by the OpenCL implementation on the host.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>The execution status of the user event object created is set to
-<a href="#CL_SUBMITTED"><code>CL_SUBMITTED</code></a>.</p>
+<p>The initial execution status for the user event object is <a href="#CL_SUBMITTED"><code>CL_SUBMITTED</code></a>.</p>
 </div>
 </div>
 </div>
@@ -21494,15 +21502,15 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <table id="event-info-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 36. List of supported param_names by <a href="#clGetEventInfo">clGetEventInfo</a></caption>
 <colgroup>
-<col style="width: 30%;">
 <col style="width: 33%;">
-<col style="width: 37%;">
+<col style="width: 17%;">
+<col style="width: 50%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Event Info</th>
 <th class="tableblock halign-left valign-top">Return Type</th>
-<th class="tableblock halign-left valign-top">Info. returned in <em>param_value</em></th>
+<th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
 <tbody>
@@ -22542,15 +22550,15 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <table id="event-profiling-info-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 38. List of supported param_names by <a href="#clGetEventProfilingInfo">clGetEventProfilingInfo</a></caption>
 <colgroup>
-<col style="width: 34%;">
 <col style="width: 33%;">
-<col style="width: 33%;">
+<col style="width: 17%;">
+<col style="width: 50%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Event Profiling Info</th>
 <th class="tableblock halign-left valign-top">Return Type</th>
-<th class="tableblock halign-left valign-top">Info. returned in <em>param_value</em></th>
+<th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
 <tbody>
@@ -22784,8 +22792,7 @@ the <a href="#clGetDeviceInfo"><strong>clGetDeviceInfo</strong></a> query.</p>
 <div class="paragraph">
 <p>In addition to the specification of core features, OpenCL provides a number
 of extensions to the API, kernel language or intermediate representation.
-These features are defined in the OpenCL 2.2 extensions specification
-document.</p>
+These features are defined in the OpenCL extension specification document.</p>
 </div>
 <div class="paragraph">
 <p>Extensions defined against earlier versions of the OpenCL specifications,
@@ -23060,9 +23067,9 @@ Device Queries</a> table.</p>
 <table id="embedded-device-queries-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 39. List of supported param_names by <a href="#clGetDeviceInfo">clGetDeviceInfo</a> for embedded profile</caption>
 <colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
+<col style="width: 33%;">
+<col style="width: 17%;">
+<col style="width: 50%;">
 </colgroup>
 <thead>
 <tr>
@@ -23428,10 +23435,9 @@ but very poorly on a GPU, for example.
 CPUs are designed in general to work well on latency sensitive algorithms on
 single threaded tasks, whereas common GPUs may encounter extremely long
 latencies, potentially orders of magnitude worse.
-A developer interested in writing portable code may find that it is
-necessary to test his design on a diversity of hardware designs to make sure
-that key algorithms are structured in a way that works well on a diversity
-of hardware.
+Developers interested in writing portable code may need to test their
+software on a diversity of hardware designs to make sure that key algorithms
+are structured in a way that works well on a diversity of hardware.
 We suggest favoring more work-items over fewer.
 It is anticipated that over the coming months and years experience will
 produce a set of best practices that will help foster a uniformly favorable
@@ -25131,11 +25137,11 @@ atomic memory and atomic fence capabilities of a device.</p>
 </li>
 <li>
 <p><a href="#CL_DEVICE_NON_UNIFORM_WORK_GROUP_SUPPORT"><code>CL_DEVICE_<wbr>NON_<wbr>UNIFORM_<wbr>WORK_<wbr>GROUP_<wbr>SUPPORT</code></a> to
-determine if a device supports non-uniform work group sizes.</p>
+determine if a device supports non-uniform work-group sizes.</p>
 </li>
 <li>
 <p><a href="#CL_DEVICE_WORK_GROUP_COLLECTIVE_FUNCTIONS_SUPPORT"><code>CL_DEVICE_<wbr>WORK_<wbr>GROUP_<wbr>COLLECTIVE_<wbr>FUNCTIONS_<wbr>SUPPORT</code></a>
-to determine whether a device supports optional work group
+to determine whether a device supports optional work-group
 collective functions, such as broadcasts, scans, and reductions.</p>
 </li>
 <li>
@@ -25531,11 +25537,11 @@ conformance process:</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="CL_INVALID_WORK_GROUP_SIZE"></a><a href="#CL_INVALID_WORK_GROUP_SIZE"><code>CL_INVALID_<wbr>WORK_<wbr>GROUP_<wbr>SIZE</code></a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Returned by <a href="#clEnqueueNDRangeKernel"><strong>clEnqueueNDRangeKernel</strong></a> when the specified total work group size is not valid for the specified kernel or device.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returned by <a href="#clEnqueueNDRangeKernel"><strong>clEnqueueNDRangeKernel</strong></a> when the specified total work-group size is not valid for the specified kernel or device.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="CL_INVALID_WORK_ITEM_SIZE"></a><a href="#CL_INVALID_WORK_ITEM_SIZE"><code>CL_INVALID_<wbr>WORK_<wbr>ITEM_<wbr>SIZE</code></a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Returned by <a href="#clEnqueueNDRangeKernel"><strong>clEnqueueNDRangeKernel</strong></a> when the specified work group size in one dimension is not valid for the device.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returned by <a href="#clEnqueueNDRangeKernel"><strong>clEnqueueNDRangeKernel</strong></a> when the specified work-group size in one dimension is not valid for the device.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="CL_KERNEL_ARG_INFO_NOT_AVAILABLE"></a><a href="#CL_KERNEL_ARG_INFO_NOT_AVAILABLE"><code>CL_KERNEL_<wbr>ARG_<wbr>INFO_<wbr>NOT_<wbr>AVAILABLE</code></a></p>
@@ -25945,8 +25951,8 @@ When program scope global variables are not supported:</p>
 <div class="sect2">
 <h3 id="_non_uniform_work_groups"><a class="anchor" href="#_non_uniform_work_groups"></a>Non-Uniform Work Groups</h3>
 <div class="paragraph">
-<p>Support for non-uniform work groups is optional for devices supporting OpenCL 3.0.
-When non-uniform work groups are not supported:</p>
+<p>Support for non-uniform work-groups is optional for devices supporting OpenCL 3.0.
+When non-uniform work-groups are not supported:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -25963,11 +25969,11 @@ When non-uniform work groups are not supported:</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#clGetDeviceInfo"><strong>clGetDeviceInfo</strong></a>, passing<br>
 <a href="#CL_DEVICE_NON_UNIFORM_WORK_GROUP_SUPPORT"><code>CL_DEVICE_<wbr>NON_<wbr>UNIFORM_<wbr>WORK_<wbr>GROUP_<wbr>SUPPORT</code></a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">May return <a href="#CL_FALSE"><code>CL_FALSE</code></a>, indicating that <em>device</em> does not support non-uniform work groups.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">May return <a href="#CL_FALSE"><code>CL_FALSE</code></a>, indicating that <em>device</em> does not support non-uniform work-groups.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#clEnqueueNDRangeKernel"><strong>clEnqueueNDRangeKernel</strong></a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Behaves as though non-uniform Work Groups were not enabled for <em>kernel</em>, if the device associated with <em>command_queue</em> does not support non-uniform work groups.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Behaves as though non-uniform Work Groups were not enabled for <em>kernel</em>, if the device associated with <em>command_queue</em> does not support non-uniform work-groups.</p></td>
 </tr>
 </tbody>
 </table>
@@ -26285,8 +26291,8 @@ When writing to 3D image objects is not supported:</p>
 <div class="sect2">
 <h3 id="_work_group_collective_functions"><a class="anchor" href="#_work_group_collective_functions"></a>Work Group Collective Functions</h3>
 <div class="paragraph">
-<p>Work group collective functions for broadcasts, scans, and reductions are optional for devices supporting OpenCL 3.0.
-When work group collective functions are not supported:</p>
+<p>Work-group collective functions for broadcasts, scans, and reductions are optional for devices supporting OpenCL 3.0.
+When work-group collective functions are not supported:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -26303,12 +26309,12 @@ When work group collective functions are not supported:</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#clGetDeviceInfo"><strong>clGetDeviceInfo</strong></a>, passing<br>
 <a href="#CL_DEVICE_WORK_GROUP_COLLECTIVE_FUNCTIONS_SUPPORT"><code>CL_DEVICE_<wbr>WORK_<wbr>GROUP_<wbr>COLLECTIVE_<wbr>FUNCTIONS_<wbr>SUPPORT</code></a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">May return <a href="#CL_FALSE"><code>CL_FALSE</code></a>, indicating that <em>device</em> does not support work group collective functions.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">May return <a href="#CL_FALSE"><code>CL_FALSE</code></a>, indicating that <em>device</em> does not support work-group collective functions.</p></td>
 </tr>
 </tbody>
 </table>
 <div class="paragraph">
-<p>OpenCL C compilers supporting work group collective functions will define the feature macro <code>__opencl_c_work_group_collective_functions</code>.</p>
+<p>OpenCL C compilers supporting work-group collective functions will define the feature macro <code>__opencl_c_work_group_collective_functions</code>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -26404,6 +26410,7 @@ Neil Hickey, ARM<br>
 Robert Elliott, ARM<br>
 Scott Moyers, ARM<br>
 Stuart Brady, ARM<br>
+Sven Van Haastregt, Arm<br>
 Tom Olson, ARM<br>
 Anastasia Stulova, ARM<br>
 Christopher Thompson-Walsh, Broadcom<br>
@@ -26442,6 +26449,7 @@ Alexey Bader, Intel<br>
 Allen Hux, Intel<br>
 Andrew Brownsword, Intel<br>
 Andrew Lauritzen, Intel<br>
+Anton Zabaznov, Intel<br>
 Bartosz Sochacki, Intel<br>
 Ben Ashbaugh, Intel<br>
 Boaz Ouriel, Intel<br>
@@ -26562,7 +26570,7 @@ AJ Guillon, YetiWare Inc<br></p>
 <div id="footnotes">
 <hr>
 <div class="footnote" id="_footnotedef_1">
-<a href="#_footnoteref_1">1</a>. This value for memory_scope can only be used with atomic_work_item_fence with flags set to CLK_IMAGE_MEM_FENCE.
+<a href="#_footnoteref_1">1</a>. This value for memory_scope can only be used with atomic_work_item_fence with flags set to <code>CLK_IMAGE_MEM_FENCE</code>.
 </div>
 <div class="footnote" id="_footnotedef_2">
 <a href="#_footnoteref_2">2</a>. The platform profile returns the profile that is implemented by the OpenCL framework. If the platform profile returned is FULL_PROFILE, the OpenCL framework will support devices that are FULL_PROFILE and may also support devices that are EMBEDDED_PROFILE. The compiler must be available for all devices i.e. <a href="#CL_DEVICE_COMPILER_AVAILABLE"><code>CL_DEVICE_<wbr>COMPILER_<wbr>AVAILABLE</code></a> is <a href="#CL_TRUE"><code>CL_TRUE</code></a>. If the platform profile returned is EMBEDDED_PROFILE, then devices that are only EMBEDDED_PROFILE are supported.
@@ -26675,8 +26683,8 @@ AJ Guillon, YetiWare Inc<br></p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.5<br>
-Last updated 2020-09-28 14:46:56 -0700
+Version v3.0.6<br>
+Last updated 2020-12-13 22:09:28 -0800
 </div>
 </div>
 

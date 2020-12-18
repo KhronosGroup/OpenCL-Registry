@@ -31,19 +31,19 @@ include_once("../../assets/static_pages/khr_page_top.php");
 <li> OpenCL API Specification
      (<a href="specs/3.0-unified/html/OpenCL_API.html">HTML</a>)
      (<a href="specs/3.0-unified/pdf/OpenCL_API.pdf">PDF</a>)
-     (September 30, 2020). </li>
+     (December 18, 2020). </li>
 <li> OpenCL C Language Specification
      (<a href="specs/3.0-unified/html/OpenCL_C.html">HTML</a>)
      (<a href="specs/3.0-unified/pdf/OpenCL_C.pdf">PDF</a>)
-     (September 30, 2020). </li>
+     (December 18, 2020). </li>
 <li> OpenCL Extension Specification
      (<a href="specs/3.0-unified/html/OpenCL_Ext.html">HTML</a>)
      (<a href="specs/3.0-unified/pdf/OpenCL_Ext.pdf">PDF</a>)
-     (September 30, 2020. </li>
+     (December 18, 2020. </li>
 <li> OpenCL SPIR-V Environment Specification
      (<a href="specs/3.0-unified/html/OpenCL_Env.html">HTML</a>)
      (<a href="specs/3.0-unified/pdf/OpenCL_Env.pdf">PDF</a>)
-     (September 30, 2020). </li>
+     (December 18, 2020). </li>
 <li> <a href="https://www.khronos.org/files/opencl30-reference-guide.pdf">
      OpenCL 3.0 Reference Guide.</a> </li>
 </ul>
