@@ -748,9 +748,9 @@ p.tableblock.header { color: #6d6e71; }
 <div id="header">
 <h1>cl_arm_scheduling_controls</h1>
 <div class="details">
-<span id="revnumber">version v3.0.3-rc-20-gd385ec5,</span>
-<span id="revdate">Wed, 02 Sep 2020 08:10:53 +0000</span>
-<br><span id="revremark">from git branch:  commit: d385ec5b350ff613912082d381ac4988388e9b45</span>
+<span id="revnumber">version v3.0.6-2-ga95833c,</span>
+<span id="revdate">Thu, 07 Jan 2021 16:29:31 +0000</span>
+<br><span id="revremark">from git branch: cl_arm_scheduling_controls commit: a95833c6cf1542a8ef1a9ba9f2ee4c8c802cc70c</span>
 </div>
 </div>
 <div id="content">
@@ -798,8 +798,8 @@ p.tableblock.header { color: #6d6e71; }
 <h2 id="_version"><a class="anchor" href="#_version"></a>Version</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Built On: 2020-08-28<br>
-Version: 0.1.0</p>
+<p>Built On: 2021-01-07<br>
+Version: 0.2.0</p>
 </div>
 </div>
 </div>
@@ -835,7 +835,8 @@ scheduling. It can be used for performance tuning or debugging.</p>
 
 CL_DEVICE_SCHEDULING_KERNEL_BATCHING_ARM                (<span class="integer">1</span> &lt;&lt; <span class="integer">0</span>)
 CL_DEVICE_SCHEDULING_WORKGROUP_BATCH_SIZE_ARM           (<span class="integer">1</span> &lt;&lt; <span class="integer">1</span>)
-CL_DEVICE_SCHEDULING_WORKGROUP_BATCH_SIZE_MODIFIER_ARM  (<span class="integer">1</span> &lt;&lt; <span class="integer">2</span>)</code></pre>
+CL_DEVICE_SCHEDULING_WORKGROUP_BATCH_SIZE_MODIFIER_ARM  (<span class="integer">1</span> &lt;&lt; <span class="integer">2</span>)
+CL_DEVICE_SCHEDULING_DEFERRED_FLUSH_ARM                 (<span class="integer">1</span> &lt;&lt; <span class="integer">3</span>)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -852,7 +853,8 @@ CL_KERNEL_EXEC_INFO_WORKGROUP_BATCH_SIZE_MODIFIER_ARM  <span class="hex">0x41E6<
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="c">CL_QUEUE_KERNEL_BATCHING_ARM <span class="hex">0x41E7</span></code></pre>
+<pre class="CodeRay highlight"><code data-lang="c">CL_QUEUE_KERNEL_BATCHING_ARM <span class="hex">0x41E7</span>
+CL_QUEUE_DEFERRED_FLUSH_ARM  <span class="hex">0x41EC</span></code></pre>
 </div>
 </div>
 </div>
@@ -902,7 +904,9 @@ CL_KERNEL_EXEC_INFO_WORKGROUP_BATCH_SIZE_MODIFIER_ARM  <span class="hex">0x41E6<
   supports <code>CL_KERNEL_EXEC_INFO_WORKGROUP_BATCH_SIZE_ARM</code>.
 <br>
 - <code>CL_DEVICE_SCHEDULING_WORKGROUP_BATCH_SIZE_MODIFIER_ARM</code> is set when the
-  device supports <code>CL_KERNEL_EXEC_INFO_WORKGROUP_BATCH_SIZE_MODIFIER_ARM</code>.</p></td>
+  device supports <code>CL_KERNEL_EXEC_INFO_WORKGROUP_BATCH_SIZE_MODIFIER_ARM</code>.
+- <code>CL_DEVICE_SCHEDULING_DEFERRED_FLUSH_ARM</code> is set when the device supports
+  <code>CL_QUEUE_DEFERRED_FLUSH_ARM</code>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -947,6 +951,14 @@ CL_KERNEL_EXEC_INFO_WORKGROUP_BATCH_SIZE_MODIFIER_ARM  <span class="hex">0x41E6<
 <td class="tableblock halign-left valign-top"><p class="tableblock">Whether kernels enqueued to this queue should be batched for submission to the
   device. <code>CL_TRUE</code> means kernels will be batched, <code>CL_FALSE</code> that they will not.
   Defaults to <code>CL_TRUE</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_QUEUE_DEFERRED_FLUSH_ARM</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_bool</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Whether flush operations are performed in the thread triggering the flush or
+  deferred for execution in another thread managed by the OpenCL runtime.
+  <code>CL_TRUE</code> means flush operations are deferred. Defaults to <code>CL_TRUE</code>.<br>
+  Missing before version 0.2.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1064,6 +1076,12 @@ ignored.</p>
 </thead>
 <tbody>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.2.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2020-09-14</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kévin Petit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add support for deferred queue flush control</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0.1.0</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">2020-08-28</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Kévin Petit</p></td>
@@ -1076,8 +1094,8 @@ ignored.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.3-rc-20-gd385ec5<br>
-Last updated 2020-08-28 10:27:35 +0100
+Version v3.0.6-2-ga95833c<br>
+Last updated 2021-01-07 16:28:57 UTC
 </div>
 </div>
 <style>
