@@ -146,6 +146,11 @@ registry = {
         'flags' : { 'public' },
         'url' : 'extensions/intel/cl_intel_advanced_motion_estimation.txt',
     },
+    'cl_intel_command_queue_families' : {
+        'number' : 68,
+        'flags' : { 'public' },
+        'url' : 'extensions/intel/cl_intel_command_queue_families.html',
+    },
     'cl_intel_create_buffer_with_properties' : {
         'number' : 61,
         'flags' : { 'public' },

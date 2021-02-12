@@ -133,4 +133,6 @@
 </li>
 <li value=67><a href="extensions/img/cl_img_mem_properties.html">cl_img_mem_properties</a>
 </li>
+<li value=68><a href="extensions/intel/cl_intel_command_queue_families.html">cl_intel_command_queue_families</a>
+</li>
 </ol>
