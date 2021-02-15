@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.10">
-<title>cl_arm_scheduling_controls</title>
+<title>cl_arm_controlled_kernel_termination</title>
 <style>
 /*! normalize.css v2.1.2 | MIT License | git.io/normalize */
 /* ========================================================================== HTML5 display definitions ========================================================================== */
@@ -746,7 +746,7 @@ p.tableblock.header { color: #6d6e71; }
 </script></head>
 <body class="book">
 <div id="header">
-<h1>cl_arm_scheduling_controls</h1>
+<h1>cl_arm_controlled_kernel_termination</h1>
 <div class="details">
 <span id="revnumber">version v3.0.6-13-g1d397ac,</span>
 <span id="revdate">Mon, 15 Feb 2021 12:23:33 +0000</span>
@@ -758,7 +758,7 @@ p.tableblock.header { color: #6d6e71; }
 <h2 id="_name_strings"><a class="anchor" href="#_name_strings"></a>Name Strings</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>cl_arm_scheduling_controls</code></p>
+<p><code>cl_arm_controlled_kernel_termination</code></p>
 </div>
 </div>
 </div>
@@ -766,7 +766,7 @@ p.tableblock.header { color: #6d6e71; }
 <h2 id="_contact"><a class="anchor" href="#_contact"></a>Contact</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Kevin Petit (kevin.petit 'at' arm.com)</p>
+<p>Kevin Petit, <a href="mailto:kevin.petit@arm.com">kevin.petit@arm.com</a></p>
 </div>
 </div>
 </div>
@@ -774,7 +774,9 @@ p.tableblock.header { color: #6d6e71; }
 <h2 id="_contributors"><a class="anchor" href="#_contributors"></a>Contributors</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Kevin Petit, Arm Ltd.</p>
+<p>Kevin Petit, Arm Ltd.<br>
+Mats Petersson, Arm Ltd.<br>
+Anastasia Stulova, Arm Ltd.<br></p>
 </div>
 </div>
 </div>
@@ -782,7 +784,7 @@ p.tableblock.header { color: #6d6e71; }
 <h2 id="_notice"><a class="anchor" href="#_notice"></a>Notice</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright (c) 2020 Arm Ltd.</p>
+<p>Copyright (c) 2021 Arm Ltd.</p>
 </div>
 </div>
 </div>
@@ -790,7 +792,7 @@ p.tableblock.header { color: #6d6e71; }
 <h2 id="_status"><a class="anchor" href="#_status"></a>Status</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Shipping</p>
+<p>Shipping.</p>
 </div>
 </div>
 </div>
@@ -799,7 +801,7 @@ p.tableblock.header { color: #6d6e71; }
 <div class="sectionbody">
 <div class="paragraph">
 <p>Built On: 2021-02-11<br>
-Version: 0.3.0</p>
+Version: 1.0.0</p>
 </div>
 </div>
 </div>
@@ -807,10 +809,11 @@ Version: 0.3.0</p>
 <h2 id="_dependencies"><a class="anchor" href="#_dependencies"></a>Dependencies</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This extension is written against the OpenCL Specification v3.0.3.</p>
+<p>This extension is written against the OpenCL Specification
+Version 3.0.6.</p>
 </div>
 <div class="paragraph">
-<p>This extension requires OpenCL 2.0.</p>
+<p>This extension requires OpenCL 1.0.</p>
 </div>
 </div>
 </div>
@@ -818,8 +821,25 @@ Version: 0.3.0</p>
 <h2 id="_overview"><a class="anchor" href="#_overview"></a>Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This extension gives applications explicit control over some aspects of work
-scheduling. It can be used for performance tuning or debugging.</p>
+<p>This extension enables the controlled termination of kernels using a built-in
+function. It also enables the termination reason to be queried on devices that
+support it. This makes it possible to end the execution of a successful search
+kernel early or implement assert-like functionnality using printf.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_new_api_types"><a class="anchor" href="#_new_api_types"></a>New API Types</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c"><span class="keyword">typedef</span> cl_uint cl_command_termination_reason_arm;
+
+<span class="preprocessor">#define</span> CL_COMMAND_TERMINATION_COMPLETION_ARM <span class="integer">0</span>
+<span class="preprocessor">#define</span> CL_COMMAND_TERMINATION_CONTROLLED_SUCCESS_ARM <span class="integer">1</span>
+<span class="preprocessor">#define</span> CL_COMMAND_TERMINATION_CONTROLLED_FAILURE_ARM <span class="integer">2</span>
+<span class="preprocessor">#define</span> CL_COMMAND_TERMINATION_ERROR_ARM <span class="integer">3</span></code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -827,64 +847,47 @@ scheduling. It can be used for performance tuning or debugging.</p>
 <h2 id="_new_api_enums"><a class="anchor" href="#_new_api_enums"></a>New API Enums</h2>
 <div class="sectionbody">
 <div class="paragraph">
+<p>Error code reported for the status of events:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">CL_COMMAND_TERMINATED_ITSELF_WITH_FAILURE_ARM   -<span class="integer">1108</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Accepted value for the <em>param_name</em> parameter to <strong>clGetEventInfo</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">CL_EVENT_COMMAND_TERMINATION_REASON_ARM       <span class="hex">0x41ED</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
 <p>Accepted value for the <em>param_name</em> parameter to <strong>clGetDeviceInfo</strong>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="c">CL_DEVICE_SCHEDULING_CONTROLS_CAPABILITIES_ARM           <span class="hex">0x41E4</span>
+<pre class="CodeRay highlight"><code data-lang="c">CL_DEVICE_CONTROLLED_TERMINATION_CAPABILITIES_ARM   <span class="hex">0x41EE</span>
 
-CL_DEVICE_SCHEDULING_KERNEL_BATCHING_ARM                (<span class="integer">1</span> &lt;&lt; <span class="integer">0</span>)
-CL_DEVICE_SCHEDULING_WORKGROUP_BATCH_SIZE_ARM           (<span class="integer">1</span> &lt;&lt; <span class="integer">1</span>)
-CL_DEVICE_SCHEDULING_WORKGROUP_BATCH_SIZE_MODIFIER_ARM  (<span class="integer">1</span> &lt;&lt; <span class="integer">2</span>)
-CL_DEVICE_SCHEDULING_DEFERRED_FLUSH_ARM                 (<span class="integer">1</span> &lt;&lt; <span class="integer">3</span>)
-CL_DEVICE_SCHEDULING_REGISTER_ALLOCATION_ARM            (<span class="integer">1</span> &lt;&lt; <span class="integer">4</span>)
-
-CL_DEVICE_SUPPORTED_REGISTER_ALLOCATIONS_ARM              <span class="hex">0x41EB</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Accepted value for the <em>param_name</em> parameter to <strong>clSetKernelExecInfo</strong>:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="c">CL_KERNEL_EXEC_INFO_WORKGROUP_BATCH_SIZE_ARM           <span class="hex">0x41E5</span>
-CL_KERNEL_EXEC_INFO_WORKGROUP_BATCH_SIZE_MODIFIER_ARM  <span class="hex">0x41E6</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Accepted value for the <em>properties</em> parameter to <strong>clCreateCommandQueueWithProperties</strong>:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="c">CL_QUEUE_KERNEL_BATCHING_ARM <span class="hex">0x41E7</span>
-CL_QUEUE_DEFERRED_FLUSH_ARM  <span class="hex">0x41EC</span></code></pre>
+<span class="preprocessor">#define</span> CL_DEVICE_CONTROLLED_TERMINATION_SUCCESS_ARM (<span class="integer">1</span> &lt;&lt; <span class="integer">0</span>)
+<span class="preprocessor">#define</span> CL_DEVICE_CONTROLLED_TERMINATION_FAILURE_ARM (<span class="integer">1</span> &lt;&lt; <span class="integer">1</span>)
+<span class="preprocessor">#define</span> CL_DEVICE_CONTROLLED_TERMINATION_QUERY_ARM   (<span class="integer">1</span> &lt;&lt; <span class="integer">2</span>)</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_new_build_options"><a class="anchor" href="#_new_build_options"></a>New build options</h2>
+<h2 id="_new_opencl_c_types_and_functions"><a class="anchor" href="#_new_opencl_c_types_and_functions"></a>New OpenCL C Types and Functions</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>This extension adds a build option to control the number of registers allocated
-to each thread:</p>
-</div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="c">-fregister-allocation=</code></pre>
+<pre class="CodeRay highlight"><code data-lang="c"><span class="keyword">typedef</span> <span class="keyword">enum</span> {
+    ARM_TERMINATION_SUCCESS,
+    ARM_TERMINATION_FAILURE
+} arm_termination_reason;
+
+<span class="directive">void</span> arm_terminate_kernel(arm_termination_reason reason);</code></pre>
 </div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Missing before version 0.3.0
-</td>
-</tr>
-</table>
 </div>
 </div>
 </div>
@@ -899,7 +902,7 @@ Missing before version 0.3.0
 <div class="content">
 <div class="dlist">
 <dl>
-<dt class="hdlist1">(Add the following to Table 5, <em>Device Queries</em>) </dt>
+<dt class="hdlist1">(Add the following to Table 5, <em>List of supported param_names by *clGetDeviceInfo*</em>) </dt>
 </dl>
 </div>
 </div>
@@ -909,9 +912,9 @@ Missing before version 0.3.0
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 16.6666%;">
-<col style="width: 16.6666%;">
-<col style="width: 66.6668%;">
+<col style="width: 8.3333%;">
+<col style="width: 8.3333%;">
+<col style="width: 83.3334%;">
 </colgroup>
 <thead>
 <tr>
@@ -922,29 +925,17 @@ Missing before version 0.3.0
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_SCHEDULING_CONTROLS_CAPABILITIES_ARM</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_device_scheduling_controls_capabilities_arm</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Returns a bitfield of the scheduling controls this device supports:
-<br>
-- <code>CL_DEVICE_SCHEDULING_KERNEL_BATCHING_ARM</code> is set when the device supports
-  <code>CL_QUEUE_KERNEL_BATCHING_ARM</code>.
-<br>
-- <code>CL_DEVICE_SCHEDULING_WORKGROUP_BATCH_SIZE_ARM</code> is set when the device
-  supports <code>CL_KERNEL_EXEC_INFO_WORKGROUP_BATCH_SIZE_ARM</code>.
-<br>
-- <code>CL_DEVICE_SCHEDULING_WORKGROUP_BATCH_SIZE_MODIFIER_ARM</code> is set when the
-  device supports <code>CL_KERNEL_EXEC_INFO_WORKGROUP_BATCH_SIZE_MODIFIER_ARM</code>.
-- <code>CL_DEVICE_SCHEDULING_DEFERRED_FLUSH_ARM</code> is set when the device supports
-  <code>CL_QUEUE_DEFERRED_FLUSH_ARM</code>.</p>
-<p class="tableblock">- <code>CL_DEVICE_SCHEDULING_REGISTER_ALLOCATION_ARM</code> is set when the device compiler
-  supports the <code>-fregister-allocation</code> option.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_SUPPORTED_REGISTER_ALLOCATIONS_ARM</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_int[]</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Returns an array of valid register allocations for this device. Each of the
-  returned values can be passed to the <code>-fregister-allocation</code> build option.<br>
-  Missing before version 0.3.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_CONTROLLED_TERMINATION_CAPABILITIES_ARM</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_device_controlled_termination_capabilities_arm</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns a bitfield describing which features of this extension
+  are supported by the device.<br>
+  - <code>CL_DEVICE_CONTROLLED_TERMINATION_SUCCESS_ARM</code> is set when calling the
+    <code>arm_terminate_kernel</code> function with <code>ARM_TERMINATION_SUCCESS</code> is supported.<br>
+  - <code>CL_DEVICE_CONTROLLED_TERMINATION_FAILURE_ARM</code> is set when calling the
+    <code>arm_terminate_kernel</code> function with <code>ARM_TERMINATION_FAILURE</code> is supported.<br>
+  - <code>CL_DEVICE_CONTROLLED_TERMINATION_QUERY_ARM</code> is set when
+    <code>CL_EVENT_COMMAND_TERMINATION_REASON_ARM</code> and
+    <code>CL_COMMAND_TERMINATED_ITSELF_WITH_FAILURE_ARM</code> are supported.</p></td>
 </tr>
 </tbody>
 </table>
@@ -955,13 +946,13 @@ Missing before version 0.3.0
 </div>
 <div class="dlist">
 <dl>
-<dt class="hdlist1">(Modify Section 5.1, <strong>Command Queues</strong>) </dt>
+<dt class="hdlist1">(Modify Section 5.11, <strong>Event Objects</strong>) </dt>
 <dd>
 <div class="openblock">
 <div class="content">
 <div class="dlist">
 <dl>
-<dt class="hdlist1">(Add the following to Table 9, <em>List of supported queue creation properties</em>) </dt>
+<dt class="hdlist1">(Add the following to Table 36, <em>List of supported param_names by *clGetEventInfo*</em>) </dt>
 </dl>
 </div>
 </div>
@@ -977,138 +968,75 @@ Missing before version 0.3.0
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Queue Properties</th>
-<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">cl_event_info</th>
+<th class="tableblock halign-left valign-top">Return Type</th>
 <th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_QUEUE_KERNEL_BATCHING_ARM</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_bool</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Whether kernels enqueued to this queue should be batched for submission to the
-  device. <code>CL_TRUE</code> means kernels will be batched, <code>CL_FALSE</code> that they will not.
-  Defaults to <code>CL_TRUE</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_EVENT_COMMAND_TERMINATION_REASON_ARM</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_command_termination_reason_arm</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the reason for a command&#8217;s execution having ended:<br>
+  - <code>CL_COMMAND_TERMINATION_COMPLETION_ARM</code> when the command ran to completion<br>
+  - <code>CL_COMMAND_TERMINATION_CONTROLLED_SUCCESS_ARM</code> when the command terminated itself with a success status<br>
+  - <code>CL_COMMAND_TERMINATION_CONTROLLED_FAILURE_ARM</code> when the command terminated itself with a failure status<br>
+  - <code>CL_COMMAND_TERMINATION_ERROR_ARM</code> when the command&#8217;s execution ended because of an unexpected error<br></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_QUEUE_DEFERRED_FLUSH_ARM</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_bool</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Whether flush operations are performed in the thread triggering the flush or
-  deferred for execution in another thread managed by the OpenCL runtime.
-  <code>CL_TRUE</code> means flush operations are deferred. Defaults to <code>CL_TRUE</code>.<br>
-  Missing before version 0.2.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_EVENT_COMMAND_EXECUTION_STATUS</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_int</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns <code>CL_COMMAND_TERMINATED_ITSELF_WITH_FAILURE_ARM</code> if the kernel was
+  terminated by calling <code>arm_terminate_kernel</code> with <code>ARM_TERMINATION_FAILURE</code>.</p></td>
 </tr>
 </tbody>
 </table>
 <div class="openblock">
 <div class="content">
-
+<div class="paragraph">
+<p>The following new error conditions are added for <strong>clGetEventInfo</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>{CL_INVALID_EVENT} if <em>event</em> does not correspond to a
+<code>CL_COMMAND_NDRANGE_KERNEL</code> or <code>CL_COMMAND_TASK</code> command.</p>
+</li>
+<li>
+<p>{CL_INVALID_OPERATION} if the <code>CL_EVENT_COMMAND_EXECUTION_STATUS</code> of <em>event</em> is neither
+<code>CL_COMPLETE</code> nor a negative value.</p>
+</li>
+</ul>
 </div>
 </div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_modifications_to_the_opencl_c_specification"><a class="anchor" href="#_modifications_to_the_opencl_c_specification"></a>Modifications to the OpenCL C Specification</h2>
+<div class="sectionbody">
 <div class="dlist">
 <dl>
-<dt class="hdlist1">(Modify Section 5.8.6, <strong>Compiler Options</strong>) </dt>
+<dt class="hdlist1">(Add a new Section 6.15.X, <strong>Controlled kernel termination</strong>) </dt>
 <dd>
 <div class="openblock">
 <div class="content">
-<div class="dlist">
-<dl>
-<dt class="hdlist1">(Add the following to <em>Optimization Options</em>) </dt>
-</dl>
+<h4 id="arm_terminate_kernel" class="float">arm_terminate_kernel</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c"><span class="directive">void</span> arm_terminate_kernel(arm_termination_reason reason);</code></pre>
 </div>
-</div>
-</div>
-</dd>
-</dl>
 </div>
 <div class="paragraph">
-<p>The following options are supported when building programs created from
-source or intermediate language. Specifying these options when building
-a program created from a binary will result in {CL_INVALID_BUILD_OPTIONS}
-being returned by <strong>clBuildProgram</strong>.</p>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1"><code>-fregister-allocation=&lt;number-of-registers-per-thread&gt;</code> </dt>
-<dd>
-<p>This option overrides the compiler&#8217;s selection of the number of machine
-registers allocated to each thread for all kernels in the program.</p>
-</dd>
-<dt class="hdlist1"><code>-fregister-allocation=&lt;kernel-name&gt;:&lt;number-of-registers-per-thread&gt;[,&#8230;&#8203;]</code> </dt>
-<dd>
-<p>This option overrides the compiler&#8217;s selection of the number of machine
-registers allocated to each thread for specific kernels in the program.</p>
-</dd>
-</dl>
-</div>
-<div class="openblock">
-<div class="content">
-
-</div>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">(Modify Section 5.9, <strong>Kernel Objects</strong>) </dt>
-<dd>
-<div class="openblock">
-<div class="content">
-<div class="dlist">
-<dl>
-<dt class="hdlist1">(Add the following to Table 31, <em>List of param_values accepted by *clSetKernelExecInfo*</em>) </dt>
-</dl>
+<p>Any work-item calling this function will provoke the early termination
+of the whole kernel instance. No guarantees are given as to how early the
+termination occurs. Implementations are expected to terminate the kernel as
+quickly as possible.</p>
 </div>
 </div>
 </div>
 </dd>
 </dl>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 16.6666%;">
-<col style="width: 16.6666%;">
-<col style="width: 66.6668%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">cl_kernel_exec_info</th>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_KERNEL_EXEC_INFO_WORKGROUP_BATCH_SIZE_ARM</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_uint</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Set the size of batches of work groups distributed to compute units.
-  The value is a number of work groups. If set to 0, then the runtime
-  will pick a suitable value automatically. Defaults to 0. If the value is
-  greater than the number of work groups necessary to execute a given NDRange,
-  the actual batch size will be capped at the number of work groups in the
-  NDRange. When a value is not directly usable due to device-specific
-  constraints, it will be rounded up to the next usable value.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_KERNEL_EXEC_INFO_WORKGROUP_BATCH_SIZE_MODIFIER_ARM</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_int</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Modify the size of batches of work groups distributed to compute units.</p>
-<p class="tableblock">On devices that support <code>CL_KERNEL_EXEC_INFO_WORKGROUP_BATCH_SIZE_ARM</code>, the value is
-a number of work groups added to the batch size calculated by the runtime (when
-<code>CL_KERNEL_EXEC_INFO_WORKGROUP_BATCH_SIZE_ARM</code> set to 0) or set by the application
-(when <code>CL_KERNEL_EXEC_INFO_WORKGROUP_BATCH_SIZE_ARM</code> set to a value greater than 0).</p>
-<p class="tableblock">On devices that do not support <code>CL_KERNEL_EXEC_INFO_WORKGROUP_BATCH_SIZE_ARM</code>, the
-value is a number in the range [-31,+31]. When set to 0, the runtime-selected
-batch size is used unmodified. When set to a non-zero value, each increment of
-one unit in either direction around zero will either divide (negative value)
-or multiply (positive value) the batch size by 2. If the requested modification
-is not possible due to hardware constraints, the greatest possible modification
-will be used.</p></td>
-</tr>
-</tbody>
-</table>
-<div class="openblock">
-<div class="content">
-
-</div>
 </div>
 </div>
 </div>
@@ -1116,14 +1044,15 @@ will be used.</p></td>
 <h2 id="_interactions_with_other_extensions"><a class="anchor" href="#_interactions_with_other_extensions"></a>Interactions with Other Extensions</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Some features in this extension interact with <code>cl_arm_thread_limit_hint</code>.</p>
+<p>None.</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_conformance_tests"><a class="anchor" href="#_conformance_tests"></a>Conformance tests</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>If <code>CL_KERNEL_EXEC_INFO_WORKGROUP_BATCH_SIZE_ARM</code> or
-<code>CL_KERNEL_EXEC_INFO_WORKGROUP_BATCH_SIZE_MODIFIER_ARM</code> is set to a non-default
-value at the time a kernel is enqueued, then any thread limit hint specified
-in the kernel source using the <code>arm_thread_limit_hint</code> attribute will be
-ignored.</p>
+<p>None.</p>
 </div>
 </div>
 </div>
@@ -1136,7 +1065,7 @@ ignored.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_revision_history"><a class="anchor" href="#_revision_history"></a>Revision History</h2>
+<h2 id="_version_history"><a class="anchor" href="#_version_history"></a>Version History</h2>
 <div class="sectionbody">
 <table class="tableblock frame-all grid-rows stretch">
 <colgroup>
@@ -1155,22 +1084,10 @@ ignored.</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0.3.0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2021-01-19</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Kévin Petit</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Add support for register allocation control</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0.2.0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2020-09-14</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Kévin Petit</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Add support for deferred queue flush control</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0.1.0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2020-08-28</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Kévin Petit</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Initial version</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2020-10-18</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kevin Petit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Initial revision</strong></p></td>
 </tr>
 </tbody>
 </table>
@@ -1180,7 +1097,7 @@ ignored.</p>
 <div id="footer">
 <div id="footer-text">
 Version v3.0.6-13-g1d397ac<br>
-Last updated 2021-02-11 10:51:58 UTC
+Last updated 2021-02-11 10:53:11 UTC
 </div>
 </div>
 <style>
