@@ -135,4 +135,6 @@
 </li>
 <li value=68><a href="extensions/intel/cl_intel_command_queue_families.html">cl_intel_command_queue_families</a>
 </li>
+<li value=69><a href="extensions/arm/cl_arm_controlled_kernel_termination.html">cl_arm_controlled_kernel_termination</a>
+</li>
 </ol>

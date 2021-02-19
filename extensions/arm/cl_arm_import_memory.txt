@@ -20,6 +20,7 @@ Contributors
     Kévin Petit, Arm Ltd.
     Sam Laynton, Arm Ltd.
     James Morrissey, Arm Ltd.
+    Einar Hov, Arm Ltd.
 
 Contact
 
@@ -31,7 +32,7 @@ IP Status
 
 Version
 
-    Revision: #10, Feb 13th, 2020
+    Revision: #11, Feb 15th, 2021
 
 Number
 
@@ -111,6 +112,8 @@ New Procedures and Functions
         * CL_IMPORT_TYPE_ARM
         * CL_IMPORT_TYPE_PROTECTED_ARM
         * CL_IMPORT_DMA_BUF_DATA_CONSISTENCY_WITH_HOST_ARM
+        * CL_IMPORT_ANDROID_HARDWARE_BUFFER_PLANE_INDEX_ARM
+        * CL_IMPORT_ANDROID_HARDWARE_BUFFER_LAYER_INDEX_ARM
 
       Valid values for CL_IMPORT_TYPE_ARM are:
 
@@ -139,6 +142,10 @@ New Procedures and Functions
         * CL_TRUE - data consistency between memory and the host's view is
                     managed by the OpenCL runtime.
 
+      Valid values for CL_IMPORT_ANDROID_HARDWARE_BUFFER_PLANE_INDEX_ARM and
+      CL_IMPORT_ANDROID_HARDWARE_BUFFER_LAYER_INDEX_ARM are integers in the
+      range [0; num_{planes,layers}).
+
       If <properties> is NULL, default values are taken.
 
       Valid <memory> pointer is dependent on the TYPE passed in properties.
@@ -161,6 +168,10 @@ New Procedures and Functions
       are passed.
 
       CL_INVALID_VALUE if memory is NULL.
+
+      CL_INVALID_VALUE if an out-of-range plane or layer index is passed via
+      CL_IMPORT_ANDROID_HARDWARE_BUFFER_PLANE_INDEX_ARM or
+      CL_IMPORT_ANDROID_HARDWARE_BUFFER_LAYER_INDEX_ARM.
 
       CL_INVALID_OPERATION when host virtual pages in the range of <memory> to
       <memory>+<size> are not mapped in the userspace address space. This does
@@ -285,7 +296,16 @@ New memory import types
       a reference on the AHardwareBuffer object that will not be released until
       the cl_mem is destroyed.
 
+      In version 1.0.0:
+
       Multiplanar buffers are only supported when backed by a single dma_buf.
+
+      In version 1.1.0:
+
+      It is possible to select the specific plane or layer to import via
+      CL_IMPORT_ANDROID_HARDWARE_BUFFER_PLANE_INDEX_ARM and/or
+      CL_IMPORT_ANDROID_HARDWARE_BUFFER_LAYER_INDEX_ARM. The imported memory
+      will start at the first pixel for the imported plane/layer.
 
       <size> may be set to CL_IMPORT_MEMORY_WHOLE_ALLOCATION_ARM to require
       that the memory object have the same size as the imported
@@ -430,3 +450,5 @@ Revision History
                                    parameter to clImportMemoryARM.
     Revision: #9, Jan 10th, 2020 - Add support for Android harware buffers.
     Revision: #10, Feb 13th, 2020 - Make dma_buf <-> host data consistency optional.
+    Revision: #11, Feb 15th, 2021 - Add support for Android hardware buffer
+                                    plane/layer selection.

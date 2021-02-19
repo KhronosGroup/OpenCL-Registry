@@ -41,6 +41,11 @@ registry = {
         'flags' : { 'public' },
         'url' : 'extensions/amd/cl_amd_media_ops2.txt',
     },
+    'cl_arm_controlled_kernel_termination' : {
+        'number' : 69,
+        'flags' : { 'public' },
+        'url' : 'extensions/arm/cl_arm_controlled_kernel_termination.html',
+    },
     'cl_arm_core_id' : {
         'number' : 26,
         'flags' : { 'public' },
