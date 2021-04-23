@@ -841,9 +841,9 @@ table.CodeRay td.code>pre{padding:0}
 <h1>The OpenCL<sup>&#8482;</sup> C Specification</h1>
 <div class="details">
 <span id="author" class="author">Khronos<sup>&#174;</sup> OpenCL Working Group</span><br>
-<span id="revnumber">version v3.0.6,</span>
-<span id="revdate">Fri, 18 Dec 2020 12:00:00 +0000</span>
-<br><span id="revremark">from git branch: master commit: e9a4d468b1a0a38c1e10b8af484bb2bbb495e2b7</span>
+<span id="revnumber">version v3.0.7,</span>
+<span id="revdate">Fri, 23 Apr 2021 20:00:00 +0000</span>
+<br><span id="revremark">from git branch: master commit: 133503b85911ca8fd6642721d440e89460d491a3</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -1117,7 +1117,7 @@ is used, it has the identical meaning.</p>
 </li>
 <li>
 <p>Requires support for OpenCL C 2.0, or OpenCL C 3.0 or newer and the
-<code>__opencl_c_feature_name</code> feature:
+<code>__opencl_c_<wbr>&lt;feature_<wbr>name&gt;</em></code> feature:
 Features that were introduced in OpenCL C 2.0 as mandatory, but made
 <a href="#optional-functionality">optional</a> in OpenCL C 3.0.
 Compilers for versions of OpenCL C 1.2 or below will not provide these
@@ -1126,7 +1126,7 @@ compilers for OpenCL C 3.0 or newer may provide these features.</p>
 </li>
 <li>
 <p>Requires support for OpenCL C 3.0 or newer and the
-<code>__opencl_c_feature_name</code> feature: <a href="#optional-functionality">Optional</a> features that were introduced in OpenCL C 3.0.
+<code>__opencl_c_<wbr>&lt;feature_<wbr>name&gt;</em></code> feature: <a href="#optional-functionality">Optional</a> features that were introduced in OpenCL C 3.0.
 Compilers for an earlier version of OpenCL C will not provide these
 features, compilers for OpenCL C 3.0 or newer may provide these features.</p>
 </li>
@@ -1174,7 +1174,7 @@ associated <em>feature test macro</em> will be predefined.</p>
 <div class="paragraph">
 <p>The following table describes OpenCL C 3.0 or newer features and their
 meaning. The naming convention for the feature macros is
-<code>__opencl_c_&lt;name&gt;</code>.</p>
+<code>__opencl_c_<wbr>&lt;feature_<wbr>name&gt;</em></code>.</p>
 </div>
 <div class="paragraph">
 <p>Feature macro identifiers are used as names of features in this document.</p>
@@ -1249,7 +1249,7 @@ must always define the <code>__opencl_c_<wbr>int64</code> feature macro.</p></td
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>__opencl_c_<wbr>pipes</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The OpenCL C compiler supports the pipe modifier and built-in functions
+<td class="tableblock halign-left valign-top"><p class="tableblock">The OpenCL C compiler supports the pipe specifier and built-in functions
 to read and write from a pipe.</p>
 <p class="tableblock">OpenCL C compilers that define the feature macro <code>__opencl_c_<wbr>pipes</code> must
 also define the feature macro <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code>.</p></td>
@@ -3411,7 +3411,9 @@ type, or to an expression that designates a bit-field struct member
 <code>image3d_t</code>, <code>image2d_array_t</code>, <code>image1d_t</code>, <code>image1d_buffer_t</code>,
 <code>image1d_array_t</code>, <code>image2d_depth_t</code>, <code>image2d_array_depth_t</code>,
 <code>sampler_t</code>, <code>queue_t</code>, <code>ndrange_t</code>, <code>clk_event_t</code>, <code>reserve_id_t</code>, and
-<code>event_t</code> types is implementation-defined.</p>
+<code>event_t</code> types is implementation-defined.  Additionally, the behavior of
+applying the <code>sizeof</code> operator to a pipe object (a type with the <code>pipe</code> type
+specifier keyword) is implementation-defined.</p>
 </div>
 </div>
 </div>
@@ -3956,7 +3958,7 @@ specifier:</p>
 without <code>__opencl_c_<wbr>program_<wbr>scope_<wbr>global_<wbr>variables</code> feature.</p>
 </li>
 <li>
-<p>Can be qualified by either <code><em>constant</code> or <code></em>global</code> for OpenCL C 2.0 or
+<p>Can be qualified by either <code>__constant</code> or <code>__global</code> for OpenCL C 2.0 or
 OpenCL C 3.0 with <code>__opencl_c_<wbr>program_<wbr>scope_<wbr>global_<wbr>variables</code> feature.</p>
 </li>
 </ul>
@@ -4026,7 +4028,7 @@ initialized by default. A constant expression may be given as an initializer.</p
 cannot be initialized.</p>
 </div>
 <div class="paragraph">
-<p>Variables allocated in the __constant address space are required to be initialized
+<p>Variables allocated in the <code>__constant</code> address space are required to be initialized
 and the values used to initialize these variables must be a compile time constant.</p>
 </div>
 <div class="paragraph">
@@ -5839,6 +5841,19 @@ defined.</p>
 <h4 id="specifying-attribute-for-unrolling-loops"><a class="anchor" href="#specifying-attribute-for-unrolling-loops"></a>6.13.5. Specifying Attribute For Unrolling Loops</h4>
 <div class="openblock">
 <div class="content">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The functionality described in this section <a href="#unified-spec">requires</a>
+support for OpenCL C 2.0 or newer.
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>The <code>__attribute__((opencl_unroll_hint))</code> and
 <code>__attribute__((opencl_unroll_hint(n)))</code> attribute qualifiers can be used
@@ -11038,11 +11053,12 @@ integer data types.
   int <strong>vec_step</strong>(<em>type</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The <strong>vec_step</strong> built-in function takes a built-in scalar or vector
       data type argument and returns an integer value representing the
-      number of elements in the scalar or vector.</p>
+      number of elements in the scalar or vector.  The argument is not
+      evaluated.</p>
 <p class="tableblock">      For all scalar types, <strong>vec_step</strong> returns 1.</p>
 <p class="tableblock">      The <strong>vec_step</strong> built-in functions that take a 3-component vector
       return 4.</p>
-<p class="tableblock">      <strong>vec_step</strong> may also take a pure type as an argument, e.g.
+<p class="tableblock">      <strong>vec_step</strong> may also take a type name as an argument, e.g.
       <strong>vec_step</strong>(float2)</p>
 <p class="tableblock">      <a href="#unified-spec">Requires</a> support for OpenCL C 1.1 or newer.</p></td>
 </tr>
@@ -11145,7 +11161,7 @@ b = shuffle(a, mask); <span class="comment">//  not valid</span></code></pre>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">int <strong>printf</strong>(constant char restrict <em>format</em>, &#8230;&#8203;)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int <strong>printf</strong>(constant char *restrict <em>format</em>, &#8230;&#8203;)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The <strong>printf</strong> built-in function writes output to an
       implementation-defined stream such as stdout under control of the
       string pointed to by <em>format</em> that specifies how subsequent arguments
@@ -13250,7 +13266,7 @@ support for OpenCL C 2.0, or OpenCL C 3.0 or newer and the
 </table>
 </div>
 <div class="paragraph">
-<p>This section decribes built-in functions that perform collective options
+<p>This section describes built-in functions that perform collective options
 across a work-group.
 These built-in functions must be encountered by all work-items in a
 work-group executing the kernel.
@@ -13288,10 +13304,12 @@ We use the generic type name <code>gentype</code> to indicate the built-in data 
   size_t <em>local_id_y</em>)<br>
   gentype <strong>work_group_broadcast</strong>(gentype <em>a</em>, size_t <em>local_id_x</em>,
   size_t <em>local_id_y</em>, size_t <em>local_id_z</em>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Broadcast the value of <em>x</em> for work-item identified by <em>local_id</em> to
+<td class="tableblock halign-left valign-top"><p class="tableblock">Broadcast the value of <em>a</em> for work-item identified by <em>local_id</em> to
       all work-items in the work-group.</p>
-<p class="tableblock">      <em>local_id</em> must be the same value for all work-items in the
-      work-group.</p></td>
+<p class="tableblock">      Behavior is undefined when the value of <em>local_id</em> is not equivalent for
+      all work-items in the work-group.</p>
+<p class="tableblock">      Behavior is undefined when <em>local_id</em> is greater or equal to the
+      work-group size in the corresponding dimension.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>work_group_reduce_&lt;op&gt;</strong>(gentype <em>x</em>)</p></td>
@@ -13322,16 +13340,9 @@ We use the generic type name <code>gentype</code> to indicate the built-in data 
 <strong>min</strong> or <strong>max</strong>.</p>
 </div>
 <div class="paragraph">
-<p>The inclusive scan operation takes a binary operator <strong>op</strong> with an identity I
-and <em>n</em> (where <em>n</em> is the size of the work-group) elements [a<sub>0</sub>, a<sub>1</sub>, &#8230;&#8203;
-a<sub>n-1</sub>] and returns [a<sub>0</sub>, (a<sub>0</sub> <strong>op</strong> a<sub>1</sub>), &#8230;&#8203; (a<sub>0</sub> <strong>op</strong> a<sub>1</sub> <strong>op</strong> &#8230;&#8203;
-<strong>op</strong> a<sub>n-1</sub>)].
-If <strong>op</strong> = add, the identity I is 0.
-If <strong>op</strong> = min, the identity I is <code>INT_MAX</code>, <code>UINT_MAX</code>, <code>LONG_MAX</code>,
-<code>ULONG_MAX</code>, for <code>int</code>, <code>uint</code>, <code>long</code>, <code>ulong</code> types and is <code>+INF</code> for
-floating-point types.
-Similarly if <strong>op</strong> = max, the identity I is <code>INT_MIN</code>, 0, <code>LONG_MIN</code>, 0 and
-<code>-INF</code>.</p>
+<p>The inclusive scan operation takes a binary operator <strong>op</strong> with <em>n</em> (where <em>n</em>
+is the size of the work-group) elements [a<sub>0</sub>, a<sub>1</sub>, &#8230;&#8203; a<sub>n-1</sub>] and returns
+[a<sub>0</sub>, (a<sub>0</sub> <strong>op</strong> a<sub>1</sub>), &#8230;&#8203; (a<sub>0</sub> <strong>op</strong> a<sub>1</sub> <strong>op</strong> &#8230;&#8203;  <strong>op</strong> a<sub>n-1</sub>)].</p>
 </div>
 <div class="paragraph">
 <p>Consider the following example:</p>
@@ -13359,6 +13370,12 @@ work-items 0 &#8230;&#8203; 7 are [3 4 11 11 15 16 22 25].</p>
 an identity I and n (where n is the size of the work-group) elements [a<sub>0</sub>,
 a<sub>1</sub>, &#8230;&#8203; a<sub>n-1</sub>] and returns [I, a<sub>0</sub>, (a<sub>0</sub> <strong>op</strong> a<sub>1</sub>), &#8230;&#8203; (a<sub>0</sub> <strong>op</strong>
 a<sub>1</sub> <strong>op</strong> &#8230;&#8203; <strong>op</strong> a<sub>n-2</sub>)].
+If <strong>op</strong> = add, the identity I is 0.
+If <strong>op</strong> = min, the identity I is <code>INT_MAX</code>, <code>UINT_MAX</code>, <code>LONG_MAX</code>,
+<code>ULONG_MAX</code>, for <code>int</code>, <code>uint</code>, <code>long</code>, <code>ulong</code> types and is <code>+INF</code> for
+floating-point types.
+Similarly if <strong>op</strong> = max, the identity I is <code>INT_MIN</code>, 0, <code>LONG_MIN</code>, 0 and
+<code>-INF</code>.
 For the example above, the exclusive scan add operation on the ordered set
 [3 1 7 0 4 1 6 3] would return [0 3 4 11 11 15 16 22].</p>
 </div>
@@ -13401,8 +13418,8 @@ support for OpenCL C 2.0, or OpenCL C 3.0 or newer and the <code>__opencl_c_<wbr
 </div>
 <div class="paragraph">
 <p>A pipe is identified by specifying the <code>pipe</code> keyword with a type.
-The data type specifies the size of each packet in the pipe.
-The <code>pipe</code> keyword is a type modifier.
+The data type specifies the type of each element in the pipe.
+The <code>pipe</code> keyword is a type specifier.
 When it is applied to another type <strong>T</strong>, the result is a pipe type whose
 elements (or packets) are of type <strong>T</strong>.
 The packet type <strong>T</strong> may be any supported OpenCL C scalar and vector integer
@@ -13421,7 +13438,7 @@ pipe user_type_t pipeB; <span class="comment">// a pipe with user_type_t packets
 </div>
 <div class="paragraph">
 <p>The <code>read_only</code> (or <code>__read_only</code>) and <code>write_only</code> (or <code>__write_only</code>)
-qualifiers must be used with the <code>pipe</code> qualifier when a pipe is a parameter
+qualifiers must be used with the <code>pipe</code> specifier when a pipe is a parameter
 of a kernel or of a user-defined function to identify if a pipe can be read
 from or written to by a kernel and its callees and enqueued child kernels.
 If no qualifier is specified, <code>read_only</code> is assumed.</p>
@@ -13429,7 +13446,7 @@ If no qualifier is specified, <code>read_only</code> is assumed.</p>
 <div class="paragraph">
 <p>A kernel cannot read from and write to the same pipe object.
 Using the <code>read_write</code> (or <code>__read_write</code>) qualifier with the <code>pipe</code>
-qualifier is a compilation error.</p>
+specifier is a compilation error.</p>
 </div>
 <div class="paragraph">
 <p>In the following example</p>
@@ -13458,10 +13475,10 @@ foo (read_only pipe fooA_t pipeA,
 <p>Pipes can only be passed as arguments to a function (including kernel
 functions).
 The <a href="#operators">C operators</a> cannot be used with variables declared
-with the pipe qualifier.</p>
+with the pipe specifier.</p>
 </li>
 <li>
-<p>The <code>pipe</code> qualifier cannot be used with variables declared inside a
+<p>The <code>pipe</code> specifier cannot be used with variables declared inside a
 kernel, a structure or union field, a pointer type, an array, global
 variables declared in program scope or the return type of a function.</p>
 </li>
@@ -14638,8 +14655,10 @@ supported built-in scalar data types <code>int</code>, <code>uint</code>, <code>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Broadcast the value of <em>x</em> for work-item identified by
   <em>sub_group_local_id</em> (value returned by <strong>get_sub_group_local_id</strong>) to all
   work-items in the subgroup.</p>
-<p class="tableblock">  <em>sub_group_local_id</em> must be the same value for all work-items in the
-  subgroup.</p></td>
+<p class="tableblock">  Behavior is undefined when the value of <em>sub_group_local_id</em> is not
+  equivalent for all work-items in the subgroup.</p>
+<p class="tableblock">  Behavior is undefined when <em>sub_group_local_id</em> is greater or equal to the
+  subgroup size.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>sub_group_reduce_&lt;op&gt;</strong> (<br>
@@ -15001,7 +15020,7 @@ there was sufficient range, meets ULP error tolerance.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Correctly rounded</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>1.0 / <em>x</em></strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0 / <em>x</em></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">≤ 2.5 ulp</p></td>
 </tr>
 <tr>
@@ -15508,7 +15527,7 @@ is the infinitely precise result.
 <td class="tableblock halign-left valign-top"><p class="tableblock">Correctly rounded</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>1.0 / <em>x</em></strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0 / <em>x</em></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">≤ 3 ulp</p></td>
 </tr>
 <tr>
@@ -15995,16 +16014,16 @@ operations and builtins with <code>-cl-unsafe-math-optimizations</code> <a href=
 <table id="table-float-ulp-relaxed" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 47. ULP values for single precision built-in math functions with unsafe math optimizations in the full and embedded profiles</caption>
 <colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
+<col style="width: 30%;">
+<col style="width: 70%;">
 </colgroup>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Function</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Min Accuracy - ULP values</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Minimum Accuracy</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>1.0 / <em>x</em></strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0 / <em>x</em></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">≤ 2.5 ulp for <em>x</em> in the domain of 2<sup>-126</sup> to 2<sup>126</sup> for the full
       profile, and ≤ 3 ulp for the embedded profile.</p></td>
 </tr>
@@ -16019,8 +16038,13 @@ operations and builtins with <code>-cl-unsafe-math-optimizations</code> <a href=
 <td class="tableblock halign-left valign-top"><p class="tableblock">≤ 4096 ulp</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>acosh</strong>(<em>x</em>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Derived implementations may implement as <strong>log</strong>(<em>x</em> + <strong>sqrt</strong>(<em>x</em> * <em>x</em> - 1)).
+      For non-derived implementations, the error is ≤ 8192 ulp.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>acospi</strong>(<em>x</em>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Implemented as <strong>acos</strong>(<em>x</em>) * <code>M_PI_F</code>.
+<td class="tableblock halign-left valign-top"><p class="tableblock">Derived implementations may implement as <strong>acos</strong>(<em>x</em>) * <code>M_PI_F</code>.
       For non-derived implementations, the error is ≤ 8192 ulp.</p></td>
 </tr>
 <tr>
@@ -16028,8 +16052,13 @@ operations and builtins with <code>-cl-unsafe-math-optimizations</code> <a href=
 <td class="tableblock halign-left valign-top"><p class="tableblock">≤ 4096 ulp</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>asinh</strong>(<em>x</em>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Derived implementations may implement as <strong>log</strong>(<em>x</em> + <strong>sqrt</strong>(<em>x</em> * <em>x</em> + 1)).
+      For non-derived implementations, the error is ≤ 8192 ulp.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>asinpi</strong>(<em>x</em>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Implemented as <strong>asin</strong>(<em>x</em>) * <code>M_PI_F</code>.
+<td class="tableblock halign-left valign-top"><p class="tableblock">Derived implementations may implement as <strong>asin</strong>(<em>x</em>) * <code>M_PI_F</code>.
       For non-derived implementations, the error is ≤ 8192 ulp.</p></td>
 </tr>
 <tr>
@@ -16037,32 +16066,32 @@ operations and builtins with <code>-cl-unsafe-math-optimizations</code> <a href=
 <td class="tableblock halign-left valign-top"><p class="tableblock">≤ 4096 ulp</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>atan2</strong>(<em>y</em>, <em>x</em>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Implemented as <strong>atan</strong>(<em>y</em> / <em>x</em>) for <em>x</em> &gt; 0, <strong>atan</strong>(<em>y</em> / <em>x</em>)<br>
-      <code>M_1_PI_F</code> for <em>x</em> &lt; 0 and <em>y</em> &gt; 0 and <strong>atan</strong>(<em>y</em> / <em>x</em>) -
-      <code>M_1_PI_F</code> for <em>x</em> &lt; 0 and <em>y</em> &lt; 0.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>atanh</strong>(<em>x</em>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defined for <em>x</em> in the domain (-1, 1).
+    For <em>x</em> in [-2<sup>-10</sup>, 2<sup>-10</sup>], derived implementations may implement as <em>x</em>.
+    For <em>x</em> outside of [-2<sup>-10</sup>, 2<sup>-10</sup>], derived implementations may implement as
+    0.5f * <strong>log</strong>1.0f + <em>x</em>) / (1.0f - <em>x</em>.
+    For non-derived implementations, the error is ≤ 8192 ulp.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>atanpi</strong>(<em>x</em>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Implemented as <strong>atan</strong>(<em>x</em>) * <code>M_1_PI_F</code>.
+<td class="tableblock halign-left valign-top"><p class="tableblock">Derived implementations may implement as <strong>atan</strong>(<em>x</em>) * <code>M_1_PI_F</code>.
       For non-derived implementations, the error is ≤ 8192 ulp.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>atan2</strong>(<em>y</em>, <em>x</em>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Derived implementations may implement as <strong>atan</strong>(<em>y</em> / <em>x</em>) for <em>x</em> &gt; 0,
+      <strong>atan</strong>(<em>y</em> / <em>x</em>) + <code>M_PI_F</code> for <em>x</em> &lt; 0 and <em>y</em> &gt; 0, and
+      <strong>atan</strong>(<em>y</em> / <em>x</em>) - <code>M_PI_F</code> for <em>x</em> &lt; 0 and <em>y</em> &lt; 0.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>atan2pi</strong>(<em>y</em>, <em>x</em>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Implemented as <strong>atan2</strong>(<em>y</em>, <em>x</em>) * <code>M_PI_F</code>.
+<td class="tableblock halign-left valign-top"><p class="tableblock">Derived implementations may implement as <strong>atan2</strong>(<em>y</em>, <em>x</em>) * <code>M_1_PI_F</code>.
       For non-derived implementations, the error is ≤ 8192 ulp.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>acosh</strong>(<em>x</em>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Implemented as <strong>log</strong>(<em>x</em> + <strong>sqrt</strong>(<em>x</em> * <em>x</em> - 1)).</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>asinh</strong>(<em>x</em>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Implemented as <strong>log</strong>(<em>x</em> + <strong>sqrt</strong>(<em>x</em> * <em>x</em> + 1)).</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>cbrt</strong>(<em>x</em>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Implemented as <strong>rootn</strong>(<em>x</em>, 3).
+<td class="tableblock halign-left valign-top"><p class="tableblock">Derived implementations may implement as <strong>rootn</strong>(<em>x</em>, 3).
       For non-derived implementations, the error is ≤ 8192 ulp.</p></td>
 </tr>
 <tr>
@@ -16072,8 +16101,8 @@ operations and builtins with <code>-cl-unsafe-math-optimizations</code> <a href=
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>cosh</strong>(<em>x</em>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Defined for <em>x</em> in the domain [-88,88] and implemented as 0.5f *
-      (<strong>exp</strong>(<em>x</em>) + <strong>exp</strong>(-<em>x</em>)).
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defined for <em>x</em> in the domain [-88, 88].
+      Derived implementations may implement as 0.5f * (<strong>exp</strong>(<em>x</em>) + <strong>exp</strong>(-<em>x</em>)).
       For non-derived implementations, the error is ≤ 8192 ulp.</p></td>
 </tr>
 <tr>
@@ -16093,74 +16122,74 @@ operations and builtins with <code>-cl-unsafe-math-optimizations</code> <a href=
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>exp10</strong>(<em>x</em>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Derived implementations implement this as <strong>exp2</strong>(<em>x</em> * <strong>log2</strong>(10)).
+<td class="tableblock halign-left valign-top"><p class="tableblock">Derived implementations may implement as <strong>exp2</strong>(<em>x</em> * <strong>log2</strong>(10)).
       For non-derived implementations, the error is ≤ 8192 ulp.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>expm1</strong>(<em>x</em>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Derived implementations implement this as <strong>exp</strong>(<em>x</em>) - 1.
+<td class="tableblock halign-left valign-top"><p class="tableblock">Derived implementations may implement as <strong>exp</strong>(<em>x</em>) - 1.
       For non-derived implementations, the error is ≤ 8192 ulp.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>log</strong>(<em>x</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">For <em>x</em> in the domain [0.5, 2] the maximum absolute error is ≤
-      2<sup>-21</sup>; otherwise the maximum error is ≤3 ulp for the full profile
-      and ≤ 4 ulp for the embedded profile</p></td>
+      2<sup>-21</sup>; otherwise the maximum error is ≤ 3 ulp for the full profile
+      and ≤ 4 ulp for the embedded profile.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>log2</strong>(<em>x</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">For <em>x</em> in the domain [0.5, 2] the maximum absolute error is ≤
-      2<sup>-21</sup>; otherwise the maximum error is ≤3 ulp for the full profile
-      and ≤ 4 ulp for the embedded profile</p></td>
+      2<sup>-21</sup>; otherwise the maximum error is ≤ 3 ulp for the full profile
+      and ≤ 4 ulp for the embedded profile.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>log10</strong>(<em>x</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">For <em>x</em> in the domain [0.5, 2] the maximum absolute error is ≤
-      2<sup>-21</sup>; otherwise the maximum error is ≤3 ulp for the full profile
-      and ≤ 4 ulp for the embedded profile</p></td>
+      2<sup>-21</sup>; otherwise the maximum error is ≤ 3 ulp for the full profile
+      and ≤ 4 ulp for the embedded profile.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>log1p</strong>(<em>x</em>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Derived implementations implement this as <strong>log</strong>(<em>x</em> + 1).
+<td class="tableblock halign-left valign-top"><p class="tableblock">Derived implementations may implement as <strong>log</strong>(<em>x</em> + 1).
       For non-derived implementations, the error is ≤ 8192 ulp.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>pow</strong>(<em>x</em>, <em>y</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Undefined for <em>x</em> = 0 and <em>y</em> = 0.
-      Undefined for <em>x</em> &lt; 0 and non-integer y.
-      Undefined for <em>x</em> &lt; 0 and <em>y</em> outside the domain [-2^24, 2^24].
-      For <em>x</em> &gt; 0 or <em>x</em> &lt; 0 and even <em>y</em>, derived implementations implement
-      this as <strong>exp2</strong>(<em>y</em> * <strong>log2</strong>(<strong>fabs</strong>(<em>x</em>))).
-      For <em>x</em> &lt; 0 and odd <em>y</em>, derived implementations implement this as
+      Undefined for <em>x</em> &lt; 0 and non-integer <em>y</em>.
+      Undefined for <em>x</em> &lt; 0 and <em>y</em> outside the domain [-2<sup>24</sup>, 2<sup>24</sup>].
+      For <em>x</em> &gt; 0 or <em>x</em> &lt; 0 and even <em>y</em>, derived implementations may implement as
+      <strong>exp2</strong>(<em>y</em> * <strong>log2</strong>(<strong>fabs</strong>(<em>x</em>))).
+      For <em>x</em> &lt; 0 and odd <em>y</em>, derived implementations may implement as
       -<strong>exp2</strong>(<em>y</em> * <strong>log2</strong>(<strong>fabs</strong>(<em>x</em>)).
-      For <em>x</em> == 0 and nonzero <em>y</em>, derived implementations return zero.
+      For <em>x</em> == 0 and non-zero <em>y</em>, for derived implementations may return zero.
       For non-derived implementations, the error is ≤ 8192 ulp.
       <sup class="footnote">[<a id="_footnoteref_82" class="footnote" href="#_footnotedef_82" title="View footnote.">82</a>]</sup></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>pown</strong>(<em>x</em>, <em>y</em>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Defined only for integer values of y.
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defined only for integer values of <em>y</em>.
       Undefined for <em>x</em> = 0 and <em>y</em> = 0.
-      For <em>x</em> &gt;= 0 or <em>x</em> &lt; 0 and even <em>y</em>, derived implementations
-      implement this as <strong>exp2</strong>(<em>y</em> * <strong>log2</strong>(<strong>fabs</strong>(<em>x</em>))).
-      For <em>x</em> &lt; 0 and odd <em>y</em>, derived implementations implement this as
-      -<strong>exp2</strong>(<em>y</em> * <strong>log2</strong>(<strong>fabs</strong>(<em>x</em>)).
+      For <em>x</em> &gt;= 0 or <em>x</em> &lt; 0 and even <em>y</em>, derived implementations may implement as
+      <strong>exp2</strong>(<em>y</em> * <strong>log2</strong>(<strong>fabs</strong>(<em>x</em>))).
+      For <em>x</em> &lt; 0 and odd <em>y</em>, derived implementations may implement as
+      -<strong>exp2</strong>(<em>y</em> * <strong>log2</strong>(<strong>fabs</strong>(<em>x</em>))).
       For non-derived implementations, the error is ≤ 8192 ulp.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>powr</strong>(<em>x</em>, <em>y</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Defined only for <em>x</em> &gt;= 0.
       Undefined for <em>x</em> = 0 and <em>y</em> = 0.
-      Derived implementations implement this as <strong>exp2</strong>(<em>y</em> * <strong>log2</strong>(<em>x</em>)).
+      Derived implementations may implement as <strong>exp2</strong>(<em>y</em> * <strong>log2</strong>(<em>x</em>)).
       For non-derived implementations, the error is ≤ 8192 ulp.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>rootn</strong>(<em>x</em>, <em>y</em>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Defined for <em>x</em> &gt; 0 when <em>y</em> is nonzero, derived implementations
-      implement this case as <strong>exp2</strong>(log2(<em>x</em>) / <em>y</em>).
-      Defined for <em>x</em> &lt; 0 when <em>y</em> is odd, derived implementations implement
-      this case as -<strong>exp2</strong>(<strong>log2</strong>(-<em>x</em>) / <em>y</em>).
-      Defined for <em>x</em> = +/-0 when <em>y</em> &gt; 0, derived implementations will
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defined for <em>x</em> &gt; 0 when <em>y</em> is non-zero, derived implementations
+      may implement this case as <strong>exp2</strong>(<strong>log2</strong>(<em>x</em>) / <em>y</em>).
+      Defined for <em>x</em> &lt; 0 when <em>y</em> is odd, derived implementations
+      may implement this case as -<strong>exp2</strong>(<strong>log2</strong>(-<em>x</em>) / <em>y</em>).
+      Defined for <em>x</em> = +/-0 when <em>y</em> &gt; 0, derived implementations may
       return +0 in this case.
       For non-derived implementations, the error is ≤ 8192 ulp.</p></td>
 </tr>
@@ -16171,14 +16200,15 @@ operations and builtins with <code>-cl-unsafe-math-optimizations</code> <a href=
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>sincos</strong>(<em>x</em>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ulp values as defined for <strong>sin</strong>(<em>x</em>) and <strong>cos</strong>(<em>x</em>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ulp values as defined for <strong>sin</strong>(<em>x</em>) and <strong>cos</strong>(<em>x</em>).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>sinh</strong>(<em>x</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Defined for <em>x</em> in the domain [-88,88].
-      For <em>x</em> in [-2<sup>-10,2</sup>-10], derived implementations implement as <em>x</em>.
-      For <em>x</em> outside of [-2<sup>10,2</sup>10], derived implement as <strong>0.5f *
-      (*exp</strong>(<em>x</em>) - <strong>exp</strong>(-<em>x</em>)).
+      For <em>x</em> in [-2<sup>-10</sup>, 2<sup>-10</sup>], derived implementations
+      may implement as <em>x</em>.
+      For <em>x</em> outside of [-2<sup>-10</sup>, 2<sup>-10</sup>], derived implementations
+      may implement as 0.5f * (<strong>exp</strong>(<em>x</em>) - <strong>exp</strong>(-<em>x</em>)).
       For non-derived implementations, the error is ≤ 8192 ulp.</p></td>
 </tr>
 <tr>
@@ -16188,13 +16218,22 @@ operations and builtins with <code>-cl-unsafe-math-optimizations</code> <a href=
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>tan</strong>(<em>x</em>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Derived implementations implement this as <strong>sin</strong>(<em>x</em>) * (<code>1.0f</code> /
-      <strong>cos</strong>(<em>x</em>)).
+<td class="tableblock halign-left valign-top"><p class="tableblock">Derived implementations may implement as
+      <strong>sin</strong>(<em>x</em>) * (1.0f / <strong>cos</strong>(<em>x</em>)).
       For non-derived implementations, the error is ≤ 8192 ulp.</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>tanh</strong>(<em>x</em>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defined for <em>x</em> in the domain [-∞, ∞].
+    For <em>x</em> in [-2<sup>-10</sup>, 2<sup>-10</sup>], derived implementations
+    may implement as <em>x</em>.
+    For <em>x</em> outside of [-2<sup>-10</sup>, 2<sup>-10</sup>], derived implementations
+    may implement as (<strong>exp</strong>(<em>x</em>) - <strong>exp</strong>(-<em>x</em>)) / (<strong>exp</strong>(<em>x</em>) + <strong>exp</strong>(-<em>x</em>)).
+    For non-derived implementations, the error is ≤ 8192 ULP.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>tanpi</strong>(<em>x</em>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Derived implementations implement this as <strong>tan</strong>(<em>x</em> * <code>M_PI_F</code>).
+<td class="tableblock halign-left valign-top"><p class="tableblock">Derived implementations may implement as <strong>tan</strong>(<em>x</em> * <code>M_PI_F</code>).
       For non-derived implementations, the error is ≤ 8192 ulp for <em>x</em>
       in the domain [-1, 1].</p></td>
 </tr>
@@ -18340,8 +18379,8 @@ References are to sections of this specific version, referred to as the
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.6<br>
-Last updated 2020-12-18 09:20:25 -0800
+Version v3.0.7<br>
+Last updated 2021-04-23 12:57:31 -0700
 </div>
 </div>
 

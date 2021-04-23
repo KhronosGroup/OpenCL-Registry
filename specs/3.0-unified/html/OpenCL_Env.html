@@ -841,9 +841,9 @@ table.CodeRay td.code>pre{padding:0}
 <h1>The OpenCL<sup>&#8482;</sup> SPIR-V Environment Specification</h1>
 <div class="details">
 <span id="author" class="author">Khronos<sup>&#174;</sup> OpenCL Working Group</span><br>
-<span id="revnumber">version v3.0.6,</span>
-<span id="revdate">Fri, 18 Dec 2020 12:00:00 +0000</span>
-<br><span id="revremark">from git branch: master commit: e9a4d468b1a0a38c1e10b8af484bb2bbb495e2b7</span>
+<span id="revnumber">version v3.0.7,</span>
+<span id="revdate">Fri, 23 Apr 2021 20:00:00 +0000</span>
+<br><span id="revremark">from git branch: master commit: 133503b85911ca8fd6642721d440e89460d491a3</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -1177,6 +1177,9 @@ OpenCL environments:</p>
 </table>
 <div class="paragraph">
 <p><strong>OpTypeSampler</strong> may be used to declare sampler types in OpenCL environments.</p>
+</div>
+<div class="paragraph">
+<p><strong>OpTypeSampledImage</strong> may be used to declare combined image and sampler types in OpenCL environments.</p>
 </div>
 </div>
 <div class="sect3">
@@ -1526,6 +1529,124 @@ additional types in an entry point&#8217;s parameter list.</p>
 a built-in variable.
 All built-in variables must be in the <strong>Input</strong> storage class.</p>
 </div>
+<div class="paragraph">
+<p>The following table describes the required SPIR-V type for built-in variables.
+In this table, <code>size_t</code> is used as a generic type to represent:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>OpTypeInt</strong> with <em>Width</em> equal to 32 if the <em>Addressing Model</em> declared in <strong>OpMemoryModel</strong> is <strong>Physical32</strong>.</p>
+</li>
+<li>
+<p><strong>OpTypeInt</strong> with <em>Width</em> equal to 64 if the <em>Addressing Model</em> declared in <strong>OpMemoryModel</strong> is <strong>Physical64</strong>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The mapping from an OpenCL C built-in function to the SPIR-V <strong>BuiltIn</strong> is informational and non-normative.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 28.5714%;">
+<col style="width: 28.5714%;">
+<col style="width: 42.8572%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>OpenCL C Function</strong></th>
+<th class="tableblock halign-left valign-top"><strong>SPIR-V BuiltIn</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Required SPIR-V Type</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_work_dim</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>WorkDim</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpTypeInt</strong> with <em>Width</em> equal to 32</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_global_size</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GlobalSize</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpTypeVector</strong> of 3 components of <code>size_t</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_global_id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GlobalInvocationId</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpTypeVector</strong> of 3 components of <code>size_t</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_local_size</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>WorkgroupSize</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpTypeVector</strong> of 3 components of <code>size_t</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_enqueued_local_size</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>EnqueuedWorkgroupSize</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpTypeVector</strong> of 3 components of <code>size_t</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_local_id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>LocalInvocationId</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpTypeVector</strong> of 3 components of <code>size_t</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_num_groups</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>NumWorkgroups</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpTypeVector</strong> of 3 components of <code>size_t</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_group_id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>WorkgroupId</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpTypeVector</strong> of 3 components of <code>size_t</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_global_offset</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GlobalOffset</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpTypeVector</strong> of 3 components of <code>size_t</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_global_linear_id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GlobalLinearId</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>size_t</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_local_linear_id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>LocalInvocationIndex</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>size_t</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_sub_group_size</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>SubgroupSize</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpTypeInt</strong> with <em>Width</em> equal to 32</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_max_sub_group_size</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>SubgroupMaxSize</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpTypeInt</strong> with <em>Width</em> equal to 32</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_num_sub_groups</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>NumSubgroups</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpTypeInt</strong> with <em>Width</em> equal to 32</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_enqueued_num_sub_groups</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>NumEnqueuedSubgroups</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpTypeInt</strong> with <em>Width</em> equal to 32</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_sub_group_id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>SubgroupId</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpTypeInt</strong> with <em>Width</em> equal to 32</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_sub_group_local_id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>SubgroupLocalInvocationId</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpTypeInt</strong> with <em>Width</em> equal to 32</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect2">
 <h3 id="_alignment_of_types"><a class="anchor" href="#_alignment_of_types"></a>2.10. Alignment of Types</h3>
@@ -1821,7 +1942,7 @@ type of <em>Value</em>.</p>
 </li>
 <li>
 <p>The <em>Pointer</em> operand must be a pointer to the <strong>Function</strong>, <strong>Workgroup</strong>,
-or <strong>CrossWorkGroup</strong> <em>Storage Classes</em>.  Note that an <strong>Atomic Instruction</strong>
+or <strong>CrossWorkgroup</strong> <em>Storage Classes</em>.  Note that an <strong>Atomic Instruction</strong>
 on a pointer to the <strong>Function</strong> <em>Storage Class</em> is valid, but does not
 have defined behavior.</p>
 </li>
@@ -2763,6 +2884,22 @@ that declare the following SPIR-V capabilities:</p>
 </div>
 <div class="paragraph">
 <p>When the <strong>GroupNonUniformClustered</strong> capability is declared, the <strong>GroupNonUniformArithmetic</strong> scan and reduction instructions may include the optional <em>ClusterSize</em> operand.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_cl_khr_spirv_extended_debug_info"><a class="anchor" href="#_cl_khr_spirv_extended_debug_info"></a>5.2.21. <code>cl_khr_spirv_extended_debug_info</code></h4>
+<div class="paragraph">
+<p>If the OpenCL environment supports the extension <code>cl_khr_spirv_extended_debug_info</code>, then the environment must accept modules
+that import the <code>OpenCL.DebugInfo.100</code> extended instruction set via <strong>OpExtInstImport</strong>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_cl_khr_spirv_linkonce_odr"><a class="anchor" href="#_cl_khr_spirv_linkonce_odr"></a>5.2.22. <code>cl_khr_spirv_linkonce_odr</code></h4>
+<div class="paragraph">
+<p>If the OpenCL environment supports the extension <code>cl_khr_spirv_linkonce_odr</code>, then the environment must accept modules that declare use of the extension <code>SPV_KHR_linkonce_odr</code> via <strong>OpExtension</strong>.</p>
+</div>
+<div class="paragraph">
+<p>If the OpenCL environment supports the extension <code>cl_khr_spirv_linkonce_odr</code> and use of the SPIR-V extension <code>SPV_KHR_linkonce_odr</code> is declared in the module via <strong>OpExtension</strong>, then the environment must accept modules that include the <strong>LinkOnceODR</strong> linkage type.</p>
 </div>
 </div>
 </div>
@@ -4442,229 +4579,235 @@ profile.</p>
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top"><strong>SPIR-V Instruction</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Function</strong></th>
 <th class="tableblock halign-left valign-top"><strong>Minimum Accuracy</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpFDiv</strong> for 1.0 / <em>x</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 2.5 ulp for x in the domain of 2<sup>-126</sup> to 2<sup>126</sup> for the full profile,
-  and &lt;= 3 ulp for the embedded profile.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">≤ 2.5 ulp for <em>x</em> in the domain of 2<sup>-126</sup> to 2<sup>126</sup> for the full
+      profile, and ≤ 3 ulp for the embedded profile.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpFDiv</strong> for <em>x</em> / <em>y</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 2.5 ulp for x in the domain of 2<sup>-62</sup> to 2<sup>62</sup> and <em>y</em> in the domain
-  of 2<sup>-62</sup> to 2<sup>62</sup> for the full profile, and &lt;= 3 ulp for the embedded
-  profile.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">≤ 2.5 ulp for <em>x</em> in the domain of 2<sup>-62</sup> to 2<sup>62</sup> and <em>y</em> in the
+      domain of 2<sup>-62</sup> to 2<sup>62</sup> for the full profile, and ≤ 3 ulp for
+      the embedded profile.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpExtInst</strong> <strong>acos</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 4096 ulp</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">≤ 4096 ulp</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpExtInst</strong> <strong>acosh</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Implemented as log( x + sqrt(x*x - 1) ).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Derived implementations may implement as <strong>log</strong>(<em>x</em> + <strong>sqrt</strong>(<em>x</em> * <em>x</em> - 1)).
+      For non-derived implementations, the error is ≤ 8192 ulp.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpExtInst</strong> <strong>acospi</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Implemented as acos(x) * M_PI_F.
-  For non-derived implementations, the error is &lt;= 8192 ulp.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Derived implementations may implement as <strong>acos</strong>(<em>x</em>) * <code>M_PI_F</code>.
+      For non-derived implementations, the error is ≤ 8192 ulp.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpExtInst</strong> <strong>asin</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 4096 ulp</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">≤ 4096 ulp</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpExtInst</strong> <strong>asinh</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Implemented as log( x + sqrt(x*x + 1) ).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Derived implementations may implement as <strong>log</strong>(<em>x</em> + <strong>sqrt</strong>(<em>x</em> * <em>x</em> + 1)).
+      For non-derived implementations, the error is ≤ 8192 ulp.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpExtInst</strong> <strong>asinpi</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Implemented as asin(x) * M_PI_F.
-  For non-derived implementations, the error is &lt;= 8192 ulp.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Derived implementations may implement as <strong>asin</strong>(<em>x</em>) * <code>M_PI_F</code>.
+      For non-derived implementations, the error is ≤ 8192 ulp.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpExtInst</strong> <strong>atan</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 4096 ulp</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">≤ 4096 ulp</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpExtInst</strong> <strong>atanh</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Defined for x in the domain (-1, 1).
-  For x in [-2<sup>-10</sup>, 2<sup>-10</sup>], implemented as x.
-  For x outside of [-2<sup>-10</sup>, 2<sup>-10</sup>], implemented as 0.5f * log( (1.0f + x)
-  / (1.0f - x) ).
-  For non-derived implementations, the error is &lt;= 8192 ulp.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defined for <em>x</em> in the domain (-1, 1).
+      For <em>x</em> in [-2<sup>-10</sup>, 2<sup>-10</sup>], derived implementations may implement as <em>x</em>.
+      For <em>x</em> outside of [-2<sup>-10</sup>, 2<sup>-10</sup>], derived implementations may implement as
+      0.5f * <strong>log</strong>1.0f + <em>x</em>) / (1.0f - <em>x</em>.
+      For non-derived implementations, the error is ≤ 8192 ulp.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpExtInst</strong> <strong>atanpi</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Implemented as atan(x) * M_1_PI_F.
-  For non-derived implementations, the error is &lt;= 8192 ulp.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Derived implementations may implement as <strong>atan</strong>(<em>x</em>) * <code>M_1_PI_F</code>.
+      For non-derived implementations, the error is ≤ 8192 ulp.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpExtInst</strong> <strong>atan2</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Implemented as atan(y/x) for x &gt; 0, atan(y/x) + M_PI_F for x &lt; 0 and y &gt;
-  0, and atan(y/x) - M_PI_F for x &lt; 0 and y &lt; 0.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Derived implementations may implement as <strong>atan</strong>(<em>y</em> / <em>x</em>) for <em>x</em> &gt; 0,
+      <strong>atan</strong>(<em>y</em> / <em>x</em>) + <code>M_PI_F</code> for <em>x</em> &lt; 0 and <em>y</em> &gt; 0, and
+      <strong>atan</strong>(<em>y</em> / <em>x</em>) - <code>M_PI_F</code> for <em>x</em> &lt; 0 and <em>y</em> &lt; 0.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpExtInst</strong> <strong>atan2pi</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Implemented as atan2(y, x) * M_1_PI_F.
-  For non-derived implementations, the error is &lt;= 8192 ulp.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Derived implementations may implement as <strong>atan2</strong>(<em>y</em>, <em>x</em>) * <code>M_1_PI_F</code>.
+      For non-derived implementations, the error is ≤ 8192 ulp.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpExtInst</strong> <strong>cbrt</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Implemented as rootn(x, 3).
-  For non-derived implementations, the error is &lt;= 8192 ulp.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Derived implementations may implement as <strong>rootn</strong>(<em>x</em>, 3).
+      For non-derived implementations, the error is ≤ 8192 ulp.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpExtInst</strong> <strong>cos</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">For x in the domain [-π, π], the maximum absolute error is &lt;=
-  2<sup>-11</sup> and larger otherwise.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">For <em>x</em> in the domain [-π, π], the maximum absolute error
+      is ≤ 2<sup>-11</sup> and larger otherwise.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpExtInst</strong> <strong>cosh</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Defined for x in the domain [-∞, ∞] and implemented as 0.5f * (
-  exp(x) + exp(-x) ).
-  For non-derived implementations, the error is &lt;= 8192 ULP.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defined for <em>x</em> in the domain [-88, 88].
+      Derived implementations may implement as 0.5f * (<strong>exp</strong>(<em>x</em>) + <strong>exp</strong>(-<em>x</em>)).
+      For non-derived implementations, the error is ≤ 8192 ulp.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpExtInst</strong> <strong>cospi</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">For x in the domain [-1, 1], the maximum absolute error is &lt;= 2<sup>-11</sup> and
-  larger otherwise.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">For <em>x</em> in the domain [-1, 1], the maximum absolute error is ≤
+      2<sup>-11</sup> and larger otherwise.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpExtInst</strong> <strong>exp</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 3 + floor( fabs(2 * x) ) ulp for the full profile, and &lt;= 4 ulp for
-  the embedded profile.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">≤ 3 + <strong>floor</strong>(<strong>fabs</strong>(2 * <em>x</em>)) ulp for the full profile, and ≤
+      4 ulp for the embedded profile.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpExtInst</strong> <strong>exp2</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 3 + floor( fabs(2 * x) ) ulp for the full profile, and &lt;= 4 ulp for
-  the embedded profile.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">≤ 3 + <strong>floor</strong>(<strong>fabs</strong>(2 * <em>x</em>)) ulp for the full profile, and ≤
+      4 ulp for the embedded profile.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpExtInst</strong> <strong>exp10</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Derived implementations implement this as exp2( x * log2(10) ).
-  For non-derived implementations, the error is &lt;= 8192 ulp.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Derived implementations may implement as <strong>exp2</strong>(<em>x</em> * <strong>log2</strong>(10)).
+      For non-derived implementations, the error is ≤ 8192 ulp.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpExtInst</strong> <strong>expm1</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Derived implementations implement this as exp(x) - 1.
-  For non-derived implementations, the error is &lt;= 8192 ulp.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Derived implementations may implement as <strong>exp</strong>(<em>x</em>) - 1.
+      For non-derived implementations, the error is ≤ 8192 ulp.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpExtInst</strong> <strong>log</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">For x in the domain [0.5, 2] the maximum absolute error is &lt;= 2<sup>-21</sup>;
-  otherwise the maximum error is &lt;=3 ulp for the full profile and &lt;= 4 ulp
-  for the embedded profile</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">For <em>x</em> in the domain [0.5, 2] the maximum absolute error is ≤
+      2<sup>-21</sup>; otherwise the maximum error is ≤ 3 ulp for the full profile
+      and ≤ 4 ulp for the embedded profile.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpExtInst</strong> <strong>log2</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">For x in the domain [0.5, 2] the maximum absolute error is &lt;= 2<sup>-21</sup>;
-  otherwise the maximum error is &lt;=3 ulp for the full profile and &lt;= 4 ulp
-  for the embedded profile</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">For <em>x</em> in the domain [0.5, 2] the maximum absolute error is ≤
+      2<sup>-21</sup>; otherwise the maximum error is ≤ 3 ulp for the full profile
+      and ≤ 4 ulp for the embedded profile.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpExtInst</strong> <strong>log10</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">For x in the domain [0.5, 2] the maximum absolute error is &lt;= 2<sup>-21</sup>;
-  otherwise the maximum error is &lt;=3 ulp for the full profile and &lt;= 4 ulp
-  for the embedded profile</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">For <em>x</em> in the domain [0.5, 2] the maximum absolute error is ≤
+      2<sup>-21</sup>; otherwise the maximum error is ≤ 3 ulp for the full profile
+      and ≤ 4 ulp for the embedded profile.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpExtInst</strong> <strong>log1p</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Derived implementations implement this as log(x + 1).
-  For non-derived implementations, the error is &lt;= 8192 ulp.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Derived implementations may implement as <strong>log</strong>(<em>x</em> + 1).
+      For non-derived implementations, the error is ≤ 8192 ulp.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpExtInst</strong> <strong>pow</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Undefined for x = 0 and y = 0.
-  Undefined for x &lt; 0 and non-integer y.
-  Undefined for x &lt; 0 and y outside the domain [-2<sup>24</sup>, 2<sup>24</sup>].
-  For x &gt; 0 or x &lt; 0 and even y, derived implementations implement this as
-  exp2( y * log2( fabs(x) ) ).
-  For x &lt; 0 and odd y, derived implementations implement this as -exp2( y *
-  log2( fabs(x) ).
-  For x == 0 and nonzero y, derived implementations return zero.
-  For non-derived implementations, the error is &lt;= 8192 ULP.</p>
-<p class="tableblock">  On some implementations, powr() or pown() may perform faster
-  than pow().
-  If x is known to be &gt;= 0, consider using powr() in place of pow(),
-  or if y is known to be an integer, consider using pown() in place of
-  pow().</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Undefined for <em>x</em> = 0 and <em>y</em> = 0.
+      Undefined for <em>x</em> &lt; 0 and non-integer <em>y</em>.
+      Undefined for <em>x</em> &lt; 0 and <em>y</em> outside the domain [-2<sup>24</sup>, 2<sup>24</sup>].
+      For <em>x</em> &gt; 0 or <em>x</em> &lt; 0 and even <em>y</em>, derived implementations may implement as
+      <strong>exp2</strong>(<em>y</em> * <strong>log2</strong>(<strong>fabs</strong>(<em>x</em>))).
+      For <em>x</em> &lt; 0 and odd <em>y</em>, derived implementations may implement as
+      -<strong>exp2</strong>(<em>y</em> * <strong>log2</strong>(<strong>fabs</strong>(<em>x</em>)).
+      For <em>x</em> == 0 and non-zero <em>y</em>, for derived implementations may return zero.
+      For non-derived implementations, the error is ≤ 8192 ulp.</p>
+<p class="tableblock">      On some implementations, powr() or pown() may perform faster
+      than pow().
+      If x is known to be &gt;= 0, consider using powr() in place of pow(),
+      or if y is known to be an integer, consider using pown() in place of
+      pow().</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpExtInst</strong> <strong>pown</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Defined only for integer values of y.
-  Undefined for x = 0 and y = 0.
-  For x &gt;= 0 or x &lt; 0 and even y, derived implementations implement this as
-  exp2( y * log2( fabs(x) ) ).
-  For x &lt; 0 and odd y, derived implementations implement this as -exp2( y *
-  log2( fabs(x) ) ).
-  For non-derived implementations, the error is &lt;= 8192 ulp.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defined only for integer values of <em>y</em>.
+      Undefined for <em>x</em> = 0 and <em>y</em> = 0.
+      For <em>x</em> &gt;= 0 or <em>x</em> &lt; 0 and even <em>y</em>, derived implementations may implement as
+      <strong>exp2</strong>(<em>y</em> * <strong>log2</strong>(<strong>fabs</strong>(<em>x</em>))).
+      For <em>x</em> &lt; 0 and odd <em>y</em>, derived implementations may implement as
+      -<strong>exp2</strong>(<em>y</em> * <strong>log2</strong>(<strong>fabs</strong>(<em>x</em>))).
+      For non-derived implementations, the error is ≤ 8192 ulp.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpExtInst</strong> <strong>powr</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Defined only for x &gt;= 0.
-  Undefined for x = 0 and y = 0.
-  Derived implementations implement this as exp2( y * log2(x) ).
-  For non-derived implementations, the error is &lt;= 8192 ulp.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defined only for <em>x</em> &gt;= 0.
+      Undefined for <em>x</em> = 0 and <em>y</em> = 0.
+      Derived implementations may implement as <strong>exp2</strong>(<em>y</em> * <strong>log2</strong>(<em>x</em>)).
+      For non-derived implementations, the error is ≤ 8192 ulp.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpExtInst</strong> <strong>rootn</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Defined for x &gt; 0 when y is non-zero, derived implementations implement
-  this case as exp2( log2(x) / y ).
-  Defined for x &lt; 0 when y is odd, derived implementations implement this
-  case as -exp2( log2(-x) / y ).
-  Defined for x = +/-0 when y &gt; 0, derived implementations will return +0 in
-  this case.
-  For non-derived implementations, the error is &lt;= 8192 ULP.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defined for <em>x</em> &gt; 0 when <em>y</em> is non-zero, derived implementations
+      may implement this case as <strong>exp2</strong>(<strong>log2</strong>(<em>x</em>) / <em>y</em>).
+      Defined for <em>x</em> &lt; 0 when <em>y</em> is odd, derived implementations
+      may implement this case as -<strong>exp2</strong>(<strong>log2</strong>(-<em>x</em>) / <em>y</em>).
+      Defined for <em>x</em> = +/-0 when <em>y</em> &gt; 0, derived implementations may
+      return +0 in this case.
+      For non-derived implementations, the error is ≤ 8192 ulp.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpExtInst</strong> <strong>sin</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">For x in the domain [-π, π], the maximum absolute error is &lt;=
-  2<sup>-11</sup> and larger otherwise.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">For <em>x</em> in the domain [-π, π], the maximum absolute error is
+      ≤ 2<sup>-11</sup> and larger otherwise.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpExtInst</strong> <strong>sincos</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ulp values as defined for sin(x) and cos(x).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ulp values as defined for <strong>sin</strong>(<em>x</em>) and <strong>cos</strong>(<em>x</em>).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpExtInst</strong> <strong>sinh</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Defined for x in the domain [-∞, ∞].
-  For x in [-2<sup>-10</sup>, 2<sup>-10</sup>], derived implementations implement as x.
-  For x outside of [-2<sup>-10</sup>, 2<sup>-10</sup>], derived implement as 0.5f * ( exp(x) -
-  exp(-x) ).
-  For non-derived implementations, the error is &lt;= 8192 ULP.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defined for <em>x</em> in the domain [-88, 88].
+      For <em>x</em> in [-2<sup>-10</sup>, 2<sup>-10</sup>], derived implementations
+      may implement as <em>x</em>.
+      For <em>x</em> outside of [-2<sup>-10</sup>, 2<sup>-10</sup>], derived implementations
+      may implement as 0.5f * (<strong>exp</strong>(<em>x</em>) - <strong>exp</strong>(-<em>x</em>)).
+      For non-derived implementations, the error is ≤ 8192 ulp.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpExtInst</strong> <strong>sinpi</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">For x in the domain [-1, 1], the maximum absolute error is &lt;= 2<sup>-11</sup> and
-  larger otherwise.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">For <em>x</em> in the domain [-1, 1], the maximum absolute error is ≤
+      2<sup>-11</sup> and larger otherwise.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpExtInst</strong> <strong>tan</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Derived implementations implement this as sin(x) * ( 1.0f / cos(x) ).
-  For non-derived implementations, the error is &lt;= 8192 ulp.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Derived implementations may implement as
+      <strong>sin</strong>(<em>x</em>) * (1.0f / <strong>cos</strong>(<em>x</em>)).
+      For non-derived implementations, the error is ≤ 8192 ulp.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpExtInst</strong> <strong>tanh</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Defined for x in the domain [-∞, ∞].
-  For x in [-2<sup>-10</sup>, 2<sup>-10</sup>], derived implementations implement as x.
-  For x outside of [-2<sup>-10</sup>, 2<sup>-10</sup>], derived implementations implement as
-  (exp(x) - exp(-x)) / (exp(x) + exp(-x)).
-  For non-derived implementations, the error is &lt;= 8192 ULP.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defined for <em>x</em> in the domain [-∞, ∞].
+      For <em>x</em> in [-2<sup>-10</sup>, 2<sup>-10</sup>], derived implementations
+      may implement as <em>x</em>.
+      For <em>x</em> outside of [-2<sup>-10</sup>, 2<sup>-10</sup>], derived implementations
+      may implement as (<strong>exp</strong>(<em>x</em>) - <strong>exp</strong>(-<em>x</em>)) / (<strong>exp</strong>(<em>x</em>) + <strong>exp</strong>(-<em>x</em>)).
+      For non-derived implementations, the error is ≤ 8192 ULP.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpExtInst</strong> <strong>tanpi</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Derived implementations implement this as tan(x * M_PI_F).
-  For non-derived implementations, the error is &lt;= 8192 ulp for x in the
-  domain [-1, 1].</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Derived implementations may implement as <strong>tan</strong>(<em>x</em> * <code>M_PI_F</code>).
+      For non-derived implementations, the error is ≤ 8192 ulp for <em>x</em>
+      in the domain [-1, 1].</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpFMul</strong> and <strong>OpFAdd</strong>,<br>
   for <em>x</em> * <em>y</em> + <em>z</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Implemented either as a correctly rounded fma or as a multiply and an add
-  both of which are correctly rounded.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implemented either as a correctly rounded <strong>fma</strong> or as a multiply and
+      an add both of which are correctly rounded.</p></td>
 </tr>
 </tbody>
 </table>
@@ -6658,8 +6801,8 @@ Default RGB colour space - sRGB&#8221;,
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.6<br>
-Last updated 2020-12-08 14:02:39 -0800
+Version v3.0.7<br>
+Last updated 2021-04-19 17:02:25 -0700
 </div>
 </div>
 
