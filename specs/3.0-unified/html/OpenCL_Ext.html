@@ -841,9 +841,9 @@ table.CodeRay td.code>pre{padding:0}
 <h1>The OpenCL<sup>&#8482;</sup> Extension Specification</h1>
 <div class="details">
 <span id="author" class="author">Khronos<sup>&#174;</sup> OpenCL Working Group</span><br>
-<span id="revnumber">version v3.0.6,</span>
-<span id="revdate">Fri, 18 Dec 2020 12:00:00 +0000</span>
-<br><span id="revremark">from git branch: master commit: e9a4d468b1a0a38c1e10b8af484bb2bbb495e2b7</span>
+<span id="revnumber">version v3.0.7,</span>
+<span id="revdate">Fri, 23 Apr 2021 20:00:00 +0000</span>
+<br><span id="revremark">from git branch: master commit: 133503b85911ca8fd6642721d440e89460d491a3</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -886,7 +886,10 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#cl_khr_device_uuid">36. Unique Device Identifiers</a></li>
 <li><a href="#cl_khr_extended_versioning">37. Extended versioning</a></li>
 <li><a href="#_extended_subgroup_functions">38. Extended Subgroup Functions</a></li>
-<li><a href="#spirv_extensions">39. Extensions to the OpenCL SPIR-V Environment</a></li>
+<li><a href="#cl_khr_pci_bus_info">39. PCI Bus Information Query</a></li>
+<li><a href="#cl_khr_extended_bit_ops">40. Extended Bit Operations</a></li>
+<li><a href="#cl_khr_suggested_local_work_size">41. Suggested Local Work Size Query</a></li>
+<li><a href="#spirv_extensions">42. Extensions to the OpenCL SPIR-V Environment</a></li>
 <li><a href="#_extensions_promoted_to_core_features">Appendix A: Extensions Promoted to Core Features</a></li>
 <li><a href="#_deprecated_extensions">Appendix B: Deprecated Extensions</a></li>
 <li><a href="#_quick_reference">Appendix C: Quick Reference</a></li>
@@ -1188,7 +1191,7 @@ host API:</p>
 <span class="comment">// function pointer typedefs must use the</span>
 <span class="comment">// following naming convention</span>
 
-<span class="keyword">typedef</span> CL_API_ENTRY return_type
+<span class="keyword">typedef</span> return_type
             (CL_API_CALL *clExtensionFunctionNameTAG_fn)(...);
 
 <span class="preprocessor">#endif</span> <span class="comment">// _extension_name_</span></code></pre>
@@ -1219,7 +1222,7 @@ This extension would add the following to cl_gl_ext.h:</p>
 
 <span class="comment">// function pointer typedefs must use the</span>
 <span class="comment">// following naming convention</span>
-<span class="keyword">typedef</span> CL_API_ENTRY cl_int
+<span class="keyword">typedef</span> cl_int
         (CL_API_CALL *clGetGLContextInfoKHR_fn)(
             <span class="directive">const</span> cl_context_properties * <span class="comment">/* properties */</span>,
             cl_gl_context_info <span class="comment">/* param_name */</span>,
@@ -15957,7 +15960,7 @@ For the functions below, the generic type name <code>gentype</code> may be the o
 <p>The exclusive scan operation takes a binary operator <strong>op</strong> with an identity I and <em>n</em> (where <em>n</em> is the size of the sub-group) elements [a<sub>0</sub>, a<sub>1</sub>, &#8230;&#8203; a<sub>n-1</sub>] and returns [I, a<sub>0</sub>, (a<sub>0</sub> <strong>op</strong> a<sub>1</sub>), &#8230;&#8203; (a<sub>0</sub> <strong>op</strong> a<sub>1</sub> <strong>op</strong> &#8230;&#8203; <strong>op</strong> a<sub>n-2</sub>)].</p>
 </div>
 <div class="paragraph">
-<p>The inclusive scan operation takes a binary operator <strong>op</strong> with an identity I and <em>n</em> (where <em>n</em> is the size of the sub-group) elements [a<sub>0</sub>, a<sub>1</sub>, &#8230;&#8203; a<sub>n-1</sub>] and returns [a<sub>0</sub>, (a<sub>0</sub> <strong>op</strong> a<sub>1</sub>), &#8230;&#8203; (a<sub>0</sub> <strong>op</strong> a<sub>1</sub> <strong>op</strong> &#8230;&#8203; <strong>op</strong> a<sub>n-1</sub>)].</p>
+<p>The inclusive scan operation takes a binary operator <strong>op</strong> with <em>n</em> (where <em>n</em> is the size of the sub-group) elements [a<sub>0</sub>, a<sub>1</sub>, &#8230;&#8203; a<sub>n-1</sub>] and returns [a<sub>0</sub>, (a<sub>0</sub> <strong>op</strong> a<sub>1</sub>), &#8230;&#8203; (a<sub>0</sub> <strong>op</strong> a<sub>1</sub> <strong>op</strong> &#8230;&#8203; <strong>op</strong> a<sub>n-1</sub>)].</p>
 </div>
 <div class="paragraph">
 <p>If <strong>op</strong> = <strong>add</strong>, the identity I is 0.
@@ -19398,7 +19401,512 @@ Note: This extension adds new types to uniform subgroup operations.</p></td>
 </div>
 </div>
 <div class="sect1">
-<h2 id="spirv_extensions"><a class="anchor" href="#spirv_extensions"></a>39. Extensions to the OpenCL SPIR-V Environment</h2>
+<h2 id="cl_khr_pci_bus_info"><a class="anchor" href="#cl_khr_pci_bus_info"></a>39. PCI Bus Information Query</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This extension adds a new query to obtain PCI bus information about an OpenCL
+device.</p>
+</div>
+<div class="paragraph">
+<p>Not all OpenCL devices have PCI bus information, either due to the device not
+being connected to the system through a PCI interface or due to platform
+specific restrictions and policies. Thus this extension is only expected to be
+supported by OpenCL devices which can provide the information.</p>
+</div>
+<div class="paragraph">
+<p>As a consequence, applications should always check for the presence of the
+extension string for each individual OpenCL device for which they intend to
+issue the new query for and should not have any assumptions about the
+availability of the extension on any given platform.</p>
+</div>
+<div class="sect2">
+<h3 id="_general_information_38"><a class="anchor" href="#_general_information_38"></a>39.1. General information</h3>
+<div class="sect3">
+<h4 id="_name_strings_2"><a class="anchor" href="#_name_strings_2"></a>39.1.1. Name Strings</h4>
+<div class="paragraph">
+<p><code>cl_khr_pci_bus_info</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_version_history_38"><a class="anchor" href="#_version_history_38"></a>39.1.2. Version History</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Date</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Version</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2021-04-19</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Initial version.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_dependencies_2"><a class="anchor" href="#_dependencies_2"></a>39.1.3. Dependencies</h4>
+<div class="paragraph">
+<p>This extension is written against the OpenCL API Specification Version V3.0.6.</p>
+</div>
+<div class="paragraph">
+<p>This extension requires OpenCL 1.0.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_new_api_types_3"><a class="anchor" href="#_new_api_types_3"></a>39.2. New API Types</h3>
+<div class="paragraph">
+<p>Structure returned by the device info query for <code>CL_DEVICE_PCI_BUS_INFO_KHR</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c"><span class="keyword">typedef</span> <span class="keyword">struct</span> _cl_device_pci_bus_info_khr {
+    cl_uint   pci_domain;
+    cl_uint   pci_bus;
+    cl_uint   pci_device;
+    cl_uint   pci_function;
+} cl_device_pci_bus_info_khr;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_new_api_enums_2"><a class="anchor" href="#_new_api_enums_2"></a>39.3. New API Enums</h3>
+<div class="paragraph">
+<p>Accepted value for the <em>param_name</em> parameter to <strong>clGetDeviceInfo</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c"><span class="preprocessor">#define</span> CL_DEVICE_PCI_BUS_INFO_KHR  <span class="hex">0x410F</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_modifications_to_the_opencl_api_specification_2"><a class="anchor" href="#_modifications_to_the_opencl_api_specification_2"></a>39.4. Modifications to the OpenCL API Specification</h3>
+<div class="sect3">
+<h4 id="_section_4_2_querying_devices"><a class="anchor" href="#_section_4_2_querying_devices"></a>39.4.1. Section 4.2 - Querying Devices:</h4>
+<div class="paragraph">
+<p>Add to Table 5 - OpenCL Device Queries:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 5. OpenCL Device Queries</caption>
+<colgroup>
+<col style="width: 30%;">
+<col style="width: 20%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>cl_device_info</strong></th>
+<th class="tableblock halign-left valign-top">Return Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_PCI_BUS_INFO_KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_device_pci_bus_info_khr</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns PCI bus information for the device.</p>
+<p class="tableblock">      The PCI bus information is returned as a single structure that includes
+      the PCI bus domain, the PCI bus identifier, the PCI device identifier, and
+      the PCI device function identifier.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="cl_khr_extended_bit_ops"><a class="anchor" href="#cl_khr_extended_bit_ops"></a>40. Extended Bit Operations</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This extension adds OpenCL C functions for performing extended bit operations.
+Specifically, the following functions are added:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>bitfield insert: insert bits from one source operand into another source operand.</p>
+</li>
+<li>
+<p>bitfield extract: extract bits from a source operand, with sign- or zero-extension.</p>
+</li>
+<li>
+<p>bit reverse: reverse the bits of a source operand.</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_general_information_39"><a class="anchor" href="#_general_information_39"></a>40.1. General Information</h3>
+<div class="sect3">
+<h4 id="_name_strings_3"><a class="anchor" href="#_name_strings_3"></a>40.1.1. Name Strings</h4>
+<div class="paragraph">
+<p><code>cl_khr_extended_bit_ops</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_version_history_39"><a class="anchor" href="#_version_history_39"></a>40.1.2. Version History</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Date</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Version</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2021-04-22</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Initial version.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_dependencies_3"><a class="anchor" href="#_dependencies_3"></a>40.1.3. Dependencies</h4>
+<div class="paragraph">
+<p>This extension is written against the OpenCL 3.0 C Language Specification and the OpenCL SPIR-V Environment Specification Version V3.0.6.</p>
+</div>
+<div class="paragraph">
+<p>This extension requires OpenCL 1.0.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_new_opencl_c_functions"><a class="anchor" href="#_new_opencl_c_functions"></a>40.2. New OpenCL C Functions</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>gentype bitfield_insert( gentype base, gentype insert, uint offset, uint count )
+igentype bitfield_extract_signed( gentype base, uint offset, uint count )
+ugentype bitfield_extract_unsigned( gentype base, uint offset, uint count )
+gentype bit_reverse( gentype base )</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_modifications_to_the_opencl_c_specification"><a class="anchor" href="#_modifications_to_the_opencl_c_specification"></a>40.3. Modifications to the OpenCL C Specification</h3>
+<div class="sect3">
+<h4 id="_modify_section_6_15_3_integer_functions"><a class="anchor" href="#_modify_section_6_15_3_integer_functions"></a>40.3.1. Modify Section 6.15.3. Integer Functions:</h4>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Add a new Section 6.15.3.X. Extended Bit Operations: </dt>
+<dd>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The functions described in the following table can be used with built-in scalar or vector integer types to perform extended bit operations.
+The functions that operate on vector types operate component-wise.
+The description is per-component.</p>
+</div>
+<div class="paragraph">
+<p>In the table below, the generic type name <code>gentype</code> refers to the built-in integer types <code>char</code>, <code>char<em>n</em></code>, <code>uchar</code>, <code>uchar<em>n</em></code>, <code>short</code>, <code>short<em>n</em></code>, <code>ushort</code>, <code>ushort<em>n</em></code>, <code>int</code>, <code>int<em>n</em></code>, <code>uint</code>, <code>uint<em>n</em></code>, <code>long</code>, <code>long<em>n</em></code>, <code>ulong</code>, and <code>ulong<em>n</em></code>.
+The generic type name <code>igentype</code> refers to the built-in signed integer types <code>char</code>, <code>char<em>n</em></code>, <code>short</code>, <code>short<em>n</em></code>, <code>int</code>, <code>int<em>n</em></code>, <code>long</code>, and <code>long<em>n</em></code>.
+The generic type name <code>ugentype</code> refers to the built-in unsigned integer types <code>uchar</code>, <code>uchar<em>n</em></code>, <code>ushort</code>, <code>ushort<em>n</em></code>, <code>uint</code>, <code>uint<em>n</em></code>, <code>ulong</code>, and <code>ulong<em>n</em></code>.
+<em>n</em> is 2, 3, 4, 8, or 16.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 47. Built-in Scalar and Vector Extended Bit Operations</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Function</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">gentype bitfield_insert(
+    gentype base, gentype insert,
+    uint offset, uint count)</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns a copy of <em>base</em>, with a modified bitfield that comes from <em>insert</em>.</p>
+<p class="tableblock">Any bits of the result value numbered outside [<em>offset</em>, <em>offset</em> + <em>count</em> - 1] (inclusive) will come from the corresponding bits in <em>base</em>.</p>
+<p class="tableblock">Any bits of the result value numbered inside [<em>offset</em>, <em>offset</em> + <em>count</em> - 1] (inclusive) will come from the bits numbered [0, <em>count</em> - 1] (inclusive) of <em>insert</em>.</p>
+<p class="tableblock"><em>count</em> is the number of bits to be modified.
+If <em>count</em> equals 0, the return value will be equal to <em>base</em>.</p>
+<p class="tableblock">If <em>count</em> or <em>offset</em> or <em>offset</em> + <em>count</em> is greater than number of bits in <code>gentype</code> (for scalar types) or components of <code>gentype</code> (for vector types), the result is undefined.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">igentype bitfield_extract_signed(
+    gentype base,
+    uint offset, uint count)</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns an extracted bitfield from <em>base</em> with sign extension.
+The type of the return value is always a signed type.</p>
+<p class="tableblock">The bits of <em>base</em> numbered in [<em>offset</em>, <em>offset</em> + <em>count</em> - 1] (inclusive) are returned as the bits numbered in [0, <em>count</em> - 1] (inclusive) of the result.
+The remaining bits in the result will be sign extended by replicating the bit numbered <em>offset</em> + <em>count</em> - 1 of <em>base</em>.</p>
+<p class="tableblock"><em>count</em> is the number of bits to be extracted.
+If <em>count</em> equals 0, the result is 0.</p>
+<p class="tableblock">If the <em>count</em> or <em>offset</em> or <em>offset</em> + <em>count</em> is greater than number of bits in <code>gentype</code> (for scalar types) or components of <code>gentype</code> (for vector types), the result is undefined.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">ugentype bitfield_extract_unsigned(
+    gentype base,
+    uint offset, uint count)</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns an extracted bitfield from <em>base</em> with zero extension.
+The type of the return value is always an unsigned type.</p>
+<p class="tableblock">The bits of <em>base</em> numbered in [<em>offset</em>, <em>offset</em> + <em>count</em> - 1] (inclusive) are returned as the bits numbered in [0, <em>count</em> - 1] (inclusive) of the result.
+The remaining bits in the result will be zero.</p>
+<p class="tableblock"><em>count</em> is the number of bits to be extracted.
+If <em>count</em> equals 0, the result is 0.</p>
+<p class="tableblock">If the <em>count</em> or <em>offset</em> or <em>offset</em> + <em>count</em> is greater than number of bits in <code>gentype</code> (for scalar types) or components of <code>gentype</code> (for vector types), the result is undefined.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">gentype bit_reverse(
+    gentype base)</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the value of <em>base</em> with reversed bits.
+That is, the bit numbered <em>n</em> of the result value will be taken from the bit numbered <em>width</em> - <em>n</em> - 1 of <em>base</em> (for scalar types) or a component of <em>base</em> (for vector types), where <em>width</em> is number of bits of <code>gentype</code> (for scalar types) or components of <code>gentype</code> (for vector types).</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_modifications_to_the_opencl_spir_v_environment_specification"><a class="anchor" href="#_modifications_to_the_opencl_spir_v_environment_specification"></a>40.4. Modifications to the OpenCL SPIR-V Environment Specification</h3>
+<div class="sect3">
+<h4 id="_add_to_section_5_opencl_extensions"><a class="anchor" href="#_add_to_section_5_opencl_extensions"></a>40.4.1. Add to Section 5 - OpenCL Extensions</h4>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Add a new Section 5.2.X - <code>cl_khr_extended_bit_ops</code>: </dt>
+<dd>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>If the OpenCL environment supports the extension <code>cl_khr_extended_bit_ops</code>, then the environment must accept modules that declare use of the extension <code>SPV_KHR_bit_instructions</code> via <strong>OpExtension</strong>.</p>
+</div>
+<div class="paragraph">
+<p>If the OpenCL environment supports the extension <code>cl_khr_extended_bit_ops</code> and use of the SPIR-V extension <code>SPV_KHR_bit_instructions</code> is declared in the module via <strong>OpExtension</strong>, then the environment must accept modules that declare the <strong>BitInstructions</strong> capability.</p>
+</div>
+</div>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="cl_khr_suggested_local_work_size"><a class="anchor" href="#cl_khr_suggested_local_work_size"></a>41. Suggested Local Work Size Query</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This extension adds the ability to query a suggested local work group size for a kernel running on a device for a specified global work size and global work offset.
+The suggested local work group size will match the work group size that would be chosen if the kernel were enqueued with the specified global work size and global work offset and a <code>NULL</code> local work size.</p>
+</div>
+<div class="paragraph">
+<p>By using the suggested local work group size query an application has greater insight into the local work group size chosen by the OpenCL implementation, and the OpenCL implementation need not re-compute the local work group size if the same kernel is enqueued multiple times with the same parameters.</p>
+</div>
+<div class="sect2">
+<h3 id="_general_information_40"><a class="anchor" href="#_general_information_40"></a>41.1. General Information</h3>
+<div class="sect3">
+<h4 id="_name_strings_4"><a class="anchor" href="#_name_strings_4"></a>41.1.1. Name Strings</h4>
+<div class="paragraph">
+<p><code>cl_khr_suggested_local_work_size</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_version_history_40"><a class="anchor" href="#_version_history_40"></a>41.1.2. Version History</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Date</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Version</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2021-04-22</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Initial version.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_dependencies_4"><a class="anchor" href="#_dependencies_4"></a>41.1.3. Dependencies</h4>
+<div class="paragraph">
+<p>This extension is written against the OpenCL API Specification Version V3.0.6.</p>
+</div>
+<div class="paragraph">
+<p>This extension requires OpenCL 1.0.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_new_api_functions_2"><a class="anchor" href="#_new_api_functions_2"></a>41.2. New API Functions</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>cl_int  clGetKernelSuggestedLocalWorkSizeKHR(
+    cl_command_queue command_queue,
+    cl_kernel kernel,
+    cl_uint work_dim,
+    const size_t *global_work_offset,
+    const size_t *global_work_size,
+    size_t *suggested_local_work_size);</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_modifications_to_the_opencl_api_specification_3"><a class="anchor" href="#_modifications_to_the_opencl_api_specification_3"></a>41.3. Modifications to the OpenCL API Specification</h3>
+<div class="sect3">
+<h4 id="_section_5_9_kernel_objects"><a class="anchor" href="#_section_5_9_kernel_objects"></a>41.3.1. Section 5.9 - Kernel Objects:</h4>
+<div class="sect4">
+<h5 id="_new_section_5_9_4_x_suggested_local_work_size_query"><a class="anchor" href="#_new_section_5_9_4_x_suggested_local_work_size_query"></a>41.3.1.1. New Section 5.9.4.X - Suggested Local Work Size Query</h5>
+<div class="paragraph">
+<p>To query a suggested local work size for a kernel object, call the function</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>cl_int  clGetKernelSuggestedLocalWorkSizeKHR(
+    cl_command_queue command_queue,
+    cl_kernel kernel,
+    cl_uint work_dim,
+    const size_t *global_work_offset,
+    const size_t *global_work_size,
+    size_t *suggested_local_work_size);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The returned suggested local work size is expected to match the local work size that would be chosen if the specified kernel object, with the same kernel arguments, were enqueued into the specified command queue with the specified global work size, specified global work offset, and with a <code>NULL</code> local work size.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><em>command_queue</em> specifies the command queue and device for the query.</p>
+</li>
+<li>
+<p><em>kernel</em> specifies the kernel object and kernel arguments for the query.
+The OpenCL context associated with <em>kernel</em> and <em>command_queue</em> must the same.</p>
+</li>
+<li>
+<p><em>work_dim</em> specifies the number of work dimensions in the input global work offset and global work size, and the output suggested local work size.</p>
+</li>
+<li>
+<p><em>global_work_offset</em> can be used to specify an array of at least <em>work_dim</em> global ID offset values for the query.
+This is optional and may be <code>NULL</code> to indicate there is no global ID offset.</p>
+</li>
+<li>
+<p><em>global_work_size</em> is an array of at least <em>work_dim</em> values describing the global work size for the query.</p>
+</li>
+<li>
+<p><em>suggested_local_work_size</em> is an output array of at least <em>work_dim</em> values that will contain the result of the query.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>clGetKernelSuggestedLocalWorkSizeKHR</strong> returns <code>CL_SUCCESS</code> if the query executed successfully.
+Otherwise, it returns one of the following errors:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_INVALID_COMMAND_QUEUE</code> if <em>command_queue</em> is not a valid host command queue.</p>
+</li>
+<li>
+<p><code>CL_INVALID_KERNEL</code> if <em>kernel</em> is not a valid kernel object.</p>
+</li>
+<li>
+<p><code>CL_INVALID_CONTEXT</code> if the context associated with <em>kernel</em> is not the same as the context associated with <em>command_queue</em>.</p>
+</li>
+<li>
+<p><code>CL_INVALID_PROGRAM_EXECUTABLE</code> if there is no successfully built program executable available for <em>kernel</em> for the device associated with <em>command_queue</em>.</p>
+</li>
+<li>
+<p><code>CL_INVALID_KERNEL_ARGS</code> if all argument values for <em>kernel</em> have not been set.</p>
+</li>
+<li>
+<p><code>CL_MISALIGNED_SUB_BUFFER_OFFSET</code> if a sub-buffer object is set as an argument to <em>kernel</em> and the offset specified when the sub-buffer object was created is not aligned to <code>CL_DEVICE_MEM_BASE_ADDR_ALIGN</code> for the device associated with <em>command_queue</em>.</p>
+</li>
+<li>
+<p><code>CL_INVALID_IMAGE_SIZE</code> if an image object is set as an argument to <em>kernel</em> and the image dimensions are not supported by device associated with <em>command_queue</em>.</p>
+</li>
+<li>
+<p><code>CL_IMAGE_FORMAT_NOT_SUPPORTED</code> if an image object is set as an argument to <em>kernel</em> and the image format is not supported by the device associated with <em>command_queue</em>.</p>
+</li>
+<li>
+<p><code>CL_INVALID_OPERATION</code> if an SVM pointer is set as an argument to <em>kernel</em> and the device associated with <em>command_queue</em> does not support SVM or the required SVM capabilities for the SVM pointer.</p>
+</li>
+<li>
+<p><code>CL_INVALID_WORK_DIMENSION</code> if <em>work_dim</em> is not a valid value (i.e. a value between 1 and <code>CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS</code>).</p>
+</li>
+<li>
+<p><code>CL_INVALID_GLOBAL_WORK_SIZE</code> if <em>global_work_size</em> is NULL or if any of the values specified in <em>global_work_size</em> are 0.</p>
+</li>
+<li>
+<p><code>CL_INVALID_GLOBAL_WORK_SIZE</code> if any of the values specified in <em>global_work_size</em> exceed the maximum value representable by <code>size_t</code> on the device associated with <em>command_queue</em>.</p>
+</li>
+<li>
+<p><code>CL_INVALID_GLOBAL_OFFSET</code> if the value specified in <em>global_work_size</em> plus the corresponding value in <em>global_work_offset</em> for dimension exceeds the maximum value representable by <code>size_t</code> on the device associated with <em>command_queue</em>.</p>
+</li>
+<li>
+<p><code>CL_OUT_OF_RESOURCES</code> if there is a failure to allocate resources required by the OpenCL implementation on the device.</p>
+</li>
+<li>
+<p><code>CL_OUT_OF_HOST_RESOURCES</code> if there is a failure to allocate resources required by the OpenCL implementation on the host.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+These error conditions are consistent with error conditions for <strong>clEnqueueNDRangeKernel</strong>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="spirv_extensions"><a class="anchor" href="#spirv_extensions"></a>42. Extensions to the OpenCL SPIR-V Environment</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>An OpenCL SPIR-V environment may be modified by OpenCL extensions.
@@ -19409,6 +19917,12 @@ In addition to the extensions described in this document, the OpenCL SPIR-V Envi
 <ul>
 <li>
 <p><code>cl_khr_spirv_no_integer_wrap_decoration</code></p>
+</li>
+<li>
+<p><code>cl_khr_spirv_extended_debug_info</code></p>
+</li>
+<li>
+<p><code>cl_khr_spirv_linkonce_odr</code></p>
 </li>
 </ul>
 </div>
@@ -19583,6 +20097,11 @@ Its use is no longer recommended.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Provisional Extension</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#cl_khr_extended_bit_ops">cl_khr_extended_bit_ops</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bit Insert, Extract, and Reverse Operations</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extension</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#cl_khr_extended_versioning">cl_khr_extended_versioning</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Extend versioning of platform, devices, extensions, etc.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Extension</p></td>
@@ -19678,6 +20197,11 @@ Its use is no longer recommended.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Extension</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#cl_khr_pci_bus_info">cl_khr_pci_bus_info</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Query PCI Bus Information for an OpenCL Device</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extension</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#cl_khr_priority_hints">cl_khr_priority_hints</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Create Command Queues with Different Priorities</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Extension</p></td>
@@ -19743,6 +20267,11 @@ Its use is no longer recommended.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Extension</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#cl_khr_suggested_local_work_size">cl_khr_suggested_local_work_size</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Query a Suggested Local Work Size</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extension</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#cl_khr_terminate_context">cl_khr_terminate_context</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Terminate an OpenCL Context</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Extension</p></td>
@@ -19759,8 +20288,8 @@ Its use is no longer recommended.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.6<br>
-Last updated 2020-12-18 09:20:25 -0800
+Version v3.0.7<br>
+Last updated 2021-04-23 12:57:31 -0700
 </div>
 </div>
 

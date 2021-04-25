@@ -841,9 +841,9 @@ table.CodeRay td.code>pre{padding:0}
 <h1>The OpenCL<sup>&#8482;</sup> Specification</h1>
 <div class="details">
 <span id="author" class="author">Khronos<sup>&#174;</sup> OpenCL Working Group</span><br>
-<span id="revnumber">version v3.0.6,</span>
-<span id="revdate">Fri, 18 Dec 2020 12:00:00 +0000</span>
-<br><span id="revremark">from git branch: master commit: e9a4d468b1a0a38c1e10b8af484bb2bbb495e2b7</span>
+<span id="revnumber">version v3.0.7,</span>
+<span id="revdate">Fri, 23 Apr 2021 20:00:00 +0000</span>
+<br><span id="revremark">from git branch: master commit: 133503b85911ca8fd6642721d440e89460d491a3</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -18118,7 +18118,8 @@ arguments and results are valid, (b) may violate the IEEE 754 standard,
 in the unsafe math optimization section of the OpenCL C or OpenCL SPIR-V
 Environment specifications, and (d) may violate edge case behavior in the
 OpenCL C or OpenCL SPIR-V Environment specifications.
-This option includes the <code>-cl-no-signed-zeros</code> and <code>-cl-mad-enable</code> options.</p>
+This option includes the <code>-cl-no-signed-zeros</code>, <code>-cl-mad-enable</code>, and
+<code>-cl-denorms-are-zero</code> <sup class="footnote">[<a id="_footnoteref_26" class="footnote" href="#_footnotedef_26" title="View footnote.">26</a>]</sup> options.</p>
 </dd>
 <dt class="hdlist1"><code>-cl-finite-math-only</code> </dt>
 <dd>
@@ -18355,7 +18356,7 @@ This option must be specified with the create-library option.</p>
 </div>
 <div class="paragraph">
 <p><code>-cl-denorms-are-zero</code><br>
-<code>-cl-no-signed-zeroes</code><br>
+<code>-cl-no-signed-zeros</code><br>
 <code>-cl-unsafe-math-optimizations</code><br>
 <code>-cl-finite-math-only</code><br>
 <code>-cl-fast-relaxed-math</code><br>
@@ -18528,7 +18529,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="CL_PROGRAM_REFERENCE_COUNT"></a><a href="#CL_PROGRAM_REFERENCE_COUNT"><code>CL_PROGRAM_<wbr>REFERENCE_<wbr>COUNT</code></a> <sup class="footnote">[<a id="_footnoteref_26" class="footnote" href="#_footnotedef_26" title="View footnote.">26</a>]</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="CL_PROGRAM_REFERENCE_COUNT"></a><a href="#CL_PROGRAM_REFERENCE_COUNT"><code>CL_PROGRAM_<wbr>REFERENCE_<wbr>COUNT</code></a> <sup class="footnote">[<a id="_footnoteref_27" class="footnote" href="#_footnotedef_27" title="View footnote.">27</a>]</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_uint</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return the <em>program</em> reference count.</p></td>
 </tr>
@@ -19856,7 +19857,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return the number of arguments to kernel.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="CL_KERNEL_REFERENCE_COUNT"></a><a href="#CL_KERNEL_REFERENCE_COUNT"><code>CL_KERNEL_<wbr>REFERENCE_<wbr>COUNT</code></a> <sup class="footnote">[<a id="_footnoteref_27" class="footnote" href="#_footnotedef_27" title="View footnote.">27</a>]</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="CL_KERNEL_REFERENCE_COUNT"></a><a href="#CL_KERNEL_REFERENCE_COUNT"><code>CL_KERNEL_<wbr>REFERENCE_<wbr>COUNT</code></a> <sup class="footnote">[<a id="_footnoteref_28" class="footnote" href="#_footnotedef_28" title="View footnote.">28</a>]</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_uint</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return the <em>kernel</em> reference count.</p></td>
 </tr>
@@ -20448,8 +20449,8 @@ in options argument to <a href="#clBuildProgram"><strong>clBuildProgram</strong>
         for the argument given by <em>arg_index</em>.
         The returned values can be:</p>
 <p class="tableblock">        <a id="CL_KERNEL_ARG_TYPE_CONST"></a><a href="#CL_KERNEL_ARG_TYPE_CONST"><code>CL_KERNEL_<wbr>ARG_<wbr>TYPE_<wbr>CONST</code></a>
-        <sup class="footnote">[<a id="_footnoteref_28" class="footnote" href="#_footnotedef_28" title="View footnote.">28</a>]</sup>
-        <sup class="footnote">[<a id="_footnoteref_29" class="footnote" href="#_footnotedef_29" title="View footnote.">29</a>]</sup><br>
+        <sup class="footnote">[<a id="_footnoteref_29" class="footnote" href="#_footnotedef_29" title="View footnote.">29</a>]</sup>
+        <sup class="footnote">[<a id="_footnoteref_30" class="footnote" href="#_footnotedef_30" title="View footnote.">30</a>]</sup><br>
         <a id="CL_KERNEL_ARG_TYPE_RESTRICT"></a><a href="#CL_KERNEL_ARG_TYPE_RESTRICT"><code>CL_KERNEL_<wbr>ARG_<wbr>TYPE_<wbr>RESTRICT</code></a><br>
         <a id="CL_KERNEL_ARG_TYPE_VOLATILE"></a><a href="#CL_KERNEL_ARG_TYPE_VOLATILE"><code>CL_KERNEL_<wbr>ARG_<wbr>TYPE_<wbr>VOLATILE</code></a><br>
         <a id="CL_KERNEL_ARG_TYPE_PIPE"></a><a href="#CL_KERNEL_ARG_TYPE_PIPE"><code>CL_KERNEL_<wbr>ARG_<wbr>TYPE_<wbr>PIPE</code></a>, or<br>
@@ -20693,8 +20694,7 @@ command-queue.</p>
 </li>
 <li>
 <p><a href="#CL_INVALID_KERNEL_ARGS"><code>CL_INVALID_<wbr>KERNEL_<wbr>ARGS</code></a> if the kernel argument values have not been
-specified or if a kernel argument declared to be a pointer to a type
-does not point to a named address space.</p>
+specified.</p>
 </li>
 <li>
 <p><a href="#CL_INVALID_WORK_DIMENSION"><code>CL_INVALID_<wbr>WORK_<wbr>DIMENSION</code></a> if <em>work_dim</em> is not a valid value (i.e. a
@@ -20907,8 +20907,7 @@ command-queue.</p>
 </li>
 <li>
 <p><a href="#CL_INVALID_KERNEL_ARGS"><code>CL_INVALID_<wbr>KERNEL_<wbr>ARGS</code></a> if the kernel argument values have not been
-specified or if a kernel argument declared to be a pointer to a type
-does not point to a named address space.</p>
+specified.</p>
 </li>
 <li>
 <p><a href="#CL_INVALID_WORK_GROUP_SIZE"><code>CL_INVALID_<wbr>WORK_<wbr>GROUP_<wbr>SIZE</code></a> if a work-group size is specified for <em>kernel</em>
@@ -21533,7 +21532,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
         <a href="#event-command-type-table">Event Command Types</a> table.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="CL_EVENT_COMMAND_EXECUTION_STATUS"></a><a href="#CL_EVENT_COMMAND_EXECUTION_STATUS"><code>CL_EVENT_<wbr>COMMAND_<wbr>EXECUTION_<wbr>STATUS</code></a> <sup class="footnote">[<a id="_footnoteref_30" class="footnote" href="#_footnotedef_30" title="View footnote.">30</a>]</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="CL_EVENT_COMMAND_EXECUTION_STATUS"></a><a href="#CL_EVENT_COMMAND_EXECUTION_STATUS"><code>CL_EVENT_<wbr>COMMAND_<wbr>EXECUTION_<wbr>STATUS</code></a> <sup class="footnote">[<a id="_footnoteref_31" class="footnote" href="#_footnotedef_31" title="View footnote.">31</a>]</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_int</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return the execution status of the command identified by event.
         Valid values are:</p>
@@ -21550,7 +21549,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
         errcode_ret values.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="CL_EVENT_REFERENCE_COUNT"></a><a href="#CL_EVENT_REFERENCE_COUNT"><code>CL_EVENT_<wbr>REFERENCE_<wbr>COUNT</code></a> <sup class="footnote">[<a id="_footnoteref_31" class="footnote" href="#_footnotedef_31" title="View footnote.">31</a>]</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="CL_EVENT_REFERENCE_COUNT"></a><a href="#CL_EVENT_REFERENCE_COUNT"><code>CL_EVENT_<wbr>REFERENCE_<wbr>COUNT</code></a> <sup class="footnote">[<a id="_footnoteref_32" class="footnote" href="#_footnotedef_32" title="View footnote.">32</a>]</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_uint</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return the <em>event</em> reference count.</p></td>
 </tr>
@@ -21782,7 +21781,7 @@ status, call the function</p>
 which the callback is registered.
 The command execution callback values for which a callback can be registered
 are: <a href="#CL_SUBMITTED"><code>CL_SUBMITTED</code></a>, <a href="#CL_RUNNING"><code>CL_RUNNING</code></a>, or
-<a href="#CL_COMPLETE"><code>CL_COMPLETE</code></a> <sup class="footnote">[<a id="_footnoteref_32" class="footnote" href="#_footnotedef_32" title="View footnote.">32</a>]</sup>.
+<a href="#CL_COMPLETE"><code>CL_COMPLETE</code></a> <sup class="footnote">[<a id="_footnoteref_33" class="footnote" href="#_footnotedef_33" title="View footnote.">33</a>]</sup>.
 There is no guarantee that the callback functions registered for various
 execution status values for an event will be called in the exact order that
 the execution status of a command changes.
@@ -22865,7 +22864,7 @@ embedded profile, writes to 2D image arrays are supported.</p>
 <p>Image and image arrays created with an
 <code>image_channel_data_type</code> value of <a href="#CL_FLOAT"><code>CL_FLOAT</code></a> or <a href="#CL_HALF_FLOAT"><code>CL_HALF_<wbr>FLOAT</code></a> can only be
 used with samplers that use a filter mode of <a href="#CL_FILTER_NEAREST"><code>CL_FILTER_<wbr>NEAREST</code></a>.
-The values returned by <strong>read_imagef</strong> <sup class="footnote">[<a id="_footnoteref_33" class="footnote" href="#_footnotedef_33" title="View footnote.">33</a>]</sup> for 2D and 3D
+The values returned by <strong>read_imagef</strong> <sup class="footnote">[<a id="_footnoteref_34" class="footnote" href="#_footnotedef_34" title="View footnote.">34</a>]</sup> for 2D and 3D
 images if <code>image_channel_data_type</code> value is <a href="#CL_FLOAT"><code>CL_FLOAT</code></a> or <a href="#CL_HALF_FLOAT"><code>CL_HALF_<wbr>FLOAT</code></a>
 and sampler with filter_mode = <a href="#CL_FILTER_LINEAR"><code>CL_FILTER_<wbr>LINEAR</code></a> are undefined.</p>
 </li>
@@ -22880,7 +22879,7 @@ versions:</p>
 <li>
 <p>64 bit integers i.e. long, ulong including the appropriate vector data
 types and operations on 64-bit integers are optional.
-The <strong>cles_khr_int64</strong> <sup class="footnote">[<a id="_footnoteref_34" class="footnote" href="#_footnotedef_34" title="View footnote.">34</a>]</sup> extension string will
+The <strong>cles_khr_int64</strong> <sup class="footnote">[<a id="_footnoteref_35" class="footnote" href="#_footnotedef_35" title="View footnote.">35</a>]</sup> extension string will
 be reported if the embedded profile implementation supports 64-bit integers.
 If double precision is supported i.e. <a href="#CL_DEVICE_DOUBLE_FP_CONFIG"><code>CL_DEVICE_<wbr>DOUBLE_<wbr>FP_<wbr>CONFIG</code></a> is not
 zero, then <strong>cles_khr_int64</strong> must also be supported.</p>
@@ -23360,7 +23359,7 @@ being used by another command-queue are undefined.</p>
 <div class="sect2">
 <h3 id="_multiple_host_threads"><a class="anchor" href="#_multiple_host_threads"></a>Multiple Host Threads</h3>
 <div class="paragraph">
-<p>All OpenCL API calls are thread-safe <sup class="footnote">[<a id="_footnoteref_35" class="footnote" href="#_footnotedef_35" title="View footnote.">35</a>]</sup> except those
+<p>All OpenCL API calls are thread-safe <sup class="footnote">[<a id="_footnoteref_36" class="footnote" href="#_footnotedef_36" title="View footnote.">36</a>]</sup> except those
 that modify the state of <code>cl_kernel</code> objects: <a href="#clSetKernelArg"><strong>clSetKernelArg</strong></a>,
 <a href="#clSetKernelArgSVMPointer"><strong>clSetKernelArgSVMPointer</strong></a>, <a href="#clSetKernelExecInfo"><strong>clSetKernelExecInfo</strong></a> and <a href="#clCloneKernel"><strong>clCloneKernel</strong></a>.
 <a href="#clSetKernelArg"><strong>clSetKernelArg</strong></a>, <a href="#clSetKernelArgSVMPointer"><strong>clSetKernelArgSVMPointer</strong></a>, <a href="#clSetKernelExecInfo"><strong>clSetKernelExecInfo</strong></a> and
@@ -23370,7 +23369,7 @@ calls operate on different <code>cl_kernel</code> objects.
 The state of the <code>cl_kernel</code> object is undefined if <a href="#clSetKernelArg"><strong>clSetKernelArg</strong></a>,
 <a href="#clSetKernelArgSVMPointer"><strong>clSetKernelArgSVMPointer</strong></a>, <a href="#clSetKernelExecInfo"><strong>clSetKernelExecInfo</strong></a> or <a href="#clCloneKernel"><strong>clCloneKernel</strong></a> are
 called from multiple host threads on the same <code>cl_kernel</code> object at the same
-time <sup class="footnote">[<a id="_footnoteref_36" class="footnote" href="#_footnotedef_36" title="View footnote.">36</a>]</sup>.
+time <sup class="footnote">[<a id="_footnoteref_37" class="footnote" href="#_footnotedef_37" title="View footnote.">37</a>]</sup>.
 Please note that there are additional limitations as to which OpenCL APIs
 may be called from <a href="#event-objects">OpenCL callback functions</a>.</p>
 </div>
@@ -23542,7 +23541,7 @@ vector.
 That is the transformation is equally valid whether that vector was a
 <code>uchar16</code> or a <code>ulong2</code>.
 Of course, as is well known, little-endian machines
-actually <sup class="footnote">[<a id="_footnoteref_37" class="footnote" href="#_footnotedef_37" title="View footnote.">37</a>]</sup> store their data in reverse byte order to
+actually <sup class="footnote">[<a id="_footnoteref_38" class="footnote" href="#_footnotedef_38" title="View footnote.">38</a>]</sup> store their data in reverse byte order to
 compensate for the little-endian storage format of the array elements:</p>
 </div>
 <div class="paragraph">
@@ -24913,6 +24912,9 @@ thread-safe in earlier versions of the specification.</p>
 <li>
 <p>The <code>CL_VERSION_2_0</code> and <code>NULL</code> macros.</p>
 </li>
+<li>
+<p>The <code>opencl_unroll_hint</code> attribute.</p>
+</li>
 </ul>
 </div>
 <div class="paragraph">
@@ -25648,6 +25650,18 @@ enqueue function that can block.</p></td>
 <div class="paragraph">
 <p>OpenCL 3.0 breaks backwards compatibility with earlier versions of OpenCL by making some features that were previously required for FULL_PROFILE or EMBEDDED_PROFILE devices optional.
 This appendix describes the features that were previously required that are now optional, how to detect whether an optional feature is supported, and expected behavior when an optional feature is not supported.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Informally, in the tables below the first row usually describes a feature detection mechanism ("May return this value indicating that the feature is not supported") and subsequent rows usually describe behavior when a feature is not supported ("Returns this value if the feature is not supported").
+</td>
+</tr>
+</table>
 </div>
 <div class="sect2">
 <h3 id="_shared_virtual_memory_2"><a class="anchor" href="#_shared_virtual_memory_2"></a>Shared Virtual Memory</h3>
@@ -26645,46 +26659,49 @@ AJ Guillon, YetiWare Inc<br></p>
 <a href="#_footnoteref_25">25</a>. The reference count returned should be considered immediately stale. It is unsuitable for general use in applications. This feature is provided for identifying memory leaks.
 </div>
 <div class="footnote" id="_footnotedef_26">
-<a href="#_footnoteref_26">26</a>. The reference count returned should be considered immediately stale. It is unsuitable for general use in applications. This feature is provided for identifying memory leaks.
+<a href="#_footnoteref_26">26</a>. As per the definition of <code>-cl-denorms-are-zero</code>, the inclusion of this option with <code>-cl-unsafe-math-optimizations</code> means that the implementation may flush denormal numbers to zero but is not required to.
 </div>
 <div class="footnote" id="_footnotedef_27">
 <a href="#_footnoteref_27">27</a>. The reference count returned should be considered immediately stale. It is unsuitable for general use in applications. This feature is provided for identifying memory leaks.
 </div>
 <div class="footnote" id="_footnotedef_28">
-<a href="#_footnoteref_28">28</a>. <a href="#CL_KERNEL_ARG_TYPE_CONST"><code>CL_KERNEL_<wbr>ARG_<wbr>TYPE_<wbr>CONST</code></a> is returned if the argument is a pointer and the referenced type is declared with the const qualifier. For example, a kernel argument declared as <code>global int const *x</code> returns <a href="#CL_KERNEL_ARG_TYPE_CONST"><code>CL_KERNEL_<wbr>ARG_<wbr>TYPE_<wbr>CONST</code></a> but a kernel argument declared as <code>global int * const x</code> does not.<br> Similarly, <a href="#CL_KERNEL_ARG_TYPE_RESTRICT"><code>CL_KERNEL_<wbr>ARG_<wbr>TYPE_<wbr>RESTRICT</code></a> will be returned if the pointer type is marked <code>restrict</code>. For example, <code>global int * restrict x</code> returns <a href="#CL_KERNEL_ARG_TYPE_RESTRICT"><code>CL_KERNEL_<wbr>ARG_<wbr>TYPE_<wbr>RESTRICT</code></a>.<br> <a href="#CL_KERNEL_ARG_TYPE_VOLATILE"><code>CL_KERNEL_<wbr>ARG_<wbr>TYPE_<wbr>VOLATILE</code></a> is returned for <a href="#CL_KERNEL_ARG_TYPE_QUALIFIER"><code>CL_KERNEL_<wbr>ARG_<wbr>TYPE_<wbr>QUALIFIER</code></a> if the argument is a pointer and the referenced type is declared with the volatile qualifier. For example, a kernel argument declared as <code>global int volatile *x</code> returns <a href="#CL_KERNEL_ARG_TYPE_VOLATILE"><code>CL_KERNEL_<wbr>ARG_<wbr>TYPE_<wbr>VOLATILE</code></a> but a kernel argument declared as <code>global int * volatile x</code> does not.
+<a href="#_footnoteref_28">28</a>. The reference count returned should be considered immediately stale. It is unsuitable for general use in applications. This feature is provided for identifying memory leaks.
 </div>
 <div class="footnote" id="_footnotedef_29">
-<a href="#_footnoteref_29">29</a>. <a href="#CL_KERNEL_ARG_TYPE_CONST"><code>CL_KERNEL_<wbr>ARG_<wbr>TYPE_<wbr>CONST</code></a> is returned for <a href="#CL_KERNEL_ARG_TYPE_QUALIFIER"><code>CL_KERNEL_<wbr>ARG_<wbr>TYPE_<wbr>QUALIFIER</code></a> if the argument is declared with the <code>constant</code> address space qualifier.
+<a href="#_footnoteref_29">29</a>. <a href="#CL_KERNEL_ARG_TYPE_CONST"><code>CL_KERNEL_<wbr>ARG_<wbr>TYPE_<wbr>CONST</code></a> is returned if the argument is a pointer and the referenced type is declared with the const qualifier. For example, a kernel argument declared as <code>global int const *x</code> returns <a href="#CL_KERNEL_ARG_TYPE_CONST"><code>CL_KERNEL_<wbr>ARG_<wbr>TYPE_<wbr>CONST</code></a> but a kernel argument declared as <code>global int * const x</code> does not.<br> Similarly, <a href="#CL_KERNEL_ARG_TYPE_RESTRICT"><code>CL_KERNEL_<wbr>ARG_<wbr>TYPE_<wbr>RESTRICT</code></a> will be returned if the pointer type is marked <code>restrict</code>. For example, <code>global int * restrict x</code> returns <a href="#CL_KERNEL_ARG_TYPE_RESTRICT"><code>CL_KERNEL_<wbr>ARG_<wbr>TYPE_<wbr>RESTRICT</code></a>.<br> <a href="#CL_KERNEL_ARG_TYPE_VOLATILE"><code>CL_KERNEL_<wbr>ARG_<wbr>TYPE_<wbr>VOLATILE</code></a> is returned for <a href="#CL_KERNEL_ARG_TYPE_QUALIFIER"><code>CL_KERNEL_<wbr>ARG_<wbr>TYPE_<wbr>QUALIFIER</code></a> if the argument is a pointer and the referenced type is declared with the volatile qualifier. For example, a kernel argument declared as <code>global int volatile *x</code> returns <a href="#CL_KERNEL_ARG_TYPE_VOLATILE"><code>CL_KERNEL_<wbr>ARG_<wbr>TYPE_<wbr>VOLATILE</code></a> but a kernel argument declared as <code>global int * volatile x</code> does not.
 </div>
 <div class="footnote" id="_footnotedef_30">
-<a href="#_footnoteref_30">30</a>. The error code values are negative, and event state values are positive. The event state values are ordered from the largest value <a href="#CL_QUEUED"><code>CL_QUEUED</code></a> for the first or initial state to the smallest value (<a href="#CL_COMPLETE"><code>CL_COMPLETE</code></a> or negative integer value) for the last or complete state. The value of <a href="#CL_COMPLETE"><code>CL_COMPLETE</code></a> and <a href="#CL_SUCCESS"><code>CL_SUCCESS</code></a> are the same.
+<a href="#_footnoteref_30">30</a>. <a href="#CL_KERNEL_ARG_TYPE_CONST"><code>CL_KERNEL_<wbr>ARG_<wbr>TYPE_<wbr>CONST</code></a> is returned for <a href="#CL_KERNEL_ARG_TYPE_QUALIFIER"><code>CL_KERNEL_<wbr>ARG_<wbr>TYPE_<wbr>QUALIFIER</code></a> if the argument is declared with the <code>constant</code> address space qualifier.
 </div>
 <div class="footnote" id="_footnotedef_31">
-<a href="#_footnoteref_31">31</a>. The reference count returned should be considered immediately stale. It is unsuitable for general use in applications. This feature is provided for identifying memory leaks.
+<a href="#_footnoteref_31">31</a>. The error code values are negative, and event state values are positive. The event state values are ordered from the largest value <a href="#CL_QUEUED"><code>CL_QUEUED</code></a> for the first or initial state to the smallest value (<a href="#CL_COMPLETE"><code>CL_COMPLETE</code></a> or negative integer value) for the last or complete state. The value of <a href="#CL_COMPLETE"><code>CL_COMPLETE</code></a> and <a href="#CL_SUCCESS"><code>CL_SUCCESS</code></a> are the same.
 </div>
 <div class="footnote" id="_footnotedef_32">
-<a href="#_footnoteref_32">32</a>. The callback function registered for a <em>command_exec_callback_type</em> value of <a href="#CL_COMPLETE"><code>CL_COMPLETE</code></a> will be called when the command has completed successfully or is abnormally terminated.
+<a href="#_footnoteref_32">32</a>. The reference count returned should be considered immediately stale. It is unsuitable for general use in applications. This feature is provided for identifying memory leaks.
 </div>
 <div class="footnote" id="_footnotedef_33">
-<a href="#_footnoteref_33">33</a>. And <strong>read_imageh</strong>, if the <strong>cl_khr_fp16</strong> extension is supported.
+<a href="#_footnoteref_33">33</a>. The callback function registered for a <em>command_exec_callback_type</em> value of <a href="#CL_COMPLETE"><code>CL_COMPLETE</code></a> will be called when the command has completed successfully or is abnormally terminated.
 </div>
 <div class="footnote" id="_footnotedef_34">
-<a href="#_footnoteref_34">34</a>. Note that the performance of 64-bit integer arithmetic can vary significantly between embedded devices.
+<a href="#_footnoteref_34">34</a>. And <strong>read_imageh</strong>, if the <strong>cl_khr_fp16</strong> extension is supported.
 </div>
 <div class="footnote" id="_footnotedef_35">
-<a href="#_footnoteref_35">35</a>. Please refer to the OpenCL glossary for the OpenCL definition of thread-safe. This definition may be different from usage of the term in other contexts.
+<a href="#_footnoteref_35">35</a>. Note that the performance of 64-bit integer arithmetic can vary significantly between embedded devices.
 </div>
 <div class="footnote" id="_footnotedef_36">
-<a href="#_footnoteref_36">36</a>. There is an inherent race condition in the design of OpenCL that occurs between setting a kernel argument and using the kernel with <a href="#clEnqueueNDRangeKernel"><strong>clEnqueueNDRangeKernel</strong></a>. Another host thread might change the kernel arguments between when a host thread sets the kernel arguments and then enqueues the kernel, causing the wrong kernel arguments to be enqueued. Rather than attempt to share <code>cl_kernel</code> objects among multiple host threads, applications are strongly encouraged to make additional <code>cl_kernel</code> objects for kernel functions for each host thread.
+<a href="#_footnoteref_36">36</a>. Please refer to the OpenCL glossary for the OpenCL definition of thread-safe. This definition may be different from usage of the term in other contexts.
 </div>
 <div class="footnote" id="_footnotedef_37">
-<a href="#_footnoteref_37">37</a>. Note that we are talking about the programming model here. In reality, little endian systems might choose to simply address their bytes from "the right" or reverse the "order" of the bits in the byte. Either of these choices would mean that no big swap would need to occur in hardware.
+<a href="#_footnoteref_37">37</a>. There is an inherent race condition in the design of OpenCL that occurs between setting a kernel argument and using the kernel with <a href="#clEnqueueNDRangeKernel"><strong>clEnqueueNDRangeKernel</strong></a>. Another host thread might change the kernel arguments between when a host thread sets the kernel arguments and then enqueues the kernel, causing the wrong kernel arguments to be enqueued. Rather than attempt to share <code>cl_kernel</code> objects among multiple host threads, applications are strongly encouraged to make additional <code>cl_kernel</code> objects for kernel functions for each host thread.
+</div>
+<div class="footnote" id="_footnotedef_38">
+<a href="#_footnoteref_38">38</a>. Note that we are talking about the programming model here. In reality, little endian systems might choose to simply address their bytes from "the right" or reverse the "order" of the bits in the byte. Either of these choices would mean that no big swap would need to occur in hardware.
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.6<br>
-Last updated 2020-12-13 22:09:28 -0800
+Version v3.0.7<br>
+Last updated 2021-04-19 17:02:25 -0700
 </div>
 </div>
 
