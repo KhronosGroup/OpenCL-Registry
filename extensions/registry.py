@@ -214,17 +214,22 @@ registry = {
     'cl_intel_packed_yuv' : {
         'number' : 42,
         'flags' : { 'public' },
-        'url' : 'extensions/intel/cl_intel_packed_yuv.txt',
+        'url' : 'extensions/intel/cl_intel_packed_yuv.html',
     },
     'cl_intel_planar_yuv' : {
         'number' : 49,
         'flags' : { 'public' },
-        'url' : 'extensions/intel/cl_intel_planar_yuv.txt',
+        'url' : 'extensions/intel/cl_intel_planar_yuv.html',
     },
     'cl_intel_required_subgroup_size' : {
         'number' : 43,
         'flags' : { 'public' },
         'url' : 'extensions/intel/cl_intel_required_subgroup_size.html',
+    },
+    'cl_intel_sharing_format_query' : {
+        'number' : 70,
+        'flags' : { 'public' },
+        'url' : 'extensions/intel/cl_intel_sharing_format_query.html',
     },
     'cl_intel_simultaneous_sharing' : {
         'number' : 34,
