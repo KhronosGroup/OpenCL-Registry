@@ -841,9 +841,9 @@ table.CodeRay td.code>pre{padding:0}
 <h1>The OpenCL<sup>&#8482;</sup> C Specification</h1>
 <div class="details">
 <span id="author" class="author">Khronos<sup>&#174;</sup> OpenCL Working Group</span><br>
-<span id="revnumber">version v3.0.7,</span>
-<span id="revdate">Fri, 23 Apr 2021 20:00:00 +0000</span>
-<br><span id="revremark">from git branch: master commit: 133503b85911ca8fd6642721d440e89460d491a3</span>
+<span id="revnumber">version v3.0.8,</span>
+<span id="revdate">Wed, 30 Jun 2021 20:00:00 +0000</span>
+<br><span id="revremark">from git branch: master commit: 09130de814688ec7b463cb089986b807c628ead3</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -1007,7 +1007,7 @@ table.CodeRay td.code>pre{padding:0}
 <div class="sectionbody">
 <div style="page-break-after: always;"></div>
 <div class="paragraph">
-<p>Copyright 2008-2020 The Khronos Group.</p>
+<p>Copyright 2008-2021 The Khronos Group.</p>
 </div>
 <div class="paragraph">
 <p>This specification is protected by copyright laws and contains material proprietary
@@ -1043,8 +1043,8 @@ WebCL, OpenVX, OpenVG, EGL, COLLADA, glTF, NNEF, OpenKODE, OpenKCAM, StreamInput
 OpenWF, OpenSL ES, OpenMAX, OpenMAX AL, OpenMAX IL, OpenMAX DL, OpenML and DevU are
 trademarks of the Khronos Group Inc. ASTC is a trademark of ARM Holdings PLC,
 OpenCL is a trademark of Apple Inc. and OpenGL and OpenML are registered trademarks
-and the OpenGL ES and OpenGL SC logos are trademarks of Silicon Graphics
-International used under license by Khronos. All other product names, trademarks,
+and the OpenGL ES and OpenGL SC logos are trademarks of Hewlett Packard Enterprise
+used under license by Khronos. All other product names, trademarks,
 and/or company names are used solely for identification and belong to their
 respective owners.</p>
 </div>
@@ -1393,7 +1393,8 @@ preferred whenever possible.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A 64-bit floating-point.
       The <code>double</code> data type must conform to the IEEE 754 double precision
       storage format.</p>
-<p class="tableblock">      <a href="#unified-spec">Requires</a> support for OpenCL C 1.2 or newer.
+<p class="tableblock">      <a href="#unified-spec">Requires</a> support for OpenCL C 1.2 or newer. In
+      OpenCL C 3.0 it requires support of the <code>__opencl_c_<wbr>fp64</code> feature.
       Also see extension <strong>cl_khr_fp64</strong>.</p></td>
 </tr>
 <tr>
@@ -1431,6 +1432,13 @@ preferred whenever possible.</p>
 </tr>
 </tbody>
 </table>
+<div class="paragraph">
+<p>If the double-precision floating-point extension {cl_khr_fp64} or the
+<code>__opencl_c_<wbr>fp64</code> feature is not supported, implementations may
+implicitly cast double-precision floating-point literals to
+single-precision literals. The use of double-precision literals without
+double-precision support should result in a diagnostic.</p>
+</div>
 <div class="paragraph">
 <p>Most built-in scalar data types are also declared as appropriate types in
 the OpenCL API (and header files) that can be used by an application.
@@ -1669,7 +1677,8 @@ Vector types with three elements, i.e. where <em>n</em> is 3, <a href="#unified-
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>double<em>n</em></code> <sup class="footnote">[<a id="_footnoteref_8" class="footnote" href="#_footnotedef_8" title="View footnote.">8</a>]</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A vector of <em>n</em> 64-bit floating-point values.</p>
-<p class="tableblock">      <a href="#unified-spec">Requires</a> support for OpenCL C 1.2 or newer.
+<p class="tableblock">      <a href="#unified-spec">Requires</a> support for OpenCL C 1.2 or newer. In
+      OpenCL C 3.0 it requires support of the <code>__opencl_c_<wbr>fp64</code> feature.
       Also see extension <strong>cl_khr_fp64</strong>.</p></td>
 </tr>
 </tbody>
@@ -18379,8 +18388,8 @@ References are to sections of this specific version, referred to as the
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.7<br>
-Last updated 2021-04-23 12:57:31 -0700
+Version v3.0.8<br>
+Last updated 2021-06-29 12:20:08 -0700
 </div>
 </div>
 

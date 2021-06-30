@@ -841,9 +841,9 @@ table.CodeRay td.code>pre{padding:0}
 <h1>The OpenCL<sup>&#8482;</sup> SPIR-V Environment Specification</h1>
 <div class="details">
 <span id="author" class="author">Khronos<sup>&#174;</sup> OpenCL Working Group</span><br>
-<span id="revnumber">version v3.0.7,</span>
-<span id="revdate">Fri, 23 Apr 2021 20:00:00 +0000</span>
-<br><span id="revremark">from git branch: master commit: 133503b85911ca8fd6642721d440e89460d491a3</span>
+<span id="revnumber">version v3.0.8,</span>
+<span id="revdate">Wed, 30 Jun 2021 20:00:00 +0000</span>
+<br><span id="revremark">from git branch: master commit: 09130de814688ec7b463cb089986b807c628ead3</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -908,7 +908,7 @@ table.CodeRay td.code>pre{padding:0}
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2008-2020 The Khronos Group.</p>
+<p>Copyright 2008-2021 The Khronos Group.</p>
 </div>
 <div class="paragraph">
 <p>This specification is protected by copyright laws and contains material proprietary
@@ -944,8 +944,8 @@ WebCL, OpenVX, OpenVG, EGL, COLLADA, glTF, NNEF, OpenKODE, OpenKCAM, StreamInput
 OpenWF, OpenSL ES, OpenMAX, OpenMAX AL, OpenMAX IL, OpenMAX DL, OpenML and DevU are
 trademarks of the Khronos Group Inc. ASTC is a trademark of ARM Holdings PLC,
 OpenCL is a trademark of Apple Inc. and OpenGL and OpenML are registered trademarks
-and the OpenGL ES and OpenGL SC logos are trademarks of Silicon Graphics
-International used under license by Khronos. All other product names, trademarks,
+and the OpenGL ES and OpenGL SC logos are trademarks of Hewlett Packard Enterprise
+used under license by Khronos. All other product names, trademarks,
 and/or company names are used solely for identification and belong to their
 respective owners.</p>
 </div>
@@ -2900,6 +2900,36 @@ that import the <code>OpenCL.DebugInfo.100</code> extended instruction set via <
 </div>
 <div class="paragraph">
 <p>If the OpenCL environment supports the extension <code>cl_khr_spirv_linkonce_odr</code> and use of the SPIR-V extension <code>SPV_KHR_linkonce_odr</code> is declared in the module via <strong>OpExtension</strong>, then the environment must accept modules that include the <strong>LinkOnceODR</strong> linkage type.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_cl_khr_extended_bit_ops"><a class="anchor" href="#_cl_khr_extended_bit_ops"></a>5.2.23. <code>cl_khr_extended_bit_ops</code></h4>
+<div class="paragraph">
+<p>If the OpenCL environment supports the extension <code>cl_khr_extended_bit_ops</code>, then the environment must accept modules that declare use of the extension <code>SPV_KHR_bit_instructions</code> via <strong>OpExtension</strong>.</p>
+</div>
+<div class="paragraph">
+<p>If the OpenCL environment supports the extension <code>cl_khr_extended_bit_ops</code> and use of the SPIR-V extension <code>SPV_KHR_bit_instructions</code> is declared in the module via <strong>OpExtension</strong>, then the environment must accept modules that declare the <strong>BitInstructions</strong> capability.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_cl_khr_integer_dot_product"><a class="anchor" href="#_cl_khr_integer_dot_product"></a>5.2.24. <code>cl_khr_integer_dot_product</code></h4>
+<div class="paragraph">
+<p>If the OpenCL environment supports the extension <code>cl_khr_integer_dot_product</code>,
+then the environment accept modules that require <code>SPV_KHR_integer_dot_product</code> and
+declare the following SPIR-V capabilities:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>DotProductKHR</strong></p>
+</li>
+<li>
+<p><strong>DotProductInput4x8BitKHR</strong> if <code>CL_DEVICE_INTEGER_DOT_PRODUCT_INPUT_4x8BIT_KHR</code> is supported</p>
+</li>
+<li>
+<p><strong>DotProductInput4x8BitPackedKHR</strong></p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -6801,8 +6831,8 @@ Default RGB colour space - sRGB&#8221;,
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.7<br>
-Last updated 2021-04-19 17:02:25 -0700
+Version v3.0.8<br>
+Last updated 2021-06-29 12:20:08 -0700
 </div>
 </div>
 
