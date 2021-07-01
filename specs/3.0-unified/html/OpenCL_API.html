@@ -841,9 +841,9 @@ table.CodeRay td.code>pre{padding:0}
 <h1>The OpenCL<sup>&#8482;</sup> Specification</h1>
 <div class="details">
 <span id="author" class="author">Khronos<sup>&#174;</sup> OpenCL Working Group</span><br>
-<span id="revnumber">version v3.0.7,</span>
-<span id="revdate">Fri, 23 Apr 2021 20:00:00 +0000</span>
-<br><span id="revremark">from git branch: master commit: 133503b85911ca8fd6642721d440e89460d491a3</span>
+<span id="revnumber">version v3.0.8,</span>
+<span id="revdate">Wed, 30 Jun 2021 20:00:00 +0000</span>
+<br><span id="revremark">from git branch: master commit: 09130de814688ec7b463cb089986b807c628ead3</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -1053,7 +1053,7 @@ table.CodeRay td.code>pre{padding:0}
 <div class="sectionbody">
 <div style="page-break-after: always;"></div>
 <div class="paragraph">
-<p>Copyright 2008-2020 The Khronos Group.</p>
+<p>Copyright 2008-2021 The Khronos Group.</p>
 </div>
 <div class="paragraph">
 <p>This specification is protected by copyright laws and contains material proprietary
@@ -1089,8 +1089,8 @@ WebCL, OpenVX, OpenVG, EGL, COLLADA, glTF, NNEF, OpenKODE, OpenKCAM, StreamInput
 OpenWF, OpenSL ES, OpenMAX, OpenMAX AL, OpenMAX IL, OpenMAX DL, OpenML and DevU are
 trademarks of the Khronos Group Inc. ASTC is a trademark of ARM Holdings PLC,
 OpenCL is a trademark of Apple Inc. and OpenGL and OpenML are registered trademarks
-and the OpenGL ES and OpenGL SC logos are trademarks of Silicon Graphics
-International used under license by Khronos. All other product names, trademarks,
+and the OpenGL ES and OpenGL SC logos are trademarks of Hewlett Packard Enterprise
+used under license by Khronos. All other product names, trademarks,
 and/or company names are used solely for identification and belong to their
 respective owners.</p>
 </div>
@@ -12262,6 +12262,10 @@ command-queue.</p>
 described in the argument description for <em>origin</em> and <em>region</em>.</p>
 </li>
 <li>
+<p><a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> if <em>image</em> is a 1D or 2D image and <em>slice_pitch</em> or
+<em>input_slice_pitch</em> is not 0.</p>
+</li>
+<li>
 <p><a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> if <em>ptr</em> is <code>NULL</code>.</p>
 </li>
 <li>
@@ -17958,8 +17962,8 @@ These options trade off between speed and correctness.</p>
 <dl>
 <dt class="hdlist1"><code>-cl-single-precision-constant</code> </dt>
 <dd>
-<p>Treat double precision floating-point constant as single precision
-constant.
+<p>This option forces implicit conversions of double-precision floating-point
+literals to single precision.
 This option is ignored for programs created with IL.</p>
 </dd>
 <dt class="hdlist1"><code>-cl-denorms-are-zero</code> </dt>
@@ -18435,8 +18439,7 @@ Otherwise, it returns one of the following errors:</p>
 </div>
 <div id="clUnloadCompiler" class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="c++">cl_int clUnloadCompiler(
-    <span class="directive">void</span>);</code></pre>
+<pre class="CodeRay highlight"><code data-lang="c++">cl_int clUnloadCompiler(<span class="directive">void</span>);</code></pre>
 </div>
 </div>
 <div class="admonitionblock important">
@@ -26700,8 +26703,8 @@ AJ Guillon, YetiWare Inc<br></p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.7<br>
-Last updated 2021-04-19 17:02:25 -0700
+Version v3.0.8<br>
+Last updated 2021-06-29 12:20:08 -0700
 </div>
 </div>
 

@@ -841,9 +841,9 @@ table.CodeRay td.code>pre{padding:0}
 <h1>The OpenCL<sup>&#8482;</sup> Extension Specification</h1>
 <div class="details">
 <span id="author" class="author">Khronos<sup>&#174;</sup> OpenCL Working Group</span><br>
-<span id="revnumber">version v3.0.7,</span>
-<span id="revdate">Fri, 23 Apr 2021 20:00:00 +0000</span>
-<br><span id="revremark">from git branch: master commit: 133503b85911ca8fd6642721d440e89460d491a3</span>
+<span id="revnumber">version v3.0.8,</span>
+<span id="revdate">Wed, 30 Jun 2021 20:00:00 +0000</span>
+<br><span id="revremark">from git branch: master commit: 09130de814688ec7b463cb089986b807c628ead3</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -889,7 +889,8 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#cl_khr_pci_bus_info">39. PCI Bus Information Query</a></li>
 <li><a href="#cl_khr_extended_bit_ops">40. Extended Bit Operations</a></li>
 <li><a href="#cl_khr_suggested_local_work_size">41. Suggested Local Work Size Query</a></li>
-<li><a href="#spirv_extensions">42. Extensions to the OpenCL SPIR-V Environment</a></li>
+<li><a href="#cl_khr_integer_dot_product">42. Integer dot product</a></li>
+<li><a href="#spirv_extensions">43. Extensions to the OpenCL SPIR-V Environment</a></li>
 <li><a href="#_extensions_promoted_to_core_features">Appendix A: Extensions Promoted to Core Features</a></li>
 <li><a href="#_deprecated_extensions">Appendix B: Deprecated Extensions</a></li>
 <li><a href="#_quick_reference">Appendix C: Quick Reference</a></li>
@@ -900,7 +901,7 @@ table.CodeRay td.code>pre{padding:0}
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2008-2020 The Khronos Group.</p>
+<p>Copyright 2008-2021 The Khronos Group.</p>
 </div>
 <div class="paragraph">
 <p>This specification is protected by copyright laws and contains material proprietary
@@ -936,8 +937,8 @@ WebCL, OpenVX, OpenVG, EGL, COLLADA, glTF, NNEF, OpenKODE, OpenKCAM, StreamInput
 OpenWF, OpenSL ES, OpenMAX, OpenMAX AL, OpenMAX IL, OpenMAX DL, OpenML and DevU are
 trademarks of the Khronos Group Inc. ASTC is a trademark of ARM Holdings PLC,
 OpenCL is a trademark of Apple Inc. and OpenGL and OpenML are registered trademarks
-and the OpenGL ES and OpenGL SC logos are trademarks of Silicon Graphics
-International used under license by Khronos. All other product names, trademarks,
+and the OpenGL ES and OpenGL SC logos are trademarks of Hewlett Packard Enterprise
+used under license by Khronos. All other product names, trademarks,
 and/or company names are used solely for identification and belong to their
 respective owners.</p>
 </div>
@@ -18367,7 +18368,7 @@ If no bits representing predicate values from all work items in the subgroup are
 <pre class="CodeRay highlight"><code data-lang="c">uint4 get_sub_group_eq_mask()</code></pre>
 </div>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Generates a bitmask of all work items in the subgroup, where the bit is set in the bitmask if the bit index equals the subgroup local ID and unset otherwise.
+<td class="tableblock halign-left valign-top"><p class="tableblock">Generates a bitmask where the bit is set in the bitmask if the bit index equals the subgroup local ID and unset otherwise.
 Bit zero of the first vector component represents the subgroup local ID zero, with higher-order bits and subsequent vector components representing, in order, increasing subgroup local IDs.</p></td>
 </tr>
 <tr>
@@ -18376,7 +18377,7 @@ Bit zero of the first vector component represents the subgroup local ID zero, wi
 <pre class="CodeRay highlight"><code data-lang="c">uint4 get_sub_group_ge_mask()</code></pre>
 </div>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Generates a bitmask of all work items in the subgroup, where the bit is set in the bitmask if the bit index is greater than or equal to the subgroup local ID and less than the maximum subgroup size, and unset otherwise.
+<td class="tableblock halign-left valign-top"><p class="tableblock">Generates a bitmask where the bit is set in the bitmask if the bit index is greater than or equal to the subgroup local ID and less than the maximum subgroup size, and unset otherwise.
 Bit zero of the first vector component represents the subgroup local ID zero, with higher-order bits and subsequent vector components representing, in order, increasing subgroup local IDs.</p></td>
 </tr>
 <tr>
@@ -18385,7 +18386,7 @@ Bit zero of the first vector component represents the subgroup local ID zero, wi
 <pre class="CodeRay highlight"><code data-lang="c">uint4 get_sub_group_gt_mask()</code></pre>
 </div>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Generates a bitmask of all work items in the subgroup, where the bit is set in the bitmask if the bit index is greater than the subgroup local ID and less than the maximum subgroup size, and unset otherwise.
+<td class="tableblock halign-left valign-top"><p class="tableblock">Generates a bitmask where the bit is set in the bitmask if the bit index is greater than the subgroup local ID and less than the maximum subgroup size, and unset otherwise.
 Bit zero of the first vector component represents the subgroup local ID zero, with higher-order bits and subsequent vector components representing, in order, increasing subgroup local IDs.</p></td>
 </tr>
 <tr>
@@ -18394,7 +18395,7 @@ Bit zero of the first vector component represents the subgroup local ID zero, wi
 <pre class="CodeRay highlight"><code data-lang="c">uint4 get_sub_group_le_mask()</code></pre>
 </div>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Generates a bitmask of all work items in the subgroup, where the bit is set in the bitmask if the bit index is less than or equal to the subgroup local ID and unset otherwise.
+<td class="tableblock halign-left valign-top"><p class="tableblock">Generates a bitmask where the bit is set in the bitmask if the bit index is less than or equal to the subgroup local ID and unset otherwise.
 Bit zero of the first vector component represents the subgroup local ID zero, with higher-order bits and subsequent vector components representing, in order, increasing subgroup local IDs.</p></td>
 </tr>
 <tr>
@@ -18403,7 +18404,7 @@ Bit zero of the first vector component represents the subgroup local ID zero, wi
 <pre class="CodeRay highlight"><code data-lang="c">uint4 get_sub_group_lt_mask()</code></pre>
 </div>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Generates a bitmask of all work items in the subgroup, where the bit is set in the bitmask if the bit index is less than the subgroup local ID and unset otherwise.
+<td class="tableblock halign-left valign-top"><p class="tableblock">Generates a bitmask where the bit is set in the bitmask if the bit index is less than the subgroup local ID and unset otherwise.
 Bit zero of the first vector component represents the subgroup local ID zero, with higher-order bits and subsequent vector components representing, in order, increasing subgroup local IDs.</p></td>
 </tr>
 </tbody>
@@ -19697,29 +19698,6 @@ That is, the bit numbered <em>n</em> of the result value will be taken from the 
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_modifications_to_the_opencl_spir_v_environment_specification"><a class="anchor" href="#_modifications_to_the_opencl_spir_v_environment_specification"></a>40.4. Modifications to the OpenCL SPIR-V Environment Specification</h3>
-<div class="sect3">
-<h4 id="_add_to_section_5_opencl_extensions"><a class="anchor" href="#_add_to_section_5_opencl_extensions"></a>40.4.1. Add to Section 5 - OpenCL Extensions</h4>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Add a new Section 5.2.X - <code>cl_khr_extended_bit_ops</code>: </dt>
-<dd>
-<div class="openblock">
-<div class="content">
-<div class="paragraph">
-<p>If the OpenCL environment supports the extension <code>cl_khr_extended_bit_ops</code>, then the environment must accept modules that declare use of the extension <code>SPV_KHR_bit_instructions</code> via <strong>OpExtension</strong>.</p>
-</div>
-<div class="paragraph">
-<p>If the OpenCL environment supports the extension <code>cl_khr_extended_bit_ops</code> and use of the SPIR-V extension <code>SPV_KHR_bit_instructions</code> is declared in the module via <strong>OpExtension</strong>, then the environment must accept modules that declare the <strong>BitInstructions</strong> capability.</p>
-</div>
-</div>
-</div>
-</dd>
-</dl>
-</div>
-</div>
-</div>
 </div>
 </div>
 <div class="sect1">
@@ -19906,7 +19884,297 @@ These error conditions are consistent with error conditions for <strong>clEnqueu
 </div>
 </div>
 <div class="sect1">
-<h2 id="spirv_extensions"><a class="anchor" href="#spirv_extensions"></a>42. Extensions to the OpenCL SPIR-V Environment</h2>
+<h2 id="cl_khr_integer_dot_product"><a class="anchor" href="#cl_khr_integer_dot_product"></a>42. Integer dot product</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This extension adds support for SPIR-V instructions and OpenCL C built-in
+functions to compute the dot product of vectors of integers.</p>
+</div>
+<div class="sect2">
+<h3 id="_general_information_41"><a class="anchor" href="#_general_information_41"></a>42.1. General Information</h3>
+<div class="sect3">
+<h4 id="_name_strings_5"><a class="anchor" href="#_name_strings_5"></a>42.1.1. Name Strings</h4>
+<div class="paragraph">
+<p><code>cl_khr_integer_dot_product</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_version_history_41"><a class="anchor" href="#_version_history_41"></a>42.1.2. Version History</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Date</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Version</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2021-06-17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Initial version.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_dependencies_5"><a class="anchor" href="#_dependencies_5"></a>42.1.3. Dependencies</h4>
+<div class="paragraph">
+<p>This extension is written against the OpenCL Specification Version 3.0.6,
+and OpenCL C Specification Version 3.0.6 and OpenCL Environment Specification
+Version 3.0.6.</p>
+</div>
+<div class="paragraph">
+<p>This extension requires OpenCL 1.0.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_contributors_2"><a class="anchor" href="#_contributors_2"></a>42.1.4. Contributors</h4>
+<div class="paragraph">
+<p>Kévin Petit, Arm Ltd.<br>
+Jeremy Kemp, Imagination Technologies<br>
+Ben Ashbaugh, Intel<br>
+Ruihao Zhang, Qualcomm<br>
+Stuart Brady, Arm Ltd<br>
+Balaji Calidas, Qualcomm<br>
+Ayal Zaks, Intel<br></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_new_api_enums_3"><a class="anchor" href="#_new_api_enums_3"></a>42.2. New API Enums</h3>
+<div class="paragraph">
+<p>Accepted value for the <em>param_name</em> parameter to <strong>clGetDeviceInfo</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">CL_DEVICE_INTEGER_DOT_PRODUCT_INPUT_4x8BIT_PACKED_KHR      (<span class="integer">1</span> &lt;&lt; <span class="integer">0</span>)
+CL_DEVICE_INTEGER_DOT_PRODUCT_INPUT_4x8BIT_KHR             (<span class="integer">1</span> &lt;&lt; <span class="integer">1</span>)
+
+CL_DEVICE_INTEGER_DOT_PRODUCT_CAPABILITIES_KHR              <span class="hex">0x1073</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_new_opencl_c_functions_2"><a class="anchor" href="#_new_opencl_c_functions_2"></a>42.3. New OpenCL C Functions</h3>
+<div class="paragraph">
+<p>This extension defines a number of new functions that operate on vectors
+of integers. The exact function overloads available depend on the features
+supported by the target device.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">uint dot(uchar4 a, uchar4 b);
+<span class="predefined-type">int</span> dot(char4 a, char4 b);
+<span class="predefined-type">int</span> dot(uchar4 a, char4 b);
+<span class="predefined-type">int</span> dot(char4 a, uchar4 b);
+
+uint dot_acc_sat(uchar4 a, uchar4 b, uint acc);
+<span class="predefined-type">int</span> dot_acc_sat(char4 a, char4 b, <span class="predefined-type">int</span> acc);
+<span class="predefined-type">int</span> dot_acc_sat(uchar4 a, char4 b, <span class="predefined-type">int</span> acc);
+<span class="predefined-type">int</span> dot_acc_sat(char4 a, uchar4 b, <span class="predefined-type">int</span> acc);
+
+uint dot_4x8packed_uu_uint(uint a, uint b);
+<span class="predefined-type">int</span> dot_4x8packed_ss_int(uint a, uint b);
+<span class="predefined-type">int</span> dot_4x8packed_us_int(uint a, uint b);
+<span class="predefined-type">int</span> dot_4x8packed_su_int(uint a, uint b);
+
+uint dot_acc_sat_4x8packed_uu_uint(uint a, uint b, uint acc);
+<span class="predefined-type">int</span> dot_acc_sat_4x8packed_ss_int(uint a, uint b, <span class="predefined-type">int</span> acc);
+<span class="predefined-type">int</span> dot_acc_sat_4x8packed_us_int(uint a, uint b, <span class="predefined-type">int</span> acc);
+<span class="predefined-type">int</span> dot_acc_sat_4x8packed_su_int(uint a, uint b, <span class="predefined-type">int</span> acc);</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_modifications_to_the_opencl_api_specification_4"><a class="anchor" href="#_modifications_to_the_opencl_api_specification_4"></a>42.4. Modifications to the OpenCL API Specification</h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">(Modify Section 4.2, <strong>Querying Devices</strong>) </dt>
+<dd>
+<div class="openblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">(Add the following to Table 4.3, <em>Device Queries</em>) </dt>
+</dl>
+</div>
+</div>
+</div>
+</dd>
+</dl>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">cl_device_info</th>
+<th class="tableblock halign-left valign-top">Return Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>INTEGER_<wbr>DOT_<wbr>PRODUCT_<wbr>CAPABILITIES_<wbr>KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_device_<wbr>integer_<wbr>dot_<wbr>product_<wbr>capabilities_<wbr>khr</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the integer dot product capabilities supported by the device.<br>
+<br>
+<code>CL_DEVICE_<wbr>INTEGER_<wbr>DOT_<wbr>PRODUCT_<wbr>INPUT_<wbr>4x8BIT_<wbr>PACKED_<wbr>KHR</code> is always set
+  indicating that all implementations that support <code>cl_khr_integer_dot_product</code>
+  must support dot product built-in functions and, when SPIR-V is supported,
+  SPIR-V instructions that take four-component vectors of 8-bit integers packed
+  into 32-bit integers as input.<br>
+<code>CL_DEVICE_<wbr>INTEGER_<wbr>DOT_<wbr>PRODUCT_<wbr>INPUT_<wbr>4x8BIT_<wbr>KHR</code> is set when dot product
+  built-in functions and, when SPIR-V is supported, SPIR-V instructions that
+  take four-component of 8-bit elements as input are supported.<br></p></td>
+</tr>
+</tbody>
+</table>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>OpenCL 3 devices must report the following feature macros via
+<code>CL_DEVICE_<wbr>OPENCL_<wbr>C_<wbr>FEATURES</code> when the corresponding bit is set in the bitfield
+returned for <code>CL_DEVICE_<wbr>INTEGER_<wbr>DOT_<wbr>PRODUCT_<wbr>CAPABILITIES_<wbr>KHR</code>:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Feature bit</th>
+<th class="tableblock halign-left valign-top">Feature macro</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>INTEGER_<wbr>DOT_<wbr>PRODUCT_<wbr>INPUT_<wbr>4x8BIT_<wbr>PACKED_<wbr>KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>__opencl_c_integer_dot_product_input_4x8bit_packed</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>INTEGER_<wbr>DOT_<wbr>PRODUCT_<wbr>INPUT_<wbr>4x8BIT_<wbr>KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>__opencl_c_integer_dot_product_input_4x8bit</code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_modifications_to_the_opencl_c_specification_2"><a class="anchor" href="#_modifications_to_the_opencl_c_specification_2"></a>42.5. Modifications to the OpenCL C Specification</h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">(Modify section 6.13.3, <strong>Integer Functions</strong>) </dt>
+<dd>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The following built-in functions and preprocessor definitions are added:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c"><span class="preprocessor">#define</span> cl_khr_integer_dot_product <span class="integer">1</span>
+
+<span class="keyword">if</span> (CL_DEVICE_INTEGER_DOT_PRODUCT_INPUT_4x8BIT_PACKED_KHR) {
+    <span class="preprocessor">#define</span> __opencl_c_integer_dot_product_input_4x8bit_packed <span class="integer">1</span>
+
+    uint dot_4x8packed_uu_uint(uint a, uint b);
+    <span class="predefined-type">int</span> dot_4x8packed_ss_int(uint a, uint b);
+    <span class="predefined-type">int</span> dot_4x8packed_us_int(uint a, uint b);
+    <span class="predefined-type">int</span> dot_4x8packed_su_int(uint a, uint b);
+
+    uint dot_acc_sat_4x8packed_uu_uint(uint a, uint b, uint acc);
+    <span class="predefined-type">int</span> dot_acc_sat_4x8packed_ss_int(uint a, uint b, <span class="predefined-type">int</span> acc);
+    <span class="predefined-type">int</span> dot_acc_sat_4x8packed_us_int(uint a, uint b, <span class="predefined-type">int</span> acc);
+    <span class="predefined-type">int</span> dot_acc_sat_4x8packed_su_int(uint a, uint b, <span class="predefined-type">int</span> acc);
+}
+
+<span class="keyword">if</span> (CL_DEVICE_INTEGER_DOT_PRODUCT_INPUT_4x8BIT_KHR) {
+    <span class="preprocessor">#define</span> __opencl_c_integer_dot_product_input_4x8bit <span class="integer">1</span>
+
+    uint dot(uchar4 a, uchar4 b);
+    <span class="predefined-type">int</span> dot(char4 a, char4 b);
+    <span class="predefined-type">int</span> dot(uchar4 a, char4 b);
+    <span class="predefined-type">int</span> dot(char4 a, uchar4 b);
+
+    uint dot_acc_sat(uchar4 a, uchar4 b, uint acc);
+    <span class="predefined-type">int</span> dot_acc_sat(char4 a, char4 b, <span class="predefined-type">int</span> acc);
+    <span class="predefined-type">int</span> dot_acc_sat(uchar4 a, char4 b, <span class="predefined-type">int</span> acc);
+    <span class="predefined-type">int</span> dot_acc_sat(char4 a, uchar4 b, <span class="predefined-type">int</span> acc);
+}</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>dot</code> returns the dot product of the two input vectors <code>a</code> and <code>b</code>. The
+components of <code>a</code> and <code>b</code> are sign- or zero-extended to the width of the
+destination type and the vectors with extended components are multiplied
+component-wise. All the components of the resulting vectors are added
+together to form the final result.</p>
+</li>
+<li>
+<p><code>dot_acc_sat</code> returns the saturating addition of the dot product of the two
+input vectors <code>a</code> and <code>b</code> and the accumulator <code>acc</code>:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>product = dot(a,b);
+result = add_sat(product, acc);</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>dot_*_4x8packed_XY_R</code> returns the dot product of the two vectors packed
+into <code>a</code> and <code>b</code> (lowest component in least significant byte). The components
+are unpacked, sign- or zero-extended to the width of the destination type before
+the multiplications and additions. <code>X</code> represents the signedness of the components
+of <code>a</code>, <code>Y</code> that of the components of <code>b</code>. <code>R</code> is the return type.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_modifications_to_the_opencl_spir_v_environment_specification"><a class="anchor" href="#_modifications_to_the_opencl_spir_v_environment_specification"></a>42.6. Modifications to the OpenCL SPIR-V Environment Specification</h3>
+<div class="paragraph">
+<p>See OpenCL SPIR-V Environment Specification.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_interactions_with_other_extensions"><a class="anchor" href="#_interactions_with_other_extensions"></a>42.7. Interactions with Other Extensions</h3>
+<div class="paragraph">
+<p>If <code>cl_khr_il_program</code> is supported then the SPIR-V environment specification
+modifications described above apply.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="spirv_extensions"><a class="anchor" href="#spirv_extensions"></a>43. Extensions to the OpenCL SPIR-V Environment</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>An OpenCL SPIR-V environment may be modified by OpenCL extensions.
@@ -20187,6 +20455,11 @@ Its use is no longer recommended.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Core Feature in OpenCL 1.1</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#cl_khr_integer_dot_product">cl_khr_integer_dot_product</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Integer dot product operations</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extension</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#cl_khr_mipmap_image">cl_khr_mipmap_image</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Create and Use Images with Mipmaps</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Extension</p></td>
@@ -20288,8 +20561,8 @@ Its use is no longer recommended.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.7<br>
-Last updated 2021-04-23 12:57:31 -0700
+Version v3.0.8<br>
+Last updated 2021-06-29 12:20:08 -0700
 </div>
 </div>
 
