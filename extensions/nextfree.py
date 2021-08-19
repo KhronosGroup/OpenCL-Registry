@@ -32,7 +32,7 @@ file = 'registry.py'
 exec(open(file).read())
 
 # Track the next free extension number
-keys = { 'number' }
+keys = { 'khrnumber', 'number' }
 max = {}
 for k in keys:
     max[k] = 0

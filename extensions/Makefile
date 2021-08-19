@@ -1,4 +1,4 @@
-# Copyright (c) 2017 The Khronos Group Inc.
+# Copyright (c) 2021 The Khronos Group Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,7 +20,10 @@
 PYTHON = python3
 SCRIPTS = registry.py makeindex.py
 
-all: clext.php
+all: clext.php khrext.php
+
+khrext.php: $(SCRIPTS)
+	$(PYTHON) makeindex.py -key khrnumber >$@
 
 clext.php: $(SCRIPTS)
-	$(PYTHON) makeindex.py number >$@
+	$(PYTHON) makeindex.py -key number >$@
