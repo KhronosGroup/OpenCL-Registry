@@ -139,4 +139,6 @@
 </li>
 <li value=70><a href="extensions/intel/cl_intel_sharing_format_query.html">cl_intel_sharing_format_query</a>
 </li>
+<li value=71><a href="extensions/pocl/cl_pocl_content_size.txt">cl_pocl_content_size</a>
+</li>
 </ol>

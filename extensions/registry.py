@@ -351,4 +351,9 @@ registry = {
         'flags' : { 'public' },
         'url' : 'extensions/amd/cl_amd_planar_yuv.txt',
     },
+    'cl_pocl_content_size' : {
+        'number' : 71,
+        'flags' : { 'public' },
+        'url' : 'extensions/pocl/cl_pocl_content_size.txt',
+    },
 }
