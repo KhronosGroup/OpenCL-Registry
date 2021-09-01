@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.12">
-<title>OpenCL Reference Pages</title>
+<title>Abstract Data Types (3)</title>
 <style>
 /*! normalize.css v2.1.2 | MIT License | git.io/normalize */
 /* ========================================================================== HTML5 display definitions ========================================================================== */
@@ -744,94 +744,175 @@ p.tableblock.header { color: #6d6e71; }
         );
     });
 </script></head>
-<body class="book">
+<body class="manpage">
 <div id="header">
-<h1>OpenCL Reference Pages</h1>
-<div class="details">
-<span id="revnumber">version refpages-20200327-4-g2549e54,</span>
-<span id="revdate">Wed, 01 Sep 2021 22:45:58 +0000</span>
-<br><span id="revremark">from git branch: update-refpages-2.2-from-0a92eee commit: 2549e547a1da293919f3fb1e67d21c59108df177</span>
-</div>
+<h1>Abstract Data Types (3) Manual Page</h1>
 </div>
 <div id="content">
-<div id="preamble">
+<div class="sect1">
+<h2 id="_name_2">Name</h2>
 <div class="sectionbody">
-<div class="imageblock right text-center">
-<div class="content">
-<img src="data:image/jpg;base64,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" alt="OpenCL">
-</div>
-</div>
 <div class="paragraph">
-<p>OpenCL (Open Computing Language) is an open royalty-free standard for
-general purpose parallel programming across CPUs, GPUs and other processors,
-giving software developers portable and efficient access to the power of
-these heterogeneous processing platforms.</p>
-</div>
-<div class="paragraph">
-<p>OpenCL supports a wide range of applications, ranging from embedded and
-consumer software to HPC solutions, through a low-level, high-performance,
-portable abstraction. By creating an efficient, close-to-the-metal
-programming interface, OpenCL will form the foundation layer of a parallel
-computing ecosystem of platform-independent tools, middleware and
-applications.</p>
-</div>
-<div class="paragraph">
-<p>OpenCL consists of an API for coordinating parallel computation across
-heterogeneous processors; and a cross-platform programming language with a
-well-specified computation environment.</p>
-</div>
-<div class="paragraph">
-<p>The OpenCL standard:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Supports both data- and task-based parallel programming models</p>
-</li>
-<li>
-<p>Utilizes a subset of ISO C99 with extensions for parallelism</p>
-</li>
-<li>
-<p>Defines consistent numerical requirements based on IEEE 754</p>
-</li>
-<li>
-<p>Defines a configuration profile for handheld and embedded devices</p>
-</li>
-<li>
-<p>Efficiently interoperates with OpenGL, OpenGL ES, and other graphics APIs</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>The specification is divided into a core specification that any OpenCL
-compliant implementation must support; a handheld/embedded profile which
-relaxes the OpenCL compliance requirements for handheld and embedded
-devices; and a set of optional extensions that are likely to move into the
-core specification in later revisions of the OpenCL specification.</p>
+<p>Abstract Built-in Data Types</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_reference_page_sources">Reference Page Sources</h2>
+<h2 id="_description">Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Khronos publishes the OpenCL 2.2 reference pages in the
-<a href="https://www.github.com/KhronosGroup/OpenCL-Registry/tree/master/sdk/2.2/docs/">OpenCL-Registry
-repository</a>.
-Unlike reference pages for earlier versions of OpenCL, the sources for these
-pages are in Asciidoctor format, and are maintained in the
-<a href="https://www.github.com/KhronosGroup/OpenCL-Docs">OpenCL-Docs repository</a>. If
-you encounter problems with these pages, please file an issue in
-OpenCL-Docs.</p>
+<p>The following table describes abstract data types supported by OpenCL.</p>
 </div>
-<div style="page-break-after: always;"></div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">API Type</th>
+<th class="tableblock halign-left valign-top">Creation or Query API</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>The ID for a platform</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><code>cl_platform_id</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a href="clGetPlatformIDs.html">clGetPlatformIDs</a></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>The ID for a device</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><code>cl_device_id</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a href="clGetDeviceIDs.html">clGetDeviceIDs</a></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>A context</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><code>cl_context</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a href="clCreateContext.html">clCreateContext</a></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>A command queue</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><code>cl_command_queue</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a href="clCreateCommandQueueWithProperties.html">clCreateCommandQueueWithProperties</a></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>A memory object</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><code>cl_mem</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a href="clCreateBuffer.html">clCreateBuffer</a></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>A program</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><code>cl_program</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a href="clCreateProgramWithSource.html">clCreateProgramWithSource</a></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>A kernel</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><code>cl_kernel</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a href="clCreateKernel.html">clCreateKernel</a></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>An event</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><code>cl_event</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a href="clCreateUserEvent.html">clCreateUserEvent</a></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>A sampler</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><code>cl_sampler</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a href="clCreateSampler.html">clCreateSampler</a></p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_see_also">See Also</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="otherDataTypes.html">otherDataTypes</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_document_notes">Document Notes</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>For more information, see the
+<a href="https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_API.html">OpenCL
+API Specification</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_copyright">Copyright</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Copyright (c) 2014-2020 Khronos Group. This work is licensed under a
+<a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons
+Attribution 4.0 International License</a>.</p>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version refpages-20200327-4-g2549e54<br>
-Last updated 2021-08-27 00:48:25 -0700
+Version refpages-20200327-4-g2549e54-dirty<br>
+Last updated 2021-09-01 15:48:00 -0700
 </div>
 </div>
 
