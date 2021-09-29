@@ -44,6 +44,8 @@ include_once("../../assets/static_pages/khr_page_top.php");
      (<a href="specs/3.0-unified/html/OpenCL_Env.html">HTML</a>)
      (<a href="specs/3.0-unified/pdf/OpenCL_Env.pdf">PDF</a>)
      (June 30, 2021). </li>
+<li> <a href="http://www.khronos.org/registry/OpenCL/sdk/3.0/docs/man/html/">
+     OpenCL 3.0 Reference Pages.</a> </li>
 <li> <a href="https://www.khronos.org/files/opencl30-reference-guide.pdf">
      OpenCL 3.0 Reference Guide.</a> </li>
 </ul>
@@ -110,7 +112,7 @@ include_once("../../assets/static_pages/khr_page_top.php");
      (<a href="specs/2.2/html/OpenCL_Cxx.html">HTML</a>)
      (<a href="specs/2.2/pdf/OpenCL_Cxx.pdf">PDF</a>)
      (July 19, 2019). </li>
-<li> <a href="http://www.khronos.org/registry/OpenCL//sdk/2.2/docs/man/html/">
+<li> <a href="http://www.khronos.org/registry/OpenCL/sdk/2.2/docs/man/html/">
      OpenCL 2.2 Reference Pages.</a> </li>
 <li> <a href="https://www.khronos.org/files/opencl22-reference-guide.pdf">
      OpenCL 2.2 Reference Guide.</a> </li>
@@ -129,9 +131,9 @@ include_once("../../assets/static_pages/khr_page_top.php");
 <li> OpenCL 2.1 Environment
      <a href="specs/opencl-2.1-environment.pdf">
      Specification</a>. </li>
-<li> <a href="http://www.khronos.org/registry/OpenCL//sdk/2.1/docs/man/xhtml/">
+<li> <a href="http://www.khronos.org/registry/OpenCL/sdk/2.1/docs/man/xhtml/">
      OpenCL 2.1 Reference Pages.</a>
-<li> <a href="http://www.khronos.org/registry/OpenCL//sdk/2.1/docs/OpenCL-2.1-refcard.pdf">
+<li> <a href="http://www.khronos.org/registry/OpenCL/sdk/2.1/docs/OpenCL-2.1-refcard.pdf">
      OpenCL 2.1 Quick Reference Card.</a> </li>
 </ul>
 
@@ -148,9 +150,9 @@ include_once("../../assets/static_pages/khr_page_top.php");
 <li> OpenCL 2.0 Extension
      <a href="specs/opencl-2.0-extensions.pdf">
      Specification </a> (March 11, 2016). </li>
-<li> <a href="http://www.khronos.org/registry/OpenCL//sdk/2.0/docs/man/xhtml/">
+<li> <a href="http://www.khronos.org/registry/OpenCL/sdk/2.0/docs/man/xhtml/">
      OpenCL 2.0 Reference Pages.</a>
-<li> <a href="http://www.khronos.org/registry/OpenCL//sdk/2.0/docs/OpenCL-2.0-refcard.pdf">
+<li> <a href="http://www.khronos.org/registry/OpenCL/sdk/2.0/docs/OpenCL-2.0-refcard.pdf">
      OpenCL 2.0 Quick Reference Card.</a> </li>
 </ul>
 
@@ -164,9 +166,9 @@ include_once("../../assets/static_pages/khr_page_top.php");
 <li> OpenCL 1.2 Extensions
      <a href="specs/opencl-1.2-extensions.pdf">
      Specification </a> (September 22, 2015). </li>
-<li> <a href="http://www.khronos.org/registry/OpenCL//sdk/1.2/docs/man/xhtml/">
+<li> <a href="http://www.khronos.org/registry/OpenCL/sdk/1.2/docs/man/xhtml/">
      OpenCL 1.2 Reference Pages.</a> </li>
-<li> <a href="http://www.khronos.org/registry/OpenCL//sdk/1.2/docs/OpenCL-1.2-refcard.pdf">
+<li> <a href="http://www.khronos.org/registry/OpenCL/sdk/1.2/docs/OpenCL-1.2-refcard.pdf">
      OpenCL 1.2 Quick Reference Card.</a> </li>
 </ul>
 
@@ -181,9 +183,9 @@ include_once("../../assets/static_pages/khr_page_top.php");
      <a href="http://www.cutt.co.jp/book/978-4-87783-256-8.html">
      Japanese translation </a>
      of the specification is also available. </li>
-<li> <a href="http://www.khronos.org/registry/OpenCL//sdk/1.1/docs/man/xhtml/">
+<li> <a href="http://www.khronos.org/registry/OpenCL/sdk/1.1/docs/man/xhtml/">
      OpenCL 1.1 Reference Pages.</a> </li>
-<li> <a href="http://www.khronos.org/registry/OpenCL//sdk/1.1/docs/OpenCL-1.1-refcard.pdf">
+<li> <a href="http://www.khronos.org/registry/OpenCL/sdk/1.1/docs/OpenCL-1.1-refcard.pdf">
      OpenCL 1.1 Reference Card.</a> </li>
 </ul>
 
@@ -194,9 +196,9 @@ include_once("../../assets/static_pages/khr_page_top.php");
 <li> OpenCL 1.0 API and C Language
      <a href="specs/opencl-1.0.pdf">
      Specification </a> (revision 48, October 6, 2009). </li>
-<li> <a href="http://www.khronos.org/registry/OpenCL//sdk/1.0/docs/man/xhtml/">
+<li> <a href="http://www.khronos.org/registry/OpenCL/sdk/1.0/docs/man/xhtml/">
      OpenCL 1.0 Reference Pages.</a> </li>
-<li> <a href="http://www.khronos.org/registry/OpenCL//sdk/1.0/docs/OpenCL-1.0-refcard.pdf">
+<li> <a href="http://www.khronos.org/registry/OpenCL/sdk/1.0/docs/OpenCL-1.0-refcard.pdf">
      OpenCL 1.0 Reference Card.</a> </li>
 </ul>
 
