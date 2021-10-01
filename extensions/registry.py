@@ -354,6 +354,6 @@ registry = {
     'cl_pocl_content_size' : {
         'number' : 71,
         'flags' : { 'public' },
-        'url' : 'extensions/pocl/cl_pocl_content_size.txt',
+        'url' : 'extensions/pocl/cl_pocl_content_size.html',
     },
 }
