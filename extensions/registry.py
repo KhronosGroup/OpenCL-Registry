@@ -281,20 +281,260 @@ registry = {
         'flags' : { 'public' },
         'url' : 'extensions/intel/cl_intel_va_api_media_sharing.txt',
     },
-    'cl_khr_d3d10_sharing' : {
-        'number' : 6,
+    'cl_khr_3d_image_writes' : {
+        'khrnumber' : 1,
         'flags' : { 'public' },
-        'url' : 'extensions/khr/cl_khr_d3d10_sharing.txt',
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_3d_image_writes',
+    },
+    'cl_khr_async_work_group_copy_fence' : {
+        'khrnumber' : 2,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_async_work_group_copy_fence',
+    },
+    'cl_khr_byte_addressable_store' : {
+        'khrnumber' : 3,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_byte_addressable_store',
+    },
+    'cl_khr_create_command_queue' : {
+        'khrnumber' : 4,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_create_command_queue',
+    },
+    'cl_khr_d3d10_sharing' : {
+        'khrnumber' : 5,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_d3d10_sharing',
+    },
+    'cl_khr_d3d11_sharing' : {
+        'khrnumber' : 6,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_d3d11_sharing',
+    },
+    'cl_khr_depth_images' : {
+        'khrnumber' : 7,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_depth_images',
+    },
+    'cl_khr_device_enqueue_local_arg_types' : {
+        'khrnumber' : 8,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_device_enqueue_local_arg_types',
+    },
+    'cl_khr_device_uuid' : {
+        'khrnumber' : 9,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_device_uuid',
+    },
+    'cl_khr_dx9_media_sharing' : {
+        'khrnumber' : 10,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_dx9_media_sharing',
+    },
+    'cl_khr_egl_event' : {
+        'khrnumber' : 11,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_egl_event',
+    },
+    'cl_khr_egl_image' : {
+        'khrnumber' : 12,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_egl_image',
+    },
+    'cl_khr_extended_async_copies' : {
+        'khrnumber' : 13,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_extended_async_copies',
+    },
+    'cl_khr_extended_bit_ops' : {
+        'khrnumber' : 14,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_extended_bit_ops',
+    },
+    'cl_khr_extended_versioning' : {
+        'khrnumber' : 15,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_extended_versioning',
+    },
+    'cl_khr_fp16' : {
+        'khrnumber' : 16,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_fp16',
+    },
+    'cl_khr_fp64' : {
+        'khrnumber' : 17,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_fp64',
+    },
+    'cl_khr_gl_depth_images' : {
+        'khrnumber' : 18,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_gl_depth_images',
+    },
+    'cl_khr_gl_event' : {
+        'khrnumber' : 19,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_gl_event',
+    },
+    'cl_khr_gl_msaa_sharing' : {
+        'khrnumber' : 20,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_gl_msaa_sharing',
     },
     'cl_khr_gl_sharing' : {
-        'number' : 1,
+        'khrnumber' : 21,
         'flags' : { 'public' },
-        'url' : 'extensions/khr/cl_khr_gl_sharing.txt',
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_gl_sharing',
+    },
+    'cl_khr_global_int32_base_atomics' : {
+        'khrnumber' : 22,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_int32_atomics',
+    },
+    'cl_khr_global_int32_extended_atomics' : {
+        'khrnumber' : 23,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_int32_atomics',
     },
     'cl_khr_icd' : {
-        'number' : 5,
+        'khrnumber' : 24,
         'flags' : { 'public' },
-        'url' : 'extensions/khr/cl_khr_icd.txt',
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_icd-opencl',
+    },
+    'cl_khr_il_program' : {
+        'khrnumber' : 25,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_il_program',
+    },
+    'cl_khr_image2d_from_buffer' : {
+        'khrnumber' : 26,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_image2d_from_buffer',
+    },
+    'cl_khr_initialize_memory' : {
+        'khrnumber' : 27,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_initialize_memory',
+    },
+    'cl_khr_int64_base_atomics' : {
+        'khrnumber' : 28,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_int64_atomics',
+    },
+    'cl_khr_int64_extended_atomics' : {
+        'khrnumber' : 29,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_int64_atomics',
+    },
+    'cl_khr_local_int32_base_atomics' : {
+        'khrnumber' : 30,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_int32_atomics',
+    },
+    'cl_khr_local_int32_extended_atomics' : {
+        'khrnumber' : 31,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_int32_atomics',
+    },
+    'cl_khr_integer_dot_product' : {
+        'khrnumber' : 32,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_integer_dot_product',
+    },
+    'cl_khr_mipmap_image' : {
+        'khrnumber' : 33,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_mipmap_image',
+    },
+    'cl_khr_mipmap_image_writes' : {
+        'khrnumber' : 34,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_mipmap_image',
+    },
+    'cl_khr_pci_bus_info' : {
+        'khrnumber' : 35,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_pci_bus_info',
+    },
+    'cl_khr_priority_hints' : {
+        'khrnumber' : 36,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_priority_hints',
+    },
+    'cl_khr_select_fprounding_mode' : {
+        'khrnumber' : 37,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_select_fprounding_mode',
+    },
+    'cl_khr_spir' : {
+        'khrnumber' : 38,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_spir',
+    },
+    'cl_khr_srgb_image_writes' : {
+        'khrnumber' : 39,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_srgb_image_writes',
+    },
+    'cl_khr_subgroups' : {
+        'khrnumber' : 40,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_subgroups',
+    },
+    'cl_khr_subgroup_ballot' : {
+        'khrnumber' : 41,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_subgroup_ballot',
+    },
+    'cl_khr_subgroup_clustered_reduce' : {
+        'khrnumber' : 42,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_subgroup_clustered_reduce',
+    },
+    'cl_khr_subgroup_extended_types' : {
+        'khrnumber' : 43,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_subgroup_extended_types',
+    },
+    'cl_khr_subgroup_named_barrier' : {
+        'khrnumber' : 44,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_subgroup_named_barrier',
+    },
+    'cl_khr_subgroup_non_uniform_arithmetic' : {
+        'khrnumber' : 45,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_subgroup_non_uniform_arithmetic',
+    },
+    'cl_khr_subgroup_non_uniform_vote' : {
+        'khrnumber' : 46,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_subgroup_non_uniform_vote',
+    },
+    'cl_khr_subgroup_shuffle' : {
+        'khrnumber' : 47,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_subgroup_shuffle',
+    },
+    'cl_khr_subgroup_shuffle_relative' : {
+        'khrnumber' : 48,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_subgroup_shuffle_relative',
+    },
+    'cl_khr_suggested_local_work_size' : {
+        'khrnumber' : 49,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_suggested_local_work_size',
+    },
+    'cl_khr_terminate_context' : {
+        'khrnumber' : 50,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_terminate_context',
+    },
+    'cl_khr_throttle_hints' : {
+        'khrnumber' : 51,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_throttle_hints',
     },
     'cl_nv_compiler_options' : {
         'number' : 17,

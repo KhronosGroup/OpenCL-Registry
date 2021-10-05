@@ -1,10 +1,10 @@
 = OpenCL-Registry
 
 The OpenCL-Registry repository contains the OpenCL API and Extension
-Registry, including specifications, reference pages and reference cards, and
-the enumerant registry. It is also used as a backing store for the web view
-of the registry at https://www.khronos.org/registry/cl/ ; commits to the
-main branch of this repository will be reflected there.
+Registry, including specifications, reference pages, and reference cards.
+It is also used as a backing store for the web view of the registry at
+https://www.khronos.org/registry/cl/ ; commits to the main branch of this
+repository will be reflected there.
 
 Please file issues with the OpenCL API (specification bugs, feature
 requests, etc.) on the companion https://github.com/KhronosGroup/OpenCL-Docs
@@ -31,8 +31,8 @@ your assigned range for API extensions.
 == Adding Extension Specifications
 
 Extension specification documents can be added by proposing a pull request
-to main, adding the specification '.txt' file under
-'extensions/<vendor>/filename.txt'. You must also:
+to main, adding the specification '.txt' or '.html' file under
+'extensions/<vendor>/<filename>'. You must also:
 
 * Modify 'extensions/registry.py' to include the extension, using the next
   free extension number. Execute the python script 'nextfree.py' in the
@@ -47,22 +47,23 @@ to main, adding the specification '.txt' file under
 
 Sometimes extension text files contain inappropriate UTF-8 characters. They
 should be restricted to the ASCII subset of UTF-8 at present. They can be
-removed using the iconv Linux command-line tool via
+identified using the iconv Linux command-line tool via
 
     iconv -c -f utf-8 -t ascii filename.txt
 
 (see internal Bugzilla issue 16141 for more).
 
-We will be transitioning to an asciidoc-based extension specification format
-at some point.
+It is recommended to use the asciidoc-based extension template to generate HTML
+extension specifications instead, see
+https://github.com/KhronosGroup/OpenCL-Docs/blob/master/extensions/cl_extension_template.asciidoc
 
 == Repository Contents
 
 Interesting files in this repository include:
 
-* 'index.php' - toplevel index page for the web view. This relies on PHP
-  include files found elsewhere on https://www.khronos.org and so is not very useful
-  in isolation.
+* 'index.php' - top-level index page for the web view. This relies on PHP
+  include files found elsewhere on https://www.khronos.org and so is not very
+  useful in isolation.
 * 'extensions/' - OpenCL extension specifications, grouped into
   vendor-specific subdirectories.
 ** 'extensions/registry.py' - extension registry.

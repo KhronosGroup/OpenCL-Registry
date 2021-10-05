@@ -249,8 +249,17 @@ include_once("../../assets/static_pages/khr_page_top.php");
     updated placeholder.)</p>
 
 
+    <h6> <a name="khrextspecs"></a>
+     Khronos Extension Specifications</h6>
+
+<p> Khronos extensions are published in the OpenCL Extension Specification.
+    These links are to the appropriate chapter of the OpenCL Extension
+    Specification.</p>
+
+<?php include("extensions/khrext.php"); ?>
+
 <h6> <a name="otherextspecs"></a>
-     Extension Specifications</h6>
+     Vendor and Multi-Vendor Extension Specifications</h6>
 
 <?php include("extensions/clext.php"); ?>
 
