@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.8">
+<meta name="generator" content="Asciidoctor 2.0.16">
 <meta name="author" content="Khronos&#174; OpenCL Working Group">
 <title>The OpenCL&#8482; Extension Specification</title>
 <style>
@@ -727,16 +727,14 @@ p.tableblock.header { color: #6d6e71; }
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
 /* Stylesheet for CodeRay to match GitHub theme | MIT License | http://foundation.zurb.com */
-/*pre.CodeRay {background-color:#f7f7f8;}*/
-.CodeRay .line-numbers{border-right:1px solid #d8d8d8;padding:0 0.5em 0 .25em}
-.CodeRay span.line-numbers{display:inline-block;margin-right:.5em;color:rgba(0,0,0,.3)}
-.CodeRay .line-numbers strong{color:rgba(0,0,0,.4)}
-table.CodeRay{border-collapse:separate;border-spacing:0;margin-bottom:0;border:0;background:none}
-table.CodeRay td{vertical-align: top;line-height:1.45}
+pre.CodeRay{background:#f7f7f8}
+.CodeRay .line-numbers{border-right:1px solid currentColor;opacity:.35;padding:0 .5em 0 0}
+.CodeRay span.line-numbers{display:inline-block;margin-right:.75em}
+.CodeRay .line-numbers strong{color:#000}
+table.CodeRay{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.CodeRay td{vertical-align:top;line-height:inherit}
 table.CodeRay td.line-numbers{text-align:right}
-table.CodeRay td.line-numbers>pre{padding:0;color:rgba(0,0,0,.3)}
-table.CodeRay td.code{padding:0 0 0 .5em}
-table.CodeRay td.code>pre{padding:0}
+table.CodeRay td.code{padding:0 0 0 .75em}
 .CodeRay .debug{color:#fff !important;background:#000080 !important}
 .CodeRay .annotation{color:#007}
 .CodeRay .attribute-name{color:#000080}
@@ -836,14 +834,14 @@ table.CodeRay td.code>pre{padding:0}
         );
     });
 </script></head>
-<body class="book toc2 toc-left" style="max-width: 100;">
-<div id="header">
+<body class="book toc2 toc-left">
+<div id="header" style="max-width: 100;">
 <h1>The OpenCL<sup>&#8482;</sup> Extension Specification</h1>
 <div class="details">
 <span id="author" class="author">Khronos<sup>&#174;</sup> OpenCL Working Group</span><br>
-<span id="revnumber">version v3.0.8,</span>
-<span id="revdate">Wed, 30 Jun 2021 20:00:00 +0000</span>
-<br><span id="revremark">from git branch: master commit: 09130de814688ec7b463cb089986b807c628ead3</span>
+<span id="revnumber">version v3.0.9,</span>
+<span id="revdate">Fri, 15 Oct 2021 23:00:00 +0000</span>
+<br><span id="revremark">from git branch: master commit: 0949c2df2013766843940c9b353c599694d385de</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -890,14 +888,17 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#cl_khr_extended_bit_ops">40. Extended Bit Operations</a></li>
 <li><a href="#cl_khr_suggested_local_work_size">41. Suggested Local Work Size Query</a></li>
 <li><a href="#cl_khr_integer_dot_product">42. Integer dot product</a></li>
-<li><a href="#spirv_extensions">43. Extensions to the OpenCL SPIR-V Environment</a></li>
+<li><a href="#cl_khr_semaphore">43. Semaphores (Provisional)</a></li>
+<li><a href="#cl_khr_external_semaphore">44. External Semaphores (Provisional)</a></li>
+<li><a href="#cl_khr_external_memory">45. External Memory (Provisional)</a></li>
+<li><a href="#spirv_extensions">46. Extensions to the OpenCL SPIR-V Environment</a></li>
 <li><a href="#_extensions_promoted_to_core_features">Appendix A: Extensions Promoted to Core Features</a></li>
 <li><a href="#_deprecated_extensions">Appendix B: Deprecated Extensions</a></li>
 <li><a href="#_quick_reference">Appendix C: Quick Reference</a></li>
 </ul>
 </div>
 </div>
-<div id="content">
+<div id="content" style="max-width: 100;">
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
@@ -5107,7 +5108,7 @@ the argument type is a scalar and returns -1 if one or both arguments are
 not a number (NaN) and the argument type is a vector.</p>
 </div>
 <div class="paragraph">
-<p>The functions described in <em>table 6.14</em> are extended to include the <code>doublen`</code>
+<p>The functions described in <em>table 6.14</em> are extended to include the <code>doublen</code>
 vector types.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
@@ -5134,7 +5135,7 @@ vector types.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the component-wise compare of <em>x</em> != <em>y</em>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">int <strong>isgreater</strong> (double <em>x</em>, double <em>y</em>)
+<td class="tableblock halign-left valign-top"><p class="tableblock">int <strong>isgreater</strong> (double <em>x</em>, double <em>y</em>)<br>
   long<em>n</em> <strong>isgreater</strong> (double<em>n x</em>, double<em>n y</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the component-wise compare of <em>x</em> &gt; <em>y</em>.</p></td>
 </tr>
@@ -18322,7 +18323,7 @@ The predicate return value will be non-zero if the bit in the bitfield <em>value
     uint4 value )</code></pre>
 </div>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the number of bits that are set in the bitfield <em>value</em>, only considering the bits in <em>value</em> that represent predicate values from all work items in the subgroup.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the number of bits that are set in the bitfield <em>value</em>, only considering the bits in <em>value</em> that represent predicate values corresponding to subgroup local IDs less than the maximum subgroup size within the dispatch (as returned by <code>get_max_sub_group_size</code>).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
@@ -18349,7 +18350,7 @@ The predicate return value will be non-zero if the bit in the bitfield <em>value
     uint4 value )</code></pre>
 </div>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the smallest subgroup local ID with a bit set in the bitfield <em>value</em>, only considering the bits in <em>value</em> that represent predicate values from all work items in the subgroup.
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the smallest subgroup local ID with a bit set in the bitfield <em>value</em>, only considering the bits in <em>value</em> that represent predicate values corresponding to subgroup local IDs less than the maximum subgroup size within the dispatch (as returned by <code>get_max_sub_group_size</code>).
 If no bits representing predicate values from all work items in the subgroup are set in the bitfield <em>value</em> then the return value is undefined.</p></td>
 </tr>
 <tr>
@@ -18359,7 +18360,7 @@ If no bits representing predicate values from all work items in the subgroup are
     uint4 value )</code></pre>
 </div>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the largest subgroup local ID with a bit set in the bitfield <em>value</em>, only considering the bits in <em>value</em> that represent predicate values from all work items in the subgroup.
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the largest subgroup local ID with a bit set in the bitfield <em>value</em>, only considering the bits in <em>value</em> that represent predicate values corresponding to subgroup local IDs less than the maximum subgroup size within the dispatch (as returned by <code>get_max_sub_group_size</code>).
 If no bits representing predicate values from all work items in the subgroup are set in the bitfield <em>value</em> then the return value is undefined.</p></td>
 </tr>
 <tr>
@@ -18741,7 +18742,7 @@ This extension adds support for clustered reductions that operate on a subset of
 <div class="sect3">
 <h4 id="_add_a_new_section_6_15_x_subgroup_clustered_reduction_built_in_functions"><a class="anchor" href="#_add_a_new_section_6_15_x_subgroup_clustered_reduction_built_in_functions"></a>38.10.1. Add a new Section 6.15.X - Subgroup Clustered Reduction Built-in Functions</h4>
 <div class="paragraph">
-<p>This section describes arithmetic operations that are performed subset of work items in a subgroup, referred to as a cluster.
+<p>This section describes arithmetic operations that are performed on a subset of work items in a subgroup, referred to as a cluster.
 A cluster is described by a specified cluster size.
 Work items in a subgroup are assigned to clusters such that for cluster size <em>n</em>, the <em>n</em> work items in the subgroup with the smallest subgroup local IDs are assigned to the first cluster, then the <em>n</em> remaining work items with the smallest subgroup local IDs are assigned to the next cluster, and so on.
 The specified cluster size must be an integer constant expression that is a power-of-two.
@@ -19347,52 +19348,52 @@ Note: This extension adds new types to uniform subgroup operations.</p></td>
 <td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">For <code>cl_khr_subgroup_clustered_reduce</code>:</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;reduce_&#8203;clustered_&#8203;add</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;clustered_&#8203;reduce_&#8203;add</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformIAdd</strong>, <strong>OpGroupNonUniformFAdd</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformClustered</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;reduce_&#8203;clustered_&#8203;mul</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;clustered_&#8203;reduce_&#8203;mul</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformIMul</strong>, <strong>OpGroupNonUniformFMul</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformClustered</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;reduce_&#8203;clustered_&#8203;min</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;clustered_&#8203;reduce_&#8203;min</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformSMin</strong>, <strong>OpGroupNonUniformUMin</strong>, <strong>OpGroupNonUniformFMin</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformClustered</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;reduce_&#8203;clustered_&#8203;max</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;clustered_&#8203;reduce_&#8203;max</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformSMax</strong>, <strong>OpGroupNonUniformUMax</strong>, <strong>OpGroupNonUniformFMax</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformClustered</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;reduce_&#8203;clustered_&#8203;and</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;clustered_&#8203;reduce_&#8203;and</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformBitwiseAnd</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformClustered</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;reduce_&#8203;clustered_&#8203;or</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;clustered_&#8203;reduce_&#8203;or</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformBitwiseOr</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformClustered</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;reduce_&#8203;clustered_&#8203;xor</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;clustered_&#8203;reduce_&#8203;xor</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformBitwiseXor</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformClustered</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;reduce_&#8203;clustered_&#8203;logical_&#8203;and</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;clustered_&#8203;reduce_&#8203;logical_&#8203;and</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformLogicalAnd</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformClustered</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;reduce_&#8203;clustered_&#8203;logical_&#8203;or</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;clustered_&#8203;reduce_&#8203;logical_&#8203;or</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformLogicalOr</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformClustered</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;reduce_&#8203;clustered_&#8203;logical_&#8203;xor</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;clustered_&#8203;reduce_&#8203;logical_&#8203;xor</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformLogicalXor</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformClustered</strong></p></td>
 </tr>
@@ -19859,6 +19860,9 @@ Otherwise, it returns one of the following errors:</p>
 <p><code>CL_INVALID_GLOBAL_OFFSET</code> if the value specified in <em>global_work_size</em> plus the corresponding value in <em>global_work_offset</em> for dimension exceeds the maximum value representable by <code>size_t</code> on the device associated with <em>command_queue</em>.</p>
 </li>
 <li>
+<p><code>CL_INVALID_VALUE</code> if <em>suggested_local_work_size</em> is NULL.</p>
+</li>
+<li>
 <p><code>CL_OUT_OF_RESOURCES</code> if there is a failure to allocate resources required by the OpenCL implementation on the device.</p>
 </li>
 <li>
@@ -19915,6 +19919,11 @@ functions to compute the dot product of vectors of integers.</p>
 </thead>
 <tbody>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2021-06-23</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.0.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">All 8-bit support is mandatory, added 8-bit acceleration properties.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">2021-06-17</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1.0.0</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Initial version.</p></td>
@@ -19956,7 +19965,10 @@ Ayal Zaks, Intel<br></p>
 <pre class="CodeRay highlight"><code data-lang="c">CL_DEVICE_INTEGER_DOT_PRODUCT_INPUT_4x8BIT_PACKED_KHR      (<span class="integer">1</span> &lt;&lt; <span class="integer">0</span>)
 CL_DEVICE_INTEGER_DOT_PRODUCT_INPUT_4x8BIT_KHR             (<span class="integer">1</span> &lt;&lt; <span class="integer">1</span>)
 
-CL_DEVICE_INTEGER_DOT_PRODUCT_CAPABILITIES_KHR              <span class="hex">0x1073</span></code></pre>
+CL_DEVICE_INTEGER_DOT_PRODUCT_CAPABILITIES_KHR              <span class="hex">0x1073</span>
+
+CL_DEVICE_INTEGER_DOT_PRODUCT_ACCELERATION_PROPERTIES_8BIT_KHR           <span class="hex">0x1074</span>
+CL_DEVICE_INTEGER_DOT_PRODUCT_ACCELERATION_PROPERTIES_4x8BIT_PACKED_KHR  <span class="hex">0x1075</span></code></pre>
 </div>
 </div>
 </div>
@@ -20035,7 +20047,29 @@ uint dot_acc_sat_4x8packed_uu_uint(uint a, uint b, uint acc);
   into 32-bit integers as input.<br>
 <code>CL_DEVICE_<wbr>INTEGER_<wbr>DOT_<wbr>PRODUCT_<wbr>INPUT_<wbr>4x8BIT_<wbr>KHR</code> is set when dot product
   built-in functions and, when SPIR-V is supported, SPIR-V instructions that
-  take four-component of 8-bit elements as input are supported.<br></p></td>
+  take four-component of 8-bit elements as input are supported.<br>
+  NOTE: <code>CL_DEVICE_<wbr>INTEGER_<wbr>DOT_<wbr>PRODUCT_<wbr>INPUT_<wbr>4x8BIT_<wbr>KHR</code> must be set in version
+  2.x of the extension.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>INTEGER_<wbr>DOT_<wbr>PRODUCT_<wbr>ACCELERATION_<wbr>PROPERTIES_<wbr>8BIT_<wbr>KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_device_<wbr>integer_<wbr>dot_<wbr>product_<wbr>acceleration_<wbr>properties_<wbr>khr</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns a structure describing the exact 8-bit dot product combinations
+  that are <a href="#integer-dot-product-acceleration-properties">accelerated</a> on the device.<br>
+  Each member is <code>CL_TRUE</code> if the combination it corresponds to is accelerated,
+  <code>CL_FALSE</code> otherwise.<br>
+  NOTE: <code>CL_DEVICE_<wbr>INTEGER_<wbr>DOT_<wbr>PRODUCT_<wbr>ACCELERATION_<wbr>PROPERTIES_<wbr>8BIT_<wbr>KHR</code> is missing
+  before version 2.0 of the extension.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>INTEGER_<wbr>DOT_<wbr>PRODUCT_<wbr>ACCELERATION_<wbr>PROPERTIES_<wbr>4x8BIT_<wbr>PACKED_<wbr>KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_device_<wbr>integer_<wbr>dot_<wbr>product_<wbr>acceleration_<wbr>properties_<wbr>khr</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns a structure describing the exact 4x8-bit packed dot product combinations
+  that are <a href="#integer-dot-product-acceleration-properties">accelerated</a> on the device.<br>
+  Each member is <code>CL_TRUE</code> if the combination it corresponds to is accelerated,
+  <code>CL_FALSE</code> otherwise.<br>
+  NOTE: <code>CL_DEVICE_<wbr>INTEGER_<wbr>DOT_<wbr>PRODUCT_<wbr>ACCELERATION_<wbr>PROPERTIES_<wbr>4x8BIT_<wbr>PACKED_<wbr>KHR</code> is missing
+  before version 2.0 of the extension.</p></td>
 </tr>
 </tbody>
 </table>
@@ -20068,6 +20102,61 @@ returned for <code>CL_DEVICE_<wbr>INTEGER_<wbr>DOT_<wbr>PRODUCT_<wbr>CAPABILITIE
 </tr>
 </tbody>
 </table>
+<div id="integer-dot-product-acceleration-properties" class="paragraph">
+<p>The <code>cl_device_<wbr>integer_<wbr>dot_<wbr>product_<wbr>acceleration_<wbr>properties_<wbr>khr</code> structure
+describes the exact dot product operations that are accelerated on the device:</p>
+</div>
+<div id="cl_device_integer_dot_product_acceleration_properties_khr" class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c++"><span class="keyword">typedef</span> <span class="keyword">struct</span> cl_device_integer_dot_product_acceleration_properties_khr {
+    cl_bool    signed_accelerated;
+    cl_bool    unsigned_accelerated;
+    cl_bool    mixed_signedness_accelerated;
+    cl_bool    accumulating_saturating_signed_accelerated;
+    cl_bool    accumulating_saturating_unsigned_accelerated;
+    cl_bool    accumulating_saturating_mixed_signedness_accelerated;
+} cl_device_integer_dot_product_acceleration_properties_khr;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><em>signed_accelerated</em> is <code>CL_TRUE</code> when signed dot product operations are
+accelerated, <code>CL_FALSE</code> otherwise.</p>
+</li>
+<li>
+<p><em>unsigned_accelerated</em> is <code>CL_TRUE</code> when unsigned dot product operations
+are accelerated, <code>CL_FALSE</code> otherwise.</p>
+</li>
+<li>
+<p><em>mixed_signedness_accelerated</em> is <code>CL_TRUE</code> when mixed signedness dot
+product operations are accelerated, <code>CL_FALSE</code> otherwise.</p>
+</li>
+<li>
+<p><em>accumulating_saturating_signed_accelerated</em> is <code>CL_TRUE</code> when accumulating
+saturating signed dot product operations are accelerated, <code>CL_FALSE</code>
+otherwise.</p>
+</li>
+<li>
+<p><em>accumulating_saturating_unsigned_accelerated</em> is <code>CL_TRUE</code> when accumulating
+saturating unsigned dot product operations are accelerated, <code>CL_FALSE</code>
+otherwise.</p>
+</li>
+<li>
+<p><em>accumulating_saturating_mixed_signedness_accelerated</em> is <code>CL_TRUE</code> when
+accumulating saturating mixed signedness dot product operations are
+accelerated, <code>CL_FALSE</code> otherwise.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>A dot product operation is deemed accelerated if its implementation provides
+a performance advantage over application-provided code composed from elementary
+instructions and/or other dot product instructions, either because the
+implementation uses optimized machine code sequences whose generation from
+application-provided code cannot be guaranteed or because it uses hardware
+features that cannot otherwise be targeted from application-provided code.</p>
+</div>
 </div>
 </div>
 <div class="openblock">
@@ -20174,7 +20263,2884 @@ modifications described above apply.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="spirv_extensions"><a class="anchor" href="#spirv_extensions"></a>43. Extensions to the OpenCL SPIR-V Environment</h2>
+<h2 id="cl_khr_semaphore"><a class="anchor" href="#cl_khr_semaphore"></a>43. Semaphores (Provisional)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>OpenCL provides <code>cl_event</code> as a primary mechanism of synchronization between host and device as well as across devices.
+While events can be waited on or can be passed as dependencies across work-submissions, they suffer from following limitations:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>They are immutable.</p>
+</li>
+<li>
+<p>They are not reusable.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This extension introduces a new type of synchronization object to represent semaphores that can be reused, waited on, and signaled multiple times by OpenCL work-submissions.</p>
+</div>
+<div class="paragraph">
+<p>In particular, this extension defines:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A new type called <code>cl_semaphore_<wbr>khr</code> to represent the semaphore objects.</p>
+</li>
+<li>
+<p>A new type called <code>cl_semaphore_<wbr>properties_<wbr>khr</code> to specify metadata associated with semaphores.</p>
+</li>
+<li>
+<p>Routines to create, retain, and release semaphores.</p>
+</li>
+<li>
+<p>Routines to wait on and signal semaphore objects.</p>
+</li>
+<li>
+<p>Routine to query the properties of semaphore objects.</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_general_information_42"><a class="anchor" href="#_general_information_42"></a>43.1. General Information</h3>
+<div class="sect3">
+<h4 id="_name_strings_6"><a class="anchor" href="#_name_strings_6"></a>43.1.1. Name Strings</h4>
+<div class="paragraph">
+<p><code>cl_khr_semaphore</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_version_history_42"><a class="anchor" href="#_version_history_42"></a>43.1.2. Version History</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Date</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Version</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2021-09-10</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.9.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Initial version (provisional).</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This is a preview of an OpenCL provisional extension specification that has been Ratified under the Khronos Intellectual Property Framework. It is being made publicly available prior to being uploaded to the Khronos registry to enable review and feedback from the community. If you have feedback please create an issue on <a href="https://github.com/KhronosGroup/OpenCL-Docs/" class="bare">https://github.com/KhronosGroup/OpenCL-Docs/</a>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_dependencies_6"><a class="anchor" href="#_dependencies_6"></a>43.1.3. Dependencies</h4>
+<div class="paragraph">
+<p>This extension is written against the OpenCL Specification Version 3.0.8.</p>
+</div>
+<div class="paragraph">
+<p>This extension requires OpenCL 1.2.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_contributors_3"><a class="anchor" href="#_contributors_3"></a>43.1.4. Contributors</h4>
+<div class="paragraph">
+<p>Ajit Hakke-Patil,  NVIDIA<br>
+Amit Rao, NVIDIA<br>
+Balaji Calidas, QUALCOMM<br>
+Ben Ashbaugh, INTEL<br>
+Carsten Rohde, NVIDIA<br>
+Christoph Kubisch, NVIDIA<br>
+Debalina Bhattacharjee, NVIDIA<br>
+James Jones,  NVIDIA<br>
+Jason Ekstrand, INTEL<br>
+Jeremy Kemp, IMAGINATION<br>
+Joshua Kelly, QUALCOMM<br>
+Karthik Raghavan Ravi, NVIDIA<br>
+Kedar Patil, NVIDIA<br>
+Kevin Petit, ARM<br>
+Nikhil Joshi, NVIDIA<br>
+Sharan Ashwathnarayan, NVIDIA<br>
+Vivek Kini,  NVIDIA<br></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_new_types"><a class="anchor" href="#_new_types"></a>43.2. New Types</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>typedef struct _cl_semaphore_khr* cl_semaphore_khr;
+
+typedef cl_properties cl_semaphore_properties_khr;
+typedef cl_uint cl_semaphore_info_khr;
+typedef cl_uint cl_semaphore_type_khr;
+typedef cl_ulong cl_semaphore_payload_khr;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_new_api_functions_3"><a class="anchor" href="#_new_api_functions_3"></a>43.3. New API Functions</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>cl_semaphore_khr clCreateSemaphoreWithPropertiesKHR(
+    cl_context context,
+    const cl_semaphore_properties_khr *sema_props,
+    cl_int *errcode_ret);
+
+cl_int clEnqueueWaitSemaphoresKHR(
+    cl_command_queue command_queue,
+    cl_uint num_sema_objects,
+    const cl_semaphore_khr *sema_objects,
+    const cl_semaphore_payload_khr *sema_payload_list,
+    cl_uint num_events_in_wait_list,
+    const cl_event *event_wait_list,
+    cl_event *event);
+
+cl_int clEnqueueSignalSemaphoresKHR(
+    cl_command_queue command_queue,
+    cl_uint num_sema_objects,
+    const cl_semaphore_khr *sema_objects,
+    const cl_semaphore_payload_khr *sema_payload_list,
+    cl_uint num_events_in_wait_list,
+    const cl_event *event_wait_list,
+    cl_event *event);
+
+cl_int clGetSemaphoreInfoKHR(
+    cl_semaphore_khr sema_object,
+    cl_semaphore_info_khr param_name,
+    size_t param_value_size,
+    void *param_value,
+    size_t *param_value_size_ret);
+
+cl_int clReleaseSemaphoreKHR(cl_semaphore_khr sema_object);
+
+cl_int clRetainSemaphoreKHR(cl_semaphore_khr sema_object);</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_new_api_enums_4"><a class="anchor" href="#_new_api_enums_4"></a>43.4. New API Enums</h3>
+<div class="paragraph">
+<p>Accepted value for the <em>param_name</em> parameter to <strong>clGetPlatformInfo</strong> to query the semaphore types supported by an OpenCL platform:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>CL_PLATFORM_SEMAPHORE_TYPES_KHR                             0x2036</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Accepted value for the <em>param_name</em> parameter to <strong>clGetDeviceInfo</strong> to query the semaphore types supported by an OpenCL device:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>CL_DEVICE_SEMAPHORE_TYPES_KHR                               0x204C</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Semaphore types:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>CL_SEMAPHORE_TYPE_BINARY_KHR                                1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>New attributes that can be passed as part of <code>cl_semaphore_<wbr>info_<wbr>khr</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>CL_SEMAPHORE_CONTEXT_KHR                                    0x2039
+CL_SEMAPHORE_REFERENCE_COUNT_KHR                            0x203A
+CL_SEMAPHORE_PROPERTIES_KHR                                 0x203B
+CL_SEMAPHORE_PAYLOAD_KHR                                    0x203C</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>New attributes that can be passed as part of <code>cl_semaphore_<wbr>info_<wbr>khr</code> or <code>cl_semaphore_<wbr>properties_<wbr>khr</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>CL_SEMAPHORE_TYPE_KHR                                       0x203D
+CL_DEVICE_HANDLE_LIST_KHR                                   0x2051
+CL_DEVICE_HANDLE_LIST_END_KHR                               0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>New return values from <strong>clGetEventInfo</strong> when <em>param_name</em> is <code>CL_EVENT_<wbr>COMMAND_<wbr>TYPE</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>CL_COMMAND_SEMAPHORE_WAIT_KHR                               0x2042
+CL_COMMAND_SEMAPHORE_SIGNAL_KHR                             0x2043</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following error codes can be returned by APIs introduced as part of this specification or the specifications that depend on this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>CL_INVALID_SEMAPHORE_KHR                                    -1142</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_modifications_to_existing_apis_added_by_this_spec"><a class="anchor" href="#_modifications_to_existing_apis_added_by_this_spec"></a>43.5. Modifications to existing APIs added by this spec</h3>
+<div class="paragraph">
+<p>Following new enums are added to the list of supported <em>param_names</em> by <strong>clGetPlatformInfo</strong>:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 48. List of supported param_names by clGetPlatformInfo</caption>
+<colgroup>
+<col style="width: 33%;">
+<col style="width: 17%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Platform Info</th>
+<th class="tableblock halign-left valign-top">Return Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_PLATFORM_<wbr>SEMAPHORE_<wbr>TYPES_<wbr>KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_semaphore_<wbr>type_<wbr>khr</code>[]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the list of the semaphore types supported all devices in <em>platform</em>.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>clGetPlatformInfo</strong> when called with <em>param_name</em> <code>CL_PLATFORM_<wbr>SEMAPHORE_<wbr>TYPES_<wbr>KHR</code> must return common list of semaphore types supported by all devices in the platform.</p>
+</div>
+<div class="paragraph">
+<p>Following new enums are added to the list of supported <em>param_names</em> by <strong>clGetDeviceInfo</strong>:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 49. List of supported param_names by clGetDeviceInfo</caption>
+<colgroup>
+<col style="width: 33%;">
+<col style="width: 17%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Device Info</th>
+<th class="tableblock halign-left valign-top">Return Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>SEMAPHORE_<wbr>TYPES_<wbr>KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_semaphore_<wbr>type_<wbr>khr</code>[]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the list of the semaphore types supported by <em>device</em>.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>clGetDeviceInfo</strong> when called with param_name <code>CL_DEVICE_<wbr>SEMAPHORE_<wbr>TYPES_<wbr>KHR</code> must return a non-empty list of semaphore types for at least one of the devices in the platform.
+The results of this query should meet minimum requirements for <code>cl_semaphore_<wbr>type_<wbr>khr</code> as described by <a href="#_description_of_new_types_added_by_this_spec">Description of new types added by this spec</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_description_of_new_types_added_by_this_spec"><a class="anchor" href="#_description_of_new_types_added_by_this_spec"></a>43.6. Description of new types added by this spec</h3>
+<div class="paragraph">
+<p>Following new types are added:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>cl_semaphore_<wbr>type_<wbr>khr</code> to represent the different types of semaphores.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>It is mandatory to support <code>CL_SEMAPHORE_<wbr>TYPE_<wbr>BINARY_<wbr>KHR</code>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>cl_semaphore_<wbr>properties_<wbr>khr</code> to represent properties associated with semaphores.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_SEMAPHORE_<wbr>TYPE_<wbr>KHR</code> must be supported.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>cl_semaphore_<wbr>info_<wbr>khr</code> to represent queries to get additional information about semaphores.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>All enums described in New API Enums for <code>cl_semaphore_<wbr>info_<wbr>khr</code> must be supported.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>cl_semaphore_<wbr>payload_<wbr>khr</code> to represent payload values of semaphores.</p>
+</li>
+<li>
+<p><code>cl_semaphore_<wbr>khr</code> to represent semaphore objects.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Note that above types can be extended in future based on the need for additional types of semaphore and properties required by them.
+The specifics of the same can be added as a newer version of this specification or by a separate specification that depends on this for basic semaphore support.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_description_of_new_apis_added_by_this_spec"><a class="anchor" href="#_description_of_new_apis_added_by_this_spec"></a>43.7. Description of new APIs added by this spec</h3>
+<div class="paragraph">
+<p>The following new APIs are added as part of this spec. The details of each are described below:</p>
+</div>
+<div class="sect3">
+<h4 id="_creating_semaphores"><a class="anchor" href="#_creating_semaphores"></a>43.7.1. Creating semaphores</h4>
+<div class="paragraph">
+<p>A <strong>semaphore object</strong> may be created using the function</p>
+</div>
+<div id="clCreateSemaphoreWithPropertiesKHR" class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c++">cl_semaphore_khr clCreateSemaphoreWithPropertiesKHR(
+    cl_context context,
+    <span class="directive">const</span> cl_semaphore_properties_khr* sema_props,
+    cl_int* errcode_ret);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><em>context</em> identifies a valid OpenCL context that the created <code>cl_semaphore_<wbr>khr</code> will belong to.</p>
+</div>
+<div class="paragraph">
+<p><em>sema_props</em> specifies additional semaphore properties in the form list of &lt;property_name, property_value&gt; pairs terminated with 0.
+<code>CL_SEMAPHORE_<wbr>TYPE_<wbr>KHR</code> must be part of the list of properties specified by <em>sema_props</em>.</p>
+</div>
+<div class="paragraph">
+<p>Following new properties are added to the list of possible supported properties by cl_semaphore_properties_khr that can be passed to <strong>clCreateSemaphoreWithPropertiesKHR</strong>:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 50. List of supported semaphore creation properties by clCreateSemaphoreWithPropertiesKHR</caption>
+<colgroup>
+<col style="width: 33%;">
+<col style="width: 17%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Semaphore Property</th>
+<th class="tableblock halign-left valign-top">Property Value</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_SEMAPHORE_<wbr>TYPE_<wbr>KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_semaphore_<wbr>type_<wbr>khr</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the type of semaphore to create.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_device_<wbr>id</code>[]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the list of OpenCL devices (terminated with <code>CL_DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>END_<wbr>KHR</code>) to associate with the semaphore.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>If <code>CL_DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>KHR</code> is not specified as part of <em>sema_props</em>, the semaphore object created by <strong>clCreateSemaphoreWithPropertiesKHR</strong> is by default accessible to all devices in the <em>context</em>.</p>
+</div>
+<div class="paragraph">
+<p><em>errcode_ret</em> returns an appropriate error code. If <em>errcode_ret</em> is <code>NULL</code>, no error code is returned.</p>
+</div>
+<div class="paragraph">
+<p><strong>clCreateSemaphoreWithPropertiesKHR</strong> returns a valid semaphore object in an un-signaled state and and <em>errcode_ret</em> is set to <code>CL_SUCCESS</code> if the function is executed successfully.
+Otherwise, it returns a <code>NULL</code> value with one of the following error values returned in <em>errcode_ret</em>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_INVALID_<wbr>CONTEXT</code> if <em>context</em> is not a valid context.</p>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>PROPERTY</code> if a property name in <em>sema_props</em> is not a supported property name, if the value specified for a supported property name is not valid, or if the same property name is specified more than once.</p>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>DEVICE</code> if <code>CL_DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>KHR</code> is specified as part of <em>sema_props</em>, but it does not identify a valid device or if a device identified by <code>CL_DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>KHR</code> is not one of the devices within <em>context</em>.</p>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>VALUE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>sema_props</em> is <code>NULL</code>, or</p>
+</li>
+<li>
+<p>if <em>sema_props</em> do not specify &lt;property, value&gt; pairs for minimum set of properties (i.e. <code>CL_SEMAPHORE_<wbr>TYPE_<wbr>KHR</code>) required for successful creation of a <code>cl_semaphore_<wbr>khr</code>, or</p>
+</li>
+<li>
+<p>if one or more properties and/or their values specified by <em>sema_props</em> are not valid.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources required by the OpenCL implementation on the device.</p>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code> if there is a failure to allocate resources required by the OpenCL implementation on the host.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_waiting_on_and_signaling_semaphores"><a class="anchor" href="#_waiting_on_and_signaling_semaphores"></a>43.7.2. Waiting on and signaling semaphores</h4>
+<div class="paragraph">
+<p>To wait on a set of semaphores, call the function</p>
+</div>
+<div id="clEnqueueWaitSemaphoresKHR" class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c++">cl_int clEnqueueWaitSemaphoresKHR(
+    cl_command_queue command_queue,
+    cl_uint num_sema_objects,
+    <span class="directive">const</span> cl_semaphore_khr* sema_objects,
+    <span class="directive">const</span> cl_semaphore_payload_khr* sema_payload_list,
+    cl_uint num_events_in_wait_list,
+    <span class="directive">const</span> cl_event* event_wait_list,
+    cl_event* event);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><em>command_queue</em> specifies a valid command-queue.</p>
+</div>
+<div class="paragraph">
+<p><em>num_sema_objects</em> specifies the number of semaphore objects to wait on.</p>
+</div>
+<div class="paragraph">
+<p><em>sema_objects</em> points to the list of semaphore objects to wait on.
+The length of the list must be at least <em>num_sema_objects</em>.</p>
+</div>
+<div class="paragraph">
+<p><em>sema_payload_list</em> points to the list of values of type <code>cl_semaphore_<wbr>payload_<wbr>khr</code> containing valid semaphore payload values to wait on.
+This can be set to <code>NULL</code> or will be ignored when all semaphores in the list of <em>sema_objects</em> are of type <code>CL_SEMAPHORE_<wbr>TYPE_<wbr>BINARY_<wbr>KHR</code>.</p>
+</div>
+<div class="paragraph">
+<p><em>num_events_in_wait_list</em> specifies the number of events in <em>event_wait_list</em>.</p>
+</div>
+<div class="paragraph">
+<p><em>event_wait_list</em> specifies list of events that need to complete before <strong>clEnqueueWaitSemaphoresKHR</strong> can be executed.
+If <em>event_wait_list</em> is <code>NULL</code>, then <strong>clEnqueueWaitSemaphoresKHR</strong> does not wait on any event to complete.
+If <em>event_wait_list</em> is <code>NULL</code>, <em>num_events_in_wait_list</em> must be 0.
+If <em>event_wait_list</em> is not <code>NULL</code>, the list of events pointed to by <em>event_wait_list</em> must be valid and <em>num_events_in_wait_list</em> must be greater than 0.
+The events specified in <em>event_wait_list</em> act as synchronization points.
+The context associated with events in <em>event_wait_list</em> and that associated with <em>command_queue</em> must be the same.</p>
+</div>
+<div class="paragraph">
+<p><em>event</em> returns an event object that identifies this particular command and can be used to query or queue a wait for this particular command to complete.
+<em>event</em> can be <code>NULL</code> in which case it will not be possible for the application to query the status of this command or queue a wait for this command to complete.</p>
+</div>
+<div class="paragraph">
+<p>The successful completion of the event generated by <strong>clEnqueueWaitSemaphoresKHR</strong> called on one or more semaphore objects of type <code>CL_SEMAPHORE_<wbr>TYPE_<wbr>BINARY_<wbr>KHR</code> leads to un-signaling the corresponding semaphore objects and the state of these semaphore objects will be reset. Any subsequent <strong>clEnqueueWaitSemaphoresKHR</strong> operation on these semaphores without a pending <strong>clEnqueueSignalSemaphoresKHR</strong> may lead to implementation-defined behavior.</p>
+</div>
+<div class="paragraph">
+<p><strong>clEnqueueWaitSemaphoresKHR</strong> returns <code>CL_SUCCESS</code> if the function is executed successfully.
+Otherwise, it returns one of the following errors:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_INVALID_<wbr>COMMAND_<wbr>QUEUE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>command_queue</em> is not a valid command-queue, or</p>
+</li>
+<li>
+<p>if the device associated with <em>command_queue</em> is not same as one of the devices specified by <code>CL_DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>KHR</code> at the time of creating one or more of <em>sema_objects</em>, or</p>
+</li>
+<li>
+<p>if one or more of <em>sema_objects</em> belong to a context that does not contain a device associated with_command_queue_, or</p>
+</li>
+<li>
+<p>if one or more of <em>sema_objects</em> can not be shared with the device associated with <em>command_queue</em>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>VALUE</code> if <em>num_sema_objects</em> is 0.</p>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>SEMAPHORE_<wbr>KHR</code> if any of the semaphore objects specified by <em>sema_objects</em> is not valid.</p>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>CONTEXT</code> if the context associated with <em>command_queue</em> and any of the semaphore objects in <em>sema_objects</em> are not the same or if the context associated with <em>command_queue</em> and that associated with events in <em>event_wait_list</em> are not the same.</p>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>VALUE</code> if any of the semaphore objects specified by <em>sema_objects</em> requires a semaphore payload and <em>sema_payload_list</em> is <code>NULL</code>.</p>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>EVENT_<wbr>WAIT_<wbr>LIST</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>event_wait_list</em> is <code>NULL</code> and <em>num_events_in_wait_list</em> is not 0, or</p>
+</li>
+<li>
+<p>if <em>event_wait_list</em> is not <code>NULL</code> and <em>num_events_in_wait_list</em> is 0, or</p>
+</li>
+<li>
+<p>if event objects in <em>event_wait_list</em> are not valid events.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_EXEC_<wbr>STATUS_<wbr>ERROR_<wbr>FOR_<wbr>EVENTS_<wbr>IN_<wbr>WAIT_<wbr>LIST</code> if the execution status of any of the events in <em>event_wait_list</em> is a negative integer value.</p>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources required by the OpenCL implementation on the device.</p>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code> if there is a failure to allocate resources required by the OpenCL implementation on the host.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To signal a set of semaphores, call the function</p>
+</div>
+<div id="clEnqueueSignalSemaphoresKHR" class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c++">cl_int clEnqueueSignalSemaphoresKHR(
+    cl_command_queue command_queue,
+    cl_uint num_sema_objects,
+    <span class="directive">const</span> cl_semaphore_khr* sema_objects,
+    <span class="directive">const</span> cl_semaphore_payload_khr* sema_payload_list,
+    cl_uint num_events_in_wait_list,
+    <span class="directive">const</span> cl_event* event_wait_list,
+    cl_event* event);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><em>command_queue</em> specifies a valid command-queue.</p>
+</div>
+<div class="paragraph">
+<p><em>num_sema_objects</em> specifies the number of semaphore objects to signal.</p>
+</div>
+<div class="paragraph">
+<p><em>sema_objects</em> points to the list of semaphore objects to signal.
+The length of the list must be at least <em>num_sema_objects</em>.</p>
+</div>
+<div class="paragraph">
+<p><em>sema_payload_list</em> points to the list of values of type <code>cl_semaphore_<wbr>payload_<wbr>khr</code> containing semaphore payload values to signal.
+This can be set to <code>NULL</code> or will be ignored when all semaphores in the list of <em>sema_objects</em> are of type <code>CL_SEMAPHORE_<wbr>TYPE_<wbr>BINARY_<wbr>KHR</code>.</p>
+</div>
+<div class="paragraph">
+<p><em>num_events_in_wait_list</em> specifies the number of events in event_wait_list.</p>
+</div>
+<div class="paragraph">
+<p><em>event_wait_list</em> points to the list of events that need to complete before <strong>clEnqueueSignalSemaphoresKHR</strong> can be executed.
+If <em>event_wait_list</em> is <code>NULL</code>, then <strong>clEnqueueSignalSemaphoresKHR</strong> does not wait on any event to complete.
+If <em>event_wait_list</em> is <code>NULL</code>, <em>num_events_in_wait_list</em> must be 0.
+If <em>event_wait_list</em> is not <code>NULL</code>, the list of events pointed to by <em>event_wait_list</em> must be valid and
+<em>num_events_in_wait_list</em> must be greater than 0.
+The events specified in <em>event_wait_list</em> act as synchronization points.
+The context associated with events in <em>event_wait_list</em> and that associated with <em>command_queue</em> must be the same.</p>
+</div>
+<div class="paragraph">
+<p><em>event</em> returns an event object that identifies this particular command and can be used to query or queue a wait for this particular command to complete.
+<em>event</em> can be <code>NULL</code> in which case it will not be possible for the application to query the status of this command
+or queue a wait for this command to complete.</p>
+</div>
+<div class="paragraph">
+<p>The successful completion of event generated by <strong>clEnqueueSignalSemaphoresKHR</strong> called on one or more semaphore objects of type <code>CL_SEMAPHORE_<wbr>TYPE_<wbr>BINARY_<wbr>KHR</code> changes the state of the corresponding semaphore objects to signaled. Any subsequent <strong>clEnqueueSignalSemaphoresKHR</strong> operation on these semaphores without a pending <strong>clEnqueueWaitSemaphoresKHR</strong> may lead to implementation-defined behavior.</p>
+</div>
+<div class="paragraph">
+<p><strong>clEnqueueSignalSemaphoresKHR</strong> returns <code>CL_SUCCESS</code> if the function is executed successfully.
+Otherwise, it returns one of the following errors:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_INVALID_<wbr>COMMAND_<wbr>QUEUE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>command_queue</em> is not a valid command-queue, or</p>
+</li>
+<li>
+<p>if device associated with <em>command_queue</em> is not same as one of devices specified by <code>CL_DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>KHR</code> at the time of creating one or more of <em>sema_objects</em>, or</p>
+</li>
+<li>
+<p>if one or more of <em>sema_objects</em> belong to a context that does not contain a device associated <em>command_queue</em>, or</p>
+</li>
+<li>
+<p>if one or more of <em>sema_objects</em> can not be shared with device associated with <em>command_queue</em>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>VALUE</code> if <em>num_sema_objects</em> is 0</p>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>SEMAPHORE_<wbr>KHR</code> if any of the semaphore objects specified by <em>sema_objects</em> is not valid.</p>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>CONTEXT</code> if the context associated with <em>command_queue</em> and any of the semaphore objects in <em>sema_objects</em> are not the same or if the context associated with <em>command_queue</em> and that associated with events in <em>event_wait_list</em> are not the same.</p>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>VALUE</code> if any of the semaphore objects specified by <em>sema_objects</em> requires a semaphore payload and <em>sema_payload_list</em> is <code>NULL</code>.</p>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>EVENT_<wbr>WAIT_<wbr>LIST</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>event_wait_list</em> is <code>NULL</code> and <em>num_events_in_wait_list</em> is not 0, or</p>
+</li>
+<li>
+<p>if <em>event_wait_list</em> is not <code>NULL</code> and <em>num_events_in_wait_list</em> is 0, or</p>
+</li>
+<li>
+<p>if event objects in <em>event_wait_list</em> are not valid events.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_EXEC_<wbr>STATUS_<wbr>ERROR_<wbr>FOR_<wbr>EVENTS_<wbr>IN_<wbr>WAIT_<wbr>LIST</code> if the execution status of any of the events in <em>event_wait_list</em> is a negative integer value.</p>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources required by the OpenCL implementation on the device.</p>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code> if there is a failure to allocate resources required by the OpenCL implementation on the host.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_semaphore_queries"><a class="anchor" href="#_semaphore_queries"></a>43.7.3. Semaphore Queries</h4>
+<div class="paragraph">
+<p>To query information about a semaphore object, call the function</p>
+</div>
+<div id="clGetSemaphoreInfoKHR" class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c++">cl_int clGetSemaphoreInfoKHR(
+    cl_semaphore_khr sema_object,
+    cl_semaphore_info_khr param_name,
+    size_t param_value_size,
+    <span class="directive">void</span>* param_value,
+    size_t* param_value_size_ret);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><em>sema_object</em> specifies the semaphore object being queried.</p>
+</div>
+<div class="paragraph">
+<p><em>param_name</em> is a constant that specifies the semaphore information to query, and must be one of the values shown in <a href="#cl_khr_semaphore_info-table">List of supported param_names by clGetSemaphoreInfoKHR</a>.</p>
+</div>
+<div class="paragraph">
+<p><em>param_value</em> is a pointer to memory where the result of the query is returned as described in <a href="#cl_khr_semaphore_info-table">List of supported param_names by clGetSemaphoreInfoKHR</a>. If <em>param_value</em> is <code>NULL</code>, it is ignored.</p>
+</div>
+<div class="paragraph">
+<p><em>param_value_size</em> specifies the size in bytes of memory pointed to <em>param_value</em>. This size must be greater than or equal to the size of the return type described in table <a href="#cl_khr_semaphore_info-table">List of supported param_names by clGetSemaphoreInfoKHR</a>.</p>
+</div>
+<div class="paragraph">
+<p><em>param_value_size_ret</em> returns the actual size in bytes of data
+being queried by <em>param_value</em>. If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
+</div>
+<table id="cl_khr_semaphore_info-table" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 51. List of supported param_names by clGetSemaphoreInfoKHR</caption>
+<colgroup>
+<col style="width: 33%;">
+<col style="width: 17%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Semaphore Info</th>
+<th class="tableblock halign-left valign-top">Return Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_SEMAPHORE_<wbr>CONTEXT_<wbr>KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_context</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the context specified when the semaphore is created.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_SEMAPHORE_<wbr>REFERENCE_<wbr>COUNT_<wbr>KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_uint</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the semaphore reference count.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_SEMAPHORE_<wbr>PROPERTIES_<wbr>KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_semaphore_<wbr>properties_<wbr>khr</code>[]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Return the properties argument specified in
+        <strong>clCreateSemaphoreWithPropertiesKHR</strong>.</p>
+<p class="tableblock">        The implementation must return the values specified in the properties
+        argument in the same order and without including additional properties.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_SEMAPHORE_<wbr>TYPE_<wbr>KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_semaphore_<wbr>type_<wbr>khr</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the semaphore type.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_SEMAPHORE_<wbr>PAYLOAD_<wbr>KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_semaphore_<wbr>payload_<wbr>khr</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the semaphore payload value. For semaphores of type
+        <code>CL_SEMAPHORE_<wbr>TYPE_<wbr>BINARY_<wbr>KHR</code>, the payload value returned will be <code>0</code>
+        if the semaphore is in an un-signaled state and <code>1</code> if it is in a
+        signaled state.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_device_<wbr>id</code>[]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the list of OpenCL devices the semaphore is associated with.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>clGetSemaphoreInfoKHR</strong> returns <code>CL_SUCCESS</code> if the information is queried successfully.
+Otherwise, it returns one of the following errors:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_INVALID_<wbr>SEMAPHORE_<wbr>KHR</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>sema_object</em> is not a valid semaphore</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>VALUE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>param_name</em> is not one of the attribute defined in table <a href="#cl_khr_semaphore_info-table">List of supported param_names by clGetSemaphoreInfoKHR</a> or</p>
+</li>
+<li>
+<p>if <em>param_value_size is less than the size of Return Type of the corresponding _param_name</em> attribute as defined in table <a href="#cl_khr_semaphore_info-table">List of supported param_names by clGetSemaphoreInfoKHR</a>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources required by the OpenCL implementation on the device.</p>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code> if there is a failure to allocate resources required by the OpenCL implementation on the host.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_retaining_and_releasing_semaphores"><a class="anchor" href="#_retaining_and_releasing_semaphores"></a>43.7.4. Retaining and Releasing Semaphores</h4>
+<div class="paragraph">
+<p>To release a semaphore object, call the function</p>
+</div>
+<div id="clReleaseSemaphoreKHR" class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c++">cl_int clReleaseSemaphoreKHR(
+    cl_semaphore_khr sema_object);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><em>sema_object</em> specifies the semaphore object to be released.</p>
+</div>
+<div class="paragraph">
+<p>The <em>sema_object</em> reference count is decremented.</p>
+</div>
+<div class="paragraph">
+<p><strong>clReleaseSemaphoreKHR</strong> returns <code>CL_SUCCESS</code> if the function is executed successfully.
+Otherwise, it returns one of the following errors:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_INVALID_<wbr>SEMAPHORE_<wbr>KHR</code> if <em>sema_object</em> is not a valid semaphore object.</p>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources required by the OpenCL implementation on the device.</p>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code> if there is a failure to allocate resources required by the OpenCL implementation on the host.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>After the reference count becomes zero and commands queued for execution on a
+command-queue(s) that use <em>sema_object</em> have finished, the semaphore object is
+deleted.
+Using this function to release a reference that was not obtained by creating the
+object via <strong>clCreateSemaphoreWithPropertiesKHR</strong> or by calling
+<strong>clRetainSemaphoreKHR</strong> causes undefined behavior.</p>
+</div>
+<div class="paragraph">
+<p>To retain a semaphore object, call the function</p>
+</div>
+<div id="clRetainSemaphoreKHR" class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c++">cl_int clRetainSemaphoreKHR(
+    cl_semaphore_khr sema_object);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><em>sema_object</em> specifies the semaphore object to be retained.</p>
+</div>
+<div class="paragraph">
+<p>increments the reference count of <em>sema_object</em>.</p>
+</div>
+<div class="paragraph">
+<p><strong>clRetainSemaphoreKHR</strong> returns <code>CL_SUCCESS</code> if the function is executed successfully.
+Otherwise, it returns one of the following errors:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_INVALID_<wbr>SEMAPHORE_<wbr>KHR</code> if <em>sema_object</em> is not a valid semaphore object.</p>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources required by the OpenCL implementation on the device.</p>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code> if there is a failure to allocate resources required by the OpenCL implementation on the host.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="cl_khr_semaphore-Sample-Code"><a class="anchor" href="#cl_khr_semaphore-Sample-Code"></a>43.8. Sample Code</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Example for semaphore creation in a single device context</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>// Get cl_devices of the platform.
+clGetDeviceIDs(..., &amp;devices, &amp;deviceCount);
+
+// Create cl_context with just first device
+context = clCreateContext(..., 1, devices, ...);
+
+// Create clSema of type cl_semaphore_khr usable on single device in the context
+
+cl_semaphore_properties_khr sema_props[] =
+        {(cl_semaphore_properties_khr)CL_SEMAPHORE_TYPE_KHR,
+         (cl_semaphore_properties_khr)CL_SEMAPHORE_TYPE_BINARY_KHR,
+          0};
+
+int errcode_ret = 0;
+
+cl_semaphore_khr clSema = clCreateSemaphoreWithPropertiesKHR(context,
+                                                             sema_props,
+                                                             &amp;errcode_ret);</code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Example for semaphore creation for a single device in a multi-device context</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>// Get cl_devices of the platform.
+clGetDeviceIDs(..., &amp;devices, &amp;deviceCount);
+
+// Create cl_context with first two devices
+clCreateContext(..., 2, devices, ...);
+
+// Create clSema of type cl_semaphore_khr usable only on devices[0]
+
+cl_semaphore_properties_khr sema_props[] =
+        {(cl_semaphore_properties_khr)CL_SEMAPHORE_TYPE_KHR,
+         (cl_semaphore_properties_khr)CL_SEMAPHORE_TYPE_BINARY_KHR,
+         (cl_semaphore_properties_khr)CL_DEVICE_HANDLE_LIST_KHR,
+         (cl_semaphore_properties_khr)devices[0], CL_DEVICE_HANDLE_LIST_END_KHR,
+          0};
+
+int errcode_ret = 0;
+
+cl_semaphore_khr clSema = clCreateSemaphoreWithPropertiesKHR(context,
+                                                             sema_props,
+                                                             &amp;errcode_ret);</code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Example for synchronization using Wait and Signal</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>// clSema is created using clCreateSemaphoreWithPropertiesKHR
+// using one of the examples for semaphore creation.
+
+cl_semaphore_khr clSema = clCreateSemaphoreWithPropertiesKHR(context,
+                                                             sema_props,
+                                                             &amp;errcode_ret);
+
+// Start the main loop
+
+while (true) {
+    // (not shown) Signal the semaphore from other work
+
+    // Wait for the semaphore in OpenCL
+    // by calling clEnqueueWaitSemaphoresKHR on 'clSema'
+    clEnqueueWaitSemaphoresKHR(/*command_queue*/              command_queue,
+                               /*num_sema_objects*/           1,
+                               /*sema_objects*/               &amp;clSema,
+                               /*sema_payload_list*/          NULL,
+                               /*num_events_in_wait_list*/    0,
+                               /*event_wait_list*/            NULL,
+                               /*event*/                      NULL);
+
+    // Launch kernel that accesses extMem
+    clEnqueueNDRangeKernel(command_queue, ...);
+
+    // Signal the semaphore in OpenCL
+    clEnqueueSignalSemaphoresKHR(/*command_queue*/              command_queue,
+                                 /*num_sema_objects*/           1,
+                                 /*sema_objects*/               &amp;clSema,
+                                 /*sema_payload_list*/          NULL,
+                                 /*num_events_in_wait_list*/    0,
+                                 /*event_wait_list*/            NULL,
+                                 /*event*/                      NULL);
+
+    // (not shown) Launch other work that waits on 'clSema'
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Example for <strong>clGetSemaphoreInfoKHR</strong></p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>// clSema is created using clCreateSemaphoreWithPropertiesKHR
+// using one of the examples for semaphore creation.
+
+cl_semaphore_khr clSema = clCreateSemaphoreWithPropertiesKHR(context,
+                                                             sema_props,
+                                                             &amp;errcode_ret);
+
+// Start the main rendering loop
+
+while (true) {
+    // (not shown) Signal the semaphore from other work
+
+    // Wait for the semaphore in OpenCL, by calling clEnqueueWaitSemaphoresKHR on 'clSema'
+    clEnqueueWaitSemaphoresKHR(/*command_queue*/              command_queue,
+                               /*num_sema_objects*/           1,
+                               /*sema_objects*/               &amp;clSema,
+                               /*sema_payload_list*/          NULL,
+                               /*num_events_in_wait_list*/    0,
+                               /*event_wait_list*/            NULL,
+                               /*event*/                      NULL);
+
+    // Launch kernel in OpenCL
+    clEnqueueNDRangeKernel(command_queue, ...);
+
+    // Signal the semaphore in OpenCL
+    clEnqueueSignalSemaphoresKHR(/*command_queue*/              command_queue,
+                                 /*num_sema_objects*/           1,
+                                 /*sema_objects*/               &amp;clSema,
+                                 /*sema_payload_list*/          NULL,
+                                 /*num_events_in_wait_list*/    0,
+                                 /*event_wait_list*/            NULL,
+                                 /*event*/                      NULL);
+
+    // Query type of clSema
+    clGetSemaphoreInfoKHR(/*sema_object*/           clSema,
+                          /*param_name*/            CL_SEMAPHORE_TYPE_KHR,
+                          /*param_value_size*/      sizeof(cl_semaphore_type_khr),
+                          /*param_value*/           &amp;clSemaType,
+                          /*param_value_ret_size*/  &amp;clSemaTypeSize);
+
+    if (clSemaType == CL_SEMAPHORE_TYPE_BINARY_KHR) {
+        // Do something
+    }
+    else {
+        // Do something else
+    }
+    // (not shown) Launch other work that waits on 'clSema'
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="cl_khr_external_semaphore"><a class="anchor" href="#cl_khr_external_semaphore"></a>44. External Semaphores (Provisional)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>cl_khr_semaphore</code> introduced semaphores as a new type along with a set of APIs for create, release, retain, wait and signal operations on it.
+This extension defines APIs and mechanisms to share semaphores created in an external API by importing into and exporting from OpenCL.</p>
+</div>
+<div class="paragraph">
+<p>This extension defines:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>New attributes that can be passed as part of <code>cl_semaphore_<wbr>properties_<wbr>khr</code> for specifying properties of external semaphores to be imported or exported.</p>
+</li>
+<li>
+<p>New attributes that can be passed as part of <code>cl_semaphore_<wbr>info_<wbr>khr</code> for specifying properties of external semaphores to be exported.</p>
+</li>
+<li>
+<p>An extension to <strong>clCreateSemaphoreWithPropertiesKHR</strong> to accept external semaphore properties allowing to import or export an external semaphore into or from OpenCL.</p>
+</li>
+<li>
+<p>Semaphore handle types required for importing and exporting semaphores.</p>
+</li>
+<li>
+<p>Modifications to Wait and Signal API behavior when dealing with external semaphores created from different handle types.</p>
+</li>
+<li>
+<p>API query exportable semaphores handles using specified handle type.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Other related extensions define specific external semaphores that may be imported into or exported from OpenCL.</p>
+</div>
+<div class="sect2">
+<h3 id="_general_information_43"><a class="anchor" href="#_general_information_43"></a>44.1. General Information</h3>
+<div class="sect3">
+<h4 id="_name_strings_7"><a class="anchor" href="#_name_strings_7"></a>44.1.1. Name Strings</h4>
+<div class="paragraph">
+<p><code>cl_khr_external_semaphore</code><br>
+<code>cl_khr_external_semaphore_dx_fence</code><br>
+<code>cl_khr_external_semaphore_opaque_fd</code><br>
+<code>cl_khr_external_semaphore_sync_fd</code><br>
+<code>cl_khr_external_semaphore_win32</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_version_history_43"><a class="anchor" href="#_version_history_43"></a>44.1.2. Version History</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Date</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Version</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2021-09-10</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.9.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Initial version (provisional).</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This is a preview of an OpenCL provisional extension specification that has been Ratified under the Khronos Intellectual Property Framework. It is being made publicly available prior to being uploaded to the Khronos registry to enable review and feedback from the community. If you have feedback please create an issue on <a href="https://github.com/KhronosGroup/OpenCL-Docs/" class="bare">https://github.com/KhronosGroup/OpenCL-Docs/</a>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_dependencies_7"><a class="anchor" href="#_dependencies_7"></a>44.1.3. Dependencies</h4>
+<div class="paragraph">
+<p>This extension is written against the OpenCL Specification Version 3.0.8.</p>
+</div>
+<div class="paragraph">
+<p>This extension requires OpenCL 1.2.</p>
+</div>
+<div class="paragraph">
+<p>The <code>cl_khr_semaphore</code> extension is required as it defines semaphore objects as well as for wait and signal operations on semaphores.</p>
+</div>
+<div class="paragraph">
+<p>For OpenCL to be able to import external semaphores from other APIs using this extension, the other API is required to provide below mechanisms:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Ability to export semaphore handles</p>
+</li>
+<li>
+<p>Ability to query semaphore handle in the form of one of the handle type supported by OpenCL.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The other APIs that want to use semaphore exported by OpenCL using this extension are required to provide below mechanism:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Ability to import semaphore handles using handle types exported by OpenCL.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_contributors_4"><a class="anchor" href="#_contributors_4"></a>44.1.4. Contributors</h4>
+<div class="paragraph">
+<p>Ajit Hakke-Patil,  NVIDIA<br>
+Amit Rao, NVIDIA<br>
+Balaji Calidas, QUALCOMM<br>
+Ben Ashbaugh, INTEL<br>
+Carsten Rohde, NVIDIA<br>
+Christoph Kubisch, NVIDIA<br>
+Debalina Bhattacharjee, NVIDIA<br>
+James Jones, NVIDIA<br>
+Jason Ekstrand, INTEL<br>
+Jeremy Kemp, IMAGINATION<br>
+Joshua Kelly, QUALCOMM<br>
+Karthik Raghavan Ravi, NVIDIA<br>
+Kedar Patil, NVIDIA<br>
+Kevin Petit, ARM<br>
+Nikhil Joshi, NVIDIA<br>
+Sharan Ashwathnarayan, NVIDIA<br>
+Vivek Kini, NVIDIA<br></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_new_types_2"><a class="anchor" href="#_new_types_2"></a>44.2. New Types</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>typedef cl_uint cl_external_semaphore_handle_type_khr;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_new_api_functions_4"><a class="anchor" href="#_new_api_functions_4"></a>44.3. New API Functions</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>cl_int clGetSemaphoreHandleForTypeKHR(
+    cl_semaphore_khr sema_object,
+    cl_device device,
+    cl_external_semaphore_handle_type_khr handle_type,
+    size_t handle_size,
+    void *handle_ptr,
+    size_t *handle_size_ret);</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_new_api_enums_5"><a class="anchor" href="#_new_api_enums_5"></a>44.4. New API Enums</h3>
+<div class="paragraph">
+<p>Accepted value for the <em>param_name</em> parameter to <strong>clGetPlatformInfo</strong> to query external semaphore handle types that may be imported or exported by all devices in an OpenCL platform:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>CL_PLATFORM_SEMAPHORE_IMPORT_HANDLE_TYPES_KHR                       0x2037
+CL_PLATFORM_SEMAPHORE_EXPORT_HANDLE_TYPES_KHR                       0x2038</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Accepted value for the <em>param_name</em> parameter to <strong>clGetDeviceInfo</strong> to query external semaphore handle types that may be imported or exported by an OpenCL device:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>CL_DEVICE_SEMAPHORE_IMPORT_HANDLE_TYPES_KHR                         0x204D
+CL_DEVICE_SEMAPHORE_EXPORT_HANDLE_TYPES_KHR                         0x204E</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Following new attributes can be passed as part of <code>cl_semaphore_<wbr>properties_<wbr>khr</code> and <code>cl_semaphore_<wbr>info_<wbr>khr</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>CL_SEMAPHORE_EXPORT_HANDLE_TYPES_KHR                                0x203F
+CL_SEMAPHORE_EXPORT_HANDLE_TYPES_LIST_END_KHR                       0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>External semaphore handle type added by <code>cl_khr_external_semaphore_dx_fence</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>CL_SEMAPHORE_HANDLE_D3D12_FENCE_KHR                    0x2059</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>External semaphore handle type added by <code>cl_khr_external_semaphore_opaque_fd</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>CL_SEMAPHORE_HANDLE_OPAQUE_FD_KHR                      0x2055</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>External semaphore handle type added by <code>cl_khr_external_semaphore_sync_fd</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>CL_SEMAPHORE_HANDLE_SYNC_FD_KHR                        0x2058</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>External semaphore handle types added by <code>cl_khr_external_semaphore_win32</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>CL_SEMAPHORE_HANDLE_OPAQUE_WIN32_KHR                   0x2056
+CL_SEMAPHORE_HANDLE_OPAQUE_WIN32_KMT_KHR               0x2057</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_modifications_to_existing_apis_added_by_this_spec_2"><a class="anchor" href="#_modifications_to_existing_apis_added_by_this_spec_2"></a>44.5. Modifications to existing APIs added by this spec</h3>
+<div class="paragraph">
+<p>Following new enums are added to the list of supported <em>param_names</em> by <strong>clGetPlatformInfo</strong>:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 52. List of supported param_names by clGetPlatformInfo</caption>
+<colgroup>
+<col style="width: 33%;">
+<col style="width: 17%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Platform Info</th>
+<th class="tableblock halign-left valign-top">Return Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_PLATFORM_<wbr>SEMAPHORE_<wbr>IMPORT_<wbr>HANDLE_<wbr>TYPES_<wbr>KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_external_<wbr>semaphore_<wbr>handle_<wbr>type_<wbr>khr</code>[]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the list of importable external semaphore handle types supported by all devices in <em>platform</em>.
+      This size of this query may be 0 if no importable external semaphore handle types are supported by all devices in <em>platform</em>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_PLATFORM_<wbr>SEMAPHORE_<wbr>EXPORT_<wbr>HANDLE_<wbr>TYPES_<wbr>KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_external_<wbr>semaphore_<wbr>handle_<wbr>type_<wbr>khr</code>[]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the list of exportable external semaphore handle types supported by all devices in the platform.
+      This size of this query may be 0 if no exportable external semaphore handle types are supported by all devices in <em>platform</em>.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>clGetPlatformInfo</strong> when called with <em>param_name</em> <code>CL_PLATFORM_<wbr>SEMAPHORE_<wbr>IMPORT_<wbr>HANDLE_<wbr>TYPES_<wbr>KHR</code> returns a common list of external semaphore handle types supported for importing by all devices in the platform.</p>
+</div>
+<div class="paragraph">
+<p><strong>clGetPlatformInfo</strong> when called with <em>param_name</em> <code>CL_PLATFORM_<wbr>SEMAPHORE_<wbr>EXPORT_<wbr>HANDLE_<wbr>TYPES_<wbr>KHR</code> returns a common list of external semaphore handle types supported for exporting by all devices in the platform.</p>
+</div>
+<div class="paragraph">
+<p>Following new enums are added to the list of supported <em>param_names</em> by <strong>clGetDeviceInfo</strong>:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 53. List of supported param_names by clGetDeviceInfo</caption>
+<colgroup>
+<col style="width: 33%;">
+<col style="width: 17%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Device Info</th>
+<th class="tableblock halign-left valign-top">Return Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>SEMAPHORE_<wbr>IMPORT_<wbr>HANDLE_<wbr>TYPES_<wbr>KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_external_<wbr>semaphore_<wbr>handle_<wbr>type_<wbr>khr</code>[]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the list of importable external semaphore handle types supported by <em>device</em>.
+        This size of this query may be 0 indicating that the device does not support importing semaphores.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>SEMAPHORE_<wbr>EXPORT_<wbr>HANDLE_<wbr>TYPES_<wbr>KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_external_<wbr>semaphore_<wbr>handle_<wbr>type_<wbr>khr</code>[]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the list of exportable external semaphore handle types supported by <em>device</em>.
+        This size of this query may be 0 indicating that the device does not support exporting semaphores.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>clGetDeviceInfo</strong> when called with <em>param_name</em> <code>CL_DEVICE_<wbr>SEMAPHORE_<wbr>IMPORT_<wbr>HANDLE_<wbr>TYPES_<wbr>KHR</code> returns a list of external semaphore handle types supported for importing.</p>
+</div>
+<div class="paragraph">
+<p><strong>clGetDeviceInfo</strong> when called with <em>param_name</em> <code>CL_DEVICE_<wbr>SEMAPHORE_<wbr>EXPORT_<wbr>HANDLE_<wbr>TYPES_<wbr>KHR</code> returns a list of external semaphore handle types supported for exporting.</p>
+</div>
+<div class="paragraph">
+<p>One of the above two queries <code>CL_DEVICE_<wbr>SEMAPHORE_<wbr>IMPORT_<wbr>HANDLE_<wbr>TYPES_<wbr>KHR</code> and <code>CL_DEVICE_<wbr>SEMAPHORE_<wbr>EXPORT_<wbr>HANDLE_<wbr>TYPES_<wbr>KHR</code> must return a non-empty list indicating support for at least one of the valid semaphore handles types either for import or for export or both.</p>
+</div>
+<div class="paragraph">
+<p>Following new properties are added to the list of possible supported properties by <strong>clCreateSemaphoreWithPropertiesKHR</strong>:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 54. List of supported semaphore creation properties by clCreateSemaphoreWithPropertiesKHR</caption>
+<colgroup>
+<col style="width: 33%;">
+<col style="width: 17%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Semaphore Property</th>
+<th class="tableblock halign-left valign-top">Property Value</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_SEMAPHORE_<wbr>EXPORT_<wbr>HANDLE_<wbr>TYPES_<wbr>KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_external_<wbr>semaphore_<wbr>handle_<wbr>type_<wbr>khr</code>[]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the list of semaphore handle type properties terminated with
+      <code>CL_SEMAPHORE_<wbr>EXPORT_<wbr>HANDLE_<wbr>TYPES_<wbr>LIST_<wbr>END_<wbr>KHR</code> that can be used to export
+      the semaphore being created.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Add to the list of error conditions for <strong>clCreateSemaphoreWithPropertiesKHR</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_INVALID_<wbr>DEVICE</code> if one or more devices identified by properties <code>CL_DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>KHR</code> can not import the requested external semaphore handle type.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>clCreateSemaphoreWithPropertiesKHR</strong> may return a NULL value on some implementations if <em>sema_props</em> does not contain an external semaphore handle type to import.
+Such implementations are required to return a valid semaphore when a supported external memory handle type and valid external semaphore handle is specified.</p>
+</div>
+<div class="paragraph">
+<p>Add to the list of supported <em>param_names</em> by <strong>clGetSemaphoreInfoKHR</strong>:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 55. List of supported param_names by clGetSemaphoreInfoKHR</caption>
+<colgroup>
+<col style="width: 33%;">
+<col style="width: 17%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Semaphore Info</th>
+<th class="tableblock halign-left valign-top">Return Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_SEMAPHORE_<wbr>EXPORT_<wbr>HANDLE_<wbr>TYPES_<wbr>KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_external_<wbr>semaphore_<wbr>handle_<wbr>type_<wbr>khr</code>[]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the list of external semaphore handle types that may be used for
+        exporting. The size of this query may be 0 indicating that this
+        semaphore does not support any handle types for exporting.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_exporting_semaphore_external_handles"><a class="anchor" href="#_exporting_semaphore_external_handles"></a>44.6. Exporting semaphore external handles</h3>
+<div class="paragraph">
+<p>To export an external handle from a semaphore, call the function</p>
+</div>
+<div id="clGetSemaphoreHandleForTypeKHR" class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c++">cl_int clGetSemaphoreHandleForTypeKHR(
+    cl_semaphore_khr sema_object,
+    cl_device_id device,
+    cl_external_semaphore_handle_type_khr handle_type,
+    size_t handle_size,
+    <span class="directive">void</span>* handle_ptr,
+    size_t* handle_size_ret);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><em>sema_object</em> specifies a valid semaphore object with exportable properties.</p>
+</div>
+<div class="paragraph">
+<p><em>device</em> specifies a valid device for which a semaphore handle is being requested.</p>
+</div>
+<div class="paragraph">
+<p><em>handle_type</em> specifies the type of semaphore handle that should be returned for this exportable <em>sema_object</em> and must be one of the values specified when <em>sema_object</em> was created.</p>
+</div>
+<div class="paragraph">
+<p><em>handle_size</em> specifies the size of memory pointed by <em>handle_ptr</em>.</p>
+</div>
+<div class="paragraph">
+<p><em>handle_ptr</em> is a pointer to memory where the exported external handle is returned.
+If <em>param_value</em> is <code>NULL</code>, it is ignored.</p>
+</div>
+<div class="paragraph">
+<p><em>handle_size_ret</em> returns the actual size in bytes for the external handle.
+If <em>handle_size_ret</em> is <code>NULL</code>, it is ignored.</p>
+</div>
+<div class="paragraph">
+<p><strong>clGetSemaphoreHandleForTypeKHR</strong> returns <code>CL_SUCCESS</code> if the semaphore handle is queried successfully.
+Otherwise, it returns one of the following errors:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_INVALID_<wbr>SEMAPHORE_<wbr>KHR</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>sema_object</em> is not a valid semaphore</p>
+</li>
+<li>
+<p>if <em>sema_object</em> is not exportable</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>DEVICE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>device</em> is not a valid device, or</p>
+</li>
+<li>
+<p>if <em>sema_object</em> belongs to a context that is not associated with <em>device</em>, or</p>
+</li>
+<li>
+<p>if <em>sema_object</em> can not be shared with <em>device</em>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>VALUE</code> if the requested external semaphore handle type was not specified when <em>sema_object</em> was created.</p>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources required by the OpenCL implementation on the device.</p>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code> if there is a failure to allocate resources required by the OpenCL implementation on the host.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_importing_semaphore_external_handles"><a class="anchor" href="#_importing_semaphore_external_handles"></a>44.7. Importing semaphore external handles</h3>
+<div class="paragraph">
+<p>Applications can import a semaphore payload into an existing semaphore using an
+external semaphore handle. The effects of the import operation will be either
+temporary or permanent, as specified by the application. If the import is
+temporary, the implementation must restore the semaphore to its prior permanent
+state after submitting the next semaphore wait operation. Performing a
+subsequent temporary import on a semaphore before performing a semaphore wait
+has no effect on this requirement; the next wait submitted on the semaphore must
+still restore its last permanent state. A permanent payload import behaves as if
+the target semaphore was destroyed, and a new semaphore was created with the
+same handle but the imported payload. Because importing a semaphore payload
+temporarily or permanently detaches the existing payload from a semaphore,
+similar usage restrictions to those applied to <strong>clReleaseSemaphoreKHR</strong> are
+applied to any command that imports a semaphore payload. Which of these import
+types is used is referred to as the import operation&#8217;s permanence. Each handle
+type supports either one or both types of permanence.</p>
+</div>
+<div class="paragraph">
+<p>The implementation must perform the import operation by either referencing or
+copying the payload referred to by the specified external semaphore handle,
+depending on the handle&#8217;s type. The import method used is referred to as the
+handle type&#8217;s transference. When using handle types with reference transference,
+importing a payload to a semaphore adds the semaphore to the set of all
+semaphores sharing that payload. This set includes the semaphore from which the
+payload was exported. Semaphore signaling and waiting operations performed on
+any semaphore in the set must behave as if the set were a single semaphore.
+Importing a payload using handle types with copy transference creates a
+duplicate copy of the payload at the time of import, but makes no further
+reference to it. Semaphore signaling and waiting operations performed on the
+target of copy imports must not affect any other semaphore or payload.</p>
+</div>
+<div class="paragraph">
+<p>Export operations have the same transference as the specified handle type&#8217;s
+import operations. Additionally, exporting a semaphore payload to a handle with
+copy transference has the same side effects on the source semaphore&#8217;s payload as
+executing a semaphore wait operation. If the semaphore was using a temporarily
+imported payload, the semaphore&#8217;s prior permanent payload will be restored.</p>
+</div>
+<div class="paragraph">
+<p>Please refer to handle specific specifications for more details on transference and
+permanence requirements specific to handle type.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_descriptions_of_external_semaphore_handle_types"><a class="anchor" href="#_descriptions_of_external_semaphore_handle_types"></a>44.8. Descriptions of External Semaphore Handle Types</h3>
+<div class="paragraph">
+<p>This section describes the external semaphore handle types that are added by related extensions.</p>
+</div>
+<div class="paragraph">
+<p>Applications can import the same semaphore payload into multiple OpenCL contexts, into the same context from which it was exported, and multiple times into a given OpenCL context.
+In all cases, each import operation must create a distinct semaphore object.</p>
+</div>
+<div class="sect3">
+<h4 id="_file_descriptor_handle_types"><a class="anchor" href="#_file_descriptor_handle_types"></a>44.8.1. File Descriptor Handle Types</h4>
+<div class="paragraph">
+<p>The <code>cl_khr_external_semaphore_opaque_fd</code> extension extends <code>cl_external_<wbr>semaphore_<wbr>handle_<wbr>type_<wbr>khr</code> to support the following new types of handles, and adds as a property that may be specified when creating a semaphore from an external handle:</p>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_SEMAPHORE_<wbr>HANDLE_<wbr>OPAQUE_<wbr>FD_<wbr>KHR</code> specifies a POSIX file descriptor handle that has only limited valid usage outside of OpenCL and other compatible APIs. It must be compatible with the POSIX system calls dup, dup2, close, and the non-standard system call dup3. Additionally, it must be transportable over a socket using an SCM_RIGHTS control message. It owns a reference to the underlying synchronization primitive represented by its semaphore object.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Transference and permanence properties for handle types added by <code>cl_khr_external_semaphore_opaque_fd</code>:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 56. Transference and Permanence Properties for <code>cl_khr_external_semaphore_opaque_fd</code> handles</caption>
+<colgroup>
+<col style="width: 60%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Handle Type</th>
+<th class="tableblock halign-left valign-top">Transference</th>
+<th class="tableblock halign-left valign-top">Permanence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_SEMAPHORE_<wbr>HANDLE_<wbr>OPAQUE_<wbr>FD_<wbr>KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reference</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Temporary, Permanent</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The <code>cl_khr_external_semaphore_sync_fd</code> extension extends <code>cl_external_<wbr>semaphore_<wbr>handle_<wbr>type_<wbr>khr</code> to support the following new types of handles, and adds as a property that may be specified when creating a semaphore from an external handle:</p>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>CL_SEMAPHORE_HANDLE_SYNC_FD_KHR</strong> specifies a POSIX file descriptor handle to a Linux Sync File or Android Fence object. It can be used with any native API accepting a valid sync file or fence as input. It owns a reference to the underlying synchronization primitive associated with the file descriptor. Implementations which support importing this handle type must accept any type of sync or fence FD supported by the native system they are running on.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The special value -1 for fd is treated like a valid sync file descriptor referring to an object that has already signaled. The import operation will succeed and the semaphore will have a temporarily imported payload as if a valid file descriptor had been provided.</p>
+</div>
+<div class="paragraph">
+<p>Note: This special behavior for importing an invalid sync file descriptor allows easier interoperability with other system APIs which use the convention that an invalid sync file descriptor represents work that has already completed and does not need to be waited for. It is consistent with the option for implementations to return a -1 file descriptor when exporting a <code>CL_SEMAPHORE_<wbr>HANDLE_<wbr>SYNC_<wbr>FD_<wbr>KHR</code> from a <code>cl_semaphore_<wbr>khr</code> which is signaled.</p>
+</div>
+<div class="paragraph">
+<p>Transference and permanence properties for handle types added by <code>cl_khr_external_semaphore_sync_fd</code>:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 57. Transference and Permanence Properties for <code>cl_khr_external_semaphore_sync_fd</code> handles</caption>
+<colgroup>
+<col style="width: 60%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Handle Type</th>
+<th class="tableblock halign-left valign-top">Transference</th>
+<th class="tableblock halign-left valign-top">Permanence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_SEMAPHORE_<wbr>HANDLE_<wbr>SYNC_<wbr>FD_<wbr>KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Copy</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Temporary</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>For these extensions, importing a semaphore payload from a file descriptor transfers ownership of the file descriptor from the application to the OpenCL implementation. The application must not perform any operations on the file descriptor after a successful import.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_nt_handle_types"><a class="anchor" href="#_nt_handle_types"></a>44.8.2. NT Handle Types</h4>
+<div class="paragraph">
+<p>The <code>cl_khr_external_semaphore_dx_fence</code> extension extends <code>cl_external_<wbr>semaphore_<wbr>handle_<wbr>type_<wbr>khr</code> to support the following new types of handles, and adds as a property that may be specified when creating a semaphore from an external handle:</p>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_SEMAPHORE_<wbr>HANDLE_<wbr>D3D12_<wbr>FENCE_<wbr>KHR</code> specifies an NT handle returned by ID3D12Device::CreateSharedHandle referring to a Direct3D 12 fence, or ID3D11Device5::CreateFence referring to a Direct3D 11 fence. It owns a reference to the underlying synchronization primitive associated with the Direct3D fence.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>When waiting on semaphores using <strong>clEnqueueWaitSemaphoresKHR</strong> or signaling semaphores using <strong>clEnqueueSignalSemaphoresKHR</strong>, the semaphore payload must be provided for semaphores created from <code>CL_SEMAPHORE_<wbr>HANDLE_<wbr>D3D12_<wbr>FENCE_<wbr>KHR</code>.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If <em>sema_objects</em> list has a mix of cl_semaphore obtained from <strong>CL_SEMAPHORE_HANDLE_D3D12_FENCE_KHR</strong> and other handle types,
+then the <em>sema_payload_list</em> should point to a list of <em>num_sema_objects</em> payload values for each cl_semaphore in <em>sema_objects</em>.
+However, the payload values corresponding to semaphores with type CL_SEMAPHORE_TYPE_BINARY_KHR can be set to 0 or will be ignored.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>clEnqueueWaitSemaphoresKHR</strong> and <strong>clEnqueueSignalSemaphoresKHR</strong> may return <strong>CL_INVALID_VALUE</strong> if <em>sema_objects</em> list has one or more cl_semaphore obtained from <strong>CL_SEMAPHORE_HANDLE_D3D12_FENCE_KHR</strong> and <em>sema_payload_list</em> is NULL.</p>
+</div>
+<div class="paragraph">
+<p>Transference and permanence properties for handle types added by <code>cl_khr_external_semaphore_dx_fence</code>:</p>
+</div>
+<div class="openblock">
+<div class="content">
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 58. Transference and Permanence Properties for <code>cl_khr_external_semaphore_dx_fence</code> handles</caption>
+<colgroup>
+<col style="width: 60%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Handle Type</th>
+<th class="tableblock halign-left valign-top">Transference</th>
+<th class="tableblock halign-left valign-top">Permanence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_SEMAPHORE_<wbr>HANDLE_<wbr>D3D12_<wbr>FENCE_<wbr>KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reference</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Temporary, Permanent</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>cl_khr_external_semaphore_win32</code> extension extends <code>cl_external_<wbr>semaphore_<wbr>handle_<wbr>type_<wbr>khr</code> to support the following new types of handles, and adds as a property that may be specified when creating a semaphore from an external handle:</p>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_SEMAPHORE_<wbr>HANDLE_<wbr>OPAQUE_<wbr>WIN32_<wbr>KHR</code> specifies an NT handle that has only limited valid usage outside of OpenCL and other compatible APIs. It must be compatible with the functions DuplicateHandle, CloseHandle, CompareObjectHandles, GetHandleInformation, and SetHandleInformation. It owns a reference to the underlying synchronization primitive represented by its semaphore object.</p>
+</li>
+<li>
+<p><code>CL_SEMAPHORE_<wbr>HANDLE_<wbr>OPAQUE_<wbr>WIN32_<wbr>KMT_<wbr>KHR</code> specifies a global share handle that has only limited valid usage outside of OpenCL and other compatible APIs. It is not compatible with any native APIs. It does not own a reference to the underlying synchronization primitive represented by its semaphore object, and will therefore become invalid when all semaphore objects associated with it are destroyed.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Transference and permanence properties for handle types added by <code>cl_khr_external_semaphore_win32</code>:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 59. Transference and Permanence Properties for <code>cl_khr_external_semaphore_win32</code> handles</caption>
+<colgroup>
+<col style="width: 60%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Handle Type</th>
+<th class="tableblock halign-left valign-top">Transference</th>
+<th class="tableblock halign-left valign-top">Permanence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_SEMAPHORE_HANDLE_OPAQUE_WIN32_KHR</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reference</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Temporary, Permanent</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CL_SEMAPHORE_HANDLE_OPAQUE_WIN32_KMT_KHR</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reference</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Temporary, Permanent</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>For these extensions, importing a semaphore payload from Windows handles does not transfer ownership of the handle to the OpenCL implementation. For handle types defined as NT handles, the application must release ownership using the CloseHandle system call when the handle is no longer needed.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="cl_khr_external_semaphore-Sample-Code"><a class="anchor" href="#cl_khr_external_semaphore-Sample-Code"></a>44.9. Sample Code</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Example for importing a semaphore created by another API in OpenCL in a single-device context.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>// Get cl_devices of the platform.
+clGetDeviceIDs(..., &amp;devices, &amp;deviceCount);
+
+// Create cl_context with just first device
+clCreateContext(..., 1, devices, ...);
+
+// Obtain fd/win32 or similar handle for external semaphore to be imported
+// from the other API.
+int fd = getFdForExternalSemaphore();
+
+// Create clSema of type cl_semaphore_khr usable on the only available device
+// assuming the semaphore was imported from the same device.
+
+cl_semaphore_properties_khr sema_props[] =
+        {(cl_semaphore_properties_khr)CL_SEMAPHORE_TYPE_KHR,
+         (cl_semaphore_properties_khr)CL_SEMAPHORE_TYPE_BINARY_KHR,
+         (cl_semaphore_properties_khr)CL_SEMAPHORE_HANDLE_OPAQUE_FD_KHR,
+         (cl_semaphore_properties_khr)fd,
+          0};
+
+
+int errcode_ret = 0;
+cl_semaphore_khr clSema = clCreateSemaphoreWithPropertiesKHR(context,
+                                                             sema_props,
+                                                             &amp;errcode_ret);</code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Example for importing a semaphore created by another API in OpenCL in a multi-device context for single device usage.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>// Get cl_devices of the platform.
+clGetDeviceIDs(..., &amp;devices, &amp;deviceCount);
+
+// Create cl_context with first two devices
+clCreateContext(..., 2, devices, ...);
+
+// Obtain fd/win32 or similar handle for external semaphore to be imported
+// from the other API.
+int fd = getFdForExternalSemaphore();
+
+// Create clSema of type cl_semaphore_khr usable only on devices[1]
+// assuming the semaphore was imported from the same device.
+
+cl_semaphore_properties_khr sema_props[] =
+        {(cl_semaphore_properties_khr)CL_SEMAPHORE_TYPE_KHR,
+         (cl_semaphore_properties_khr)CL_SEMAPHORE_TYPE_BINARY_KHR,
+         (cl_semaphore_properties_khr)CL_SEMAPHORE_HANDLE_OPAQUE_FD_KHR,
+         (cl_semaphore_properties_khr)fd,
+         (cl_semaphore_properties_khr)CL_DEVICE_HANDLE_LIST_KHR,
+         (cl_semaphore_properties_khr)devices[1], CL_DEVICE_HANDLE_LIST_END_KHR,
+          0};
+
+
+int errcode_ret = 0;
+cl_semaphore_khr clSema = clCreateSemaphoreWithPropertiesKHR(context,
+                                                             sema_props,
+                                                             &amp;errcode_ret);</code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Example for synchronization using a semaphore created by another API and imported in OpenCL</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>// Create clSema using one of the above examples of external semaphore creation.
+
+int errcode_ret = 0;
+cl_semaphore_khr clSema = clCreateSemaphoreWithPropertiesKHR(context,
+                                                             sema_props,
+                                                             &amp;errcode_ret);
+
+// Start the main loop
+
+while (true) {
+    // (not shown) Signal the semaphore from the other API
+
+    // Wait for the semaphore in OpenCL
+    clEnqueueWaitSemaphoresKHR(/*command_queue*/           command_queue,
+                               /*num_sema_objects*/        1,
+                               /*sema_objects*/            &amp;clSema,
+                               /*num_events_in_wait_list*/ 0,
+                               /*event_wait_list*/         NULL,
+                               /*event*/                   NULL);
+
+    // Launch kernel
+    clEnqueueNDRangeKernel(command_queue, ...);
+
+    // Signal the semaphore in OpenCL
+    clEnqueueSignalSemaphoresKHR(/*command_queue*/           command_queue,
+                                 /*num_sema_objects*/        1,
+                                 /*sema_objects*/            &amp;clSema,
+                                 /*num_events_in_wait_list*/ 0,
+                                 /*event_wait_list*/         NULL,
+                                 /*event*/                   NULL);
+
+    // (not shown) Launch work in the other API that waits on 'clSema'
+
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Example for synchronization using semaphore exported by OpenCL</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>// Get cl_devices of the platform.
+clGetDeviceIDs(..., &amp;devices, &amp;deviceCount);
+
+// Create cl_context with first two devices
+clCreateContext(..., 2, devices, ...);
+
+// Create clSema of type cl_semaphore_khr usable only on device 1
+cl_semaphore_properties_khr sema_props[] =
+        {(cl_semaphore_properties_khr)CL_SEMAPHORE_TYPE_KHR,
+         (cl_semaphore_properties_khr)CL_SEMAPHORE_TYPE_BINARY_KHR,
+         (cl_semaphore_properties_khr)CL_SEMAPHORE_EXPORT_HANDLE_TYPES_KHR,
+         (cl_semaphore_properties_khr)CL_SEMAPHORE_HANDLE_OPAQUE_FD_KHR,
+         CL_SEMAPHORE_EXPORT_HANDLE_TYPES_LIST_END_KHR,
+         (cl_semaphore_properties_khr)CL_DEVICE_HANDLE_LIST_KHR,
+         (cl_semaphore_properties_khr)devices[1],
+         CL_DEVICE_HANDLE_LIST_END_KHR,
+         0};
+
+int errcode_ret = 0;
+cl_semaphore_khr clSema = clCreateSemaphoreWithPropertiesKHR(context,
+                                                             sema_props,
+                                                             &amp;errcode_ret);
+
+// Application queries handle-type and the exportable handle associated with the semaphore.
+clGetSemaphoreInfoKHR(clSema,
+                      CL_SEMAPHORE_EXPORT_HANDLE_TYPES_KHR,
+                      sizeof(cl_external_semaphore_handle_type_khr),
+                      &amp;handle_type,
+                      &amp;handle_type_size);
+
+// The other API or process can use the exported semaphore handle
+// to import
+int fd = -1;
+if (handle_type == CL_SEMAPHORE_HANDLE_OPAQUE_FD_KHR) {
+    clGetSemaphoreHandleForTypeKHR(clSema,
+                                   device,
+                                   CL_SEMAPHORE_HANDLE_OPAQUE_FD_KHR,
+                                   sizeof(int),
+                                   &amp;fd,
+                                   NULL);
+}
+
+// Start the main rendering loop
+
+while (true) {
+    // (not shown) Signal the semaphore from the other API
+
+    // Wait for the semaphore in OpenCL
+    clEnqueueWaitSemaphoresKHR(/*command_queue*/           command_queue,
+                               /*num_sema_objects*/        1,
+                               /*sema_objects*/            &amp;clSema,
+                               /*num_events_in_wait_list*/ 0,
+                               /*event_wait_list*/         NULL,
+                               /*event*/                   NULL);
+
+    // Launch kernel
+    clEnqueueNDRangeKernel(command_queue, ...);
+
+    // Signal the semaphore in OpenCL
+    clEnqueueSignalSemaphoresKHR(/*command_queue*/           command_queue,
+                                 /*num_sema_objects*/        1,
+                                 /*sema_objects*/            &amp;clSema,
+                                 /*num_events_in_wait_list*/ 0,
+                                 /*event_wait_list*/         NULL,
+                                 /*event*/                   NULL);
+
+    // (not shown) Launch work in the other API that waits on 'clSema'
+
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="cl_khr_external_memory"><a class="anchor" href="#cl_khr_external_memory"></a>45. External Memory (Provisional)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This extension defines a generic mechanism to share buffer and image objects between OpenCL and many other APIs.</p>
+</div>
+<div class="paragraph">
+<p>In particular, the <code>cl_khr_external_memory</code> extension defines:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Optional properties to import external memory exported by other APIs into OpenCL for a set of devices.</p>
+</li>
+<li>
+<p>Routines to explicitly hand off memory ownership between OpenCL and other APIs.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Other related extensions define specific external memory types that may be imported into OpenCL.</p>
+</div>
+<div class="sect2">
+<h3 id="_general_information_44"><a class="anchor" href="#_general_information_44"></a>45.1. General Information</h3>
+<div class="sect3">
+<h4 id="_name_strings_8"><a class="anchor" href="#_name_strings_8"></a>45.1.1. Name Strings</h4>
+<div class="paragraph">
+<p><code>cl_khr_external_memory</code><br>
+<code>cl_khr_external_memory_dma_buf</code><br>
+<code>cl_khr_external_memory_dx</code><br>
+<code>cl_khr_external_memory_opaque_fd</code><br>
+<code>cl_khr_external_memory_win32</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_version_history_44"><a class="anchor" href="#_version_history_44"></a>45.1.2. Version History</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Date</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Version</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2021-09-10</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.9.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Initial version (provisional).</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This is a preview of an OpenCL provisional extension specification that has been Ratified under the Khronos Intellectual Property Framework. It is being made publicly available prior to being uploaded to the Khronos registry to enable review and feedback from the community. If you have feedback please create an issue on <a href="https://github.com/KhronosGroup/OpenCL-Docs/" class="bare">https://github.com/KhronosGroup/OpenCL-Docs/</a>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_dependencies_8"><a class="anchor" href="#_dependencies_8"></a>45.1.3. Dependencies</h4>
+<div class="paragraph">
+<p>This extension is written against the OpenCL Specification Version 3.0.8.</p>
+</div>
+<div class="paragraph">
+<p>Because this extension adds new properties for <strong>clCreateBufferWithProperties</strong>
+and <strong>clCreateImageWithProperties</strong> this extension requires OpenCL 3.0.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_contributors_5"><a class="anchor" href="#_contributors_5"></a>45.1.4. Contributors</h4>
+<div class="paragraph">
+<p>Ajit Hakke-Patil,  NVIDIA<br>
+Amit Rao, NVIDIA<br>
+Balaji Calidas, QUALCOMM<br>
+Ben Ashbaugh, INTEL<br>
+Carsten Rohde, NVIDIA<br>
+Christoph Kubisch, NVIDIA<br>
+Debalina Bhattacharjee, NVIDIA<br>
+James Jones,  NVIDIA<br>
+Jason Ekstrand, INTEL<br>
+Jeremy Kemp, IMAGINATION<br>
+Joshua Kelly, QUALCOMM<br>
+Karthik Raghavan Ravi, NVIDIA<br>
+Kedar Patil, NVIDIA<br>
+Kevin Petit, ARM<br>
+Nikhil Joshi, NVIDIA<br>
+Sharan Ashwathnarayan, NVIDIA<br>
+Vivek Kini,  NVIDIA<br></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_new_types_3"><a class="anchor" href="#_new_types_3"></a>45.2. New Types</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>typedef cl_uint cl_external_memory_handle_type_khr;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_new_api_functions_5"><a class="anchor" href="#_new_api_functions_5"></a>45.3. New API Functions</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>cl_int clEnqueueAcquireExternalMemObjectsKHR(
+    cl_command_queue command_queue,
+    cl_uint num_mem_objects,
+    const cl_mem *mem_objects,
+    cl_uint num_events_in_wait_list,
+    const cl_event *event_wait_list,
+    cl_event *event);
+
+cl_int clEnqueueReleaseExternalMemObjectsKHR(
+    cl_command_queue command_queue,
+    cl_uint num_mem_objects,
+    const cl_mem *mem_objects,
+    cl_uint num_events_in_wait_list,
+    const cl_event *event_wait_list,
+    cl_event *event);</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_new_api_enums_6"><a class="anchor" href="#_new_api_enums_6"></a>45.4. New API Enums</h3>
+<div class="paragraph">
+<p>Accepted value for the <em>param_name</em> parameter to <strong>clGetPlatformInfo</strong> to query external memory handle types that may be imported by all devices in an OpenCL platform:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>CL_PLATFORM_EXTERNAL_MEMORY_IMPORT_HANDLE_TYPES_KHR                    0x2044</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Accepted value for the <em>param_name</em> parameter to <strong>clGetDeviceInfo</strong> to query external memory handle types that may be imported by an OpenCL device:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>CL_DEVICE_EXTERNAL_MEMORY_IMPORT_HANDLE_TYPES_KHR                      0x204F</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>New properties accepted as <em>properties</em> to <strong>clCreateBufferWithProperties</strong> and <strong>clCreateImageWithProperties</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>CL_DEVICE_HANDLE_LIST_KHR                                              0x2051
+CL_DEVICE_HANDLE_LIST_END_KHR                                          0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>New return values from <strong>clGetEventInfo</strong> when <em>param_name</em> is <code>CL_EVENT_<wbr>COMMAND_<wbr>TYPE</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>CL_COMMAND_ACQUIRE_EXTERNAL_MEM_OBJECTS_KHR                            0x2047
+CL_COMMAND_RELEASE_EXTERNAL_MEM_OBJECTS_KHR                            0x2048</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>External memory handle type added by <code>cl_khr_external_memory_dma_buf</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>CL_EXTERNAL_MEMORY_HANDLE_DMA_BUF_KHR              0x2067</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>External memory handle types added by <code>cl_khr_external_memory_dx</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>CL_EXTERNAL_MEMORY_HANDLE_D3D11_TEXTURE_KHR        0x2063
+CL_EXTERNAL_MEMORY_HANDLE_D3D11_TEXTURE_KMT_KHR    0x2064
+CL_EXTERNAL_MEMORY_HANDLE_D3D12_HEAP_KHR           0x2065
+CL_EXTERNAL_MEMORY_HANDLE_D3D12_RESOURCE_KHR       0x2066</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>External memory handle type added by <code>cl_khr_external_memory_opaque_fd</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>CL_EXTERNAL_MEMORY_HANDLE_OPAQUE_FD_KHR            0x2060</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>External memory handle types added by <code>cl_khr_external_memory_win32</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>CL_EXTERNAL_MEMORY_HANDLE_OPAQUE_WIN32_KHR         0x2061
+CL_EXTERNAL_MEMORY_HANDLE_OPAQUE_WIN32_KMT_KHR     0x2062</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_modifications_to_existing_apis_added_by_this_spec_3"><a class="anchor" href="#_modifications_to_existing_apis_added_by_this_spec_3"></a>45.5. Modifications to existing APIs added by this spec</h3>
+<div class="paragraph">
+<p>Following new enums are added to the list of supported <em>param_names</em> by <strong>clGetPlatformInfo</strong>:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 60. List of supported param_names by clGetPlatformInfo</caption>
+<colgroup>
+<col style="width: 33%;">
+<col style="width: 17%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Platform Info</th>
+<th class="tableblock halign-left valign-top">Return Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_PLATFORM_<wbr>EXTERNAL_<wbr>MEMORY_<wbr>IMPORT_<wbr>HANDLE_<wbr>TYPES_<wbr>KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_external_<wbr>memory_<wbr>handle_<wbr>type_<wbr>khr</code>[]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the list of importable external memory handle types supported by all devices in <em>platform</em>.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>clGetPlatformInfo</strong> when called with <em>param_name</em> <code>CL_PLATFORM_<wbr>EXTERNAL_<wbr>MEMORY_<wbr>IMPORT_<wbr>HANDLE_<wbr>TYPES_<wbr>KHR</code> must return a common list of external memory handle types supported by all devices in the platform.</p>
+</div>
+<div class="paragraph">
+<p>Following new enums are added to the list of supported <em>param_names</em> by <strong>clGetDeviceInfo</strong>:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 61. List of supported param_names by clGetDeviceInfo</caption>
+<colgroup>
+<col style="width: 33%;">
+<col style="width: 17%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Device Info</th>
+<th class="tableblock halign-left valign-top">Return Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>EXTERNAL_<wbr>MEMORY_<wbr>IMPORT_<wbr>HANDLE_<wbr>TYPES_<wbr>KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_external_<wbr>memory_<wbr>handle_<wbr>type_<wbr>khr</code>[]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the list of importable external memory handle types supported by <em>device</em>.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>clGetDeviceInfo</strong> when called with param_name <code>CL_DEVICE_<wbr>EXTERNAL_<wbr>MEMORY_<wbr>IMPORT_<wbr>HANDLE_<wbr>TYPES_<wbr>KHR</code> must return a non-empty list of external memory handle types for at least one of the devices in the platform.</p>
+</div>
+<div class="paragraph">
+<p>Following new properties are added to the list of supported properties by <strong>clCreateBufferWithProperties</strong> and <strong>clCreateImageWithProperties</strong>.</p>
+</div>
+<table id="external-memory-properties-table" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 62. List of supported buffer and image creation properties</caption>
+<colgroup>
+<col style="width: 33%;">
+<col style="width: 17%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Property</th>
+<th class="tableblock halign-left valign-top">Property Value</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_device_<wbr>id</code>[]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the list of OpenCL devices (terminated with <code>CL_DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>END_<wbr>KHR</code>) to associate with the external memory handle.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>If <code>CL_DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>KHR</code> is not specified as part of <em>properties</em>, the memory object created by <strong>clCreateBufferWithProperties</strong> or <strong>clCreateImageWithProperties</strong> is by default accessible to all devices in the <em>context</em>.</p>
+</div>
+<div class="paragraph">
+<p>The properties used to create a buffer or image from an external memory handle are described by related extensions.
+When a buffer or image is created from an external memory handle, the <em>flags</em> used to specify usage information for the buffer or image must not include <code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code>, <code>CL_MEM_<wbr>ALLOC_<wbr>HOST_<wbr>PTR</code>, or <code>CL_MEM_<wbr>COPY_<wbr>HOST_<wbr>PTR</code>, and the <em>host_ptr</em> argument must be <code>NULL</code>.</p>
+</div>
+<div class="paragraph">
+<p>Add to the list of error conditions for <strong>clCreateBufferWithProperties</strong> and <strong>clCreateImageWithProperties</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_INVALID_<wbr>DEVICE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if a device identified by the property <code>CL_DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>KHR</code> is not a valid device or is not associated with <em>context</em>, or</p>
+</li>
+<li>
+<p>if a device identified by property <code>CL_DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>KHR</code> cannot import the requested external memory object type, or</p>
+</li>
+<li>
+<p>if <code>CL_DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>KHR</code> is not specified as part of <em>properties</em> and one or more devices in <em>context</em> cannot import the requested external memory object type.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>VALUE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>properties</em> includes a supported external memory handle and <em>flags</em> includes <code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code>, <code>CL_MEM_<wbr>ALLOC_<wbr>HOST_<wbr>PTR</code>, or <code>CL_MEM_<wbr>COPY_<wbr>HOST_<wbr>PTR</code>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>HOST_<wbr>PTR</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>properties</em> includes a supported external memory handle and <em>host_ptr</em> is not <code>NULL</code>.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Add images created from an external memory handle to the description of <code>image_row_pitch</code> and <code>image_slice_pitch</code> for <code>cl_image_<wbr>desc</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>image_row_pitch</code> is the scan-line pitch in bytes.
+The <code>image_row_pitch</code> must be zero if <em>host_ptr</em> is <code>NULL</code>, the image is not a
+2D image created from a buffer, and the image is not an image created from an
+external memory handle.
+If <code>image_row_pitch</code> is zero and <em>host_ptr</em> is not <code>NULL</code> then the image row
+pitch is calculated as <code>image_width</code> × the size of an image element in
+bytes.
+If <code>image_row_pitch</code> is zero and the image is created from an external memory
+handle then the image row pitch is implementation-defined.
+The image row pitch must be ≥ <code>image_width</code> × the size of an image
+element in bytes and must be a multiple of the size of an image element in
+bytes.
+For a 2D image created from a buffer the image row pitch must also be a multiple
+of the maximum of the <code>CL_DEVICE_<wbr>IMAGE_<wbr>PITCH_<wbr>ALIGNMENT</code> value for all devices in
+the context that support images.</p>
+</li>
+<li>
+<p><code>image_slice_pitch</code> is the size in bytes of each 2D slice in a 3D image or the
+size in bytes of each image in a 1D or 2D image array.
+The <code>image_slice_pitch</code> must be zero if <em>host_ptr</em> is <code>NULL</code> and the image is
+not created from an external memory handle.
+If <code>image_slice_pitch</code> is zero and <em>host_ptr</em> is not <code>NULL</code> then the image slice
+pitch is calculated as the image row pitch × <code>image_height</code> for a 2D image
+array or a 3D image, and as the image row pitch for a 1D image array.
+If <code>image_slice_pitch</code> is zero and the image is created from an external memory
+handle then the image slice pitch is implementation-defined.
+The image slice pitch must be ≥ the image image row pitch ×
+<code>image_height</code> for a 2D image array or a 3D image, must be ≥ the image row
+pitch for a 1D image array, and must be a multiple of the image row pitch.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_description_of_new_types_added_by_this_spec_2"><a class="anchor" href="#_description_of_new_types_added_by_this_spec_2"></a>45.6. Description of new types added by this spec</h3>
+<div class="paragraph">
+<p>The following new APIs are added as part of this spec. The details of each are described below:</p>
+</div>
+<div class="sect3">
+<h4 id="_acquiring_and_releasing_external_memory_objects"><a class="anchor" href="#_acquiring_and_releasing_external_memory_objects"></a>45.6.1. Acquiring and Releasing External Memory Objects</h4>
+<div class="paragraph">
+<p>To acquire OpenCL memory objects created from external memory handles, call the function</p>
+</div>
+<div id="clEnqueueAcquireExternalMemObjectsKHR" class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c++">cl_int clEnqueueAcquireExternalMemObjectsKHR(
+    cl_command_queue command_queue,
+    cl_uint num_mem_objects,
+    <span class="directive">const</span> cl_mem* mem_objects,
+    cl_uint num_events_in_wait_list,
+    <span class="directive">const</span> cl_event* event_wait_list,
+    cl_event* event);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><em>command_queue</em> specifies a valid command-queue.</p>
+</div>
+<div class="paragraph">
+<p><em>num_mem_objects</em> specifies the number of memory objects to acquire.</p>
+</div>
+<div class="paragraph">
+<p><em>mem_objects</em> points to a list of valid memory objects.</p>
+</div>
+<div class="paragraph">
+<p><em>num_events_in_wait_list</em> specifies the number of events in <em>event_wait_list</em>.</p>
+</div>
+<div class="paragraph">
+<p><em>event_wait_list</em> points to the list of events that need to complete before <strong>clEnqueueAcquireExternalMemObjectsKHR</strong> can be executed.
+If <em>event_wait_list</em> is <code>NULL</code>, then <strong>clEnqueueAcquireExternalMemObjectsKHR</strong> does not explicitly wait on any event to complete.
+If <em>event_wait_list</em> is <code>NULL</code>, <em>num_events_in_wait_list</em> must be 0.
+If <em>event_wait_list</em> is not <code>NULL</code>, the list of events pointed to by <em>event_wait_list</em> must be valid and <em>num_events_in_wait_list</em> must be greater than 0.
+The events specified in <em>event_wait_list</em> act as synchronization points.
+The context associated with events in <em>event_wait_list</em> and that of <em>command_queue</em> must be the same.</p>
+</div>
+<div class="paragraph">
+<p><em>event</em>  returns an event object that identifies this particular command and can be used to query or queue a wait for this particular command to complete.
+<em>event</em> can be <code>NULL</code> in which case it will not be possible for the application to query the status of this command or queue a wait for this command to complete.</p>
+</div>
+<div class="paragraph">
+<p>Applications must acquire the memory objects that are created using external handles before they can be used by any OpenCL commands queued to a command-queue.
+Behavior is undefined if a memory object created from an external memory handle is used by an OpenCL command queued to a command-queue without being acquired.
+This is to guarantee that the state of the memory objects is up-to-date and they are accessible to OpenCL.
+See "Example with Acquire / Release" provided in <a href="#cl_khr_external_memory-Sample-Code">Sample Code</a> for more details on how to use this API.</p>
+</div>
+<div class="paragraph">
+<p>If <em>num_mem_objects</em> is 0 and <em>mem_objects</em> is <code>NULL</code>, the command will trivially succeed after its event dependencies are satisfied and will update its completion event.</p>
+</div>
+<div class="paragraph">
+<p><strong>clEnqueueAcquireExternalMemObjectsKHR</strong> returns <code>CL_SUCCESS</code> if the function is executed successfully.
+Otherwise, it returns one of the following errors:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_INVALID_<wbr>VALUE</code> if <em>num_mem_objects</em> is zero and <em>mem_objects</em> is not a <code>NULL</code> value or if <em>num_mem_objects</em> is not 0 and <em>mem_objects</em> is <code>NULL</code>.</p>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>MEM_<wbr>OBJECT</code> if any of the memory objects in <em>mem_objects</em> is not a valid OpenCL memory object created using an external memory handle.</p>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>COMMAND_<wbr>QUEUE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>command_queue</em> is not a valid command-queue, or</p>
+</li>
+<li>
+<p>if device associated with <em>command_queue</em> is not one of the devices specified by <code>CL_DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>KHR</code> at the time of creating one or more of <em>mem_objects</em>, or</p>
+</li>
+<li>
+<p>if one or more of <em>mem_objects</em> belong to a context that does not contain a device associated <em>command_queue</em>, or</p>
+</li>
+<li>
+<p>if one or more of <em>mem_objects</em> can not be shared with device associated with <em>command_queue</em>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>EVENT_<wbr>WAIT_<wbr>LIST</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>event_wait_list</em> is <code>NULL</code> and <em>num_events_in_wait_list</em> is not 0, or</p>
+</li>
+<li>
+<p>if <em>event_wait_list</em> is not <code>NULL</code> and <em>num_events_in_wait_list</em> is 0, or</p>
+</li>
+<li>
+<p>if event objects in <em>event_wait_list</em> are not valid events.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_EXEC_<wbr>STATUS_<wbr>ERROR_<wbr>FOR_<wbr>EVENTS_<wbr>IN_<wbr>WAIT_<wbr>LIST</code> if the execution status of any of the events in <em>event_wait_list</em> is a negative integer value.</p>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources required by the OpenCL implementation on the device.</p>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code> if there is a failure to allocate resources required by the OpenCL implementation on the host.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To release OpenCL memory objects created from external memory handles, call the function</p>
+</div>
+<div id="clEnqueueReleaseExternalMemObjectsKHR" class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c++">cl_int clEnqueueReleaseExternalMemObjectsKHR(
+    cl_command_queue command_queue,
+    cl_uint num_mem_objects,
+    <span class="directive">const</span> cl_mem* mem_objects,
+    cl_uint num_events_in_wait_list,
+    <span class="directive">const</span> cl_event* event_wait_list,
+    cl_event* event);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><em>command_queue</em> specifies a valid command-queue.</p>
+</div>
+<div class="paragraph">
+<p><em>num_mem_objects</em> specifies the number of memory objects to release.</p>
+</div>
+<div class="paragraph">
+<p><em>mem_objects</em> points to a list of valid memory objects.</p>
+</div>
+<div class="paragraph">
+<p><em>num_events_in_wait_list</em> specifies the number of events in <em>event_wait_list</em>.</p>
+</div>
+<div class="paragraph">
+<p><em>event_wait_list</em> points to the list of events that need to complete before <strong>clEnqueueReleaseExternalMemObjectsKHR</strong> can be executed.
+If <em>event_wait_list</em> is <code>NULL</code>, then <strong>clEnqueueReleaseExternalMemObjectsKHR</strong> does not wait on any event to complete.
+If <em>event_wait_list</em> is <code>NULL</code>, <em>num_events_in_wait_list</em> must be 0.
+If <em>event_wait_list</em> is not <code>NULL</code>, the list of events pointed to by <em>event_wait_list</em> must be valid and <em>num_events_in_wait_list</em> must be greater than 0.
+The events specified in <em>event_wait_list</em> act as synchronization points.
+The context associated with events in <em>event_wait_list</em> and that of <em>command_queue</em> must be the same.</p>
+</div>
+<div class="paragraph">
+<p><em>event</em>  returns an event object that identifies this particular command and can be used to query or queue a wait for this particular command to complete.
+<em>event</em> can be <code>NULL</code> in which case it will not be possible for the application to query the status of this command or queue a wait for this command to complete.</p>
+</div>
+<div class="paragraph">
+<p>Applications must release the memory objects that are acquired using <strong>clEnqueueReleaseExternalMemObjectsKHR</strong> before using them through any commands in the other API.
+This is to guarantee that the state of memory objects is up-to-date and they are accessible to the other API.
+See "Example with Acquire / Release" provided in <a href="#cl_khr_external_memory-Sample-Code">Sample Code</a> for more details on how to use this API.</p>
+</div>
+<div class="paragraph">
+<p>If <em>num_mem_objects</em> is 0 and <em>mem_objects</em> is <code>NULL</code>, the command will trivially succeed after its event dependencies are satisfied and will update its completion event.</p>
+</div>
+<div class="paragraph">
+<p><strong>clEnqueueReleaseExternalMemObjectsKHR</strong> returns <code>CL_SUCCESS</code> if the function is executed successfully.
+Otherwise, it returns one of the following errors:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_INVALID_<wbr>VALUE</code> if <em>num_mem_objects</em> is zero and <em>mem_objects</em> is not a <code>NULL</code> value or if <em>num_mem_objects</em> is greater than 0 and <em>mem_objects</em> is <code>NULL</code>.</p>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>MEM_<wbr>OBJECT</code> if any of the memory objects in <em>mem_objects</em> is not a valid OpenCL memory object created using an external memory handle.</p>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>COMMAND_<wbr>QUEUE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>command_queue</em> is not a valid command-queue, or</p>
+</li>
+<li>
+<p>if device associated with <em>command_queue</em> is not one of the devices specified by <code>CL_DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>KHR</code> at the time of creating one or more of <em>mem_objects</em>, or</p>
+</li>
+<li>
+<p>if one or more of <em>mem_objects</em> belong to a cl_context that does not contain device associated <em>command_queue</em>, or</p>
+</li>
+<li>
+<p>if one or more of <em>mem_objects</em> can not be shared with device associated with <em>command_queue</em>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>EVENT_<wbr>WAIT_<wbr>LIST</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>event_wait_list</em> is <code>NULL</code> and <em>num_events_in_wait_list</em> is not 0, or</p>
+</li>
+<li>
+<p>if <em>event_wait_list</em> is not <code>NULL</code> and <em>num_events_in_wait_list</em> is 0, or</p>
+</li>
+<li>
+<p>if event objects in <em>event_wait_list</em> are not valid events.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_EXEC_<wbr>STATUS_<wbr>ERROR_<wbr>FOR_<wbr>EVENTS_<wbr>IN_<wbr>WAIT_<wbr>LIST</code> if the execution status of any of the events in <em>event_wait_list</em> is a negative integer value.</p>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources required by the OpenCL implementation on the device.</p>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code> if there is a failure to allocate resources required by the OpenCL implementation on the host.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_descriptions_of_external_memory_handle_types"><a class="anchor" href="#_descriptions_of_external_memory_handle_types"></a>45.7. Descriptions of External Memory Handle Types</h3>
+<div class="paragraph">
+<p>This section describes the external memory handle types that are added by related extensions.</p>
+</div>
+<div class="paragraph">
+<p>Applications can import the same payload into multiple OpenCL contexts and multiple times into a given OpenCL context. In all cases, each import operation must create a distinct memory object.</p>
+</div>
+<div class="sect3">
+<h4 id="_file_descriptor_handle_types_2"><a class="anchor" href="#_file_descriptor_handle_types_2"></a>45.7.1. File Descriptor Handle Types</h4>
+<div class="paragraph">
+<p>The <code>cl_khr_external_memory_opaque_fd</code> extension extends <code>cl_external_<wbr>memory_<wbr>handle_<wbr>type_<wbr>khr</code> to support the following new types of handles, and adds as a property that may be specified when creating a buffer or an image memory object from an external handle:</p>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_EXTERNAL_<wbr>MEMORY_<wbr>HANDLE_<wbr>OPAQUE_<wbr>FD_<wbr>KHR</code> specifies a POSIX file descriptor handle that has only limited valid usage outside of OpenCL and other compatible APIs. It must be compatible with the POSIX system calls dup, dup2, close, and the non-standard system call dup3. Additionally, it must be transportable over a socket using an SCM_RIGHTS control message. It owns a reference to the underlying memory resource represented by its memory object.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>cl_khr_external_memory_dma_buf</code> extension extends <code>cl_external_<wbr>memory_<wbr>handle_<wbr>type_<wbr>khr</code> to support the following types of handles, and adds as a property that may be specified when creating a buffer or an image memory object from an external handle:</p>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_EXTERNAL_<wbr>MEMORY_<wbr>HANDLE_<wbr>DMA_<wbr>BUF_<wbr>KHR</code> is a file descriptor for a Linux dma_buf. It owns a reference to the underlying memory resource represented by its memory object.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>For these extensions, importing memory from a file descriptor transfers ownership of the file descriptor from the application to the OpenCL implementation. The application must not perform any operations on the file descriptor after a successful import. The imported memory object holds a reference to its payload.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_nt_handle_types_2"><a class="anchor" href="#_nt_handle_types_2"></a>45.7.2. NT Handle Types</h4>
+<div class="paragraph">
+<p>The <code>cl_khr_external_memory_dx</code> extension extends <code>cl_external_<wbr>memory_<wbr>handle_<wbr>type_<wbr>khr</code>  to support the following new types of handles, and adds as a property that may be specified when creating a buffer or an image memory object from an external handle:</p>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_EXTERNAL_<wbr>MEMORY_<wbr>HANDLE_<wbr>D3D11_<wbr>TEXTURE_<wbr>KHR</code> specifies an NT handle returned by IDXGIResource1::CreateSharedHandle referring to a Direct3D 10 or 11 texture resource. It owns a reference to the memory used by the Direct3D resource.</p>
+</li>
+<li>
+<p><code>CL_EXTERNAL_<wbr>MEMORY_<wbr>HANDLE_<wbr>D3D11_<wbr>TEXTURE_<wbr>KMT_<wbr>KHR</code> specifies a global share handle returned by IDXGIResource::GetSharedHandle referring to a Direct3D 10 or 11 texture resource. It does not own a reference to the underlying Direct3D resource, and will therefore become invalid when all memory objects and Direct3D resources associated with it are destroyed.</p>
+</li>
+<li>
+<p><code>CL_EXTERNAL_<wbr>MEMORY_<wbr>HANDLE_<wbr>D3D12_<wbr>HEAP_<wbr>KHR</code> specifies an NT handle returned by ID3D12Device::CreateSharedHandle referring to a Direct3D 12 heap resource. It owns a reference to the resources used by the Direct3D heap.</p>
+</li>
+<li>
+<p><code>CL_EXTERNAL_<wbr>MEMORY_<wbr>HANDLE_<wbr>D3D12_<wbr>RESOURCE_<wbr>KHR</code> specifies an NT handle returned by ID3D12Device::CreateSharedHandle referring to a Direct3D 12 committed resource. It owns a reference to the memory used by the Direct3D resource.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>cl_khr_external_memory_win32</code> extension extends <code>cl_external_<wbr>memory_<wbr>handle_<wbr>type_<wbr>khr</code> to support the following new types of handles, and adds as a property that may be specified when creating a buffer or an image memory object from an external handle:</p>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_EXTERNAL_<wbr>MEMORY_<wbr>HANDLE_<wbr>OPAQUE_<wbr>WIN32_<wbr>KHR</code> specifies an NT handle that has only limited valid usage outside of OpenCL and other compatible APIs. It must be compatible with the functions DuplicateHandle, CloseHandle, CompareObjectHandles, GetHandleInformation, and SetHandleInformation. It owns a reference to the underlying memory resource represented by its memory object.</p>
+</li>
+<li>
+<p><code>CL_EXTERNAL_<wbr>MEMORY_<wbr>HANDLE_<wbr>OPAQUE_<wbr>WIN32_<wbr>KMT_<wbr>KHR</code> specifies a global share handle that has only limited valid usage outside of OpenCL and other compatible APIs. It is not compatible with any native APIs. It does not own a reference to the underlying memory resource represented by its memory object, and will therefore become invalid when all memory objects associated with it are destroyed.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>For these extensions, importing memory object payloads from Windows handles does not transfer ownership of the handle to the OpenCL implementation. For handle types defined as NT handles, the application must release handle ownership using the CloseHandle system call when the handle is no longer needed. For handle types defined as NT handles, the imported memory object holds a reference to its payload.</p>
+</div>
+<div class="paragraph">
+<p>Note: Non-NT handle import operations do not add a reference to their associated payload. If the original object owning the payload is destroyed, all resources and handles sharing that payload will become invalid.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="cl_khr_external_memory-Sample-Code"><a class="anchor" href="#cl_khr_external_memory-Sample-Code"></a>45.8. Sample Code</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Example for creating a CL buffer from an exported external buffer in a single device context.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>// Get cl_devices of the platform.
+clGetDeviceIDs(..., &amp;devices, &amp;deviceCount);
+
+// Create cl_context with just first device
+clCreateContext(..., 1, devices, ...);
+
+// Obtain fd/win32 or similar handle for external memory to be imported
+// from other API.
+int fd = getFdForExternalMemory();
+
+// Create extMemBuffer of type cl_mem from fd.
+cl_mem_properties_khr extMemProperties[] =
+{
+    (cl_mem_properties_khr)CL_EXTERNAL_MEMORY_HANDLE_OPAQUE_FD_KHR,
+    (cl_mem_properties_khr)fd,
+    0
+};
+
+cl_mem extMemBuffer = clCreateBufferWithProperties(/*context*/          clContext,
+                                                   /*properties*/       extMemProperties,
+                                                   /*flags*/            0,
+                                                   /*size*/             size,
+                                                   /*host_ptr*/         NULL,
+                                                   /*errcode_ret*/      &amp;errcode_ret);</code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Example for creating a CL Image from an exported external Image for single device usage in a multi-device context</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>// Get cl_devices of the platform.
+clGetDeviceIDs(..., &amp;devices, &amp;deviceCount);
+
+// Create cl_context with first two devices
+clCreateContext(..., 2, devices, ...);
+
+// Create img of type cl_mem usable only on devices[0]
+
+// Create img of type cl_mem.
+// Obtain fd/win32 or similar handle for external memory to be imported
+// from other API.
+int fd = getFdForExternalMemory();
+
+// Set cl_image_format based on external image info
+cl_image_format clImgFormat = { };
+clImageFormat.image_channel_order = CL_RGBA;
+clImageFormat.image_channel_data_type = CL_UNORM_INT8;
+
+// Set cl_image_desc based on external image info
+size_t clImageFormatSize;
+cl_image_desc image_desc = { };
+image_desc.image_type = CL_MEM_OBJECT_IMAGE2D_ARRAY;
+image_desc.image_width = width;
+image_desc.image_height = height;
+image_desc.image_depth = depth;
+image_desc.image_array_size = num_slices;
+image_desc.image_row_pitch = width * 8 * 4; // May need alignment
+image_desc.image_slice_pitch = image_desc.image_row_pitch * height;
+image_desc.num_mip_levels = 1;
+image_desc.num_samples = 0;
+image_desc.buffer = NULL;
+
+cl_mem_properties_khr extMemProperties[] =
+{
+    (cl_mem_properties_khr)CL_EXTERNAL_MEMORY_HANDLE_OPAQUE_FD_KHR,
+    (cl_mem_properties_khr)fd,
+    (cl_mem_properties_khr)CL_DEVICE_HANDLE_LIST_KHR,
+    (cl_mem_properties_khr)devices[0],
+    CL_DEVICE_HANDLE_LIST_END_KHR,
+    0
+};
+
+cl_mem img = clCreateImageWithProperties(/*context*/        clContext,
+                                         /*properties*/     extMemProperties,
+                                         /*flags*/          0,
+                                         /*image_format*/   &amp;clImgFormat,
+                                         /*image_desc*/     &amp;image_desc,
+                                         /*errcode_ret*/    &amp;errcode_ret);
+
+// Use clGetImageInfo to get cl_image_format details.
+size_t clImageFormatSize;
+clGetImageInfo(img,
+               CL_IMAGE_FORMAT,
+               sizeof(cl_image_format),
+               &amp;clImageFormat,
+               &amp;clImageFormatSize);</code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Example for synchronization using Wait and Signal</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>// Start the main rendering loop
+
+// Create extSem of type cl_semaphore_khr using clCreateSemaphoreWithPropertiesKHR
+
+// Create extMem of type cl_mem using clCreateBufferWithProperties or clCreateImageWithProperties
+
+while (true) {
+    // (not shown) Signal the semaphore from the other API
+
+    // Wait for the semaphore in OpenCL, by calling clEnqueueWaitSemaphoresKHR on 'extSem'
+    clEnqueueWaitSemaphoresKHR(/*command_queue*/            command_queue,
+                               /*num_sema_objects*/         1,
+                               /*sema_objects*/             &amp;extSem,
+                               /*sema_payload_list*/        NULL,
+                               /*num_events_in_wait_list*/  0,
+                               /*event_wait_list*/          NULL,
+                               /*event*/                    NULL);
+
+    // Launch kernel that accesses extMem
+    clEnqueueNDRangeKernel(command_queue, ...);
+
+    // Signal the semaphore in OpenCL
+    clEnqueueSignalSemaphoresKHR(/*command_queue*/           command_queue,
+                                 /*num_sema_objects*/        1,
+                                 /*sema_objects*/            &amp;extSem,
+                                 /*sema_payload_list*/       NULL,
+                                 /*num_events_in_wait_list*/ 0,
+                                 /*event_wait_list*/         NULL,
+                                 /*event*/                   NULL);
+
+    // (not shown) Launch work in other API that waits on 'extSem'
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Example with memory sharing using acquire/release</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>// Create extSem of type cl_semaphore_khr using
+// clCreateSemaphoreWithPropertiesKHR with CL_SEMAPHORE_HANDLE_*_KHR.
+
+// Create extMem1 and extMem2 of type cl_mem using clCreateBufferWithProperties
+// or clCreateImageWithProperties
+
+while (true) {
+    // (not shown) Signal the semaphore from the other API. Wait for the
+    // semaphore in OpenCL, by calling clEnqueueWaitForSemaphore on extSem
+    clEnqueueWaitSemaphoresKHR(/*command_queue*/            cq1,
+                               /*num_sema_objects*/         1,
+                               /*sema_objects*/             &amp;extSem,
+                               /*sema_payload_list*/        NULL,
+                               /*num_events_in_wait_list*/  0,
+                               /*event_wait_list*/          NULL,
+                               /*event*/                    NULL);
+
+    // Get explicit ownership of extMem1
+    clEnqueueAcquireExternalMemObjectsKHR(/*command_queue*/             cq1,
+                                          /*num_mem_objects*/           1,
+                                          /*mem_objects*/               extMem1,
+                                          /*num_events_in_wait_list*/   0,
+                                          /*event_wait_list*/           NULL,
+                                          /*event*/                     NULL);
+
+    // Launch kernel that accesses extMem1 on cq1 on cl_device1
+    clEnqueueNDRangeKernel(cq1,  ..., &amp;event1);
+
+    // Launch kernel that accesses both extMem1 and extMem2 on cq2 on cl_device2
+    // Migration of extMem1 and extMem2 handles through regular CL memory
+    // migration.
+    clEnqueueNDRangeKernel(cq2, ..., &amp;event1, &amp;event2);
+
+    // Give up ownership of extMem1 before you signal the semaphore. Handle
+    // memory migration here.
+    clEnqueueReleaseExternalMemObjectsKHR(/*command_queue*/           cq2
+                                          /*num_mem_objects*/         1,
+                                          /*mem_objects*/             &amp;extMem1,
+                                          /*num_events_in_wait_list*/ 0,
+                                          /*event_wait_list*/         NULL,
+                                          /*event*/                   NULL);
+
+    // Signal the semaphore from OpenCL
+    clEnqueueSignalSemaphoresKHR(/*command_queue*/           cq2,
+                                 /*num_sema_objects*/        1,
+                                 /*sema_objects*/            &amp;extSem,
+                                 /*sema_payload_list*/       NULL,
+                                 /*num_events_in_wait_list*/ 0,
+                                 /*event_wait_list*/         NULL,
+                                 /*event*/                   NULL);
+
+    // (not shown) Launch work in other API that waits on 'extSem'
+    // Other API accesses ext1, but not ext2 on device-1
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="spirv_extensions"><a class="anchor" href="#spirv_extensions"></a>46. Extensions to the OpenCL SPIR-V Environment</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>An OpenCL SPIR-V environment may be modified by OpenCL extensions.
@@ -20559,13 +23525,13 @@ Its use is no longer recommended.</p>
 </div>
 </div>
 </div>
-<div id="footer">
+<div id="footer" style="max-width: 100;">
 <div id="footer-text">
-Version v3.0.8<br>
-Last updated 2021-06-29 12:20:08 -0700
+Version v3.0.9<br>
+Last updated 2021-10-15 15:41:25 -0700
 </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
 </body>
 </html>

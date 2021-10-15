@@ -29,6 +29,24 @@
 </li>
 <li><a href="specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_extended_versioning">cl_khr_extended_versioning</a>
 </li>
+<li><a href="specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_external_memory">cl_khr_external_memory</a>
+</li>
+<li><a href="specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_external_memory">cl_khr_external_memory_dma_buf</a>
+</li>
+<li><a href="specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_external_memory">cl_khr_external_memory_dx</a>
+</li>
+<li><a href="specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_external_memory">cl_khr_external_memory_opaque_fd</a>
+</li>
+<li><a href="specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_external_semaphore">cl_khr_external_memory_win32</a>
+</li>
+<li><a href="specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_external_semaphore">cl_khr_external_semaphore</a>
+</li>
+<li><a href="specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_external_semaphore">cl_khr_external_semaphore_dx_fence</a>
+</li>
+<li><a href="specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_external_semaphore">cl_khr_external_semaphore_opaque_fd</a>
+</li>
+<li><a href="specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_external_semaphore">cl_khr_external_semaphore_sync_fd</a>
+</li>
 <li><a href="specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_fp16">cl_khr_fp16</a>
 </li>
 <li><a href="specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_fp64">cl_khr_fp64</a>
@@ -72,6 +90,8 @@
 <li><a href="specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_priority_hints">cl_khr_priority_hints</a>
 </li>
 <li><a href="specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_select_fprounding_mode">cl_khr_select_fprounding_mode</a>
+</li>
+<li><a href="specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_semaphore">cl_khr_semaphore</a>
 </li>
 <li><a href="specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_spir">cl_khr_spir</a>
 </li>
