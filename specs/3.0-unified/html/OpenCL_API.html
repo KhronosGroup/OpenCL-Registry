@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.8">
+<meta name="generator" content="Asciidoctor 2.0.16">
 <meta name="author" content="Khronos&#174; OpenCL Working Group">
 <title>The OpenCL&#8482; Specification</title>
 <style>
@@ -727,16 +727,14 @@ p.tableblock.header { color: #6d6e71; }
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
 /* Stylesheet for CodeRay to match GitHub theme | MIT License | http://foundation.zurb.com */
-/*pre.CodeRay {background-color:#f7f7f8;}*/
-.CodeRay .line-numbers{border-right:1px solid #d8d8d8;padding:0 0.5em 0 .25em}
-.CodeRay span.line-numbers{display:inline-block;margin-right:.5em;color:rgba(0,0,0,.3)}
-.CodeRay .line-numbers strong{color:rgba(0,0,0,.4)}
-table.CodeRay{border-collapse:separate;border-spacing:0;margin-bottom:0;border:0;background:none}
-table.CodeRay td{vertical-align: top;line-height:1.45}
+pre.CodeRay{background:#f7f7f8}
+.CodeRay .line-numbers{border-right:1px solid currentColor;opacity:.35;padding:0 .5em 0 0}
+.CodeRay span.line-numbers{display:inline-block;margin-right:.75em}
+.CodeRay .line-numbers strong{color:#000}
+table.CodeRay{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.CodeRay td{vertical-align:top;line-height:inherit}
 table.CodeRay td.line-numbers{text-align:right}
-table.CodeRay td.line-numbers>pre{padding:0;color:rgba(0,0,0,.3)}
-table.CodeRay td.code{padding:0 0 0 .5em}
-table.CodeRay td.code>pre{padding:0}
+table.CodeRay td.code{padding:0 0 0 .75em}
 .CodeRay .debug{color:#fff !important;background:#000080 !important}
 .CodeRay .annotation{color:#007}
 .CodeRay .attribute-name{color:#000080}
@@ -836,14 +834,14 @@ table.CodeRay td.code>pre{padding:0}
         );
     });
 </script></head>
-<body class="book toc2 toc-left" style="max-width: 100;">
-<div id="header">
+<body class="book toc2 toc-left">
+<div id="header" style="max-width: 100;">
 <h1>The OpenCL<sup>&#8482;</sup> Specification</h1>
 <div class="details">
 <span id="author" class="author">Khronos<sup>&#174;</sup> OpenCL Working Group</span><br>
-<span id="revnumber">version v3.0.8,</span>
-<span id="revdate">Wed, 30 Jun 2021 20:00:00 +0000</span>
-<br><span id="revremark">from git branch: master commit: 09130de814688ec7b463cb089986b807c628ead3</span>
+<span id="revnumber">version v3.0.9,</span>
+<span id="revdate">Fri, 15 Oct 2021 23:00:00 +0000</span>
+<br><span id="revremark">from git branch: master commit: 0949c2df2013766843940c9b353c599694d385de</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -1048,7 +1046,7 @@ table.CodeRay td.code>pre{padding:0}
 </ul>
 </div>
 </div>
-<div id="content">
+<div id="content" style="max-width: 100;">
 <div id="preamble">
 <div class="sectionbody">
 <div style="page-break-after: always;"></div>
@@ -6179,9 +6177,17 @@ Also see extension <strong>cl_khr_fp64</strong>.</p></td>
 <p class="tableblock">        Double precision is an optional feature so the mandated minimum
         double precision floating-point capability is 0.</p>
 <p class="tableblock">        If double precision is supported by the device, then the minimum
-        double precision floating-point capability is:</p>
+        double precision floating-point capability for OpenCL 2.0 or
+        newer devices is:</p>
 <p class="tableblock">        <a href="#CL_FP_FMA"><code>CL_FP_<wbr>FMA</code></a> |<br>
         <a href="#CL_FP_ROUND_TO_NEAREST"><code>CL_FP_<wbr>ROUND_<wbr>TO_<wbr>NEAREST</code></a> |<br>
+        <a href="#CL_FP_INF_NAN"><code>CL_FP_<wbr>INF_<wbr>NAN</code></a> |<br>
+        <a href="#CL_FP_DENORM"><code>CL_FP_<wbr>DENORM</code></a>.</p>
+<p class="tableblock">        or for OpenCL 1.0, OpenCL 1.1 or OpenCL 1.2 devices:</p>
+<p class="tableblock">        <a href="#CL_FP_FMA"><code>CL_FP_<wbr>FMA</code></a> |<br>
+        <a href="#CL_FP_ROUND_TO_NEAREST"><code>CL_FP_<wbr>ROUND_<wbr>TO_<wbr>NEAREST</code></a> |<br>
+        <a href="#CL_FP_ROUND_TO_ZERO"><code>CL_FP_<wbr>ROUND_<wbr>TO_<wbr>ZERO</code></a> |<br>
+        <a href="#CL_FP_ROUND_TO_INF"><code>CL_FP_<wbr>ROUND_<wbr>TO_<wbr>INF</code></a> |<br>
         <a href="#CL_FP_INF_NAN"><code>CL_FP_<wbr>INF_<wbr>NAN</code></a> |<br>
         <a href="#CL_FP_DENORM"><code>CL_FP_<wbr>DENORM</code></a>.</p></td>
 </tr>
@@ -11500,10 +11506,10 @@ and dimensions of an image or image array when creating an image using
     size_t                image_slice_pitch;
     cl_uint               num_mip_levels;
     cl_uint               num_samples;
-    <span class="keyword">union</span> {
+<span class="keyword">union</span> {
         cl_mem buffer;
         cl_mem mem_object;
-    };
+    }    ;
 } cl_image_desc;</code></pre>
 </div>
 </div>
@@ -26584,7 +26590,7 @@ AJ Guillon, YetiWare Inc<br></p>
 </div>
 </div>
 </div>
-<div id="footnotes">
+<div id="footnotes" style="max-width: 100;">
 <hr>
 <div class="footnote" id="_footnotedef_1">
 <a href="#_footnoteref_1">1</a>. This value for memory_scope can only be used with atomic_work_item_fence with flags set to <code>CLK_IMAGE_MEM_FENCE</code>.
@@ -26701,13 +26707,13 @@ AJ Guillon, YetiWare Inc<br></p>
 <a href="#_footnoteref_38">38</a>. Note that we are talking about the programming model here. In reality, little endian systems might choose to simply address their bytes from "the right" or reverse the "order" of the bits in the byte. Either of these choices would mean that no big swap would need to occur in hardware.
 </div>
 </div>
-<div id="footer">
+<div id="footer" style="max-width: 100;">
 <div id="footer-text">
-Version v3.0.8<br>
-Last updated 2021-06-29 12:20:08 -0700
+Version v3.0.9<br>
+Last updated 2021-10-15 15:41:25 -0700
 </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
 </body>
 </html>

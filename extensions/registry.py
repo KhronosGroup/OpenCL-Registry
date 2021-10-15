@@ -356,6 +356,56 @@ registry = {
         'flags' : { 'public' },
         'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_extended_versioning',
     },
+    'cl_khr_external_memory' : {
+        'khrnumber' : 53,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_external_memory',
+    },
+    'cl_khr_external_memory_dma_buf' : {
+        'khrnumber' : 54,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_external_memory',
+    },
+    'cl_khr_external_memory_dx' : {
+        'khrnumber' : 55,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_external_memory',
+    },
+    'cl_khr_external_memory_opaque_fd' : {
+        'khrnumber' : 56,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_external_memory',
+    },
+    'cl_khr_external_memory_win32' : {
+        'khrnumber' : 57,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_external_memory',
+    },
+    'cl_khr_external_semaphore' : {
+        'khrnumber' : 58,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_external_semaphore',
+    },
+    'cl_khr_external_semaphore_dx_fence' : {
+        'khrnumber' : 59,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_external_semaphore',
+    },
+    'cl_khr_external_semaphore_opaque_fd' : {
+        'khrnumber' : 60,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_external_semaphore',
+    },
+    'cl_khr_external_semaphore_sync_fd' : {
+        'khrnumber' : 61,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_external_semaphore',
+    },
+    'cl_khr_external_memory_win32' : {
+        'khrnumber' : 62,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_external_semaphore',
+    },
     'cl_khr_fp16' : {
         'khrnumber' : 16,
         'flags' : { 'public' },
@@ -465,6 +515,11 @@ registry = {
         'khrnumber' : 37,
         'flags' : { 'public' },
         'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_select_fprounding_mode',
+    },
+    'cl_khr_semaphore' : {
+        'khrnumber' : 63,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_semaphore',
     },
     'cl_khr_spir' : {
         'khrnumber' : 38,

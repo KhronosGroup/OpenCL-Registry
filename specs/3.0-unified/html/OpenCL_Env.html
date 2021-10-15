@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.8">
+<meta name="generator" content="Asciidoctor 2.0.16">
 <meta name="author" content="Khronos&#174; OpenCL Working Group">
 <title>The OpenCL&#8482; SPIR-V Environment Specification</title>
 <style>
@@ -727,16 +727,14 @@ p.tableblock.header { color: #6d6e71; }
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
 /* Stylesheet for CodeRay to match GitHub theme | MIT License | http://foundation.zurb.com */
-/*pre.CodeRay {background-color:#f7f7f8;}*/
-.CodeRay .line-numbers{border-right:1px solid #d8d8d8;padding:0 0.5em 0 .25em}
-.CodeRay span.line-numbers{display:inline-block;margin-right:.5em;color:rgba(0,0,0,.3)}
-.CodeRay .line-numbers strong{color:rgba(0,0,0,.4)}
-table.CodeRay{border-collapse:separate;border-spacing:0;margin-bottom:0;border:0;background:none}
-table.CodeRay td{vertical-align: top;line-height:1.45}
+pre.CodeRay{background:#f7f7f8}
+.CodeRay .line-numbers{border-right:1px solid currentColor;opacity:.35;padding:0 .5em 0 0}
+.CodeRay span.line-numbers{display:inline-block;margin-right:.75em}
+.CodeRay .line-numbers strong{color:#000}
+table.CodeRay{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.CodeRay td{vertical-align:top;line-height:inherit}
 table.CodeRay td.line-numbers{text-align:right}
-table.CodeRay td.line-numbers>pre{padding:0;color:rgba(0,0,0,.3)}
-table.CodeRay td.code{padding:0 0 0 .5em}
-table.CodeRay td.code>pre{padding:0}
+table.CodeRay td.code{padding:0 0 0 .75em}
 .CodeRay .debug{color:#fff !important;background:#000080 !important}
 .CodeRay .annotation{color:#007}
 .CodeRay .attribute-name{color:#000080}
@@ -836,14 +834,14 @@ table.CodeRay td.code>pre{padding:0}
         );
     });
 </script></head>
-<body class="book toc2 toc-left" style="max-width: 100;">
-<div id="header">
+<body class="book toc2 toc-left">
+<div id="header" style="max-width: 100;">
 <h1>The OpenCL<sup>&#8482;</sup> SPIR-V Environment Specification</h1>
 <div class="details">
 <span id="author" class="author">Khronos<sup>&#174;</sup> OpenCL Working Group</span><br>
-<span id="revnumber">version v3.0.8,</span>
-<span id="revdate">Wed, 30 Jun 2021 20:00:00 +0000</span>
-<br><span id="revremark">from git branch: master commit: 09130de814688ec7b463cb089986b807c628ead3</span>
+<span id="revnumber">version v3.0.9,</span>
+<span id="revdate">Fri, 15 Oct 2021 23:00:00 +0000</span>
+<br><span id="revremark">from git branch: master commit: 0949c2df2013766843940c9b353c599694d385de</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -904,7 +902,7 @@ table.CodeRay td.code>pre{padding:0}
 </ul>
 </div>
 </div>
-<div id="content">
+<div id="content" style="max-width: 100;">
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
@@ -2252,8 +2250,8 @@ undefined if the <strong>Generic</strong> pointer represents a pointer to the
 <div class="paragraph">
 <p>An OpenCL environment may be modified by <a href="#opencl-extension-spec">OpenCL
 extensions</a>.  For example, some OpenCL extensions may require support
-for support for additional SPIR-V capabilities or instructions, or by
-relaxing SPIR-V restrictions.
+for additional SPIR-V capabilities or instructions, or relax SPIR-V
+restrictions.
 Some OpenCL extensions may modify the OpenCL environment by requiring
 consumption of a SPIR-V module that uses a SPIR-V extension.  In this case,
 the implementation will include the OpenCL extension in the host API
@@ -2264,8 +2262,7 @@ corresponding SPIR-V extension.</p>
 <p>This section describes how the OpenCL environment is modified by Khronos
 (<code>khr</code>) OpenCL extensions.  Other OpenCL extensions, such as multi-vendor
 (<code>ext</code>) extensions or vendor-specific extensions, describe how they modify
-the OpenCL environment in their individual extension specifications.  The
-Khronos OpenCL extensions require no corresponding SPIR-V extensions.</p>
+the OpenCL environment in their individual extension specifications.</p>
 </div>
 <div class="sect2">
 <h3 id="_declaring_spir_v_extensions"><a class="anchor" href="#_declaring_spir_v_extensions"></a>5.1. Declaring SPIR-V Extensions</h3>
@@ -2915,7 +2912,7 @@ that import the <code>OpenCL.DebugInfo.100</code> extended instruction set via <
 <h4 id="_cl_khr_integer_dot_product"><a class="anchor" href="#_cl_khr_integer_dot_product"></a>5.2.24. <code>cl_khr_integer_dot_product</code></h4>
 <div class="paragraph">
 <p>If the OpenCL environment supports the extension <code>cl_khr_integer_dot_product</code>,
-then the environment accept modules that require <code>SPV_KHR_integer_dot_product</code> and
+then the environment must accept modules that require <code>SPV_KHR_integer_dot_product</code> and
 declare the following SPIR-V capabilities:</p>
 </div>
 <div class="ulist">
@@ -6823,19 +6820,19 @@ Default RGB colour space - sRGB&#8221;,
 </div>
 </div>
 </div>
-<div id="footnotes">
+<div id="footnotes" style="max-width: 100;">
 <hr>
 <div class="footnote" id="_footnotedef_1">
 <a href="#_footnoteref_1">1</a>. Here <code>TYPE_MIN</code> and <code>TYPE_MIN_EXP</code> should be substituted by constants appropriate to the floating-point type under consideration, such as <code>FLT_MIN</code> and <code>FLT_MIN_EXP</code> for float.
 </div>
 </div>
-<div id="footer">
+<div id="footer" style="max-width: 100;">
 <div id="footer-text">
-Version v3.0.8<br>
-Last updated 2021-06-29 12:20:08 -0700
+Version v3.0.9<br>
+Last updated 2021-10-15 15:41:25 -0700
 </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
 </body>
 </html>
