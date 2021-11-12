@@ -77,6 +77,8 @@
 </li>
 <li><a href="extensions/intel/cl_intel_egl_image_yuv.txt">cl_intel_egl_image_yuv</a>
 </li>
+<li><a href="extensions/intel/cl_intel_exec_by_local_thread.txt">cl_intel_exec_by_local_thread</a>
+</li>
 <li><a href="extensions/intel/cl_intel_media_block_io.txt">cl_intel_media_block_io</a>
 </li>
 <li><a href="extensions/intel/cl_intel_mem_channel_property.html">cl_intel_mem_channel_property</a>
@@ -108,8 +110,6 @@
 <li><a href="extensions/intel/cl_intel_subgroups_long.html">cl_intel_subgroups_long</a>
 </li>
 <li><a href="extensions/intel/cl_intel_subgroups_short.html">cl_intel_subgroups_short</a>
-</li>
-<li><a href="extensions/intel/cl_intel_thread_local_exec.txt">cl_intel_thread_local_exec</a>
 </li>
 <li><a href="extensions/intel/cl_intel_va_api_media_sharing.txt">cl_intel_va_api_media_sharing</a>
 </li>
