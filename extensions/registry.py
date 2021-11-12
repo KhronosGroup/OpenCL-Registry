@@ -191,6 +191,11 @@ registry = {
         'flags' : { 'public' },
         'url' : 'extensions/intel/cl_intel_egl_image_yuv.txt',
     },
+    'cl_intel_exec_by_local_thread' : {
+        'number' : 16,
+        'flags' : { 'public' },
+        'url' : 'extensions/intel/cl_intel_exec_by_local_thread.txt',
+    },
     'cl_intel_media_block_io' : {
         'number' : 51,
         'flags' : { 'public' },
@@ -270,11 +275,6 @@ registry = {
         'number' : 48,
         'flags' : { 'public' },
         'url' : 'extensions/intel/cl_intel_subgroups_short.html',
-    },
-    'cl_intel_thread_local_exec' : {
-        'number' : 16,
-        'flags' : { 'public' },
-        'url' : 'extensions/intel/cl_intel_thread_local_exec.txt',
     },
     'cl_intel_va_api_media_sharing' : {
         'number' : 36,
