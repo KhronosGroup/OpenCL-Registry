@@ -1,0 +1,2785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.16">
+<title>cl_intel_unified_shared_memory</title>
+<style>
+/*! normalize.css v2.1.2 | MIT License | git.io/normalize */
+/* ========================================================================== HTML5 display definitions ========================================================================== */
+/** Correct `block` display not defined in IE 8/9. */
+article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary { display: block; }
+
+/** Correct `inline-block` display not defined in IE 8/9. */
+audio, canvas, video { display: inline-block; }
+
+/** Prevent modern browsers from displaying `audio` without controls. Remove excess height in iOS 5 devices. */
+audio:not([controls]) { display: none; height: 0; }
+
+/** Address `[hidden]` styling not present in IE 8/9. Hide the `template` element in IE, Safari, and Firefox < 22. */
+[hidden], template { display: none; }
+
+script { display: none !important; }
+
+/* ========================================================================== Base ========================================================================== */
+/** 1. Set default font family to sans-serif. 2. Prevent iOS text size adjust after orientation change, without disabling user zoom. */
+html { font-family: sans-serif; /* 1 */ -ms-text-size-adjust: 100%; /* 2 */ -webkit-text-size-adjust: 100%; /* 2 */ }
+
+/** Remove default margin. */
+body { margin: 0; }
+
+/* ========================================================================== Links ========================================================================== */
+/** Remove the gray background color from active links in IE 10. */
+a { background: transparent; }
+
+/** Address `outline` inconsistency between Chrome and other browsers. */
+a:focus { outline: thin dotted; }
+
+/** Improve readability when focused and also mouse hovered in all browsers. */
+a:active, a:hover { outline: 0; }
+
+/* ========================================================================== Typography ========================================================================== */
+/** Address variable `h1` font-size and margin within `section` and `article` contexts in Firefox 4+, Safari 5, and Chrome. */
+h1 { font-size: 2em; margin: 0.67em 0; }
+
+/** Address styling not present in IE 8/9, Safari 5, and Chrome. */
+abbr[title] { border-bottom: 1px dotted; }
+
+/** Address style set to `bolder` in Firefox 4+, Safari 5, and Chrome. */
+b, strong { font-weight: bold; }
+
+/** Address styling not present in Safari 5 and Chrome. */
+dfn { font-style: italic; }
+
+/** Address differences between Firefox and other browsers. */
+hr { -moz-box-sizing: content-box; box-sizing: content-box; height: 0; }
+
+/** Address styling not present in IE 8/9. */
+mark { background: #ff0; color: #000; }
+
+/** Correct font family set oddly in Safari 5 and Chrome. */
+code, kbd, pre, samp { font-family: monospace, serif; font-size: 1em; }
+
+/** Improve readability of pre-formatted text in all browsers. */
+pre { white-space: pre-wrap; }
+
+/** Set consistent quote types. */
+q { quotes: "\201C" "\201D" "\2018" "\2019"; }
+
+/** Address inconsistent and variable font size in all browsers. */
+small { font-size: 80%; }
+
+/** Prevent `sub` and `sup` affecting `line-height` in all browsers. */
+sub, sup { font-size: 75%; line-height: 0; position: relative; vertical-align: baseline; }
+
+sup { top: -0.5em; }
+
+sub { bottom: -0.25em; }
+
+/* ========================================================================== Embedded content ========================================================================== */
+/** Remove border when inside `a` element in IE 8/9. */
+img { border: 0; }
+
+/** Correct overflow displayed oddly in IE 9. */
+svg:not(:root) { overflow: hidden; }
+
+/* ========================================================================== Figures ========================================================================== */
+/** Address margin not present in IE 8/9 and Safari 5. */
+figure { margin: 0; }
+
+/* ========================================================================== Forms ========================================================================== */
+/** Define consistent border, margin, and padding. */
+fieldset { border: 1px solid #c0c0c0; margin: 0 2px; padding: 0.35em 0.625em 0.75em; }
+
+/** 1. Correct `color` not being inherited in IE 8/9. 2. Remove padding so people aren't caught out if they zero out fieldsets. */
+legend { border: 0; /* 1 */ padding: 0; /* 2 */ }
+
+/** 1. Correct font family not being inherited in all browsers. 2. Correct font size not being inherited in all browsers. 3. Address margins set differently in Firefox 4+, Safari 5, and Chrome. */
+button, input, select, textarea { font-family: inherit; /* 1 */ font-size: 100%; /* 2 */ margin: 0; /* 3 */ }
+
+/** Address Firefox 4+ setting `line-height` on `input` using `!important` in the UA stylesheet. */
+button, input { line-height: normal; }
+
+/** Address inconsistent `text-transform` inheritance for `button` and `select`. All other form control elements do not inherit `text-transform` values. Correct `button` style inheritance in Chrome, Safari 5+, and IE 8+. Correct `select` style inheritance in Firefox 4+ and Opera. */
+button, select { text-transform: none; }
+
+/** 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio` and `video` controls. 2. Correct inability to style clickable `input` types in iOS. 3. Improve usability and consistency of cursor style between image-type `input` and others. */
+button, html input[type="button"], input[type="reset"], input[type="submit"] { -webkit-appearance: button; /* 2 */ cursor: pointer; /* 3 */ }
+
+/** Re-set default cursor for disabled elements. */
+button[disabled], html input[disabled] { cursor: default; }
+
+/** 1. Address box sizing set to `content-box` in IE 8/9. 2. Remove excess padding in IE 8/9. */
+input[type="checkbox"], input[type="radio"] { box-sizing: border-box; /* 1 */ padding: 0; /* 2 */ }
+
+/** 1. Address `appearance` set to `searchfield` in Safari 5 and Chrome. 2. Address `box-sizing` set to `border-box` in Safari 5 and Chrome (include `-moz` to future-proof). */
+input[type="search"] { -webkit-appearance: textfield; /* 1 */ -moz-box-sizing: content-box; -webkit-box-sizing: content-box; /* 2 */ box-sizing: content-box; }
+
+/** Remove inner padding and search cancel button in Safari 5 and Chrome on OS X. */
+input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webkit-search-decoration { -webkit-appearance: none; }
+
+/** Remove inner padding and border in Firefox 4+. */
+button::-moz-focus-inner, input::-moz-focus-inner { border: 0; padding: 0; }
+
+/** 1. Remove default vertical scrollbar in IE 8/9. 2. Improve readability and alignment in all browsers. */
+textarea { overflow: auto; /* 1 */ vertical-align: top; /* 2 */ }
+
+/* ========================================================================== Tables ========================================================================== */
+/** Remove most spacing between table cells. */
+table { border-collapse: collapse; border-spacing: 0; }
+
+meta.foundation-mq-small { font-family: "only screen and (min-width: 768px)"; width: 768px; }
+
+meta.foundation-mq-medium { font-family: "only screen and (min-width:1280px)"; width: 1280px; }
+
+meta.foundation-mq-large { font-family: "only screen and (min-width:1440px)"; width: 1440px; }
+
+*, *:before, *:after { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+
+html, body { font-size: 100%; }
+
+body { background: #fff; color: #222; padding: 0; margin: 0; font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif; font-weight: normal; font-style: normal; line-height: 1; position: relative; cursor: auto; }
+
+a:hover { cursor: pointer; }
+
+img, object, embed { max-width: 100%; height: auto; }
+
+object, embed { height: 100%; }
+
+img { -ms-interpolation-mode: bicubic; }
+
+#map_canvas img, #map_canvas embed, #map_canvas object, .map_canvas img, .map_canvas embed, .map_canvas object { max-width: none !important; }
+
+.left { float: left !important; }
+
+.right { float: right !important; }
+
+.text-left { text-align: left !important; }
+
+.text-right { text-align: right !important; }
+
+.text-center { text-align: center !important; }
+
+.text-justify { text-align: justify !important; }
+
+.hide { display: none; }
+
+.antialiased { -webkit-font-smoothing: antialiased; }
+
+img { display: inline-block; vertical-align: middle; }
+
+textarea { height: auto; min-height: 50px; }
+
+select { width: 100%; }
+
+object, svg { display: inline-block; vertical-align: middle; }
+
+.center { margin-left: auto; margin-right: auto; }
+
+.spread { width: 100%; }
+
+p.lead, .paragraph.lead > p, #preamble > .sectionbody > .paragraph:first-of-type p { font-size: 1.21875em; line-height: 1.6; }
+
+.subheader, .admonitionblock td.content > .title, .audioblock > .title, .exampleblock > .title, .imageblock > .title, .listingblock > .title, .literalblock > .title, .stemblock > .title, .openblock > .title, .paragraph > .title, .quoteblock > .title, table.tableblock > .title, .verseblock > .title, .videoblock > .title, .dlist > .title, .olist > .title, .ulist > .title, .qlist > .title, .hdlist > .title { line-height: 1.4; color: black; font-weight: 300; margin-top: 0.2em; margin-bottom: 0.5em; }
+
+/* Typography resets */
+div, dl, dt, dd, ul, ol, li, h1, h2, h3, #toctitle, .sidebarblock > .content > .title, h4, h5, h6, pre, form, p, blockquote, th, td { margin: 0; padding: 0; direction: ltr; }
+
+/* Default Link Styles */
+a { color: #0068b0; text-decoration: none; line-height: inherit; }
+a:hover, a:focus { color: #333; }
+a img { border: none; }
+
+/* Default paragraph styles */
+p { font-family: Noto, sans-serif; font-weight: normal; font-size: 1em; line-height: 1.6; margin-bottom: 0.75em; text-rendering: optimizeLegibility; }
+p aside { font-size: 0.875em; line-height: 1.35; font-style: italic; }
+
+/* Default header styles */
+h1, h2, h3, #toctitle, .sidebarblock > .content > .title, h4, h5, h6 { font-family: Noto, sans-serif; font-weight: normal; font-style: normal; color: black; text-rendering: optimizeLegibility; margin-top: 0.5em; margin-bottom: 0.5em; line-height: 1.2125em; }
+h1 small, h2 small, h3 small, #toctitle small, .sidebarblock > .content > .title small, h4 small, h5 small, h6 small { font-size: 60%; color: #4d4d4d; line-height: 0; }
+
+h1 { font-size: 2.125em; }
+
+h2 { font-size: 1.6875em; }
+
+h3, #toctitle, .sidebarblock > .content > .title { font-size: 1.375em; }
+
+h4 { font-size: 1.125em; }
+
+h5 { font-size: 1.125em; }
+
+h6 { font-size: 1em; }
+
+hr { border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 1.25em 0 1.1875em; height: 0; }
+
+/* Helpful Typography Defaults */
+em, i { font-style: italic; line-height: inherit; }
+
+strong, b { font-weight: bold; line-height: inherit; }
+
+small { font-size: 60%; line-height: inherit; }
+
+code { font-family: Consolas, "Liberation Mono", Courier, monospace; font-weight: normal; color: #264357; }
+
+/* Lists */
+ul, ol, dl { font-size: 1em; line-height: 1.6; margin-bottom: 0.75em; list-style-position: outside; font-family: Noto, sans-serif; }
+
+ul, ol { margin-left: 1.5em; }
+ul.no-bullet, ol.no-bullet { margin-left: 1.5em; }
+
+/* Unordered Lists */
+ul li ul, ul li ol { margin-left: 1.25em; margin-bottom: 0; font-size: 1em; /* Override nested font-size change */ }
+ul.square li ul, ul.circle li ul, ul.disc li ul { list-style: inherit; }
+ul.square { list-style-type: square; }
+ul.circle { list-style-type: circle; }
+ul.disc { list-style-type: disc; }
+ul.no-bullet { list-style: none; }
+
+/* Ordered Lists */
+ol li ul, ol li ol { margin-left: 1.25em; margin-bottom: 0; }
+
+/* Definition Lists */
+dl dt { margin-bottom: 0.3em; font-weight: bold; }
+dl dd { margin-bottom: 0.75em; }
+
+/* Abbreviations */
+abbr, acronym { text-transform: uppercase; font-size: 90%; color: black; border-bottom: 1px dotted #ddd; cursor: help; }
+
+abbr { text-transform: none; }
+
+/* Blockquotes */
+blockquote { margin: 0 0 0.75em; padding: 0.5625em 1.25em 0 1.1875em; border-left: 1px solid #ddd; }
+blockquote cite { display: block; font-size: 0.8125em; color: #365E7A; }
+blockquote cite:before { content: "\2014 \0020"; }
+blockquote cite a, blockquote cite a:visited { color: #365E7A; }
+
+blockquote, blockquote p { line-height: 1.6; color: #333; }
+
+/* Microformats */
+.vcard { display: inline-block; margin: 0 0 1.25em 0; border: 1px solid #ddd; padding: 0.625em 0.75em; }
+.vcard li { margin: 0; display: block; }
+.vcard .fn { font-weight: bold; font-size: 0.9375em; }
+
+.vevent .summary { font-weight: bold; }
+.vevent abbr { cursor: auto; text-decoration: none; font-weight: bold; border: none; padding: 0 0.0625em; }
+
+@media only screen and (min-width: 768px) { h1, h2, h3, #toctitle, .sidebarblock > .content > .title, h4, h5, h6 { line-height: 1.4; }
+  h1 { font-size: 2.75em; }
+  h2 { font-size: 2.3125em; }
+  h3, #toctitle, .sidebarblock > .content > .title { font-size: 1.6875em; }
+  h4 { font-size: 1.4375em; } }
+/* Tables */
+table { background: #fff; margin-bottom: 1.25em; border: solid 1px #d8d8ce; }
+table thead, table tfoot { background: #eee; font-weight: bold; }
+table thead tr th, table thead tr td, table tfoot tr th, table tfoot tr td { padding: 0.5em 0.625em 0.625em; font-size: inherit; color: #222; text-align: left; }
+table tr th, table tr td { padding: 0.5625em 0.625em; font-size: inherit; color: #6d6e71; }
+table tr.even, table tr.alt, table tr:nth-of-type(even) { background: #f8f8f8; }
+table thead tr th, table tfoot tr th, table tbody tr td, table tr td, table tfoot tr td { display: table-cell; line-height: 1.4; }
+
+body { -moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; tab-size: 4; }
+
+h1, h2, h3, #toctitle, .sidebarblock > .content > .title, h4, h5, h6 { line-height: 1.4; }
+
+a:hover, a:focus { text-decoration: underline; }
+
+.clearfix:before, .clearfix:after, .float-group:before, .float-group:after { content: " "; display: table; }
+.clearfix:after, .float-group:after { clear: both; }
+
+*:not(pre) > code { font-size: inherit; font-style: normal !important; letter-spacing: 0; padding: 0; background-color: transparent; -webkit-border-radius: 0; border-radius: 0; line-height: inherit; word-wrap: break-word; }
+*:not(pre) > code.nobreak { word-wrap: normal; }
+*:not(pre) > code.nowrap { white-space: nowrap; }
+
+pre, pre > code { line-height: 1.6; color: #264357; font-family: Consolas, "Liberation Mono", Courier, monospace; font-weight: normal; }
+
+em em { font-style: normal; }
+
+strong strong { font-weight: normal; }
+
+.keyseq { color: #333333; }
+
+kbd { font-family: Consolas, "Liberation Mono", Courier, monospace; display: inline-block; color: black; font-size: 0.65em; line-height: 1.45; background-color: #f7f7f7; border: 1px solid #ccc; -webkit-border-radius: 3px; border-radius: 3px; -moz-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 0 0 0.1em white inset; -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 0 0 0.1em white inset; box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 0 0 0.1em white inset; margin: 0 0.15em; padding: 0.2em 0.5em; vertical-align: middle; position: relative; top: -0.1em; white-space: nowrap; }
+
+.keyseq kbd:first-child { margin-left: 0; }
+
+.keyseq kbd:last-child { margin-right: 0; }
+
+.menuseq, .menuref { color: #000; }
+
+.menuseq b:not(.caret), .menuref { font-weight: inherit; }
+
+.menuseq { word-spacing: -0.02em; }
+.menuseq b.caret { font-size: 1.25em; line-height: 0.8; }
+.menuseq i.caret { font-weight: bold; text-align: center; width: 0.45em; }
+
+b.button:before, b.button:after { position: relative; top: -1px; font-weight: normal; }
+
+b.button:before { content: "["; padding: 0 3px 0 2px; }
+
+b.button:after { content: "]"; padding: 0 2px 0 3px; }
+
+#header, #content, #footnotes, #footer { width: 100%; margin-left: auto; margin-right: auto; margin-top: 0; margin-bottom: 0; max-width: 62.5em; *zoom: 1; position: relative; padding-left: 1.5em; padding-right: 1.5em; }
+#header:before, #header:after, #content:before, #content:after, #footnotes:before, #footnotes:after, #footer:before, #footer:after { content: " "; display: table; }
+#header:after, #content:after, #footnotes:after, #footer:after { clear: both; }
+
+#content { margin-top: 1.25em; }
+
+#content:before { content: none; }
+
+#header > h1:first-child { color: black; margin-top: 2.25rem; margin-bottom: 0; }
+#header > h1:first-child + #toc { margin-top: 8px; border-top: 1px solid #ddd; }
+#header > h1:only-child, body.toc2 #header > h1:nth-last-child(2) { border-bottom: 1px solid #ddd; padding-bottom: 8px; }
+#header .details { border-bottom: 1px solid #ddd; line-height: 1.45; padding-top: 0.25em; padding-bottom: 0.25em; padding-left: 0.25em; color: #365E7A; display: -ms-flexbox; display: -webkit-flex; display: flex; -ms-flex-flow: row wrap; -webkit-flex-flow: row wrap; flex-flow: row wrap; }
+#header .details span:first-child { margin-left: -0.125em; }
+#header .details span.email a { color: #333; }
+#header .details br { display: none; }
+#header .details br + span:before { content: "\00a0\2013\00a0"; }
+#header .details br + span.author:before { content: "\00a0\22c5\00a0"; color: #333; }
+#header .details br + span#revremark:before { content: "\00a0|\00a0"; }
+#header #revnumber { text-transform: capitalize; }
+#header #revnumber:after { content: "\00a0"; }
+
+#content > h1:first-child:not([class]) { color: black; border-bottom: 1px solid #ddd; padding-bottom: 8px; margin-top: 0; padding-top: 1rem; margin-bottom: 1.25rem; }
+
+#toc { border-bottom: 0 solid #ddd; padding-bottom: 0.5em; }
+#toc > ul { margin-left: 0.125em; }
+#toc ul.sectlevel0 > li > a { font-style: italic; }
+#toc ul.sectlevel0 ul.sectlevel1 { margin: 0.5em 0; }
+#toc ul { font-family: Noto, sans-serif; list-style-type: none; }
+#toc li { line-height: 1.3334; margin-top: 0.3334em; }
+#toc a { text-decoration: none; }
+#toc a:active { text-decoration: underline; }
+
+#toctitle { color: black; font-size: 1.2em; }
+
+@media only screen and (min-width: 768px) { #toctitle { font-size: 1.375em; }
+  body.toc2 { padding-left: 15em; padding-right: 0; }
+  #toc.toc2 { margin-top: 0 !important; background-color: #fff; position: fixed; width: 15em; left: 0; top: 0; border-right: 1px solid #ddd; border-top-width: 0 !important; border-bottom-width: 0 !important; z-index: 1000; padding: 1.25em 1em; height: 100%; overflow: auto; }
+  #toc.toc2 #toctitle { margin-top: 0; margin-bottom: 0.8rem; font-size: 1.2em; }
+  #toc.toc2 > ul { font-size: 0.9em; margin-bottom: 0; }
+  #toc.toc2 ul ul { margin-left: 0; padding-left: 1em; }
+  #toc.toc2 ul.sectlevel0 ul.sectlevel1 { padding-left: 0; margin-top: 0.5em; margin-bottom: 0.5em; }
+  body.toc2.toc-right { padding-left: 0; padding-right: 15em; }
+  body.toc2.toc-right #toc.toc2 { border-right-width: 0; border-left: 1px solid #ddd; left: auto; right: 0; } }
+@media only screen and (min-width: 1280px) { body.toc2 { padding-left: 20em; padding-right: 0; }
+  #toc.toc2 { width: 20em; }
+  #toc.toc2 #toctitle { font-size: 1.375em; }
+  #toc.toc2 > ul { font-size: 0.95em; }
+  #toc.toc2 ul ul { padding-left: 1.25em; }
+  body.toc2.toc-right { padding-left: 0; padding-right: 20em; } }
+#content #toc { border-style: solid; border-width: 1px; border-color: #e6e6e6; margin-bottom: 1.25em; padding: 1.25em; background: #fff; -webkit-border-radius: 0; border-radius: 0; }
+#content #toc > :first-child { margin-top: 0; }
+#content #toc > :last-child { margin-bottom: 0; }
+
+#footer { max-width: 100%; background-color: none; padding: 1.25em; }
+
+#footer-text { color: black; line-height: 1.44; }
+
+#content { margin-bottom: 0.625em; }
+
+.sect1 { padding-bottom: 0.625em; }
+
+@media only screen and (min-width: 768px) { #content { margin-bottom: 1.25em; }
+  .sect1 { padding-bottom: 1.25em; } }
+.sect1:last-child { padding-bottom: 0; }
+
+.sect1 + .sect1 { border-top: 0 solid #ddd; }
+
+#content h1 > a.anchor, h2 > a.anchor, h3 > a.anchor, #toctitle > a.anchor, .sidebarblock > .content > .title > a.anchor, h4 > a.anchor, h5 > a.anchor, h6 > a.anchor { position: absolute; z-index: 1001; width: 1.5ex; margin-left: -1.5ex; display: block; text-decoration: none !important; visibility: hidden; text-align: center; font-weight: normal; }
+#content h1 > a.anchor:before, h2 > a.anchor:before, h3 > a.anchor:before, #toctitle > a.anchor:before, .sidebarblock > .content > .title > a.anchor:before, h4 > a.anchor:before, h5 > a.anchor:before, h6 > a.anchor:before { content: "\00A7"; font-size: 0.85em; display: block; padding-top: 0.1em; }
+#content h1:hover > a.anchor, #content h1 > a.anchor:hover, h2:hover > a.anchor, h2 > a.anchor:hover, h3:hover > a.anchor, #toctitle:hover > a.anchor, .sidebarblock > .content > .title:hover > a.anchor, h3 > a.anchor:hover, #toctitle > a.anchor:hover, .sidebarblock > .content > .title > a.anchor:hover, h4:hover > a.anchor, h4 > a.anchor:hover, h5:hover > a.anchor, h5 > a.anchor:hover, h6:hover > a.anchor, h6 > a.anchor:hover { visibility: visible; }
+#content h1 > a.link, h2 > a.link, h3 > a.link, #toctitle > a.link, .sidebarblock > .content > .title > a.link, h4 > a.link, h5 > a.link, h6 > a.link { color: black; text-decoration: none; }
+#content h1 > a.link:hover, h2 > a.link:hover, h3 > a.link:hover, #toctitle > a.link:hover, .sidebarblock > .content > .title > a.link:hover, h4 > a.link:hover, h5 > a.link:hover, h6 > a.link:hover { color: black; }
+
+.audioblock, .imageblock, .literalblock, .listingblock, .stemblock, .videoblock { margin-bottom: 1.25em; }
+
+.admonitionblock td.content > .title, .audioblock > .title, .exampleblock > .title, .imageblock > .title, .listingblock > .title, .literalblock > .title, .stemblock > .title, .openblock > .title, .paragraph > .title, .quoteblock > .title, table.tableblock > .title, .verseblock > .title, .videoblock > .title, .dlist > .title, .olist > .title, .ulist > .title, .qlist > .title, .hdlist > .title { text-rendering: optimizeLegibility; text-align: left; }
+
+table.tableblock > caption.title { white-space: nowrap; overflow: visible; max-width: 0; }
+
+.paragraph.lead > p, #preamble > .sectionbody > .paragraph:first-of-type p { color: black; }
+
+table.tableblock #preamble > .sectionbody > .paragraph:first-of-type p { font-size: inherit; }
+
+.admonitionblock > table { border-collapse: separate; border: 0; background: none; width: 100%; }
+.admonitionblock > table td.icon { text-align: center; width: 80px; }
+.admonitionblock > table td.icon img { max-width: initial; }
+.admonitionblock > table td.icon .title { font-weight: bold; font-family: Noto, sans-serif; text-transform: uppercase; }
+.admonitionblock > table td.content { padding-left: 1.125em; padding-right: 1.25em; border-left: 1px solid #ddd; color: #365E7A; }
+.admonitionblock > table td.content > :last-child > :last-child { margin-bottom: 0; }
+
+.exampleblock > .content { border-style: solid; border-width: 1px; border-color: #e6e6e6; margin-bottom: 1.25em; padding: 1.25em; background: #fff; -webkit-border-radius: 0; border-radius: 0; }
+.exampleblock > .content > :first-child { margin-top: 0; }
+.exampleblock > .content > :last-child { margin-bottom: 0; }
+
+.sidebarblock { border-style: solid; border-width: 1px; border-color: #e6e6e6; margin-bottom: 1.25em; padding: 1.25em; background: #fff; -webkit-border-radius: 0; border-radius: 0; }
+.sidebarblock > :first-child { margin-top: 0; }
+.sidebarblock > :last-child { margin-bottom: 0; }
+.sidebarblock > .content > .title { color: black; margin-top: 0; }
+
+.exampleblock > .content > :last-child > :last-child, .exampleblock > .content .olist > ol > li:last-child > :last-child, .exampleblock > .content .ulist > ul > li:last-child > :last-child, .exampleblock > .content .qlist > ol > li:last-child > :last-child, .sidebarblock > .content > :last-child > :last-child, .sidebarblock > .content .olist > ol > li:last-child > :last-child, .sidebarblock > .content .ulist > ul > li:last-child > :last-child, .sidebarblock > .content .qlist > ol > li:last-child > :last-child { margin-bottom: 0; }
+
+.literalblock pre, .listingblock pre:not(.highlight), .listingblock pre[class="highlight"], .listingblock pre[class^="highlight "], .listingblock pre.CodeRay, .listingblock pre.prettyprint { background: #eee; }
+.sidebarblock .literalblock pre, .sidebarblock .listingblock pre:not(.highlight), .sidebarblock .listingblock pre[class="highlight"], .sidebarblock .listingblock pre[class^="highlight "], .sidebarblock .listingblock pre.CodeRay, .sidebarblock .listingblock pre.prettyprint { background: #f2f1f1; }
+
+.literalblock pre, .literalblock pre[class], .listingblock pre, .listingblock pre[class] { border: 1px hidden #666; -webkit-border-radius: 0; border-radius: 0; word-wrap: break-word; padding: 1.25em 1.5625em 1.125em 1.5625em; font-size: 0.8125em; }
+.literalblock pre.nowrap, .literalblock pre[class].nowrap, .listingblock pre.nowrap, .listingblock pre[class].nowrap { overflow-x: auto; white-space: pre; word-wrap: normal; }
+@media only screen and (min-width: 768px) { .literalblock pre, .literalblock pre[class], .listingblock pre, .listingblock pre[class] { font-size: 0.90625em; } }
+@media only screen and (min-width: 1280px) { .literalblock pre, .literalblock pre[class], .listingblock pre, .listingblock pre[class] { font-size: 1em; } }
+
+.literalblock.output pre { color: #eee; background-color: #264357; }
+
+.listingblock pre.highlightjs { padding: 0; }
+.listingblock pre.highlightjs > code { padding: 1.25em 1.5625em 1.125em 1.5625em; -webkit-border-radius: 0; border-radius: 0; }
+
+.listingblock > .content { position: relative; }
+
+.listingblock code[data-lang]:before { display: none; content: attr(data-lang); position: absolute; font-size: 0.75em; top: 0.425rem; right: 0.5rem; line-height: 1; text-transform: uppercase; color: #999; }
+
+.listingblock:hover code[data-lang]:before { display: block; }
+
+.listingblock.terminal pre .command:before { content: attr(data-prompt); padding-right: 0.5em; color: #999; }
+
+.listingblock.terminal pre .command:not([data-prompt]):before { content: "$"; }
+
+table.pyhltable { border-collapse: separate; border: 0; margin-bottom: 0; background: none; }
+
+table.pyhltable td { vertical-align: top; padding-top: 0; padding-bottom: 0; line-height: 1.6; }
+
+table.pyhltable td.code { padding-left: .75em; padding-right: 0; }
+
+pre.pygments .lineno, table.pyhltable td:not(.code) { color: #999; padding-left: 0; padding-right: .5em; border-right: 1px solid #ddd; }
+
+pre.pygments .lineno { display: inline-block; margin-right: .25em; }
+
+table.pyhltable .linenodiv { background: none !important; padding-right: 0 !important; }
+
+.quoteblock { margin: 0 1em 0.75em 1.5em; display: table; }
+.quoteblock > .title { margin-left: -1.5em; margin-bottom: 0.75em; }
+.quoteblock blockquote, .quoteblock blockquote p { color: #333; font-size: 1.15rem; line-height: 1.75; word-spacing: 0.1em; letter-spacing: 0; font-style: italic; text-align: justify; }
+.quoteblock blockquote { margin: 0; padding: 0; border: 0; }
+.quoteblock blockquote:before { content: "\201c"; float: left; font-size: 2.75em; font-weight: bold; line-height: 0.6em; margin-left: -0.6em; color: black; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); }
+.quoteblock blockquote > .paragraph:last-child p { margin-bottom: 0; }
+.quoteblock .attribution { margin-top: 0.5em; margin-right: 0.5ex; text-align: right; }
+.quoteblock .quoteblock { margin-left: 0; margin-right: 0; padding: 0.5em 0; border-left: 3px solid #365E7A; }
+.quoteblock .quoteblock blockquote { padding: 0 0 0 0.75em; }
+.quoteblock .quoteblock blockquote:before { display: none; }
+
+.verseblock { margin: 0 1em 0.75em 1em; }
+.verseblock pre { font-family: "Open Sans", "DejaVu Sans", sans; font-size: 1.15rem; color: #333; font-weight: 300; text-rendering: optimizeLegibility; }
+.verseblock pre strong { font-weight: 400; }
+.verseblock .attribution { margin-top: 1.25rem; margin-left: 0.5ex; }
+
+.quoteblock .attribution, .verseblock .attribution { font-size: 0.8125em; line-height: 1.45; font-style: italic; }
+.quoteblock .attribution br, .verseblock .attribution br { display: none; }
+.quoteblock .attribution cite, .verseblock .attribution cite { display: block; letter-spacing: -0.025em; color: #365E7A; }
+
+.quoteblock.abstract { margin: 0 0 0.75em 0; display: block; }
+.quoteblock.abstract blockquote, .quoteblock.abstract blockquote p { text-align: left; word-spacing: 0; }
+.quoteblock.abstract blockquote:before, .quoteblock.abstract blockquote p:first-of-type:before { display: none; }
+
+table.tableblock { max-width: 100%; border-collapse: separate; }
+table.tableblock td > .paragraph:last-child p > p:last-child, table.tableblock th > p:last-child, table.tableblock td > p:last-child { margin-bottom: 0; }
+
+table.tableblock, th.tableblock, td.tableblock { border: 0 solid #d8d8ce; }
+
+table.grid-all > thead > tr > .tableblock, table.grid-all > tbody > tr > .tableblock { border-width: 0 1px 1px 0; }
+
+table.grid-all > tfoot > tr > .tableblock { border-width: 1px 1px 0 0; }
+
+table.grid-cols > * > tr > .tableblock { border-width: 0 1px 0 0; }
+
+table.grid-rows > thead > tr > .tableblock, table.grid-rows > tbody > tr > .tableblock { border-width: 0 0 1px 0; }
+
+table.grid-rows > tfoot > tr > .tableblock { border-width: 1px 0 0 0; }
+
+table.grid-all > * > tr > .tableblock:last-child, table.grid-cols > * > tr > .tableblock:last-child { border-right-width: 0; }
+
+table.grid-all > tbody > tr:last-child > .tableblock, table.grid-all > thead:last-child > tr > .tableblock, table.grid-rows > tbody > tr:last-child > .tableblock, table.grid-rows > thead:last-child > tr > .tableblock { border-bottom-width: 0; }
+
+table.frame-all { border-width: 1px; }
+
+table.frame-sides { border-width: 0 1px; }
+
+table.frame-topbot { border-width: 1px 0; }
+
+th.halign-left, td.halign-left { text-align: left; }
+
+th.halign-right, td.halign-right { text-align: right; }
+
+th.halign-center, td.halign-center { text-align: center; }
+
+th.valign-top, td.valign-top { vertical-align: top; }
+
+th.valign-bottom, td.valign-bottom { vertical-align: bottom; }
+
+th.valign-middle, td.valign-middle { vertical-align: middle; }
+
+table thead th, table tfoot th { font-weight: bold; }
+
+tbody tr th { display: table-cell; line-height: 1.4; background: #eee; }
+
+tbody tr th, tbody tr th p, tfoot tr th, tfoot tr th p { color: #222; font-weight: bold; }
+
+p.tableblock > code:only-child { background: none; padding: 0; }
+
+p.tableblock { font-size: 1em; }
+
+td > div.verse { white-space: pre; }
+
+ol { margin-left: 1.75em; }
+
+ul li ol { margin-left: 1.5em; }
+
+dl dd { margin-left: 1.125em; }
+
+dl dd:last-child, dl dd:last-child > :last-child { margin-bottom: 0; }
+
+ol > li p, ul > li p, ul dd, ol dd, .olist .olist, .ulist .ulist, .ulist .olist, .olist .ulist { margin-bottom: 0.375em; }
+
+ul.checklist, ul.none, ol.none, ul.no-bullet, ol.no-bullet, ol.unnumbered, ul.unstyled, ol.unstyled { list-style-type: none; }
+
+ul.no-bullet, ol.no-bullet, ol.unnumbered { margin-left: 0.625em; }
+
+ul.unstyled, ol.unstyled { margin-left: 0; }
+
+ul.checklist { margin-left: 0.625em; }
+
+ul.checklist li > p:first-child > .fa-square-o:first-child, ul.checklist li > p:first-child > .fa-check-square-o:first-child { width: 1.25em; font-size: 0.8em; position: relative; bottom: 0.125em; }
+
+ul.checklist li > p:first-child > input[type="checkbox"]:first-child { margin-right: 0.25em; }
+
+ul.inline { display: -ms-flexbox; display: -webkit-box; display: flex; -ms-flex-flow: row wrap; -webkit-flex-flow: row wrap; flex-flow: row wrap; list-style: none; margin: 0 0 0.375em -0.75em; }
+
+ul.inline > li { margin-left: 0.75em; }
+
+.unstyled dl dt { font-weight: normal; font-style: normal; }
+
+ol.arabic { list-style-type: decimal; }
+
+ol.decimal { list-style-type: decimal-leading-zero; }
+
+ol.loweralpha { list-style-type: lower-alpha; }
+
+ol.upperalpha { list-style-type: upper-alpha; }
+
+ol.lowerroman { list-style-type: lower-roman; }
+
+ol.upperroman { list-style-type: upper-roman; }
+
+ol.lowergreek { list-style-type: lower-greek; }
+
+.hdlist > table, .colist > table { border: 0; background: none; }
+.hdlist > table > tbody > tr, .colist > table > tbody > tr { background: none; }
+
+td.hdlist1, td.hdlist2 { vertical-align: top; padding: 0 0.625em; }
+
+td.hdlist1 { font-weight: bold; padding-bottom: 0.75em; }
+
+.literalblock + .colist, .listingblock + .colist { margin-top: -0.5em; }
+
+.colist > table tr > td:first-of-type { padding: 0.4em 0.75em 0 0.75em; line-height: 1; vertical-align: top; }
+.colist > table tr > td:first-of-type img { max-width: initial; }
+.colist > table tr > td:last-of-type { padding: 0.25em 0; }
+
+.thumb, .th { line-height: 0; display: inline-block; border: solid 4px #fff; -webkit-box-shadow: 0 0 0 1px #ddd; box-shadow: 0 0 0 1px #ddd; }
+
+.imageblock.left, .imageblock[style*="float: left"] { margin: 0.25em 0.625em 1.25em 0; }
+.imageblock.right, .imageblock[style*="float: right"] { margin: 0.25em 0 1.25em 0.625em; }
+.imageblock > .title { margin-bottom: 0; }
+.imageblock.thumb, .imageblock.th { border-width: 6px; }
+.imageblock.thumb > .title, .imageblock.th > .title { padding: 0 0.125em; }
+
+.image.left, .image.right { margin-top: 0.25em; margin-bottom: 0.25em; display: inline-block; line-height: 0; }
+.image.left { margin-right: 0.625em; }
+.image.right { margin-left: 0.625em; }
+
+a.image { text-decoration: none; display: inline-block; }
+a.image object { pointer-events: none; }
+
+sup.footnote, sup.footnoteref { font-size: 0.875em; position: static; vertical-align: super; }
+sup.footnote a, sup.footnoteref a { text-decoration: none; }
+sup.footnote a:active, sup.footnoteref a:active { text-decoration: underline; }
+
+#footnotes { padding-top: 0.75em; padding-bottom: 0.75em; margin-bottom: 0.625em; }
+#footnotes hr { width: 20%; min-width: 6.25em; margin: -0.25em 0 0.75em 0; border-width: 1px 0 0 0; }
+#footnotes .footnote { padding: 0 0.375em 0 0.225em; line-height: 1.3334; font-size: 0.875em; margin-left: 1.2em; margin-bottom: 0.2em; }
+#footnotes .footnote a:first-of-type { font-weight: bold; text-decoration: none; margin-left: -1.05em; }
+#footnotes .footnote:last-of-type { margin-bottom: 0; }
+#content #footnotes { margin-top: -0.625em; margin-bottom: 0; padding: 0.75em 0; }
+
+.gist .file-data > table { border: 0; background: #fff; width: 100%; margin-bottom: 0; }
+.gist .file-data > table td.line-data { width: 99%; }
+
+div.unbreakable { page-break-inside: avoid; }
+
+.big { font-size: larger; }
+
+.small { font-size: smaller; }
+
+.underline { text-decoration: underline; }
+
+.overline { text-decoration: overline; }
+
+.line-through { text-decoration: line-through; }
+
+.aqua { color: #00bfbf; }
+
+.aqua-background { background-color: #00fafa; }
+
+.black { color: black; }
+
+.black-background { background-color: black; }
+
+.blue { color: #0000bf; }
+
+.blue-background { background-color: #0000fa; }
+
+.fuchsia { color: #bf00bf; }
+
+.fuchsia-background { background-color: #fa00fa; }
+
+.gray { color: #606060; }
+
+.gray-background { background-color: #7d7d7d; }
+
+.green { color: #006000; }
+
+.green-background { background-color: #007d00; }
+
+.lime { color: #00bf00; }
+
+.lime-background { background-color: #00fa00; }
+
+.maroon { color: #600000; }
+
+.maroon-background { background-color: #7d0000; }
+
+.navy { color: #000060; }
+
+.navy-background { background-color: #00007d; }
+
+.olive { color: #606000; }
+
+.olive-background { background-color: #7d7d00; }
+
+.purple { color: #600060; }
+
+.purple-background { background-color: #7d007d; }
+
+.red { color: #bf0000; }
+
+.red-background { background-color: #fa0000; }
+
+.silver { color: #909090; }
+
+.silver-background { background-color: #bcbcbc; }
+
+.teal { color: #006060; }
+
+.teal-background { background-color: #007d7d; }
+
+.white { color: #bfbfbf; }
+
+.white-background { background-color: #fafafa; }
+
+.yellow { color: #bfbf00; }
+
+.yellow-background { background-color: #fafa00; }
+
+span.icon > .fa { cursor: default; }
+a span.icon > .fa { cursor: inherit; }
+
+.admonitionblock td.icon [class^="fa icon-"] { font-size: 2.5em; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); cursor: default; }
+.admonitionblock td.icon .icon-note:before { content: "\f05a"; color: #29475c; }
+.admonitionblock td.icon .icon-tip:before { content: "\f0eb"; text-shadow: 1px 1px 2px rgba(155, 155, 0, 0.8); color: #111; }
+.admonitionblock td.icon .icon-warning:before { content: "\f071"; color: #bf6900; }
+.admonitionblock td.icon .icon-caution:before { content: "\f06d"; color: #bf3400; }
+.admonitionblock td.icon .icon-important:before { content: "\f06a"; color: #bf0000; }
+
+.conum[data-value] { display: inline-block; color: #fff !important; background-color: black; -webkit-border-radius: 100px; border-radius: 100px; text-align: center; font-size: 0.75em; width: 1.67em; height: 1.67em; line-height: 1.67em; font-family: "Open Sans", "DejaVu Sans", sans-serif; font-style: normal; font-weight: bold; }
+.conum[data-value] * { color: #fff !important; }
+.conum[data-value] + b { display: none; }
+.conum[data-value]:after { content: attr(data-value); }
+pre .conum[data-value] { position: relative; top: -0.125em; }
+
+b.conum * { color: inherit !important; }
+
+.conum:not([data-value]):empty { display: none; }
+
+h1, h2, h3, #toctitle, .sidebarblock > .content > .title, h4, h5, h6 { border-bottom: 1px solid #ddd; }
+
+.sect1 { padding-bottom: 0; }
+
+#toctitle { color: #00406F; font-weight: normal; margin-top: 1.5em; }
+
+.sidebarblock { border-color: #aaa; }
+
+code { -webkit-border-radius: 4px; border-radius: 4px; }
+
+p.tableblock.header { color: #6d6e71; }
+
+.literalblock pre, .listingblock pre { background: #eee; }
+
+/* From https://github.com/KhronosGroup/Vulkan-Docs/pull/901 */
+a code { color: inherit; }
+
+/* From https://github.com/KhronosGroup/Vulkan-Docs/pull/1157 */
+/* Make VUID anchor handles*/
+li > p > a[id^="VUID-"] { visibility: hidden; position: absolute; z-index: 1001; width: 2.2ex; margin-left: -2.2ex; display: block; text-decoration: none !important; text-align: center; font-weight: normal; }
+
+li > p > a[id^="VUID-"]:before { content: "\00A7"; font-size: 1em; display: block; padding-top: 0em; background: #fff; }
+
+li > p:hover > a[id^="VUID-"], li > p > a[id^="VUID-"]:hover { visibility: visible; }
+
+li > p > a[id^="VUID-"].link { color: black; text-decoration: none; }
+
+/* TODO: not quite sure what these two do */
+li > p > a[id^="VUID-"].link:hover { color: black; }
+
+.vuid { color: #4d4d4d; font-family: monospace; }
+
+</style>
+<link rel="stylesheet" href="../katex/katex.min.css">
+<script src="../katex/katex.min.js"></script>
+<script src="../katex/contrib/auto-render.min.js"></script>
+    <!-- Use KaTeX to render math once document is loaded, see
+         https://github.com/Khan/KaTeX/tree/master/contrib/auto-render -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        renderMathInElement(
+            document.body,
+            {
+                delimiters: [
+                    { left: "$$", right: "$$", display: true},
+                    { left: "\\[", right: "\\]", display: true},
+                    { left: "$", right: "$", display: false},
+                    { left: "\\(", right: "\\)", display: false}
+                ]
+            }
+        );
+    });
+</script></head>
+<body class="book">
+<div id="header">
+<h1>cl_intel_unified_shared_memory</h1>
+<div class="details">
+<span id="revnumber">version v3.0.10,</span>
+<span id="revdate">Fri, 19 Nov 2021 22:20:00 +0000</span>
+<br><span id="revremark">from git branch: master commit: 62afd10cc1c8389b8a3d8dd68785f2b7972451e4</span>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_name_strings"><a class="anchor" href="#_name_strings"></a>Name Strings</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>cl_intel_unified_shared_memory</code></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_contact"><a class="anchor" href="#_contact"></a>Contact</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Ben Ashbaugh, Intel (ben 'dot' ashbaugh 'at' intel 'dot' com)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_contributors"><a class="anchor" href="#_contributors"></a>Contributors</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Ben Ashbaugh, Intel<br>
+James Brodman, Intel<br>
+Maciej Dziuban, Intel<br>
+Krzysztof Gibala, Intel<br>
+Wenju He, Intel<br>
+Kris Kang, Intel<br>
+Michael Kinsner, Intel<br>
+Michal Mrozek, Intel<br>
+Lukasz Towarek, Intel</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_notice"><a class="anchor" href="#_notice"></a>Notice</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Copyright (c) 2021 Intel Corporation.  All rights reserved.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_status"><a class="anchor" href="#_status"></a>Status</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Shipping</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_version"><a class="anchor" href="#_version"></a>Version</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Built On: 2021-11-17<br>
+Revision: 1.0.0</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dependencies"><a class="anchor" href="#_dependencies"></a>Dependencies</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This extension is written against the OpenCL API Specification Version 3.0.9.
+This extension extends the <code>clSetKernelExecInfo</code> API from OpenCL 2.0 and hence requires an OpenCL 2.0 platform, however it is intended to be implementable by devices supporting many diverse OpenCL versions.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_overview"><a class="anchor" href="#_overview"></a>Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This extension adds "Unified Shared Memory" (USM) to OpenCL.
+Unified Shared Memory provides:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Easier integration into existing code bases by representing OpenCL allocations as pointers rather than handles (<code>cl_mems</code>), with full support for pointer arithmetic into allocations.</p>
+</li>
+<li>
+<p>Fine-grain control over ownership and accessibility of OpenCL allocations, to optimally choose between performance and programmer convenience.</p>
+</li>
+<li>
+<p>A simpler programming model, by automatically migrating some allocations between OpenCL devices and the host.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>While Unified Shared Memory (USM) shares many features with Shared Virtual Memory (SVM), Unified Shared Memory provides a different mix of capabilities and control.
+Specifically:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The matrix of USM capabilities supports combinations of features beyond the SVM capability queries.</p>
+</li>
+<li>
+<p>USM provides explicit control over memory placement and migration by supporting host allocations with wide visibility, devices allocations for best performance, and shared allocations that may migrate between devices and the host.</p>
+</li>
+<li>
+<p>USM allocations may be associated with both a device and a context.
+The USM allocation APIs support additional memory flags and optional properties to affect how memory is allocated and migrated.</p>
+</li>
+<li>
+<p>There is no need for APIs to map or unmap USM allocations, because host accessible USM allocations do not need to be mapped or unmapped to access the contents of a USM allocation on the host.</p>
+</li>
+<li>
+<p>An application may indicate that a kernel may access categories of USM allocations indirectly, without passing a set of all indirectly accessed USM allocations to the kernel, improving usability and reducing driver overhead for kernels that access many USM allocations.</p>
+</li>
+<li>
+<p>USM adds API functions to query properties of a USM allocation and to provide memory advice for an allocation.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Unified Shared Memory and Shared Virtual Memory can and will coexist for many implementations.
+All implementations that support Shared Virtual Memory may support at least some types of Unified Shared Memory.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_new_api_functions"><a class="anchor" href="#_new_api_functions"></a>New API Functions</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>void*   clHostMemAllocINTEL(
+            cl_context context,
+            const cl_mem_properties_intel* properties,
+            size_t size,
+            cl_uint alignment,
+            cl_int* errcode_ret);
+
+void*   clDeviceMemAllocINTEL(
+            cl_context context,
+            cl_device_id device,
+            const cl_mem_properties_intel* properties,
+            size_t size,
+            cl_uint alignment,
+            cl_int* errcode_ret);
+
+void*   clSharedMemAllocINTEL(
+            cl_context context,
+            cl_device_id device,
+            const cl_mem_properties_intel* properties,
+            size_t size,
+            cl_uint alignment,
+            cl_int* errcode_ret);
+
+cl_int  clMemFreeINTEL(
+            cl_context context,
+            void* ptr);
+
+cl_int  clMemBlockingFreeINTEL(
+            cl_context context,
+            void* ptr);
+
+cl_int  clGetMemAllocInfoINTEL(
+            cl_context context,
+            const void* ptr,
+            cl_mem_info_intel param_name,
+            size_t param_value_size,
+            void* param_value,
+            size_t* param_value_size_ret);
+
+cl_int  clSetKernelArgMemPointerINTEL(
+            cl_kernel kernel,
+            cl_uint arg_index,
+            const void* arg_value);
+
+cl_int  clEnqueueMemFillINTEL(
+            cl_command_queue command_queue,
+            void* dst_ptr,
+            const void* pattern,
+            size_t pattern_size,
+            size_t size,
+            cl_uint num_events_in_wait_list,
+            const cl_event* event_wait_list,
+            cl_event* event);
+
+cl_int  clEnqueueMemcpyINTEL(
+            cl_command_queue command_queue,
+            cl_bool blocking,
+            void* dst_ptr,
+            const void* src_ptr,
+            size_t size,
+            cl_uint num_events_in_wait_list,
+            const cl_event* event_wait_list,
+            cl_event* event);
+
+cl_int  clEnqueueMigrateMemINTEL(
+            cl_command_queue command_queue,
+            const void* ptr,
+            size_t size,
+            cl_mem_migration_flags flags,
+            cl_uint num_events_in_wait_list,
+            const cl_event* event_wait_list,
+            cl_event* event);
+
+cl_int  clEnqueueMemAdviseINTEL(
+            cl_command_queue command_queue,
+            const void* ptr,
+            size_t size,
+            cl_mem_advice_intel advice,
+            cl_uint num_events_in_wait_list,
+            const cl_event* event_wait_list,
+            cl_event* event);</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_new_api_enums"><a class="anchor" href="#_new_api_enums"></a>New API Enums</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Accepted value for the <em>param_name</em> parameter to <strong>clGetDeviceInfo</strong> to query the Unified Shared Memory capabilities of an OpenCL device:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>#define CL_DEVICE_HOST_MEM_CAPABILITIES_INTEL                   0x4190
+#define CL_DEVICE_DEVICE_MEM_CAPABILITIES_INTEL                 0x4191
+#define CL_DEVICE_SINGLE_DEVICE_SHARED_MEM_CAPABILITIES_INTEL   0x4192
+#define CL_DEVICE_CROSS_DEVICE_SHARED_MEM_CAPABILITIES_INTEL    0x4193
+#define CL_DEVICE_SHARED_SYSTEM_MEM_CAPABILITIES_INTEL          0x4194</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Bitfield type and bits describing the Unified Shared Memory capabilities of an OpenCL device:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>typedef cl_bitfield cl_device_unified_shared_memory_capabilities_intel;
+
+#define CL_UNIFIED_SHARED_MEMORY_ACCESS_INTEL                   (1 &lt;&lt; 0)
+#define CL_UNIFIED_SHARED_MEMORY_ATOMIC_ACCESS_INTEL            (1 &lt;&lt; 1)
+#define CL_UNIFIED_SHARED_MEMORY_CONCURRENT_ACCESS_INTEL        (1 &lt;&lt; 2)
+#define CL_UNIFIED_SHARED_MEMORY_CONCURRENT_ATOMIC_ACCESS_INTEL (1 &lt;&lt; 3)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Type to describe optional Unified Shared Memory allocation properties:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>typedef cl_bitfield cl_mem_properties_intel;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Enumerant value requesting optional allocation properties for a Unified Shared Memory allocation:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>#define CL_MEM_ALLOC_FLAGS_INTEL        0x4195</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Bitfield type and bits describing optional allocation properties for a Unified Shared Memory allocation:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>typedef cl_bitfield cl_mem_alloc_flags_intel;
+
+#define CL_MEM_ALLOC_WRITE_COMBINED_INTEL               (1 &lt;&lt; 0)
+#define CL_MEM_ALLOC_INITIAL_PLACEMENT_DEVICE_INTEL     (1 &lt;&lt; 1)
+#define CL_MEM_ALLOC_INITIAL_PLACEMENT_HOST_INTEL       (1 &lt;&lt; 2)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Enumeration type and values for the <em>param_name</em> parameter to <strong>clGetMemAllocInfoINTEL</strong> to query information about a Unified Shared Memory allocation.
+Optional allocation properties may also be queried using <strong>clGetMemAllocInfoINTEL</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>typedef cl_uint cl_mem_info_intel;
+
+#define CL_MEM_ALLOC_TYPE_INTEL         0x419A
+#define CL_MEM_ALLOC_BASE_PTR_INTEL     0x419B
+#define CL_MEM_ALLOC_SIZE_INTEL         0x419C
+#define CL_MEM_ALLOC_DEVICE_INTEL       0x419D
+/* CL_MEM_ALLOC_FLAGS_INTEL - defined above */
+/* Enum values 0x419E-0x419F are reserved for future queries. */</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Enumeration type and values describing the type of Unified Shared Memory allocation.
+Returned by <strong>clGetMemAllocInfoINTEL</strong> when <em>param_name</em> is <code>CL_MEM_ALLOC_TYPE_INTEL</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>typedef cl_uint cl_unified_shared_memory_type_intel;
+
+#define CL_MEM_TYPE_UNKNOWN_INTEL       0x4196
+#define CL_MEM_TYPE_HOST_INTEL          0x4197
+#define CL_MEM_TYPE_DEVICE_INTEL        0x4198
+#define CL_MEM_TYPE_SHARED_INTEL        0x4199</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Enumeration type and values for the <em>advice</em> parameter to <strong>clEnqueueMemAdviseINTEL</strong> to provide memory advice for a Unified Shared Memory allocation:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>typedef cl_uint cl_mem_advice_intel;
+/* Enum values 0x4208-0x420F are reserved for future memory advices. */</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Accepted value for the <em>param_name</em> parameter to <strong>clSetKernelExecInfo</strong> to specify that the kernel may indirectly access Unified Shared Memory allocations of the specified type:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>#define CL_KERNEL_EXEC_INFO_INDIRECT_HOST_ACCESS_INTEL      0x4200
+#define CL_KERNEL_EXEC_INFO_INDIRECT_DEVICE_ACCESS_INTEL    0x4201
+#define CL_KERNEL_EXEC_INFO_INDIRECT_SHARED_ACCESS_INTEL    0x4202</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Accepted value for the <em>param_name</em> parameter to <strong>clSetKernelExecInfo</strong> to specify a set of Unified Shared Memory allocations that the kernel may indirectly access:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>#define CL_KERNEL_EXEC_INFO_USM_PTRS_INTEL                  0x4203</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>New return values from <strong>clGetEventInfo</strong> when <em>param_name</em> is <code>CL_EVENT_COMMAND_TYPE</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>#define CL_COMMAND_MEMFILL_INTEL        0x4204
+#define CL_COMMAND_MEMCPY_INTEL         0x4205
+#define CL_COMMAND_MIGRATEMEM_INTEL     0x4206
+#define CL_COMMAND_MEMADVISE_INTEL      0x4207</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_modifications_to_the_opencl_api_specification"><a class="anchor" href="#_modifications_to_the_opencl_api_specification"></a>Modifications to the OpenCL API Specification</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_section_4_2_querying_devices"><a class="anchor" href="#_section_4_2_querying_devices"></a>Section 4.2 - Querying Devices:</h3>
+<div class="paragraph">
+<p>Add to Table 5 - List of supported param_names by <strong>clGetDeviceInfo</strong>:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 5. List of supported param_names by clGetDeviceInfo</caption>
+<colgroup>
+<col style="width: 30%;">
+<col style="width: 20%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Device Info</th>
+<th class="tableblock halign-left valign-top">Return Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_HOST_&#8203;MEM_CAPABILITIES_INTEL</code><br>
+  <br>
+  <code>CL_DEVICE_DEVICE_&#8203;MEM_CAPABILITIES_INTEL</code><br>
+  <br>
+  <code>CL_DEVICE_SINGLE_DEVICE_SHARED_&#8203;MEM_CAPABILITIES_INTEL</code><br>
+  <br>
+  <code>CL_DEVICE_CROSS_DEVICE_SHARED_&#8203;MEM_CAPABILITIES_INTEL</code><br>
+  <br>
+  <code>CL_DEVICE_SHARED_SYSTEM_&#8203;MEM_CAPABILITIES_INTEL</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_device_unified_shared_&#8203;memory_capabilities_intel</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Describes the ability for a device to access Unified Shared Memory allocations of the specified type.</p>
+<p class="tableblock">        The host memory access capabilities apply to any host allocation.</p>
+<p class="tableblock">        The device memory access capabilities apply to any device allocation associated with this device.</p>
+<p class="tableblock">        The single device shared memory access capabilities apply to any shared allocation associated with this device.</p>
+<p class="tableblock">        The cross-device shared memory access capabilities apply to any shared allocation associated with this device, or to any shared memory allocation on another device that also supports the same cross-device shared memory access capability.</p>
+<p class="tableblock">        The shared system memory access capabilities apply to any allocations made by a system allocator, such as <code>malloc</code> or <code>new</code>.</p>
+<p class="tableblock">        The access capabilities are encoded as bits in a bitfield.
+        Supported capabilities are:</p>
+<p class="tableblock">        <code>CL_UNIFIED_SHARED_MEMORY_ACCESS_INTEL</code>:
+        The device may access (read or write) Unified Shared Memory allocations of this type.</p>
+<p class="tableblock">        <code>CL_UNIFIED_SHARED_MEMORY_ATOMIC_ACCESS_INTEL</code>:
+        The device may perform atomic operations on Unified Shared Memory allocations of this type.</p>
+<p class="tableblock">        <code>CL_UNIFIED_SHARED_MEMORY_CONCURRENT_ACCESS_INTEL</code>:
+        The device supports concurrent access to Unified Shared Memory allocations of this type.
+        Concurrent access may be from the host, or from other OpenCL devices, where applicable.</p>
+<p class="tableblock">        <code>CL_UNIFIED_SHARED_MEMORY_CONCURRENT_ATOMIC_ACCESS_INTEL</code>:
+        The device supports concurrent atomic access to Unified Shared Memory allocations of this type.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_new_section_5_x_unified_shared_memory"><a class="anchor" href="#_new_section_5_x_unified_shared_memory"></a>New Section 5.X - Unified Shared Memory</h3>
+<div class="paragraph">
+<p>This section describes <em>Unified Shared Memory</em>, abbreviated <em>USM</em>.
+Unified Shared Memory allocations are represented as pointers in the host application, rather than as handles (specifically, <code>cl_mems</code>).
+Unified Shared Memory additionally provides fine-grain control over placement and accessibility of an allocation, allowing many tradeoffs between programmer convenience and performance.</p>
+</div>
+<div class="paragraph">
+<p>Three types of Unified Shared Memory allocations are supported.
+The type describes the <em>ownership</em> of the allocation:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Host</strong> allocations are owned by the host and are intended to be allocated out of system memory.
+Host allocations are accessible by the host and one or more devices.
+The same pointer to a host allocation may be used on the host and all supported devices; they have <em>address equivalence</em>.
+Host allocations are not expected to migrate between system memory and device local memory.
+Host allocations trade off wide accessibility and transfer benefits for potentially higher per-access costs, such as over PCI express.</p>
+</li>
+<li>
+<p><strong>Device</strong> allocations are owned by a specific device and are intended to be allocated out of device local memory, if present.
+Device allocations generally trade off access limitations for higher performance.
+With very few exceptions, device allocations may only be accessed by the specific device they are allocated on, or copied to a host or another device allocation.
+The same pointer to a device allocation may be used on any supported device.</p>
+</li>
+<li>
+<p><strong>Shared</strong> allocations share ownership and are intended to migrate between the host and one or more devices.
+Shared allocations are accessible by at least the host and an associated device.
+Shared allocations may be accessed by other devices in some cases.
+Shared allocations trade off transfer costs for per-access benefits.
+The same pointer to a shared allocation may be used on the host and all supported devices.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>A <strong>Shared System</strong> allocation is a sub-class of a <strong>Shared</strong> allocation, where the memory is allocated by a <em>system allocator</em> - such as <code>malloc</code> or <code>new</code> - rather than by a USM allocation API.
+Shared system allocations have no associated device - they are inherently cross-device.
+Like other shared allocations, shared system allocations are intended to migrate between the host and supported devices, and the same pointer to a shared system allocation may be used on the host and all supported devices.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Summary of Unified Shared Memory Capabilities</caption>
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Initial Location</th>
+<th class="tableblock halign-left valign-top" colspan="2">Accessible By</th>
+<th class="tableblock halign-left valign-top" colspan="2">Migratable To</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top" rowspan="2"><p class="tableblock"><strong>Host</strong></p></td>
+<td class="tableblock halign-left valign-top" rowspan="2"><p class="tableblock">Host</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Host</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Host</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">N/A</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Any Device</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes (perhaps over a bus, such as PCIe)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Device</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" rowspan="3"><p class="tableblock"><strong>Device</strong></p></td>
+<td class="tableblock halign-left valign-top" rowspan="3"><p class="tableblock">Specific Device</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Host</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Host</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specific Device</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Device</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">N/A</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Another Device</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Another Device</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" rowspan="3"><p class="tableblock"><strong>Shared</strong></p></td>
+<td class="tableblock halign-left valign-top" rowspan="3"><p class="tableblock">Host, or Specific Device, Or Unspecified</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Host</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Host</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specific Device</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Device</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Another Device</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Another Device</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Optional</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" rowspan="2"><p class="tableblock"><strong>Shared System</strong></p></td>
+<td class="tableblock halign-left valign-top" rowspan="2"><p class="tableblock">Host</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Host</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Host</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Device</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Device</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>OpenCL devices may support different capabilities for each type of Unified Shared Memory allocation.
+Supported capabilities are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_UNIFIED_SHARED_MEMORY_ACCESS_INTEL</code>:
+The device may access (read or write) Unified Shared Memory allocations of this type.</p>
+</li>
+<li>
+<p><code>CL_UNIFIED_SHARED_MEMORY_ATOMIC_ACCESS_INTEL</code>:
+The device may perform atomic operations on Unified Shared Memory allocations of this type.</p>
+</li>
+<li>
+<p><code>CL_UNIFIED_SHARED_MEMORY_CONCURRENT_ACCESS_INTEL</code>:
+The device supports concurrent access to Unified Shared Memory allocations of this type.
+Concurrent access may be from the host, or from other OpenCL devices, where applicable.</p>
+</li>
+<li>
+<p><code>CL_UNIFIED_SHARED_MEMORY_CONCURRENT_ATOMIC_ACCESS_INTEL</code>:
+The device supports concurrent atomic access to Unified Shared Memory allocations of this type.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Some devices may <em>oversubscribe</em> some shared allocations.
+When and how such oversubscription occurs, including which allocations are evicted when the working set changes, are considered implementation details.</p>
+</div>
+<div class="paragraph">
+<p>The minimum set of capabilities are:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 2. Minimum Unified Shared Memory Capabilities</caption>
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-top">Allocation Type</th>
+<th class="tableblock halign-center valign-top">Access</th>
+<th class="tableblock halign-center valign-top">Atomic Access</th>
+<th class="tableblock halign-center valign-top">Concurrent Access</th>
+<th class="tableblock halign-center valign-top">Concurrent Atomic Access</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock">Host</p></th>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Optional</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Optional</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Optional</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Optional</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock">Device</p></th>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Optional</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Optional</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Optional</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock">Shared</p></th>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Optional</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Optional</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Optional</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Optional</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock">Shared (Cross-Device)</p></th>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Optional</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Optional</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Optional</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Optional</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock">Shared System (Cross-Device)</p></th>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Optional</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Optional</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Optional</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Optional</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect3">
+<h4 id="_allocating_and_freeing_unified_shared_memory"><a class="anchor" href="#_allocating_and_freeing_unified_shared_memory"></a>Allocating and Freeing Unified Shared Memory</h4>
+<div class="sect4">
+<h5 id="_host_allocations"><a class="anchor" href="#_host_allocations"></a>Host Allocations</h5>
+<div class="paragraph">
+<p>The function</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>void*   clHostMemAllocINTEL(
+            cl_context context,
+            const cl_mem_properties_intel* properties,
+            size_t size,
+            cl_uint alignment,
+            cl_int* errcode_ret);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>allocates host Unified Shared Memory.</p>
+</div>
+<div class="paragraph">
+<p><em>context</em> is a valid OpenCL context used to allocate the host memory.</p>
+</div>
+<div class="paragraph">
+<p><em>properties</em> is an optional list of allocation properties and their corresponding values.
+The list is terminated with the special property <code>0</code>.
+If no allocation properties are required, <em>properties</em> may be <code>NULL</code>.
+Please refer to the <a href="#cl_mem_properties_intel">table below</a> for valid property values and their description.</p>
+</div>
+<div class="paragraph">
+<p><em>size</em> is the size in bytes of the requested host allocation.</p>
+</div>
+<div class="paragraph">
+<p><em>alignment</em> is the minimum alignment in bytes for the requested host allocation.
+It must be a power of two and must be equal to or smaller than the size of the largest data type supported by any OpenCL device in <em>context</em>.
+If <em>alignment</em> is <code>0</code>, a default alignment will be used that is equal to the size of the largest data type supported by any OpenCL device in <em>context</em>.</p>
+</div>
+<div class="paragraph">
+<p><em>errcode_ret</em> may return an appropriate error code.
+If <em>errcode_ret</em> is <code>NULL</code> then no error code will be returned.</p>
+</div>
+<div class="paragraph">
+<p><strong>clHostMemAllocINTEL</strong> will return a valid non-<code>NULL</code> address and <code>CL_SUCCESS</code> will be returned in <em>errcode_ret</em> if the host Unified Shared Memory is allocated successfully.
+Otherwise, <code>NULL</code> will be returned, and <em>errcode_ret</em> will be set to one of the following error values:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_INVALID_CONTEXT</code> if <em>context</em> is not a valid context.</p>
+</li>
+<li>
+<p><code>CL_INVALID_OPERATION</code> if <code>CL_DEVICE_HOST_MEM_CAPABILITIES_INTEL</code> is zero for all devices in <em>context</em>, indicating that no devices in <em>context</em> support host Unified Shared Memory allocations.</p>
+</li>
+<li>
+<p><code>CL_INVALID_VALUE</code> if <em>alignment</em> is not zero or a power of two.</p>
+</li>
+<li>
+<p><code>CL_INVALID_VALUE</code> if <em>alignment</em> is greater than the size of the largest data type supported by any OpenCL device in <em>context</em> that supports host Unified Shared Memory allocations.</p>
+</li>
+<li>
+<p><code>CL_INVALID_PROPERTY</code> if a memory property name in <em>properties</em> is not a supported property name, if the value specified for a supported property name is not valid, or if the same property name is specified more than once.</p>
+</li>
+<li>
+<p><code>CL_INVALID_PROPERTY</code> if either the <code>CL_MEM_ALLOC_INITIAL_PLACEMENT_DEVICE_INTEL</code> or <code>CL_MEM_ALLOC_INITIAL_PLACEMENT_HOST_INTEL</code> flags are specified.</p>
+</li>
+<li>
+<p><code>CL_INVALID_BUFFER_SIZE</code> if <em>size</em> is zero or greater than <code>CL_DEVICE_MAX_MEM_ALLOC_SIZE</code> for any OpenCL device in <em>context</em> that supports host Unified Shared Memory allocations.</p>
+</li>
+<li>
+<p><code>CL_OUT_OF_RESOURCES</code> if there is a failure to allocate resources required by the OpenCL implementation on the device.</p>
+</li>
+<li>
+<p><code>CL_OUT_OF_HOST_MEMORY</code> if there is a failure to allocate resources required by the OpenCL implementation on the host.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_device_allocations"><a class="anchor" href="#_device_allocations"></a>Device Allocations</h5>
+<div class="paragraph">
+<p>The function</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>void*   clDeviceMemAllocINTEL(
+            cl_context context,
+            cl_device_id device,
+            const cl_mem_properties_intel* properties,
+            size_t size,
+            cl_uint alignment,
+            cl_int* errcode_ret);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>allocates Unified Shared Memory specific to an OpenCL device.</p>
+</div>
+<div class="paragraph">
+<p><em>context</em> is a valid OpenCL context used to allocate the device memory.</p>
+</div>
+<div class="paragraph">
+<p><em>device</em> is a valid OpenCL device ID to associate with the allocation.</p>
+</div>
+<div class="paragraph">
+<p><em>properties</em> is an optional list of allocation properties and their corresponding values.
+The list is terminated with the special property <code>0</code>.
+If no allocation properties are required, <em>properties</em> may be <code>NULL</code>.
+Please refer to the <a href="#cl_mem_properties_intel">table below</a> for valid property values and their description.</p>
+</div>
+<div class="paragraph">
+<p><em>size</em> is the size in bytes of the requested device allocation.</p>
+</div>
+<div class="paragraph">
+<p><em>alignment</em> is the minimum alignment in bytes for the requested device allocation.
+It must be a power of two and must be equal to or smaller than the size of the largest data type supported by <em>device</em>.
+If <em>alignment</em> is <code>0</code>, a default alignment will be used that is equal to the size of largest data type supported by <em>device</em>.</p>
+</div>
+<div class="paragraph">
+<p><em>errcode_ret</em> may return an appropriate error code.
+If <em>errcode_ret</em> is <code>NULL</code> then no error code will be returned.</p>
+</div>
+<div class="paragraph">
+<p><strong>clDeviceMemAllocINTEL</strong> will return a valid non-<code>NULL</code> address and <code>CL_SUCCESS</code> will be returned in <em>errcode_ret</em> if the device Unified Shared Memory is allocated successfully.
+Otherwise, <code>NULL</code> will be returned, and <em>errcode_ret</em> will be set to one of the following error values:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_INVALID_CONTEXT</code> if <em>context</em> is not a valid context.</p>
+</li>
+<li>
+<p><code>CL_INVALID_DEVICE</code> if <em>device</em> is not a valid device or is not associated with <em>context</em>.</p>
+</li>
+<li>
+<p><code>CL_INVALID_OPERATION</code> if <code>CL_DEVICE_DEVICE_MEM_CAPABILITIES_INTEL</code> is zero for <em>device</em>, indicating that <em>device</em> does not support device Unified Shared Memory allocations.</p>
+</li>
+<li>
+<p><code>CL_INVALID_VALUE</code> if <em>alignment</em> is not zero or a power of two.</p>
+</li>
+<li>
+<p><code>CL_INVALID_VALUE</code> if <em>alignment</em> is greater than the size of the largest data type supported by <em>device</em>.</p>
+</li>
+<li>
+<p><code>CL_INVALID_PROPERTY</code> if a memory property name in <em>properties</em> is not a supported property name, if the value specified for a supported property name is not valid, or if the same property name is specified more than once.</p>
+</li>
+<li>
+<p><code>CL_INVALID_PROPERTY</code> if either the <code>CL_MEM_ALLOC_INITIAL_PLACEMENT_DEVICE_INTEL</code> or <code>CL_MEM_ALLOC_INITIAL_PLACEMENT_HOST_INTEL</code> flags are specified.</p>
+</li>
+<li>
+<p><code>CL_INVALID_BUFFER_SIZE</code> if <em>size</em> is zero or greater than <code>CL_DEVICE_MAX_MEM_ALLOC_SIZE</code> for <em>device</em>.</p>
+</li>
+<li>
+<p><code>CL_OUT_OF_RESOURCES</code> if there is a failure to allocate resources required by the OpenCL implementation on the device.</p>
+</li>
+<li>
+<p><code>CL_OUT_OF_HOST_MEMORY</code> if there is a failure to allocate resources required by the OpenCL implementation on the host.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_shared_allocations"><a class="anchor" href="#_shared_allocations"></a>Shared Allocations</h5>
+<div class="paragraph">
+<p>The function</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>void*   clSharedMemAllocINTEL(
+            cl_context context,
+            cl_device_id device,
+            const cl_mem_properties_intel* properties,
+            size_t size,
+            cl_uint alignment,
+            cl_int* errcode_ret);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>allocates Unified Shared Memory with shared ownership between the host and the specified OpenCL device.
+If the specified OpenCL device supports cross-device access capabilities, the allocation is also accessible by other OpenCL devices in the context that have cross-device access capabilities.</p>
+</div>
+<div class="paragraph">
+<p><em>context</em> is a valid OpenCL context used to allocate the Unified Shared Memory.</p>
+</div>
+<div class="paragraph">
+<p><em>device</em> is an optional OpenCL device ID to associate with the allocation.
+If <em>device</em> is <code>NULL</code> then the allocation is not associated with any device.
+Allocations with no associated device are accessible by the host and OpenCL devices in the context that have cross-device access capabilities.</p>
+</div>
+<div class="paragraph">
+<p><em>properties</em> is an optional list of allocation properties and their corresponding values.
+The list is terminated with the special property <code>0</code>.
+If no allocation properties are required, <em>properties</em> may be <code>NULL</code>.
+Please refer to the <a href="#cl_mem_properties_intel">table below</a> for valid property values and their description.</p>
+</div>
+<div class="paragraph">
+<p><em>size</em> is the size in bytes of the requested shared allocation.</p>
+</div>
+<div class="paragraph">
+<p><em>alignment</em> is the minimum alignment in bytes for the requested shared allocation.
+It must be a power of two and must be equal to or smaller than the size of the largest data type supported by <em>device</em>.
+If <em>alignment</em> is <code>0</code>, a default alignment will be used that is equal to the size of largest data type supported by <em>device</em>.
+If <em>device</em> is <code>NULL</code>, <em>alignment</em> must be a power of two equal to or smaller than the size of the largest data type supported by any OpenCL device in <em>context</em>, and the default alignment will be equal to the size of the largest data type supported by any OpenCL device in <em>context</em>.</p>
+</div>
+<div class="paragraph">
+<p><em>errcode_ret</em> may return an appropriate error code.
+If <em>errcode_ret</em> is <code>NULL</code> then no error code will be returned.</p>
+</div>
+<div class="paragraph">
+<p><strong>clSharedMemAllocINTEL</strong> will return a valid non-<code>NULL</code> address and <code>CL_SUCCESS</code> will be returned in <em>errcode_ret</em> if the shared Unified Shared Memory is allocated successfully.
+Otherwise, <code>NULL</code> will be returned, and <em>errcode_ret</em> will be set to one of the following error values:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_INVALID_CONTEXT</code> if <em>context</em> is not a valid context.</p>
+</li>
+<li>
+<p><code>CL_INVALID_DEVICE</code> if <em>device</em> is not <code>NULL</code> and is either not a valid device or is not associated with <em>context</em>.</p>
+</li>
+<li>
+<p><code>CL_INVALID_OPERATION</code> if <em>device</em> is not <code>NULL</code> and <code>CL_DEVICE_SINGLE_DEVICE_SHARED_MEM_CAPABILITIES_INTEL</code> and <code>CL_DEVICE_CROSS_DEVICE_SHARED_MEM_CAPABILITIES_INTEL</code> are both zero, indicating that <em>device</em> does not support shared Unified Shared Memory allocations, or if <em>device</em> is <code>NULL</code> and no devices in <em>context</em> support shared Unified Shared Memory allocations.</p>
+</li>
+<li>
+<p><code>CL_INVALID_VALUE</code> if <em>alignment</em> is not zero or a power of two.</p>
+</li>
+<li>
+<p><code>CL_INVALID_VALUE</code> if <em>device</em> is not <code>NULL</code> and <em>alignment</em> is greater than the size of the largest data type supported by <em>device</em>, or if <em>device</em> is <code>NULL</code> and <em>alignment</em> is greater than the size of the largest data type supported by any OpenCL device in <em>context</em> that supports shared Unified Shared Memory allocations.</p>
+</li>
+<li>
+<p><code>CL_INVALID_PROPERTY</code> if a memory property name in <em>properties</em> is not a supported property name, if the value specified for a supported property name is not valid, or if the same property name is specified more than once.</p>
+</li>
+<li>
+<p><code>CL_INVALID_PROPERTY</code> if both <code>CL_MEM_ALLOC_INITIAL_PLACEMENT_DEVICE_INTEL</code> and <code>CL_MEM_ALLOC_INITIAL_PLACEMENT_HOST_INTEL</code> flags are specified.</p>
+</li>
+<li>
+<p><code>CL_INVALID_BUFFER_SIZE</code> if <em>size</em> is zero, or if <em>device</em> is not <code>NULL</code> and <em>size</em> is greater than <code>CL_DEVICE_MAX_MEM_ALLOC_SIZE</code> for <em>device</em>, or if <em>device</em> is <code>NULL</code> and <em>size</em> is greater than <code>CL_DEVICE_MAX_MEM_ALLOC_SIZE</code> for any device in <em>context</em> that supports shared Unified Shared Memory allocations.</p>
+</li>
+<li>
+<p><code>CL_OUT_OF_RESOURCES</code> if there is a failure to allocate resources required by the OpenCL implementation on the device.</p>
+</li>
+<li>
+<p><code>CL_OUT_OF_HOST_MEMORY</code> if there is a failure to allocate resources required by the OpenCL implementation on the host.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_freeing_allocations"><a class="anchor" href="#_freeing_allocations"></a>Freeing Allocations</h5>
+<div class="paragraph">
+<p>The functions</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>cl_int  clMemFreeINTEL(
+            cl_context context,
+            void* ptr);
+
+cl_int  clMemBlockingFreeINTEL(
+            cl_context context,
+            void* ptr);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>free a Unified Shared Memory allocation.</p>
+</div>
+<div class="paragraph">
+<p><em>context</em> is a valid OpenCL context used to free the Unified Shared Memory allocation.</p>
+</div>
+<div class="paragraph">
+<p><em>ptr</em> is the Unified Shared Memory allocation to free.
+It must be a value returned by <strong>clHostMemAllocINTEL</strong>, <strong>clDeviceMemAllocINTEL</strong>, or <strong>clSharedMemAllocINTEL</strong>, or a <code>NULL</code> pointer.
+If <em>ptr</em> is <code>NULL</code> then no action occurs.</p>
+</div>
+<div class="paragraph">
+<p>Note that <strong>clMemFreeINTEL</strong> may not wait for previously enqueued commands that may be using <em>ptr</em> to finish before freeing <em>ptr</em>.
+It is the responsibility of the application to make sure enqueued commands that use <em>ptr</em> are complete before freeing <em>ptr</em>.
+Applications should take particular care freeing memory allocations with kernels that may access memory indirectly, since a kernel with indirect memory access counts as using all memory allocations of the specified type or types.
+To wait for previously enqueued commands to finish that may be using <em>ptr</em> before freeing <em>ptr</em>, use the <strong>clMemBlockingFreeINTEL</strong> function instead.</p>
+</div>
+<div class="paragraph">
+<p><strong>clMemFreeINTEL</strong> and <strong>clMemBlockingFreeINTEL</strong> will return <code>CL_SUCCESS</code> if the function executes successfully.
+Otherwise, they will return one of the following error values:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_INVALID_CONTEXT</code> if <em>context</em> is not a valid context.</p>
+</li>
+<li>
+<p><code>CL_INVALID_VALUE</code> if <em>ptr</em> is not a value returned by <strong>clHostMemAllocINTEL</strong>, <strong>clDeviceMemAllocINTEL</strong>, <strong>clSharedMemAllocINTEL</strong>, or a <code>NULL</code> pointer.</p>
+</li>
+<li>
+<p><code>CL_OUT_OF_RESOURCES</code> if there is a failure to allocate resources required by the OpenCL implementation on the device.</p>
+</li>
+<li>
+<p><code>CL_OUT_OF_HOST_MEMORY</code> if there is a failure to allocate resources required by the OpenCL implementation on the host.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_controlling_allocations"><a class="anchor" href="#_controlling_allocations"></a>Controlling Allocations</h5>
+<div class="paragraph">
+<p>The table below describes allocation properties that may be passed to control allocation behavior.</p>
+</div>
+<table id="cl_mem_properties_intel" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 3. List of Supported <code>cl_mem_properties_intel</code> Properties</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Property</th>
+<th class="tableblock halign-left valign-top">Property Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_MEM_ALLOC_FLAGS_INTEL</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">cl_mem_alloc_flags_intel</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Flags specifying allocation and usage information.
+      This is a bitfield type that may be set to a combination of the following values:</p>
+<p class="tableblock">      <code>CL_MEM_ALLOC_WRITE_COMBINED_INTEL</code>:
+      Request write combined (WC) memory.
+      Write combined memory may improve performance in some cases, however write combined memory must be used with care since it may hurt performance in other cases or use different coherency protocols than non-write combined memory.</p>
+<p class="tableblock">      <code>CL_MEM_ALLOC_INITIAL_PLACEMENT_DEVICE_INTEL</code>:
+      Request the implementation to optimize for first access being done by the device.
+      This flag is valid only for <strong>clSharedMemAllocINTEL</strong>.
+      This flag does not affect functionality and is purely a performance hint.</p>
+<p class="tableblock">      <code>CL_MEM_ALLOC_INITIAL_PLACEMENT_HOST_INTEL</code>:
+      Request the implementation to optimize for first access being done by the host.
+      This flag is valid only for <strong>clSharedMemAllocINTEL</strong>.
+      This flag does not affect functionality and is purely a performance hint.</p>
+<p class="tableblock">      <code>CL_MEM_ALLOC_INITIAL_PLACEMENT_DEVICE_INTEL</code> and <code>CL_MEM_ALLOC_INITIAL_PLACEMENT_HOST_INTEL</code> are mutually exclusive.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_unified_shared_memory_queries"><a class="anchor" href="#_unified_shared_memory_queries"></a>Unified Shared Memory Queries</h4>
+<div class="paragraph">
+<p>The function</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>cl_int  clGetMemAllocInfoINTEL(
+            cl_context context,
+            const void* ptr,
+            cl_mem_info_intel param_name,
+            size_t param_value_size,
+            void* param_value,
+            size_t* param_value_size_ret);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>queries information about a Unified Shared Memory allocation.</p>
+</div>
+<div class="paragraph">
+<p><em>context</em> is a valid OpenCL context to query for information about the Unified Shared Memory allocation.</p>
+</div>
+<div class="paragraph">
+<p><em>ptr</em> is a pointer into a Unified Shared Memory allocation to query.
+<em>ptr</em> need not be a value returned by <strong>clHostMemAllocINTEL</strong>, <strong>clDeviceMemAllocINTEL</strong>, or <strong>clSharedMemAllocINTEL</strong>, but the query may be faster if it is.</p>
+</div>
+<div class="paragraph">
+<p><em>param_name</em> specifies the information to query.
+The list of supported <em>param_name</em> values and the information returned in <em>param_value</em> is described in the <a href="#cl_mem_info_intel">Unified Memory Allocation Queries</a> table.</p>
+</div>
+<div class="paragraph">
+<p><em>param_value</em> is a pointer to memory where the appropriate result being queried is returned.
+If <em>param_value</em> is <code>NULL</code>, it is ignored.</p>
+</div>
+<div class="paragraph">
+<p><em>param_value_size</em> is used to specify the size in bytes of memory pointed to by <em>param_value</em>.
+This size must be greater than or equal to the size of return type as described in the <a href="#cl_mem_info_intel">Unified Memory Allocation Queries</a> table.
+If <em>param_value</em> is <code>NULL</code>, it is ignored.</p>
+</div>
+<div class="paragraph">
+<p><em>param_value_size_ret</em> returns the actual size in bytes of data being queried by <em>param_name</em>.
+If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
+</div>
+<div class="paragraph">
+<p><strong>clGetMemAllocInfoINTEL</strong> returns <code>CL_SUCCESS</code> if the function is executed successfully.
+Otherwise, it will return one of the following error values:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_INVALID_CONTEXT</code> if <em>context</em> is not a valid context.</p>
+</li>
+<li>
+<p><code>CL_INVALID_VALUE</code> if <em>param_name</em> is not a valid Unified Shared Memory allocation query.</p>
+</li>
+<li>
+<p><code>CL_INVALID_VALUE</code> if <em>param_value</em> is not <code>NULL</code> and <em>param_value_size</em> is smaller than the size of the query return type.</p>
+</li>
+<li>
+<p><code>CL_OUT_OF_RESOURCES</code> if there is a failure to allocate resources required by the OpenCL implementation on the device.</p>
+</li>
+<li>
+<p><code>CL_OUT_OF_HOST_MEMORY</code> if there is a failure to allocate resources required by the OpenCL implementation on the host.</p>
+</li>
+</ul>
+</div>
+<table id="cl_mem_info_intel" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 4. List of supported param_names by clGetMemAllocInfoINTEL</caption>
+<colgroup>
+<col style="width: 34%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>cl_mem_info_intel</strong></th>
+<th class="tableblock halign-left valign-top">Return type</th>
+<th class="tableblock halign-left valign-top">Info. returned in <em>param_value</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_MEM_ALLOC_TYPE_INTEL</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">cl_unified_shared_memory_type_intel</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the type of the Unified Shared Memory allocation.</p>
+<p class="tableblock">        Returns <code>CL_MEM_TYPE_HOST_INTEL</code> for allocations made by <strong>clHostMemAllocINTEL</strong> .
+        Returns <code>CL_MEM_TYPE_DEVICE_INTEL</code> for allocations made by <strong>clDeviceMemAllocINTEL</strong>.
+        Returns <code>CL_MEM_TYPE_SHARED_INTEL</code> for allocations made by <strong>clSharedMemAllocINTEL</strong>.
+        Returns <code>CL_MEM_TYPE_UNKNOWN_INTEL</code> if the type of the Unified Shared Memory allocation cannot be determined or if <em>ptr</em> does not point into a Unified Shared Memory allocation.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_MEM_ALLOC_BASE_PTR_INTEL</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">void*</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the base address of the Unified Shared Memory allocation.</p>
+<p class="tableblock">        Returns <code>NULL</code> for <code>CL_MEM_TYPE_UNKNOWN_INTEL</code> allocations.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_MEM_ALLOC_SIZE_INTEL</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">size_t</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the size in bytes of the Unified Shared Memory allocation.</p>
+<p class="tableblock">        Returns <code>0</code> for <code>CL_MEM_TYPE_UNKNOWN_INTEL</code> allocations.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_MEM_ALLOC_DEVICE_INTEL</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">cl_device_id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the device associated with the Unified Shared Memory allocation.</p>
+<p class="tableblock">        Returns <code>NULL</code> for <code>CL_MEM_TYPE_HOST_INTEL</code> allocations, for  <code>CL_MEM_TYPE_SHARED_INTEL</code> allocations with no associated device, and for <code>CL_MEM_TYPE_UNKNOWN_INTEL</code> allocations.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_MEM_ALLOC_FLAGS_INTEL</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">cl_mem_alloc_flags_intel</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns allocation flags for the Unified Shared Memory allocation.</p>
+<p class="tableblock">        Returns <code>0</code> if no allocation flags were specified for the Unified Shared Memory allocation and for <code>CL_MEM_TYPE_UNKNOWN_INTEL</code> allocations.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_using_unified_shared_memory_with_kernels"><a class="anchor" href="#_using_unified_shared_memory_with_kernels"></a>Using Unified Shared Memory with Kernels</h4>
+<div class="paragraph">
+<p>The function</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>cl_int  clSetKernelArgMemPointerINTEL(
+            cl_kernel kernel,
+            cl_uint arg_index,
+            const void* arg_value);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>is used to set a pointer into a Unified Shared Memory allocation as an argument to a kernel.</p>
+</div>
+<div class="paragraph">
+<p><em>kernel</em> is a valid kernel object.</p>
+</div>
+<div class="paragraph">
+<p><em>arg_index</em> is the argument index to set.
+Arguments to the kernel are referred to by indices that go from 0 for the leftmost argument to <em>n</em> - 1, where <em>n</em> is the total number of arguments declared by a kernel.</p>
+</div>
+<div class="paragraph">
+<p><em>arg_value</em> is the pointer value that should be used as the argument specified by <em>arg_index</em>.
+The pointer value will be used as the argument by all API calls that enqueue a kernel until the argument value is set to a different pointer value by a subsequent call.
+A pointer into Unified Shared Memory allocation may only be set as an argument value for an argument declared to be a pointer to <code>global</code> or <code>constant</code> memory.
+For devices supporting shared system allocations, any pointer value is valid.
+Otherwise, the pointer value must be <code>NULL</code> or must point into a Unified Shared Memory allocation returned by <strong>clHostMemAllocINTEL</strong>, <strong>clDeviceMemAllocINTEL</strong>, or <strong>clSharedMemAllocINTEL</strong>.</p>
+</div>
+<div class="paragraph">
+<p><strong>clSetKernelArgMemPointerINTEL</strong> returns <code>CL_SUCCESS</code> if the function is executed successfully.
+Otherwise, it will return one of the following errors:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_INVALID_KERNEL</code> if <em>kernel</em> is not a valid kernel object.</p>
+</li>
+<li>
+<p><code>CL_INVALID_ARG_INDEX</code> if <em>arg_index</em> is not a valid argument index.</p>
+</li>
+<li>
+<p><code>CL_INVALID_ARG_VALUE</code> if <em>arg_value</em> is not a valid argument value.</p>
+</li>
+<li>
+<p><code>CL_OUT_OF_RESOURCES</code> if there is a failure to allocate resources required by the OpenCL implementation on the device.</p>
+</li>
+<li>
+<p><code>CL_OUT_OF_HOST_MEMORY</code> if there is a failure to allocate resources required by the OpenCL implementation on the host.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In addition to direct use of a Unified Shared Memory allocation as a kernel argument, Unified Shared Memory allocations may be accessed by kernels indirectly.
+The new <em>param_name</em> values described below may be used with the existing <strong>clSetKernelExecInfo</strong> function to describe how Unified Shared Memory allocations are accessed indirectly by a kernel:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 28. List of supported param_names by clSetKernelExecInfo</caption>
+<colgroup>
+<col style="width: 34%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>cl_kernel_exec_info</strong></th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_KERNEL_EXEC_INFO_&#8203;USM_PTRS_INTEL</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">void*[]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies an explicit set of Unified Shared Memory allocations accessed indirectly by the kernel.
+        The new set replaces any previously specified set of Unified Shared Memory allocations.</p>
+<p class="tableblock">        Initially, the set of Unified Shared Memory allocations accessed indirectly by the kernel is the empty set.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_KERNEL_EXEC_INFO_&#8203;INDIRECT_HOST_ACCESS_INTEL</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">cl_bool</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies that the kernel may access any host Unified Shared Memory allocation indirectly.</p>
+<p class="tableblock">        By default, the value for this flag is <code>CL_FALSE</code>, indicating that the kernel will only access explicitly specified host Unified Shared Memory allocations.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_KERNEL_EXEC_INFO_&#8203;INDIRECT_DEVICE_ACCESS_INTEL</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">cl_bool</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies that the kernel may access any device Unified Shared Memory allocation indirectly.</p>
+<p class="tableblock">        By default, the value for this flag is <code>CL_FALSE</code>, indicating that the kernel will only access explicitly specified device Unified Shared Memory allocations.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_KERNEL_EXEC_INFO_&#8203;INDIRECT_SHARED_ACCESS_INTEL</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">cl_bool</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies that the kernel may access any shared Unified Shared Memory allocation indirectly.</p>
+<p class="tableblock">        By default, the value for this flag is <code>CL_FALSE</code>, indicating that the kernel will only access explicitly specified shared Unified Shared Memory allocations.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_filling_and_copying_unified_shared_memory"><a class="anchor" href="#_filling_and_copying_unified_shared_memory"></a>Filling and Copying Unified Shared Memory</h4>
+<div class="paragraph">
+<p>The function</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>cl_int  clEnqueueMemFillINTEL(
+            cl_command_queue command_queue,
+            void* dst_ptr,
+            const void* pattern,
+            size_t pattern_size,
+            size_t size,
+            cl_uint num_events_in_wait_list,
+            const cl_event* event_wait_list,
+            cl_event* event);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>fills a region of a memory with the specified pattern.</p>
+</div>
+<div class="paragraph">
+<p><em>command_queue</em> is a valid host command queue.
+The memory fill command will be queued for execution on the device associated with <em>command_queue</em>.</p>
+</div>
+<div class="paragraph">
+<p><em>dst_ptr</em> is a pointer to the start of the memory region to fill.
+The Unified Shared Memory allocation pointed to by <em>dst_ptr</em> must be valid for the context associated with <em>command_queue</em>, must be accessible by the device associated with <em>command_queue</em>, and must be aligned to <em>pattern_size</em> bytes.</p>
+</div>
+<div class="paragraph">
+<p><em>pattern</em> is a pointer to the value to write to the Unified Shared Memory region.
+The memory associated with <em>pattern</em> can be reused or freed after the function returns.</p>
+</div>
+<div class="paragraph">
+<p><em>pattern_size</em> describes the size of of the value to write to the Unified Shared Memory region, in bytes.
+<em>pattern_size</em> must be a power of two and must be less than or equal to the size of the largest integer or floating-point vector data type supported by the device.</p>
+</div>
+<div class="paragraph">
+<p><em>size</em> describes the size of the memory region to set, in bytes.
+<em>size</em> must be a multiple of <em>pattern_size</em>.</p>
+</div>
+<div class="paragraph">
+<p><em>event_wait_list</em> and <em>num_events_in_wait_list</em> specify events that need to complete before this command can be executed.
+If <em>event_wait_list</em> is <code>NULL</code>, then this command does not wait on any event to complete.
+If <em>event_wait_list</em> is <code>NULL</code>, <em>num_events_in_wait_list</em> must be 0.
+If <em>event_wait_list</em> is not <code>NULL</code>, the list of events pointed to by <em>event_wait_list</em> must be valid and <em>num_events_in_wait_list</em> must be greater than 0.
+The events specified in <em>event_wait_list</em> act as synchronization points.
+The context associated with events in <em>event_wait_list</em> and <em>command_queue</em> must be the same.
+The memory associated with <em>event_wait_list</em> can be reused or freed after the function returns.</p>
+</div>
+<div class="paragraph">
+<p><em>event</em> returns a unique event object that identifies this command.
+If <em>event</em> is <code>NULL</code>, no event will be created and therefore it will not be possible to query or wait for this command.
+If the <em>event_wait_list</em> and the <em>event</em> arguments are not <code>NULL</code>, the <em>event</em> argument must not refer to an element of the <em>event_wait_list</em> array.</p>
+</div>
+<div class="paragraph">
+<p><strong>clEnqueueMemFillINTEL</strong> returns CL_SUCCESS if the command is queued successfully.
+Otherwise, it will return one of the following errors:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_INVALID_COMMAND_QUEUE</code> if <em>command_queue</em> is not a valid host command-queue.</p>
+</li>
+<li>
+<p><code>CL_INVALID_CONTEXT</code> if the context associated with <em>command_queue</em> and events in <em>event_wait_list</em> are not the same.</p>
+</li>
+<li>
+<p><code>CL_INVALID_VALUE</code> if <em>dst_ptr</em> is <code>NULL</code>, or if <em>dst_ptr</em> is not aligned to <em>pattern_size</em> bytes.</p>
+</li>
+<li>
+<p><code>CL_INVALID_VALUE</code> if <em>pattern</em> is <code>NULL</code>.</p>
+</li>
+<li>
+<p><code>CL_INVALID_VALUE</code> if <em>pattern_size</em> is not a power of two or is greater than the size of the largest integer or floating-point vector data type supported by the device associated with <em>command_queue</em>.</p>
+</li>
+<li>
+<p><code>CL_INVALID_VALUE</code> if <em>size</em> is not a multiple of <em>pattern_size</em>.</p>
+</li>
+<li>
+<p><code>CL_INVALID_EVENT_WAIT_LIST</code> if <em>event_wait_list</em> is <code>NULL</code> and <em>num_events_in_wait_list</em> is greater than zero, or if <em>event_wait_list</em> is not <code>NULL</code> and <em>num_events_in_wait_list</em> is zero, or if event objects in <em>event_wait_list</em> are not valid events.</p>
+</li>
+<li>
+<p><code>CL_OUT_OF_RESOURCES</code> if there is a failure to allocate resources required by the OpenCL implementation on the device.</p>
+</li>
+<li>
+<p><code>CL_OUT_OF_HOST_MEMORY</code> if there is a failure to allocate resources required by the OpenCL implementation on the host.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The function</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>cl_int  clEnqueueMemcpyINTEL(
+            cl_command_queue command_queue,
+            cl_bool blocking,
+            void* dst_ptr,
+            const void* src_ptr,
+            size_t size,
+            cl_uint num_events_in_wait_list,
+            const cl_event* event_wait_list,
+            cl_event* event);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>copies a region of memory from one location to another.</p>
+</div>
+<div class="paragraph">
+<p><em>command_queue</em> is a valid host command queue.
+The memory copy command will be queued for execution on the device associated with <em>command_queue</em>.</p>
+</div>
+<div class="paragraph">
+<p><em>blocking</em> indicates if the copy operation is blocking or non-blocking.
+If <em>blocking</em> is <code>CL_TRUE</code>, the copy command is blocking, and the function will not return until the copy command is complete.
+Otherwise, if <em>blocking</em> is <code>CL_FALSE</code>, the copy command is non-blocking, and the contents of the <em>dst_ptr</em> cannot be used nor can the contents of the <em>src_ptr</em> be overwritten until the copy command is complete.</p>
+</div>
+<div class="paragraph">
+<p><em>dst_ptr</em> is a pointer to the start of the memory region to copy to.
+If <em>dst_ptr</em> is a pointer into a Unified Shared Memory allocation it must be valid for the context associated with <em>command_queue</em>.</p>
+</div>
+<div class="paragraph">
+<p><em>src_ptr</em> is a pointer to the start of the memory region to copy from.
+If <em>src_ptr</em> is a pointer into a Unified Shared Memory allocation it must be valid for the context associated with <em>command_queue</em>.</p>
+</div>
+<div class="paragraph">
+<p><em>size</em> describes the size of the memory region to copy, in bytes.</p>
+</div>
+<div class="paragraph">
+<p><em>event_wait_list</em> and <em>num_events_in_wait_list</em> specify events that need to complete before this command can be executed.
+If <em>event_wait_list</em> is <code>NULL</code>, then this command does not wait on any event to complete.
+If <em>event_wait_list</em> is <code>NULL</code>, <em>num_events_in_wait_list</em> must be 0.
+If <em>event_wait_list</em> is not <code>NULL</code>, the list of events pointed to by <em>event_wait_list</em> must be valid and <em>num_events_in_wait_list</em> must be greater than 0.
+The events specified in <em>event_wait_list</em> act as synchronization points.
+The context associated with events in <em>event_wait_list</em> and <em>command_queue</em> must be the same.
+The memory associated with <em>event_wait_list</em> can be reused or freed after the function returns.</p>
+</div>
+<div class="paragraph">
+<p><em>event</em> returns a unique event object that identifies this command.
+If <em>event</em> is <code>NULL</code>, no event will be created and therefore it will not be possible to query or wait for this command.
+If the <em>event_wait_list</em> and the <em>event</em> arguments are not <code>NULL</code>, the <em>event</em> argument must not refer to an element of the <em>event_wait_list</em> array.</p>
+</div>
+<div class="paragraph">
+<p><strong>clEnqueueMemcpyINTEL</strong> returns CL_SUCCESS if the command is queued successfully.
+Otherwise, it will return one of the following errors:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_INVALID_COMMAND_QUEUE</code> if <em>command_queue</em> is not a valid host command-queue.</p>
+</li>
+<li>
+<p><code>CL_INVALID_CONTEXT</code> if the context associated with <em>command_queue</em> and events in <em>event_wait_list</em> are not the same.</p>
+</li>
+<li>
+<p><code>CL_INVALID_VALUE</code> if either <em>dst_ptr</em> or <em>src_ptr</em> are <code>NULL</code>.</p>
+</li>
+<li>
+<p><code>CL_INVALID_EVENT_WAIT_LIST</code> if <em>event_wait_list</em> is <code>NULL</code> and <em>num_events_in_wait_list</em> is greater than zero, or if <em>event_wait_list</em> is not <code>NULL</code> and <em>num_events_in_wait_list</em> is zero, or if event objects in <em>event_wait_list</em> are not valid events.</p>
+</li>
+<li>
+<p><code>CL_EXEC_STATUS_ERROR_FOR_EVENTS_IN_WAIT_LIST</code> if the copy operation is blocking and the execution status of any of the events in <em>event_wait_list</em> is a negative integer value.</p>
+</li>
+<li>
+<p><code>CL_MEM_COPY_OVERLAP</code> if the values specified for <em>dst_ptr</em>, <em>src_ptr</em> and <em>size</em> result in an overlapping copy.</p>
+</li>
+<li>
+<p><code>CL_OUT_OF_RESOURCES</code> if there is a failure to allocate resources required by the OpenCL implementation on the device.</p>
+</li>
+<li>
+<p><code>CL_OUT_OF_HOST_MEMORY</code> if there is a failure to allocate resources required by the OpenCL implementation on the host.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_unified_shared_memory_hints"><a class="anchor" href="#_unified_shared_memory_hints"></a>Unified Shared Memory Hints</h4>
+<div class="paragraph">
+<p>The function</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>cl_int  clEnqueueMigrateMemINTEL(
+            cl_command_queue command_queue,
+            const void* ptr,
+            size_t size,
+            cl_mem_migration_flags flags,
+            cl_uint num_events_in_wait_list,
+            const cl_event* event_wait_list,
+            cl_event* event);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>explicitly migrates a region of a shared Unified Shared Memory allocation to the device associated with <em>command_queue</em>.
+This is a hint that may improve performance and is not required for correctness.
+Memory migration may not be supported for all allocation types for all devices.
+If memory migration is not supported for the specified memory range then the migration hint may be ignored.
+Memory migration may only be supported at a device-specific granularity, such as a page boundary.
+In this case, the memory range may be expanded such that the start and end of the range satisfy the granularity requirements.</p>
+</div>
+<div class="paragraph">
+<p><em>command_queue</em> is a valid host command queue.
+The memory migration command will be queued for execution on the device associated with <em>command_queue</em>.</p>
+</div>
+<div class="paragraph">
+<p><em>ptr</em> is a pointer to the start of the shared Unified Shared Memory allocation to migrate.</p>
+</div>
+<div class="paragraph">
+<p><em>size</em> describes the size of the memory region to migrate.</p>
+</div>
+<div class="paragraph">
+<p><em>flags</em> is a bit-field that is used to specify memory migration options.</p>
+</div>
+<div class="paragraph">
+<p><em>event_wait_list</em> and <em>num_events_in_wait_list</em> specify events that need to complete before this command can be executed.
+If <em>event_wait_list</em> is <code>NULL</code>, then this command does not wait on any event to complete.
+If <em>event_wait_list</em> is <code>NULL</code>, <em>num_events_in_wait_list</em> must be 0.
+If <em>event_wait_list</em> is not <code>NULL</code>, the list of events pointed to by <em>event_wait_list</em> must be valid and <em>num_events_in_wait_list</em> must be greater than 0.
+The events specified in <em>event_wait_list</em> act as synchronization points.
+The context associated with events in <em>event_wait_list</em> and <em>command_queue</em> must be the same.
+The memory associated with <em>event_wait_list</em> can be reused or freed after the function returns.</p>
+</div>
+<div class="paragraph">
+<p><em>event</em> returns a unique event object that identifies this command.
+If <em>event</em> is <code>NULL</code>, no event will be created and therefore it will not be possible to query or wait for this command.
+If the <em>event_wait_list</em> and the <em>event</em> arguments are not <code>NULL</code>, the <em>event</em> argument must not refer to an element of the <em>event_wait_list</em> array.</p>
+</div>
+<div class="paragraph">
+<p><strong>clEnqueueMigrateMemINTEL</strong> returns CL_SUCCESS if the command is queued successfully.
+Otherwise, it will return one of the following errors:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_INVALID_COMMAND_QUEUE</code> if <em>command_queue</em> is not a valid host command-queue.</p>
+</li>
+<li>
+<p><code>CL_INVALID_CONTEXT</code> if the context associated with <em>command_queue</em> and events in <em>event_wait_list</em> are not the same.</p>
+</li>
+<li>
+<p><code>CL_INVALID_VALUE</code> <strong>TODO</strong>, are any values of <em>ptr</em> and <em>size</em> considered invalid?</p>
+</li>
+<li>
+<p><code>CL_INVALID_VALUE</code> if <em>flags</em> is zero or is not a supported combination of memory migration flags.</p>
+</li>
+<li>
+<p><code>CL_INVALID_EVENT_WAIT_LIST</code> if <em>event_wait_list</em> is <code>NULL</code> and <em>num_events_in_wait_list</em> is greater than zero, or if <em>event_wait_list</em> is not <code>NULL</code> and <em>num_events_in_wait_list</em> is zero, or if event objects in <em>event_wait_list</em> are not valid events.</p>
+</li>
+<li>
+<p><code>CL_OUT_OF_RESOURCES</code> if there is a failure to allocate resources required by the OpenCL implementation on the device.</p>
+</li>
+<li>
+<p><code>CL_OUT_OF_HOST_MEMORY</code> if there is a failure to allocate resources required by the OpenCL implementation on the host.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The function</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>cl_int  clEnqueueMemAdviseINTEL(
+            cl_command_queue command_queue,
+            const void* ptr,
+            size_t size,
+            cl_mem_advice_intel advice,
+            cl_uint num_events_in_wait_list,
+            const cl_event* event_wait_list,
+            cl_event* event);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>provides advice about a region of a shared Unified Shared Memory allocation.
+Memory advice is a performance hint only and is not required for correctness.
+Providing memory advice hints may override driver heuristics that control shared memory behavior.
+Not all memory advice hints may be supported for all allocation types for all devices.
+If a memory advice hint is not supported by the device it will be ignored.
+Memory advice hints may only be supported at a device-specific granularity, such as at a page boundary.
+In this case, the memory range may be expanded such that the start and end of the range satisfy the granularity requirements.</p>
+</div>
+<div class="paragraph">
+<p><em>command_queue</em> is a valid host command queue.
+The memory advice hints will be queued for the device associated with <em>command_queue</em>.</p>
+</div>
+<div class="paragraph">
+<p><em>ptr</em> is a pointer to the start of the shared Unified Shared Memory allocation.</p>
+</div>
+<div class="paragraph">
+<p><em>size</em> describes the size of the memory region.</p>
+</div>
+<div class="paragraph">
+<p><em>advice</em> is a bit-field describing the memory advice hints for the region.</p>
+</div>
+<div class="paragraph">
+<p><em>event_wait_list</em> and <em>num_events_in_wait_list</em> specify events that need to complete before this command can be executed.
+If <em>event_wait_list</em> is <code>NULL</code>, then this command does not wait on any event to complete.
+If <em>event_wait_list</em> is <code>NULL</code>, <em>num_events_in_wait_list</em> must be 0.
+If <em>event_wait_list</em> is not <code>NULL</code>, the list of events pointed to by <em>event_wait_list</em> must be valid and <em>num_events_in_wait_list</em> must be greater than 0.
+The events specified in <em>event_wait_list</em> act as synchronization points.
+The context associated with events in <em>event_wait_list</em> and <em>command_queue</em> must be the same.
+The memory associated with <em>event_wait_list</em> can be reused or freed after the function returns.</p>
+</div>
+<div class="paragraph">
+<p><em>event</em> returns a unique event object that identifies this command.
+If <em>event</em> is <code>NULL</code>, no event will be created and therefore it will not be possible to query or wait for this command.
+If the <em>event_wait_list</em> and the <em>event</em> arguments are not <code>NULL</code>, the <em>event</em> argument must not refer to an element of the <em>event_wait_list</em> array.</p>
+</div>
+<div class="paragraph">
+<p><strong>clEnqueueMemAdviseINTEL</strong> returns CL_SUCCESS if the command is queued successfully.
+Otherwise, it will return one of the following errors:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_INVALID_COMMAND_QUEUE</code> if <em>command_queue</em> is not a valid host command-queue.</p>
+</li>
+<li>
+<p><code>CL_INVALID_CONTEXT</code> if the context associated with <em>command_queue</em> and events in <em>event_wait_list</em> are not the same.</p>
+</li>
+<li>
+<p><code>CL_INVALID_VALUE</code> <strong>TODO</strong>, are any values of <em>ptr</em> and <em>size</em> considered invalid?</p>
+</li>
+<li>
+<p><code>CL_INVALID_VALUE</code> if <em>advice</em> is not supported advice for the device associated with <em>command_queue</em>.</p>
+</li>
+<li>
+<p><code>CL_INVALID_EVENT_WAIT_LIST</code> if <em>event_wait_list</em> is <code>NULL</code> and <em>num_events_in_wait_list</em> is greater than zero, or if <em>event_wait_list</em> is not <code>NULL</code> and <em>num_events_in_wait_list</em> is zero, or if event objects in <em>event_wait_list</em> are not valid events.</p>
+</li>
+<li>
+<p><code>CL_OUT_OF_RESOURCES</code> if there is a failure to allocate resources required by the OpenCL implementation on the device.</p>
+</li>
+<li>
+<p><code>CL_OUT_OF_HOST_MEMORY</code> if there is a failure to allocate resources required by the OpenCL implementation on the host.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_issues"><a class="anchor" href="#_issues"></a>Issues</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Is there a minimum supported granularity for concurrent access?  For example, might it be possible to concurrently access different pages of an allocation, but not different bytes within the same page?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>UNRESOLVED</strong>:</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>What other Unified Shared Memory allocation properties should we support?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>UNRESOLVED</strong>:
+The proposed Unified Shared Memory allocation APIs accept <code>cl_mem_alloc_flags_intel</code>.
+We could also accept (some? all?) <code>cl_mem_flags</code>, for example.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Do we need separate "concurrent access" capabilities for host access vs. device access?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>UNRESOLVED</strong>:
+We don&#8217;t differentiate right now, but we could differentiate between concurrent host access vs. concurrent access from another device.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>What would we need to add to support system allocations?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><code>RESOLVED</code>:
+Added <code>CL_DEVICE_SHARED_SYSTEM_MEM_CAPABILITIES_INTEL</code>.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Do we need the ability to "register" or "use" an existing host allocations?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>UNRESOLVED</strong>:
+Currently, only the ability to "allocate" host memory is supported.
+If we did support this then there may be alignment and size granularity requirements for "registering" a host allocation.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Do we want to support both a <em>flags</em> argument and a <em>properties</em> argument to the USM allocation APIs?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><code>RESOLVED</code>:
+The <em>flags</em> argument was folded into the <em>properties</em> in revision C.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>What should behavior be for <code>clGetMemAllocInfoINTEL</code> if the passed-in <em>ptr</em> is <code>NULL</code> or doesn&#8217;t point into a USM allocation?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><code>RESOLVED</code>:
+The behavior was defined for all queries for this case in revision G.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Do we want separate "memset" APIs to set to different sized "value", such as 8-bits, 16-bits?, 32-bits, or others?  Do we want to go back to a "fill" API?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><code>RESOLVED</code>:
+Switched to a "fill" API in revision I.</p>
+</div>
+<div class="paragraph">
+<p>Discussion: The host "memset" only sets to an 8-bit value.
+Switching back to a "fill" API is very flexible, but perhaps overkill, since it supports any supported integer or floating-point scalar or vector type.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>What are the restrictions for the <em>dst_ptr</em> values that can be passed to the "fill" API?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>UNRESOLVED</strong>:
+Need to close on:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Can a device "fill" another device&#8217;s allocation?  (Recommendation: Yes, if accessible.)</p>
+</li>
+<li>
+<p>Can a device "fill" arbitrary host memory?  (Recommendation: Maybe?)</p>
+</li>
+<li>
+<p>Can a device "fill" a USM allocation from another context?  (Recommendation: No.)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>What are the restrictions for the <em>src_ptr</em> and <em>dst_ptr</em> values that can be passed to the "memcpy" API?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>UNRESOLVED</strong>:
+Need to close on:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Can a device "memcpy" from another device&#8217;s allocation?</p>
+</li>
+<li>
+<p>Can a device "memcpy" to another device&#8217;s allocation?</p>
+</li>
+<li>
+<p>Can a device "memcpy" to or from a USM allocation in another context?  (Recommendation: No?)</p>
+</li>
+<li>
+<p>Can a device "memcpy" to arbitrary host memory?  (Recommendation: Yes.)</p>
+</li>
+<li>
+<p>Can a device "memcpy" from arbitrary host memory?  (Recommendation: Yes.)</p>
+</li>
+<li>
+<p>Can a device "memcpy" from arbitrary host memory to arbitrary host memory?  (Recommendation: Yes.)</p>
+</li>
+<li>
+<p>Can the memory region to copy to overlap the memory region to copy from?  (Recommendation: No?)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Do we want to support migrating to devices other than the device associated with <em>command_queue</em>?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>UNRESOLVED</strong>:
+We could add an explicit <em>dst_device</em> argument if desired, which could be <code>NULL</code> when migrating to the device associated with the <em>command_queue</em>.
+We could also add a mechanism to allow migrating to the host.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Should <strong>clEnqueueMigrateMemINTEL</strong> support migrating an array of pointers with one API call, similar to <strong>clEnqueueSVMMigrateMem</strong>?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>UNRESOLVED</strong>:
+This depends how frequently the migrate APIs are called.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Could the <em>device</em> argument to <strong>clSharedMemAllocINTEL</strong> be <code>NULL</code> if there is no need to associate the shared allocation to a specific device?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><code>RESOLVED</code>:
+Yes, this case is documented in revision G.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Should we allow querying the associated device for a USM allocation using <strong>clGetMemAllocInfoINTEL</strong>?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><code>RESOLVED</code>:
+This query was added in revision G.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Should we add explicit mem alloc flags for <code>CACHED</code> and <code>UNCACHED</code>?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>UNRESOLVED</strong>:</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>At least for HOST and SHARED allocations, should we have separate mem alloc flags for the host and the device?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>UNRESOLVED</strong>:</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>What are invalid values for <code>ptr</code> and <code>size</code> for <strong>clEnqueueMigrateMemINTEL</strong> and <strong>clEnqueueMemAdviseINTEL</strong>?
+How about <strong>clEnqueueMemFillINTEL</strong> and <strong>clEnqueueMemcpyINTEL</strong>?
+Specifically, is <code>NULL</code> a valid value for <code>ptr</code>?
+Is <code>size</code> equal to zero valid?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>UNRESOLVED</strong>:</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Should we add a device query for a maximum supported USM alignment, or should the maximum supported alignment implicitly be defined by the size of the largest data type supported by the device?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>UNRESOLVED</strong>:
+A device query would allow for larger supported alignments, such as page alignment.
+Note that supported alignments should always be a power of two.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Should we add a device query for a maximum supported USM fill pattern size, or should the maximum supported fill pattern size implicitly be defined by the size of the largest data type supported by the device?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>UNRESOLVED</strong>:
+A device query would allow for larger fill patterns.
+Note that the fill pattern size should always be a power of two.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Can a pointer to a device, host, or shared USM allocation be used to create a <code>cl_mem</code> using <code>CL_MEM_USE_HOST_PTR</code>?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>UNRESOLVED</strong>:
+Trending "no" in all cases.
+If the USM allocation is from the same context this could be an error, such as <code>CL_INVALID_HOST_PTR</code>.
+If the USM allocation is from a different context then behavior could be undefined.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Can a pointer to a device, host, or shared USM allocation be used to create a <code>cl_mem</code> buffer using <code>CL_MEM_COPY_HOST_PTR</code>?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>UNRESOLVED</strong>:
+Trending "no" for device and shared USM allocations.
+If the USM allocation is from the same context this could be an error, such as <code>CL_INVALID_HOST_PTR</code>.
+If the USM allocation is from a different context then behavior could be undefined.</p>
+</div>
+<div class="paragraph">
+<p>Trending "yes" for host USM allocations, both when the host USM allocation is from this context and from another context.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Can a pointer to a device, host, or shared USM allocation be passed to API functions to read from or write to <code>cl_mem</code> objects, such as <code>clEnqueueReadBuffer</code> or <code>clEnqueueWriteImage</code>?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>UNRESOLVED</strong>:
+Trending "yes" for device USM allocations, so long as the device USM allocation is accessible by the device associated with the command queue, and the device allocation was made against the context associated with the command queue.</p>
+</div>
+<div class="paragraph">
+<p>Trending "yes" for host USM allocations, both when the host USM allocation is from this context and from another context.</p>
+</div>
+<div class="paragraph">
+<p>Trending "no" for shared USM allocations.
+If the shared USM allocation is from the same context this could be an error, such as <code>CL_INVALID_HOST_PTR</code>.
+If the shared USM allocation is from a different context then behavior could be undefined.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Can a pointer to a device, host, or shared USM allocation be passed to API functions to fill a <code>cl_mem</code>, SVM allocation, or USM allocation, such as <code>clEnqueueFillBuffer</code>?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>UNRESOLVED</strong>:
+Trending "no" for device and shared allocations.
+If the USM allocation is from the same context this could be an error, such as <code>CL_INVALID_HOST_PTR</code>.
+If the USM allocation is from a different context then behavior could be undefined.</p>
+</div>
+<div class="paragraph">
+<p>Trending "yes" for host USM allocations, both when the host USM allocation is from this context and from another context.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Should we support passing traditional <code>cl_mem_flags</code> via the USM allocation properties?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>UNRESOLVED</strong>:
+Trending "yes", by allowing <code>CL_MEM_FLAGS</code> as a property and <code>cl_mem_flags</code> as the property value.</p>
+</div>
+<div class="paragraph">
+<p>Note that some flags will not be valid, such as <code>CL_MEM_USE_HOST_PTR</code>.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Exactly how does Unified Shared Memory affect the memory model?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>UNRESOLVED</strong>:</p>
+</div>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_revision_history"><a class="anchor" href="#_revision_history"></a>Revision History</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-rows stretch">
+<colgroup>
+<col style="width: 4.7619%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Rev</th>
+<th class="tableblock halign-left valign-top">Date</th>
+<th class="tableblock halign-left valign-top">Author</th>
+<th class="tableblock halign-left valign-top">Changes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2019-01-18</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ben Ashbaugh</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Initial revision</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">B</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2019-03-25</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ben Ashbaugh</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Minor name changes.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">C</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2019-06-18</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ben Ashbaugh</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Moved flags argument into properties.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">D</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2019-07-19</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ben Ashbaugh</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Editorial fixes.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">E</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2019-07-22</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ben Ashbaugh</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Allocation properties should be const.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">F</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2019-07-26</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ben Ashbaugh</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Removed DEFAULT mem alloc flag.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">G</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2019-08-23</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ben Ashbaugh</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Added mem alloc query for associated device.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">H</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2019-10-11</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ben Ashbaugh</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Added initial list and description of error codes.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2019-11-14</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ben Ashbaugh</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Switched from a memset to a memfill API.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">J</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2019-11-18</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ben Ashbaugh</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Updated a few more error conditions.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">K</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2019-12-18</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Krzysztof Gibala</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Updated write combine description.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2020-01-15</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ben Ashbaugh</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Added invalid arg case to setkernelarg API.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">M</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2020-01-17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ben Ashbaugh</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Minor name changes, removed const from memfree API.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">N</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2020-01-22</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ben Ashbaugh</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Updated write combine description.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">O</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2020-01-23</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ben Ashbaugh</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Added aliases for USM migration flags.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2020-02-28</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ben Ashbaugh</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Added blocking memfree API.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Q</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2020-03-12</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ben Ashbaugh</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name tweak for blocking memfree API, added comparison to SVM, allow zero memory advice.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2020-08-21</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ben Ashbaugh</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fixed enum name typo in table.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">S</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2020-08-26</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Maciej Dziuban</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Added initial placement flags for shared allocations.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2021-11-07</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ben Ashbaugh</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Added version and other minor updates prior to posting on the OpenCL registry.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version v3.0.10<br>
+Last updated 2021-11-17 10:05:28 -0800
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
+</body>
+</html>

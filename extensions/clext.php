@@ -111,6 +111,8 @@
 </li>
 <li><a href="extensions/intel/cl_intel_subgroups_short.html">cl_intel_subgroups_short</a>
 </li>
+<li><a href="extensions/intel/cl_intel_unified_shared_memory.html">cl_intel_unified_shared_memory</a>
+</li>
 <li><a href="extensions/intel/cl_intel_va_api_media_sharing.txt">cl_intel_va_api_media_sharing</a>
 </li>
 <li><a href="extensions/nv/cl_nv_compiler_options.txt">cl_nv_compiler_options</a>
