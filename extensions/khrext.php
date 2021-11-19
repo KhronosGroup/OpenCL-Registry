@@ -5,6 +5,8 @@
 </li>
 <li><a href="specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_byte_addressable_store">cl_khr_byte_addressable_store</a>
 </li>
+<li><a href="specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_command_buffer">cl_khr_command_buffer</a>
+</li>
 <li><a href="specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_create_command_queue">cl_khr_create_command_queue</a>
 </li>
 <li><a href="specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_d3d10_sharing">cl_khr_d3d10_sharing</a>
@@ -22,6 +24,8 @@
 <li><a href="specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_egl_event">cl_khr_egl_event</a>
 </li>
 <li><a href="specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_egl_image">cl_khr_egl_image</a>
+</li>
+<li><a href="specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_expect_assume">cl_khr_expect_assume</a>
 </li>
 <li><a href="specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_extended_async_copies">cl_khr_extended_async_copies</a>
 </li>

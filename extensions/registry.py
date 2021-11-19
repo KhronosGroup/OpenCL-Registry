@@ -296,6 +296,11 @@ registry = {
         'flags' : { 'public' },
         'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_byte_addressable_store',
     },
+    'cl_khr_command_buffer' : {
+        'khrnumber' : 64,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_command_buffer',
+    },
     'cl_khr_create_command_queue' : {
         'khrnumber' : 4,
         'flags' : { 'public' },
@@ -340,6 +345,11 @@ registry = {
         'khrnumber' : 12,
         'flags' : { 'public' },
         'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_egl_image',
+    },
+    'cl_khr_expect_assume' : {
+        'khrnumber' : 65,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_expect_assume',
     },
     'cl_khr_extended_async_copies' : {
         'khrnumber' : 13,
