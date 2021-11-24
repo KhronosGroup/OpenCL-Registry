@@ -166,6 +166,11 @@ registry = {
         'flags' : { 'public' },
         'url' : 'extensions/intel/cl_intel_d3d11_nv12_media_sharing.txt',
     },
+    'cl_intel_device_attribute_query' : {
+        'number' : 73,
+        'flags' : { 'public' },
+        'url' : 'extensions/intel/cl_intel_device_attribute_query.html',
+    },
     'cl_intel_device_partition_by_names' : {
         'number' : 20,
         'flags' : { 'public' },
