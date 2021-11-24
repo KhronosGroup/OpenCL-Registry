@@ -277,7 +277,7 @@ registry = {
         'url' : 'extensions/intel/cl_intel_subgroups_short.html',
     },
     'cl_intel_unified_shared_memory' : {
-        'number' : 72,
+        'number' : 74,
         'flags' : { 'public' },
         'url' : 'extensions/intel/cl_intel_unified_shared_memory.html',
     },
