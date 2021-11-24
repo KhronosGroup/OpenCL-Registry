@@ -281,6 +281,11 @@ registry = {
         'flags' : { 'public' },
         'url' : 'extensions/intel/cl_intel_subgroups_short.html',
     },
+    'cl_intel_unified_shared_memory' : {
+        'number' : 74,
+        'flags' : { 'public' },
+        'url' : 'extensions/intel/cl_intel_unified_shared_memory.html',
+    },
     'cl_intel_va_api_media_sharing' : {
         'number' : 36,
         'flags' : { 'public' },
