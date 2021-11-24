@@ -167,7 +167,7 @@ registry = {
         'url' : 'extensions/intel/cl_intel_d3d11_nv12_media_sharing.txt',
     },
     'cl_intel_device_attribute_query' : {
-        'number' : 72,
+        'number' : 73,
         'flags' : { 'public' },
         'url' : 'extensions/intel/cl_intel_device_attribute_query.html',
     },
