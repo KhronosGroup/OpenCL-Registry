@@ -71,6 +71,11 @@ registry = {
         'flags' : { 'public' },
         'url' : 'extensions/arm/cl_arm_printf.txt',
     },
+    'cl_arm_protected_memory_allocation' : {
+        'number' : 72,
+        'flags' : { 'public' },
+        'url' : 'extensions/arm/cl_arm_protected_memory_allocation.html',
+    },
     'cl_arm_shared_virtual_memory' : {
         'number' : 40,
         'flags' : { 'public' },

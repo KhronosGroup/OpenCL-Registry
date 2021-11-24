@@ -31,6 +31,8 @@
 </li>
 <li><a href="extensions/arm/cl_arm_printf.txt">cl_arm_printf</a>
 </li>
+<li><a href="extensions/arm/cl_arm_protected_memory_allocation.html">cl_arm_protected_memory_allocation</a>
+</li>
 <li><a href="extensions/arm/cl_arm_scheduling_controls.html">cl_arm_scheduling_controls</a>
 </li>
 <li><a href="extensions/arm/cl_arm_shared_virtual_memory.txt">cl_arm_shared_virtual_memory</a>
