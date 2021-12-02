@@ -69,7 +69,7 @@ registry = {
     'cl_arm_printf' : {
         'number' : 27,
         'flags' : { 'public' },
-        'url' : 'extensions/arm/cl_arm_printf.txt',
+        'url' : 'extensions/arm/cl_arm_printf.html',
     },
     'cl_arm_protected_memory_allocation' : {
         'number' : 72,
