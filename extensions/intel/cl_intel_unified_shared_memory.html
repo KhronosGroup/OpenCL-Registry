@@ -766,8 +766,8 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <h1>cl_intel_unified_shared_memory</h1>
 <div class="details">
 <span id="revnumber">version v3.0.10,</span>
-<span id="revdate">Fri, 19 Nov 2021 22:20:00 +0000</span>
-<br><span id="revremark">from git branch: master commit: 62afd10cc1c8389b8a3d8dd68785f2b7972451e4</span>
+<span id="revdate">Thu, 13 Jan 2022 23:54:00 +0000</span>
+<br><span id="revremark">from git branch: buffer_location commit: a70edf495d6dda658a986d75983173675cad3646</span>
 </div>
 </div>
 <div id="content">
@@ -823,7 +823,7 @@ Lukasz Towarek, Intel</p>
 <h2 id="_version"><a class="anchor" href="#_version"></a>Version</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Built On: 2021-11-17<br>
+<p>Built On: 2022-01-13<br>
 Revision: 1.0.0</p>
 </div>
 </div>
@@ -1048,8 +1048,7 @@ Optional allocation properties may also be queried using <strong>clGetMemAllocIn
 #define CL_MEM_ALLOC_BASE_PTR_INTEL     0x419B
 #define CL_MEM_ALLOC_SIZE_INTEL         0x419C
 #define CL_MEM_ALLOC_DEVICE_INTEL       0x419D
-/* CL_MEM_ALLOC_FLAGS_INTEL - defined above */
-/* Enum values 0x419E-0x419F are reserved for future queries. */</code></pre>
+/* CL_MEM_ALLOC_FLAGS_INTEL - defined above */</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2278,6 +2277,15 @@ Otherwise, it will return one of the following errors:</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_interactions_with_other_extensions"><a class="anchor" href="#_interactions_with_other_extensions"></a>Interactions with Other Extensions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If <code>cl_intel_mem_alloc_buffer_location</code> is supported then <strong>clDeviceMemAllocINTEL</strong>, <strong>clSharedMemAllocINTEL</strong>, <strong>clHostMemAllocINTEL</strong>, <strong>clGetMemAllocInfoINTEL</strong> also
+accepts <code>CL_MEM_ALLOC_BUFFER_LOCATION_INTEL</code> for <em>cl_mem_properties_intel</em>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_issues"><a class="anchor" href="#_issues"></a>Issues</h2>
 <div class="sectionbody">
 <div class="olist arabic">
@@ -2776,7 +2784,7 @@ Trending "yes", by allowing <code>CL_MEM_FLAGS</code> as a property and <code>cl
 <div id="footer">
 <div id="footer-text">
 Version v3.0.10<br>
-Last updated 2021-11-17 10:05:28 -0800
+Last updated 2022-01-13 18:40:16 -0500
 </div>
 </div>
 

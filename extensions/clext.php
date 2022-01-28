@@ -85,6 +85,8 @@
 </li>
 <li><a href="extensions/intel/cl_intel_media_block_io.txt">cl_intel_media_block_io</a>
 </li>
+<li><a href="extensions/intel/cl_intel_mem_alloc_buffer_location.html">cl_intel_mem_alloc_buffer_location</a>
+</li>
 <li><a href="extensions/intel/cl_intel_mem_channel_property.html">cl_intel_mem_channel_property</a>
 </li>
 <li><a href="extensions/intel/cl_intel_mem_force_host_memory.html">cl_intel_mem_force_host_memory</a>

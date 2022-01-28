@@ -211,6 +211,11 @@ registry = {
         'flags' : { 'public' },
         'url' : 'extensions/intel/cl_intel_media_block_io.txt',
     },
+    'cl_intel_mem_alloc_buffer_location' : {
+        'number' : 75,
+        'flags' : { 'public' },
+        'url' : 'extensions/intel/cl_intel_mem_alloc_buffer_location.html',
+    },
     'cl_intel_mem_channel_property' : {
         'number' : 62,
         'flags' : { 'public' },
