@@ -242,7 +242,7 @@ include_once("../../assets/static_pages/khr_page_top.php");
 
 <h6> Enumerant and Extension Number Registry </h6>
 
-<p> <a href="https://github.com/KhronosGroup/OpenCL-Docs/blob/master/xml/cl.xml">
+<p> <a href="https://github.com/KhronosGroup/OpenCL-Docs/blob/main/xml/cl.xml">
     cl.xml </a> is the registry of reserved OpenCL API enumerant ranges.
     (Note that following this link will probably not render sensibly in
     browsers, since the file is not entirely valid XML, simply a manually
