@@ -992,9 +992,9 @@ pre.rouge {
 <h1>The OpenCL<sup>&#8482;</sup> C Specification</h1>
 <div class="details">
 <span id="author" class="author">Khronos<sup>&#174;</sup> OpenCL Working Group</span><br>
-<span id="revnumber">version v3.0.10,</span>
-<span id="revdate">Fri, 19 Nov 2021 01:00:00 +0000</span>
-<br><span id="revremark">from git branch: master commit: 62afd10cc1c8389b8a3d8dd68785f2b7972451e4</span>
+<span id="revnumber">version v3.0.11,</span>
+<span id="revdate">Fri, 06 May 2022 00:00:00 +0000</span>
+<br><span id="revremark">from git branch: main commit: ec0a84bfca14d15fb0d27fce99a321512d913025</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -1163,7 +1163,7 @@ pre.rouge {
 <div class="sectionbody">
 <div style="page-break-after: always;"></div>
 <div class="paragraph">
-<p>Copyright 2008-2021 The Khronos Group.</p>
+<p>Copyright 2008-2022 The Khronos Group.</p>
 </div>
 <div class="paragraph">
 <p>This specification is protected by copyright laws and contains material proprietary
@@ -1380,8 +1380,9 @@ share SVM memory with each other and the host process.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>__opencl_c_<wbr>device_<wbr>enqueue</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The OpenCL C compiler supports built-in functions to enqueue additional work
 from the device.</p>
-<p class="tableblock">OpenCL C compilers that define the feature macro <code>__opencl_c_<wbr>device_<wbr>enqueue</code>
-must also define the feature macro <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code>.</p></td>
+<p class="tableblock">OpenCL C compilers that define the feature macro <code>__opencl_c_<wbr>device_<wbr>enqueue</code> must also
+define <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code> and <code>__opencl_c_<wbr>program_<wbr>scope_<wbr>global_<wbr>variables</code>
+feature macros.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code></p></td>
@@ -10113,11 +10114,11 @@ feature.
 </div>
 </div>
 <div class="paragraph">
-<p>Atomically replace the value pointed to by object with desired.
-Memory is affected according to the value of order.
+<p>Atomically replace the value pointed to by <code>object</code> with <code>desired</code>.
+Memory is affected according to the value of <code>order</code>.
 These operations are read-modify-write operations (as defined by
 <a href="#C11-spec">section 5.1.2.4 of the C11 Specification</a>).
-Atomically returns the value pointed to by object immediately before the
+Atomically returns the value pointed to by <code>object</code> immediately before the
 effects.</p>
 </div>
 <div class="admonitionblock note">
@@ -10189,7 +10190,8 @@ feature.
     <span class="k">volatile</span> <span class="n">A</span> <span class="o">*</span><span class="n">object</span><span class="p">,</span>
     <span class="n">C</span> <span class="o">*</span><span class="n">expected</span><span class="p">,</span> <span class="n">C</span> <span class="n">desired</span><span class="p">)</span>
 
-<span class="c1">// Requires OpenCL C 3.0 or newer.</span>
+<span class="c1">// Requires OpenCL C 3.0 or newer and the __opencl_c_atomic_scope_device</span>
+<span class="c1">// feature.</span>
 <span class="kt">bool</span> <span class="fm">atomic_compare_exchange_strong_explicit</span><span class="p">(</span>
     <span class="k">volatile</span> <span class="nx">__global</span> <span class="n">A</span> <span class="o">*</span><span class="n">object</span><span class="p">,</span>
     <span class="nx">__global</span> <span class="n">C</span> <span class="o">*</span><span class="n">expected</span><span class="p">,</span>
@@ -10227,8 +10229,9 @@ feature.
     <span class="n">memory_order</span> <span class="n">success</span><span class="p">,</span>
     <span class="n">memory_order</span> <span class="n">failure</span><span class="p">)</span>
 
-<span class="c1">// Requires OpenCL C 2.0, or OpenCL C 3.0 or newer and the</span>
-<span class="c1">// opencl_c_generic_address_space feature.</span>
+<span class="c1">// Requires OpenCL C 2.0, or OpenCL C 3.0 or newer and both the</span>
+<span class="c1">// __opencl_c_generic_address_space and</span>
+<span class="c1">// __opencl_c_atomic_scope_device features.</span>
 <span class="kt">bool</span> <span class="fm">atomic_compare_exchange_strong_explicit</span><span class="p">(</span>
     <span class="k">volatile</span> <span class="n">A</span> <span class="o">*</span><span class="n">object</span><span class="p">,</span>
     <span class="n">C</span> <span class="o">*</span><span class="n">expected</span><span class="p">,</span>
@@ -10318,7 +10321,8 @@ feature.
     <span class="k">volatile</span> <span class="n">A</span> <span class="o">*</span><span class="n">object</span><span class="p">,</span>
     <span class="n">C</span> <span class="o">*</span><span class="n">expected</span><span class="p">,</span> <span class="n">C</span> <span class="n">desired</span><span class="p">)</span>
 
-<span class="c1">// Requires OpenCL C 3.0 or newer.</span>
+<span class="c1">// Requires OpenCL C 3.0 or newer and the __opencl_c_atomic_scope_device</span>
+<span class="c1">// feature.</span>
 <span class="kt">bool</span> <span class="fm">atomic_compare_exchange_weak_explicit</span><span class="p">(</span>
     <span class="k">volatile</span> <span class="nx">__global</span> <span class="n">A</span> <span class="o">*</span><span class="n">object</span><span class="p">,</span>
     <span class="nx">__global</span> <span class="n">C</span> <span class="o">*</span><span class="n">expected</span><span class="p">,</span>
@@ -10356,8 +10360,9 @@ feature.
     <span class="n">memory_order</span> <span class="n">success</span><span class="p">,</span>
     <span class="n">memory_order</span> <span class="n">failure</span><span class="p">)</span>
 
-<span class="c1">// Requires OpenCL C 2.0, or OpenCL C 3.0 or newer and the</span>
-<span class="c1">// opencl_c_generic_address_space feature.</span>
+<span class="c1">// Requires OpenCL C 2.0, or OpenCL C 3.0 or newer and both the</span>
+<span class="c1">// __opencl_c_generic_address_space and</span>
+<span class="c1">// __opencl_c_atomic_scope_device features.</span>
 <span class="kt">bool</span> <span class="fm">atomic_compare_exchange_weak_explicit</span><span class="p">(</span>
     <span class="k">volatile</span> <span class="n">A</span> <span class="o">*</span><span class="n">object</span><span class="p">,</span>
     <span class="n">C</span> <span class="o">*</span><span class="n">expected</span><span class="p">,</span>
@@ -10424,8 +10429,8 @@ feature.
 <p>The <code>failure</code> argument shall not be <code>memory_order_release</code> nor
 <code>memory_order_acq_rel</code>.
 The <code>failure</code> argument shall be no stronger than the <code>success</code> argument.
-Atomically, compares the value pointed to by object for equality with that
-in expected, and if <em>true</em>, replaces the value pointed to by <code>object</code> with
+Atomically, compares the value pointed to by <code>object</code> for equality with that
+in <code>expected</code>, and if <em>true</em>, replaces the value pointed to by <code>object</code> with
 <code>desired</code>, and if <em>false</em>, updates the value in <code>expected</code> with the value
 pointed to by <code>object</code>.
 Further, if the comparison is <em>true</em>, memory is affected according to the
@@ -10447,10 +10452,11 @@ Otherwise, these operations are atomic load operations.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="opencl_c"><span class="k">if</span> <span class="p">(</span><span class="n">memcmp</span><span class="p">(</span><span class="n">object</span><span class="p">,</span> <span class="n">expected</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">object</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+<pre class="rouge highlight"><code data-lang="opencl_c"><span class="k">if</span> <span class="p">(</span><span class="n">memcmp</span><span class="p">(</span><span class="n">object</span><span class="p">,</span> <span class="n">expected</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">object</span><span class="p">))</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">memcpy</span><span class="p">(</span><span class="n">object</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">desired</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">object</span><span class="p">));</span>
-<span class="k">else</span>
-    <span class="nf">memcpy</span><span class="p">(</span><span class="n">expected</span><span class="p">,</span> <span class="n">object</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">object</span><span class="p">));</span></code></pre>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="n">memcpy</span><span class="p">(</span><span class="n">expected</span><span class="p">,</span> <span class="n">object</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">object</span><span class="p">));</span>
+<span class="p">}</span></code></pre>
 </div>
 </div>
 </td>
@@ -10625,7 +10631,7 @@ and on atomic type <code>atomic_uintptr_t</code>, <code>M</code> is <code>uintpt
 </div>
 </div>
 <div class="paragraph">
-<p>Atomically replaces the value pointed to by object with the result of the
+<p>Atomically replaces the value pointed to by <code>object</code> with the result of the
 computation applied to the value pointed to by <code>object</code> and the given
 operand.
 Memory is affected according to the value of <code>order</code>.
@@ -10854,8 +10860,8 @@ feature.
 <div class="paragraph">
 <p>The <code>order</code> argument shall not be <code>memory_order_acquire</code> nor
 <code>memory_order_acq_rel</code>.
-Atomically sets the value pointed to by object to false.
-Memory is affected according to the value of order.</p>
+Atomically sets the value pointed to by <code>object</code> to <em>false</em>.
+Memory is affected according to the value of <code>order</code>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -18625,8 +18631,8 @@ summarized below.</p>
 </div>
 <div id="footer" style="max-width: 100%;">
 <div id="footer-text">
-Version v3.0.10<br>
-Last updated 2021-11-17 10:05:28 -0800
+Version v3.0.11<br>
+Last updated 2022-04-29 18:11:29 -0700
 </div>
 </div>
 

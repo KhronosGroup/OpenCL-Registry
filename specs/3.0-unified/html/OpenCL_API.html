@@ -992,9 +992,9 @@ pre.rouge {
 <h1>The OpenCL<sup>&#8482;</sup> Specification</h1>
 <div class="details">
 <span id="author" class="author">Khronos<sup>&#174;</sup> OpenCL Working Group</span><br>
-<span id="revnumber">version v3.0.10,</span>
-<span id="revdate">Fri, 19 Nov 2021 01:00:00 +0000</span>
-<br><span id="revremark">from git branch: master commit: 62afd10cc1c8389b8a3d8dd68785f2b7972451e4</span>
+<span id="revnumber">version v3.0.11,</span>
+<span id="revdate">Fri, 06 May 2022 00:00:00 +0000</span>
+<br><span id="revremark">from git branch: main commit: ec0a84bfca14d15fb0d27fce99a321512d913025</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -1205,7 +1205,7 @@ pre.rouge {
 <div class="sectionbody">
 <div style="page-break-after: always;"></div>
 <div class="paragraph">
-<p>Copyright 2008-2021 The Khronos Group.</p>
+<p>Copyright 2008-2022 The Khronos Group.</p>
 </div>
 <div class="paragraph">
 <p>This specification is protected by copyright laws and contains material proprietary
@@ -13628,15 +13628,25 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="CL_IMAGE_ROW_PITCH"></a><a href="#CL_IMAGE_ROW_PITCH"><code>CL_IMAGE_<wbr>ROW_<wbr>PITCH</code></a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>size_t</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Return calculated row pitch in bytes of a row of elements of the
-        image object given by <em>image</em>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the row pitch in bytes of a row of elements of the
+        image object given by <em>image</em>.<br>
+        If <em>image</em> was created with a non-zero value for <code>image_row_pitch</code>,
+        then the value provided for <code>image_row_pitch</code> by the application is
+        returned, otherwise the returned value is calculated as
+        <a href="#CL_IMAGE_WIDTH"><code>CL_IMAGE_<wbr>WIDTH</code></a> × <a href="#CL_IMAGE_ELEMENT_SIZE"><code>CL_IMAGE_<wbr>ELEMENT_<wbr>SIZE</code></a>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="CL_IMAGE_SLICE_PITCH"></a><a href="#CL_IMAGE_SLICE_PITCH"><code>CL_IMAGE_<wbr>SLICE_<wbr>PITCH</code></a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>size_t</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Return calculated slice pitch in bytes of a 2D slice for the 3D
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the slice pitch in bytes of a 2D slice for the 3D
         image object or size of each image in a 1D or 2D image array given
-        by <em>image</em>.
+        by <em>image</em>.<br>
+        If <em>image</em> was created with a non-zero value for <code>image_slice_pitch</code>
+        then the value provided for <code>image_slice_pitch</code> by the application
+        is returned, otherwise the returned value is calculated as:<br>
+         - <a href="#CL_IMAGE_ROW_PITCH"><code>CL_IMAGE_<wbr>ROW_<wbr>PITCH</code></a> for 1D image arrays.<br>
+         - <a href="#CL_IMAGE_HEIGHT"><code>CL_IMAGE_<wbr>HEIGHT</code></a> × <a href="#CL_IMAGE_ROW_PITCH"><code>CL_IMAGE_<wbr>ROW_<wbr>PITCH</code></a> for 3D images and
+           2D image arrays.<br>
         For a 1D image, 1D image buffer and 2D image object return 0.</p></td>
 </tr>
 <tr>
@@ -20479,8 +20489,10 @@ and <em>param_value</em> is not <code>NULL</code>.</p>
 </li>
 <li>
 <p><a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> if <em>param_name</em> is
-<a href="#CL_KERNEL_MAX_SUB_GROUP_SIZE_FOR_NDRANGE"><code>CL_KERNEL_<wbr>MAX_<wbr>SUB_<wbr>GROUP_<wbr>SIZE_<wbr>FOR_<wbr>NDRANGE</code></a> and the size in bytes specified by
-<em>input_value_size</em> is not valid or if <em>input_value</em> is <code>NULL</code>.</p>
+<a href="#CL_KERNEL_MAX_SUB_GROUP_SIZE_FOR_NDRANGE"><code>CL_KERNEL_<wbr>MAX_<wbr>SUB_<wbr>GROUP_<wbr>SIZE_<wbr>FOR_<wbr>NDRANGE</code></a>,
+<a href="#CL_KERNEL_SUB_GROUP_COUNT_FOR_NDRANGE"><code>CL_KERNEL_<wbr>SUB_<wbr>GROUP_<wbr>COUNT_<wbr>FOR_<wbr>NDRANGE</code></a> or
+<a href="#CL_KERNEL_LOCAL_SIZE_FOR_SUB_GROUP_COUNT"><code>CL_KERNEL_<wbr>LOCAL_<wbr>SIZE_<wbr>FOR_<wbr>SUB_<wbr>GROUP_<wbr>COUNT</code></a> and the size in bytes specified
+by <em>input_value_size</em> is not valid or if <em>input_value</em> is <code>NULL</code>.</p>
 </li>
 <li>
 <p><a href="#CL_INVALID_KERNEL"><code>CL_INVALID_<wbr>KERNEL</code></a> if <em>kernel</em> is a not a valid kernel object.</p>
@@ -22807,7 +22819,10 @@ Otherwise, it returns one of the following errors:</p>
 <p><a href="#CL_PROFILING_INFO_NOT_AVAILABLE"><code>CL_PROFILING_<wbr>INFO_<wbr>NOT_<wbr>AVAILABLE</code></a> if the <a href="#CL_QUEUE_PROFILING_ENABLE"><code>CL_QUEUE_<wbr>PROFILING_<wbr>ENABLE</code></a> flag is
 not set for the command-queue, if the execution status of the command
 identified by <em>event</em> is not <a href="#CL_COMPLETE"><code>CL_COMPLETE</code></a> or if <em>event</em> is a user event
-object.</p>
+object.
+Prior to OpenCL 3.0, implementations may return
+<a href="#CL_PROFILING_INFO_NOT_AVAILABLE"><code>CL_PROFILING_<wbr>INFO_<wbr>NOT_<wbr>AVAILABLE</code></a> for an event created by
+<a href="#clEnqueueSVMFree"><strong>clEnqueueSVMFree</strong></a>.</p>
 </li>
 <li>
 <p><a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> if <em>param_name</em> is not valid, or if size in bytes
@@ -25708,6 +25723,50 @@ conformance process:</p>
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p>Changes from <strong>v3.0.10</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Added a requirement for implementations supporting device-side enqueue to also support program scope global variables.</p>
+</li>
+<li>
+<p>Added missing device scope atomic feature guards to several atomic function overloads.</p>
+</li>
+<li>
+<p>Added a possible error condition for <a href="#clGetEventProfilingInfo"><strong>clGetEventProfilingInfo</strong></a> for pre-OpenCL 3.0 devices.</p>
+</li>
+<li>
+<p>Added several missing error conditions for <a href="#clGetKernelSubGroupInfo"><strong>clGetKernelSubGroupInfo</strong></a>.</p>
+</li>
+<li>
+<p>Clarified the expected return value for the of <a href="#CL_IMAGE_ROW_PITCH"><code>CL_IMAGE_<wbr>ROW_<wbr>PITCH</code></a> and <a href="#CL_IMAGE_SLICE_PITCH"><code>CL_IMAGE_<wbr>SLICE_<wbr>PITCH</code></a> queries.</p>
+</li>
+<li>
+<p>Updated descriptions of the extended async copies functions to remove references to nonexistent function arguments.</p>
+</li>
+<li>
+<p>Clarified that the extended versioning extension is a core OpenCL 3.0 feature.</p>
+</li>
+<li>
+<p>Clarified subgroup clustered reduction behavior when the cluster size is not an integer constant or a power of two.</p>
+</li>
+<li>
+<p>Added new extensions:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>cl_khr_subgroup_rotate</code></p>
+</li>
+<li>
+<p><code>cl_khr_work_group_uniform_arithmetic</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
 </div>
 </div>
 </div>
@@ -26270,7 +26329,8 @@ When device-side enqueue is not supported:</p>
 </table>
 <div class="paragraph">
 <p>OpenCL C compilers supporting device-side enqueue and on-device queues will define the feature macro <code>__opencl_c_device_enqueue</code>.
-OpenCL C compilers that define the feature macro <code>__opencl_c_device_enqueue</code> must also define the feature macro <code>__opencl_c_generic_address_space</code> because some OpenCL C functions for device-side Enqueue accept pointers to the generic address space.</p>
+OpenCL C compilers that define the feature macro <code>__opencl_c_device_enqueue</code> must also define the feature macro <code>__opencl_c_generic_address_space</code> because some OpenCL C functions for device-side Enqueue accept pointers to the generic address space.
+OpenCL C compilers that define the feature macro <code>__opencl_c_device_enqueue</code> must also define the feature macro <code>__opencl_c_program_scope_global_variables</code> because an implementation of blocks may interact with program scope variables in global address space as part of ABI.</p>
 </div>
 </div>
 <div class="sect2">
@@ -26994,7 +27054,7 @@ AJ Guillon, YetiWare Inc<br></p>
 <a href="#_footnoteref_5">5</a>. <a href="#clGetDeviceIDs"><strong>clGetDeviceIDs</strong></a> may return all or a subset of the actual physical devices present in the platform and that match <em>device_type</em>.
 </div>
 <div class="footnote" id="_footnotedef_6">
-<a href="#_footnoteref_6">6</a>. OpenCL adopters must report a valid vendor ID for their implementation. If there is no valid PCI vendor ID defined for the physical device, implementations must obtain a Khronos vendor ID. This is a unique identifier greater than the largest PCI vendor ID (<code>0x10000</code>) and is representable by a <code>cl_uint</code>. Khronos vendor IDs are synchronized across APIs by utilizing Vulkan&#8217;s vk.xml as the central Khronos vendor ID registry. An ID must be reserved here prior to use in OpenCL, regardless of whether a vendor implements Vulkan. Only once the ID has been allotted may it be exposed to OpenCL by proposing a merge request against cl.xml, in the master branch of the OpenCL-Docs project. The merge must define a new enumerant by adding an <code>&lt;enum&gt;</code> tag to the <code>cl_khronos_<wbr>vendor_<wbr>id</code> <code>&lt;enums&gt;</code> tag, with the <code>&lt;value&gt;</code> attribute set as the acquired Khronos vendor ID. The <code>&lt;name&gt;</code> attribute must identify the vendor/adopter, and be of the form <code>CL_KHRONOS_VENDOR_ID_&lt;vendor&gt;</code>.
+<a href="#_footnoteref_6">6</a>. OpenCL adopters must report a valid vendor ID for their implementation. If there is no valid PCI vendor ID defined for the physical device, implementations must obtain a Khronos vendor ID. This is a unique identifier greater than the largest PCI vendor ID (<code>0x10000</code>) and is representable by a <code>cl_uint</code>. Khronos vendor IDs are synchronized across APIs by utilizing Vulkan&#8217;s vk.xml as the central Khronos vendor ID registry. An ID must be reserved here prior to use in OpenCL, regardless of whether a vendor implements Vulkan. Only once the ID has been allotted may it be exposed to OpenCL by proposing a merge request against cl.xml, in the <code>main</code> branch of the OpenCL-Docs project. The merge must define a new enumerant by adding an <code>&lt;enum&gt;</code> tag to the <code>cl_khronos_<wbr>vendor_<wbr>id</code> <code>&lt;enums&gt;</code> tag, with the <code>&lt;value&gt;</code> attribute set as the acquired Khronos vendor ID. The <code>&lt;name&gt;</code> attribute must identify the vendor/adopter, and be of the form <code>CL_KHRONOS_VENDOR_ID_&lt;vendor&gt;</code>.
 </div>
 <div class="footnote" id="_footnotedef_7">
 <a href="#_footnoteref_7">7</a>. A kernel that uses an image argument with the write_only or read_write image qualifier may result in additional read_only images resources being created internally by an implementation. The internally created read_only image resources will count against the max supported read image arguments given by <a href="#CL_DEVICE_MAX_READ_IMAGE_ARGS"><code>CL_DEVICE_<wbr>MAX_<wbr>READ_<wbr>IMAGE_<wbr>ARGS</code></a>. Enqueuing a kernel that requires more images than the implementation can support will result in a <a href="#CL_OUT_OF_RESOURCES"><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code></a> error being returned.
@@ -27098,8 +27158,8 @@ AJ Guillon, YetiWare Inc<br></p>
 </div>
 <div id="footer" style="max-width: 100%;">
 <div id="footer-text">
-Version v3.0.10<br>
-Last updated 2021-11-17 10:04:23 -0800
+Version v3.0.11<br>
+Last updated 2022-04-29 18:11:29 -0700
 </div>
 </div>
 
