@@ -596,6 +596,11 @@ registry = {
         'flags' : { 'public' },
         'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_subgroup_non_uniform_vote',
     },
+    'cl_khr_subgroup_rotate' : {
+        'khrnumber' : 66,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_subgroup_rotate',
+    },
     'cl_khr_subgroup_shuffle' : {
         'khrnumber' : 47,
         'flags' : { 'public' },
@@ -620,6 +625,11 @@ registry = {
         'khrnumber' : 51,
         'flags' : { 'public' },
         'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_throttle_hints',
+    },
+    'cl_khr_work_group_uniform_arithmetic' : {
+        'khrnumber' : 67,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_work_group_uniform_arithmetic',
     },
     'cl_nv_compiler_options' : {
         'number' : 17,

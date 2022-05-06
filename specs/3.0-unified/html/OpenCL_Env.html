@@ -979,9 +979,9 @@ pre.rouge {
 <h1>The OpenCL<sup>&#8482;</sup> SPIR-V Environment Specification</h1>
 <div class="details">
 <span id="author" class="author">Khronos<sup>&#174;</sup> OpenCL Working Group</span><br>
-<span id="revnumber">version v3.0.10,</span>
-<span id="revdate">Fri, 19 Nov 2021 01:00:00 +0000</span>
-<br><span id="revremark">from git branch: master commit: 62afd10cc1c8389b8a3d8dd68785f2b7972451e4</span>
+<span id="revnumber">version v3.0.11,</span>
+<span id="revdate">Fri, 06 May 2022 00:00:00 +0000</span>
+<br><span id="revremark">from git branch: main commit: ec0a84bfca14d15fb0d27fce99a321512d913025</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -1051,7 +1051,7 @@ pre.rouge {
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2008-2021 The Khronos Group.</p>
+<p>Copyright 2008-2022 The Khronos Group.</p>
 </div>
 <div class="paragraph">
 <p>This specification is protected by copyright laws and contains material proprietary
@@ -2089,6 +2089,12 @@ or <strong>CrossWorkgroup</strong> <em>Storage Classes</em>.  Note that an <stro
 on a pointer to the <strong>Function</strong> <em>Storage Class</em> is valid, but does not
 have defined behavior.</p>
 </li>
+<li>
+<p>For OpenCL environments that support and declare the <strong>GenericPointer</strong>
+capability, the <em>Pointer</em> operand may be a pointer to the <strong>Generic</strong>
+<em>Storage Class</em>, however behavior is still undefined if the <strong>Generic</strong>
+pointer represents a pointer to the <strong>Function</strong> <em>Storage Class</em>.</p>
+</li>
 </ul>
 </div>
 <div class="paragraph">
@@ -2379,13 +2385,6 @@ supporting <code>CL_DEVICE_<wbr>ATOMIC_<wbr>ORDER_<wbr>SEQ_<wbr>CST</code> in
 </div>
 </li>
 </ul>
-</div>
-<div class="paragraph">
-<p>For OpenCL environments that support and declare the <strong>GenericPointer</strong>
-capability, the <em>Pointer</em> operand to all <strong>Atomic Instructions</strong> may be
-a pointer to the <strong>Generic</strong> <em>Storage Class</em>, however behavior is still
-undefined if the <strong>Generic</strong> pointer represents a pointer to the
-<strong>Function</strong> <em>Storage Class</em>.</p>
 </div>
 </div>
 </div>
@@ -3086,6 +3085,70 @@ declare the following SPIR-V capabilities:</p>
 <ul>
 <li>
 <p><strong>ExpectAssumeKHR</strong></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_cl_khr_subgroup_rotate"><a class="anchor" href="#_cl_khr_subgroup_rotate"></a>5.2.26. <code>cl_khr_subgroup_rotate</code></h4>
+<div class="paragraph">
+<p>If the OpenCL environment supports the extension <code>cl_khr_subgroup_rotate</code>,
+then the environment accept modules that require <code>SPV_KHR_subgroup_rotate</code> and
+declare the following SPIR-V capabilities:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>GroupNonUniformRotateKHR</strong></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_cl_khr_work_group_uniform_arithmetic"><a class="anchor" href="#_cl_khr_work_group_uniform_arithmetic"></a>5.2.27. <code>cl_khr_work_group_uniform_arithmetic</code></h4>
+<div class="paragraph">
+<p>If the OpenCL environment supports the extension <code>cl_khr_work_group_uniform_arithmetic</code>, then the environment must accept modules that declare use of the extension <code>SPV_KHR_uniform_group_instructions</code> via <strong>OpExtension</strong>.</p>
+</div>
+<div class="paragraph">
+<p>If the OpenCL environment supports the extension <code>cl_khr_work_group_uniform_arithmetic</code> and use of the SPIR-V extension <code>SPV_KHR_uniform_group_instructions</code> is declared in the module via <strong>OpExtension</strong>, then the environment must accept modules that declare the following SPIR-V capabilities:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>GroupUniformArithmeticKHR</strong></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For instructions requiring these capabilities, <em>Scope</em> for <em>Execution</em> may be:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Workgroup</strong></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For the instructions <strong>OpGroupLogicalAndKHR</strong>, <strong>OpGroupLogicalOrKHR</strong>, and <strong>OpGroupLogicalXorKHR</strong>, the valid type for <em>X</em> is <strong>OpTypeBool</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Otherwise, for the <strong>GroupUniformArithmeticKHR</strong> scan and reduction instructions, valid types for <em>X</em> are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Scalars of supported types:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>OpTypeInt</strong> with <em>Width</em> equal to <code>32</code> or <code>64</code> (equivalent to <code>int</code>, <code>uint</code>, <code>long</code>, and <code>ulong</code>)</p>
+</li>
+<li>
+<p><strong>OpTypeFloat</strong> (equivalent to <code>half</code>, <code>float</code>, and <code>double</code>)</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -7087,8 +7150,8 @@ versions are summarized below.</p>
 </div>
 <div id="footer" style="max-width: 100%;">
 <div id="footer-text">
-Version v3.0.10<br>
-Last updated 2021-11-17 10:05:28 -0800
+Version v3.0.11<br>
+Last updated 2022-04-29 18:11:29 -0700
 </div>
 </div>
 

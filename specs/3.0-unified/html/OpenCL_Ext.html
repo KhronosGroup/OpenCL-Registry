@@ -992,9 +992,9 @@ pre.rouge {
 <h1>The OpenCL<sup>&#8482;</sup> Extension Specification</h1>
 <div class="details">
 <span id="author" class="author">Khronos<sup>&#174;</sup> OpenCL Working Group</span><br>
-<span id="revnumber">version v3.0.10,</span>
-<span id="revdate">Fri, 19 Nov 2021 01:00:00 +0000</span>
-<br><span id="revremark">from git branch: master commit: 62afd10cc1c8389b8a3d8dd68785f2b7972451e4</span>
+<span id="revnumber">version v3.0.11,</span>
+<span id="revdate">Fri, 06 May 2022 00:00:00 +0000</span>
+<br><span id="revremark">from git branch: main commit: ec0a84bfca14d15fb0d27fce99a321512d913025</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -1046,7 +1046,9 @@ pre.rouge {
 <li><a href="#cl_khr_external_memory">45. External Memory (Provisional)</a></li>
 <li><a href="#cl_khr_command_buffer">46. Command Buffers (Provisional)</a></li>
 <li><a href="#cl_khr_expect_assume">47. Kernel Optimization Hints</a></li>
-<li><a href="#spirv_extensions">48. Extensions to the OpenCL SPIR-V Environment</a></li>
+<li><a href="#cl_khr_subgroup_rotate">48. Subgroup Rotation</a></li>
+<li><a href="#cl_khr_work_group_uniform_arithmetic">49. Work Group Uniform Arithmetic</a></li>
+<li><a href="#spirv_extensions">50. Extensions to the OpenCL SPIR-V Environment</a></li>
 <li><a href="#_extensions_promoted_to_core_features">Appendix A: Extensions Promoted to Core Features</a></li>
 <li><a href="#_deprecated_extensions">Appendix B: Deprecated Extensions</a></li>
 <li><a href="#_quick_reference">Appendix C: Quick Reference</a></li>
@@ -1058,7 +1060,7 @@ pre.rouge {
 <div class="sectionbody">
 <div style="page-break-after: always;"></div>
 <div class="paragraph">
-<p>Copyright 2008-2021 The Khronos Group.</p>
+<p>Copyright 2008-2022 The Khronos Group.</p>
 </div>
 <div class="paragraph">
 <p>This specification is protected by copyright laws and contains material proprietary
@@ -17432,14 +17434,9 @@ argument will be returned.</p>
 <p class="tableblock">This function does not perform any implicit synchronization of source
 data such as using a <strong>barrier</strong> before performing the copy.</p>
 <p class="tableblock">The behavior of <strong>async_work_group_copy_2D2D</strong> is undefined if the
-<em>num_elements_per_line</em> or <em>src_stride</em> or <em>dst_stride</em> values cause
-the <em>src</em> or <em>dst</em> addresses to exceed the upper bounds of the address
-space during the copy.</p>
-<p class="tableblock">The behavior of <strong>async_work_group_copy_2D2D</strong> is undefined if the
-<em>src_total_line_length</em> or <em>dst_total_line_length</em> or <em>src_offset</em>
-or <em>dst_offset</em> values cause the <em>src</em> or <em>dst</em> addresses to exceed
-the upper bounds of the address space during the copy.</p>
-<p class="tableblock">The behavior of <strong>async_work_group_copy_2D2D</strong> is undefined if the
+source or destination addresses exceed the upper bounds of the address space
+during the copy.</p>
+<p class="tableblock">The behavior of <strong>async_work_group_copy_2D2D</strong> is also undefined if the
 <em>src_total_line_length</em> or <em>dst_total_line_length</em> values are smaller
 than <em>num_elements_per_line</em>, i.e. overlapping of lines is undefined.</p>
 <p class="tableblock">The async copy is performed by all work-items in a work-group and this
@@ -17513,13 +17510,12 @@ argument will be returned.</p>
 <p class="tableblock">This function does not perform any implicit synchronization of source
 data such as using a <strong>barrier</strong> before performing the copy.</p>
 <p class="tableblock">The behavior of <strong>async_work_group_copy_3D3D</strong> is undefined if the
-<em>src_total_size</em> or <em>dst_total_size</em> or <em>src_offset</em>
-or <em>dst_offset</em> values cause the <em>src</em> or <em>dst</em> addresses to exceed
-the upper bounds of the address space during the copy.</p>
-<p class="tableblock">The behavior of <strong>async_work_group_copy_3D3D</strong> is undefined if the
+source or destination addresses exceed the upper bounds of the address space
+during the copy.</p>
+<p class="tableblock">The behavior of <strong>async_work_group_copy_3D3D</strong> is also undefined if the
 <em>src_total_line_length</em> or <em>dst_total_line_length</em> values are smaller
 than <em>num_elements_per_line</em>, i.e. overlapping of lines is undefined.</p>
-<p class="tableblock">The behavior of <strong>async_work_group_copy_3D3D</strong> is undefined if
+<p class="tableblock">The behavior of <strong>async_work_group_copy_3D3D</strong> is also undefined if
 <em>src_total_plane_area</em> is smaller than (<em>num_lines</em> * <em>src_total_line_length</em>),
 or <em>dst_total_plane_area</em> is smaller than (<em>num_lines</em> * <em>dst_total_line_length</em>),
 i.e. overlapping of planes is undefined.</p>
@@ -17743,6 +17739,11 @@ implementation. It also enables implementations to communicate a version
 number for each of the extensions they support and remove the requirement
 for applications to process strings to test for the presence of an extension or
 intermediate language or built-in kernel.</p>
+</div>
+<div class="paragraph">
+<p>Extended versioning was promoted to a core feature in OpenCL 3.0, however note
+that the query for <code>CL_DEVICE_<wbr>OPENCL_<wbr>C_<wbr>NUMERIC_<wbr>VERSION_<wbr>KHR</code> was replaced by the
+query for <code>CL_DEVICE_<wbr>OPENCL_<wbr>C_<wbr>ALL_<wbr>VERSIONS</code>.</p>
 </div>
 <div class="sect2">
 <h3 id="_general_information_36"><a class="anchor" href="#_general_information_36"></a>37.1. General information</h3>
@@ -18972,8 +18973,7 @@ This extension adds support for clustered reductions that operate on a subset of
 <p>This section describes arithmetic operations that are performed on a subset of work items in a subgroup, referred to as a cluster.
 A cluster is described by a specified cluster size.
 Work items in a subgroup are assigned to clusters such that for cluster size <em>n</em>, the <em>n</em> work items in the subgroup with the smallest subgroup local IDs are assigned to the first cluster, then the <em>n</em> remaining work items with the smallest subgroup local IDs are assigned to the next cluster, and so on.
-The specified cluster size must be an integer constant expression that is a power-of-two.
-Behavior is undefined if the specified cluster size is greater than the maximum size of a subgroup within the dispatch.</p>
+Behavior is undefined if the specified cluster size is not an integer constant expression, is not a power-of-two, or is greater than the maximum size of a subgroup within the dispatch.</p>
 </div>
 <div class="sect4">
 <h5 id="_arithmetic_operations_2"><a class="anchor" href="#_arithmetic_operations_2"></a>38.10.1.1. Arithmetic Operations</h5>
@@ -23424,6 +23424,7 @@ Otherwise, it returns one of the following errors:</p>
 <h4 id="_contributors_6"><a class="anchor" href="#_contributors_6"></a>46.1.4. Contributors</h4>
 <div class="paragraph">
 <p>Ewan Crawford, Codeplay Software Ltd.<br>
+Gordon Brown, Codeplay Software Ltd.<br>
 Kenneth Benzie, Codeplay Software Ltd.<br>
 Alastair Murray, Codeplay Software Ltd.<br>
 Jack Frankland, Codeplay Software Ltd.<br>
@@ -23432,7 +23433,10 @@ Joshua Kelly, Qualcomm Technologies, Inc.<br>
 Kevin Petit, Arm Ltd.<br>
 Aharon Abramson, Intel.<br>
 Ben Ashbaugh, Intel.<br>
-Boaz Ouriel, Intel.<br></p>
+Boaz Ouriel, Intel.<br>
+Pekka Jääskeläinen, Tampere University<br>
+Nikhil Joshi, NVIDIA<br>
+James Price, Google<br></p>
 </div>
 </div>
 </div>
@@ -23943,7 +23947,7 @@ Pending Count greater than 1.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="opencl"><span class="n">cl_command_buffer</span> <span class="nf">clCreateCommandBufferKHR</span><span class="p">(</span>
+<pre class="rouge highlight"><code data-lang="opencl"><span class="kt">cl_command_buffer_khr</span> <span class="nf">clCreateCommandBufferKHR</span><span class="p">(</span>
     <span class="kt">cl_uint</span> <span class="n">num_queues</span><span class="p">,</span>
     <span class="k">const</span> <span class="kt">cl_command_queue</span><span class="o">*</span> <span class="n">queues</span><span class="p">,</span>
     <span class="k">const</span> <span class="kt">cl_command_buffer_properties_khr</span><span class="o">*</span> <span class="n">properties</span><span class="p">,</span>
@@ -24697,8 +24701,8 @@ complete. If the <em>sync_point_wait_list</em> and the <em>sync_point</em> argum
 <em>sync_point_wait_list</em> array.</p>
 </div>
 <div class="paragraph">
-<p><em>mutable_handle</em> may be <code>NULL</code>, however the command will still be mutable if
-<em>command_buffer</em> was created with <code>CL_MUTABLE_MEM_COMMANDS_ENABLE_KHR</code>.</p>
+<p><em>mutable_handle</em> Returns a handle to the command. Handle is unused by
+this extension and must be passed as <code>NULL</code>.</p>
 </div>
 <div class="paragraph">
 <p><strong>clCommandCopyBufferRectKHR</strong> returns <code>CL_SUCCESS</code> if the function is executed
@@ -26045,7 +26049,509 @@ The sample code below describes how to test for and provide <em>expect</em> and 
 </div>
 </div>
 <div class="sect1">
-<h2 id="spirv_extensions"><a class="anchor" href="#spirv_extensions"></a>48. Extensions to the OpenCL SPIR-V Environment</h2>
+<h2 id="cl_khr_subgroup_rotate"><a class="anchor" href="#cl_khr_subgroup_rotate"></a>48. Subgroup Rotation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This extension adds support for a new subgroup data exchange operation that
+makes it possible to rotate values through the work items in a subgroup.</p>
+</div>
+<div class="sect2">
+<h3 id="_general_information_47"><a class="anchor" href="#_general_information_47"></a>48.1. General Information</h3>
+<div class="sect3">
+<h4 id="_name_strings_11"><a class="anchor" href="#_name_strings_11"></a>48.1.1. Name Strings</h4>
+<div class="paragraph">
+<p><code>cl_khr_subgroup_rotate</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_version_history_47"><a class="anchor" href="#_version_history_47"></a>48.1.2. Version History</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Date</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Version</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2022-04-22</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Initial version.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_dependencies_11"><a class="anchor" href="#_dependencies_11"></a>48.1.3. Dependencies</h4>
+<div class="paragraph">
+<p>This extension is written against the OpenCL Specification Version 3.0.10,
+and OpenCL C Specification Version 3.0.10 and OpenCL Environment Specification
+Version 3.0.10.</p>
+</div>
+<div class="paragraph">
+<p>This extension requires OpenCL 2.0.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_contributors_7"><a class="anchor" href="#_contributors_7"></a>48.1.4. Contributors</h4>
+<div class="paragraph">
+<p>Kévin Petit, Arm Ltd.<br>
+Ben Ashbaugh, Intel<br>
+Ruihao Zhang, Qualcomm<br>
+Sven van Haastregt, Arm Ltd.<br>
+Anastasia Stulova, Arm Ltd.<br>
+Stuart Brady, Arm Ltd.<br></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_new_opencl_c_functions_3"><a class="anchor" href="#_new_opencl_c_functions_3"></a>48.2. New OpenCL C Functions</h3>
+<div class="paragraph">
+<p>This extension adds the following built-in function:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="opencl_c"><span class="kp">gentype</span> <span class="n">sub_group_rotate</span><span class="p">(</span><span class="kp">gentype</span> <span class="n">value</span><span class="p">,</span> <span class="kt">int</span> <span class="n">delta</span><span class="p">)</span>
+<span class="kp">gentype</span> <span class="n">sub_group_clustered_rotate</span><span class="p">(</span><span class="kp">gentype</span> <span class="n">value</span><span class="p">,</span> <span class="kt">int</span> <span class="n">delta</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">clustersize</span><span class="p">)</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_modifications_to_the_opencl_c_specification_3"><a class="anchor" href="#_modifications_to_the_opencl_c_specification_3"></a>48.3. Modifications to the OpenCL C Specification</h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">(Add a new section 6.15.x, <strong>Subgroup Rotation</strong>) </dt>
+<dd>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The following preprocessor definitions are added:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="opencl_c"><span class="cp">#define cl_khr_subgroup_rotate 1</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The table below describes a specialized OpenCL C programming language built-in
+function that allow work items in a subgroup to exchange data. This function
+need not be encountered by all work items in a subgroup executing the kernel.
+For the functions below, the generic type name <code>gentype</code> may be one of the
+supported built-in scalar data types <code>char</code>, <code>uchar</code>, <code>short</code>, <code>ushort</code>, <code>int</code>,
+<code>uint</code>, <code>long</code>, <code>ulong</code>, <code>float</code>, <code>double</code> (if double precision is supported),
+or <code>half</code> (if half precision is supported).</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Function</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="opencl_c"><span class="kp">gentype</span> <span class="n">sub_group_rotate</span><span class="p">(</span>
+    <span class="kp">gentype</span> <span class="n">value</span><span class="p">,</span> <span class="kt">int</span> <span class="n">delta</span><span class="p">)</span></code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns <em>value</em> for the work item with subgroup local ID equal to the remainder
+of the division of the sum of this work item&#8217;s subgroup local ID and <em>delta</em> by
+the maximum subgroup size.<br>
+The value of <em>delta</em> is required to be dynamically-uniform for all work items in
+the subgroup, otherwise the behavior is undefined.</p>
+<p class="tableblock">The return value is undefined if the work item with subgroup local ID equal to the
+calculated index is inactive.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="opencl_c"><span class="kp">gentype</span> <span class="n">sub_group_clustered_rotate</span><span class="p">(</span>
+    <span class="kp">gentype</span> <span class="n">value</span><span class="p">,</span> <span class="kt">int</span> <span class="n">delta</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">clustersize</span><span class="p">)</span></code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns <em>value</em> for the work item with subgroup local ID equal to the sum of, the
+remainder of the division of the sum of this work item&#8217;s ID within the cluster and
+<em>delta</em> by <em>clustersize</em>, and the subgroup local ID of the first work-item of the
+cluster to which the work-item executing the function belongs.<br>
+The value of <em>delta</em> is required to be dynamically-uniform for all work items in
+the subgroup, otherwise the behavior is undefined.</p>
+<p class="tableblock"><em>clustersize</em> must be an integer constant expression and a power of two, smaller
+than or equal to the maximum subgroup size, otherwise the behavior is undefined.</p>
+<p class="tableblock">The return value is undefined if the work item with subgroup local ID equal to the
+calculated index is inactive.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_modifications_to_the_opencl_spir_v_environment_specification_2"><a class="anchor" href="#_modifications_to_the_opencl_spir_v_environment_specification_2"></a>48.4. Modifications to the OpenCL SPIR-V Environment Specification</h3>
+<div class="paragraph">
+<p>See OpenCL SPIR-V Environment Specification.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_interactions_with_other_extensions_3"><a class="anchor" href="#_interactions_with_other_extensions_3"></a>48.5. Interactions with Other Extensions</h3>
+<div class="paragraph">
+<p>If <code>cl_khr_il_program</code> is supported then the SPIR-V environment specification
+modifications described above apply.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="cl_khr_work_group_uniform_arithmetic"><a class="anchor" href="#cl_khr_work_group_uniform_arithmetic"></a>49. Work Group Uniform Arithmetic</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This extension adds additional work-group collective functions to OpenCL C.
+Specifically, this extension adds support for work-group scans and reductions for the following operators:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Logical operations (<code>and</code>, <code>or</code>, and <code>xor</code>).</p>
+</li>
+<li>
+<p>Bitwise operations (<code>and</code>, <code>or</code>, and <code>xor</code>).</p>
+</li>
+<li>
+<p>Integer multiplication (<code>mul</code>).</p>
+</li>
+<li>
+<p>Floating-point multiplication (<code>mul</code>).</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_general_information_48"><a class="anchor" href="#_general_information_48"></a>49.1. General Information</h3>
+<div class="sect3">
+<h4 id="_name_strings_12"><a class="anchor" href="#_name_strings_12"></a>49.1.1. Name Strings</h4>
+<div class="paragraph">
+<p><code>cl_khr_work_group_uniform_arithmetic</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_version_history_48"><a class="anchor" href="#_version_history_48"></a>49.1.2. Version History</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Date</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Version</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2022-04-29</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Initial version.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_dependencies_12"><a class="anchor" href="#_dependencies_12"></a>49.1.3. Dependencies</h4>
+<div class="paragraph">
+<p>This extension is written against the OpenCL Specification
+Version 3.0.10.</p>
+</div>
+<div class="paragraph">
+<p>This extension requires OpenCL 2.0.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_contributors_8"><a class="anchor" href="#_contributors_8"></a>49.1.4. Contributors</h4>
+<div class="paragraph">
+<p>Kevin Petit, Arm Ltd.<br>
+Ben Ashbaugh, Intel<br></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_new_opencl_c_functions_4"><a class="anchor" href="#_new_opencl_c_functions_4"></a>49.2. New OpenCL C Functions</h3>
+<div class="paragraph">
+<p>The following functions are added to OpenCL C.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="opencl_c"><span class="kt">int</span> <span class="nf">work_group_reduce_logical_and</span><span class="p">(</span><span class="kt">int</span> <span class="n">predicate</span><span class="p">);</span>
+<span class="kt">int</span> <span class="nf">work_group_reduce_logical_or</span><span class="p">(</span><span class="kt">int</span> <span class="n">predicate</span><span class="p">);</span>
+<span class="kt">int</span> <span class="nf">work_group_reduce_logical_xor</span><span class="p">(</span><span class="kt">int</span> <span class="n">predicate</span><span class="p">);</span>
+
+<span class="kt">int</span> <span class="nf">work_group_scan_inclusive_logical_and</span><span class="p">(</span><span class="kt">int</span> <span class="n">predicate</span><span class="p">);</span>
+<span class="kt">int</span> <span class="nf">work_group_scan_inclusive_logical_or</span><span class="p">(</span><span class="kt">int</span> <span class="n">predicate</span><span class="p">);</span>
+<span class="kt">int</span> <span class="nf">work_group_scan_inclusive_logical_xor</span><span class="p">(</span><span class="kt">int</span> <span class="n">predicate</span><span class="p">);</span>
+
+<span class="kt">int</span> <span class="nf">work_group_scan_exclusive_logical_and</span><span class="p">(</span><span class="kt">int</span> <span class="n">predicate</span><span class="p">);</span>
+<span class="kt">int</span> <span class="nf">work_group_scan_exclusive_logical_or</span><span class="p">(</span><span class="kt">int</span> <span class="n">predicate</span><span class="p">);</span>
+<span class="kt">int</span> <span class="nf">work_group_scan_exclusive_logical_xor</span><span class="p">(</span><span class="kt">int</span> <span class="n">predicate</span><span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For the following functions, the generic type name <code>gentype</code> may be one of the supported built-in scalar data types <code>int</code>, <code>uint</code>, <code>long</code>, or <code>ulong</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="opencl_c"><span class="kp">gentype</span> <span class="nf">work_group_reduce_and</span><span class="p">(</span><span class="kp">gentype</span> <span class="n">value</span><span class="p">);</span>
+<span class="kp">gentype</span> <span class="nf">work_group_reduce_or</span><span class="p">(</span><span class="kp">gentype</span> <span class="n">value</span><span class="p">);</span>
+<span class="kp">gentype</span> <span class="nf">work_group_reduce_xor</span><span class="p">(</span><span class="kp">gentype</span> <span class="n">value</span><span class="p">);</span>
+
+<span class="kp">gentype</span> <span class="nf">work_group_scan_inclusive_and</span><span class="p">(</span><span class="kp">gentype</span> <span class="n">value</span><span class="p">);</span>
+<span class="kp">gentype</span> <span class="nf">work_group_scan_inclusive_or</span><span class="p">(</span><span class="kp">gentype</span> <span class="n">value</span><span class="p">);</span>
+<span class="kp">gentype</span> <span class="nf">work_group_scan_inclusive_xor</span><span class="p">(</span><span class="kp">gentype</span> <span class="n">value</span><span class="p">);</span>
+
+<span class="kp">gentype</span> <span class="nf">work_group_scan_exclusive_and</span><span class="p">(</span><span class="kp">gentype</span> <span class="n">value</span><span class="p">);</span>
+<span class="kp">gentype</span> <span class="nf">work_group_scan_exclusive_or</span><span class="p">(</span><span class="kp">gentype</span> <span class="n">value</span><span class="p">);</span>
+<span class="kp">gentype</span> <span class="nf">work_group_scan_exclusive_xor</span><span class="p">(</span><span class="kp">gentype</span> <span class="n">value</span><span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For the following functions, the generic type name <code>gentype</code> may be one of the supported built-in scalar data types <code>int</code>, <code>uint</code>, <code>long</code>, <code>ulong</code>, <code>float</code>, <code>double</code> (if double precision is supported), or <code>half</code> (if half precision is supported).</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="opencl_c"><span class="kp">gentype</span> <span class="nf">work_group_reduce_mul</span><span class="p">(</span><span class="kp">gentype</span> <span class="n">value</span><span class="p">);</span>
+<span class="kp">gentype</span> <span class="nf">work_group_scan_inclusive_mul</span><span class="p">(</span><span class="kp">gentype</span> <span class="n">value</span><span class="p">);</span>
+<span class="kp">gentype</span> <span class="nf">work_group_scan_exclusive_mul</span><span class="p">(</span><span class="kp">gentype</span> <span class="n">value</span><span class="p">);</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_modifications_to_the_opencl_c_specification_4"><a class="anchor" href="#_modifications_to_the_opencl_c_specification_4"></a>49.3. Modifications to the OpenCL C Specification</h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">(Add to Section 6.15.16, <strong>Work-group Collective Functions</strong>) </dt>
+<dd>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The table below describes the OpenCL C programming language built-in functions that perform
+logical arithmetic operations across work items in a work-group. These functions must be
+encountered by all work items in a work-group executing the kernel, otherwise the behavior is
+undefined. For these functions, a non-zero <em>predicate</em> argument or return value is logically
+<code>true</code> and a zero <em>predicate</em> argument or return value is logically <code>false</code>.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 66.6666%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Function</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="opencl_c"><span class="kt">int</span> <span class="nf">work_group_reduce_logical_and</span><span class="p">(</span><span class="kt">int</span> <span class="n">predicate</span><span class="p">);</span>
+<span class="kt">int</span> <span class="nf">work_group_reduce_logical_or</span><span class="p">(</span><span class="kt">int</span> <span class="n">predicate</span><span class="p">);</span>
+<span class="kt">int</span> <span class="nf">work_group_reduce_logical_xor</span><span class="p">(</span><span class="kt">int</span> <span class="n">predicate</span><span class="p">);</span></code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the logical <strong>and</strong>, <strong>or</strong>, or <strong>xor</strong> of <em>predicate</em> for all work items in the work-group.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="opencl_c"><span class="kt">int</span> <span class="nf">work_group_scan_inclusive_logical_and</span><span class="p">(</span><span class="kt">int</span> <span class="n">predicate</span><span class="p">);</span>
+<span class="kt">int</span> <span class="nf">work_group_scan_inclusive_logical_or</span><span class="p">(</span><span class="kt">int</span> <span class="n">predicate</span><span class="p">);</span>
+<span class="kt">int</span> <span class="nf">work_group_scan_inclusive_logical_xor</span><span class="p">(</span><span class="kt">int</span> <span class="n">predicate</span><span class="p">);</span></code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the result of an inclusive scan operation, which is the logical
+  <strong>and</strong>, <strong>or</strong>, or <strong>xor</strong> of <em>predicate</em> for all work items in the work-group with
+  a work-group linear local ID less than or equal to this work item’s work-group
+  linear local ID.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="kt">int</span> <span class="nf">work_group_scan_exclusive_logical_and</span><span class="p">(</span><span class="kt">int</span> <span class="n">predicate</span><span class="p">);</span>
+<span class="kt">int</span> <span class="nf">work_group_scan_exclusive_logical_or</span><span class="p">(</span><span class="kt">int</span> <span class="n">predicate</span><span class="p">);</span>
+<span class="kt">int</span> <span class="nf">work_group_scan_exclusive_logical_xor</span><span class="p">(</span><span class="kt">int</span> <span class="n">predicate</span><span class="p">);</span></code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the result of an exclusive scan operation, which is the logical
+  <strong>and</strong>, <strong>or</strong>, or <strong>xor</strong> of <em>predicate</em> for all work items in the work-group with
+  a work-group linear local ID less than this work item’s work-group linear
+  local ID.</p>
+<p class="tableblock">  If there is no work item in the work-group with a work-group linear local ID
+  less than this work item’s work-group linear local ID then an identity value
+  <code>I</code> is returned. For <strong>and</strong>, the identity value is <code>true</code> (non-zero). For <strong>or</strong>
+  and <strong>xor</strong>, the identity value is <code>false</code> (zero).</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The table below describes the OpenCL C programming language built-in functions
+that perform bitwise integer operations across work items in a work-group. These
+functions must be encountered by all work items in a work-group executing the
+kernel, otherwise the behavior is undefined. For the functions below, the
+generic type name <code>gentype</code> may be one of the supported built-in scalar data
+types <code>int</code>, <code>uint</code>, <code>long</code>, and <code>ulong</code>.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 66.6666%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Function</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="opencl_c"><span class="kp">gentype</span> <span class="nf">work_group_reduce_and</span><span class="p">(</span><span class="kp">gentype</span> <span class="n">value</span><span class="p">);</span>
+<span class="kp">gentype</span> <span class="nf">work_group_reduce_or</span><span class="p">(</span><span class="kp">gentype</span> <span class="n">value</span><span class="p">);</span>
+<span class="kp">gentype</span> <span class="nf">work_group_reduce_xor</span><span class="p">(</span><span class="kp">gentype</span> <span class="n">value</span><span class="p">);</span></code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the bitwise <strong>and</strong>, <strong>or</strong>, or <strong>xor</strong> of <em>value</em> for all work items in the work-group.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="opencl_c"><span class="kp">gentype</span> <span class="nf">work_group_scan_inclusive_and</span><span class="p">(</span><span class="kp">gentype</span> <span class="n">value</span><span class="p">);</span>
+<span class="kp">gentype</span> <span class="nf">work_group_scan_inclusive_or</span><span class="p">(</span><span class="kp">gentype</span> <span class="n">value</span><span class="p">);</span>
+<span class="kp">gentype</span> <span class="nf">work_group_scan_inclusive_xor</span><span class="p">(</span><span class="kp">gentype</span> <span class="n">value</span><span class="p">);</span></code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the result of an inclusive scan operation, which is the bitwise <strong>and</strong>,
+  <strong>or</strong>, or <strong>xor</strong> of <em>value</em> for all work items in the work-group with a
+  work-group linear local ID less than or equal to this work item’s work-group
+  linear local ID.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="opencl_c"><span class="kp">gentype</span> <span class="nf">work_group_scan_exclusive_and</span><span class="p">(</span><span class="kp">gentype</span> <span class="n">value</span><span class="p">);</span>
+<span class="kp">gentype</span> <span class="nf">work_group_scan_exclusive_or</span><span class="p">(</span><span class="kp">gentype</span> <span class="n">value</span><span class="p">);</span>
+<span class="kp">gentype</span> <span class="nf">work_group_scan_exclusive_xor</span><span class="p">(</span><span class="kp">gentype</span> <span class="n">value</span><span class="p">);</span></code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the result of an exclusive scan operation, which is the bitwise <strong>and</strong>,
+  <strong>or</strong>, or <strong>xor</strong> of <em>value</em> for all work items in the work-group with a
+  work-group linear local ID less than this work item’s work-group linear local
+  ID.</p>
+<p class="tableblock">  If there is no work item in the work-group with a work-group linear local ID less than
+  this work item’s work-group linear local ID then an identity value <code>I</code> is returned.
+  For <strong>and</strong>, the identity value is <code>~0</code> (all bits set). For <strong>or</strong> and <strong>xor</strong>, the identity
+  value is <code>0</code>.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The table below describes the OpenCL C programming language built-in functions
+that perform multiplicative operations across work items in a work-group. These
+functions must be encountered by all work items in a work-group executing the
+kernel, otherwise the behavior is undefined. For the functions below, the
+generic type name <code>gentype</code> may be one of the supported built-in scalar data
+types <code>int</code>, <code>uint</code>, <code>long</code>, <code>ulong</code>, <code>float</code>, <code>double</code> (if double precision is
+supported), or <code>half</code> (if half precision is supported).</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 66.6666%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Function</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="opencl_c"><span class="kp">gentype</span> <span class="nf">work_group_reduce_mul</span><span class="p">(</span><span class="kp">gentype</span> <span class="n">value</span><span class="p">);</span></code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the multiplication of <em>value</em> for all work items in the work-group.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="opencl_c"><span class="kp">gentype</span> <span class="nf">work_group_scan_inclusive_mul</span><span class="p">(</span><span class="kp">gentype</span> <span class="n">value</span><span class="p">);</span></code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the result of an inclusive scan operation which is the multiplication
+  of <em>value</em> for all work items in the work-group with a work-group linear local
+  ID less than or equal to this work item’s work-group linear local ID.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="opencl_c"><span class="kp">gentype</span> <span class="nf">work_group_scan_exclusive_mul</span><span class="p">(</span><span class="kp">gentype</span> <span class="n">value</span><span class="p">);</span></code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the result of an exclusive scan operation which is the multiplication
+  of <em>value</em> for all work items in the work-group with a work-group linear local
+  ID less than this work item’s work-group linear local ID.</p>
+<p class="tableblock">  If there is no work item in the work-group with a work-group linear local ID
+  less than this work item’s work-group linear local ID then the identity value
+  <code>1</code> is returned.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_issues_3"><a class="anchor" href="#_issues_3"></a>49.4. Issues</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>For these built-in functions, do we only want to support the types supported by the existing work-group collective functions, or do we want to support the types supported by the sub-group collective functions?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><code>RESOLVED</code>: The extension will require the same types as the existing work-group collective functions.</p>
+</div>
+<div class="paragraph">
+<p>The difference are the 8-bit and 16-bit types: <code>char</code>, <code>uchar</code>, <code>short</code>, and <code>ushort</code>.  Note that <code>half</code> is already supported, if half-precision is supported.</p>
+</div>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="spirv_extensions"><a class="anchor" href="#spirv_extensions"></a>50. Extensions to the OpenCL SPIR-V Environment</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>An OpenCL SPIR-V environment may be modified by OpenCL extensions.
@@ -26129,6 +26635,9 @@ In addition to the extensions described in this document, the OpenCL SPIR-V Envi
 <h3 id="_for_opencl_3_0"><a class="anchor" href="#_for_opencl_3_0"></a>A.5. For OpenCL 3.0:</h3>
 <div class="ulist">
 <ul>
+<li>
+<p>The API functionality described by <strong>cl_khr_extended_versioning</strong> is now part of the core API feature set, with minor modifications.</p>
+</li>
 <li>
 <p>The built-in functions described by <strong>cl_khr_subgroups</strong> are now supported in OpenCL C 3.0 when the <code>__opencl_c_subgroups</code> feature is supported.</p>
 </li>
@@ -26248,7 +26757,7 @@ Its use is no longer recommended.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#cl_khr_extended_versioning">cl_khr_extended_versioning</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Extend versioning of platform, devices, extensions, etc.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Extension</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Core Feature in OpenCL 3.0 (with minor changes)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#cl_khr_external_memory">cl_khr_external_memory</a></p></td>
@@ -26466,6 +26975,11 @@ Its use is no longer recommended.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Extension</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#cl_khr_subgroup_rotate">cl_khr_subgroup_rotate</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Rotation Among Sub-Groupings of Work Items</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extension</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#cl_khr_subgroup_shuffle">cl_khr_subgroup_shuffle</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">General-Purpose Shuffles Among Sub-Groupings of Work Items</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Extension</p></td>
@@ -26490,6 +27004,11 @@ Its use is no longer recommended.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Create Command Queues with Different Throttle Policies</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Extension</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#cl_khr_work_group_uniform_arithmetic">cl_khr_work_group_uniform_arithmetic</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Work Group Uniform Arithmetic</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extension</p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -26506,8 +27025,8 @@ Its use is no longer recommended.</p>
 </div>
 <div id="footer" style="max-width: 100%;">
 <div id="footer-text">
-Version v3.0.10<br>
-Last updated 2021-11-17 10:05:28 -0800
+Version v3.0.11<br>
+Last updated 2022-05-05 22:02:11 -0700
 </div>
 </div>
 

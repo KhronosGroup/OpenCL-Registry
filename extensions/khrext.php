@@ -113,6 +113,8 @@
 </li>
 <li><a href="specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_subgroup_non_uniform_vote">cl_khr_subgroup_non_uniform_vote</a>
 </li>
+<li><a href="specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_subgroup_rotate">cl_khr_subgroup_rotate</a>
+</li>
 <li><a href="specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_subgroup_shuffle">cl_khr_subgroup_shuffle</a>
 </li>
 <li><a href="specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_subgroup_shuffle_relative">cl_khr_subgroup_shuffle_relative</a>
@@ -124,5 +126,7 @@
 <li><a href="specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_terminate_context">cl_khr_terminate_context</a>
 </li>
 <li><a href="specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_throttle_hints">cl_khr_throttle_hints</a>
+</li>
+<li><a href="specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_work_group_uniform_arithmetic">cl_khr_work_group_uniform_arithmetic</a>
 </li>
 </ul>
