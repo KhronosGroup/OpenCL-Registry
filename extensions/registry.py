@@ -116,6 +116,11 @@ registry = {
         'flags' : { 'public' },
         'url' : 'extensions/ext/cl_ext_device_fission.txt',
     },
+    'cl_ext_float_atomics' : {
+        'number' : 76,
+        'flags' : { 'public' },
+        'url' : 'extensions/ext/cl_ext_float_atomics.html',
+    },
     'cl_ext_migrate_memobject' : {
         'number' : 10,
         'flags' : { 'public' },
