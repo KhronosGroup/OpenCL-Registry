@@ -32,7 +32,7 @@ IP Status
 
 Version
 
-    Revision: #11, Feb 15th, 2021
+    Revision: #12, Sep 29th, 2022
 
 Number
 
@@ -178,9 +178,9 @@ New Procedures and Functions
       _not_ include cases where physical pages are not allocated. For specific
       behaviour see documentation for those memory types.
 
-      CL_INVALID_OPERATION when an imported memory object has been passed to
-      one of the following API functions (they can't be used with imported
-      memory objects):
+      Prior to version 1.1.0, CL_INVALID_OPERATION when an imported memory
+      object has been passed to one of the following API functions (they can't
+      be used with imported memory objects):
 
              * clEnqueueMapBuffer
              * clEnqueueMapImage
@@ -452,3 +452,6 @@ Revision History
     Revision: #10, Feb 13th, 2020 - Make dma_buf <-> host data consistency optional.
     Revision: #11, Feb 15th, 2021 - Add support for Android hardware buffer
                                     plane/layer selection.
+    Revision: #12, Sep 29th, 2022 - Version 1.1.0 of cl_arm_import_memory adds
+                                    support for host access to imported
+                                    memory for all memory types.
