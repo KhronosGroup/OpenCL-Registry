@@ -123,6 +123,8 @@
 </li>
 <li><a href="extensions/intel/cl_intel_va_api_media_sharing.txt">cl_intel_va_api_media_sharing</a>
 </li>
+<li><a href="extensions/loader/cl_loader_info.html">cl_loader_info</a>
+</li>
 <li><a href="extensions/nv/cl_nv_compiler_options.txt">cl_nv_compiler_options</a>
 </li>
 <li><a href="extensions/nv/cl_nv_d3d10_sharing.txt">cl_nv_d3d10_sharing</a>

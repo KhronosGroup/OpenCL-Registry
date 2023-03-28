@@ -701,4 +701,9 @@ registry = {
         'flags' : { 'public' },
         'url' : 'extensions/pocl/cl_pocl_content_size.html',
     },
+    'cl_loader_info' : {
+        'number' : 77,
+        'flags' : { 'public' },
+        'url' : 'extensions/loader/cl_loader_info.html',
+    },
 }
