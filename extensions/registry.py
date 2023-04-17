@@ -326,6 +326,11 @@ registry = {
         'flags' : { 'public' },
         'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_command_buffer',
     },
+    'cl_khr_command_buffer_multi_device' : {
+        'khrnumber' : 69,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_command_buffer_multi_device',
+    },
     'cl_khr_command_buffer_mutable_dispatch' : {
         'khrnumber' : 68,
         'flags' : { 'public' },
