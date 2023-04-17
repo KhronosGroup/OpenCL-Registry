@@ -7,6 +7,8 @@
 </li>
 <li><a href="specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_command_buffer">cl_khr_command_buffer</a>
 </li>
+<li><a href="specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_command_buffer_multi_device">cl_khr_command_buffer_multi_device</a>
+</li>
 <li><a href="specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_command_buffer_mutable_dispatch">cl_khr_command_buffer_mutable_dispatch</a>
 </li>
 <li><a href="specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_create_command_queue">cl_khr_create_command_queue</a>
