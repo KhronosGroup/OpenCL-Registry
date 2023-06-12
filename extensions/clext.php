@@ -65,6 +65,8 @@
 </li>
 <li><a href="extensions/intel/cl_intel_advanced_motion_estimation.txt">cl_intel_advanced_motion_estimation</a>
 </li>
+<li><a href="extensions/intel/cl_intel_bfloat16_conversions.html">cl_intel_bfloat16_conversions</a>
+</li>
 <li><a href="extensions/intel/cl_intel_command_queue_families.html">cl_intel_command_queue_families</a>
 </li>
 <li><a href="extensions/intel/cl_intel_create_buffer_with_properties.html">cl_intel_create_buffer_with_properties</a>
@@ -110,6 +112,8 @@
 <li><a href="extensions/intel/cl_intel_spirv_media_block_io.html">cl_intel_spirv_media_block_io</a>
 </li>
 <li><a href="extensions/intel/cl_intel_spirv_subgroups.html">cl_intel_spirv_subgroups</a>
+</li>
+<li><a href="extensions/intel/cl_intel_split_work_group_barrier.html">cl_intel_split_work_group_barrier</a>
 </li>
 <li><a href="extensions/intel/cl_intel_subgroup_matrix_multiply_accumulate.html">cl_intel_subgroup_matrix_multiply_accumulate</a>
 </li>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.16">
-<title>cl_intel_subgroup_split_matrix_multiply_accumulate</title>
+<title>cl_intel_split_work_group_barrier</title>
 <style>
 /*! normalize.css v2.1.2 | MIT License | git.io/normalize */
 /* ========================================================================== HTML5 display definitions ========================================================================== */
@@ -853,7 +853,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 </script></head>
 <body class="book">
 <div id="header">
-<h1>cl_intel_subgroup_split_matrix_multiply_accumulate</h1>
+<h1>cl_intel_split_work_group_barrier</h1>
 <div class="details">
 <span id="revnumber">version v3.0.14-10-gff88d06,</span>
 <span id="revdate">Mon, 12 Jun 2023 23:00:00 +0000</span>
@@ -865,7 +865,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <h2 id="_name_strings"><a class="anchor" href="#_name_strings"></a>Name Strings</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>cl_intel_subgroup_split_matrix_multiply_accumulate</code></p>
+<p><code>cl_intel_split_work_group_barrier</code></p>
 </div>
 </div>
 </div>
@@ -882,9 +882,8 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <div class="sectionbody">
 <div class="paragraph">
 <p>Ben Ashbaugh, Intel<br>
-Junjie Gu, Intel<br>
-Mike MacPherson, Intel<br>
-Lukasz Towarek, Intel</p>
+Eugene Chereshnev, Intel<br>
+John Pennycook, Intel</p>
 </div>
 </div>
 </div>
@@ -892,7 +891,7 @@ Lukasz Towarek, Intel</p>
 <h2 id="_notice"><a class="anchor" href="#_notice"></a>Notice</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright (c) 2022-2023 Intel Corporation.  All rights reserved.</p>
+<p>Copyright (c) 2022-2023 Intel Corporation. All rights reserved.</p>
 </div>
 </div>
 </div>
@@ -900,7 +899,7 @@ Lukasz Towarek, Intel</p>
 <h2 id="_status"><a class="anchor" href="#_status"></a>Status</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Complete</p>
+<p>Shipping</p>
 </div>
 </div>
 </div>
@@ -909,7 +908,7 @@ Lukasz Towarek, Intel</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Built On: 2023-06-12<br>
-Revision: 1.0.0</p>
+Version: 1.0.0</p>
 </div>
 </div>
 </div>
@@ -917,13 +916,13 @@ Revision: 1.0.0</p>
 <h2 id="_dependencies"><a class="anchor" href="#_dependencies"></a>Dependencies</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This extension is written against the OpenCL 3.0 C Language specification, V3.0.10.</p>
+<p>This extension is written against the OpenCL 3.0 C Language specification and the OpenCL SPIR-V Environment specification, V3.0.10.</p>
 </div>
 <div class="paragraph">
-<p>This extension requires support for subgroups.</p>
+<p>This extension requires OpenCL 1.0.</p>
 </div>
 <div class="paragraph">
-<p>This extension uses many of the terms and concepts from the <code>cl_intel_subgroup_matrix_multiply_accumulate</code> extension.</p>
+<p>Some OpenCL C function overloads added by this extension require OpenCL C 2.0 or newer.</p>
 </div>
 </div>
 </div>
@@ -931,17 +930,12 @@ Revision: 1.0.0</p>
 <h2 id="_overview"><a class="anchor" href="#_overview"></a>Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The goal of this extension is to allow programmers to access specialized hardware to compute the product of an M x K matrix with a K x N matrix and then add an M x N matrix accumulation value.
-This is a commonly used building block to compute the product of two large matrices.</p>
+<p>This extension adds built-in functions to split a <code>barrier</code> or <code>work_group_barrier</code> function in OpenCL C into two separate operations:
+the first indicates that a work-item has "arrived" at a barrier but should continue executing,
+and the second indicates that a work-item should "wait" for all of the work-items to arrive at the barrier before executing further.</p>
 </div>
 <div class="paragraph">
-<p>The functionality described in this extension is very similar to the functionality described in the <code>cl_intel_subgroup_matrix_multiply_accumulate</code> extension, with one key difference:
-in this extension, work items across two subgroups cooperate to perform the operation.
-This is done by <em>splitting</em> the M x K matrix source across two participating subgroups:
-The first M-divided-by-2 rows of the matrix source are provided by the first subgroup, and the remaining M-divided-by-2 rows of the matrix source are provided by the second subgroup.</p>
-</div>
-<div class="paragraph">
-<p>Splitting the matrix source improves performance by halving the amount of data each subgroup must load for the first matrix source.</p>
+<p>Splitting a barrier operation may improve performance and may provide a closer match to "latch" or "barrier" operations in other parallel languages such as C++ 20.</p>
 </div>
 </div>
 </div>
@@ -962,36 +956,24 @@ The first M-divided-by-2 rows of the matrix source are provided by the first sub
 </div>
 </div>
 <div class="sect1">
+<h2 id="_new_api_types"><a class="anchor" href="#_new_api_types"></a>New API Types</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>None.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_new_opencl_c_functions"><a class="anchor" href="#_new_opencl_c_functions"></a>New OpenCL C Functions</h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code>// 8-bit matrices:
-int2 intel_sub_group_i8_i8_split_matrix_mad_k32(int   a, int8  b, int2 acc);  // M = 2
-int4 intel_sub_group_i8_i8_split_matrix_mad_k32(int2  a, int8  b, int4 acc);  // M = 4
-int8 intel_sub_group_i8_i8_split_matrix_mad_k32(int4  a, int8  b, int8 acc);  // M = 8
+<pre class="CodeRay highlight"><code>void intel_work_group_barrier_arrive(cl_mem_fence_flags flags);
+void intel_work_group_barrier_wait(cl_mem_fence_flags flags);
 
-int2 intel_sub_group_i8_u8_split_matrix_mad_k32(int   a, uint8 b, int2 acc);  // ...
-int4 intel_sub_group_i8_u8_split_matrix_mad_k32(int2  a, uint8 b, int4 acc);
-int8 intel_sub_group_i8_u8_split_matrix_mad_k32(int4  a, uint8 b, int8 acc);
-
-int2 intel_sub_group_u8_i8_split_matrix_mad_k32(uint  a, int8  b, int2 acc);
-int4 intel_sub_group_u8_i8_split_matrix_mad_k32(uint2 a, int8  b, int4 acc);
-int8 intel_sub_group_u8_i8_split_matrix_mad_k32(uint4 a, int8  b, int8 acc);
-
-int2 intel_sub_group_u8_u8_split_matrix_mad_k32(uint  a, uint8 b, int2 acc);
-int4 intel_sub_group_u8_u8_split_matrix_mad_k32(uint2 a, uint8 b, int4 acc);
-int8 intel_sub_group_u8_u8_split_matrix_mad_k32(uint4 a, uint8 b, int8 acc);
-
-// bfloat16 matrices:
-float2 intel_sub_group_bf16_bf16_split_matrix_mad_k16(int  a, int8 b, float2 acc);
-float4 intel_sub_group_bf16_bf16_split_matrix_mad_k16(int2 a, int8 b, float4 acc);
-float8 intel_sub_group_bf16_bf16_split_matrix_mad_k16(int4 a, int8 b, float8 acc);
-
-// fp16 matrices:
-float2 intel_sub_group_f16_f16_split_matrix_mad_k16(int  a, int8 b, float2 acc);
-float4 intel_sub_group_f16_f16_split_matrix_mad_k16(int2 a, int8 b, float4 acc);
-float8 intel_sub_group_f16_f16_split_matrix_mad_k16(int4 a, int8 b, float8 acc);</code></pre>
+// For OpenCL C 2.0 or newer:
+void intel_work_group_barrier_arrive(cl_mem_fence_flags flags, memory_scope scope);
+void intel_work_group_barrier_wait(cl_mem_fence_flags flags, memory_scope scope);</code></pre>
 </div>
 </div>
 </div>
@@ -1000,152 +982,88 @@ float8 intel_sub_group_f16_f16_split_matrix_mad_k16(int4 a, int8 b, float8 acc);
 <h2 id="_modifications_to_the_opencl_c_specification"><a class="anchor" href="#_modifications_to_the_opencl_c_specification"></a>Modifications to the OpenCL C Specification</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_add_a_new_section_6_13_x_subgroup_split_matrix_multiply_accumulate_instructions"><a class="anchor" href="#_add_a_new_section_6_13_x_subgroup_split_matrix_multiply_accumulate_instructions"></a>Add a new Section 6.13.X - Subgroup Split Matrix Multiply Accumulate Instructions</h3>
-<div class="paragraph">
-<p>This section describes a family of built-in functions that multiply two matrix sources <code>a</code> and <code>b</code> and then add a matrix accumulation value to produce a matrix result value.
-Work items from two subgroups cooperate to perform this operation.
-<code>a</code> is the first matrix operand and has M rows and K columns.
-Each subgroup provides half of the rows of the <code>a</code> matrix.
-<code>b</code> is the second matrix operand and has K rows and N columns.
-<code>acc</code> is the matrix accumulation value and has M rows and N columns.
-The result value also has M rows and N columns.
-All work items in both subgroups cooperate to perform this operation.
-These functions must be encountered by all work items in both subgroups executing the kernel.</p>
-</div>
-<div class="paragraph">
-<p>The dimensions of the two source matrices and the elements of each source matrix are described by the built-in function name and its arguments.</p>
-</div>
-<div class="paragraph">
-<p>As an example, given the function:</p>
-</div>
-<div class="listingblock">
+<h3 id="_add_to_table_19_built_in_work_group_synchronization_functions"><a class="anchor" href="#_add_to_table_19_built_in_work_group_synchronization_functions"></a>Add to Table 19 - Built-in Work-group Synchronization Functions</h3>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 19. Built-in Work-group synchronization Functions</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Function</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code>int2 intel_sub_group_u8_i8_split_matrix_mad_k32(uint  a, int8  b, int2 acc);</code></pre>
+<pre class="CodeRay highlight"><code>void intel_work_group_barrier_arrive(
+    cl_mem_fence_flags flags);
+void intel_work_group_barrier_wait(
+    cl_mem_fence_flags flags);
+
+void intel_work_group_barrier_arrive(
+    cl_mem_fence_flags flags,
+    memory_scope scope);
+void intel_work_group_barrier_wait(
+    cl_mem_fence_flags flags,
+    memory_scope scope);</code></pre>
 </div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">For these functions, if any work-item in a work-group arrives at a barrier, behavior is undefined unless all work-items in the work-group arrive at the barrier.
+If any work-item in a work-group waits on a barrier, behavior is undefined unless all work-items in the work-group wait on the barrier.</p>
+<p class="tableblock">If a barrier arrive function is inside of a conditional statement and any work-item in the work-group enters the conditional statement and arrives at the barrier, behavior is undefined unless all work-items enter the conditional and arrive at the barrier.
+If a barrier wait function is inside of a conditional statement and any work-item in the work-group enters the conditional statement and waits on the barrier, behavior is undefined unless all work-items enter the conditional and wait on the barrier.</p>
+<p class="tableblock">If a barrier arrive function is inside of a loop and any work-item arrives at the barrier for an iteration of the loop, behavior is undefined unless all work-items arrive at the barrier for the same iteration of the loop.
+If a barrier wait function is inside of a loop and any work-item waits on the barrier for an iteration of the loop, behavior is undefined unless all work-items wait on the barrier for the same iteration of the loop.</p>
+<p class="tableblock">Behavior is undefined if a work-item waits on a barrier before arriving at a barrier.
+After a work-item arrives at a barrier, behavior is undefined if the work-item arrives at another barrier before waiting on a barrier.
+After a work-item waits on a barrier, behavior is undefined if the work-item waits on another barrier before arriving at a barrier.</p>
+<p class="tableblock">The <code>intel_work_group_barrier_arrive</code> and <code>intel_work_group_barrier_wait</code> functions specify which memory operations from before arriving at the barrier must be visible to work-items after waiting on the barrier by using the <em>flags</em> and <em>scope</em> arguments.</p>
+<p class="tableblock">The <em>flags</em> argument specifies the memory address spaces to apply the memory ordering constraints.
+This is a bitfield that can be zero or a combination of the following values:</p>
+<p class="tableblock"><code>CLK_LOCAL_MEM_FENCE</code>: for <code>local</code> memory accesses.<br>
+<code>CLK_GLOBAL_MEM_FENCE</code>: for <code>global</code> memory accesses.<br>
+<code>CLK_IMAGE_MEM_FENCE</code>: for image memory accesses, for this flag the value of <em>scope</em> must be <code>memory_scope_work_group</code> or behavior is undefined.</p>
+<p class="tableblock">The <em>scope</em> argument describes the work-items to apply the memory ordering constraints.
+If no <em>scope</em> argument is provided, the <em>scope</em> is <code>memory_scope_work_group</code>.</p>
+<p class="tableblock">If the <em>flags</em> argument differs between the barrier arrive function and the barrier wait function then only memory operations for the address spaces specified by the intersection of the two <em>flags</em> arguments must be visible.</p>
+<p class="tableblock">If the <em>scope</em> argument differs between the barrier arrive function and the barrier wait function then the memory ordering constraints only apply to work-items described by the narrower of the two <em>scope</em> arguments.</p>
+<p class="tableblock">For each call to these functions, the values of <em>flags</em> and <em>scope</em> must be the same for all work-items in the work-group.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_modifications_to_the_opencl_spir_v_environment_specification"><a class="anchor" href="#_modifications_to_the_opencl_spir_v_environment_specification"></a>Modifications to the OpenCL SPIR-V Environment Specification</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_add_a_new_section_5_2_x_cl_intel_split_work_group_barrier"><a class="anchor" href="#_add_a_new_section_5_2_x_cl_intel_split_work_group_barrier"></a>Add a new section 5.2.X - <code>cl_intel_split_work_group_barrier</code></h3>
+<div class="paragraph">
+<p>If the OpenCL environment supports the extension <code>cl_intel_split_work_group_barrier</code> then the environment must accept modules that declare use of the extension <code>SPV_INTEL_split_barrier</code> and that declare the SPIR-V capability <strong>SplitBarrierINTEL</strong>.</p>
+</div>
+<div class="paragraph">
+<p>For the instructions <strong>OpControlBarrierArriveINTEL</strong> and <strong>OpControlBarrierWaitINTEL</strong> added by the extension:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>a</code> is the first source matrix operand and has <code>M</code> rows and <code>K</code> columns.
-This matrix operand is split across two participating subgroups.
-Work items from each participating subgroup provide half of the row data for this matrix.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>The value for <code>M</code> is determined by the number of vector components in the source operand <code>a</code>.
-Since each subgroup provides half of the row data for this matrix, multiply the number of components in <code>a</code> by two to compute the number of rows <code>M</code>.
-In the example above, <code>a</code> is a scalar <code>uint</code> argument, therefore the matrix <code>a</code> operand has <code>M</code> equal to 2 rows.</p>
+<p><em>Scope</em> for <em>Execution</em> must be <strong>WorkGroup</strong>.</p>
 </li>
 <li>
-<p>The value of <code>K</code> is described by the function name.
-In this case, the value of <code>K</code> is 32, therefore the matrix <code>a</code> operand has <code>K</code> equal to 32 columns.</p>
-</li>
-<li>
-<p>The matrix component data type is also described by the function name.
-In this case, the matrix <code>a</code> component data type is <code>u8</code>, indicating that the elements of the matrix <code>a</code> operand are unsigned 8-bit integers.</p>
-</li>
-<li>
-<p>Each work item contributes part of this matrix.
-In this case, since the elements of the matrix <code>a</code> are 8-bit integers, and since each work item is contributing 32 bits (the size of a <code>uint</code>) of data per row of this matrix, each work item is contributing four 8-bit integer values per row.</p>
-</li>
-<li>
-<p>Since <code>K</code> is 32, and each work item is contributing four 8-bit values per row, the number of work items in the subgroup must be equal to 8.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><code>b</code> is the second source matrix operand and has <code>K</code> rows and <code>N</code> columns.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Each work item contributes one column of this matrix.
-Therefore, the number of columns <code>N</code> is equivalent to the subgroup size.</p>
-</li>
-<li>
-<p>As above, the value of <code>K</code> is described by the function name.
-In this case, the value of <code>K</code> is 32, therefore the matrix <code>b</code> operand has <code>K</code> equal to 32 rows.</p>
-</li>
-<li>
-<p>As above, the matrix component data type is described by the function name.
-In this case, the matrix <code>b</code> component data type is <code>i8</code>, indicating that the elements of the matrix <code>b</code> operand are signed 8-bit integers.</p>
-</li>
-<li>
-<p>Since <code>K</code> is 32 and the elements of the matrix <code>b</code> are 8-bit integers, each work item must contribute 256 bits of source data to contribute <code>K</code> values.
-The 256 bits of source data are packed and passed as the <code>int8</code> argument <code>b</code>.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><code>acc</code> specifies the accumulation value and has <code>M</code> rows and <code>N</code> columns.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>As above, the value of <code>M</code> is determined by the number of components in the source operand <code>acc</code>.
-In the example above, <code>acc</code> is an <code>int2</code> argument, therefore the accumulation value operand has <code>M</code> equal to 2 rows.</p>
-</li>
-<li>
-<p>Both <code>a</code> and <code>acc</code> specify operands with <code>M</code> rows, and the value of <code>M</code> is determined by the number of components in each source operand.
-Since each subgroup provides half of the <code>a</code> matrix data, the <code>a</code> operand will have half the number of components as the <code>acc</code> source operand.</p>
-</li>
-<li>
-<p>As above, each work item contributes one column of accumulation values.
-Therefore, the number of columns <code>N</code> is equivalent to the subgroup size.</p>
-</li>
-<li>
-<p>The <code>acc</code> operand is a "full precision" accumulation value.
-In the example above, the matrices contain integer data, therefore the <code>acc</code> operand is a vector of <code>int</code> data.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>The result value returned by the function also has <code>M</code> rows and <code>N</code> columns.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>As above, the value of <code>M</code> is determined by the number of components in the return type.
-In the example above, the return type is <code>int2</code>, therefore the result value has <code>M</code> equal to 2 rows.</p>
-</li>
-<li>
-<p>The result value, <code>a</code>, and <code>acc</code> all specify values with <code>M</code> rows, and the value of <code>M</code> is determined by the number of components in each source operand or return type.
-Since each subgroup provides half of the <code>a</code> matrix data, the <code>a</code> operand will have half the number of components as the return type and <code>acc</code> operand.</p>
-</li>
-<li>
-<p>As above, each work item will receive one column of result values.
-Therefore, the number of columns <code>N</code> is equivalent to the subgroup size.</p>
-</li>
-<li>
-<p>Similar to the <code>acc</code> operand, the return value is a "full precision" result value.
-In the example above, the matrices contain integer data, therefore the return type is a vector of <code>int</code> data.</p>
-</li>
-</ul>
-</div>
+<p>Valid values for <em>Scope</em> for <em>Memory</em> are the same as for <strong>OpControlBarrier</strong>.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>The full list of supported functions is described in the overview, above.
-For this list of functions:</p>
+<p>For the instruction <strong>OpControlBarrierArriveINTEL</strong>, the memory-order constraint in <em>Memory Semantics</em> must be <strong>Release</strong>.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>M</code> may be equal to 2, 4, or 8.</p>
-</li>
-<li>
-<p><code>N</code> must be equal to 8.  In other words, the only supported subgroup size is 8.</p>
-</li>
-<li>
-<p>Supported integer matrix types for <code>a</code> and <code>b</code> are any combination of signed or unsigned 8-bit integers.
-For these integer matrix types, the accumulation value <code>acc</code> and result value are signed 32-bit integers, and <code>K</code> must be equal to 32.</p>
-</li>
-<li>
-<p>The supported floating-point matrix types for <code>a</code> and <code>b</code> are fp16 (half) or bfloat16.
-For these floating-point matrix type, the accumulation value <code>acc</code> and result value are 32-bit floating-point values, and <code>K</code> must be equal to 16.</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>For the instruction <strong>OpControlBarrierWaitINTEL</strong>, the memory-order constraint in <em>Memory Semantics</em> must be <strong>Acquire</strong>.</p>
 </div>
 </div>
 </div>
@@ -1156,32 +1074,60 @@ For these floating-point matrix type, the accumulation value <code>acc</code> an
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Do we need to talk about which two subgroups cooperate to perform the split matrix multiplication?</p>
+<p>Do we need to support all of the features of C++ 20 barriers (completion functions, arrival tokens, etc.)?</p>
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
-<p><strong>UNRESOLVED</strong>: For now, this is left as an implementation detail, outside of the scope of this extension.</p>
+<p><strong>RESOLVED</strong>: Not in this extension.</p>
 </div>
 </div>
 </div>
 </li>
 <li>
-<p>Should the built-in functions in this extension overload the built-ins from <code>cl_intel_subgroup_matrix_multiply_accumulate</code>, or define new functions?</p>
+<p>Do we need to support sub-group split barriers?</p>
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
-<p><code>RESOLVED</code>: Switched to a non-overloaded syntax: <code>intel_sub_group_i8_i8_split_matrix_mad_k32</code>.</p>
+<p><strong>RESOLVED</strong>: Not in this extension.</p>
 </div>
 </div>
 </div>
 </li>
 <li>
-<p>Should this extension use signed or unsigned types to represent fp16 and bf16 data?</p>
+<p>Do we need to document formal changes to the memory model?</p>
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
-<p><code>RESOLVED</code>: This extension will use signed types to represent fp16 and bf16 data even though this is inconsistent with other extensions such as cl_intel_bfloat16 conversions.
-See discussion in <code>cl_intel_subgroup_matrix_multiply_accumulate</code>.</p>
+<p><strong>RESOLVED</strong>: Not initially.
+Informally, the barrier wait for one work-item synchronizes-with the barrier arrives for the other work-items in the work-group.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>What are the memory order constraints for a split barrier?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>RESOLVED</strong>: Arriving at a split barrier will effectively be a release memory fence and waiting on a barrier will effectively be an acquire memory fence.</p>
+</div>
+<div class="paragraph">
+<p>Alternatively, both arriving and waiting could be sequentially consistent memory fences, but acquire and release are sufficient for most use-cases and may perform better.
+If a sequentially consistent fence is required instead, applications can use an ordinary non-split barrier, or insert explicit memory fences before arriving at the split barrier and after waiting on a split barrier.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>What should behavior be if the flags arguments differ between the barrier arrive and the barrier wait?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>RESOLVED</strong>: The address spaces will be the intersection of the flags, and the memory scope will be the narrowest of the two scopes.
+This is the same behavior that would be observed with a release fence before arriving at the barrier and an acquire fence after waiting on the barrier.</p>
+</div>
+<div class="paragraph">
+<p>Alternatively, this scenario could be undefined behavior, but this appears to be unnecessary.</p>
 </div>
 </div>
 </div>
@@ -1202,7 +1148,7 @@ See discussion in <code>cl_intel_subgroup_matrix_multiply_accumulate</code>.</p>
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Rev</th>
+<th class="tableblock halign-left valign-top">Version</th>
 <th class="tableblock halign-left valign-top">Date</th>
 <th class="tableblock halign-left valign-top">Author</th>
 <th class="tableblock halign-left valign-top">Changes</th>
@@ -1210,10 +1156,22 @@ See discussion in <code>cl_intel_subgroup_matrix_multiply_accumulate</code>.</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1.0.0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2022-05-18</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.9.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2022-01-11</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Ben Ashbaugh</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Initial public revision</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Initial revision</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.9.1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2022-02-07</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ben Ashbaugh</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Added "intel" prefix to split barrier functions.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2022-09-06</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ben Ashbaugh</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Updated version.</p></td>
 </tr>
 </tbody>
 </table>

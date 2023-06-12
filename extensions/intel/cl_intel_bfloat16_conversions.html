@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.16">
-<title>cl_intel_subgroup_split_matrix_multiply_accumulate</title>
+<title>cl_intel_bfloat16_conversions</title>
 <style>
 /*! normalize.css v2.1.2 | MIT License | git.io/normalize */
 /* ========================================================================== HTML5 display definitions ========================================================================== */
@@ -853,7 +853,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 </script></head>
 <body class="book">
 <div id="header">
-<h1>cl_intel_subgroup_split_matrix_multiply_accumulate</h1>
+<h1>cl_intel_bfloat16_conversions</h1>
 <div class="details">
 <span id="revnumber">version v3.0.14-10-gff88d06,</span>
 <span id="revdate">Mon, 12 Jun 2023 23:00:00 +0000</span>
@@ -865,7 +865,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <h2 id="_name_strings"><a class="anchor" href="#_name_strings"></a>Name Strings</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>cl_intel_subgroup_split_matrix_multiply_accumulate</code></p>
+<p><code>cl_intel_bfloat16_conversions</code></p>
 </div>
 </div>
 </div>
@@ -882,8 +882,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <div class="sectionbody">
 <div class="paragraph">
 <p>Ben Ashbaugh, Intel<br>
-Junjie Gu, Intel<br>
-Mike MacPherson, Intel<br>
+Alexey Sotkin, Intel<br>
 Lukasz Towarek, Intel</p>
 </div>
 </div>
@@ -892,7 +891,7 @@ Lukasz Towarek, Intel</p>
 <h2 id="_notice"><a class="anchor" href="#_notice"></a>Notice</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright (c) 2022-2023 Intel Corporation.  All rights reserved.</p>
+<p>Copyright (c) 2022-2023 Intel Corporation. All rights reserved.</p>
 </div>
 </div>
 </div>
@@ -900,7 +899,7 @@ Lukasz Towarek, Intel</p>
 <h2 id="_status"><a class="anchor" href="#_status"></a>Status</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Complete</p>
+<p>Shipping</p>
 </div>
 </div>
 </div>
@@ -917,13 +916,10 @@ Revision: 1.0.0</p>
 <h2 id="_dependencies"><a class="anchor" href="#_dependencies"></a>Dependencies</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This extension is written against the OpenCL 3.0 C Language specification, V3.0.10.</p>
+<p>This extension is written against the OpenCL 3.0 C Language specification and the OpenCL SPIR-V Environment specification, V3.0.8.</p>
 </div>
 <div class="paragraph">
-<p>This extension requires support for subgroups.</p>
-</div>
-<div class="paragraph">
-<p>This extension uses many of the terms and concepts from the <code>cl_intel_subgroup_matrix_multiply_accumulate</code> extension.</p>
+<p>This extension requires OpenCL 1.0.</p>
 </div>
 </div>
 </div>
@@ -931,17 +927,11 @@ Revision: 1.0.0</p>
 <h2 id="_overview"><a class="anchor" href="#_overview"></a>Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The goal of this extension is to allow programmers to access specialized hardware to compute the product of an M x K matrix with a K x N matrix and then add an M x N matrix accumulation value.
-This is a commonly used building block to compute the product of two large matrices.</p>
+<p>This extension adds built-in functions to convert between single-precision 32-bit floating-point values and 16-bit <code>bfloat16</code> values.
+The 16-bit <code>bfloat16</code> format has similar dynamic range as the 32-bit <code>float</code> format, albeit with lower precision than the 16-bit <code>half</code> format.</p>
 </div>
 <div class="paragraph">
-<p>The functionality described in this extension is very similar to the functionality described in the <code>cl_intel_subgroup_matrix_multiply_accumulate</code> extension, with one key difference:
-in this extension, work items across two subgroups cooperate to perform the operation.
-This is done by <em>splitting</em> the M x K matrix source across two participating subgroups:
-The first M-divided-by-2 rows of the matrix source are provided by the first subgroup, and the remaining M-divided-by-2 rows of the matrix source are provided by the second subgroup.</p>
-</div>
-<div class="paragraph">
-<p>Splitting the matrix source improves performance by halving the amount of data each subgroup must load for the first matrix source.</p>
+<p>Please note that this extension currently does not introduce a <code>bfloat16</code> type to OpenCL C and instead the built-in functions convert to or from a <code>ushort</code> 16-bit unsigned integer type with a bit pattern that represents a <code>bfloat16</code> value.</p>
 </div>
 </div>
 </div>
@@ -962,36 +952,31 @@ The first M-divided-by-2 rows of the matrix source are provided by the first sub
 </div>
 </div>
 <div class="sect1">
+<h2 id="_new_api_types"><a class="anchor" href="#_new_api_types"></a>New API Types</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>None.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_new_opencl_c_functions"><a class="anchor" href="#_new_opencl_c_functions"></a>New OpenCL C Functions</h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code>// 8-bit matrices:
-int2 intel_sub_group_i8_i8_split_matrix_mad_k32(int   a, int8  b, int2 acc);  // M = 2
-int4 intel_sub_group_i8_i8_split_matrix_mad_k32(int2  a, int8  b, int4 acc);  // M = 4
-int8 intel_sub_group_i8_i8_split_matrix_mad_k32(int4  a, int8  b, int8 acc);  // M = 8
+<pre class="CodeRay highlight"><code>ushort intel_convert_bfloat16_as_ushort(float source);
+ushort2 intel_convert_bfloat162_as_ushort2(float2 source);
+ushort3 intel_convert_bfloat163_as_ushort3(float3 source);
+ushort4 intel_convert_bfloat164_as_ushort4(float4 source);
+ushort8 intel_convert_bfloat168_as_ushort8(float8 source);
+ushort16 intel_convert_bfloat1616_as_ushort16(float16 source);
 
-int2 intel_sub_group_i8_u8_split_matrix_mad_k32(int   a, uint8 b, int2 acc);  // ...
-int4 intel_sub_group_i8_u8_split_matrix_mad_k32(int2  a, uint8 b, int4 acc);
-int8 intel_sub_group_i8_u8_split_matrix_mad_k32(int4  a, uint8 b, int8 acc);
-
-int2 intel_sub_group_u8_i8_split_matrix_mad_k32(uint  a, int8  b, int2 acc);
-int4 intel_sub_group_u8_i8_split_matrix_mad_k32(uint2 a, int8  b, int4 acc);
-int8 intel_sub_group_u8_i8_split_matrix_mad_k32(uint4 a, int8  b, int8 acc);
-
-int2 intel_sub_group_u8_u8_split_matrix_mad_k32(uint  a, uint8 b, int2 acc);
-int4 intel_sub_group_u8_u8_split_matrix_mad_k32(uint2 a, uint8 b, int4 acc);
-int8 intel_sub_group_u8_u8_split_matrix_mad_k32(uint4 a, uint8 b, int8 acc);
-
-// bfloat16 matrices:
-float2 intel_sub_group_bf16_bf16_split_matrix_mad_k16(int  a, int8 b, float2 acc);
-float4 intel_sub_group_bf16_bf16_split_matrix_mad_k16(int2 a, int8 b, float4 acc);
-float8 intel_sub_group_bf16_bf16_split_matrix_mad_k16(int4 a, int8 b, float8 acc);
-
-// fp16 matrices:
-float2 intel_sub_group_f16_f16_split_matrix_mad_k16(int  a, int8 b, float2 acc);
-float4 intel_sub_group_f16_f16_split_matrix_mad_k16(int2 a, int8 b, float4 acc);
-float8 intel_sub_group_f16_f16_split_matrix_mad_k16(int4 a, int8 b, float8 acc);</code></pre>
+float intel_convert_as_bfloat16_float(ushort source);
+float2 intel_convert_as_bfloat162_float2(ushort2 source);
+float3 intel_convert_as_bfloat163_float3(ushort3 source);
+float4 intel_convert_as_bfloat164_float4(ushort4 source);
+float8 intel_convert_as_bfloat168_float8(ushort8 source);
+float16 intel_convert_as_bfloat1616_float16(ushort16 source);</code></pre>
 </div>
 </div>
 </div>
@@ -1000,150 +985,95 @@ float8 intel_sub_group_f16_f16_split_matrix_mad_k16(int4 a, int8 b, float8 acc);
 <h2 id="_modifications_to_the_opencl_c_specification"><a class="anchor" href="#_modifications_to_the_opencl_c_specification"></a>Modifications to the OpenCL C Specification</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_add_a_new_section_6_13_x_subgroup_split_matrix_multiply_accumulate_instructions"><a class="anchor" href="#_add_a_new_section_6_13_x_subgroup_split_matrix_multiply_accumulate_instructions"></a>Add a new Section 6.13.X - Subgroup Split Matrix Multiply Accumulate Instructions</h3>
+<h3 id="_add_a_new_section_6_3_1_x_the_bfloat16_format"><a class="anchor" href="#_add_a_new_section_6_3_1_x_the_bfloat16_format"></a>Add a new Section 6.3.1.X - The <code>bfloat16</code> Format</h3>
 <div class="paragraph">
-<p>This section describes a family of built-in functions that multiply two matrix sources <code>a</code> and <code>b</code> and then add a matrix accumulation value to produce a matrix result value.
-Work items from two subgroups cooperate to perform this operation.
-<code>a</code> is the first matrix operand and has M rows and K columns.
-Each subgroup provides half of the rows of the <code>a</code> matrix.
-<code>b</code> is the second matrix operand and has K rows and N columns.
-<code>acc</code> is the matrix accumulation value and has M rows and N columns.
-The result value also has M rows and N columns.
-All work items in both subgroups cooperate to perform this operation.
-These functions must be encountered by all work items in both subgroups executing the kernel.</p>
+<p>The <code>bfloat16</code> format is a floating-point format occupying 16 bits.
+It is a truncated version of the 32-bit IEEE 754 single-precision floating-point format.
+The <code>bfloat16</code> format includes one sign bit, eight exponent bits (same as the 32-bit single-precision floating-point format), and 7 mantissa bits (fewer than the 16-bit IEEE 754-2008 half-precision floating-point format).
+This means that a <code>bfloat16</code> number may represent numeric values with a similar dynamic range as a 32-bit <code>float</code> number, albeit with lower precision than a 16-bit <code>half</code> number.</p>
 </div>
 <div class="paragraph">
-<p>The dimensions of the two source matrices and the elements of each source matrix are described by the built-in function name and its arguments.</p>
+<p>The <code>cl_intel_bfloat16_conversions</code> extension does not add <code>bfloat16</code> as a supported data type for OpenCL kernels, however the built-in functions added by the extension are able to use and return <code>bfloat16</code> data.
+For these built-in functions, the <code>bfloat16</code> data is passed to the function or returned from the function by encoding it into a <code>ushort</code> 16-bit unsigned integer data type.
+If a future extension adds <code>bfloat16</code> as a supported data type for OpenCL kernels, the <code>bfloat16</code> data may be reinterpreted and passed to the built-in functions added by <code>cl_intel_bfloat16_conversions</code> using the <strong>as_type()</strong> operator.</p>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_add_a_new_section_6_4_x_bfloat16_conversions"><a class="anchor" href="#_add_a_new_section_6_4_x_bfloat16_conversions"></a>Add a new Section 6.4.X - <code>bfloat16</code> Conversions</h3>
 <div class="paragraph">
-<p>As an example, given the function:</p>
+<p>The <code>bfloat16</code> format can be used in explicit conversions using the following suite of functions:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code>int2 intel_sub_group_u8_i8_split_matrix_mad_k32(uint  a, int8  b, int2 acc);</code></pre>
+<pre class="CodeRay highlight"><code>// conversions to bfloat16:
+destType intel_convert_bfloat16_as_destType(sourceType)
+destTypen intel_convert_bfloat16n_as_destTypen(sourceTypen)
+
+// conversions from bfloat16:
+destType intel_convert_as_bfloat16_destType(sourceType)
+destTypen intel_convert_as_bfloat16n_destTypen(sourceType)</code></pre>
 </div>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>a</code> is the first source matrix operand and has <code>M</code> rows and <code>K</code> columns.
-This matrix operand is split across two participating subgroups.
-Work items from each participating subgroup provide half of the row data for this matrix.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>The value for <code>M</code> is determined by the number of vector components in the source operand <code>a</code>.
-Since each subgroup provides half of the row data for this matrix, multiply the number of components in <code>a</code> by two to compute the number of rows <code>M</code>.
-In the example above, <code>a</code> is a scalar <code>uint</code> argument, therefore the matrix <code>a</code> operand has <code>M</code> equal to 2 rows.</p>
-</li>
-<li>
-<p>The value of <code>K</code> is described by the function name.
-In this case, the value of <code>K</code> is 32, therefore the matrix <code>a</code> operand has <code>K</code> equal to 32 columns.</p>
-</li>
-<li>
-<p>The matrix component data type is also described by the function name.
-In this case, the matrix <code>a</code> component data type is <code>u8</code>, indicating that the elements of the matrix <code>a</code> operand are unsigned 8-bit integers.</p>
-</li>
-<li>
-<p>Each work item contributes part of this matrix.
-In this case, since the elements of the matrix <code>a</code> are 8-bit integers, and since each work item is contributing 32 bits (the size of a <code>uint</code>) of data per row of this matrix, each work item is contributing four 8-bit integer values per row.</p>
-</li>
-<li>
-<p>Since <code>K</code> is 32, and each work item is contributing four 8-bit values per row, the number of work items in the subgroup must be equal to 8.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><code>b</code> is the second source matrix operand and has <code>K</code> rows and <code>N</code> columns.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Each work item contributes one column of this matrix.
-Therefore, the number of columns <code>N</code> is equivalent to the subgroup size.</p>
-</li>
-<li>
-<p>As above, the value of <code>K</code> is described by the function name.
-In this case, the value of <code>K</code> is 32, therefore the matrix <code>b</code> operand has <code>K</code> equal to 32 rows.</p>
-</li>
-<li>
-<p>As above, the matrix component data type is described by the function name.
-In this case, the matrix <code>b</code> component data type is <code>i8</code>, indicating that the elements of the matrix <code>b</code> operand are signed 8-bit integers.</p>
-</li>
-<li>
-<p>Since <code>K</code> is 32 and the elements of the matrix <code>b</code> are 8-bit integers, each work item must contribute 256 bits of source data to contribute <code>K</code> values.
-The 256 bits of source data are packed and passed as the <code>int8</code> argument <code>b</code>.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><code>acc</code> specifies the accumulation value and has <code>M</code> rows and <code>N</code> columns.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>As above, the value of <code>M</code> is determined by the number of components in the source operand <code>acc</code>.
-In the example above, <code>acc</code> is an <code>int2</code> argument, therefore the accumulation value operand has <code>M</code> equal to 2 rows.</p>
-</li>
-<li>
-<p>Both <code>a</code> and <code>acc</code> specify operands with <code>M</code> rows, and the value of <code>M</code> is determined by the number of components in each source operand.
-Since each subgroup provides half of the <code>a</code> matrix data, the <code>a</code> operand will have half the number of components as the <code>acc</code> source operand.</p>
-</li>
-<li>
-<p>As above, each work item contributes one column of accumulation values.
-Therefore, the number of columns <code>N</code> is equivalent to the subgroup size.</p>
-</li>
-<li>
-<p>The <code>acc</code> operand is a "full precision" accumulation value.
-In the example above, the matrices contain integer data, therefore the <code>acc</code> operand is a vector of <code>int</code> data.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>The result value returned by the function also has <code>M</code> rows and <code>N</code> columns.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>As above, the value of <code>M</code> is determined by the number of components in the return type.
-In the example above, the return type is <code>int2</code>, therefore the result value has <code>M</code> equal to 2 rows.</p>
-</li>
-<li>
-<p>The result value, <code>a</code>, and <code>acc</code> all specify values with <code>M</code> rows, and the value of <code>M</code> is determined by the number of components in each source operand or return type.
-Since each subgroup provides half of the <code>a</code> matrix data, the <code>a</code> operand will have half the number of components as the return type and <code>acc</code> operand.</p>
-</li>
-<li>
-<p>As above, each work item will receive one column of result values.
-Therefore, the number of columns <code>N</code> is equivalent to the subgroup size.</p>
-</li>
-<li>
-<p>Similar to the <code>acc</code> operand, the return value is a "full precision" result value.
-In the example above, the matrices contain integer data, therefore the return type is a vector of <code>int</code> data.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
 </div>
 <div class="paragraph">
-<p>The full list of supported functions is described in the overview, above.
-For this list of functions:</p>
+<p>The number of elements in the source and destination vectors must match.</p>
+</div>
+<div class="paragraph">
+<p>The only supported rounding mode is implicitly round-to-nearest-even.
+No explicit rounding modes are supported.</p>
+</div>
+<div class="paragraph">
+<p>Supported scalar and vector data types:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">destType</th>
+<th class="tableblock halign-left valign-top">sourceType</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>bfloat16</code> (as <code>ushort</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>float</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>bfloat162</code>, <code>bfloat163</code>, <code>bfloat164</code>, <code>bfloat168</code>, <code>bfloat1616</code><br>
+  (as <code>ushort2</code>, <code>ushort3</code>, <code>ushort4</code>, <code>ushort8</code>, <code>ushort16</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>float2</code>, <code>float3</code>, <code>float4</code>, <code>float8</code>, <code>float16</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>float</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>bfloat16</code> (as <code>ushort</code>)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>float2</code>, <code>float3</code>, <code>float4</code>, <code>float8</code>, <code>float16</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>bfloat162</code>, <code>bfloat163</code>, <code>bfloat164</code>, <code>bfloat168</code>, <code>bfloat1616</code><br>
+    (as <code>ushort2</code>, <code>ushort3</code>, <code>ushort4</code>, <code>ushort8</code>, <code>ushort16</code>)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_modifications_to_the_opencl_spir_v_environment_specification"><a class="anchor" href="#_modifications_to_the_opencl_spir_v_environment_specification"></a>Modifications to the OpenCL SPIR-V Environment Specification</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_add_a_new_section_5_2_x_cl_intel_bfloat16_conversions"><a class="anchor" href="#_add_a_new_section_5_2_x_cl_intel_bfloat16_conversions"></a>Add a new section 5.2.X - <code>cl_intel_bfloat16_conversions</code></h3>
+<div class="paragraph">
+<p>If the OpenCL environment supports the extension <code>cl_intel_bfloat16_conversions</code> then the environment must accept modules that declare use of the extension <code>SPV_INTEL_bfloat16_conversion</code> and that declare the SPIR-V capability <strong>Bfloat16ConversionINTEL</strong>.</p>
+</div>
+<div class="paragraph">
+<p>For the instructions <strong>OpConvertFToBF16INTEL</strong> and <strong>OpConvertBF16ToFINTEL</strong> added by the extension:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>M</code> may be equal to 2, 4, or 8.</p>
-</li>
-<li>
-<p><code>N</code> must be equal to 8.  In other words, the only supported subgroup size is 8.</p>
-</li>
-<li>
-<p>Supported integer matrix types for <code>a</code> and <code>b</code> are any combination of signed or unsigned 8-bit integers.
-For these integer matrix types, the accumulation value <code>acc</code> and result value are signed 32-bit integers, and <code>K</code> must be equal to 32.</p>
-</li>
-<li>
-<p>The supported floating-point matrix types for <code>a</code> and <code>b</code> are fp16 (half) or bfloat16.
-For these floating-point matrix type, the accumulation value <code>acc</code> and result value are 32-bit floating-point values, and <code>K</code> must be equal to 16.</p>
+<p>Valid types for <em>Result Type</em>, <em>Float Value</em>, and <em>Bfloat16 Value</em> are Scalars and <strong>OpTypeVectors</strong> with 2, 3, 4, 8, or 16 <em>Component Count</em> components</p>
 </li>
 </ul>
 </div>
@@ -1156,32 +1086,101 @@ For these floating-point matrix type, the accumulation value <code>acc</code> an
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Do we need to talk about which two subgroups cooperate to perform the split matrix multiplication?</p>
+<p>Should these functions have a special prefix (such as <code>__</code>) or suffix (such as <code>_as_ushort</code>) since they do not truly operate on a <code>bfloat16</code> type?</p>
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
-<p><strong>UNRESOLVED</strong>: For now, this is left as an implementation detail, outside of the scope of this extension.</p>
+<p><strong>RESOLVED</strong>: Yes, we will use the <code>_as_ushort</code> nomenclature.</p>
+</div>
+<div class="paragraph">
+<p>The function name to convert to a <code>ushort</code> representing a <code>bfloat16</code> value is <code>intel_convert_bfloat16_as_ushort</code>.</p>
+</div>
+<div class="paragraph">
+<p>The function name to convert from a <code>ushort</code> representing a <code>bfloat16</code> value is <code>intel_convert_as_bfloat16_float</code>.</p>
 </div>
 </div>
 </div>
 </li>
 <li>
-<p>Should the built-in functions in this extension overload the built-ins from <code>cl_intel_subgroup_matrix_multiply_accumulate</code>, or define new functions?</p>
+<p>Should we define a type alias for our <code>bfloat16</code> type or use <code>ushort</code> (or <code>short</code>) directly?</p>
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
-<p><code>RESOLVED</code>: Switched to a non-overloaded syntax: <code>intel_sub_group_i8_i8_split_matrix_mad_k32</code>.</p>
+<p><strong>RESOLVED</strong>: No, we will not define a type alias.</p>
 </div>
 </div>
 </div>
 </li>
 <li>
-<p>Should this extension use signed or unsigned types to represent fp16 and bf16 data?</p>
+<p>Should the integer <code>bfloat16</code> representation be signed or unsigned?</p>
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
-<p><code>RESOLVED</code>: This extension will use signed types to represent fp16 and bf16 data even though this is inconsistent with other extensions such as cl_intel_bfloat16 conversions.
-See discussion in <code>cl_intel_subgroup_matrix_multiply_accumulate</code>.</p>
+<p><strong>RESOLVED</strong>: We will use an unsigned type.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Should we support vector conversion built-in functions?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>RESOLVED</strong>: Yes, we will support the vector conversion built-in functions for consistency.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Should we support built-in functions with explicit rounding modes?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>RESOLVED</strong>: No, we will not support the built-in functions with explicit rounding modes for the initial version of this extension.</p>
+</div>
+<div class="paragraph">
+<p>The only supported rounding mode for the conversion from <code>float</code> to <code>bfloat16</code> will be the implicit round-to-nearest-even rounding mode.</p>
+</div>
+<div class="paragraph">
+<p>The conversions from <code>bfloat16</code> to <code>float</code> are lossless.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Do we need to support packed conversions?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>RESOLVED</strong>: No, we will not support packed conversions for the initial version of this extension.
+If we decide to add packed conversions we will also need to add them to the SPIR-V extension.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Do we need to say anything about out-of-range conversions?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>RESOLVED</strong>: No, out-of-range behavior is covered by existing rounding rules.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>How should we name the vector conversion functions?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>RESOLVED</strong>: The name of the vector conversion functions will be <code>intel_convert_bfloat16<em>n</em>_as_ushort<em>n</em></code> and <code>intel_convert_as_bfloat16<em>n</em>_float<em>n</em></code>.
+This is consistent with the naming of the existing conversion functions.</p>
+</div>
+<div class="paragraph">
+<p>Because <code>bfloat16</code> ends with a number this does lead to awkward function names like <code>intel_convert_bfloat1616_as_ushort16</code>, but the awkward-ness is preferable to the ambiguity without the vector size suffix.</p>
+</div>
+<div class="paragraph">
+<p>If we decide to add a true <code>bfloat16</code> type we should consider other names that do not end in a number (<code>bfloat16_t</code>?).</p>
 </div>
 </div>
 </div>
@@ -1202,7 +1201,7 @@ See discussion in <code>cl_intel_subgroup_matrix_multiply_accumulate</code>.</p>
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Rev</th>
+<th class="tableblock halign-left valign-top">Version</th>
 <th class="tableblock halign-left valign-top">Date</th>
 <th class="tableblock halign-left valign-top">Author</th>
 <th class="tableblock halign-left valign-top">Changes</th>
@@ -1210,10 +1209,28 @@ See discussion in <code>cl_intel_subgroup_matrix_multiply_accumulate</code>.</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1.0.0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2022-05-18</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.9.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2021-09-03</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Ben Ashbaugh</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Initial public revision</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Initial revision</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.9.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2021-10-01</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ben Ashbaugh</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reduced scope, resolved all open issues.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.9.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2021-10-19</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ben Ashbaugh</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fixed the names of the vector conversion functions.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2022-08-26</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ben Ashbaugh</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Updated version.</p></td>
 </tr>
 </tbody>
 </table>
