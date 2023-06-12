@@ -765,9 +765,9 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <div id="header">
 <h1>cl_intel_unified_shared_memory</h1>
 <div class="details">
-<span id="revnumber">version v3.0.10,</span>
-<span id="revdate">Thu, 13 Jan 2022 23:54:00 +0000</span>
-<br><span id="revremark">from git branch: buffer_location commit: a70edf495d6dda658a986d75983173675cad3646</span>
+<span id="revnumber">version v3.0.14-10-gff88d06,</span>
+<span id="revdate">Mon, 12 Jun 2023 23:00:00 +0000</span>
+<br><span id="revremark">from git branch: main commit: ff88d0674a775a7b458bf1500d052f2f67a2c2fe</span>
 </div>
 </div>
 <div id="content">
@@ -807,7 +807,7 @@ Lukasz Towarek, Intel</p>
 <h2 id="_notice"><a class="anchor" href="#_notice"></a>Notice</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright (c) 2021 Intel Corporation.  All rights reserved.</p>
+<p>Copyright (c) 2021-2023 Intel Corporation.  All rights reserved.</p>
 </div>
 </div>
 </div>
@@ -823,7 +823,7 @@ Lukasz Towarek, Intel</p>
 <h2 id="_version"><a class="anchor" href="#_version"></a>Version</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Built On: 2022-01-13<br>
+<p>Built On: 2023-06-12<br>
 Revision: 1.0.0</p>
 </div>
 </div>
@@ -1957,7 +1957,7 @@ The new <em>param_name</em> values described below may be used with the existing
 <p>fills a region of a memory with the specified pattern.</p>
 </div>
 <div class="paragraph">
-<p><em>command_queue</em> is a valid host command queue.
+<p><em>command_queue</em> is a valid host command-queue.
 The memory fill command will be queued for execution on the device associated with <em>command_queue</em>.</p>
 </div>
 <div class="paragraph">
@@ -2045,7 +2045,7 @@ Otherwise, it will return one of the following errors:</p>
 <p>copies a region of memory from one location to another.</p>
 </div>
 <div class="paragraph">
-<p><em>command_queue</em> is a valid host command queue.
+<p><em>command_queue</em> is a valid host command-queue.
 The memory copy command will be queued for execution on the device associated with <em>command_queue</em>.</p>
 </div>
 <div class="paragraph">
@@ -2137,7 +2137,7 @@ Memory migration may only be supported at a device-specific granularity, such as
 In this case, the memory range may be expanded such that the start and end of the range satisfy the granularity requirements.</p>
 </div>
 <div class="paragraph">
-<p><em>command_queue</em> is a valid host command queue.
+<p><em>command_queue</em> is a valid host command-queue.
 The memory migration command will be queued for execution on the device associated with <em>command_queue</em>.</p>
 </div>
 <div class="paragraph">
@@ -2217,7 +2217,7 @@ Memory advice hints may only be supported at a device-specific granularity, such
 In this case, the memory range may be expanded such that the start and end of the range satisfy the granularity requirements.</p>
 </div>
 <div class="paragraph">
-<p><em>command_queue</em> is a valid host command queue.
+<p><em>command_queue</em> is a valid host command-queue.
 The memory advice hints will be queued for the device associated with <em>command_queue</em>.</p>
 </div>
 <div class="paragraph">
@@ -2358,7 +2358,7 @@ The <em>flags</em> argument was folded into the <em>properties</em> in revision 
 </div>
 </li>
 <li>
-<p>What should behavior be for <code>clGetMemAllocInfoINTEL</code> if the passed-in <em>ptr</em> is <code>NULL</code> or doesn&#8217;t point into a USM allocation?</p>
+<p>What should behavior be for <strong>clGetMemAllocInfoINTEL</strong> if the passed-in <em>ptr</em> is <code>NULL</code> or doesn&#8217;t point into a USM allocation?</p>
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
@@ -2522,13 +2522,17 @@ Is <code>size</code> equal to zero valid?</p>
 </div>
 </li>
 <li>
-<p>Should we add a device query for a maximum supported USM alignment, or should the maximum supported alignment implicitly be defined by the size of the largest data type supported by the device?</p>
+<p>Should we add a device query for a maximum supported USM alignment, or should the maximum supported alignment implicitly be defined by the size of the largest data type supported by the device?
+Should we allow implementation-defined behavior for alignments larger than the size of the largest data type supported by the device?</p>
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
 <p><strong>UNRESOLVED</strong>:
 A device query would allow for larger supported alignments, such as page alignment.
 Note that supported alignments should always be a power of two.</p>
+</div>
+<div class="paragraph">
+<p>Note that there are no maximum supported alignments defined for <code>posix_memalign</code> or <code>_aligned_alloc</code>, and supported alignments for the standard <code>aligned_alloc</code> and <code>std::aligned_alloc</code> are implementation-defined.</p>
 </div>
 </div>
 </div>
@@ -2575,12 +2579,12 @@ If the USM allocation is from a different context then behavior could be undefin
 </div>
 </li>
 <li>
-<p>Can a pointer to a device, host, or shared USM allocation be passed to API functions to read from or write to <code>cl_mem</code> objects, such as <code>clEnqueueReadBuffer</code> or <code>clEnqueueWriteImage</code>?</p>
+<p>Can a pointer to a device, host, or shared USM allocation be passed to API functions to read from or write to <code>cl_mem</code> objects, such as <strong>clEnqueueReadBuffer</strong> or <strong>clEnqueueWriteImage</strong>?</p>
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
 <p><strong>UNRESOLVED</strong>:
-Trending "yes" for device USM allocations, so long as the device USM allocation is accessible by the device associated with the command queue, and the device allocation was made against the context associated with the command queue.</p>
+Trending "yes" for device USM allocations, so long as the device USM allocation is accessible by the device associated with the command-queue, and the device allocation was made against the context associated with the command-queue.</p>
 </div>
 <div class="paragraph">
 <p>Trending "yes" for host USM allocations, both when the host USM allocation is from this context and from another context.</p>
@@ -2594,7 +2598,7 @@ If the shared USM allocation is from a different context then behavior could be 
 </div>
 </li>
 <li>
-<p>Can a pointer to a device, host, or shared USM allocation be passed to API functions to fill a <code>cl_mem</code>, SVM allocation, or USM allocation, such as <code>clEnqueueFillBuffer</code>?</p>
+<p>Can a pointer to a device, host, or shared USM allocation be passed to API functions to fill a <code>cl_mem</code>, SVM allocation, or USM allocation, such as <strong>clEnqueueFillBuffer</strong>?</p>
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
@@ -2629,6 +2633,37 @@ Trending "yes", by allowing <code>CL_MEM_FLAGS</code> as a property and <code>cl
 <div class="content">
 <div class="paragraph">
 <p><strong>UNRESOLVED</strong>:</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Should it be an error to set an unknown pointer as a kernel argument using <strong>clSetKernelArgMemPointerINTEL</strong> if no devices support shared system allocations?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>UNRESOLVED</strong>:
+Returning an error for an unknown pointer is helpful to identify and diagnose possible programming errors sooner, but passing a pointer to arbitrary memory to a function on the host is not an error until the pointer is dereferenced.</p>
+</div>
+<div class="paragraph">
+<p>If we relax the error condition for <strong>clSetKernelArgMemPointerINTEL</strong> then we could also consider relaxing the error condition for <strong>clSetKernelExecInfo</strong>(<code>CL_KERNEL_EXEC_INFO_USM_PTRS_INTEL</code>) similarly.</p>
+</div>
+<div class="paragraph">
+<p>Note that if the error condition is removed we can still check for possible programming errors via optional USM checking layers, such as the <a href="https://github.com/intel/opencl-intercept-layer/blob/master/docs/controls.md#usmchecking-bool">USMChecking</a> functionality in the <a href="https://github.com/intel/opencl-intercept-layer">OpenCL Intercept Layer</a>.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Should we support a "rect" memcpy similar to <strong>clEnqueueCopyBufferRect</strong>?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>UNRESOLVED</strong>:
+This would be a fairly straightforward addition if it is useful.</p>
+</div>
+<div class="paragraph">
+<p>Note that there is no similar SVM "rect" memcpy.</p>
 </div>
 </div>
 </div>
@@ -2776,6 +2811,12 @@ Trending "yes", by allowing <code>CL_MEM_FLAGS</code> as a property and <code>cl
 <td class="tableblock halign-left valign-top"><p class="tableblock">Ben Ashbaugh</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Added version and other minor updates prior to posting on the OpenCL registry.</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2022-11-08</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ben Ashbaugh</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Added new issues regarding error behavior for clSetKernelArgMemPointerINTEL and rect copies.</p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -2783,8 +2824,8 @@ Trending "yes", by allowing <code>CL_MEM_FLAGS</code> as a property and <code>cl
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.10<br>
-Last updated 2022-01-13 18:40:16 -0500
+Version v3.0.14-10-gff88d06<br>
+Last updated 2023-06-12 16:00:00 -0700
 </div>
 </div>
 

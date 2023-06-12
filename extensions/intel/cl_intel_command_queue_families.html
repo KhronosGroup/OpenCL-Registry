@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.8">
+<meta name="generator" content="Asciidoctor 2.0.16">
 <title>cl_intel_command_queue_families</title>
 <style>
 /*! normalize.css v2.1.2 | MIT License | git.io/normalize */
@@ -140,7 +140,7 @@ meta.foundation-mq-large { font-family: "only screen and (min-width:1440px)"; wi
 
 html, body { font-size: 100%; }
 
-body { background: white; color: #222222; padding: 0; margin: 0; font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif; font-weight: normal; font-style: normal; line-height: 1; position: relative; cursor: auto; }
+body { background: #fff; color: #222; padding: 0; margin: 0; font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif; font-weight: normal; font-style: normal; line-height: 1; position: relative; cursor: auto; }
 
 a:hover { cursor: pointer; }
 
@@ -189,7 +189,7 @@ div, dl, dt, dd, ul, ol, li, h1, h2, h3, #toctitle, .sidebarblock > .content > .
 
 /* Default Link Styles */
 a { color: #0068b0; text-decoration: none; line-height: inherit; }
-a:hover, a:focus { color: #333333; }
+a:hover, a:focus { color: #333; }
 a img { border: none; }
 
 /* Default paragraph styles */
@@ -212,7 +212,7 @@ h5 { font-size: 1.125em; }
 
 h6 { font-size: 1em; }
 
-hr { border: solid #dddddd; border-width: 1px 0 0; clear: both; margin: 1.25em 0 1.1875em; height: 0; }
+hr { border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 1.25em 0 1.1875em; height: 0; }
 
 /* Helpful Typography Defaults */
 em, i { font-style: italic; line-height: inherit; }
@@ -245,20 +245,20 @@ dl dt { margin-bottom: 0.3em; font-weight: bold; }
 dl dd { margin-bottom: 0.75em; }
 
 /* Abbreviations */
-abbr, acronym { text-transform: uppercase; font-size: 90%; color: black; border-bottom: 1px dotted #dddddd; cursor: help; }
+abbr, acronym { text-transform: uppercase; font-size: 90%; color: black; border-bottom: 1px dotted #ddd; cursor: help; }
 
 abbr { text-transform: none; }
 
 /* Blockquotes */
-blockquote { margin: 0 0 0.75em; padding: 0.5625em 1.25em 0 1.1875em; border-left: 1px solid #dddddd; }
-blockquote cite { display: block; font-size: 0.8125em; color: #5e93b8; }
+blockquote { margin: 0 0 0.75em; padding: 0.5625em 1.25em 0 1.1875em; border-left: 1px solid #ddd; }
+blockquote cite { display: block; font-size: 0.8125em; color: #365E7A; }
 blockquote cite:before { content: "\2014 \0020"; }
-blockquote cite a, blockquote cite a:visited { color: #5e93b8; }
+blockquote cite a, blockquote cite a:visited { color: #365E7A; }
 
-blockquote, blockquote p { line-height: 1.6; color: #333333; }
+blockquote, blockquote p { line-height: 1.6; color: #333; }
 
 /* Microformats */
-.vcard { display: inline-block; margin: 0 0 1.25em 0; border: 1px solid #dddddd; padding: 0.625em 0.75em; }
+.vcard { display: inline-block; margin: 0 0 1.25em 0; border: 1px solid #ddd; padding: 0.625em 0.75em; }
 .vcard li { margin: 0; display: block; }
 .vcard .fn { font-weight: bold; font-size: 0.9375em; }
 
@@ -271,11 +271,11 @@ blockquote, blockquote p { line-height: 1.6; color: #333333; }
   h3, #toctitle, .sidebarblock > .content > .title { font-size: 1.6875em; }
   h4 { font-size: 1.4375em; } }
 /* Tables */
-table { background: white; margin-bottom: 1.25em; border: solid 1px #d8d8ce; }
-table thead, table tfoot { background: -webkit-linear-gradient(top, #add386, #90b66a); font-weight: bold; }
-table thead tr th, table thead tr td, table tfoot tr th, table tfoot tr td { padding: 0.5em 0.625em 0.625em; font-size: inherit; color: white; text-align: left; }
+table { background: #fff; margin-bottom: 1.25em; border: solid 1px #d8d8ce; }
+table thead, table tfoot { background: #eee; font-weight: bold; }
+table thead tr th, table thead tr td, table tfoot tr th, table tfoot tr td { padding: 0.5em 0.625em 0.625em; font-size: inherit; color: #222; text-align: left; }
 table tr th, table tr td { padding: 0.5625em 0.625em; font-size: inherit; color: #6d6e71; }
-table tr.even, table tr.alt, table tr:nth-of-type(even) { background: #edf2f2; }
+table tr.even, table tr.alt, table tr:nth-of-type(even) { background: #f8f8f8; }
 table thead tr th, table tfoot tr th, table tbody tr td, table tr td, table tfoot tr td { display: table-cell; line-height: 1.4; }
 
 body { -moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; tab-size: 4; }
@@ -287,7 +287,7 @@ a:hover, a:focus { text-decoration: underline; }
 .clearfix:before, .clearfix:after, .float-group:before, .float-group:after { content: " "; display: table; }
 .clearfix:after, .float-group:after { clear: both; }
 
-*:not(pre) > code { font-size: inherit; font-style: normal !important; letter-spacing: 0; padding: 0; background-color: white; -webkit-border-radius: 0; border-radius: 0; line-height: inherit; word-wrap: break-word; }
+*:not(pre) > code { font-size: inherit; font-style: normal !important; letter-spacing: 0; padding: 0; background-color: transparent; -webkit-border-radius: 0; border-radius: 0; line-height: inherit; word-wrap: break-word; }
 *:not(pre) > code.nobreak { word-wrap: normal; }
 *:not(pre) > code.nowrap { white-space: nowrap; }
 
@@ -299,7 +299,7 @@ strong strong { font-weight: normal; }
 
 .keyseq { color: #333333; }
 
-kbd { font-family: Consolas, "Liberation Mono", Courier, monospace; display: inline-block; color: black; font-size: 0.65em; line-height: 1.45; background-color: #f7f7f7; border: 1px solid #ccc; -webkit-border-radius: 3px; border-radius: 3px; -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 0 0 0.1em white inset; box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 0 0 0.1em white inset; margin: 0 0.15em; padding: 0.2em 0.5em; vertical-align: middle; position: relative; top: -0.1em; white-space: nowrap; }
+kbd { font-family: Consolas, "Liberation Mono", Courier, monospace; display: inline-block; color: black; font-size: 0.65em; line-height: 1.45; background-color: #f7f7f7; border: 1px solid #ccc; -webkit-border-radius: 3px; border-radius: 3px; -moz-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 0 0 0.1em white inset; -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 0 0 0.1em white inset; box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 0 0 0.1em white inset; margin: 0 0.15em; padding: 0.2em 0.5em; vertical-align: middle; position: relative; top: -0.1em; white-space: nowrap; }
 
 .keyseq kbd:first-child { margin-left: 0; }
 
@@ -328,21 +328,21 @@ b.button:after { content: "]"; padding: 0 2px 0 3px; }
 #content:before { content: none; }
 
 #header > h1:first-child { color: black; margin-top: 2.25rem; margin-bottom: 0; }
-#header > h1:first-child + #toc { margin-top: 8px; border-top: 1px solid #dddddd; }
-#header > h1:only-child, body.toc2 #header > h1:nth-last-child(2) { border-bottom: 1px solid #dddddd; padding-bottom: 8px; }
-#header .details { border-bottom: 1px solid #dddddd; line-height: 1.45; padding-top: 0.25em; padding-bottom: 0.25em; padding-left: 0.25em; color: #5e93b8; display: -ms-flexbox; display: -webkit-flex; display: flex; -ms-flex-flow: row wrap; -webkit-flex-flow: row wrap; flex-flow: row wrap; }
+#header > h1:first-child + #toc { margin-top: 8px; border-top: 1px solid #ddd; }
+#header > h1:only-child, body.toc2 #header > h1:nth-last-child(2) { border-bottom: 1px solid #ddd; padding-bottom: 8px; }
+#header .details { border-bottom: 1px solid #ddd; line-height: 1.45; padding-top: 0.25em; padding-bottom: 0.25em; padding-left: 0.25em; color: #365E7A; display: -ms-flexbox; display: -webkit-flex; display: flex; -ms-flex-flow: row wrap; -webkit-flex-flow: row wrap; flex-flow: row wrap; }
 #header .details span:first-child { margin-left: -0.125em; }
-#header .details span.email a { color: #333333; }
+#header .details span.email a { color: #333; }
 #header .details br { display: none; }
 #header .details br + span:before { content: "\00a0\2013\00a0"; }
-#header .details br + span.author:before { content: "\00a0\22c5\00a0"; color: #333333; }
+#header .details br + span.author:before { content: "\00a0\22c5\00a0"; color: #333; }
 #header .details br + span#revremark:before { content: "\00a0|\00a0"; }
 #header #revnumber { text-transform: capitalize; }
 #header #revnumber:after { content: "\00a0"; }
 
-#content > h1:first-child:not([class]) { color: black; border-bottom: 1px solid #dddddd; padding-bottom: 8px; margin-top: 0; padding-top: 1rem; margin-bottom: 1.25rem; }
+#content > h1:first-child:not([class]) { color: black; border-bottom: 1px solid #ddd; padding-bottom: 8px; margin-top: 0; padding-top: 1rem; margin-bottom: 1.25rem; }
 
-#toc { border-bottom: 0 solid #dddddd; padding-bottom: 0.5em; }
+#toc { border-bottom: 0 solid #ddd; padding-bottom: 0.5em; }
 #toc > ul { margin-left: 0.125em; }
 #toc ul.sectlevel0 > li > a { font-style: italic; }
 #toc ul.sectlevel0 ul.sectlevel1 { margin: 0.5em 0; }
@@ -355,20 +355,20 @@ b.button:after { content: "]"; padding: 0 2px 0 3px; }
 
 @media only screen and (min-width: 768px) { #toctitle { font-size: 1.375em; }
   body.toc2 { padding-left: 15em; padding-right: 0; }
-  #toc.toc2 { margin-top: 0 !important; background-color: white; position: fixed; width: 15em; left: 0; top: 0; border-right: 1px solid #dddddd; border-top-width: 0 !important; border-bottom-width: 0 !important; z-index: 1000; padding: 1.25em 1em; height: 100%; overflow: auto; }
+  #toc.toc2 { margin-top: 0 !important; background-color: #fff; position: fixed; width: 15em; left: 0; top: 0; border-right: 1px solid #ddd; border-top-width: 0 !important; border-bottom-width: 0 !important; z-index: 1000; padding: 1.25em 1em; height: 100%; overflow: auto; }
   #toc.toc2 #toctitle { margin-top: 0; margin-bottom: 0.8rem; font-size: 1.2em; }
   #toc.toc2 > ul { font-size: 0.9em; margin-bottom: 0; }
   #toc.toc2 ul ul { margin-left: 0; padding-left: 1em; }
   #toc.toc2 ul.sectlevel0 ul.sectlevel1 { padding-left: 0; margin-top: 0.5em; margin-bottom: 0.5em; }
   body.toc2.toc-right { padding-left: 0; padding-right: 15em; }
-  body.toc2.toc-right #toc.toc2 { border-right-width: 0; border-left: 1px solid #dddddd; left: auto; right: 0; } }
+  body.toc2.toc-right #toc.toc2 { border-right-width: 0; border-left: 1px solid #ddd; left: auto; right: 0; } }
 @media only screen and (min-width: 1280px) { body.toc2 { padding-left: 20em; padding-right: 0; }
   #toc.toc2 { width: 20em; }
   #toc.toc2 #toctitle { font-size: 1.375em; }
   #toc.toc2 > ul { font-size: 0.95em; }
   #toc.toc2 ul ul { padding-left: 1.25em; }
   body.toc2.toc-right { padding-left: 0; padding-right: 20em; } }
-#content #toc { border-style: solid; border-width: 1px; border-color: #e6e6e6; margin-bottom: 1.25em; padding: 1.25em; background: white; -webkit-border-radius: 0; border-radius: 0; }
+#content #toc { border-style: solid; border-width: 1px; border-color: #e6e6e6; margin-bottom: 1.25em; padding: 1.25em; background: #fff; -webkit-border-radius: 0; border-radius: 0; }
 #content #toc > :first-child { margin-top: 0; }
 #content #toc > :last-child { margin-bottom: 0; }
 
@@ -384,7 +384,7 @@ b.button:after { content: "]"; padding: 0 2px 0 3px; }
   .sect1 { padding-bottom: 1.25em; } }
 .sect1:last-child { padding-bottom: 0; }
 
-.sect1 + .sect1 { border-top: 0 solid #dddddd; }
+.sect1 + .sect1 { border-top: 0 solid #ddd; }
 
 #content h1 > a.anchor, h2 > a.anchor, h3 > a.anchor, #toctitle > a.anchor, .sidebarblock > .content > .title > a.anchor, h4 > a.anchor, h5 > a.anchor, h6 > a.anchor { position: absolute; z-index: 1001; width: 1.5ex; margin-left: -1.5ex; display: block; text-decoration: none !important; visibility: hidden; text-align: center; font-weight: normal; }
 #content h1 > a.anchor:before, h2 > a.anchor:before, h3 > a.anchor:before, #toctitle > a.anchor:before, .sidebarblock > .content > .title > a.anchor:before, h4 > a.anchor:before, h5 > a.anchor:before, h6 > a.anchor:before { content: "\00A7"; font-size: 0.85em; display: block; padding-top: 0.1em; }
@@ -406,29 +406,29 @@ table.tableblock #preamble > .sectionbody > .paragraph:first-of-type p { font-si
 .admonitionblock > table td.icon { text-align: center; width: 80px; }
 .admonitionblock > table td.icon img { max-width: initial; }
 .admonitionblock > table td.icon .title { font-weight: bold; font-family: Noto, sans-serif; text-transform: uppercase; }
-.admonitionblock > table td.content { padding-left: 1.125em; padding-right: 1.25em; border-left: 1px solid #dddddd; color: #5e93b8; }
+.admonitionblock > table td.content { padding-left: 1.125em; padding-right: 1.25em; border-left: 1px solid #ddd; color: #365E7A; }
 .admonitionblock > table td.content > :last-child > :last-child { margin-bottom: 0; }
 
-.exampleblock > .content { border-style: solid; border-width: 1px; border-color: #e6e6e6; margin-bottom: 1.25em; padding: 1.25em; background: white; -webkit-border-radius: 0; border-radius: 0; }
+.exampleblock > .content { border-style: solid; border-width: 1px; border-color: #e6e6e6; margin-bottom: 1.25em; padding: 1.25em; background: #fff; -webkit-border-radius: 0; border-radius: 0; }
 .exampleblock > .content > :first-child { margin-top: 0; }
 .exampleblock > .content > :last-child { margin-bottom: 0; }
 
-.sidebarblock { border-style: solid; border-width: 1px; border-color: #e6e6e6; margin-bottom: 1.25em; padding: 1.25em; background: white; -webkit-border-radius: 0; border-radius: 0; }
+.sidebarblock { border-style: solid; border-width: 1px; border-color: #e6e6e6; margin-bottom: 1.25em; padding: 1.25em; background: #fff; -webkit-border-radius: 0; border-radius: 0; }
 .sidebarblock > :first-child { margin-top: 0; }
 .sidebarblock > :last-child { margin-bottom: 0; }
 .sidebarblock > .content > .title { color: black; margin-top: 0; }
 
 .exampleblock > .content > :last-child > :last-child, .exampleblock > .content .olist > ol > li:last-child > :last-child, .exampleblock > .content .ulist > ul > li:last-child > :last-child, .exampleblock > .content .qlist > ol > li:last-child > :last-child, .sidebarblock > .content > :last-child > :last-child, .sidebarblock > .content .olist > ol > li:last-child > :last-child, .sidebarblock > .content .ulist > ul > li:last-child > :last-child, .sidebarblock > .content .qlist > ol > li:last-child > :last-child { margin-bottom: 0; }
 
-.literalblock pre, .listingblock pre:not(.highlight), .listingblock pre[class="highlight"], .listingblock pre[class^="highlight "], .listingblock pre.CodeRay, .listingblock pre.prettyprint { background: #eeeeee; }
+.literalblock pre, .listingblock pre:not(.highlight), .listingblock pre[class="highlight"], .listingblock pre[class^="highlight "], .listingblock pre.CodeRay, .listingblock pre.prettyprint { background: #eee; }
 .sidebarblock .literalblock pre, .sidebarblock .listingblock pre:not(.highlight), .sidebarblock .listingblock pre[class="highlight"], .sidebarblock .listingblock pre[class^="highlight "], .sidebarblock .listingblock pre.CodeRay, .sidebarblock .listingblock pre.prettyprint { background: #f2f1f1; }
 
-.literalblock pre, .literalblock pre[class], .listingblock pre, .listingblock pre[class] { border: 1px hidden #666666; -webkit-border-radius: 0; border-radius: 0; word-wrap: break-word; padding: 1.25em 1.5625em 1.125em 1.5625em; font-size: 0.8125em; }
+.literalblock pre, .literalblock pre[class], .listingblock pre, .listingblock pre[class] { border: 1px hidden #666; -webkit-border-radius: 0; border-radius: 0; word-wrap: break-word; padding: 1.25em 1.5625em 1.125em 1.5625em; font-size: 0.8125em; }
 .literalblock pre.nowrap, .literalblock pre[class].nowrap, .listingblock pre.nowrap, .listingblock pre[class].nowrap { overflow-x: auto; white-space: pre; word-wrap: normal; }
 @media only screen and (min-width: 768px) { .literalblock pre, .literalblock pre[class], .listingblock pre, .listingblock pre[class] { font-size: 0.90625em; } }
 @media only screen and (min-width: 1280px) { .literalblock pre, .literalblock pre[class], .listingblock pre, .listingblock pre[class] { font-size: 1em; } }
 
-.literalblock.output pre { color: #eeeeee; background-color: #264357; }
+.literalblock.output pre { color: #eee; background-color: #264357; }
 
 .listingblock pre.highlightjs { padding: 0; }
 .listingblock pre.highlightjs > code { padding: 1.25em 1.5625em 1.125em 1.5625em; -webkit-border-radius: 0; border-radius: 0; }
@@ -449,7 +449,7 @@ table.pyhltable td { vertical-align: top; padding-top: 0; padding-bottom: 0; lin
 
 table.pyhltable td.code { padding-left: .75em; padding-right: 0; }
 
-pre.pygments .lineno, table.pyhltable td:not(.code) { color: #999; padding-left: 0; padding-right: .5em; border-right: 1px solid #dddddd; }
+pre.pygments .lineno, table.pyhltable td:not(.code) { color: #999; padding-left: 0; padding-right: .5em; border-right: 1px solid #ddd; }
 
 pre.pygments .lineno { display: inline-block; margin-right: .25em; }
 
@@ -457,23 +457,23 @@ table.pyhltable .linenodiv { background: none !important; padding-right: 0 !impo
 
 .quoteblock { margin: 0 1em 0.75em 1.5em; display: table; }
 .quoteblock > .title { margin-left: -1.5em; margin-bottom: 0.75em; }
-.quoteblock blockquote, .quoteblock blockquote p { color: #333333; font-size: 1.15rem; line-height: 1.75; word-spacing: 0.1em; letter-spacing: 0; font-style: italic; text-align: justify; }
+.quoteblock blockquote, .quoteblock blockquote p { color: #333; font-size: 1.15rem; line-height: 1.75; word-spacing: 0.1em; letter-spacing: 0; font-style: italic; text-align: justify; }
 .quoteblock blockquote { margin: 0; padding: 0; border: 0; }
 .quoteblock blockquote:before { content: "\201c"; float: left; font-size: 2.75em; font-weight: bold; line-height: 0.6em; margin-left: -0.6em; color: black; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); }
 .quoteblock blockquote > .paragraph:last-child p { margin-bottom: 0; }
 .quoteblock .attribution { margin-top: 0.5em; margin-right: 0.5ex; text-align: right; }
-.quoteblock .quoteblock { margin-left: 0; margin-right: 0; padding: 0.5em 0; border-left: 3px solid #5e93b8; }
+.quoteblock .quoteblock { margin-left: 0; margin-right: 0; padding: 0.5em 0; border-left: 3px solid #365E7A; }
 .quoteblock .quoteblock blockquote { padding: 0 0 0 0.75em; }
 .quoteblock .quoteblock blockquote:before { display: none; }
 
 .verseblock { margin: 0 1em 0.75em 1em; }
-.verseblock pre { font-family: "Open Sans", "DejaVu Sans", sans; font-size: 1.15rem; color: #333333; font-weight: 300; text-rendering: optimizeLegibility; }
+.verseblock pre { font-family: "Open Sans", "DejaVu Sans", sans; font-size: 1.15rem; color: #333; font-weight: 300; text-rendering: optimizeLegibility; }
 .verseblock pre strong { font-weight: 400; }
 .verseblock .attribution { margin-top: 1.25rem; margin-left: 0.5ex; }
 
 .quoteblock .attribution, .verseblock .attribution { font-size: 0.8125em; line-height: 1.45; font-style: italic; }
 .quoteblock .attribution br, .verseblock .attribution br { display: none; }
-.quoteblock .attribution cite, .verseblock .attribution cite { display: block; letter-spacing: -0.025em; color: #5e93b8; }
+.quoteblock .attribution cite, .verseblock .attribution cite { display: block; letter-spacing: -0.025em; color: #365E7A; }
 
 .quoteblock.abstract { margin: 0 0 0.75em 0; display: block; }
 .quoteblock.abstract blockquote, .quoteblock.abstract blockquote p { text-align: left; word-spacing: 0; }
@@ -518,9 +518,9 @@ th.valign-middle, td.valign-middle { vertical-align: middle; }
 
 table thead th, table tfoot th { font-weight: bold; }
 
-tbody tr th { display: table-cell; line-height: 1.4; background: -webkit-linear-gradient(top, #add386, #90b66a); }
+tbody tr th { display: table-cell; line-height: 1.4; background: #eee; }
 
-tbody tr th, tbody tr th p, tfoot tr th, tfoot tr th p { color: white; font-weight: bold; }
+tbody tr th, tbody tr th p, tfoot tr th, tfoot tr th p { color: #222; font-weight: bold; }
 
 p.tableblock > code:only-child { background: none; padding: 0; }
 
@@ -583,7 +583,7 @@ td.hdlist1 { font-weight: bold; padding-bottom: 0.75em; }
 .colist > table tr > td:first-of-type img { max-width: initial; }
 .colist > table tr > td:last-of-type { padding: 0.25em 0; }
 
-.thumb, .th { line-height: 0; display: inline-block; border: solid 4px white; -webkit-box-shadow: 0 0 0 1px #dddddd; box-shadow: 0 0 0 1px #dddddd; }
+.thumb, .th { line-height: 0; display: inline-block; border: solid 4px #fff; -webkit-box-shadow: 0 0 0 1px #ddd; box-shadow: 0 0 0 1px #ddd; }
 
 .imageblock.left, .imageblock[style*="float: left"] { margin: 0.25em 0.625em 1.25em 0; }
 .imageblock.right, .imageblock[style*="float: right"] { margin: 0.25em 0 1.25em 0.625em; }
@@ -708,7 +708,7 @@ b.conum * { color: inherit !important; }
 
 .conum:not([data-value]):empty { display: none; }
 
-h1, h2, h3, #toctitle, .sidebarblock > .content > .title, h4, h5, h6 { border-bottom: 1px solid #dddddd; }
+h1, h2, h3, #toctitle, .sidebarblock > .content > .title, h4, h5, h6 { border-bottom: 1px solid #ddd; }
 
 .sect1 { padding-bottom: 0; }
 
@@ -720,7 +720,25 @@ code { -webkit-border-radius: 4px; border-radius: 4px; }
 
 p.tableblock.header { color: #6d6e71; }
 
-.literalblock pre, .listingblock pre { background: #eeeeee; }
+.literalblock pre, .listingblock pre { background: #eee; }
+
+/* From https://github.com/KhronosGroup/Vulkan-Docs/pull/901 */
+a code { color: inherit; }
+
+/* From https://github.com/KhronosGroup/Vulkan-Docs/pull/1157 */
+/* Make VUID anchor handles*/
+li > p > a[id^="VUID-"] { visibility: hidden; position: absolute; z-index: 1001; width: 2.2ex; margin-left: -2.2ex; display: block; text-decoration: none !important; text-align: center; font-weight: normal; }
+
+li > p > a[id^="VUID-"]:before { content: "\00A7"; font-size: 1em; display: block; padding-top: 0em; background: #fff; }
+
+li > p:hover > a[id^="VUID-"], li > p > a[id^="VUID-"]:hover { visibility: visible; }
+
+li > p > a[id^="VUID-"].link { color: black; text-decoration: none; }
+
+/* TODO: not quite sure what these two do */
+li > p > a[id^="VUID-"].link:hover { color: black; }
+
+.vuid { color: #4d4d4d; font-family: monospace; }
 
 </style>
 <link rel="stylesheet" href="../katex/katex.min.css">
@@ -747,9 +765,9 @@ p.tableblock.header { color: #6d6e71; }
 <div id="header">
 <h1>cl_intel_command_queue_families</h1>
 <div class="details">
-<span id="revnumber">version v3.0.6-12-g5149653,</span>
-<span id="revdate">Fri, 12 Feb 2021 00:34:09 +0000</span>
-<br><span id="revremark">from git branch: master commit: 514965312a65e5d01ae17e23119dc95427b7149e</span>
+<span id="revnumber">version v3.0.14-10-gff88d06,</span>
+<span id="revdate">Mon, 12 Jun 2023 23:00:00 +0000</span>
+<br><span id="revremark">from git branch: main commit: ff88d0674a775a7b458bf1500d052f2f67a2c2fe</span>
 </div>
 </div>
 <div id="content">
@@ -785,7 +803,7 @@ Michal Mrozek, Intel<br></p>
 <h2 id="_notice"><a class="anchor" href="#_notice"></a>Notice</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright (c) 2021 Intel Corporation.  All rights reserved.</p>
+<p>Copyright (c) 2021-2023 Intel Corporation.  All rights reserved.</p>
 </div>
 </div>
 </div>
@@ -801,7 +819,7 @@ Michal Mrozek, Intel<br></p>
 <h2 id="_version"><a class="anchor" href="#_version"></a>Version</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Built On: 2021-02-11<br>
+<p>Built On: 2023-06-12<br>
 Revision: 1.0.0</p>
 </div>
 </div>
@@ -813,7 +831,7 @@ Revision: 1.0.0</p>
 <p>This extension is written against the OpenCL API Specification Version 3.0.5.</p>
 </div>
 <div class="paragraph">
-<p>Because this extension adds to the command queue properties accepted by the <strong>clCreateCommandQueueWithProperties</strong> API, this extension requires support for either OpenCL 2.0 or the <code>cl_khr_create_command_queue</code> extension.</p>
+<p>Because this extension adds to the command-queue properties accepted by the <strong>clCreateCommandQueueWithProperties</strong> API, this extension requires support for either OpenCL 2.0 or the <code>cl_khr_create_command_queue</code> extension.</p>
 </div>
 </div>
 </div>
@@ -821,9 +839,9 @@ Revision: 1.0.0</p>
 <h2 id="_overview"><a class="anchor" href="#_overview"></a>Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Some OpenCL devices may support different sets of command queues with different capabilities or execution properties.
-These sets are described in this extension as <em>command queue families</em>.
-Applications may be able to improve performance or predictability by creating command queues from a specific <em>command queue family</em>.</p>
+<p>Some OpenCL devices may support different sets of command-queues with different capabilities or execution properties.
+These sets are described in this extension as <em>command-queue families</em>.
+Applications may be able to improve performance or predictability by creating command-queues from a specific <em>command-queue family</em>.</p>
 </div>
 <div class="paragraph">
 <p>This extension adds the ability to:</p>
@@ -831,13 +849,13 @@ Applications may be able to improve performance or predictability by creating co
 <div class="ulist">
 <ul>
 <li>
-<p>Query the <em>command queue families</em> supported by an OpenCL device and their capabilities.</p>
+<p>Query the <em>command-queue families</em> supported by an OpenCL device and their capabilities.</p>
 </li>
 <li>
-<p>Create an OpenCL command queue from a specific <em>command queue family</em>.</p>
+<p>Create an OpenCL command-queue from a specific <em>command-queue family</em>.</p>
 </li>
 <li>
-<p>Query the <em>command queue family</em> and <em>command queue index</em> associated with an OpenCL command queue.</p>
+<p>Query the <em>command-queue family</em> and <em>command-queue index</em> associated with an OpenCL command-queue.</p>
 </li>
 </ul>
 </div>
@@ -847,7 +865,7 @@ Applications may be able to improve performance or predictability by creating co
 <h2 id="_new_api_enums"><a class="anchor" href="#_new_api_enums"></a>New API Enums</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Accepted value for the <em>param_name</em> parameter to <strong>clGetDeviceInfo</strong> to query the number of command queue families and command queue family properties supported by an OpenCL device:</p>
+<p>Accepted value for the <em>param_name</em> parameter to <strong>clGetDeviceInfo</strong> to query the number of command-queue families and command-queue family properties supported by an OpenCL device:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -855,7 +873,7 @@ Applications may be able to improve performance or predictability by creating co
 </div>
 </div>
 <div class="paragraph">
-<p>Accepted as a property name for the <em>properties</em> parameter to <strong>clCreateCommandQueueWithProperties</strong> to specify the command queue family and command queue index that this command queue should submit work to; and for the <em>param_name</em> parameter to <strong>clGetCommandQueueInfo</strong> to query the command queue family or command queue index associated with a command queue:</p>
+<p>Accepted as a property name for the <em>properties</em> parameter to <strong>clCreateCommandQueueWithProperties</strong> to specify the command-queue family and command-queue index that this command-queue should submit work to; and for the <em>param_name</em> parameter to <strong>clGetCommandQueueInfo</strong> to query the command-queue family or command-queue index associated with a command-queue:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -884,7 +902,7 @@ typedef struct _cl_queue_family_properties_intel {
 </div>
 </div>
 <div class="paragraph">
-<p>Bitfield type describing the capabilities of the queues in a command queue family.
+<p>Bitfield type describing the capabilities of the queues in a command-queue family.
 Subsequent versions of this extension may add additional queue capabilities:</p>
 </div>
 <div class="listingblock">
@@ -971,19 +989,19 @@ Subsequent versions of this extension may add additional queue capabilities:</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_QUEUE_FAMILY_PROPERTIES_INTEL</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_queue_family_properties_intel[]</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Returns an array of <code>cl_queue_family_properties_intel</code> structures describing command queue families supported by the device.
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns an array of <code>cl_queue_family_properties_intel</code> structures describing command-queue families supported by the device.
       Each structure consists of:</p>
-<p class="tableblock">      <code>properties</code>: Describes the host command queue properties supported by this command queue family.
+<p class="tableblock">      <code>properties</code>: Describes the host command-queue properties supported by this command-queue family.
       The supported property values are the same as those returned by the query for <code>CL_DEVICE_QUEUE_ON_HOST_PROPERTIES</code>.</p>
-<p class="tableblock">      <code>capabilities</code>: Describes the command queue capabilities supported by this command queue family.
+<p class="tableblock">      <code>capabilities</code>: Describes the command-queue capabilities supported by this command-queue family.
       This is a bitfield value that may either be <code>CL_QUEUE_DEFAULT_CAPABILITIES_INTEL</code> or a set of queue capabilities from the <a href="#queue-capabilities-table">Queue Capabilities Table</a>.</p>
-<p class="tableblock">      <code>count</code>: Describes the number of command queues in this command queue family.
-      Command queues created with unique command queue indices may execute more efficiently than command queues created with equal indices.</p>
+<p class="tableblock">      <code>count</code>: Describes the number of command-queues in this command-queue family.
+      Command-queues created with unique command-queue indices may execute more efficiently than command-queues created with equal indices.</p>
 <p class="tableblock">      <code>name</code>: An array of <code>CL_QUEUE_FAMILY_MAX_NAME_SIZE_INTEL</code> bytes used as storage for a null-terminated string.
-      The string is a descriptive name for this command queue family.
+      The string is a descriptive name for this command-queue family.
       The descriptive name is purely informative and has no semantic meaning.</p>
 <p class="tableblock">      At least one entry in the array must return the same properties returned by <code>CL_DEVICE_QUEUE_ON_HOST_PROPERTIES</code> and must have capabilities equal to <code>CL_QUEUE_DEFAULT_CAPABILITIES_INTEL</code>.</p>
-<p class="tableblock">      Please note that a sub-device may support different command queue families than its root-level device.</p></td>
+<p class="tableblock">      Please note that a sub-device may support different command-queue families than its root-level device.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1012,16 +1030,16 @@ Subsequent versions of this extension may add additional queue capabilities:</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_QUEUE_FAMILY_INTEL</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_uint</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the command queue family that this command queue will submit work to.</p>
-<p class="tableblock">        The specified command queue family must be between zero and the total number of command queue families supported by the device.
-        If a command queue family is specified then a command queue index must also be specified.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the command-queue family that this command-queue will submit work to.</p>
+<p class="tableblock">        The specified command-queue family must be between zero and the total number of command-queue families supported by the device.
+        If a command-queue family is specified then a command-queue index must also be specified.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_QUEUE_INDEX_INTEL</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_uint</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the command queue index within the command queue family that this command queue will submit work to.</p>
-<p class="tableblock">        The specified command queue index must be between zero and the total number of command queues in the command queue family for this command queue for the device.
-        If a command queue index is specified then a command queue family must also be specified.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the command-queue index within the command-queue family that this command-queue will submit work to.</p>
+<p class="tableblock">        The specified command-queue index must be between zero and the total number of command-queues in the command-queue family for this command-queue for the device.
+        If a command-queue index is specified then a command-queue family must also be specified.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1033,7 +1051,7 @@ Subsequent versions of this extension may add additional queue capabilities:</p>
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
-<p><strong>clCreateCommandQueueWithProperties</strong> returns a valid non-zero command-queue and <em>errcode_ret</em> is set to <code>CL_SUCCESS</code> if the command queue is created successfully.
+<p><strong>clCreateCommandQueueWithProperties</strong> returns a valid non-zero command-queue and <em>errcode_ret</em> is set to <code>CL_SUCCESS</code> if the command-queue is created successfully.
 Otherwise, it returns a <code>NULL</code> value with one of the following error values returned in <em>errcode_ret</em>:</p>
 </div>
 <div class="ulist">
@@ -1042,10 +1060,10 @@ Otherwise, it returns a <code>NULL</code> value with one of the following error 
 <p>&#8230;&#8203;</p>
 </li>
 <li>
-<p><code>CL_INVALID_VALUE</code> if the property value for <code>CL_QUEUE_FAMILY_INTEL</code> specifies a command queue family greater than or equal to the number of command queue families supported by the device.</p>
+<p><code>CL_INVALID_VALUE</code> if the property value for <code>CL_QUEUE_FAMILY_INTEL</code> specifies a command-queue family greater than or equal to the number of command-queue families supported by the device.</p>
 </li>
 <li>
-<p><code>CL_INVALID_VALUE</code> if the property value for <code>CL_QUEUE_INDEX_INTEL</code> specifies a command queue index greater than or equal to the number of queues for the command queue family for the device.</p>
+<p><code>CL_INVALID_VALUE</code> if the property value for <code>CL_QUEUE_INDEX_INTEL</code> specifies a command-queue index greater than or equal to the number of queues for the command-queue family for the device.</p>
 </li>
 <li>
 <p><code>CL_INVALID_VALUE</code> if the property <code>CL_QUEUE_FAMILY_INTEL</code> is specified and the property <code>CL_QUEUE_INDEX_INTEL</code> is not specified, or if the property <code>CL_QUEUE_INDEX_INTEL</code> is specified and the property <code>CL_QUEUE_FAMILY_INTEL</code> is not specified.</p>
@@ -1077,46 +1095,46 @@ Otherwise, it returns a <code>NULL</code> value with one of the following error 
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_QUEUE_FAMILY_INTEL</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_uint</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the command queue family that this command queue will submit work to.</p>
-<p class="tableblock">        If no command queue family was specified when this command queue was created then the value returned for this query is implementation-defined, but must be a command queue family with the same properties returned by <code>CL_DEVICE_QUEUE_ON_HOST_PROPERTIES</code> for the device and capabilities equal to <code>CL_QUEUE_DEFAULT_CAPABILITIES_INTEL</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the command-queue family that this command-queue will submit work to.</p>
+<p class="tableblock">        If no command-queue family was specified when this command-queue was created then the value returned for this query is implementation-defined, but must be a command-queue family with the same properties returned by <code>CL_DEVICE_QUEUE_ON_HOST_PROPERTIES</code> for the device and capabilities equal to <code>CL_QUEUE_DEFAULT_CAPABILITIES_INTEL</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_QUEUE_INDEX_INTEL</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_uint</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the command queue index within the command queue family that this command queue will submit work to.</p>
-<p class="tableblock">        If no command queue index was specified when this command queue was created then the value returned for this query is implementation-defined, but must be between zero and the total number of queues supported by the device for the command queue family that this command queue will submit work to.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the command-queue index within the command-queue family that this command-queue will submit work to.</p>
+<p class="tableblock">        If no command-queue index was specified when this command-queue was created then the value returned for this query is implementation-defined, but must be between zero and the total number of queues supported by the device for the command-queue family that this command-queue will submit work to.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
 </dd>
-<dt class="hdlist1">(Add a new Section 5.1.X Command Queue Families) </dt>
+<dt class="hdlist1">(Add a new Section 5.1.X Command-Queue Families) </dt>
 <dd>
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
-<p>Some OpenCL devices may support different sets of command queues with different capabilities or execution properties.
-The sets of command queues with different capabilities or execution properties are known as command queue families.
-Each command queue family may contain multiple queues with similar characteristics.</p>
+<p>Some OpenCL devices may support different sets of command-queues with different capabilities or execution properties.
+The sets of command-queues with different capabilities or execution properties are known as command-queue families.
+Each command-queue family may contain multiple queues with similar characteristics.</p>
 </div>
 <div class="paragraph">
-<p>Using multiple unique queues from a command queue family or queues from different command queue families may improve performance, such as by allowing commands to execute concurrently or using dedicated hardware resources.</p>
+<p>Using multiple unique queues from a command-queue family or queues from different command-queue families may improve performance, such as by allowing commands to execute concurrently or using dedicated hardware resources.</p>
 </div>
 <div class="paragraph">
-<p>Every OpenCL device must support at least one command queue family with "default" command queue capabilities.
-These command queue families are identified with the special command queue capability value <code>CL_QUEUE_DEFAULT_CAPABILITIES_INTEL</code>.
-Command queues created from a command queue family with default command queue capabilities have no additional restrictions and support all commands and command queue features described by standard OpenCL device queries.</p>
+<p>Every OpenCL device must support at least one command-queue family with "default" command-queue capabilities.
+These command-queue families are identified with the special command-queue capability value <code>CL_QUEUE_DEFAULT_CAPABILITIES_INTEL</code>.
+Command-queues created from a command-queue family with default command-queue capabilities have no additional restrictions and support all commands and command-queue features described by standard OpenCL device queries.</p>
 </div>
 <div class="paragraph">
-<p>When a command queue family does not have the default command queue capabilities, the command queue family capability value is a bitfield describing the commands and command queue features that are supported for queues created from the command queue family.
-Enqueueing an unsupported command or using an unsupported command queue feature will fail and generate an OpenCL error.</p>
+<p>When a command-queue family does not have the default command-queue capabilities, the command-queue family capability value is a bitfield describing the commands and command-queue features that are supported for queues created from the command-queue family.
+Enqueueing an unsupported command or using an unsupported command-queue feature will fail and generate an OpenCL error.</p>
 </div>
 <div class="paragraph">
-<p>The following table describes the supported command queue capabilities and the OpenCL commands they enable.</p>
+<p>The following table describes the supported command-queue capabilities and the OpenCL commands they enable.</p>
 </div>
 <table id="queue-capabilities-table" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table X. List of supported command queue capabilities</caption>
+<caption class="title">Table X. List of supported command-queue capabilities</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 66.6667%;">
@@ -1130,70 +1148,70 @@ Enqueueing an unsupported command or using an unsupported command queue feature 
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_QUEUE_DEFAULT_CAPABILITIES_INTEL</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A special capability value to indicate that queues in this command queue family have no additional restrictions.
-At least one command queue family must support this capability.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A special capability value to indicate that queues in this command-queue family have no additional restrictions.
+At least one command-queue family must support this capability.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_QUEUE_CAPABILITY_CREATE_SINGLE_QUEUE_EVENTS_INTEL</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates that queues in this command queue family support creating event objects identifying commands for event profiling, waiting on the host, or in the event wait list for another command in the same queue.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates that queues in this command-queue family support creating event objects identifying commands for event profiling, waiting on the host, or in the event wait list for another command in the same queue.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_QUEUE_CAPABILITY_CREATE_CROSS_QUEUE_EVENTS_INTEL</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates that queues in this command queue family support creating event objects identifying commands for event profiling, waiting on the host, or in the event wait list for another command in another queue.
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates that queues in this command-queue family support creating event objects identifying commands for event profiling, waiting on the host, or in the event wait list for another command in another queue.
 When creating cross-queue events is supported, creating single-queue events must also be supported.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_QUEUE_CAPABILITY_SINGLE_QUEUE_EVENT_WAIT_LIST_INTEL</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates that queues in this command queue family support commands that wait on events that were created in the same queue.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates that queues in this command-queue family support commands that wait on events that were created in the same queue.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_QUEUE_CAPABILITY_CROSS_QUEUE_EVENT_WAIT_LIST_INTEL</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates that queues in this command queue family support commands that wait on events that were created in another queue.
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates that queues in this command-queue family support commands that wait on events that were created in another queue.
 When waiting on cross-queue events is supported, waiting on single-queue events must also be supported.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_QUEUE_CAPABILITY_TRANSFER_BUFFER_INTEL</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates that queues in this command queue family support calls to <code>clEnqueueReadBuffer</code>, <code>clEnqueueWriteBuffer</code>, and <code>clEnqueueCopyBuffer</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates that queues in this command-queue family support calls to <code>clEnqueueReadBuffer</code>, <code>clEnqueueWriteBuffer</code>, and <code>clEnqueueCopyBuffer</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_QUEUE_CAPABILITY_TRANSFER_BUFFER_RECT_INTEL</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates that queues in this command queue family support calls to <code>clEnqueueReadBufferRect</code>, <code>clEnqueueWriteBufferRect</code>, and <code>clEnqueueCopyBufferRect</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates that queues in this command-queue family support calls to <code>clEnqueueReadBufferRect</code>, <code>clEnqueueWriteBufferRect</code>, and <code>clEnqueueCopyBufferRect</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_QUEUE_CAPABILITY_MAP_BUFFER_INTEL</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates that queues in this command queue family support calls to <code>clEnqueueMapBuffer</code> and <code>clEnqueueUnmapMemObject</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates that queues in this command-queue family support calls to <code>clEnqueueMapBuffer</code> and <code>clEnqueueUnmapMemObject</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_QUEUE_CAPABILITY_FILL_BUFFER_INTEL</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates that queues in this command queue family support calls to <code>clEnqueueFillBuffer</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates that queues in this command-queue family support calls to <code>clEnqueueFillBuffer</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_QUEUE_CAPABILITY_TRANSFER_IMAGE_INTEL</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates that queues in this command queue family support calls to <code>clEnqueueReadImage</code>, <code>clEnqueueWriteImage</code>, and <code>clEnqueueCopyImage</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates that queues in this command-queue family support calls to <code>clEnqueueReadImage</code>, <code>clEnqueueWriteImage</code>, and <code>clEnqueueCopyImage</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_QUEUE_CAPABILITY_MAP_IMAGE_INTEL</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates that queues in this command queue family support calls to <code>clEnqueueMapImage</code> and <code>clEnqueueUnmapMemObject</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates that queues in this command-queue family support calls to <code>clEnqueueMapImage</code> and <code>clEnqueueUnmapMemObject</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_QUEUE_CAPABILITY_FILL_IMAGE_INTEL</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates that queues in this command queue family support calls to <code>clEnqueueFillImage</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates that queues in this command-queue family support calls to <code>clEnqueueFillImage</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_QUEUE_CAPABILITY_TRANSFER_BUFFER_IMAGE_INTEL</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates that queues in this command queue family support calls to <code>clEnqueueCopyBufferToImage</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates that queues in this command-queue family support calls to <code>clEnqueueCopyBufferToImage</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_QUEUE_CAPABILITY_TRANSFER_IMAGE_BUFFER_INTEL</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates that queues in this command queue family support calls to <code>clEnqueueCopyImageToBuffer</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates that queues in this command-queue family support calls to <code>clEnqueueCopyImageToBuffer</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_QUEUE_CAPABILITY_MARKER_INTEL</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates that queues in this command queue family support calls to <code>clEnqueueMarker</code> and <code>clEnqueueMarkerWithWaitList</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates that queues in this command-queue family support calls to <code>clEnqueueMarker</code> and <code>clEnqueueMarkerWithWaitList</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_QUEUE_CAPABILITY_BARRIER_INTEL</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates that queues in this command queue family support calls to <code>clEnqueueBarrier</code> and <code>clEnqueueBarrierWithWaitList</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates that queues in this command-queue family support calls to <code>clEnqueueBarrier</code> and <code>clEnqueueBarrierWithWaitList</code>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1214,14 +1232,14 @@ When waiting on cross-queue events is supported, waiting on single-queue events 
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_INVALID_EVENT_WAIT_LIST</code> if the queue capabilities for the command queue associated with an event in the event wait list is not <code>CL_QUEUE_DEFAULT_CAPABILITIES_INTEL</code> or does not include <code>CL_QUEUE_CREATE_CROSS_QUEUE_EVENTS_INTEL</code>, and <em>command_queue</em> is not equal to the command queue associated with the event.</p>
+<p><code>CL_INVALID_EVENT_WAIT_LIST</code> if the queue capabilities for the command-queue associated with an event in the event wait list is not <code>CL_QUEUE_DEFAULT_CAPABILITIES_INTEL</code> or does not include <code>CL_QUEUE_CREATE_CROSS_QUEUE_EVENTS_INTEL</code>, and <em>command_queue</em> is not equal to the command-queue associated with the event.</p>
 </li>
 </ul>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_INVALID_EVENT_WAIT_LIST</code> if the queue capabilities for <em>command queue</em> is not <code>CL_QUEUE_DEFAULT_CAPABILITIES_INTEL</code> and <em>command_queue</em> is not equal to the command queue associated with an event.</p>
+<p><code>CL_INVALID_EVENT_WAIT_LIST</code> if the queue capabilities for <em>command_queue</em> is not <code>CL_QUEUE_DEFAULT_CAPABILITIES_INTEL</code> and <em>command_queue</em> is not equal to the command-queue associated with an event.</p>
 </li>
 </ul>
 </div>
@@ -1282,7 +1300,7 @@ When waiting on cross-queue events is supported, waiting on single-queue events 
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
-<p><strong>RESOLVED</strong>: This extension describes command queue families and their properties
+<p><strong>RESOLVED</strong>: This extension describes command-queue families and their properties
 to control how work can be executed on a device or sub-device. It is
 complementary to device partitioning.</p>
 </div>
@@ -1290,7 +1308,7 @@ complementary to device partitioning.</p>
 </div>
 </li>
 <li>
-<p>What are the memory model implications for command queue families?</p>
+<p>What are the memory model implications for command-queue families?</p>
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
@@ -1309,45 +1327,45 @@ complementary to device partitioning.</p>
 <div class="paragraph">
 <p>This special capability was switched to <code>CL_QUEUE_DEFAULT_CAPABILITIES_INTEL</code>,
 and the value of the capability was changed to zero from all-bits-set.  This
-should allow for special queue capabilities that go beyond default command queue
+should allow for special queue capabilities that go beyond default command-queue
 capabilities, if desired.</p>
 </div>
 </div>
 </div>
 </li>
 <li>
-<p>Do we need a query for the number of command queue families for a device?</p>
+<p>Do we need a query for the number of command-queue families for a device?</p>
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
 <p><strong>RESOLVED</strong></p>
 </div>
 <div class="paragraph">
-<p>No, this is not needed.  The number of command queue families can be derived
+<p>No, this is not needed.  The number of command-queue families can be derived
 from the size returned by <code>CL_DEVICE_QUEUE_FAMILY_PROPERTIES_INTEL</code>.</p>
 </div>
 </div>
 </div>
 </li>
 <li>
-<p>Should there be a default command queue family or command queue index for a
-command queue?</p>
+<p>Should there be a default command-queue family or command-queue index for a
+command-queue?</p>
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
 <p><strong>RESOLVED</strong></p>
 </div>
 <div class="paragraph">
-<p>No, it&#8217;s preferable to allow an implementation to vary the command queue family
-and command queue index per-command queue.  This enables an implementation to
-implement a policy to choose among different command queue families or command
-queue indices for each command queue rather than a single default if it leads to
+<p>No, it&#8217;s preferable to allow an implementation to vary the command-queue family
+and command-queue index per-command-queue.  This enables an implementation to
+implement a policy to choose among different command-queue families or command
+queue indices for each command-queue rather than a single default if it leads to
 improved performance.</p>
 </div>
 <div class="paragraph">
-<p>Note that specifying only a command queue family or a command queue index is an
-error, and an application must either specify no command queue family or command
-queue index, or both a command queue family and command queue index.</p>
+<p>Note that specifying only a command-queue family or a command-queue index is an
+error, and an application must either specify no command-queue family or command
+queue index, or both a command-queue family and command-queue index.</p>
 </div>
 </div>
 </div>
@@ -1401,11 +1419,11 @@ queue index, or both a command queue family and command queue index.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.6-12-g5149653<br>
-Last updated 2021-02-11 16:33:58 -0800
+Version v3.0.14-10-gff88d06<br>
+Last updated 2023-06-12 16:00:00 -0700
 </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
 </body>
 </html>
