@@ -111,6 +111,10 @@
 </li>
 <li><a href="extensions/intel/cl_intel_spirv_subgroups.html">cl_intel_spirv_subgroups</a>
 </li>
+<li><a href="extensions/intel/cl_intel_subgroup_matrix_multiply_accumulate.html">cl_intel_subgroup_matrix_multiply_accumulate</a>
+</li>
+<li><a href="extensions/intel/cl_intel_subgroup_split_matrix_multiply_accumulate.html">cl_intel_subgroup_split_matrix_multiply_accumulate</a>
+</li>
 <li><a href="extensions/intel/cl_intel_subgroups.html">cl_intel_subgroups</a>
 </li>
 <li><a href="extensions/intel/cl_intel_subgroups_char.html">cl_intel_subgroups_char</a>

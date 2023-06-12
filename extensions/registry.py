@@ -276,6 +276,21 @@ registry = {
         'flags' : { 'public' },
         'url' : 'extensions/intel/cl_intel_spirv_subgroups.html',
     },
+    'cl_intel_subgroup_matrix_multiply_accumulate' : {
+        'number' : 78,
+        'flags' : { 'public' },
+        'url' : 'extensions/intel/cl_intel_subgroup_matrix_multiply_accumulate.html',
+    },
+    'cl_intel_subgroup_split_matrix_multiply_accumulate' : {
+        'number' : 79,
+        'flags' : { 'public' },
+        'url' : 'extensions/intel/cl_intel_subgroup_split_matrix_multiply_accumulate.html',
+    },
+    'cl_intel_subgroups' : {
+        'number' : 35,
+        'flags' : { 'public' },
+        'url' : 'extensions/intel/cl_intel_subgroups.html',
+    },
     'cl_intel_subgroups' : {
         'number' : 35,
         'flags' : { 'public' },
