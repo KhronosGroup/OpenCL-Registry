@@ -161,6 +161,11 @@ registry = {
         'flags' : { 'public' },
         'url' : 'extensions/intel/cl_intel_advanced_motion_estimation.txt',
     },
+    'cl_intel_bfloat16_conversions' : {
+        'number' : 80,
+        'flags' : { 'public' },
+        'url' : 'extensions/intel/cl_intel_bfloat16_conversions.html',
+    },
     'cl_intel_command_queue_families' : {
         'number' : 68,
         'flags' : { 'public' },
@@ -275,6 +280,21 @@ registry = {
         'number' : 55,
         'flags' : { 'public' },
         'url' : 'extensions/intel/cl_intel_spirv_subgroups.html',
+    },
+    'cl_intel_split_work_group_barrier' : {
+        'number' : 81,
+        'flags' : { 'public' },
+        'url' : 'extensions/intel/cl_intel_split_work_group_barrier.html',
+    },
+    'cl_intel_subgroup_matrix_multiply_accumulate' : {
+        'number' : 78,
+        'flags' : { 'public' },
+        'url' : 'extensions/intel/cl_intel_subgroup_matrix_multiply_accumulate.html',
+    },
+    'cl_intel_subgroup_split_matrix_multiply_accumulate' : {
+        'number' : 79,
+        'flags' : { 'public' },
+        'url' : 'extensions/intel/cl_intel_subgroup_split_matrix_multiply_accumulate.html',
     },
     'cl_intel_subgroups' : {
         'number' : 35,
