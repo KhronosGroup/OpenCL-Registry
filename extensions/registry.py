@@ -121,6 +121,16 @@ registry = {
         'flags' : { 'public' },
         'url' : 'extensions/ext/cl_ext_float_atomics.html',
     },
+    'cl_ext_image_from_buffer' : {
+        'number' : 82,
+        'flags' : { 'public' },
+        'url' : 'extensions/ext/cl_ext_image_from_buffer.html',
+    },
+    'cl_ext_image_requirements_info' : {
+        'number' : 83,
+        'flags' : { 'public' },
+        'url' : 'extensions/ext/cl_ext_image_requirements_info.html',
+    },
     'cl_ext_migrate_memobject' : {
         'number' : 10,
         'flags' : { 'public' },
