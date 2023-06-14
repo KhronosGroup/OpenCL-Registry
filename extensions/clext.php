@@ -49,6 +49,10 @@
 </li>
 <li><a href="extensions/ext/cl_ext_float_atomics.html">cl_ext_float_atomics</a>
 </li>
+<li><a href="extensions/ext/cl_ext_image_from_buffer.html">cl_ext_image_from_buffer</a>
+</li>
+<li><a href="extensions/ext/cl_ext_image_requirements_info.html">cl_ext_image_requirements_info</a>
+</li>
 <li><a href="extensions/ext/cl_ext_migrate_memobject.txt">cl_ext_migrate_memobject</a>
 </li>
 <li><a href="extensions/img/cl_img_cached_allocations.html">cl_img_cached_allocations</a>
