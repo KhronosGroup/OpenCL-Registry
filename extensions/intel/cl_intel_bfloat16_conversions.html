@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.16">
-<title>cl_intel_spirv_device_side_avc_motion_estimation</title>
+<title>cl_intel_bfloat16_conversions</title>
 <style>
 /*! normalize.css v2.1.2 | MIT License | git.io/normalize */
 /* ========================================================================== HTML5 display definitions ========================================================================== */
@@ -741,6 +741,96 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 .vuid { color: #4d4d4d; font-family: monospace; }
 
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+/* Stylesheet for CodeRay to match GitHub theme | MIT License | http://foundation.zurb.com */
+pre.CodeRay{background:#f7f7f8}
+.CodeRay .line-numbers{border-right:1px solid currentColor;opacity:.35;padding:0 .5em 0 0}
+.CodeRay span.line-numbers{display:inline-block;margin-right:.75em}
+.CodeRay .line-numbers strong{color:#000}
+table.CodeRay{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.CodeRay td{vertical-align:top;line-height:inherit}
+table.CodeRay td.line-numbers{text-align:right}
+table.CodeRay td.code{padding:0 0 0 .75em}
+.CodeRay .debug{color:#fff !important;background:#000080 !important}
+.CodeRay .annotation{color:#007}
+.CodeRay .attribute-name{color:#000080}
+.CodeRay .attribute-value{color:#700}
+.CodeRay .binary{color:#509}
+.CodeRay .comment{color:#998;font-style:italic}
+.CodeRay .char{color:#04d}
+.CodeRay .char .content{color:#04d}
+.CodeRay .char .delimiter{color:#039}
+.CodeRay .class{color:#458;font-weight:bold}
+.CodeRay .complex{color:#a08}
+.CodeRay .constant,.CodeRay .predefined-constant{color:#008080}
+.CodeRay .color{color:#099}
+.CodeRay .class-variable{color:#369}
+.CodeRay .decorator{color:#b0b}
+.CodeRay .definition{color:#099}
+.CodeRay .delimiter{color:#000}
+.CodeRay .doc{color:#970}
+.CodeRay .doctype{color:#34b}
+.CodeRay .doc-string{color:#d42}
+.CodeRay .escape{color:#666}
+.CodeRay .entity{color:#800}
+.CodeRay .error{color:#808}
+.CodeRay .exception{color:inherit}
+.CodeRay .filename{color:#099}
+.CodeRay .function{color:#900;font-weight:bold}
+.CodeRay .global-variable{color:#008080}
+.CodeRay .hex{color:#058}
+.CodeRay .integer,.CodeRay .float{color:#099}
+.CodeRay .include{color:#555}
+.CodeRay .inline{color:#000}
+.CodeRay .inline .inline{background:#ccc}
+.CodeRay .inline .inline .inline{background:#bbb}
+.CodeRay .inline .inline-delimiter{color:#d14}
+.CodeRay .inline-delimiter{color:#d14}
+.CodeRay .important{color:#555;font-weight:bold}
+.CodeRay .interpreted{color:#b2b}
+.CodeRay .instance-variable{color:#008080}
+.CodeRay .label{color:#970}
+.CodeRay .local-variable{color:#963}
+.CodeRay .octal{color:#40e}
+.CodeRay .predefined{color:#369}
+.CodeRay .preprocessor{color:#579}
+.CodeRay .pseudo-class{color:#555}
+.CodeRay .directive{font-weight:bold}
+.CodeRay .type{font-weight:bold}
+.CodeRay .predefined-type{color:inherit}
+.CodeRay .reserved,.CodeRay .keyword {color:#000;font-weight:bold}
+.CodeRay .key{color:#808}
+.CodeRay .key .delimiter{color:#606}
+.CodeRay .key .char{color:#80f}
+.CodeRay .value{color:#088}
+.CodeRay .regexp .delimiter{color:#808}
+.CodeRay .regexp .content{color:#808}
+.CodeRay .regexp .modifier{color:#808}
+.CodeRay .regexp .char{color:#d14}
+.CodeRay .regexp .function{color:#404;font-weight:bold}
+.CodeRay .string{color:#d20}
+.CodeRay .string .string .string{background:#ffd0d0}
+.CodeRay .string .content{color:#d14}
+.CodeRay .string .char{color:#d14}
+.CodeRay .string .delimiter{color:#d14}
+.CodeRay .shell{color:#d14}
+.CodeRay .shell .delimiter{color:#d14}
+.CodeRay .symbol{color:#990073}
+.CodeRay .symbol .content{color:#a60}
+.CodeRay .symbol .delimiter{color:#630}
+.CodeRay .tag{color:#008080}
+.CodeRay .tag-special{color:#d70}
+.CodeRay .variable{color:#036}
+.CodeRay .insert{background:#afa}
+.CodeRay .delete{background:#faa}
+.CodeRay .change{color:#aaf;background:#007}
+.CodeRay .head{color:#f8f;background:#505}
+.CodeRay .insert .insert{color:#080}
+.CodeRay .delete .delete{color:#800}
+.CodeRay .change .change{color:#66f}
+.CodeRay .head .head{color:#f4f}
+</style>
 <link rel="stylesheet" href="../katex/katex.min.css">
 <script src="../katex/katex.min.js"></script>
 <script src="../katex/contrib/auto-render.min.js"></script>
@@ -763,7 +853,7 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 </script></head>
 <body class="book">
 <div id="header">
-<h1>cl_intel_spirv_device_side_avc_motion_estimation</h1>
+<h1>cl_intel_bfloat16_conversions</h1>
 <div class="details">
 <span id="revnumber">version v3.0.14-10-gff88d06,</span>
 <span id="revdate">Mon, 12 Jun 2023 23:00:00 +0000</span>
@@ -775,7 +865,7 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <h2 id="_name_strings"><a class="anchor" href="#_name_strings"></a>Name Strings</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>cl_intel_spirv_device_side_avc_motion_estimation</code></p>
+<p><code>cl_intel_bfloat16_conversions</code></p>
 </div>
 </div>
 </div>
@@ -792,7 +882,8 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <div class="sectionbody">
 <div class="paragraph">
 <p>Ben Ashbaugh, Intel<br>
-Biju George, Intel</p>
+Alexey Sotkin, Intel<br>
+Lukasz Towarek, Intel</p>
 </div>
 </div>
 </div>
@@ -800,7 +891,7 @@ Biju George, Intel</p>
 <h2 id="_notice"><a class="anchor" href="#_notice"></a>Notice</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright (c) 2018-2023 Intel Corporation.  All rights reserved.</p>
+<p>Copyright (c) 2022-2023 Intel Corporation. All rights reserved.</p>
 </div>
 </div>
 </div>
@@ -808,7 +899,7 @@ Biju George, Intel</p>
 <h2 id="_status"><a class="anchor" href="#_status"></a>Status</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Final Draft</p>
+<p>Shipping</p>
 </div>
 </div>
 </div>
@@ -817,7 +908,7 @@ Biju George, Intel</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Built On: 2023-06-12<br>
-Revision: 2</p>
+Revision: 1.0.0</p>
 </div>
 </div>
 </div>
@@ -825,10 +916,10 @@ Revision: 2</p>
 <h2 id="_dependencies"><a class="anchor" href="#_dependencies"></a>Dependencies</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This extension is written against the OpenCL SPIR-V Environment Specification Version 2.2, Revision v2.2-3.</p>
+<p>This extension is written against the OpenCL 3.0 C Language specification and the OpenCL SPIR-V Environment specification, V3.0.8.</p>
 </div>
 <div class="paragraph">
-<p>This extension requires OpenCL support for SPIR-V, either via OpenCL 2.1 or via the <code>cl_khr_il_program</code> extension, and support for the <code>cl_intel_device_side_avc_motion_estimation</code> extension.</p>
+<p>This extension requires OpenCL 1.0.</p>
 </div>
 </div>
 </div>
@@ -836,10 +927,11 @@ Revision: 2</p>
 <h2 id="_overview"><a class="anchor" href="#_overview"></a>Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This extension defines how modules using the SPIR-V extension <code>SPV_INTEL_device_side_avc_motion_estimation</code> may behave in an OpenCL environment.</p>
+<p>This extension adds built-in functions to convert between single-precision 32-bit floating-point values and 16-bit <code>bfloat16</code> values.
+The 16-bit <code>bfloat16</code> format has similar dynamic range as the 32-bit <code>float</code> format, albeit with lower precision than the 16-bit <code>half</code> format.</p>
 </div>
 <div class="paragraph">
-<p>This extension is a companion to the <code>cl_intel_device_side_avc_motion_estimation</code> OpenCL extension, and the functionality described in this extension and <code>SPV_INTEL_device_side_avc_motion_estimation</code> is sufficient to implement the built-in functions defined in the <code>cl_intel_device_side_avc_motion_estimation</code> extension.</p>
+<p>Please note that this extension currently does not introduce a <code>bfloat16</code> type to OpenCL C and instead the built-in functions convert to or from a <code>ushort</code> 16-bit unsigned integer type with a bit pattern that represents a <code>bfloat16</code> value.</p>
 </div>
 </div>
 </div>
@@ -860,26 +952,128 @@ Revision: 2</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_new_api_types"><a class="anchor" href="#_new_api_types"></a>New API Types</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>None.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_new_opencl_c_functions"><a class="anchor" href="#_new_opencl_c_functions"></a>New OpenCL C Functions</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>ushort intel_convert_bfloat16_as_ushort(float source);
+ushort2 intel_convert_bfloat162_as_ushort2(float2 source);
+ushort3 intel_convert_bfloat163_as_ushort3(float3 source);
+ushort4 intel_convert_bfloat164_as_ushort4(float4 source);
+ushort8 intel_convert_bfloat168_as_ushort8(float8 source);
+ushort16 intel_convert_bfloat1616_as_ushort16(float16 source);
+
+float intel_convert_as_bfloat16_float(ushort source);
+float2 intel_convert_as_bfloat162_float2(ushort2 source);
+float3 intel_convert_as_bfloat163_float3(ushort3 source);
+float4 intel_convert_as_bfloat164_float4(ushort4 source);
+float8 intel_convert_as_bfloat168_float8(ushort8 source);
+float16 intel_convert_as_bfloat1616_float16(ushort16 source);</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_modifications_to_the_opencl_c_specification"><a class="anchor" href="#_modifications_to_the_opencl_c_specification"></a>Modifications to the OpenCL C Specification</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_add_a_new_section_6_3_1_x_the_bfloat16_format"><a class="anchor" href="#_add_a_new_section_6_3_1_x_the_bfloat16_format"></a>Add a new Section 6.3.1.X - The <code>bfloat16</code> Format</h3>
+<div class="paragraph">
+<p>The <code>bfloat16</code> format is a floating-point format occupying 16 bits.
+It is a truncated version of the 32-bit IEEE 754 single-precision floating-point format.
+The <code>bfloat16</code> format includes one sign bit, eight exponent bits (same as the 32-bit single-precision floating-point format), and 7 mantissa bits (fewer than the 16-bit IEEE 754-2008 half-precision floating-point format).
+This means that a <code>bfloat16</code> number may represent numeric values with a similar dynamic range as a 32-bit <code>float</code> number, albeit with lower precision than a 16-bit <code>half</code> number.</p>
+</div>
+<div class="paragraph">
+<p>The <code>cl_intel_bfloat16_conversions</code> extension does not add <code>bfloat16</code> as a supported data type for OpenCL kernels, however the built-in functions added by the extension are able to use and return <code>bfloat16</code> data.
+For these built-in functions, the <code>bfloat16</code> data is passed to the function or returned from the function by encoding it into a <code>ushort</code> 16-bit unsigned integer data type.
+If a future extension adds <code>bfloat16</code> as a supported data type for OpenCL kernels, the <code>bfloat16</code> data may be reinterpreted and passed to the built-in functions added by <code>cl_intel_bfloat16_conversions</code> using the <strong>as_type()</strong> operator.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_add_a_new_section_6_4_x_bfloat16_conversions"><a class="anchor" href="#_add_a_new_section_6_4_x_bfloat16_conversions"></a>Add a new Section 6.4.X - <code>bfloat16</code> Conversions</h3>
+<div class="paragraph">
+<p>The <code>bfloat16</code> format can be used in explicit conversions using the following suite of functions:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>// conversions to bfloat16:
+destType intel_convert_bfloat16_as_destType(sourceType)
+destTypen intel_convert_bfloat16n_as_destTypen(sourceTypen)
+
+// conversions from bfloat16:
+destType intel_convert_as_bfloat16_destType(sourceType)
+destTypen intel_convert_as_bfloat16n_destTypen(sourceType)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The number of elements in the source and destination vectors must match.</p>
+</div>
+<div class="paragraph">
+<p>The only supported rounding mode is implicitly round-to-nearest-even.
+No explicit rounding modes are supported.</p>
+</div>
+<div class="paragraph">
+<p>Supported scalar and vector data types:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">destType</th>
+<th class="tableblock halign-left valign-top">sourceType</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>bfloat16</code> (as <code>ushort</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>float</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>bfloat162</code>, <code>bfloat163</code>, <code>bfloat164</code>, <code>bfloat168</code>, <code>bfloat1616</code><br>
+  (as <code>ushort2</code>, <code>ushort3</code>, <code>ushort4</code>, <code>ushort8</code>, <code>ushort16</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>float2</code>, <code>float3</code>, <code>float4</code>, <code>float8</code>, <code>float16</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>float</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>bfloat16</code> (as <code>ushort</code>)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>float2</code>, <code>float3</code>, <code>float4</code>, <code>float8</code>, <code>float16</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>bfloat162</code>, <code>bfloat163</code>, <code>bfloat164</code>, <code>bfloat168</code>, <code>bfloat1616</code><br>
+    (as <code>ushort2</code>, <code>ushort3</code>, <code>ushort4</code>, <code>ushort8</code>, <code>ushort16</code>)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_modifications_to_the_opencl_spir_v_environment_specification"><a class="anchor" href="#_modifications_to_the_opencl_spir_v_environment_specification"></a>Modifications to the OpenCL SPIR-V Environment Specification</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_add_a_new_section_7_1_x_cl_intel_spirv_device_side_avc_motion_estimation"><a class="anchor" href="#_add_a_new_section_7_1_x_cl_intel_spirv_device_side_avc_motion_estimation"></a>Add a new Section 7.1.X - <code>cl_intel_spirv_device_side_avc_motion_estimation</code></h3>
+<h3 id="_add_a_new_section_5_2_x_cl_intel_bfloat16_conversions"><a class="anchor" href="#_add_a_new_section_5_2_x_cl_intel_bfloat16_conversions"></a>Add a new section 5.2.X - <code>cl_intel_bfloat16_conversions</code></h3>
 <div class="paragraph">
-<p>If the OpenCL environment supports the extension <code>cl_intel_spirv_device_side_avc_motion_estimation</code>, then the environment must accept SPIR-V modules that declare use of the <code>SPV_INTEL_device_side_avc_motion_estimation</code> extension via <strong>OpExtension</strong>.</p>
+<p>If the OpenCL environment supports the extension <code>cl_intel_bfloat16_conversions</code> then the environment must accept modules that declare use of the extension <code>SPV_INTEL_bfloat16_conversion</code> and that declare the SPIR-V capability <strong>Bfloat16ConversionINTEL</strong>.</p>
 </div>
 <div class="paragraph">
-<p>If the OpenCL environment supports the extension <code>cl_intel_spirv_device_side_avc_motion_estimation</code> and use of the <code>SPV_INTEL_device_side_avc_motion_estimation</code> extension is declared in the module via <strong>OpExtension</strong>, then the environment must accept modules that declare the following SPIR-V capabilities:</p>
+<p>For the instructions <strong>OpConvertFToBF16INTEL</strong> and <strong>OpConvertBF16ToFINTEL</strong> added by the extension:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>SubgroupAvcMotionEstimationINTEL</strong></p>
-</li>
-<li>
-<p><strong>SubgroupAvcMotionEstimationIntraINTEL</strong></p>
-</li>
-<li>
-<p><strong>SubgroupAvcMotionEstimationChromaINTEL</strong></p>
+<p>Valid types for <em>Result Type</em>, <em>Float Value</em>, and <em>Bfloat16 Value</em> are Scalars and <strong>OpTypeVectors</strong> with 2, 3, 4, 8, or 16 <em>Component Count</em> components</p>
 </li>
 </ul>
 </div>
@@ -889,8 +1083,109 @@ Revision: 2</p>
 <div class="sect1">
 <h2 id="_issues"><a class="anchor" href="#_issues"></a>Issues</h2>
 <div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Should these functions have a special prefix (such as <code>__</code>) or suffix (such as <code>_as_ushort</code>) since they do not truly operate on a <code>bfloat16</code> type?</p>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
-<p>None.</p>
+<p><strong>RESOLVED</strong>: Yes, we will use the <code>_as_ushort</code> nomenclature.</p>
+</div>
+<div class="paragraph">
+<p>The function name to convert to a <code>ushort</code> representing a <code>bfloat16</code> value is <code>intel_convert_bfloat16_as_ushort</code>.</p>
+</div>
+<div class="paragraph">
+<p>The function name to convert from a <code>ushort</code> representing a <code>bfloat16</code> value is <code>intel_convert_as_bfloat16_float</code>.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Should we define a type alias for our <code>bfloat16</code> type or use <code>ushort</code> (or <code>short</code>) directly?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>RESOLVED</strong>: No, we will not define a type alias.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Should the integer <code>bfloat16</code> representation be signed or unsigned?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>RESOLVED</strong>: We will use an unsigned type.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Should we support vector conversion built-in functions?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>RESOLVED</strong>: Yes, we will support the vector conversion built-in functions for consistency.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Should we support built-in functions with explicit rounding modes?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>RESOLVED</strong>: No, we will not support the built-in functions with explicit rounding modes for the initial version of this extension.</p>
+</div>
+<div class="paragraph">
+<p>The only supported rounding mode for the conversion from <code>float</code> to <code>bfloat16</code> will be the implicit round-to-nearest-even rounding mode.</p>
+</div>
+<div class="paragraph">
+<p>The conversions from <code>bfloat16</code> to <code>float</code> are lossless.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Do we need to support packed conversions?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>RESOLVED</strong>: No, we will not support packed conversions for the initial version of this extension.
+If we decide to add packed conversions we will also need to add them to the SPIR-V extension.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Do we need to say anything about out-of-range conversions?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>RESOLVED</strong>: No, out-of-range behavior is covered by existing rounding rules.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>How should we name the vector conversion functions?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>RESOLVED</strong>: The name of the vector conversion functions will be <code>intel_convert_bfloat16<em>n</em>_as_ushort<em>n</em></code> and <code>intel_convert_as_bfloat16<em>n</em>_float<em>n</em></code>.
+This is consistent with the naming of the existing conversion functions.</p>
+</div>
+<div class="paragraph">
+<p>Because <code>bfloat16</code> ends with a number this does lead to awkward function names like <code>intel_convert_bfloat1616_as_ushort16</code>, but the awkward-ness is preferable to the ambiguity without the vector size suffix.</p>
+</div>
+<div class="paragraph">
+<p>If we decide to add a true <code>bfloat16</code> type we should consider other names that do not end in a number (<code>bfloat16_t</code>?).</p>
+</div>
+</div>
+</div>
+</li>
+</ol>
 </div>
 </div>
 </div>
@@ -906,7 +1201,7 @@ Revision: 2</p>
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Rev</th>
+<th class="tableblock halign-left valign-top">Version</th>
 <th class="tableblock halign-left valign-top">Date</th>
 <th class="tableblock halign-left valign-top">Author</th>
 <th class="tableblock halign-left valign-top">Changes</th>
@@ -914,16 +1209,28 @@ Revision: 2</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2018-10-29</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.9.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2021-09-03</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Ben Ashbaugh</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Initial revision</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2019-09-17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.9.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2021-10-01</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Ben Ashbaugh</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Minor formatting fixes for asciidoctor.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reduced scope, resolved all open issues.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.9.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2021-10-19</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ben Ashbaugh</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fixed the names of the vector conversion functions.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2022-08-26</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ben Ashbaugh</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Updated version.</p></td>
 </tr>
 </tbody>
 </table>

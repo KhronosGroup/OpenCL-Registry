@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.16">
-<title>cl_intel_spirv_device_side_avc_motion_estimation</title>
+<title>cl_intel_subgroup_split_matrix_multiply_accumulate</title>
 <style>
 /*! normalize.css v2.1.2 | MIT License | git.io/normalize */
 /* ========================================================================== HTML5 display definitions ========================================================================== */
@@ -741,6 +741,96 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 .vuid { color: #4d4d4d; font-family: monospace; }
 
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+/* Stylesheet for CodeRay to match GitHub theme | MIT License | http://foundation.zurb.com */
+pre.CodeRay{background:#f7f7f8}
+.CodeRay .line-numbers{border-right:1px solid currentColor;opacity:.35;padding:0 .5em 0 0}
+.CodeRay span.line-numbers{display:inline-block;margin-right:.75em}
+.CodeRay .line-numbers strong{color:#000}
+table.CodeRay{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.CodeRay td{vertical-align:top;line-height:inherit}
+table.CodeRay td.line-numbers{text-align:right}
+table.CodeRay td.code{padding:0 0 0 .75em}
+.CodeRay .debug{color:#fff !important;background:#000080 !important}
+.CodeRay .annotation{color:#007}
+.CodeRay .attribute-name{color:#000080}
+.CodeRay .attribute-value{color:#700}
+.CodeRay .binary{color:#509}
+.CodeRay .comment{color:#998;font-style:italic}
+.CodeRay .char{color:#04d}
+.CodeRay .char .content{color:#04d}
+.CodeRay .char .delimiter{color:#039}
+.CodeRay .class{color:#458;font-weight:bold}
+.CodeRay .complex{color:#a08}
+.CodeRay .constant,.CodeRay .predefined-constant{color:#008080}
+.CodeRay .color{color:#099}
+.CodeRay .class-variable{color:#369}
+.CodeRay .decorator{color:#b0b}
+.CodeRay .definition{color:#099}
+.CodeRay .delimiter{color:#000}
+.CodeRay .doc{color:#970}
+.CodeRay .doctype{color:#34b}
+.CodeRay .doc-string{color:#d42}
+.CodeRay .escape{color:#666}
+.CodeRay .entity{color:#800}
+.CodeRay .error{color:#808}
+.CodeRay .exception{color:inherit}
+.CodeRay .filename{color:#099}
+.CodeRay .function{color:#900;font-weight:bold}
+.CodeRay .global-variable{color:#008080}
+.CodeRay .hex{color:#058}
+.CodeRay .integer,.CodeRay .float{color:#099}
+.CodeRay .include{color:#555}
+.CodeRay .inline{color:#000}
+.CodeRay .inline .inline{background:#ccc}
+.CodeRay .inline .inline .inline{background:#bbb}
+.CodeRay .inline .inline-delimiter{color:#d14}
+.CodeRay .inline-delimiter{color:#d14}
+.CodeRay .important{color:#555;font-weight:bold}
+.CodeRay .interpreted{color:#b2b}
+.CodeRay .instance-variable{color:#008080}
+.CodeRay .label{color:#970}
+.CodeRay .local-variable{color:#963}
+.CodeRay .octal{color:#40e}
+.CodeRay .predefined{color:#369}
+.CodeRay .preprocessor{color:#579}
+.CodeRay .pseudo-class{color:#555}
+.CodeRay .directive{font-weight:bold}
+.CodeRay .type{font-weight:bold}
+.CodeRay .predefined-type{color:inherit}
+.CodeRay .reserved,.CodeRay .keyword {color:#000;font-weight:bold}
+.CodeRay .key{color:#808}
+.CodeRay .key .delimiter{color:#606}
+.CodeRay .key .char{color:#80f}
+.CodeRay .value{color:#088}
+.CodeRay .regexp .delimiter{color:#808}
+.CodeRay .regexp .content{color:#808}
+.CodeRay .regexp .modifier{color:#808}
+.CodeRay .regexp .char{color:#d14}
+.CodeRay .regexp .function{color:#404;font-weight:bold}
+.CodeRay .string{color:#d20}
+.CodeRay .string .string .string{background:#ffd0d0}
+.CodeRay .string .content{color:#d14}
+.CodeRay .string .char{color:#d14}
+.CodeRay .string .delimiter{color:#d14}
+.CodeRay .shell{color:#d14}
+.CodeRay .shell .delimiter{color:#d14}
+.CodeRay .symbol{color:#990073}
+.CodeRay .symbol .content{color:#a60}
+.CodeRay .symbol .delimiter{color:#630}
+.CodeRay .tag{color:#008080}
+.CodeRay .tag-special{color:#d70}
+.CodeRay .variable{color:#036}
+.CodeRay .insert{background:#afa}
+.CodeRay .delete{background:#faa}
+.CodeRay .change{color:#aaf;background:#007}
+.CodeRay .head{color:#f8f;background:#505}
+.CodeRay .insert .insert{color:#080}
+.CodeRay .delete .delete{color:#800}
+.CodeRay .change .change{color:#66f}
+.CodeRay .head .head{color:#f4f}
+</style>
 <link rel="stylesheet" href="../katex/katex.min.css">
 <script src="../katex/katex.min.js"></script>
 <script src="../katex/contrib/auto-render.min.js"></script>
@@ -763,7 +853,7 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 </script></head>
 <body class="book">
 <div id="header">
-<h1>cl_intel_spirv_device_side_avc_motion_estimation</h1>
+<h1>cl_intel_subgroup_split_matrix_multiply_accumulate</h1>
 <div class="details">
 <span id="revnumber">version v3.0.14-10-gff88d06,</span>
 <span id="revdate">Mon, 12 Jun 2023 23:00:00 +0000</span>
@@ -775,7 +865,7 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <h2 id="_name_strings"><a class="anchor" href="#_name_strings"></a>Name Strings</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>cl_intel_spirv_device_side_avc_motion_estimation</code></p>
+<p><code>cl_intel_subgroup_split_matrix_multiply_accumulate</code></p>
 </div>
 </div>
 </div>
@@ -792,7 +882,9 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <div class="sectionbody">
 <div class="paragraph">
 <p>Ben Ashbaugh, Intel<br>
-Biju George, Intel</p>
+Junjie Gu, Intel<br>
+Mike MacPherson, Intel<br>
+Lukasz Towarek, Intel</p>
 </div>
 </div>
 </div>
@@ -800,7 +892,7 @@ Biju George, Intel</p>
 <h2 id="_notice"><a class="anchor" href="#_notice"></a>Notice</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright (c) 2018-2023 Intel Corporation.  All rights reserved.</p>
+<p>Copyright (c) 2022-2023 Intel Corporation.  All rights reserved.</p>
 </div>
 </div>
 </div>
@@ -808,7 +900,7 @@ Biju George, Intel</p>
 <h2 id="_status"><a class="anchor" href="#_status"></a>Status</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Final Draft</p>
+<p>Complete</p>
 </div>
 </div>
 </div>
@@ -817,7 +909,7 @@ Biju George, Intel</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Built On: 2023-06-12<br>
-Revision: 2</p>
+Revision: 1.0.0</p>
 </div>
 </div>
 </div>
@@ -825,10 +917,13 @@ Revision: 2</p>
 <h2 id="_dependencies"><a class="anchor" href="#_dependencies"></a>Dependencies</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This extension is written against the OpenCL SPIR-V Environment Specification Version 2.2, Revision v2.2-3.</p>
+<p>This extension is written against the OpenCL 3.0 C Language specification, V3.0.10.</p>
 </div>
 <div class="paragraph">
-<p>This extension requires OpenCL support for SPIR-V, either via OpenCL 2.1 or via the <code>cl_khr_il_program</code> extension, and support for the <code>cl_intel_device_side_avc_motion_estimation</code> extension.</p>
+<p>This extension requires support for subgroups.</p>
+</div>
+<div class="paragraph">
+<p>This extension uses many of the terms and concepts from the <code>cl_intel_subgroup_matrix_multiply_accumulate</code> extension.</p>
 </div>
 </div>
 </div>
@@ -836,10 +931,17 @@ Revision: 2</p>
 <h2 id="_overview"><a class="anchor" href="#_overview"></a>Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This extension defines how modules using the SPIR-V extension <code>SPV_INTEL_device_side_avc_motion_estimation</code> may behave in an OpenCL environment.</p>
+<p>The goal of this extension is to allow programmers to access specialized hardware to compute the product of an M x K matrix with a K x N matrix and then add an M x N matrix accumulation value.
+This is a commonly used building block to compute the product of two large matrices.</p>
 </div>
 <div class="paragraph">
-<p>This extension is a companion to the <code>cl_intel_device_side_avc_motion_estimation</code> OpenCL extension, and the functionality described in this extension and <code>SPV_INTEL_device_side_avc_motion_estimation</code> is sufficient to implement the built-in functions defined in the <code>cl_intel_device_side_avc_motion_estimation</code> extension.</p>
+<p>The functionality described in this extension is very similar to the functionality described in the <code>cl_intel_subgroup_matrix_multiply_accumulate</code> extension, with one key difference:
+in this extension, work items across two subgroups cooperate to perform the operation.
+This is done by <em>splitting</em> the M x K matrix source across two participating subgroups:
+The first M-divided-by-2 rows of the matrix source are provided by the first subgroup, and the remaining M-divided-by-2 rows of the matrix source are provided by the second subgroup.</p>
+</div>
+<div class="paragraph">
+<p>Splitting the matrix source improves performance by halving the amount of data each subgroup must load for the first matrix source.</p>
 </div>
 </div>
 </div>
@@ -860,26 +962,188 @@ Revision: 2</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_modifications_to_the_opencl_spir_v_environment_specification"><a class="anchor" href="#_modifications_to_the_opencl_spir_v_environment_specification"></a>Modifications to the OpenCL SPIR-V Environment Specification</h2>
+<h2 id="_new_opencl_c_functions"><a class="anchor" href="#_new_opencl_c_functions"></a>New OpenCL C Functions</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>// 8-bit matrices:
+int2 intel_sub_group_i8_i8_split_matrix_mad_k32(int   a, int8  b, int2 acc);  // M = 2
+int4 intel_sub_group_i8_i8_split_matrix_mad_k32(int2  a, int8  b, int4 acc);  // M = 4
+int8 intel_sub_group_i8_i8_split_matrix_mad_k32(int4  a, int8  b, int8 acc);  // M = 8
+
+int2 intel_sub_group_i8_u8_split_matrix_mad_k32(int   a, uint8 b, int2 acc);  // ...
+int4 intel_sub_group_i8_u8_split_matrix_mad_k32(int2  a, uint8 b, int4 acc);
+int8 intel_sub_group_i8_u8_split_matrix_mad_k32(int4  a, uint8 b, int8 acc);
+
+int2 intel_sub_group_u8_i8_split_matrix_mad_k32(uint  a, int8  b, int2 acc);
+int4 intel_sub_group_u8_i8_split_matrix_mad_k32(uint2 a, int8  b, int4 acc);
+int8 intel_sub_group_u8_i8_split_matrix_mad_k32(uint4 a, int8  b, int8 acc);
+
+int2 intel_sub_group_u8_u8_split_matrix_mad_k32(uint  a, uint8 b, int2 acc);
+int4 intel_sub_group_u8_u8_split_matrix_mad_k32(uint2 a, uint8 b, int4 acc);
+int8 intel_sub_group_u8_u8_split_matrix_mad_k32(uint4 a, uint8 b, int8 acc);
+
+// bfloat16 matrices:
+float2 intel_sub_group_bf16_bf16_split_matrix_mad_k16(int  a, int8 b, float2 acc);
+float4 intel_sub_group_bf16_bf16_split_matrix_mad_k16(int2 a, int8 b, float4 acc);
+float8 intel_sub_group_bf16_bf16_split_matrix_mad_k16(int4 a, int8 b, float8 acc);
+
+// fp16 matrices:
+float2 intel_sub_group_f16_f16_split_matrix_mad_k16(int  a, int8 b, float2 acc);
+float4 intel_sub_group_f16_f16_split_matrix_mad_k16(int2 a, int8 b, float4 acc);
+float8 intel_sub_group_f16_f16_split_matrix_mad_k16(int4 a, int8 b, float8 acc);</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_modifications_to_the_opencl_c_specification"><a class="anchor" href="#_modifications_to_the_opencl_c_specification"></a>Modifications to the OpenCL C Specification</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_add_a_new_section_7_1_x_cl_intel_spirv_device_side_avc_motion_estimation"><a class="anchor" href="#_add_a_new_section_7_1_x_cl_intel_spirv_device_side_avc_motion_estimation"></a>Add a new Section 7.1.X - <code>cl_intel_spirv_device_side_avc_motion_estimation</code></h3>
+<h3 id="_add_a_new_section_6_13_x_subgroup_split_matrix_multiply_accumulate_instructions"><a class="anchor" href="#_add_a_new_section_6_13_x_subgroup_split_matrix_multiply_accumulate_instructions"></a>Add a new Section 6.13.X - Subgroup Split Matrix Multiply Accumulate Instructions</h3>
 <div class="paragraph">
-<p>If the OpenCL environment supports the extension <code>cl_intel_spirv_device_side_avc_motion_estimation</code>, then the environment must accept SPIR-V modules that declare use of the <code>SPV_INTEL_device_side_avc_motion_estimation</code> extension via <strong>OpExtension</strong>.</p>
+<p>This section describes a family of built-in functions that multiply two matrix sources <code>a</code> and <code>b</code> and then add a matrix accumulation value to produce a matrix result value.
+Work items from two subgroups cooperate to perform this operation.
+<code>a</code> is the first matrix operand and has M rows and K columns.
+Each subgroup provides half of the rows of the <code>a</code> matrix.
+<code>b</code> is the second matrix operand and has K rows and N columns.
+<code>acc</code> is the matrix accumulation value and has M rows and N columns.
+The result value also has M rows and N columns.
+All work items in both subgroups cooperate to perform this operation.
+These functions must be encountered by all work items in both subgroups executing the kernel.</p>
 </div>
 <div class="paragraph">
-<p>If the OpenCL environment supports the extension <code>cl_intel_spirv_device_side_avc_motion_estimation</code> and use of the <code>SPV_INTEL_device_side_avc_motion_estimation</code> extension is declared in the module via <strong>OpExtension</strong>, then the environment must accept modules that declare the following SPIR-V capabilities:</p>
+<p>The dimensions of the two source matrices and the elements of each source matrix are described by the built-in function name and its arguments.</p>
+</div>
+<div class="paragraph">
+<p>As an example, given the function:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>int2 intel_sub_group_u8_i8_split_matrix_mad_k32(uint  a, int8  b, int2 acc);</code></pre>
+</div>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>SubgroupAvcMotionEstimationINTEL</strong></p>
+<p><code>a</code> is the first source matrix operand and has <code>M</code> rows and <code>K</code> columns.
+This matrix operand is split across two participating subgroups.
+Work items from each participating subgroup provide half of the row data for this matrix.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The value for <code>M</code> is determined by the number of vector components in the source operand <code>a</code>.
+Since each subgroup provides half of the row data for this matrix, multiply the number of components in <code>a</code> by two to compute the number of rows <code>M</code>.
+In the example above, <code>a</code> is a scalar <code>uint</code> argument, therefore the matrix <code>a</code> operand has <code>M</code> equal to 2 rows.</p>
 </li>
 <li>
-<p><strong>SubgroupAvcMotionEstimationIntraINTEL</strong></p>
+<p>The value of <code>K</code> is described by the function name.
+In this case, the value of <code>K</code> is 32, therefore the matrix <code>a</code> operand has <code>K</code> equal to 32 columns.</p>
 </li>
 <li>
-<p><strong>SubgroupAvcMotionEstimationChromaINTEL</strong></p>
+<p>The matrix component data type is also described by the function name.
+In this case, the matrix <code>a</code> component data type is <code>u8</code>, indicating that the elements of the matrix <code>a</code> operand are unsigned 8-bit integers.</p>
+</li>
+<li>
+<p>Each work item contributes part of this matrix.
+In this case, since the elements of the matrix <code>a</code> are 8-bit integers, and since each work item is contributing 32 bits (the size of a <code>uint</code>) of data per row of this matrix, each work item is contributing four 8-bit integer values per row.</p>
+</li>
+<li>
+<p>Since <code>K</code> is 32, and each work item is contributing four 8-bit values per row, the number of work items in the subgroup must be equal to 8.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>b</code> is the second source matrix operand and has <code>K</code> rows and <code>N</code> columns.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Each work item contributes one column of this matrix.
+Therefore, the number of columns <code>N</code> is equivalent to the subgroup size.</p>
+</li>
+<li>
+<p>As above, the value of <code>K</code> is described by the function name.
+In this case, the value of <code>K</code> is 32, therefore the matrix <code>b</code> operand has <code>K</code> equal to 32 rows.</p>
+</li>
+<li>
+<p>As above, the matrix component data type is described by the function name.
+In this case, the matrix <code>b</code> component data type is <code>i8</code>, indicating that the elements of the matrix <code>b</code> operand are signed 8-bit integers.</p>
+</li>
+<li>
+<p>Since <code>K</code> is 32 and the elements of the matrix <code>b</code> are 8-bit integers, each work item must contribute 256 bits of source data to contribute <code>K</code> values.
+The 256 bits of source data are packed and passed as the <code>int8</code> argument <code>b</code>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>acc</code> specifies the accumulation value and has <code>M</code> rows and <code>N</code> columns.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>As above, the value of <code>M</code> is determined by the number of components in the source operand <code>acc</code>.
+In the example above, <code>acc</code> is an <code>int2</code> argument, therefore the accumulation value operand has <code>M</code> equal to 2 rows.</p>
+</li>
+<li>
+<p>Both <code>a</code> and <code>acc</code> specify operands with <code>M</code> rows, and the value of <code>M</code> is determined by the number of components in each source operand.
+Since each subgroup provides half of the <code>a</code> matrix data, the <code>a</code> operand will have half the number of components as the <code>acc</code> source operand.</p>
+</li>
+<li>
+<p>As above, each work item contributes one column of accumulation values.
+Therefore, the number of columns <code>N</code> is equivalent to the subgroup size.</p>
+</li>
+<li>
+<p>The <code>acc</code> operand is a "full precision" accumulation value.
+In the example above, the matrices contain integer data, therefore the <code>acc</code> operand is a vector of <code>int</code> data.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>The result value returned by the function also has <code>M</code> rows and <code>N</code> columns.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>As above, the value of <code>M</code> is determined by the number of components in the return type.
+In the example above, the return type is <code>int2</code>, therefore the result value has <code>M</code> equal to 2 rows.</p>
+</li>
+<li>
+<p>The result value, <code>a</code>, and <code>acc</code> all specify values with <code>M</code> rows, and the value of <code>M</code> is determined by the number of components in each source operand or return type.
+Since each subgroup provides half of the <code>a</code> matrix data, the <code>a</code> operand will have half the number of components as the return type and <code>acc</code> operand.</p>
+</li>
+<li>
+<p>As above, each work item will receive one column of result values.
+Therefore, the number of columns <code>N</code> is equivalent to the subgroup size.</p>
+</li>
+<li>
+<p>Similar to the <code>acc</code> operand, the return value is a "full precision" result value.
+In the example above, the matrices contain integer data, therefore the return type is a vector of <code>int</code> data.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The full list of supported functions is described in the overview, above.
+For this list of functions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>M</code> may be equal to 2, 4, or 8.</p>
+</li>
+<li>
+<p><code>N</code> must be equal to 8.  In other words, the only supported subgroup size is 8.</p>
+</li>
+<li>
+<p>Supported integer matrix types for <code>a</code> and <code>b</code> are any combination of signed or unsigned 8-bit integers.
+For these integer matrix types, the accumulation value <code>acc</code> and result value are signed 32-bit integers, and <code>K</code> must be equal to 32.</p>
+</li>
+<li>
+<p>The supported floating-point matrix types for <code>a</code> and <code>b</code> are fp16 (half) or bfloat16.
+For these floating-point matrix type, the accumulation value <code>acc</code> and result value are 32-bit floating-point values, and <code>K</code> must be equal to 16.</p>
 </li>
 </ul>
 </div>
@@ -889,8 +1153,40 @@ Revision: 2</p>
 <div class="sect1">
 <h2 id="_issues"><a class="anchor" href="#_issues"></a>Issues</h2>
 <div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Do we need to talk about which two subgroups cooperate to perform the split matrix multiplication?</p>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
-<p>None.</p>
+<p><strong>UNRESOLVED</strong>: For now, this is left as an implementation detail, outside of the scope of this extension.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Should the built-in functions in this extension overload the built-ins from <code>cl_intel_subgroup_matrix_multiply_accumulate</code>, or define new functions?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><code>RESOLVED</code>: Switched to a non-overloaded syntax: <code>intel_sub_group_i8_i8_split_matrix_mad_k32</code>.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Should this extension use signed or unsigned types to represent fp16 and bf16 data?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><code>RESOLVED</code>: This extension will use signed types to represent fp16 and bf16 data even though this is inconsistent with other extensions such as cl_intel_bfloat16 conversions.
+See discussion in <code>cl_intel_subgroup_matrix_multiply_accumulate</code>.</p>
+</div>
+</div>
+</div>
+</li>
+</ol>
 </div>
 </div>
 </div>
@@ -914,16 +1210,10 @@ Revision: 2</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2018-10-29</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2022-05-18</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Ben Ashbaugh</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Initial revision</strong></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2019-09-17</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Ben Ashbaugh</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Minor formatting fixes for asciidoctor.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Initial public revision</strong></p></td>
 </tr>
 </tbody>
 </table>

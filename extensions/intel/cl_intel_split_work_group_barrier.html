@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.16">
-<title>cl_intel_spirv_device_side_avc_motion_estimation</title>
+<title>cl_intel_split_work_group_barrier</title>
 <style>
 /*! normalize.css v2.1.2 | MIT License | git.io/normalize */
 /* ========================================================================== HTML5 display definitions ========================================================================== */
@@ -741,6 +741,96 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 .vuid { color: #4d4d4d; font-family: monospace; }
 
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+/* Stylesheet for CodeRay to match GitHub theme | MIT License | http://foundation.zurb.com */
+pre.CodeRay{background:#f7f7f8}
+.CodeRay .line-numbers{border-right:1px solid currentColor;opacity:.35;padding:0 .5em 0 0}
+.CodeRay span.line-numbers{display:inline-block;margin-right:.75em}
+.CodeRay .line-numbers strong{color:#000}
+table.CodeRay{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.CodeRay td{vertical-align:top;line-height:inherit}
+table.CodeRay td.line-numbers{text-align:right}
+table.CodeRay td.code{padding:0 0 0 .75em}
+.CodeRay .debug{color:#fff !important;background:#000080 !important}
+.CodeRay .annotation{color:#007}
+.CodeRay .attribute-name{color:#000080}
+.CodeRay .attribute-value{color:#700}
+.CodeRay .binary{color:#509}
+.CodeRay .comment{color:#998;font-style:italic}
+.CodeRay .char{color:#04d}
+.CodeRay .char .content{color:#04d}
+.CodeRay .char .delimiter{color:#039}
+.CodeRay .class{color:#458;font-weight:bold}
+.CodeRay .complex{color:#a08}
+.CodeRay .constant,.CodeRay .predefined-constant{color:#008080}
+.CodeRay .color{color:#099}
+.CodeRay .class-variable{color:#369}
+.CodeRay .decorator{color:#b0b}
+.CodeRay .definition{color:#099}
+.CodeRay .delimiter{color:#000}
+.CodeRay .doc{color:#970}
+.CodeRay .doctype{color:#34b}
+.CodeRay .doc-string{color:#d42}
+.CodeRay .escape{color:#666}
+.CodeRay .entity{color:#800}
+.CodeRay .error{color:#808}
+.CodeRay .exception{color:inherit}
+.CodeRay .filename{color:#099}
+.CodeRay .function{color:#900;font-weight:bold}
+.CodeRay .global-variable{color:#008080}
+.CodeRay .hex{color:#058}
+.CodeRay .integer,.CodeRay .float{color:#099}
+.CodeRay .include{color:#555}
+.CodeRay .inline{color:#000}
+.CodeRay .inline .inline{background:#ccc}
+.CodeRay .inline .inline .inline{background:#bbb}
+.CodeRay .inline .inline-delimiter{color:#d14}
+.CodeRay .inline-delimiter{color:#d14}
+.CodeRay .important{color:#555;font-weight:bold}
+.CodeRay .interpreted{color:#b2b}
+.CodeRay .instance-variable{color:#008080}
+.CodeRay .label{color:#970}
+.CodeRay .local-variable{color:#963}
+.CodeRay .octal{color:#40e}
+.CodeRay .predefined{color:#369}
+.CodeRay .preprocessor{color:#579}
+.CodeRay .pseudo-class{color:#555}
+.CodeRay .directive{font-weight:bold}
+.CodeRay .type{font-weight:bold}
+.CodeRay .predefined-type{color:inherit}
+.CodeRay .reserved,.CodeRay .keyword {color:#000;font-weight:bold}
+.CodeRay .key{color:#808}
+.CodeRay .key .delimiter{color:#606}
+.CodeRay .key .char{color:#80f}
+.CodeRay .value{color:#088}
+.CodeRay .regexp .delimiter{color:#808}
+.CodeRay .regexp .content{color:#808}
+.CodeRay .regexp .modifier{color:#808}
+.CodeRay .regexp .char{color:#d14}
+.CodeRay .regexp .function{color:#404;font-weight:bold}
+.CodeRay .string{color:#d20}
+.CodeRay .string .string .string{background:#ffd0d0}
+.CodeRay .string .content{color:#d14}
+.CodeRay .string .char{color:#d14}
+.CodeRay .string .delimiter{color:#d14}
+.CodeRay .shell{color:#d14}
+.CodeRay .shell .delimiter{color:#d14}
+.CodeRay .symbol{color:#990073}
+.CodeRay .symbol .content{color:#a60}
+.CodeRay .symbol .delimiter{color:#630}
+.CodeRay .tag{color:#008080}
+.CodeRay .tag-special{color:#d70}
+.CodeRay .variable{color:#036}
+.CodeRay .insert{background:#afa}
+.CodeRay .delete{background:#faa}
+.CodeRay .change{color:#aaf;background:#007}
+.CodeRay .head{color:#f8f;background:#505}
+.CodeRay .insert .insert{color:#080}
+.CodeRay .delete .delete{color:#800}
+.CodeRay .change .change{color:#66f}
+.CodeRay .head .head{color:#f4f}
+</style>
 <link rel="stylesheet" href="../katex/katex.min.css">
 <script src="../katex/katex.min.js"></script>
 <script src="../katex/contrib/auto-render.min.js"></script>
@@ -763,7 +853,7 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 </script></head>
 <body class="book">
 <div id="header">
-<h1>cl_intel_spirv_device_side_avc_motion_estimation</h1>
+<h1>cl_intel_split_work_group_barrier</h1>
 <div class="details">
 <span id="revnumber">version v3.0.14-10-gff88d06,</span>
 <span id="revdate">Mon, 12 Jun 2023 23:00:00 +0000</span>
@@ -775,7 +865,7 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <h2 id="_name_strings"><a class="anchor" href="#_name_strings"></a>Name Strings</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>cl_intel_spirv_device_side_avc_motion_estimation</code></p>
+<p><code>cl_intel_split_work_group_barrier</code></p>
 </div>
 </div>
 </div>
@@ -792,7 +882,8 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <div class="sectionbody">
 <div class="paragraph">
 <p>Ben Ashbaugh, Intel<br>
-Biju George, Intel</p>
+Eugene Chereshnev, Intel<br>
+John Pennycook, Intel</p>
 </div>
 </div>
 </div>
@@ -800,7 +891,7 @@ Biju George, Intel</p>
 <h2 id="_notice"><a class="anchor" href="#_notice"></a>Notice</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright (c) 2018-2023 Intel Corporation.  All rights reserved.</p>
+<p>Copyright (c) 2022-2023 Intel Corporation. All rights reserved.</p>
 </div>
 </div>
 </div>
@@ -808,7 +899,7 @@ Biju George, Intel</p>
 <h2 id="_status"><a class="anchor" href="#_status"></a>Status</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Final Draft</p>
+<p>Shipping</p>
 </div>
 </div>
 </div>
@@ -817,7 +908,7 @@ Biju George, Intel</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Built On: 2023-06-12<br>
-Revision: 2</p>
+Version: 1.0.0</p>
 </div>
 </div>
 </div>
@@ -825,10 +916,13 @@ Revision: 2</p>
 <h2 id="_dependencies"><a class="anchor" href="#_dependencies"></a>Dependencies</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This extension is written against the OpenCL SPIR-V Environment Specification Version 2.2, Revision v2.2-3.</p>
+<p>This extension is written against the OpenCL 3.0 C Language specification and the OpenCL SPIR-V Environment specification, V3.0.10.</p>
 </div>
 <div class="paragraph">
-<p>This extension requires OpenCL support for SPIR-V, either via OpenCL 2.1 or via the <code>cl_khr_il_program</code> extension, and support for the <code>cl_intel_device_side_avc_motion_estimation</code> extension.</p>
+<p>This extension requires OpenCL 1.0.</p>
+</div>
+<div class="paragraph">
+<p>Some OpenCL C function overloads added by this extension require OpenCL C 2.0 or newer.</p>
 </div>
 </div>
 </div>
@@ -836,10 +930,12 @@ Revision: 2</p>
 <h2 id="_overview"><a class="anchor" href="#_overview"></a>Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This extension defines how modules using the SPIR-V extension <code>SPV_INTEL_device_side_avc_motion_estimation</code> may behave in an OpenCL environment.</p>
+<p>This extension adds built-in functions to split a <code>barrier</code> or <code>work_group_barrier</code> function in OpenCL C into two separate operations:
+the first indicates that a work-item has "arrived" at a barrier but should continue executing,
+and the second indicates that a work-item should "wait" for all of the work-items to arrive at the barrier before executing further.</p>
 </div>
 <div class="paragraph">
-<p>This extension is a companion to the <code>cl_intel_device_side_avc_motion_estimation</code> OpenCL extension, and the functionality described in this extension and <code>SPV_INTEL_device_side_avc_motion_estimation</code> is sufficient to implement the built-in functions defined in the <code>cl_intel_device_side_avc_motion_estimation</code> extension.</p>
+<p>Splitting a barrier operation may improve performance and may provide a closer match to "latch" or "barrier" operations in other parallel languages such as C++ 20.</p>
 </div>
 </div>
 </div>
@@ -860,28 +956,114 @@ Revision: 2</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_new_api_types"><a class="anchor" href="#_new_api_types"></a>New API Types</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>None.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_new_opencl_c_functions"><a class="anchor" href="#_new_opencl_c_functions"></a>New OpenCL C Functions</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>void intel_work_group_barrier_arrive(cl_mem_fence_flags flags);
+void intel_work_group_barrier_wait(cl_mem_fence_flags flags);
+
+// For OpenCL C 2.0 or newer:
+void intel_work_group_barrier_arrive(cl_mem_fence_flags flags, memory_scope scope);
+void intel_work_group_barrier_wait(cl_mem_fence_flags flags, memory_scope scope);</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_modifications_to_the_opencl_c_specification"><a class="anchor" href="#_modifications_to_the_opencl_c_specification"></a>Modifications to the OpenCL C Specification</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_add_to_table_19_built_in_work_group_synchronization_functions"><a class="anchor" href="#_add_to_table_19_built_in_work_group_synchronization_functions"></a>Add to Table 19 - Built-in Work-group Synchronization Functions</h3>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 19. Built-in Work-group synchronization Functions</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Function</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>void intel_work_group_barrier_arrive(
+    cl_mem_fence_flags flags);
+void intel_work_group_barrier_wait(
+    cl_mem_fence_flags flags);
+
+void intel_work_group_barrier_arrive(
+    cl_mem_fence_flags flags,
+    memory_scope scope);
+void intel_work_group_barrier_wait(
+    cl_mem_fence_flags flags,
+    memory_scope scope);</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">For these functions, if any work-item in a work-group arrives at a barrier, behavior is undefined unless all work-items in the work-group arrive at the barrier.
+If any work-item in a work-group waits on a barrier, behavior is undefined unless all work-items in the work-group wait on the barrier.</p>
+<p class="tableblock">If a barrier arrive function is inside of a conditional statement and any work-item in the work-group enters the conditional statement and arrives at the barrier, behavior is undefined unless all work-items enter the conditional and arrive at the barrier.
+If a barrier wait function is inside of a conditional statement and any work-item in the work-group enters the conditional statement and waits on the barrier, behavior is undefined unless all work-items enter the conditional and wait on the barrier.</p>
+<p class="tableblock">If a barrier arrive function is inside of a loop and any work-item arrives at the barrier for an iteration of the loop, behavior is undefined unless all work-items arrive at the barrier for the same iteration of the loop.
+If a barrier wait function is inside of a loop and any work-item waits on the barrier for an iteration of the loop, behavior is undefined unless all work-items wait on the barrier for the same iteration of the loop.</p>
+<p class="tableblock">Behavior is undefined if a work-item waits on a barrier before arriving at a barrier.
+After a work-item arrives at a barrier, behavior is undefined if the work-item arrives at another barrier before waiting on a barrier.
+After a work-item waits on a barrier, behavior is undefined if the work-item waits on another barrier before arriving at a barrier.</p>
+<p class="tableblock">The <code>intel_work_group_barrier_arrive</code> and <code>intel_work_group_barrier_wait</code> functions specify which memory operations from before arriving at the barrier must be visible to work-items after waiting on the barrier by using the <em>flags</em> and <em>scope</em> arguments.</p>
+<p class="tableblock">The <em>flags</em> argument specifies the memory address spaces to apply the memory ordering constraints.
+This is a bitfield that can be zero or a combination of the following values:</p>
+<p class="tableblock"><code>CLK_LOCAL_MEM_FENCE</code>: for <code>local</code> memory accesses.<br>
+<code>CLK_GLOBAL_MEM_FENCE</code>: for <code>global</code> memory accesses.<br>
+<code>CLK_IMAGE_MEM_FENCE</code>: for image memory accesses, for this flag the value of <em>scope</em> must be <code>memory_scope_work_group</code> or behavior is undefined.</p>
+<p class="tableblock">The <em>scope</em> argument describes the work-items to apply the memory ordering constraints.
+If no <em>scope</em> argument is provided, the <em>scope</em> is <code>memory_scope_work_group</code>.</p>
+<p class="tableblock">If the <em>flags</em> argument differs between the barrier arrive function and the barrier wait function then only memory operations for the address spaces specified by the intersection of the two <em>flags</em> arguments must be visible.</p>
+<p class="tableblock">If the <em>scope</em> argument differs between the barrier arrive function and the barrier wait function then the memory ordering constraints only apply to work-items described by the narrower of the two <em>scope</em> arguments.</p>
+<p class="tableblock">For each call to these functions, the values of <em>flags</em> and <em>scope</em> must be the same for all work-items in the work-group.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_modifications_to_the_opencl_spir_v_environment_specification"><a class="anchor" href="#_modifications_to_the_opencl_spir_v_environment_specification"></a>Modifications to the OpenCL SPIR-V Environment Specification</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_add_a_new_section_7_1_x_cl_intel_spirv_device_side_avc_motion_estimation"><a class="anchor" href="#_add_a_new_section_7_1_x_cl_intel_spirv_device_side_avc_motion_estimation"></a>Add a new Section 7.1.X - <code>cl_intel_spirv_device_side_avc_motion_estimation</code></h3>
+<h3 id="_add_a_new_section_5_2_x_cl_intel_split_work_group_barrier"><a class="anchor" href="#_add_a_new_section_5_2_x_cl_intel_split_work_group_barrier"></a>Add a new section 5.2.X - <code>cl_intel_split_work_group_barrier</code></h3>
 <div class="paragraph">
-<p>If the OpenCL environment supports the extension <code>cl_intel_spirv_device_side_avc_motion_estimation</code>, then the environment must accept SPIR-V modules that declare use of the <code>SPV_INTEL_device_side_avc_motion_estimation</code> extension via <strong>OpExtension</strong>.</p>
+<p>If the OpenCL environment supports the extension <code>cl_intel_split_work_group_barrier</code> then the environment must accept modules that declare use of the extension <code>SPV_INTEL_split_barrier</code> and that declare the SPIR-V capability <strong>SplitBarrierINTEL</strong>.</p>
 </div>
 <div class="paragraph">
-<p>If the OpenCL environment supports the extension <code>cl_intel_spirv_device_side_avc_motion_estimation</code> and use of the <code>SPV_INTEL_device_side_avc_motion_estimation</code> extension is declared in the module via <strong>OpExtension</strong>, then the environment must accept modules that declare the following SPIR-V capabilities:</p>
+<p>For the instructions <strong>OpControlBarrierArriveINTEL</strong> and <strong>OpControlBarrierWaitINTEL</strong> added by the extension:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>SubgroupAvcMotionEstimationINTEL</strong></p>
+<p><em>Scope</em> for <em>Execution</em> must be <strong>WorkGroup</strong>.</p>
 </li>
 <li>
-<p><strong>SubgroupAvcMotionEstimationIntraINTEL</strong></p>
-</li>
-<li>
-<p><strong>SubgroupAvcMotionEstimationChromaINTEL</strong></p>
+<p>Valid values for <em>Scope</em> for <em>Memory</em> are the same as for <strong>OpControlBarrier</strong>.</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>For the instruction <strong>OpControlBarrierArriveINTEL</strong>, the memory-order constraint in <em>Memory Semantics</em> must be <strong>Release</strong>.</p>
+</div>
+<div class="paragraph">
+<p>For the instruction <strong>OpControlBarrierWaitINTEL</strong>, the memory-order constraint in <em>Memory Semantics</em> must be <strong>Acquire</strong>.</p>
 </div>
 </div>
 </div>
@@ -889,8 +1071,68 @@ Revision: 2</p>
 <div class="sect1">
 <h2 id="_issues"><a class="anchor" href="#_issues"></a>Issues</h2>
 <div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Do we need to support all of the features of C++ 20 barriers (completion functions, arrival tokens, etc.)?</p>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
-<p>None.</p>
+<p><strong>RESOLVED</strong>: Not in this extension.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Do we need to support sub-group split barriers?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>RESOLVED</strong>: Not in this extension.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Do we need to document formal changes to the memory model?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>RESOLVED</strong>: Not initially.
+Informally, the barrier wait for one work-item synchronizes-with the barrier arrives for the other work-items in the work-group.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>What are the memory order constraints for a split barrier?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>RESOLVED</strong>: Arriving at a split barrier will effectively be a release memory fence and waiting on a barrier will effectively be an acquire memory fence.</p>
+</div>
+<div class="paragraph">
+<p>Alternatively, both arriving and waiting could be sequentially consistent memory fences, but acquire and release are sufficient for most use-cases and may perform better.
+If a sequentially consistent fence is required instead, applications can use an ordinary non-split barrier, or insert explicit memory fences before arriving at the split barrier and after waiting on a split barrier.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>What should behavior be if the flags arguments differ between the barrier arrive and the barrier wait?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>RESOLVED</strong>: The address spaces will be the intersection of the flags, and the memory scope will be the narrowest of the two scopes.
+This is the same behavior that would be observed with a release fence before arriving at the barrier and an acquire fence after waiting on the barrier.</p>
+</div>
+<div class="paragraph">
+<p>Alternatively, this scenario could be undefined behavior, but this appears to be unnecessary.</p>
+</div>
+</div>
+</div>
+</li>
+</ol>
 </div>
 </div>
 </div>
@@ -906,7 +1148,7 @@ Revision: 2</p>
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Rev</th>
+<th class="tableblock halign-left valign-top">Version</th>
 <th class="tableblock halign-left valign-top">Date</th>
 <th class="tableblock halign-left valign-top">Author</th>
 <th class="tableblock halign-left valign-top">Changes</th>
@@ -914,16 +1156,22 @@ Revision: 2</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2018-10-29</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.9.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2022-01-11</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Ben Ashbaugh</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Initial revision</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2019-09-17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.9.1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2022-02-07</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Ben Ashbaugh</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Minor formatting fixes for asciidoctor.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Added "intel" prefix to split barrier functions.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2022-09-06</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ben Ashbaugh</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Updated version.</p></td>
 </tr>
 </tbody>
 </table>

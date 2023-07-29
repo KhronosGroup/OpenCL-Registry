@@ -49,6 +49,10 @@
 </li>
 <li><a href="extensions/ext/cl_ext_float_atomics.html">cl_ext_float_atomics</a>
 </li>
+<li><a href="extensions/ext/cl_ext_image_from_buffer.html">cl_ext_image_from_buffer</a>
+</li>
+<li><a href="extensions/ext/cl_ext_image_requirements_info.html">cl_ext_image_requirements_info</a>
+</li>
 <li><a href="extensions/ext/cl_ext_migrate_memobject.txt">cl_ext_migrate_memobject</a>
 </li>
 <li><a href="extensions/img/cl_img_cached_allocations.html">cl_img_cached_allocations</a>
@@ -64,6 +68,8 @@
 <li><a href="extensions/intel/cl_intel_accelerator.txt">cl_intel_accelerator</a>
 </li>
 <li><a href="extensions/intel/cl_intel_advanced_motion_estimation.txt">cl_intel_advanced_motion_estimation</a>
+</li>
+<li><a href="extensions/intel/cl_intel_bfloat16_conversions.html">cl_intel_bfloat16_conversions</a>
 </li>
 <li><a href="extensions/intel/cl_intel_command_queue_families.html">cl_intel_command_queue_families</a>
 </li>
@@ -110,6 +116,12 @@
 <li><a href="extensions/intel/cl_intel_spirv_media_block_io.html">cl_intel_spirv_media_block_io</a>
 </li>
 <li><a href="extensions/intel/cl_intel_spirv_subgroups.html">cl_intel_spirv_subgroups</a>
+</li>
+<li><a href="extensions/intel/cl_intel_split_work_group_barrier.html">cl_intel_split_work_group_barrier</a>
+</li>
+<li><a href="extensions/intel/cl_intel_subgroup_matrix_multiply_accumulate.html">cl_intel_subgroup_matrix_multiply_accumulate</a>
+</li>
+<li><a href="extensions/intel/cl_intel_subgroup_split_matrix_multiply_accumulate.html">cl_intel_subgroup_split_matrix_multiply_accumulate</a>
 </li>
 <li><a href="extensions/intel/cl_intel_subgroups.html">cl_intel_subgroups</a>
 </li>
