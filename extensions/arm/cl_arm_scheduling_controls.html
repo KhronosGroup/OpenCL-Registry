@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.10">
+<meta name="generator" content="Asciidoctor 2.0.18">
 <title>cl_arm_scheduling_controls</title>
 <style>
 /*! normalize.css v2.1.2 | MIT License | git.io/normalize */
@@ -742,6 +742,95 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+/*! Stylesheet for CodeRay to loosely match GitHub themes | MIT License */
+pre.CodeRay{background:#f7f7f8}
+.CodeRay .line-numbers{border-right:1px solid;opacity:.35;padding:0 .5em 0 0;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+.CodeRay span.line-numbers{display:inline-block;margin-right:.75em}
+.CodeRay .line-numbers strong{color:#000}
+table.CodeRay{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.CodeRay td{vertical-align:top;line-height:inherit}
+table.CodeRay td.line-numbers{text-align:right}
+table.CodeRay td.code{padding:0 0 0 .75em}
+.CodeRay .debug{color:#fff!important;background:navy!important}
+.CodeRay .annotation{color:#007}
+.CodeRay .attribute-name{color:navy}
+.CodeRay .attribute-value{color:#700}
+.CodeRay .binary{color:#509}
+.CodeRay .comment{color:#998;font-style:italic}
+.CodeRay .char{color:#04d}
+.CodeRay .char .content{color:#04d}
+.CodeRay .char .delimiter{color:#039}
+.CodeRay .class{color:#458;font-weight:bold}
+.CodeRay .complex{color:#a08}
+.CodeRay .constant,.CodeRay .predefined-constant{color:teal}
+.CodeRay .color{color:#099}
+.CodeRay .class-variable{color:#369}
+.CodeRay .decorator{color:#b0b}
+.CodeRay .definition{color:#099}
+.CodeRay .delimiter{color:#000}
+.CodeRay .doc{color:#970}
+.CodeRay .doctype{color:#34b}
+.CodeRay .doc-string{color:#d42}
+.CodeRay .escape{color:#666}
+.CodeRay .entity{color:#800}
+.CodeRay .error{color:#808}
+.CodeRay .exception{color:inherit}
+.CodeRay .filename{color:#099}
+.CodeRay .function{color:#900;font-weight:bold}
+.CodeRay .global-variable{color:teal}
+.CodeRay .hex{color:#058}
+.CodeRay .integer,.CodeRay .float{color:#099}
+.CodeRay .include{color:#555}
+.CodeRay .inline{color:#000}
+.CodeRay .inline .inline{background:#ccc}
+.CodeRay .inline .inline .inline{background:#bbb}
+.CodeRay .inline .inline-delimiter{color:#d14}
+.CodeRay .inline-delimiter{color:#d14}
+.CodeRay .important{color:#555;font-weight:bold}
+.CodeRay .interpreted{color:#b2b}
+.CodeRay .instance-variable{color:teal}
+.CodeRay .label{color:#970}
+.CodeRay .local-variable{color:#963}
+.CodeRay .octal{color:#40e}
+.CodeRay .predefined{color:#369}
+.CodeRay .preprocessor{color:#579}
+.CodeRay .pseudo-class{color:#555}
+.CodeRay .directive{font-weight:bold}
+.CodeRay .type{font-weight:bold}
+.CodeRay .predefined-type{color:inherit}
+.CodeRay .reserved,.CodeRay .keyword{color:#000;font-weight:bold}
+.CodeRay .key{color:#808}
+.CodeRay .key .delimiter{color:#606}
+.CodeRay .key .char{color:#80f}
+.CodeRay .value{color:#088}
+.CodeRay .regexp .delimiter{color:#808}
+.CodeRay .regexp .content{color:#808}
+.CodeRay .regexp .modifier{color:#808}
+.CodeRay .regexp .char{color:#d14}
+.CodeRay .regexp .function{color:#404;font-weight:bold}
+.CodeRay .string{color:#d20}
+.CodeRay .string .string .string{background:#ffd0d0}
+.CodeRay .string .content{color:#d14}
+.CodeRay .string .char{color:#d14}
+.CodeRay .string .delimiter{color:#d14}
+.CodeRay .shell{color:#d14}
+.CodeRay .shell .delimiter{color:#d14}
+.CodeRay .symbol{color:#990073}
+.CodeRay .symbol .content{color:#a60}
+.CodeRay .symbol .delimiter{color:#630}
+.CodeRay .tag{color:teal}
+.CodeRay .tag-special{color:#d70}
+.CodeRay .variable{color:#036}
+.CodeRay .insert{background:#afa}
+.CodeRay .delete{background:#faa}
+.CodeRay .change{color:#aaf;background:#007}
+.CodeRay .head{color:#f8f;background:#505}
+.CodeRay .insert .insert{color:#080}
+.CodeRay .delete .delete{color:#800}
+.CodeRay .change .change{color:#66f}
+.CodeRay .head .head{color:#f4f}
+</style>
 <link rel="stylesheet" href="../katex/katex.min.css">
 <script src="../katex/katex.min.js"></script>
 <script src="../katex/contrib/auto-render.min.js"></script>
@@ -766,9 +855,9 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <div id="header">
 <h1>cl_arm_scheduling_controls</h1>
 <div class="details">
-<span id="revnumber">version v3.0.12-0-g996a022,</span>
-<span id="revdate">Thu, 29 Sep 2022 10:49:37 +0000</span>
-<br><span id="revremark">from git branch:  commit: 996a022a7ad45583591df5e665af0f8f38b85e83</span>
+<span id="revnumber">version v3.0.14-14-g99ff7e2,</span>
+<span id="revdate">Tue, 08 Aug 2023 14:07:38 +0000</span>
+<br><span id="revremark">from git branch: cl-arm-scheduling-controls commit: 99ff7e2383b049a1c35c4884b4a88a06fc3c84bd</span>
 </div>
 </div>
 <div id="content">
@@ -801,7 +890,7 @@ Radek Szymanski, Arm Ltd.<br></p>
 <h2 id="_notice"><a class="anchor" href="#_notice"></a>Notice</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright (c) 2020-2022 Arm Ltd.</p>
+<p>Copyright (c) 2020-2023 Arm Ltd.</p>
 </div>
 </div>
 </div>
@@ -817,8 +906,8 @@ Radek Szymanski, Arm Ltd.<br></p>
 <h2 id="_version"><a class="anchor" href="#_version"></a>Version</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Built On: 2022-09-07<br>
-Version: 0.5.0</p>
+<p>Built On: 2023-08-08<br>
+Version: 0.6.0</p>
 </div>
 </div>
 </div>
@@ -859,6 +948,7 @@ CL_DEVICE_SCHEDULING_DEFERRED_FLUSH_ARM                 (<span class="integer">1
 CL_DEVICE_SCHEDULING_REGISTER_ALLOCATION_ARM            (<span class="integer">1</span> &lt;&lt; <span class="integer">4</span>)
 CL_DEVICE_SCHEDULING_WARP_THROTTLING_ARM                (<span class="integer">1</span> &lt;&lt; <span class="integer">5</span>)
 CL_DEVICE_SCHEDULING_COMPUTE_UNIT_BATCH_QUEUE_SIZE_ARM  (<span class="integer">1</span> &lt;&lt; <span class="integer">6</span>)
+CL_DEVICE_SCHEDULING_COMPUTE_UNIT_LIMIT_ARM             (<span class="integer">1</span> &lt;&lt; <span class="integer">7</span>)
 
 CL_DEVICE_SUPPORTED_REGISTER_ALLOCATIONS_ARM              <span class="hex">0x41EB</span>
 
@@ -881,8 +971,9 @@ CL_KERNEL_EXEC_INFO_COMPUTE_UNIT_MAX_QUEUED_BATCHES_ARM <span class="hex">0x41F1
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="c">CL_QUEUE_KERNEL_BATCHING_ARM <span class="hex">0x41E7</span>
-CL_QUEUE_DEFERRED_FLUSH_ARM  <span class="hex">0x41EC</span></code></pre>
+<pre class="CodeRay highlight"><code data-lang="c">CL_QUEUE_KERNEL_BATCHING_ARM    <span class="hex">0x41E7</span>
+CL_QUEUE_DEFERRED_FLUSH_ARM     <span class="hex">0x41EC</span>
+CL_QUEUE_COMPUTE_UNIT_LIMIT_ARM <span class="hex">0x41F3</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -977,7 +1068,10 @@ Missing before version 0.3.0
   Missing before version 0.4.</p>
 <p class="tableblock">- <code>CL_DEVICE_<wbr>SCHEDULING_<wbr>COMPUTE_<wbr>UNIT_<wbr>BATCH_<wbr>QUEUE_<wbr>SIZE_<wbr>ARM</code> is set when the
   device supports <code>CL_KERNEL_<wbr>EXEC_<wbr>INFO_<wbr>COMPUTE_<wbr>UNIT_<wbr>MAX_<wbr>QUEUED_<wbr>BATCHES_<wbr>ARM</code>.<br>
-  Missing before version 0.5.</p></td>
+  Missing before version 0.5.</p>
+<p class="tableblock">- <code>CL_DEVICE_<wbr>SCHEDULING_<wbr>COMPUTE_<wbr>UNIT_<wbr>LIMIT_<wbr>ARM</code> is set when the device supports
+  <code>CL_QUEUE_<wbr>COMPUTE_<wbr>UNIT_<wbr>LIMIT_<wbr>ARM</code>.<br>
+  Missing before version 0.6.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_SUPPORTED_REGISTER_ALLOCATIONS_ARM</code></p></td>
@@ -1004,7 +1098,7 @@ Missing before version 0.3.0
 </div>
 <div class="dlist">
 <dl>
-<dt class="hdlist1">(Modify Section 5.1, <strong>Command Queues</strong>) </dt>
+<dt class="hdlist1">(Modify Section 5.1, <strong>Command-Queues</strong>) </dt>
 <dd>
 <div class="openblock">
 <div class="content">
@@ -1046,6 +1140,14 @@ Missing before version 0.3.0
   deferred for execution in another thread managed by the OpenCL runtime.
   <code>CL_TRUE</code> means flush operations are deferred. Defaults to <code>CL_TRUE</code>.<br>
   Missing before version 0.2.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_QUEUE_<wbr>COMPUTE_<wbr>UNIT_<wbr>LIMIT_<wbr>ARM</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_uint</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set a limit for the number of compute units this queue is allowed to use.
+  The limit provided must be greater than 0 and less than or equal to
+  <code>CL_DEVICE_<wbr>MAX_<wbr>COMPUTE_<wbr>UNITS</code>.<br>
+  Missing before version 0.6.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1131,9 +1233,9 @@ registers allocated to each thread for specific kernels in the program.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Set the size of batches of work groups distributed to compute units.
   The value is a number of work groups. If set to 0, then the runtime
   will pick a suitable value automatically. Defaults to 0. If the value is
-  greater than the number of work groups necessary to execute a given NDRange,
+  greater than the number of work groups necessary to execute a given ND-range,
   the actual batch size will be capped at the number of work groups in the
-  NDRange. When a value is not directly usable due to device-specific
+  ND-range. When a value is not directly usable due to device-specific
   constraints, it will be rounded up to the next usable value.</p></td>
 </tr>
 <tr>
@@ -1254,6 +1356,12 @@ ignored.</p>
 </thead>
 <tbody>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.6.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2022-12-12</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kévin Petit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add support for compute unit limit</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0.5.0</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">2022-06-29</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Kévin Petit</p></td>
@@ -1290,100 +1398,11 @@ ignored.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.12-0-g996a022<br>
-Last updated 2022-09-07 12:21:32 +0100
+Version v3.0.14-14-g99ff7e2<br>
+Last updated 2023-08-08 15:07:12 +0100
 </div>
 </div>
-<style>
-/* Stylesheet for CodeRay to match GitHub theme | MIT License | http://foundation.zurb.com */
-pre.CodeRay{background:#f7f7f8}
-.CodeRay .line-numbers{border-right:1px solid currentColor;opacity:.35;padding:0 .5em 0 0}
-.CodeRay span.line-numbers{display:inline-block;margin-right:.75em}
-.CodeRay .line-numbers strong{color:#000}
-table.CodeRay{border-collapse:separate;border:0;margin-bottom:0;background:none}
-table.CodeRay td{vertical-align:top;line-height:inherit}
-table.CodeRay td.line-numbers{text-align:right}
-table.CodeRay td.code{padding:0 0 0 .75em}
-.CodeRay .debug{color:#fff !important;background:#000080 !important}
-.CodeRay .annotation{color:#007}
-.CodeRay .attribute-name{color:#000080}
-.CodeRay .attribute-value{color:#700}
-.CodeRay .binary{color:#509}
-.CodeRay .comment{color:#998;font-style:italic}
-.CodeRay .char{color:#04d}
-.CodeRay .char .content{color:#04d}
-.CodeRay .char .delimiter{color:#039}
-.CodeRay .class{color:#458;font-weight:bold}
-.CodeRay .complex{color:#a08}
-.CodeRay .constant,.CodeRay .predefined-constant{color:#008080}
-.CodeRay .color{color:#099}
-.CodeRay .class-variable{color:#369}
-.CodeRay .decorator{color:#b0b}
-.CodeRay .definition{color:#099}
-.CodeRay .delimiter{color:#000}
-.CodeRay .doc{color:#970}
-.CodeRay .doctype{color:#34b}
-.CodeRay .doc-string{color:#d42}
-.CodeRay .escape{color:#666}
-.CodeRay .entity{color:#800}
-.CodeRay .error{color:#808}
-.CodeRay .exception{color:inherit}
-.CodeRay .filename{color:#099}
-.CodeRay .function{color:#900;font-weight:bold}
-.CodeRay .global-variable{color:#008080}
-.CodeRay .hex{color:#058}
-.CodeRay .integer,.CodeRay .float{color:#099}
-.CodeRay .include{color:#555}
-.CodeRay .inline{color:#000}
-.CodeRay .inline .inline{background:#ccc}
-.CodeRay .inline .inline .inline{background:#bbb}
-.CodeRay .inline .inline-delimiter{color:#d14}
-.CodeRay .inline-delimiter{color:#d14}
-.CodeRay .important{color:#555;font-weight:bold}
-.CodeRay .interpreted{color:#b2b}
-.CodeRay .instance-variable{color:#008080}
-.CodeRay .label{color:#970}
-.CodeRay .local-variable{color:#963}
-.CodeRay .octal{color:#40e}
-.CodeRay .predefined{color:#369}
-.CodeRay .preprocessor{color:#579}
-.CodeRay .pseudo-class{color:#555}
-.CodeRay .directive{font-weight:bold}
-.CodeRay .type{font-weight:bold}
-.CodeRay .predefined-type{color:inherit}
-.CodeRay .reserved,.CodeRay .keyword {color:#000;font-weight:bold}
-.CodeRay .key{color:#808}
-.CodeRay .key .delimiter{color:#606}
-.CodeRay .key .char{color:#80f}
-.CodeRay .value{color:#088}
-.CodeRay .regexp .delimiter{color:#808}
-.CodeRay .regexp .content{color:#808}
-.CodeRay .regexp .modifier{color:#808}
-.CodeRay .regexp .char{color:#d14}
-.CodeRay .regexp .function{color:#404;font-weight:bold}
-.CodeRay .string{color:#d20}
-.CodeRay .string .string .string{background:#ffd0d0}
-.CodeRay .string .content{color:#d14}
-.CodeRay .string .char{color:#d14}
-.CodeRay .string .delimiter{color:#d14}
-.CodeRay .shell{color:#d14}
-.CodeRay .shell .delimiter{color:#d14}
-.CodeRay .symbol{color:#990073}
-.CodeRay .symbol .content{color:#a60}
-.CodeRay .symbol .delimiter{color:#630}
-.CodeRay .tag{color:#008080}
-.CodeRay .tag-special{color:#d70}
-.CodeRay .variable{color:#036}
-.CodeRay .insert{background:#afa}
-.CodeRay .delete{background:#faa}
-.CodeRay .change{color:#aaf;background:#007}
-.CodeRay .head{color:#f8f;background:#505}
-.CodeRay .insert .insert{color:#080}
-.CodeRay .delete .delete{color:#800}
-.CodeRay .change .change{color:#66f}
-.CodeRay .head .head{color:#f4f}
-</style>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
 </body>
 </html>
