@@ -31,19 +31,19 @@ include_once("../../assets/static_pages/khr_page_top.php");
 <li> OpenCL API Specification
      (<a href="specs/3.0-unified/html/OpenCL_API.html">HTML</a>)
      (<a href="specs/3.0-unified/pdf/OpenCL_API.pdf">PDF</a>)
-     (April 17, 2023). </li>
+     (December 14, 2023). </li>
 <li> OpenCL C Language Specification
      (<a href="specs/3.0-unified/html/OpenCL_C.html">HTML</a>)
      (<a href="specs/3.0-unified/pdf/OpenCL_C.pdf">PDF</a>)
-     (April 17, 2023). </li>
+     (December 14, 2023). </li>
 <li> OpenCL Extension Specification
      (<a href="specs/3.0-unified/html/OpenCL_Ext.html">HTML</a>)
      (<a href="specs/3.0-unified/pdf/OpenCL_Ext.pdf">PDF</a>)
-     (April 17, 2023). </li>
+     (December 14, 2023). </li>
 <li> OpenCL SPIR-V Environment Specification
      (<a href="specs/3.0-unified/html/OpenCL_Env.html">HTML</a>)
      (<a href="specs/3.0-unified/pdf/OpenCL_Env.pdf">PDF</a>)
-     (April 17, 2023). </li>
+     (December 14, 2023). </li>
 <li> <a href="http://www.khronos.org/registry/OpenCL/sdk/3.0/docs/man/html/">
      OpenCL 3.0 Reference Pages.</a> </li>
 <li> <a href="https://www.khronos.org/files/opencl30-reference-guide.pdf">
