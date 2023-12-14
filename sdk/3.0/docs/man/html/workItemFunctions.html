@@ -372,7 +372,7 @@ b.button:after { content: "]"; padding: 0 2px 0 3px; }
 #content #toc > :first-child { margin-top: 0; }
 #content #toc > :last-child { margin-bottom: 0; }
 
-#footer { max-width: 100%; background-color: none; padding: 1.25em; }
+#footer { max-width: 100%; background: none; padding: 1.25em; }
 
 #footer-text { color: black; line-height: 1.44; }
 
@@ -921,12 +921,12 @@ feature.
 </div>
 <div class="paragraph">
 <p>The following table describes the list of built-in work-item functions that
-can be used to query the size of a subgroup, number of subgroups per work-group,
-and identifier of the subgroup within a work-group and work-item within a
-subgroup when this kernel is being executed on a device.</p>
+can be used to query the size of a sub-group, number of sub-groups per work-group,
+and identifier of the sub-group within a work-group and work-item within a
+sub-group when this kernel is being executed on a device.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 2. Built-in Work-Item Functions for Subgroups</caption>
+<caption class="title">Table 2. Built-in Work-Item Functions for Sub-groups</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -942,17 +942,17 @@ subgroup when this kernel is being executed on a device.</p>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>uint <strong>get_sub_group_size</strong>()</p>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the number of work-items in the subgroup.
-  This value is no more than the maximum subgroup size and is
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the number of work-items in the sub-group.
+  This value is no more than the maximum sub-group size and is
   implementation-defined based on a combination of the compiled kernel and
   the dispatch dimensions.
-  This will be a constant value for the lifetime of the subgroup.</p></td>
+  This will be a constant value for the lifetime of the sub-group.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>uint <strong>get_max_sub_group_size</strong>()</p>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the maximum size of a subgroup within the dispatch.
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the maximum size of a sub-group within the dispatch.
   This value will be invariant for a given set of dispatch dimensions and a
   kernel object compiled for a given device.</p></td>
 </tr>
@@ -960,7 +960,7 @@ subgroup when this kernel is being executed on a device.</p>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>uint <strong>get_num_sub_groups</strong>()</p>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the number of subgroups that the current work-group is divided
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the number of sub-groups that the current work-group is divided
   into.</p>
 <p class="tableblock">  This number will be constant for the duration of a work-group&#8217;s execution.
   If the kernel is executed with a non-uniform work-group size
@@ -976,14 +976,14 @@ subgroup when this kernel is being executed on a device.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the same value as that returned by <strong>get_num_sub_groups</strong> if the
   kernel is executed with a uniform work-group size.</p>
 <p class="tableblock">  If the kernel is executed with a non-uniform work-group size, returns the
-  number of subgroups in each of the work-groups that make up the uniform
+  number of sub-groups in each of the work-groups that make up the uniform
   region of the global range.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>uint <strong>get_sub_group_id</strong>()</p>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>get_sub_group_id</strong> returns the subgroup ID which is a number from 0 ..
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>get_sub_group_id</strong> returns the sub-group ID which is a number from 0 ..
   <strong>get_num_sub_groups</strong>() - 1.</p>
 <p class="tableblock">  For <strong>clEnqueueTask</strong>, this returns 0.</p></td>
 </tr>
@@ -991,7 +991,7 @@ subgroup when this kernel is being executed on a device.</p>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>uint <strong>get_sub_group_local_id</strong>()</p>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the unique work-item ID within the current subgroup.
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the unique work-item ID within the current sub-group.
   The mapping from <strong>get_local_id</strong>(<em>dimindx</em>) to <strong>get_sub_group_local_id</strong>
   will be invariant for the lifetime of the work-group.</p></td>
 </tr>
@@ -1039,8 +1039,8 @@ Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.14<br>
-Last updated 2023-04-17 15:22:10 -0700
+Version v3.0.15<br>
+Last updated 2023-12-14 12:09:08 -0800
 </div>
 </div>
 

@@ -372,7 +372,7 @@ b.button:after { content: "]"; padding: 0 2px 0 3px; }
 #content #toc > :first-child { margin-top: 0; }
 #content #toc > :last-child { margin-bottom: 0; }
 
-#footer { max-width: 100%; background-color: none; padding: 1.25em; }
+#footer { max-width: 100%; background: none; padding: 1.25em; }
 
 #footer-text { color: black; line-height: 1.44; }
 
@@ -794,7 +794,7 @@ function</p>
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<strong>clCreateCommandQueueWithProperties</strong> is <a href="#unified-spec">missing before</a> version 2.0.
+<strong>clCreateCommandQueueWithProperties</strong> is <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.0.
 Also see extension <strong>cl_khr_create_command_queue</strong>.
 </td>
 </tr>
@@ -842,7 +842,7 @@ If <em>errcode_ret</em> is <code>NULL</code>, no error code is returned.</p>
 <h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
 <div class="sectionbody">
 <table id="queue-properties-table" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. List of supported queue creation properties by <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#clCreateCommandQueueWithProperties" class="bare" target="_blank" rel="noopener">https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#clCreateCommandQueueWithProperties</a></caption>
+<caption class="title">Table 1. List of supported queue creation properties by <strong>clCreateCommandQueueWithProperties</strong></caption>
 <colgroup>
 <col style="width: 33%;">
 <col style="width: 17%;">
@@ -875,18 +875,18 @@ If <em>errcode_ret</em> is <code>NULL</code>, no error code is returned.</p>
         <code>CL_QUEUE_<wbr>OUT_<wbr>OF_<wbr>ORDER_<wbr>EXEC_<wbr>MODE_<wbr>ENABLE</code>
         <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup>
         must also be set.
-<a href="#unified-spec">Missing before</a> version 2.0.</p>
+<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.0.</p>
 <p class="tableblock">        <code>CL_QUEUE_<wbr>ON_<wbr>DEVICE_<wbr>DEFAULT</code>
         <sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup> -
         indicates that this is the default device queue.
         This can only be used with <code>CL_QUEUE_<wbr>ON_<wbr>DEVICE</code>.
-<a href="#unified-spec">Missing before</a> version 2.0.</p>
-<p class="tableblock">        If <code>CL_QUEUE_<wbr>PROPERTIES</code> is not specified an in-order host command
-        queue is created for the specified device</p></td>
+<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.0.</p>
+<p class="tableblock">        If <code>CL_QUEUE_<wbr>PROPERTIES</code> is not specified an in-order host command-queue
+        is created for the specified device</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_QUEUE_<wbr>SIZE</code></p>
-<p class="tableblock"><a href="#unified-spec">Missing before</a> version 2.0.</p></td>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.0.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_uint</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the size of the device queue in bytes.</p>
 <p class="tableblock">        This can only be specified if <code>CL_QUEUE_<wbr>ON_<wbr>DEVICE</code> is set in
@@ -972,13 +972,13 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <a href="#_footnoteref_1">1</a>. Only out-of-order device queues are supported.
 </div>
 <div class="footnote" id="_footnotedef_2">
-<a href="#_footnoteref_2">2</a>. The application must create a default device queue if any kernels containing calls to <code>get_default_queue</code> are enqueued. There can only be one default device queue for each device within a context. If a default device queue has already been created, calling {clCreateCommandQueueWithProperties} with {CL_QUEUE_PROPERTIES} set to {CL_QUEUE_ON_DEVICE} and {CL_QUEUE_ON_DEVICE_DEFAULT} will return the default device queue that has already been created and increment its reference count by 1.
+<a href="#_footnoteref_2">2</a>. The application must create a default device queue if any kernels containing calls to <code>get_default_queue</code> are enqueued. There can only be one default device queue for each device within a context. If a default device queue has already been created, calling <strong>clCreateCommandQueueWithProperties</strong> with <code>CL_QUEUE_<wbr>PROPERTIES</code> set to <code>CL_QUEUE_<wbr>ON_<wbr>DEVICE</code> and <code>CL_QUEUE_<wbr>ON_<wbr>DEVICE_<wbr>DEFAULT</code> will return the default device queue that has already been created and increment its reference count by 1.
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.14<br>
-Last updated 2023-04-17 15:22:10 -0700
+Version v3.0.15<br>
+Last updated 2023-12-14 12:09:08 -0800
 </div>
 </div>
 

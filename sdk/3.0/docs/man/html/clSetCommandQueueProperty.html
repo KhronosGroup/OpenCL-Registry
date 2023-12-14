@@ -372,7 +372,7 @@ b.button:after { content: "]"; padding: 0 2px 0 3px; }
 #content #toc > :first-child { margin-top: 0; }
 #content #toc > :last-child { margin-bottom: 0; }
 
-#footer { max-width: 100%; background-color: none; padding: 1.25em; }
+#footer { max-width: 100%; background: none; padding: 1.25em; }
 
 #footer-text { color: black; line-height: 1.44; }
 
@@ -793,7 +793,7 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<strong>clSetCommandQueueProperty</strong> is <a href="#unified-spec">deprecated by</a> version 1.1.
+<strong>clSetCommandQueueProperty</strong> is <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">deprecated by</a> version 1.1.
 </td>
 </tr>
 </table>
@@ -834,23 +834,12 @@ is ignored.</p>
 <div class="sect1">
 <h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
 <div class="sectionbody">
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
 <div class="paragraph">
-<p>Changing the <code>CL_QUEUE_<wbr>OUT_<wbr>OF_<wbr>ORDER_<wbr>EXEC_<wbr>MODE_<wbr>ENABLE</code> command-queue property
-will cause the OpenCL implementation to block until all previously queued
-commands in <em>command_queue</em> have completed.  This can be an expensive operation
-and therefore changes to this property should only be done when absolutely
-necessary.</p>
-</div>
-</td>
-</tr>
-</table>
+<p><strong>clSetCommandQueueProperty</strong> may unconditionally return an error if no
+devices in the context associated with <em>command_queue</em> support modifying
+the properties of a command-queue.
+Support for modifying the properties of a command-queue is required only for
+OpenCL 1.0 devices.</p>
 </div>
 <div class="paragraph">
 <p><strong>clSetCommandQueueProperty</strong> returns <code>CL_SUCCESS</code> if the function is executed
@@ -863,11 +852,23 @@ Otherwise, it returns one of the following errors:</p>
 <p><code>CL_INVALID_<wbr>COMMAND_<wbr>QUEUE</code> if <em>command_queue</em> is not a valid command-queue.</p>
 </li>
 <li>
+<p><code>CL_INVALID_<wbr>OPERATION</code> if no devices in the context associated with
+<em>command_queue</em> support modifying the properties of a command-queue.</p>
+</li>
+<li>
 <p><code>CL_INVALID_<wbr>VALUE</code> if values specified in <em>properties</em> are not valid.</p>
 </li>
 <li>
 <p><code>CL_INVALID_<wbr>QUEUE_<wbr>PROPERTIES</code> if values specified in <em>properties</em> are
 valid but are not supported by the device.</p>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources required
+by the OpenCL implementation on the device.</p>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code> if there is a failure to allocate resources
+required by the OpenCL implementation on the host.</p>
 </li>
 </ul>
 </div>
@@ -907,8 +908,8 @@ Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.14<br>
-Last updated 2023-04-17 15:22:10 -0700
+Version v3.0.15<br>
+Last updated 2023-12-14 12:09:08 -0800
 </div>
 </div>
 

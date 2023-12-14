@@ -372,7 +372,7 @@ b.button:after { content: "]"; padding: 0 2px 0 3px; }
 #content #toc > :first-child { margin-top: 0; }
 #content #toc > :last-child { margin-bottom: 0; }
 
-#footer { max-width: 100%; background-color: none; padding: 1.25em; }
+#footer { max-width: 100%; background: none; padding: 1.25em; }
 
 #footer-text { color: black; line-height: 1.44; }
 
@@ -809,7 +809,7 @@ If <em>param_value</em> is <code>NULL</code>, it is ignored.</p>
 <p><em>param_value_size</em> is used to specify the size in bytes of memory pointed to
 by <em>param_value</em>.
 This size must be ≥ size of return type as described in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#command-queue-param-table" target="_blank" rel="noopener">Command Queue Parameter</a> table.
+<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#command-queue-param-table" target="_blank" rel="noopener">Command-Queue Parameter</a> table.
 If <em>param_value</em> is <code>NULL</code>, it is ignored.</p>
 </li>
 <li>
@@ -827,10 +827,10 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <div class="paragraph">
 <p>The list of supported <em>param_name</em> values and the information returned in
 <em>param_value</em> by <strong>clGetCommandQueueInfo</strong> is described in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#command-queue-param-table" target="_blank" rel="noopener">Command Queue Parameter</a> table.</p>
+<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#command-queue-param-table" target="_blank" rel="noopener">Command-Queue Parameter</a> table.</p>
 </div>
 <table id="command-queue-param-table" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. List of supported param_names by <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#clGetCommandQueueInfo" class="bare" target="_blank" rel="noopener">https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#clGetCommandQueueInfo</a></caption>
+<caption class="title">Table 1. List of supported param_names by <strong>clGetCommandQueueInfo</strong></caption>
 <colgroup>
 <col style="width: 33%;">
 <col style="width: 17%;">
@@ -870,7 +870,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_QUEUE_<wbr>PROPERTIES_<wbr>ARRAY</code></p>
-<p class="tableblock"><a href="#unified-spec">Missing before</a> version 3.0.</p></td>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 3.0.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_queue_<wbr>properties</code>[]</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return the properties argument specified in
         <strong>clCreateCommandQueueWithProperties</strong>.</p>
@@ -886,7 +886,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_QUEUE_<wbr>SIZE</code></p>
-<p class="tableblock"><a href="#unified-spec">Missing before</a> version 2.0.</p></td>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.0.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_uint</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return the size of the device command-queue.
         To be considered valid for this query, <em>command_queue</em> must be a
@@ -894,9 +894,9 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_QUEUE_<wbr>DEVICE_<wbr>DEFAULT</code></p>
-<p class="tableblock"><a href="#unified-spec">Missing before</a> version 2.1.</p></td>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.1.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_command_<wbr>queue</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Return the current default command queue for the underlying device.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Return the current default command-queue for the underlying device.</p></td>
 </tr>
 </tbody>
 </table>
@@ -915,7 +915,7 @@ for <em>param_name</em>.</p>
 <li>
 <p><code>CL_INVALID_<wbr>VALUE</code> if <em>param_name</em> is not one of the supported values or
 if size in bytes specified by <em>param_value_size</em> is &lt; size of return
-type as specified in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#command-queue-param-table" target="_blank" rel="noopener">Command Queue
+type as specified in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#command-queue-param-table" target="_blank" rel="noopener">Command-Queue
 Parameter</a> table, and <em>param_value</em> is not a <code>NULL</code> value.</p>
 </li>
 <li>
@@ -970,8 +970,8 @@ Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.14<br>
-Last updated 2023-04-17 15:22:10 -0700
+Version v3.0.15<br>
+Last updated 2023-12-14 12:09:08 -0800
 </div>
 </div>
 

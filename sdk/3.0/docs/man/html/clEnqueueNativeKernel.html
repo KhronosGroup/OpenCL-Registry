@@ -372,7 +372,7 @@ b.button:after { content: "]"; padding: 0 2px 0 3px; }
 #content #toc > :first-child { margin-top: 0; }
 #content #toc > :last-child { margin-bottom: 0; }
 
-#footer { max-width: 100%; background-color: none; padding: 1.25em; }
+#footer { max-width: 100%; background: none; padding: 1.25em; }
 
 #footer-text { color: black; line-height: 1.44; }
 
@@ -808,7 +808,9 @@ device that has <code>CL_EXEC_<wbr>NATIVE_<wbr>KERNEL</code> capability set in
 <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#device-queries-table" target="_blank" rel="noopener">Device Queries</a> table.</p>
 </li>
 <li>
-<p><em>user_func</em> is a pointer to a host-callable user function.</p>
+<p><em>user_func</em> is a pointer to a host-callable user function.
+It is the application&#8217;s responsibility to ensure that the host-callable user
+function is thread-safe.</p>
 </li>
 <li>
 <p><em>args</em> is a pointer to the args list that <em>user_func</em> should be called with.</p>
@@ -988,8 +990,8 @@ Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.14<br>
-Last updated 2023-04-17 15:22:10 -0700
+Version v3.0.15<br>
+Last updated 2023-12-14 12:09:08 -0800
 </div>
 </div>
 

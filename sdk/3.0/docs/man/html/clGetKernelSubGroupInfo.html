@@ -372,7 +372,7 @@ b.button:after { content: "]"; padding: 0 2px 0 3px; }
 #content #toc > :first-child { margin-top: 0; }
 #content #toc > :last-child { margin-bottom: 0; }
 
-#footer { max-width: 100%; background-color: none; padding: 1.25em; }
+#footer { max-width: 100%; background: none; padding: 1.25em; }
 
 #footer-text { color: black; line-height: 1.44; }
 
@@ -797,7 +797,7 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<strong>clGetKernelSubGroupInfo</strong> is <a href="#unified-spec">missing before</a> version 2.1.
+<strong>clGetKernelSubGroupInfo</strong> is <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.1.
 Also see extension <strong>cl_khr_subgroups</strong>.
 </td>
 </tr>
@@ -825,7 +825,7 @@ can be a <code>NULL</code> value.</p>
 <p><em>param_name</em> specifies the information to query.
 The list of supported <em>param_name</em> types and the information returned in
 <em>param_value</em> by <strong>clGetKernelSubGroupInfo</strong> is described in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#kernel-subgroup-info-table" target="_blank" rel="noopener">Kernel Object Subgroup Queries</a> table.</p>
+<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#kernel-sub-group-info-table" target="_blank" rel="noopener">Kernel Object Sub-group Queries</a> table.</p>
 </li>
 <li>
 <p><em>input_value_size</em> is used to specify the size in bytes of memory pointed to
@@ -846,7 +846,7 @@ If <em>param_value</em> is <code>NULL</code>, it is ignored.</p>
 <p><em>param_value_size</em> is used to specify the size in bytes of memory pointed to
 by <em>param_value</em>.
 This size must be ≥ size of return type as described in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#kernel-subgroup-info-table" target="_blank" rel="noopener">Kernel Object Subgroup Queries</a> table.</p>
+<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#kernel-sub-group-info-table" target="_blank" rel="noopener">Kernel Object Sub-group Queries</a> table.</p>
 </li>
 <li>
 <p><em>param_value_size_ret</em> returns the actual size in bytes of data being
@@ -860,8 +860,8 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <div class="sect1">
 <h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
 <div class="sectionbody">
-<table id="kernel-subgroup-info-table" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. List of supported param_names by <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#clGetKernelSubGroupInfo" class="bare" target="_blank" rel="noopener">https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#clGetKernelSubGroupInfo</a></caption>
+<table id="kernel-sub-group-info-table" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. List of supported param_names by <strong>clGetKernelSubGroupInfo</strong></caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 25%;">
@@ -870,7 +870,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Kernel Subgroup Info</th>
+<th class="tableblock halign-left valign-top">Kernel Sub-group Info</th>
 <th class="tableblock halign-left valign-top">Input Type</th>
 <th class="tableblock halign-left valign-top">Return Type</th>
 <th class="tableblock halign-left valign-top">Description</th>
@@ -879,13 +879,13 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_KERNEL_<wbr>MAX_<wbr>SUB_<wbr>GROUP_<wbr>SIZE_<wbr>FOR_<wbr>NDRANGE</code></p>
-<p class="tableblock"><a href="#unified-spec">Missing before</a> version 2.1.
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.1.
 Also see extension <strong>cl_khr_subgroups</strong>.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>size_t</code>*</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>size_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the maximum sub-group size for this kernel.
-            All sub-groups must be the same size, while the last subgroup in
-            any work-group (i.e. the subgroup with the maximum index) could
+            All sub-groups must be the same size, while the last sub-group in
+            any work-group (i.e. the sub-group with the maximum index) could
             be the same or smaller size.</p>
 <p class="tableblock">            The <em>input_value</em> must be an array of <code>size_t</code> values
             corresponding to the local work size parameter of the intended
@@ -895,7 +895,7 @@ Also see extension <strong>cl_khr_subgroups</strong>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_KERNEL_<wbr>SUB_<wbr>GROUP_<wbr>COUNT_<wbr>FOR_<wbr>NDRANGE</code></p>
-<p class="tableblock"><a href="#unified-spec">Missing before</a> version 2.1.
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.1.
 Also see extension <strong>cl_khr_subgroups</strong>.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>size_t</code>*</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>size_t</code></p></td>
@@ -912,7 +912,7 @@ Also see extension <strong>cl_khr_subgroups</strong>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_KERNEL_<wbr>LOCAL_<wbr>SIZE_<wbr>FOR_<wbr>SUB_<wbr>GROUP_<wbr>COUNT</code></p>
-<p class="tableblock"><a href="#unified-spec">Missing before</a> version 2.1.
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.1.
 Also see extension <strong>cl_khr_subgroups</strong>.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>size_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>size_t</code>[]</p></td>
@@ -933,7 +933,7 @@ Also see extension <strong>cl_khr_subgroups</strong>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_KERNEL_<wbr>MAX_<wbr>NUM_<wbr>SUB_<wbr>GROUPS</code></p>
-<p class="tableblock"><a href="#unified-spec">Missing before</a> version 2.1.
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.1.
 Also see extension <strong>cl_khr_subgroups</strong>.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ignored</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>size_t</code></p></td>
@@ -949,7 +949,7 @@ Also see extension <strong>cl_khr_subgroups</strong>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_KERNEL_<wbr>COMPILE_<wbr>NUM_<wbr>SUB_<wbr>GROUPS</code></p>
-<p class="tableblock"><a href="#unified-spec">Missing before</a> version 2.1.
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.1.
 Also see extension <strong>cl_khr_subgroups</strong>.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ignored</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>size_t</code></p></td>
@@ -971,12 +971,12 @@ with <em>kernel</em> or if <em>device</em> is <code>NULL</code> but there is mor
 associated with <em>kernel</em>.</p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>OPERATION</code> if <em>device</em> does not support subgroups.</p>
+<p><code>CL_INVALID_<wbr>OPERATION</code> if <em>device</em> does not support sub-groups.</p>
 </li>
 <li>
 <p><code>CL_INVALID_<wbr>VALUE</code> if <em>param_name</em> is not valid, or if size in bytes
 specified by <em>param_value_size</em> is &lt; size of return type as described in
-the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#kernel-subgroup-info-table" target="_blank" rel="noopener">Kernel Object Subgroup Queries</a> table
+the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#kernel-sub-group-info-table" target="_blank" rel="noopener">Kernel Object Sub-group Queries</a> table
 and <em>param_value</em> is not <code>NULL</code>.</p>
 </li>
 <li>
@@ -1035,8 +1035,8 @@ Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.14<br>
-Last updated 2023-04-17 15:22:10 -0700
+Version v3.0.15<br>
+Last updated 2023-12-14 12:09:08 -0800
 </div>
 </div>
 

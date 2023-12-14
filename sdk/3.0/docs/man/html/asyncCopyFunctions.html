@@ -372,7 +372,7 @@ b.button:after { content: "]"; padding: 0 2px 0 3px; }
 #content #toc > :first-child { margin-top: 0; }
 #content #toc > :last-child { margin-bottom: 0; }
 
-#footer { max-width: 100%; background-color: none; padding: 1.25em; }
+#footer { max-width: 100%; background: none; padding: 1.25em; }
 
 #footer-text { color: black; line-height: 1.44; }
 
@@ -779,6 +779,26 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 local memory and a prefetch from <code>global</code> memory.</p>
 </div>
 <div class="paragraph">
+<p>The async copy and wait group events functions are performed by all work-items
+in a work-group and therefore must be encountered by all work-items in a
+work-group executing the kernel with the same argument values, otherwise the
+results are undefined.
+This rule applies to ND-ranges implemented with uniform and non-uniform
+work-groups.</p>
+</div>
+<div class="paragraph">
+<p>If an async copy or wait group events function is inside a conditional statement
+then all work-items in the work-group must enter the conditional if any
+work-item in the work-group enters the conditional statement and executes the
+async copy or wait group events function.</p>
+</div>
+<div class="paragraph">
+<p>If an async copy or wait group events function is inside a loop then all
+work-items in the work-group must execute the async copy or wait group events
+function on each iteration of the loop if any work-item executes the async copy
+or wait group events function on that iteration.</p>
+</div>
+<div class="paragraph">
 <p>We use the generic type name <code>gentype</code> to indicate the built-in data types <code>char</code>,
 <code>char<em>n</em></code>, <code>uchar</code>, <code>uchar<em>n</em></code>, <code>short</code>, <code>short<em>n</em></code>,
 <code>ushort</code>, <code>ushort<em>n</em></code>, <code>int</code>, <code>int<em>n</em></code>, <code>uint</code>,
@@ -806,13 +826,7 @@ the arguments unless otherwise stated.
   const __local gentype *<em>src</em>, size_t <em>num_gentypes</em>, event_t <em>event</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Perform an async copy of <em>num_gentypes</em> gentype elements from <em>src</em> to
       <em>dst</em>.
-      The async copy is performed by all work-items in a work-group and this
-      built-in function must therefore be encountered by all work-items in a
-      work-group executing the kernel with the same argument values;
-      otherwise the results are undefined.
-      This rule applies to ND-ranges implemented with uniform and
-      non-uniform work-groups.</p>
-<p class="tableblock">      Returns an event object that can be used by <strong>wait_group_events</strong> to
+      Returns an event object that can be used by <strong>wait_group_events</strong> to
       wait for the async copy to finish.
       The <em>event</em> argument can also be used to associate the
       <strong>async_work_group_copy</strong> with a previous async copy allowing an event
@@ -840,13 +854,7 @@ the arguments unless otherwise stated.
       The <em>src_stride</em> is the stride in elements for each <code>gentype</code>
       element read from <em>src</em>.
       The <em>dst_stride</em> is the stride in elements for each <code>gentype</code> element
-      written to <em>dst</em>.
-      The async gather is performed by all work-items in a work-group.
-      This built-in function must therefore be encountered by all work-items
-      in a work-group executing the kernel with the same argument values;
-      otherwise the results are undefined.
-      This rule applies to ND-ranges implemented with uniform and
-      non-uniform work-groups</p>
+      written to <em>dst</em>.</p>
 <p class="tableblock">      Returns an event object that can be used by <strong>wait_group_events</strong> to
       wait for the async copy to finish.
       The <em>event</em> argument can also be used to associate the
@@ -873,12 +881,7 @@ the arguments unless otherwise stated.
 <td class="tableblock halign-left valign-top"><p class="tableblock">Wait for events that identify the <strong>async_work_group_copy</strong> operations
       to complete.
       The event objects specified in <em>event_list</em> will be released after the
-      wait is performed.</p>
-<p class="tableblock">      This function must be encountered by all work-items in a work-group
-      executing the kernel with the same <em>num_events</em> and event objects
-      specified in <em>event_list</em>; otherwise the results are undefined.
-      This rule applies to ND-ranges implemented with uniform and
-      non-uniform work-groups</p></td>
+      wait is performed.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"></td>
@@ -957,8 +960,8 @@ Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.14<br>
-Last updated 2023-04-17 15:22:10 -0700
+Version v3.0.15<br>
+Last updated 2023-12-14 12:09:08 -0800
 </div>
 </div>
 
