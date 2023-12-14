@@ -372,7 +372,7 @@ b.button:after { content: "]"; padding: 0 2px 0 3px; }
 #content #toc > :first-child { margin-top: 0; }
 #content #toc > :last-child { margin-bottom: 0; }
 
-#footer { max-width: 100%; background-color: none; padding: 1.25em; }
+#footer { max-width: 100%; background: none; padding: 1.25em; }
 
 #footer-text { color: black; line-height: 1.44; }
 
@@ -835,7 +835,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#platform-queries-table" target="_blank" rel="noopener">Platform Queries</a> table.</p>
 </div>
 <table id="platform-queries-table" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. List of supported param_names by <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#clGetPlatformInfo" class="bare" target="_blank" rel="noopener">https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#clGetPlatformInfo</a></caption>
+<caption class="title">Table 1. List of supported param_names by <strong>clGetPlatformInfo</strong></caption>
 <colgroup>
 <col style="width: 33%;">
 <col style="width: 17%;">
@@ -878,7 +878,7 @@ in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/O
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_PLATFORM_<wbr>NUMERIC_<wbr>VERSION</code></p>
-<p class="tableblock"><a href="#unified-spec">Missing before</a> version 3.0.</p></td>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 3.0.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_version</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the detailed (major, minor, patch) version supported by the
         platform. The major and minor version numbers returned must match
@@ -905,7 +905,7 @@ in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/O
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_PLATFORM_<wbr>EXTENSIONS_<wbr>WITH_<wbr>VERSION</code></p>
-<p class="tableblock"><a href="#unified-spec">Missing before</a> version 3.0.</p></td>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 3.0.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_name_<wbr>version</code>[]</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns an array of description (name and version) structures that lists
         all the extensions supported by the platform. The same extension name
@@ -914,7 +914,7 @@ in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/O
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_PLATFORM_<wbr>HOST_<wbr>TIMER_<wbr>RESOLUTION</code></p>
-<p class="tableblock"><a href="#unified-spec">Missing before</a> version 2.1.</p></td>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.1.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_ulong</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the resolution of the host timer in nanoseconds as used by
         <strong>clGetDeviceAndHostTimer</strong>.</p>
@@ -985,10 +985,10 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <div id="footnotes">
 <hr>
 <div class="footnote" id="_footnotedef_1">
-<a href="#_footnoteref_1">1</a>. The platform profile returns the profile that is implemented by the OpenCL framework. If the platform profile returned is FULL_PROFILE, the OpenCL framework will support devices that are FULL_PROFILE and may also support devices that are EMBEDDED_PROFILE. The compiler must be available for all devices i.e. {CL_DEVICE_COMPILER_AVAILABLE} is {CL_TRUE}. If the platform profile returned is EMBEDDED_PROFILE, then devices that are only EMBEDDED_PROFILE are supported.
+<a href="#_footnoteref_1">1</a>. The platform profile returns the profile that is implemented by the OpenCL framework. If the platform profile returned is FULL_PROFILE, the OpenCL framework will support devices that are FULL_PROFILE and may also support devices that are EMBEDDED_PROFILE. The compiler must be available for all devices i.e. <code>CL_DEVICE_<wbr>COMPILER_<wbr>AVAILABLE</code> is <code>CL_TRUE</code>. If the platform profile returned is EMBEDDED_PROFILE, then devices that are only EMBEDDED_PROFILE are supported.
 </div>
 <div class="footnote" id="_footnotedef_2">
-<a href="#_footnoteref_2">2</a>. A null terminated string is returned by OpenCL query function calls if the return type of the information being queried is a {char_TYPE}[].
+<a href="#_footnoteref_2">2</a>. A null terminated string is returned by OpenCL query function calls if the return type of the information being queried is a <code>char</code>[].
 </div>
 <div class="footnote" id="_footnotedef_3">
 <a href="#_footnoteref_3">3</a>. The OpenCL specification does not describe the order of precedence for error codes returned by API calls.
@@ -996,8 +996,8 @@ Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.14<br>
-Last updated 2023-04-17 15:22:10 -0700
+Version v3.0.15<br>
+Last updated 2023-12-14 12:09:08 -0800
 </div>
 </div>
 

@@ -372,7 +372,7 @@ b.button:after { content: "]"; padding: 0 2px 0 3px; }
 #content #toc > :first-child { margin-top: 0; }
 #content #toc > :last-child { margin-bottom: 0; }
 
-#footer { max-width: 100%; background-color: none; padding: 1.25em; }
+#footer { max-width: 100%; background: none; padding: 1.25em; }
 
 #footer-text { color: black; line-height: 1.44; }
 
@@ -798,8 +798,9 @@ in the calling environment, and always return the same value as they would
 if called with the round to nearest even rounding mode.</p>
 </div>
 <div class="paragraph">
-<p>The <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#table-builtin-math" target="_blank" rel="noopener">following table</a> describes the list of built-in
-math functions that can take scalar or vector arguments.
+<p>The <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#table-builtin-math" target="_blank" rel="noopener">Built-in Scalar and Vector Argument Math Functions</a>
+table describes the list of built-in math functions that can take scalar or
+vector arguments.
 We use the generic type name <code>gentype</code> to indicate that the function can take
 <code>float</code>, <code>float2</code>, <code>float3</code>, <code>float4</code>, <code>float8</code>, <code>float16</code>, <code>double</code>
 <sup class="footnote" id="_footnote_double-supported">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup>, <code>double2</code>,
@@ -1115,7 +1116,7 @@ all arguments and the return type, unless otherwise specified.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>nextafter</strong>(gentype <em>x</em>, gentype <em>y</em>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Computes the next representable single-precision floating-point value
+<td class="tableblock halign-left valign-top"><p class="tableblock">Computes the next representable floating-point value
       following <em>x</em> in the direction of <em>y</em>.
       Thus, if <em>y</em> is less than <em>x</em>, <strong>nextafter</strong>() returns the largest
       representable floating-point number less than <em>x</em>.</p></td>
@@ -1262,18 +1263,17 @@ all arguments and the return type, unless otherwise specified.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>A subset of functions from <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#table-builtin-math" class="bare" target="_blank" rel="noopener">https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#table-builtin-math</a> that are defined with
-the half_ prefix .
+<p>A subset of functions from <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#table-builtin-math" target="_blank" rel="noopener">Built-in Scalar and Vector
+Argument Math Functions</a> that are defined with the half_ prefix .
 These functions are implemented with a minimum of 10-bits of accuracy,
 i.e. the maximum error value &lt;= 8192 ulp.</p>
 </li>
 <li>
-<p>A subset of functions from <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#table-builtin-math" class="bare" target="_blank" rel="noopener">https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#table-builtin-math</a> that are defined with
-the native_ prefix.
+<p>A subset of functions from <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#table-builtin-math" target="_blank" rel="noopener">Built-in Scalar and Vector
+Argument Math Functions</a> that are defined with the native_ prefix.
 These functions may map to one or more native device instructions and
 will typically have better performance compared to the corresponding
-functions (without the <code>native_</code> prefix) described in
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#table-builtin-math" class="bare" target="_blank" rel="noopener">https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#table-builtin-math</a>.
+functions without the <code>native_</code> prefix).
 The accuracy (and in some cases the input range(s)) of these functions
 is implementation-defined.</p>
 </li>
@@ -1503,8 +1503,8 @@ Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.14<br>
-Last updated 2023-04-17 15:22:10 -0700
+Version v3.0.15<br>
+Last updated 2023-12-14 12:09:08 -0800
 </div>
 </div>
 
