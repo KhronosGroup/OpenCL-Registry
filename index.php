@@ -12,11 +12,11 @@ include_once("../../assets/static_pages/khr_page_top.php");
     reference cards, and other related documentation. </p>
 
 <p> The asciidoctor source for the specifications in this registry is
-    available in the <a href="https://github.com/KhronosGroup/OpenCL-Docs">
+    available in the <a href="https://github.com/KhronosGroup/OpenCL-Docs" rel="external">
     OpenCL-Docs </a> GitHub repository. </p>
 
 <p> This registry is hosted in the <a
-    href="https://github.com/KhronosGroup/OpenCL-Registry/"> OpenCL-Registry
+    href="https://github.com/KhronosGroup/OpenCL-Registry/" rel="external"> OpenCL-Registry
     </a> GitHub repository. </p>
 
 
@@ -44,9 +44,9 @@ include_once("../../assets/static_pages/khr_page_top.php");
      (<a href="specs/3.0-unified/html/OpenCL_Env.html">HTML</a>)
      (<a href="specs/3.0-unified/pdf/OpenCL_Env.pdf">PDF</a>)
      (December 14, 2023). </li>
-<li> <a href="http://www.khronos.org/registry/OpenCL/sdk/3.0/docs/man/html/">
+<li> <a href="sdk/3.0/docs/man/html/">
      OpenCL 3.0 Reference Pages.</a> </li>
-<li> <a href="https://www.khronos.org/files/opencl30-reference-guide.pdf">
+<li> <a href="https://www.khronos.org/files/opencl30-reference-guide.pdf" rel="external">
      OpenCL 3.0 Reference Guide.</a> </li>
 </ul>
 
@@ -76,11 +76,11 @@ include_once("../../assets/static_pages/khr_page_top.php");
      specification is in the <a href="../spir-v/">SPIR-V
      Registry</a>.
      <ul>
-     <li> The <a href="https://www.khronos.org/registry/spir-v/"> OpenCL Extended
+     <li> The <a href="/SPIR-V/"> OpenCL Extended
           Instruction Set for SPIR-V</a> is included as part of the SPIR-V
           registry. </li>
      </ul> </li>
-<li> The SYCL specification is found in the <a href="../sycl/">SYCL
+<li> The SYCL specification is found in the <a href="/SYCL/">SYCL
      Registry</a>. </li>
 </ul>
 
@@ -93,28 +93,28 @@ include_once("../../assets/static_pages/khr_page_top.php");
 
 <ul>
 <li> OpenCL 2.2 API Specification
-     (<a href="specs/2.2/html/OpenCL_API.html">HTML</a>)
-     (<a href="specs/2.2/pdf/OpenCL_API.pdf">PDF</a>)
+     (<a href="specs/2.2/html/OpenCL_API.html" rel="nofollow">HTML</a>)
+     (<a href="specs/2.2/pdf/OpenCL_API.pdf" rel="nofollow">PDF</a>)
      (July 19, 2019). </li>
 <li> OpenCL Extension Specification
-     (<a href="specs/2.2/html/OpenCL_Ext.html">HTML</a>)
-     (<a href="specs/2.2/pdf/OpenCL_Ext.pdf">PDF</a>)
+     (<a href="specs/2.2/html/OpenCL_Ext.html" rel="nofollow">HTML</a>)
+     (<a href="specs/2.2/pdf/OpenCL_Ext.pdf" rel="nofollow">PDF</a>)
      (July 19, 2019). </li>
 <li> OpenCL SPIR-V Environment Specification
-     (<a href="specs/2.2/html/OpenCL_Env.html">HTML</a>)
-     (<a href="specs/2.2/pdf/OpenCL_Env.pdf">PDF</a>)
+     (<a href="specs/2.2/html/OpenCL_Env.html" rel="nofollow">HTML</a>)
+     (<a href="specs/2.2/pdf/OpenCL_Env.pdf" rel="nofollow">PDF</a>)
      (July 19, 2019). </li>
 <li> OpenCL C Language Specification
-     (<a href="specs/2.2/html/OpenCL_C.html">HTML</a>)
-     (<a href="specs/2.2/pdf/OpenCL_C.pdf">PDF</a>)
+     (<a href="specs/2.2/html/OpenCL_C.html" rel="nofollow">HTML</a>)
+     (<a href="specs/2.2/pdf/OpenCL_C.pdf" rel="nofollow">PDF</a>)
      (July 19, 2019). </li>
 <li> OpenCL C++ Language Specification
-     (<a href="specs/2.2/html/OpenCL_Cxx.html">HTML</a>)
-     (<a href="specs/2.2/pdf/OpenCL_Cxx.pdf">PDF</a>)
+     (<a href="specs/2.2/html/OpenCL_Cxx.html" rel="nofollow">HTML</a>)
+     (<a href="specs/2.2/pdf/OpenCL_Cxx.pdf" rel="nofollow">PDF</a>)
      (July 19, 2019). </li>
-<li> <a href="http://www.khronos.org/registry/OpenCL/sdk/2.2/docs/man/html/">
+<li> <a href="sdk/2.2/docs/man/html/" rel="nofollow">
      OpenCL 2.2 Reference Pages.</a> </li>
-<li> <a href="https://www.khronos.org/files/opencl22-reference-guide.pdf">
+<li> <a href="https://www.khronos.org/files/opencl22-reference-guide.pdf" rel="nofollow">
      OpenCL 2.2 Reference Guide.</a> </li>
 </ul>
 
@@ -123,17 +123,17 @@ include_once("../../assets/static_pages/khr_page_top.php");
 
 <ul>
 <li> OpenCL 2.1 API
-     <a href="specs/opencl-2.1.pdf">
+     <a href="specs/opencl-2.1.pdf" rel="nofollow">
      Specification </a> (November 11, 2015). </li>
 <li> OpenCL 2.1 Extensions
-     <a href="specs/opencl-2.1-extensions.pdf">
+     <a href="specs/opencl-2.1-extensions.pdf" rel="nofollow">
      Specification </a> (November 5, 2015). </li>
 <li> OpenCL 2.1 Environment
-     <a href="specs/opencl-2.1-environment.pdf">
+     <a href="specs/opencl-2.1-environment.pdf" rel="nofollow">
      Specification</a>. </li>
-<li> <a href="http://www.khronos.org/registry/OpenCL/sdk/2.1/docs/man/xhtml/">
+<li> <a href="sdk/2.1/docs/man/xhtml/">
      OpenCL 2.1 Reference Pages.</a>
-<li> <a href="http://www.khronos.org/registry/OpenCL/sdk/2.1/docs/OpenCL-2.1-refcard.pdf">
+<li> <a href="sdk/2.1/docs/OpenCL-2.1-refcard.pdf" rel="nofollow">
      OpenCL 2.1 Quick Reference Card.</a> </li>
 </ul>
 
@@ -142,17 +142,17 @@ include_once("../../assets/static_pages/khr_page_top.php");
 
 <ul>
 <li> OpenCL 2.0 API
-     <a href="specs/opencl-2.0.pdf">
+     <a href="specs/opencl-2.0.pdf" rel="nofollow">
      Specification </a> (July 21, 2015). </li>
 <li> OpenCL 2.0 C Language
-     <a href="specs/opencl-2.0-openclc.pdf">
+     <a href="specs/opencl-2.0-openclc.pdf" rel="nofollow">
      Specification </a> (April 13, 2016). </li>
 <li> OpenCL 2.0 Extension
-     <a href="specs/opencl-2.0-extensions.pdf">
+     <a href="specs/opencl-2.0-extensions.pdf" rel="nofollow">
      Specification </a> (March 11, 2016). </li>
-<li> <a href="http://www.khronos.org/registry/OpenCL/sdk/2.0/docs/man/xhtml/">
+<li> <a href="sdk/2.0/docs/man/xhtml/">
      OpenCL 2.0 Reference Pages.</a>
-<li> <a href="http://www.khronos.org/registry/OpenCL/sdk/2.0/docs/OpenCL-2.0-refcard.pdf">
+<li> <a href="sdk/2.0/docs/OpenCL-2.0-refcard.pdf" rel="nofollow">
      OpenCL 2.0 Quick Reference Card.</a> </li>
 </ul>
 
@@ -161,14 +161,14 @@ include_once("../../assets/static_pages/khr_page_top.php");
 
 <ul>
 <li> OpenCL 1.2 API and C Language
-     <a href="specs/opencl-1.2.pdf">
+     <a href="specs/opencl-1.2.pdf" rel="nofollow">
      Specification </a> (November 14, 2012). </li>
 <li> OpenCL 1.2 Extensions
-     <a href="specs/opencl-1.2-extensions.pdf">
+     <a href="specs/opencl-1.2-extensions.pdf" rel="nofollow">
      Specification </a> (September 22, 2015). </li>
-<li> <a href="http://www.khronos.org/registry/OpenCL/sdk/1.2/docs/man/xhtml/">
+<li> <a href="sdk/1.2/docs/man/xhtml/" rel="nofollow">
      OpenCL 1.2 Reference Pages.</a> </li>
-<li> <a href="http://www.khronos.org/registry/OpenCL/sdk/1.2/docs/OpenCL-1.2-refcard.pdf">
+<li> <a href="sdk/1.2/docs/OpenCL-1.2-refcard.pdf" rel="nofollow">
      OpenCL 1.2 Quick Reference Card.</a> </li>
 </ul>
 
@@ -177,15 +177,15 @@ include_once("../../assets/static_pages/khr_page_top.php");
 
 <ul>
 <li> OpenCL 1.1 API and C Language
-     <a href="specs/opencl-1.1.pdf">
+     <a href="specs/opencl-1.1.pdf" rel="nofollow">
      Specification </a> (revision 44, June 1, 2011).
      A
-     <a href="http://www.cutt.co.jp/book/978-4-87783-256-8.html">
+     <a href="http://www.cutt.co.jp/book/978-4-87783-256-8.html" rel="nofollow">
      Japanese translation </a>
      of the specification is also available. </li>
-<li> <a href="http://www.khronos.org/registry/OpenCL/sdk/1.1/docs/man/xhtml/">
+<li> <a href="sdk/1.1/docs/man/xhtml/" rel="nofollow">
      OpenCL 1.1 Reference Pages.</a> </li>
-<li> <a href="http://www.khronos.org/registry/OpenCL/sdk/1.1/docs/OpenCL-1.1-refcard.pdf">
+<li> <a href="sdk/1.1/docs/OpenCL-1.1-refcard.pdf" rel="nofollow">
      OpenCL 1.1 Reference Card.</a> </li>
 </ul>
 
@@ -194,11 +194,11 @@ include_once("../../assets/static_pages/khr_page_top.php");
 
 <ul>
 <li> OpenCL 1.0 API and C Language
-     <a href="specs/opencl-1.0.pdf">
+     <a href="specs/opencl-1.0.pdf" rel="nofollow">
      Specification </a> (revision 48, October 6, 2009). </li>
-<li> <a href="http://www.khronos.org/registry/OpenCL/sdk/1.0/docs/man/xhtml/">
+<li> <a href="sdk/1.0/docs/man/xhtml/" rel="nofollow">
      OpenCL 1.0 Reference Pages.</a> </li>
-<li> <a href="http://www.khronos.org/registry/OpenCL/sdk/1.0/docs/OpenCL-1.0-refcard.pdf">
+<li> <a href="sdk/1.0/docs/OpenCL-1.0-refcard.pdf" rel="nofollow">
      OpenCL 1.0 Reference Card.</a> </li>
 </ul>
 
@@ -208,7 +208,7 @@ include_once("../../assets/static_pages/khr_page_top.php");
 <p> Khronos welcomes comments and bug reports. To provide feedback on the
     OpenCL reference pages, or on the OpenCL registry itself (such as
     reporting missing content, bad links, etc.), file an issue in the <a
-    href="https://github.com/KhronosGroup/OpenCL-Registry/issues">
+    href="https://github.com/KhronosGroup/OpenCL-Registry/issues" rel="external">
     OpenCL-Registry </a> GitHub repository. </p>
 
 <p> Feedback on related OpenCL components can be provided as follows: </p>
@@ -216,16 +216,16 @@ include_once("../../assets/static_pages/khr_page_top.php");
 <ul>
 <li> For the OpenCL API, C/C++ Language, and SPIR-V Environment
      Specifications, file an issue on the
-     <a href="https://github.com/KhronosGroup/OpenCL-Docs/issues">
+     <a href="https://github.com/KhronosGroup/OpenCL-Docs/issues" rel="external">
      OpenCL-Docs </a> GitHub repository. </li>
 <li> For the OpenCL C header files, file an issue in the <a
-     href="https://github.com/KhronosGroup/OpenCL-Headers/issues">
+     href="https://github.com/KhronosGroup/OpenCL-Headers/issues" rel="external">
      OpenCL-Headers </a> GitHub repository. </li>
 <li> For the OpenCL C++ bindings, file an issue in the <a
-     href="https://github.com/KhronosGroup/OpenCL-CLHPP/issues">
+     href="https://github.com/KhronosGroup/OpenCL-CLHPP/issues" rel="external">
      OpenCL-CLHPP </a> GitHub repository. </li>
 <li> For the OpenCL ICD Loader, file an issue in the <a
-     href="https://github.com/KhronosGroup/OpenCL-ICD-Loader/issues">
+     href="https://github.com/KhronosGroup/OpenCL-ICD-Loader/issues" rel="external">
      OpenCL-ICD-Loader </a> GitHub repository. </li>
 </ul>
 
@@ -242,15 +242,14 @@ include_once("../../assets/static_pages/khr_page_top.php");
 
 <h6> Enumerant and Extension Number Registry </h6>
 
-<p> <a href="https://github.com/KhronosGroup/OpenCL-Docs/blob/main/xml/cl.xml">
+<p> <a href="https://github.com/KhronosGroup/OpenCL-Docs/blob/main/xml/cl.xml" rel="external">
     cl.xml </a> is the registry of reserved OpenCL API enumerant ranges.
     (Note that following this link will probably not render sensibly in
     browsers, since the file is not entirely valid XML, simply a manually
     updated placeholder.)</p>
 
 
-    <h6> <a name="khrextspecs"></a>
-     Khronos Extension Specifications</h6>
+    <h6 id="khrextspecs">Khronos Extension Specifications</h6>
 
 <p> Khronos extensions are published in the OpenCL Extension Specification.
     These links are to the appropriate chapter of the OpenCL Extension
@@ -258,8 +257,7 @@ include_once("../../assets/static_pages/khr_page_top.php");
 
 <?php include("extensions/khrext.php"); ?>
 
-<h6> <a name="otherextspecs"></a>
-     Vendor and Multi-Vendor Extension Specifications</h6>
+<h6 id="otherextspecs">Vendor and Multi-Vendor Extension Specifications</h6>
 
 <?php include("extensions/clext.php"); ?>
 
