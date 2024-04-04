@@ -984,9 +984,9 @@ pre.rouge {
 <h1>The OpenCL<sup>&#8482;</sup> SPIR-V Environment Specification</h1>
 <div class="details">
 <span id="author" class="author">Khronos<sup>&#174;</sup> OpenCL Working Group</span><br>
-<span id="revnumber">version v3.0.15,</span>
-<span id="revdate">Thu, 14 Dec 2023 20:00:00 +0000</span>
-<br><span id="revremark">from git branch: main commit: 3c1a38cbdbbe6586f44c718e87585de4b2924a3f</span>
+<span id="revnumber">version v3.0.16,</span>
+<span id="revdate">Thu, 04 Apr 2024 12:00:0 +0000</span>
+<br><span id="revremark">from git branch: main commit: 16880f9276828e66bb97017f10f34f97423d1bcf</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -1056,7 +1056,7 @@ pre.rouge {
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2008-2023 The Khronos Group Inc.</p>
+<p>Copyright 2008-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>This Specification is protected by copyright laws and contains material proprietary to Khronos.
@@ -1162,10 +1162,10 @@ version number, as described in the SPIR-V specification.</p>
 <p>An OpenCL environment describes the versions of SPIR-V modules that it
 supports using the <code>CL_DEVICE_<wbr>IL_<wbr>VERSION</code> query in OpenCL 2.1 or newer,
 the <code>CL_DEVICE_<wbr>ILS_<wbr>WITH_<wbr>VERSION</code> query in OpenCL 3.0 or newer, or the
-<code>CL_DEVICE_<wbr>IL_<wbr>VERSION_<wbr>KHR</code> query in the <code>cl_khr_il_program</code> extension.</p>
+<code>CL_DEVICE_<wbr>IL_<wbr>VERSION_<wbr>KHR</code> query in the <code>cl_khr_<wbr>il_<wbr>program</code> extension.</p>
 </div>
 <div class="paragraph">
-<p>OpenCL environments that support the <code>cl_khr_il_program</code> extension or
+<p>OpenCL environments that support the <code>cl_khr_<wbr>il_<wbr>program</code> extension or
 OpenCL 2.1 must support SPIR-V 1.0 modules.  OpenCL environments that support
 OpenCL 2.2 must support SPIR-V 1.0, 1.1, and 1.2 modules.
 Use the <code>CL_DEVICE_<wbr>IL_<wbr>VERSION</code> or <code>CL_DEVICE_<wbr>ILS_<wbr>WITH_<wbr>VERSION</code> query
@@ -1393,94 +1393,134 @@ channel orders.</p>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 3. Image Channel Order mapping</caption>
 <colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
+<col style="width: 9.0909%;">
+<col style="width: 45.4545%;">
+<col style="width: 45.4546%;">
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top"><strong>SPIR-V Image Channel Order</strong></th>
+<th class="tableblock halign-left valign-top" colspan="2"><strong>SPIR-V Image Channel Order</strong></th>
 <th class="tableblock halign-left valign-top"><strong>OpenCL Image Channel Order</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>R</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>R</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_R</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>A</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>A</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_A</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>RG</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>RG</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_RG</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>RA</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>RA</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_RA</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>RGB</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>RGB</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_RGB</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>RGBA</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>RGBA</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_RGBA</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>BGRA</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>BGRA</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_BGRA</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARGB</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>ARGB</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_ARGB</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Intensity</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Intensity</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_INTENSITY</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Luminance</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Luminance</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_LUMINANCE</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Rx</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Rx</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_Rx</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>RGx</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">11</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>RGx</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_RGx</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>RGBx</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">12</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>RGBx</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_RGBx</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Depth</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">13</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Depth</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEPTH</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DepthStencil</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEPTH_STENCIL</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">14</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>DepthStencil</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEPTH_<wbr>STENCIL</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sRGB</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">15</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>sRGB</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_sRGB</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sRGBA</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>sRGBx</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_sRGBx</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>sRGBA</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_sRGBA</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sBGRA</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">18</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>sBGRA</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_sBGRA</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sRGBx</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_sRGBx</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">19</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>ABGR</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_ABGR</code></p></td>
 </tr>
 </tbody>
 </table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The SPIR-V Image Channel Orders are enumerated in the same order as the
+OpenCL Channel Order enums to enable simple conversion between the two.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_image_channel_data_type_mapping"><a class="anchor" href="#_image_channel_data_type_mapping"></a>2.7. Image Channel Data Type Mapping</h3>
@@ -1492,86 +1532,119 @@ channel data types.</p>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 4. Image Channel Data Type mapping</caption>
 <colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
+<col style="width: 9.0909%;">
+<col style="width: 45.4545%;">
+<col style="width: 45.4546%;">
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top"><strong>SPIR-V Image Channel Data Type</strong></th>
+<th class="tableblock halign-left valign-top" colspan="2"><strong>SPIR-V Image Channel Data Type</strong></th>
 <th class="tableblock halign-left valign-top"><strong>OpenCL Image Channel Data Type</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>SnormInt8</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_SNORM_INT8</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>SnormInt8</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_SNORM_<wbr>INT8</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>SnormInt16</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_SNORM_INT16</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>SnormInt16</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_SNORM_<wbr>INT16</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>UnormInt8</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_UNORM_INT8</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>UnormInt8</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_UNORM_<wbr>INT8</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>UnormInt16</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_UNORM_INT16</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>UnormInt16</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_UNORM_<wbr>INT16</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>UnormInt24</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_UNORM_INT24</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>UnormShort565</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_UNORM_<wbr>SHORT_<wbr>565</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>UnormShort565</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_UNORM_SHORT_565</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>UnormShort555</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_UNORM_<wbr>SHORT_<wbr>555</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>UnormShort555</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_UNORM_SHORT_555</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>UnormInt101010</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_UNORM_<wbr>INT_<wbr>101010</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>UnormInt101010</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_UNORM_INT_101010</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>SignedInt8</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_SIGNED_<wbr>INT8</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>UnormInt101010_2</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_UNORM_INT_101010_2</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>SignedInt16</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_SIGNED_<wbr>INT16</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>SignedInt8</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_SIGNED_INT8</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>SignedInt32</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_SIGNED_<wbr>INT32</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>SignedInt16</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_SIGNED_INT16</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>UnsignedInt8</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_UNSIGNED_<wbr>INT8</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>SignedInt32</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_SIGNED_INT32</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">11</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>UnsignedInt16</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_UNSIGNED_<wbr>INT16</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>UnsignedInt8</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_UNSIGNED_INT8</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">12</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>UnsignedInt32</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_UNSIGNED_<wbr>INT32</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>UnsignedInt16</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_UNSIGNED_INT16</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">13</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>HalfFloat</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_HALF_<wbr>FLOAT</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>UnsignedInt32</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_UNSIGNED_INT32</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>HalfFloat</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_HALF_FLOAT</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Float</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">14</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Float</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_FLOAT</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">15</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>UnormInt24</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_UNORM_<wbr>INT24</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>UnormInt101010_2</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_UNORM_<wbr>INT_<wbr>101010_<wbr>2</code></p></td>
 </tr>
 </tbody>
 </table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The SPIR-V Image Channel Data Types are enumerated in the same order as the
+OpenCL Channel Data Type enums to enable simple conversion between the two.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_kernels"><a class="anchor" href="#_kernels"></a>2.8. Kernels</h3>
@@ -1630,7 +1703,7 @@ Allowed types for OpenCL kernel arguments are:</p>
 must have no signedness semantics.</p>
 </div>
 <div class="paragraph">
-<p>For <strong>OpTypeFloat</strong> parameters, <em>Width</em> must be 32.</p>
+<p>For <strong>OpTypeFloat</strong> parameters, supported <em>Width</em> are 16, 32, and 64.</p>
 </div>
 <div class="paragraph">
 <p>For <strong>OpTypeStruct</strong> parameters, supported structure <em>Member Types</em> are:</p>
@@ -2414,7 +2487,7 @@ restrictions.
 Some OpenCL extensions may modify the OpenCL environment by requiring
 consumption of a SPIR-V module that uses a SPIR-V extension.  In this case,
 the implementation will include the OpenCL extension in the host API
-<code>CL_PLATFORM_EXTENSIONS</code> or <code>CL_DEVICE_EXTENSIONS</code> string, but not the
+<code>CL_PLATFORM_<wbr>EXTENSIONS</code> or <code>CL_DEVICE_<wbr>EXTENSIONS</code> string, but not the
 corresponding SPIR-V extension.</p>
 </div>
 <div class="paragraph">
@@ -2443,17 +2516,17 @@ in a SPIR-V module using <strong>OpExtension</strong>.</p>
 <div class="sect2">
 <h3 id="_full_and_embedded_profile_extensions"><a class="anchor" href="#_full_and_embedded_profile_extensions"></a>5.2. Full and Embedded Profile Extensions</h3>
 <div class="sect3">
-<h4 id="_cl_khr_3d_image_writes"><a class="anchor" href="#_cl_khr_3d_image_writes"></a>5.2.1. <code>cl_khr_3d_image_writes</code></h4>
+<h4 id="_cl_khr_3d_image_writes"><a class="anchor" href="#_cl_khr_3d_image_writes"></a>5.2.1. <code>cl_khr_<wbr>3d_<wbr>image_<wbr>writes</code></h4>
 <div class="paragraph">
-<p>If the OpenCL environment supports the extension <code>cl_khr_3d_image_writes</code>,
+<p>If the OpenCL environment supports the extension <code>cl_khr_<wbr>3d_<wbr>image_<wbr>writes</code>,
 then the environment must accept <em>Image</em> operands to <strong>OpImageWrite</strong> that
 are declared with with dimensionality <em>Dim</em> equal to <strong>3D</strong>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_cl_khr_depth_images"><a class="anchor" href="#_cl_khr_depth_images"></a>5.2.2. <code>cl_khr_depth_images</code></h4>
+<h4 id="_cl_khr_depth_images"><a class="anchor" href="#_cl_khr_depth_images"></a>5.2.2. <code>cl_khr_<wbr>depth_<wbr>images</code></h4>
 <div class="paragraph">
-<p>If the OpenCL environment supports the extension <code>cl_khr_depth_images</code>,
+<p>If the OpenCL environment supports the extension <code>cl_khr_<wbr>depth_<wbr>images</code>,
 then the environment must accept modules that declare 2D depth image types
 using <strong>OpTypeImage</strong> with dimensionality <em>Dim</em> equal to <strong>2D</strong> and <em>Depth</em>
 equal to  1, indicating a depth image.  2D depth images may optionally be
@@ -2472,18 +2545,18 @@ equal to  1, indicating a depth image.  2D depth images may optionally be
 </div>
 </div>
 <div class="sect3">
-<h4 id="_cl_khr_device_enqueue_local_arg_types"><a class="anchor" href="#_cl_khr_device_enqueue_local_arg_types"></a>5.2.3. <code>cl_khr_device_enqueue_local_arg_types</code></h4>
+<h4 id="_cl_khr_device_enqueue_local_arg_types"><a class="anchor" href="#_cl_khr_device_enqueue_local_arg_types"></a>5.2.3. <code>cl_khr_<wbr>device_<wbr>enqueue_<wbr>local_<wbr>arg_<wbr>types</code></h4>
 <div class="paragraph">
 <p>If the OpenCL environment supports the extension
-<code>cl_khr_device_enqueue_local_arg_types</code>, then then environment will allow
+<code>cl_khr_<wbr>device_<wbr>enqueue_<wbr>local_<wbr>arg_<wbr>types</code>, then then environment will allow
 <em>Invoke</em> functions to be passed to <strong>OpEnqueueKernel</strong> with <strong>Workgroup</strong>
 memory pointer parameters of any type.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_cl_khr_fp16"><a class="anchor" href="#_cl_khr_fp16"></a>5.2.4. <code>cl_khr_fp16</code></h4>
+<h4 id="_cl_khr_fp16"><a class="anchor" href="#_cl_khr_fp16"></a>5.2.4. <code>cl_khr_<wbr>fp16</code></h4>
 <div class="paragraph">
-<p>If the OpenCL environment supports the extension <code>cl_khr_fp16</code>, then the
+<p>If the OpenCL environment supports the extension <code>cl_khr_<wbr>fp16</code>, then the
 environment must accept modules that declare the following SPIR-V
 capabilities:</p>
 </div>
@@ -2496,9 +2569,9 @@ capabilities:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_cl_khr_fp64"><a class="anchor" href="#_cl_khr_fp64"></a>5.2.5. <code>cl_khr_fp64</code></h4>
+<h4 id="_cl_khr_fp64"><a class="anchor" href="#_cl_khr_fp64"></a>5.2.5. <code>cl_khr_<wbr>fp64</code></h4>
 <div class="paragraph">
-<p>If the OpenCL environment supports the extension <code>cl_khr_fp64</code>, then the
+<p>If the OpenCL environment supports the extension <code>cl_khr_<wbr>fp64</code>, then the
 environment must accept modules that declare the following SPIR-V
 capabilities:</p>
 </div>
@@ -2511,9 +2584,9 @@ capabilities:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_cl_khr_gl_depth_images"><a class="anchor" href="#_cl_khr_gl_depth_images"></a>5.2.6. <code>cl_khr_gl_depth_images</code></h4>
+<h4 id="_cl_khr_gl_depth_images"><a class="anchor" href="#_cl_khr_gl_depth_images"></a>5.2.6. <code>cl_khr_<wbr>gl_<wbr>depth_<wbr>images</code></h4>
 <div class="paragraph">
-<p>If the OpenCL environment supports the extension <code>cl_khr_gl_depth_images</code>,
+<p>If the OpenCL environment supports the extension <code>cl_khr_<wbr>gl_<wbr>depth_<wbr>images</code>,
 then the following Image Channel Orders may additionally be returned by
 <strong>OpImageQueryOrder</strong>:</p>
 </div>
@@ -2537,9 +2610,9 @@ then the following Image Channel Orders may additionally be returned by
 </div>
 </div>
 <div class="sect3">
-<h4 id="_cl_khr_gl_msaa_sharing"><a class="anchor" href="#_cl_khr_gl_msaa_sharing"></a>5.2.7. <code>cl_khr_gl_msaa_sharing</code></h4>
+<h4 id="_cl_khr_gl_msaa_sharing"><a class="anchor" href="#_cl_khr_gl_msaa_sharing"></a>5.2.7. <code>cl_khr_<wbr>gl_<wbr>msaa_<wbr>sharing</code></h4>
 <div class="paragraph">
-<p>If the OpenCL environment supports the extension <code>cl_khr_gl_msaa_sharing</code>,
+<p>If the OpenCL environment supports the extension <code>cl_khr_<wbr>gl_<wbr>msaa_<wbr>sharing</code>,
 then the environment must accept modules that declare 2D multi-sampled
 image types using <strong>OpTypeImage</strong> with dimensionality <em>Dim</em> equal to <strong>2D</strong> and
 <em>MS</em> equal to 1, indicating multi-sampled content.  2D multi-sampled images
@@ -2569,10 +2642,10 @@ may optionally be <em>Arrayed</em> or <em>Depth</em> images, if supported.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_cl_khr_int64_base_atomics_and_cl_khr_int64_extended_atomics"><a class="anchor" href="#_cl_khr_int64_base_atomics_and_cl_khr_int64_extended_atomics"></a>5.2.8. <code>cl_khr_int64_base_atomics</code> and <code>cl_khr_int64_extended_atomics</code></h4>
+<h4 id="_cl_khr_int64_base_atomics_and_cl_khr_int64_extended_atomics"><a class="anchor" href="#_cl_khr_int64_base_atomics_and_cl_khr_int64_extended_atomics"></a>5.2.8. <code>cl_khr_<wbr>int64_<wbr>base_<wbr>atomics</code> and <code>cl_khr_<wbr>int64_<wbr>extended_<wbr>atomics</code></h4>
 <div class="paragraph">
-<p>If the OpenCL environment supports the extension <code>cl_khr_int64_base_atomics</code>
-or <code>cl_khr_int64_extended_atomics</code>, then the environment must accept modules
+<p>If the OpenCL environment supports the extension <code>cl_khr_<wbr>int64_<wbr>base_<wbr>atomics</code>
+or <code>cl_khr_<wbr>int64_<wbr>extended_<wbr>atomics</code>, then the environment must accept modules
 that declare the following SPIR-V capabilities:</p>
 </div>
 <div class="ulist">
@@ -2588,14 +2661,14 @@ valid for the <em>Result Type</em> and type of <em>Value</em> for all <strong>At
 </div>
 <div class="paragraph">
 <p>Note: OpenCL environments that consume SPIR-V must support both
-<code>cl_khr_int64_base_atomics</code> and <code>cl_khr_int64_extended_atomics</code> or neither
+<code>cl_khr_<wbr>int64_<wbr>base_<wbr>atomics</code> and <code>cl_khr_<wbr>int64_<wbr>extended_<wbr>atomics</code> or neither
 of these extensions.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_cl_khr_mipmap_image"><a class="anchor" href="#_cl_khr_mipmap_image"></a>5.2.9. <code>cl_khr_mipmap_image</code></h4>
+<h4 id="_cl_khr_mipmap_image"><a class="anchor" href="#_cl_khr_mipmap_image"></a>5.2.9. <code>cl_khr_<wbr>mipmap_<wbr>image</code></h4>
 <div class="paragraph">
-<p>If the OpenCL environment supports the extension <code>cl_khr_mipmap_image</code>,
+<p>If the OpenCL environment supports the extension <code>cl_khr_<wbr>mipmap_<wbr>image</code>,
 then the environment must accept non-zero optional <strong>Lod</strong> <em>Image Operands</em>
 for the following instructions:</p>
 </div>
@@ -2613,15 +2686,15 @@ for the following instructions:</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>Note: Implementations that support <code>cl_khr_mipmap_image</code> are not guaranteed
+<p>Note: Implementations that support <code>cl_khr_<wbr>mipmap_<wbr>image</code> are not guaranteed
 to support the <strong>ImageMipmap</strong> capability, since this extension does not
 require non-zero optional <strong>Lod</strong> <em>Image Operands</em> for <strong>OpImageWrite</strong>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_cl_khr_mipmap_image_writes"><a class="anchor" href="#_cl_khr_mipmap_image_writes"></a>5.2.10. <code>cl_khr_mipmap_image_writes</code></h4>
+<h4 id="_cl_khr_mipmap_image_writes"><a class="anchor" href="#_cl_khr_mipmap_image_writes"></a>5.2.10. <code>cl_khr_<wbr>mipmap_<wbr>image_<wbr>writes</code></h4>
 <div class="paragraph">
-<p>If the OpenCL environment supports the extension <code>cl_khr_mipmap_image_writes</code>,
+<p>If the OpenCL environment supports the extension <code>cl_khr_<wbr>mipmap_<wbr>image_<wbr>writes</code>,
 then the environment must accept non-zero optional <strong>Lod</strong> <em>Image Operands</em>
 for the following instructions:</p>
 </div>
@@ -2633,15 +2706,15 @@ for the following instructions:</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>Note: An implementation that supports <code>cl_khr_mipmap_image_writes</code> must also
-support <code>cl_khr_mipmap_image</code>, and support for both extensions does
+<p>Note: An implementation that supports <code>cl_khr_<wbr>mipmap_<wbr>image_<wbr>writes</code> must also
+support <code>cl_khr_<wbr>mipmap_<wbr>image</code>, and support for both extensions does
 guarantee support for the <strong>ImageMipmap</strong> capability.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_cl_khr_subgroups"><a class="anchor" href="#_cl_khr_subgroups"></a>5.2.11. <code>cl_khr_subgroups</code></h4>
+<h4 id="_cl_khr_subgroups"><a class="anchor" href="#_cl_khr_subgroups"></a>5.2.11. <code>cl_khr_<wbr>subgroups</code></h4>
 <div class="paragraph">
-<p>If the OpenCL environment supports the extension <code>cl_khr_subgroups</code>, then
+<p>If the OpenCL environment supports the extension <code>cl_khr_<wbr>subgroups</code>, then
 for all instructions except <strong>OpGroupAsyncCopy</strong> and <strong>OpGroupWaitEvents</strong>
 the <em>Scope</em> for <em>Execution</em> may be:</p>
 </div>
@@ -2665,10 +2738,10 @@ OpenCL 1.2 environment, the <em>Scope</em> for <em>Memory</em> may be:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_cl_khr_subgroup_named_barrier"><a class="anchor" href="#_cl_khr_subgroup_named_barrier"></a>5.2.12. <code>cl_khr_subgroup_named_barrier</code></h4>
+<h4 id="_cl_khr_subgroup_named_barrier"><a class="anchor" href="#_cl_khr_subgroup_named_barrier"></a>5.2.12. <code>cl_khr_<wbr>subgroup_<wbr>named_<wbr>barrier</code></h4>
 <div class="paragraph">
 <p>If the OpenCL environment supports the extension
-<code>cl_khr_subgroup_named_barrier</code>, then the environment must accept modules
+<code>cl_khr_<wbr>subgroup_<wbr>named_<wbr>barrier</code>, then the environment must accept modules
 that declare the following SPIR-V capabilities:</p>
 </div>
 <div class="ulist">
@@ -2680,18 +2753,18 @@ that declare the following SPIR-V capabilities:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_cl_khr_spirv_no_integer_wrap_decoration"><a class="anchor" href="#_cl_khr_spirv_no_integer_wrap_decoration"></a>5.2.13. <code>cl_khr_spirv_no_integer_wrap_decoration</code></h4>
+<h4 id="_cl_khr_spirv_no_integer_wrap_decoration"><a class="anchor" href="#_cl_khr_spirv_no_integer_wrap_decoration"></a>5.2.13. <code>cl_khr_<wbr>spirv_<wbr>no_<wbr>integer_<wbr>wrap_<wbr>decoration</code></h4>
 <div class="paragraph">
-<p>If the OpenCL environment supports the extension <code>cl_khr_spirv_no_integer_wrap_decoration</code>, then the environment must accept modules that declare use of the extension <code>SPV_KHR_no_integer_wrap_decoration</code> via <strong>OpExtension</strong>.</p>
+<p>If the OpenCL environment supports the extension <code>cl_khr_<wbr>spirv_<wbr>no_<wbr>integer_<wbr>wrap_<wbr>decoration</code>, then the environment must accept modules that declare use of the extension <code>SPV_KHR_no_integer_wrap_decoration</code> via <strong>OpExtension</strong>.</p>
 </div>
 <div class="paragraph">
-<p>If the OpenCL environment supports the extension <code>cl_khr_spirv_no_integer_wrap_decoration</code> and use of the SPIR-V extension <code>SPV_KHR_no_integer_wrap_decoration</code> is declared in the module via <strong>OpExtension</strong>, then the environment must accept modules that include the <strong>NoSignedWrap</strong> or <strong>NoUnsignedWrap</strong> decorations.</p>
+<p>If the OpenCL environment supports the extension <code>cl_khr_<wbr>spirv_<wbr>no_<wbr>integer_<wbr>wrap_<wbr>decoration</code> and use of the SPIR-V extension <code>SPV_KHR_no_integer_wrap_decoration</code> is declared in the module via <strong>OpExtension</strong>, then the environment must accept modules that include the <strong>NoSignedWrap</strong> or <strong>NoUnsignedWrap</strong> decorations.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_cl_khr_subgroup_extended_types"><a class="anchor" href="#_cl_khr_subgroup_extended_types"></a>5.2.14. <code>cl_khr_subgroup_extended_types</code></h4>
+<h4 id="_cl_khr_subgroup_extended_types"><a class="anchor" href="#_cl_khr_subgroup_extended_types"></a>5.2.14. <code>cl_khr_<wbr>subgroup_<wbr>extended_<wbr>types</code></h4>
 <div class="paragraph">
-<p>If the OpenCL environment supports the extension <code>cl_khr_subgroup_extended_types</code>, then additional types are valid for the following for <strong>Groups</strong> instructions with <em>Scope</em> for <em>Execution</em> equal to <strong>Subgroup</strong>:</p>
+<p>If the OpenCL environment supports the extension <code>cl_khr_<wbr>subgroup_<wbr>extended_<wbr>types</code>, then additional types are valid for the following for <strong>Groups</strong> instructions with <em>Scope</em> for <em>Execution</em> equal to <strong>Subgroup</strong>:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2751,9 +2824,9 @@ that declare the following SPIR-V capabilities:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_cl_khr_subgroup_non_uniform_vote"><a class="anchor" href="#_cl_khr_subgroup_non_uniform_vote"></a>5.2.15. <code>cl_khr_subgroup_non_uniform_vote</code></h4>
+<h4 id="_cl_khr_subgroup_non_uniform_vote"><a class="anchor" href="#_cl_khr_subgroup_non_uniform_vote"></a>5.2.15. <code>cl_khr_<wbr>subgroup_<wbr>non_<wbr>uniform_<wbr>vote</code></h4>
 <div class="paragraph">
-<p>If the OpenCL environment supports the extension <code>cl_khr_subgroup_non_uniform_vote</code>, then the environment must accept SPIR-V modules that declare the following SPIR-V capabilities:</p>
+<p>If the OpenCL environment supports the extension <code>cl_khr_<wbr>subgroup_<wbr>non_<wbr>uniform_<wbr>vote</code>, then the environment must accept SPIR-V modules that declare the following SPIR-V capabilities:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2797,9 +2870,9 @@ that declare the following SPIR-V capabilities:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_cl_khr_subgroup_ballot"><a class="anchor" href="#_cl_khr_subgroup_ballot"></a>5.2.16. <code>cl_khr_subgroup_ballot</code></h4>
+<h4 id="_cl_khr_subgroup_ballot"><a class="anchor" href="#_cl_khr_subgroup_ballot"></a>5.2.16. <code>cl_khr_<wbr>subgroup_<wbr>ballot</code></h4>
 <div class="paragraph">
-<p>If the OpenCL environment supports the extension <code>cl_khr_subgroup_ballot</code>, then the environment must accept SPIR-V modules that declare the following SPIR-V capabilities:</p>
+<p>If the OpenCL environment supports the extension <code>cl_khr_<wbr>subgroup_<wbr>ballot</code>, then the environment must accept SPIR-V modules that declare the following SPIR-V capabilities:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2882,9 +2955,9 @@ that declare the following SPIR-V capabilities:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_cl_khr_subgroup_non_uniform_arithmetic"><a class="anchor" href="#_cl_khr_subgroup_non_uniform_arithmetic"></a>5.2.17. <code>cl_khr_subgroup_non_uniform_arithmetic</code></h4>
+<h4 id="_cl_khr_subgroup_non_uniform_arithmetic"><a class="anchor" href="#_cl_khr_subgroup_non_uniform_arithmetic"></a>5.2.17. <code>cl_khr_<wbr>subgroup_<wbr>non_<wbr>uniform_<wbr>arithmetic</code></h4>
 <div class="paragraph">
-<p>If the OpenCL environment supports the extension <code>cl_khr_subgroup_non_uniform_arithmetic</code>, then the environment must accept SPIR-V modules that declare the following SPIR-V capabilities:</p>
+<p>If the OpenCL environment supports the extension <code>cl_khr_<wbr>subgroup_<wbr>non_<wbr>uniform_<wbr>arithmetic</code>, then the environment must accept SPIR-V modules that declare the following SPIR-V capabilities:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2931,9 +3004,9 @@ that declare the following SPIR-V capabilities:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_cl_khr_subgroup_shuffle"><a class="anchor" href="#_cl_khr_subgroup_shuffle"></a>5.2.18. <code>cl_khr_subgroup_shuffle</code></h4>
+<h4 id="_cl_khr_subgroup_shuffle"><a class="anchor" href="#_cl_khr_subgroup_shuffle"></a>5.2.18. <code>cl_khr_<wbr>subgroup_<wbr>shuffle</code></h4>
 <div class="paragraph">
-<p>If the OpenCL environment supports the extension <code>cl_khr_subgroup_shuffle</code>, then the environment must accept SPIR-V modules that declare the following SPIR-V capabilities:</p>
+<p>If the OpenCL environment supports the extension <code>cl_khr_<wbr>subgroup_<wbr>shuffle</code>, then the environment must accept SPIR-V modules that declare the following SPIR-V capabilities:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2974,9 +3047,9 @@ that declare the following SPIR-V capabilities:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_cl_khr_subgroup_shuffle_relative"><a class="anchor" href="#_cl_khr_subgroup_shuffle_relative"></a>5.2.19. <code>cl_khr_subgroup_shuffle_relative</code></h4>
+<h4 id="_cl_khr_subgroup_shuffle_relative"><a class="anchor" href="#_cl_khr_subgroup_shuffle_relative"></a>5.2.19. <code>cl_khr_<wbr>subgroup_<wbr>shuffle_<wbr>relative</code></h4>
 <div class="paragraph">
-<p>If the OpenCL environment supports the extension <code>cl_khr_subgroup_shuffle_relative</code>, then the environment must accept SPIR-V modules that declare the following SPIR-V capabilities:</p>
+<p>If the OpenCL environment supports the extension <code>cl_khr_<wbr>subgroup_<wbr>shuffle_<wbr>relative</code>, then the environment must accept SPIR-V modules that declare the following SPIR-V capabilities:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -3017,9 +3090,9 @@ that declare the following SPIR-V capabilities:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_cl_khr_subgroup_clustered_reduce"><a class="anchor" href="#_cl_khr_subgroup_clustered_reduce"></a>5.2.20. <code>cl_khr_subgroup_clustered_reduce</code></h4>
+<h4 id="_cl_khr_subgroup_clustered_reduce"><a class="anchor" href="#_cl_khr_subgroup_clustered_reduce"></a>5.2.20. <code>cl_khr_<wbr>subgroup_<wbr>clustered_<wbr>reduce</code></h4>
 <div class="paragraph">
-<p>If the OpenCL environment supports the extension <code>cl_khr_subgroup_clustered_reduce</code>, then the environment must accept SPIR-V modules that declare the following SPIR-V capabilities:</p>
+<p>If the OpenCL environment supports the extension <code>cl_khr_<wbr>subgroup_<wbr>clustered_<wbr>reduce</code>, then the environment must accept SPIR-V modules that declare the following SPIR-V capabilities:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -3043,34 +3116,34 @@ that declare the following SPIR-V capabilities:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_cl_khr_spirv_extended_debug_info"><a class="anchor" href="#_cl_khr_spirv_extended_debug_info"></a>5.2.21. <code>cl_khr_spirv_extended_debug_info</code></h4>
+<h4 id="_cl_khr_spirv_extended_debug_info"><a class="anchor" href="#_cl_khr_spirv_extended_debug_info"></a>5.2.21. <code>cl_khr_<wbr>spirv_<wbr>extended_<wbr>debug_<wbr>info</code></h4>
 <div class="paragraph">
-<p>If the OpenCL environment supports the extension <code>cl_khr_spirv_extended_debug_info</code>, then the environment must accept modules
+<p>If the OpenCL environment supports the extension <code>cl_khr_<wbr>spirv_<wbr>extended_<wbr>debug_<wbr>info</code>, then the environment must accept modules
 that import the <code>OpenCL.DebugInfo.100</code> extended instruction set via <strong>OpExtInstImport</strong>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_cl_khr_spirv_linkonce_odr"><a class="anchor" href="#_cl_khr_spirv_linkonce_odr"></a>5.2.22. <code>cl_khr_spirv_linkonce_odr</code></h4>
+<h4 id="_cl_khr_spirv_linkonce_odr"><a class="anchor" href="#_cl_khr_spirv_linkonce_odr"></a>5.2.22. <code>cl_khr_<wbr>spirv_<wbr>linkonce_<wbr>odr</code></h4>
 <div class="paragraph">
-<p>If the OpenCL environment supports the extension <code>cl_khr_spirv_linkonce_odr</code>, then the environment must accept modules that declare use of the extension <code>SPV_KHR_linkonce_odr</code> via <strong>OpExtension</strong>.</p>
+<p>If the OpenCL environment supports the extension <code>cl_khr_<wbr>spirv_<wbr>linkonce_<wbr>odr</code>, then the environment must accept modules that declare use of the extension <code>SPV_KHR_linkonce_odr</code> via <strong>OpExtension</strong>.</p>
 </div>
 <div class="paragraph">
-<p>If the OpenCL environment supports the extension <code>cl_khr_spirv_linkonce_odr</code> and use of the SPIR-V extension <code>SPV_KHR_linkonce_odr</code> is declared in the module via <strong>OpExtension</strong>, then the environment must accept modules that include the <strong>LinkOnceODR</strong> linkage type.</p>
+<p>If the OpenCL environment supports the extension <code>cl_khr_<wbr>spirv_<wbr>linkonce_<wbr>odr</code> and use of the SPIR-V extension <code>SPV_KHR_linkonce_odr</code> is declared in the module via <strong>OpExtension</strong>, then the environment must accept modules that include the <strong>LinkOnceODR</strong> linkage type.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_cl_khr_extended_bit_ops"><a class="anchor" href="#_cl_khr_extended_bit_ops"></a>5.2.23. <code>cl_khr_extended_bit_ops</code></h4>
+<h4 id="_cl_khr_extended_bit_ops"><a class="anchor" href="#_cl_khr_extended_bit_ops"></a>5.2.23. <code>cl_khr_<wbr>extended_<wbr>bit_<wbr>ops</code></h4>
 <div class="paragraph">
-<p>If the OpenCL environment supports the extension <code>cl_khr_extended_bit_ops</code>, then the environment must accept modules that declare use of the extension <code>SPV_KHR_bit_instructions</code> via <strong>OpExtension</strong>.</p>
+<p>If the OpenCL environment supports the extension <code>cl_khr_<wbr>extended_<wbr>bit_<wbr>ops</code>, then the environment must accept modules that declare use of the extension <code>SPV_KHR_bit_instructions</code> via <strong>OpExtension</strong>.</p>
 </div>
 <div class="paragraph">
-<p>If the OpenCL environment supports the extension <code>cl_khr_extended_bit_ops</code> and use of the SPIR-V extension <code>SPV_KHR_bit_instructions</code> is declared in the module via <strong>OpExtension</strong>, then the environment must accept modules that declare the <strong>BitInstructions</strong> capability.</p>
+<p>If the OpenCL environment supports the extension <code>cl_khr_<wbr>extended_<wbr>bit_<wbr>ops</code> and use of the SPIR-V extension <code>SPV_KHR_bit_instructions</code> is declared in the module via <strong>OpExtension</strong>, then the environment must accept modules that declare the <strong>BitInstructions</strong> capability.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_cl_khr_integer_dot_product"><a class="anchor" href="#_cl_khr_integer_dot_product"></a>5.2.24. <code>cl_khr_integer_dot_product</code></h4>
+<h4 id="_cl_khr_integer_dot_product"><a class="anchor" href="#_cl_khr_integer_dot_product"></a>5.2.24. <code>cl_khr_<wbr>integer_<wbr>dot_<wbr>product</code></h4>
 <div class="paragraph">
-<p>If the OpenCL environment supports the extension <code>cl_khr_integer_dot_product</code>,
+<p>If the OpenCL environment supports the extension <code>cl_khr_<wbr>integer_<wbr>dot_<wbr>product</code>,
 then the environment must accept modules that require <code>SPV_KHR_integer_dot_product</code> and
 declare the following SPIR-V capabilities:</p>
 </div>
@@ -3080,7 +3153,7 @@ declare the following SPIR-V capabilities:</p>
 <p><strong>DotProductKHR</strong></p>
 </li>
 <li>
-<p><strong>DotProductInput4x8BitKHR</strong> if <code>CL_DEVICE_INTEGER_DOT_PRODUCT_INPUT_4x8BIT_KHR</code> is supported</p>
+<p><strong>DotProductInput4x8BitKHR</strong> if <code>CL_DEVICE_<wbr>INTEGER_<wbr>DOT_<wbr>PRODUCT_<wbr>INPUT_<wbr>4x8BIT_<wbr>KHR</code> is supported</p>
 </li>
 <li>
 <p><strong>DotProductInput4x8BitPackedKHR</strong></p>
@@ -3089,12 +3162,12 @@ declare the following SPIR-V capabilities:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_cl_khr_expect_assume"><a class="anchor" href="#_cl_khr_expect_assume"></a>5.2.25. <code>cl_khr_expect_assume</code></h4>
+<h4 id="_cl_khr_expect_assume"><a class="anchor" href="#_cl_khr_expect_assume"></a>5.2.25. <code>cl_khr_<wbr>expect_<wbr>assume</code></h4>
 <div class="paragraph">
-<p>If the OpenCL environment supports the extension <code>cl_khr_expect_assume</code>, then the environment must accept modules that declare use of the extension <code>SPV_KHR_expect_assume</code> via <strong>OpExtension</strong>.</p>
+<p>If the OpenCL environment supports the extension <code>cl_khr_<wbr>expect_<wbr>assume</code>, then the environment must accept modules that declare use of the extension <code>SPV_KHR_expect_assume</code> via <strong>OpExtension</strong>.</p>
 </div>
 <div class="paragraph">
-<p>If the OpenCL environment supports the extension <code>cl_khr_expect_assume</code> and use of the SPIR-V extension <code>SPV_KHR_expect_assume</code> is declared in the module via <strong>OpExtension</strong>, then the environment must accept modules that declare the following SPIR-V capabilities:</p>
+<p>If the OpenCL environment supports the extension <code>cl_khr_<wbr>expect_<wbr>assume</code> and use of the SPIR-V extension <code>SPV_KHR_expect_assume</code> is declared in the module via <strong>OpExtension</strong>, then the environment must accept modules that declare the following SPIR-V capabilities:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -3105,9 +3178,9 @@ declare the following SPIR-V capabilities:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_cl_khr_subgroup_rotate"><a class="anchor" href="#_cl_khr_subgroup_rotate"></a>5.2.26. <code>cl_khr_subgroup_rotate</code></h4>
+<h4 id="_cl_khr_subgroup_rotate"><a class="anchor" href="#_cl_khr_subgroup_rotate"></a>5.2.26. <code>cl_khr_<wbr>subgroup_<wbr>rotate</code></h4>
 <div class="paragraph">
-<p>If the OpenCL environment supports the extension <code>cl_khr_subgroup_rotate</code>,
+<p>If the OpenCL environment supports the extension <code>cl_khr_<wbr>subgroup_<wbr>rotate</code>,
 then the environment accept modules that require <code>SPV_KHR_subgroup_rotate</code> and
 declare the following SPIR-V capabilities:</p>
 </div>
@@ -3130,12 +3203,12 @@ declare the following SPIR-V capabilities:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_cl_khr_work_group_uniform_arithmetic"><a class="anchor" href="#_cl_khr_work_group_uniform_arithmetic"></a>5.2.27. <code>cl_khr_work_group_uniform_arithmetic</code></h4>
+<h4 id="_cl_khr_work_group_uniform_arithmetic"><a class="anchor" href="#_cl_khr_work_group_uniform_arithmetic"></a>5.2.27. <code>cl_khr_<wbr>work_<wbr>group_<wbr>uniform_<wbr>arithmetic</code></h4>
 <div class="paragraph">
-<p>If the OpenCL environment supports the extension <code>cl_khr_work_group_uniform_arithmetic</code>, then the environment must accept modules that declare use of the extension <code>SPV_KHR_uniform_group_instructions</code> via <strong>OpExtension</strong>.</p>
+<p>If the OpenCL environment supports the extension <code>cl_khr_<wbr>work_<wbr>group_<wbr>uniform_<wbr>arithmetic</code>, then the environment must accept modules that declare use of the extension <code>SPV_KHR_uniform_group_instructions</code> via <strong>OpExtension</strong>.</p>
 </div>
 <div class="paragraph">
-<p>If the OpenCL environment supports the extension <code>cl_khr_work_group_uniform_arithmetic</code> and use of the SPIR-V extension <code>SPV_KHR_uniform_group_instructions</code> is declared in the module via <strong>OpExtension</strong>, then the environment must accept modules that declare the following SPIR-V capabilities:</p>
+<p>If the OpenCL environment supports the extension <code>cl_khr_<wbr>work_<wbr>group_<wbr>uniform_<wbr>arithmetic</code> and use of the SPIR-V extension <code>SPV_KHR_uniform_group_instructions</code> is declared in the module via <strong>OpExtension</strong>, then the environment must accept modules that declare the following SPIR-V capabilities:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -3176,6 +3249,41 @@ declare the following SPIR-V capabilities:</p>
 </div>
 </li>
 </ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_cl_khr_kernel_clock"><a class="anchor" href="#_cl_khr_kernel_clock"></a>5.2.28. <code>cl_khr_kernel_clock</code></h4>
+<div class="paragraph">
+<p>If the OpenCL environment supports the extension <code>cl_khr_kernel_clock</code>, then the environment must accept modules that declare use of the extension <code>SPV_KHR_shader_clock</code> via <strong>OpExtension</strong>.</p>
+</div>
+<div class="paragraph">
+<p>If the OpenCL environment supports the extension <code>cl_khr_kernel_clock</code> and use of the SPIR-V extension <code>SPV_KHR_shader_clock</code> is declared in the module via <strong>OpExtension</strong>, then the environment must accept modules that declare the following SPIR-V capability:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>ShaderClockKHR</strong></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For the <strong>OpReadClockKHR</strong> instruction requiring this capability, supported values for <em>Scope</em> are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Device</strong>, if <code>CL_DEVICE_KERNEL_CLOCK_SCOPE_DEVICE_KHR</code> is supported</p>
+</li>
+<li>
+<p><strong>Workgroup</strong>, if <code>CL_DEVICE_KERNEL_CLOCK_SCOPE_WORK_GROUP_KHR</code> is supported</p>
+</li>
+<li>
+<p><strong>Subgroup</strong>, if <code>CL_DEVICE_KERNEL_CLOCK_SCOPE_SUB_GROUP_KHR</code> is supported</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For unsupported <em>Scope</em> values, the behavior of <strong>OpReadClockKHR</strong> is undefined.</p>
 </div>
 </div>
 </div>
@@ -3241,8 +3349,8 @@ IEEE 754 defines four possible rounding modes:</p>
 </div>
 <div class="paragraph">
 <p>The complete set of rounding modes supported by the device are described by
-the <code>CL_DEVICE_SINGLE_FP_CONFIG</code>, <code>CL_DEVICE_HALF_FP_CONFIG</code>, and
-<code>CL_DEVICE_DOUBLE_FP_CONFIG</code> device queries.</p>
+the <code>CL_DEVICE_<wbr>SINGLE_<wbr>FP_<wbr>CONFIG</code>, <code>CL_DEVICE_<wbr>HALF_<wbr>FP_<wbr>CONFIG</code>, and
+<code>CL_DEVICE_<wbr>DOUBLE_<wbr>FP_<wbr>CONFIG</code> device queries.</p>
 </div>
 <div class="paragraph">
 <p>For double precision operations, <em>Round to nearest even</em> is a required
@@ -3345,8 +3453,8 @@ floating-point.</p>
 </div>
 <div class="paragraph">
 <p>Support for INFs, NaNs, and denormalized numbers is described by the
-<code>CL_FP_DENORM</code> and <code>CL_FP_INF_NAN</code> bits in the <code>CL_DEVICE_SINGLE_FP_CONFIG</code>,
-<code>CL_DEVICE_HALF_FP_CONFIG</code>, and <code>CL_DEVICE_DOUBLE_FP_CONFIG</code> device queries.</p>
+<code>CL_FP_<wbr>DENORM</code> and <code>CL_FP_<wbr>INF_<wbr>NAN</code> bits in the <code>CL_DEVICE_<wbr>SINGLE_<wbr>FP_<wbr>CONFIG</code>,
+<code>CL_DEVICE_<wbr>HALF_<wbr>FP_<wbr>CONFIG</code>, and <code>CL_DEVICE_<wbr>DOUBLE_<wbr>FP_<wbr>CONFIG</code> device queries.</p>
 </div>
 </div>
 <div class="sect2">
@@ -4956,7 +5064,7 @@ profile.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Defined for <em>x</em> in the domain (-1, 1).
       For <em>x</em> in [-2<sup>-10</sup>, 2<sup>-10</sup>], derived implementations may implement as <em>x</em>.
       For <em>x</em> outside of [-2<sup>-10</sup>, 2<sup>-10</sup>], derived implementations may implement as
-      0.5f * <strong>log</strong>1.0f + <em>x</em>) / (1.0f - <em>x</em>.
+      0.5f * <strong>log</strong>((1.0f + <em>x</em>) / (1.0f - <em>x</em>)).
       For non-derived implementations, the error is ≤ 8192 ulp.</p></td>
 </tr>
 <tr>
@@ -5730,12 +5838,12 @@ For image arrays, the image array coordinate (i.e. <code>t</code> if it is a 1D 
 <div class="sect3">
 <h4 id="clamp-addressing"><a class="anchor" href="#clamp-addressing"></a>7.2.1. Clamp and None Addressing Modes</h4>
 <div class="paragraph">
-<p>We first describe how the addressing and filter modes are applied to generate the appropriate sample locations to read from the image if the addressing mode is <code>CL_ADDRESS_CLAMP</code>, <code>CL_ADDRESS_CLAMP_TO_EDGE</code>, or <code>CL_ADDRESS_NONE</code>.</p>
+<p>We first describe how the addressing and filter modes are applied to generate the appropriate sample locations to read from the image if the addressing mode is <code>CL_ADDRESS_<wbr>CLAMP</code>, <code>CL_ADDRESS_<wbr>CLAMP_<wbr>TO_<wbr>EDGE</code>, or <code>CL_ADDRESS_<wbr>NONE</code>.</p>
 </div>
 <div class="sect4">
 <h5 id="clamp-nearest_filtering"><a class="anchor" href="#clamp-nearest_filtering"></a>7.2.1.1. Nearest Filtering</h5>
 <div class="paragraph">
-<p>When the filter mode is <code>CL_FILTER_NEAREST</code>, the result of the image read instruction is the image element that is nearest (in Manhattan distance) to the image element location <code>(i,j,k)</code>.
+<p>When the filter mode is <code>CL_FILTER_<wbr>NEAREST</code>, the result of the image read instruction is the image element that is nearest (in Manhattan distance) to the image element location <code>(i,j,k)</code>.
 The image element location <code>(i,j,k)</code> is computed as:</p>
 </div>
 <div class="stemblock">
@@ -5769,7 +5877,7 @@ For a 2D image, the image element at location <code>(i,j)</code> becomes the col
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_ADDRESS_CLAMP</code></p>
+<p><code>CL_ADDRESS_<wbr>CLAMP</code></p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p><em>clamp (coord, -1, size)</em></p>
@@ -5777,7 +5885,7 @@ For a 2D image, the image element at location <code>(i,j)</code> becomes the col
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_ADDRESS_CLAMP_TO_EDGE</code></p>
+<p><code>CL_ADDRESS_<wbr>CLAMP_<wbr>TO_<wbr>EDGE</code></p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p><em>clamp (coord, 0, size - 1)</em></p>
@@ -5785,7 +5893,7 @@ For a 2D image, the image element at location <code>(i,j)</code> becomes the col
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_ADDRESS_NONE</code></p>
+<p><code>CL_ADDRESS_<wbr>NONE</code></p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p><em>coord</em></p>
@@ -5807,16 +5915,16 @@ clamp(a, b, c) &amp; = return (a &lt; b) ? b : ((a &gt; c) ? c : a)
 </div>
 </div>
 <div class="paragraph">
-<p>If the addressing mode is <code>CL_ADDRESS_CLAMP</code> or <code>CL_ADDRESS_CLAMP_TO_EDGE</code>, and the selected texel location <code>(i,j,k)</code> refers to a location outside the image, the border color is used as the color value for the texel.</p>
+<p>If the addressing mode is <code>CL_ADDRESS_<wbr>CLAMP</code> or <code>CL_ADDRESS_<wbr>CLAMP_<wbr>TO_<wbr>EDGE</code>, and the selected texel location <code>(i,j,k)</code> refers to a location outside the image, the border color is used as the color value for the texel.</p>
 </div>
 <div class="paragraph">
-<p>Otherwise, if the addressing mode is <code>CL_ADDRESS_NONE</code> and the selected texel location <code>(i,j,k)</code> refers to a location outside the image, the color value for the texel is undefined.</p>
+<p>Otherwise, if the addressing mode is <code>CL_ADDRESS_<wbr>NONE</code> and the selected texel location <code>(i,j,k)</code> refers to a location outside the image, the color value for the texel is undefined.</p>
 </div>
 </div>
 <div class="sect4">
 <h5 id="clamp-linear-filtering"><a class="anchor" href="#clamp-linear-filtering"></a>7.2.1.2. Linear Filtering</h5>
 <div class="paragraph">
-<p>When the filter mode is <code>CL_FILTER_LINEAR</code>, a 2 x 2 square of image elements (for a 2D image) or a 2 x 2 x 2 cube of image elements (for a 3D image is selected).
+<p>When the filter mode is <code>CL_FILTER_<wbr>LINEAR</code>, a 2 x 2 square of image elements (for a 2D image) or a 2 x 2 x 2 cube of image elements (for a 3D image is selected).
 This 2 x 2 square or 2 x 2 x 2 cube is obtained as follows.</p>
 </div>
 <div class="paragraph">
@@ -5884,25 +5992,25 @@ T &amp;=&amp; (1 - a) \times (1 - b) \times T_{i0j0}\\
 <p>where <code>T<sub>ij</sub></code> is the image element at location <code>(i,j)</code> in the 2D image.</p>
 </div>
 <div class="paragraph">
-<p>If the addressing mode is <code>CL_ADDRESS_CLAMP</code> or <code>CL_ADDRESS_CLAMP_TO_EDGE</code>, and any of the selected <code>T<sub>ijk</sub></code> or <code>T<sub>ij</sub></code> refers to a location outside the image, the border color is used as the image element.</p>
+<p>If the addressing mode is <code>CL_ADDRESS_<wbr>CLAMP</code> or <code>CL_ADDRESS_<wbr>CLAMP_<wbr>TO_<wbr>EDGE</code>, and any of the selected <code>T<sub>ijk</sub></code> or <code>T<sub>ij</sub></code> refers to a location outside the image, the border color is used as the image element.</p>
 </div>
 <div class="paragraph">
-<p>Otherwise, if the addressing mode is <code>CL_ADDRESS_NONE</code>, and any of the selected <code>T<sub>ijk</sub></code> or <code>T<sub>ij</sub></code> refers to a location outside the image, the color value is undefined.</p>
+<p>Otherwise, if the addressing mode is <code>CL_ADDRESS_<wbr>NONE</code>, and any of the selected <code>T<sub>ijk</sub></code> or <code>T<sub>ij</sub></code> refers to a location outside the image, the color value is undefined.</p>
 </div>
 <div class="paragraph">
-<p>If the image channel type is <code>CL_FLOAT</code> or <code>CL_HALF_FLOAT</code>, and any of the image elements <code>T<sub>ijk</sub></code> or <code>T<sub>ij</sub></code> is INF or NaN, the color value is undefined.</p>
+<p>If the image channel type is <code>CL_FLOAT</code> or <code>CL_HALF_<wbr>FLOAT</code>, and any of the image elements <code>T<sub>ijk</sub></code> or <code>T<sub>ij</sub></code> is INF or NaN, the color value is undefined.</p>
 </div>
 </div>
 </div>
 <div class="sect3">
 <h4 id="repeat-addressing"><a class="anchor" href="#repeat-addressing"></a>7.2.2. Repeat Addressing Mode</h4>
 <div class="paragraph">
-<p>We now discuss how the addressing and filter modes are applied to generate the appropriate sample locations to read from the image if the addressing mode is <code>CL_ADDRESS_REPEAT</code>.</p>
+<p>We now discuss how the addressing and filter modes are applied to generate the appropriate sample locations to read from the image if the addressing mode is <code>CL_ADDRESS_<wbr>REPEAT</code>.</p>
 </div>
 <div class="sect4">
 <h5 id="repeat-nearest-filtering"><a class="anchor" href="#repeat-nearest-filtering"></a>7.2.2.1. Nearest Filtering</h5>
 <div class="paragraph">
-<p>When filter mode is <code>CL_FILTER_NEAREST</code>, the result of the image read instruction is the image element that is nearest (in Manhattan distance) to the image element location <code>(i,j,k)</code>.
+<p>When filter mode is <code>CL_FILTER_<wbr>NEAREST</code>, the result of the image read instruction is the image element that is nearest (in Manhattan distance) to the image element location <code>(i,j,k)</code>.
 The image element location <code>(i,j,k)</code> is computed as:</p>
 </div>
 <div class="stemblock">
@@ -5931,7 +6039,7 @@ For a 2D image, the image element at location (i, j) becomes the color value.</p
 <div class="sect4">
 <h5 id="repeat-linear-filtering"><a class="anchor" href="#repeat-linear-filtering"></a>7.2.2.2. Linear Filtering</h5>
 <div class="paragraph">
-<p>When filter mode is <code>CL_FILTER_LINEAR</code>, a 2 x 2 square of image elements for a 2D image or a 2 x 2 x 2 cube of image elements for a 3D image is selected.
+<p>When filter mode is <code>CL_FILTER_<wbr>LINEAR</code>, a 2 x 2 square of image elements for a 2D image or a 2 x 2 x 2 cube of image elements for a 3D image is selected.
 This 2 x 2 square or 2 x 2 x 2 cube is obtained as follows.</p>
 </div>
 <div class="paragraph">
@@ -6004,20 +6112,20 @@ T &amp;=&amp;(1 - a) \times (1 - b) \times T_{i0j0}\\
 <p>where <code>T<sub>ij</sub></code> is the image element at location <code>(i,j)</code> in the 2D image.</p>
 </div>
 <div class="paragraph">
-<p>If the image channel type is <code>CL_FLOAT</code> or <code>CL_HALF_FLOAT</code>, and any of the image elements <code>T<sub>ijk</sub></code> or <code>T<sub>ij</sub></code> is INF or NaN, the color value is undefined.</p>
+<p>If the image channel type is <code>CL_FLOAT</code> or <code>CL_HALF_<wbr>FLOAT</code>, and any of the image elements <code>T<sub>ijk</sub></code> or <code>T<sub>ij</sub></code> is INF or NaN, the color value is undefined.</p>
 </div>
 </div>
 </div>
 <div class="sect3">
 <h4 id="mirrored-repeat-addressing"><a class="anchor" href="#mirrored-repeat-addressing"></a>7.2.3. Mirrored Repeat Addressing Mode</h4>
 <div class="paragraph">
-<p>We now discuss how the addressing and filter modes are applied to generate the appropriate sample locations to read from the image if the addressing mode is <code>CL_ADDRESS_MIRRORED_REPEAT</code>.
-The <code>CL_ADDRESS_MIRRORED_REPEAT</code> addressing mode causes the image to be read as if it is tiled at every integer seam, with the interpretation of the image data flipped at each integer crossing.</p>
+<p>We now discuss how the addressing and filter modes are applied to generate the appropriate sample locations to read from the image if the addressing mode is <code>CL_ADDRESS_<wbr>MIRRORED_<wbr>REPEAT</code>.
+The <code>CL_ADDRESS_<wbr>MIRRORED_<wbr>REPEAT</code> addressing mode causes the image to be read as if it is tiled at every integer seam, with the interpretation of the image data flipped at each integer crossing.</p>
 </div>
 <div class="sect4">
 <h5 id="mirrored-repeat-nearest-filtering"><a class="anchor" href="#mirrored-repeat-nearest-filtering"></a>7.2.3.1. Nearest Filtering</h5>
 <div class="paragraph">
-<p>When filter mode is <code>CL_FILTER_NEAREST</code>, the result of the image read instruction is the image element that is nearest (in Manhattan distance) to the image element location <code>(i,j,k)</code>.
+<p>When filter mode is <code>CL_FILTER_<wbr>NEAREST</code>, the result of the image read instruction is the image element that is nearest (in Manhattan distance) to the image element location <code>(i,j,k)</code>.
 The image element location <code>(i,j,k)</code> is computed as:</p>
 </div>
 <div class="stemblock">
@@ -6049,7 +6157,7 @@ For a 2D image, the image element at location (i, j) becomes the color value.</p
 <div class="sect4">
 <h5 id="mirrored-repeat-linear-filtering"><a class="anchor" href="#mirrored-repeat-linear-filtering"></a>7.2.3.2. Linear Filtering</h5>
 <div class="paragraph">
-<p>When filter mode is <code>CL_FILTER_LINEAR</code>, a 2 x 2 square of image elements for a 2D image or a 2 x 2 x 2 cube of image elements for a 3D image is selected.
+<p>When filter mode is <code>CL_FILTER_<wbr>LINEAR</code>, a 2 x 2 square of image elements for a 2D image or a 2 x 2 x 2 cube of image elements for a 3D image is selected.
 This 2 x 2 square or 2 x 2 x 2 cube is obtained as follows.</p>
 </div>
 <div class="paragraph">
@@ -6135,7 +6243,7 @@ T &amp;=&amp; (1 - a) \times T_i0 + a \times T_i1
 <p>where <code>T<sub>i</sub></code> is the image element at location <code>(i)</code> in the 1D image.</p>
 </div>
 <div class="paragraph">
-<p>If the image channel type is <code>CL_FLOAT</code> or <code>CL_HALF_FLOAT</code> and any of the image elements <code>T<sub>ijk</sub></code> or <code>T<sub>ij</sub></code> is INF or NaN, the color value is undefined.</p>
+<p>If the image channel type is <code>CL_FLOAT</code> or <code>CL_HALF_<wbr>FLOAT</code> and any of the image elements <code>T<sub>ijk</sub></code> or <code>T<sub>ij</sub></code> is INF or NaN, the color value is undefined.</p>
 </div>
 </div>
 </div>
@@ -6143,11 +6251,11 @@ T &amp;=&amp; (1 - a) \times T_i0 + a \times T_i1
 <div class="sect2">
 <h3 id="precision-of-addressing-and-filter-modes"><a class="anchor" href="#precision-of-addressing-and-filter-modes"></a>7.3. Precision of Addressing and Filter Modes</h3>
 <div class="paragraph">
-<p>If the sampler is specified as using unnormalized coordinates (floating-point or integer coordinates), filter mode set to <code>CL_FILTER_NEAREST</code> and addressing mode set to one of the following modes - <code>CL_ADDRESS_CLAMP</code>, <code>CL_ADDRESS_CLAMP_TO_EDGE</code> or <code>CL_ADDRESS_NONE</code> - the location of the image element in the image given by <code>(i,j,k)</code> will be computed without any loss of precision.</p>
+<p>If the sampler is specified as using unnormalized coordinates (floating-point or integer coordinates), filter mode set to <code>CL_FILTER_<wbr>NEAREST</code> and addressing mode set to one of the following modes - <code>CL_ADDRESS_<wbr>CLAMP</code>, <code>CL_ADDRESS_<wbr>CLAMP_<wbr>TO_<wbr>EDGE</code> or <code>CL_ADDRESS_<wbr>NONE</code> - the location of the image element in the image given by <code>(i,j,k)</code> will be computed without any loss of precision.</p>
 </div>
 <div class="paragraph">
 <p>For all other sampler combinations of normalized or unnormalized coordinates, filter modes, and addressing modes, the relative error or precision of the addressing mode calculations and the image filter operation are not defined.
-To ensure precision of image addressing and filter calculations across any OpenCL device for these sampler combinations, developers may unnormalize the image coordinate in the kernel, and then implement the linear filter in the kernel with appropriate read image instructions with a sampler that uses unnormalized coordinates, filter mode set to <code>CL_FILTER_NEAREST</code>, addressing mode set to <code>CL_ADDRESS_CLAMP</code>, <code>CL_ADDRESS_CLAMP_TO_EDGE</code> or <code>CL_ADDRESS_NONE</code>, and finally performing the interpolation of color values read from the image to generate the filtered color value.</p>
+To ensure precision of image addressing and filter calculations across any OpenCL device for these sampler combinations, developers may unnormalize the image coordinate in the kernel, and then implement the linear filter in the kernel with appropriate read image instructions with a sampler that uses unnormalized coordinates, filter mode set to <code>CL_FILTER_<wbr>NEAREST</code>, addressing mode set to <code>CL_ADDRESS_<wbr>CLAMP</code>, <code>CL_ADDRESS_<wbr>CLAMP_<wbr>TO_<wbr>EDGE</code> or <code>CL_ADDRESS_<wbr>NONE</code>, and finally performing the interpolation of color values read from the image to generate the filtered color value.</p>
 </div>
 </div>
 <div class="sect2">
@@ -6163,10 +6271,10 @@ To ensure precision of image addressing and filter calculations across any OpenC
 <div class="sect4">
 <h5 id="converting-normalized-integer-channel-data-types-to-half-precision-floating-point-values"><a class="anchor" href="#converting-normalized-integer-channel-data-types-to-half-precision-floating-point-values"></a>7.4.1.1. Converting Normalized Integer Channel Data Types to Half Precision Floating-point Values</h5>
 <div class="paragraph">
-<p>For images created with image channel data type of <code>CL_UNORM_INT8</code> and <code>CL_UNORM_INT16</code>, image read instructions will convert the channel values from an 8-bit or 16-bit unsigned integer to normalized half precision floating-point values in the range [0.0h &#8230;&#8203; 1.0h].</p>
+<p>For images created with image channel data type of <code>CL_UNORM_<wbr>INT8</code> and <code>CL_UNORM_<wbr>INT16</code>, image read instructions will convert the channel values from an 8-bit or 16-bit unsigned integer to normalized half precision floating-point values in the range [0.0h &#8230;&#8203; 1.0h].</p>
 </div>
 <div class="paragraph">
-<p>For images created with image channel data type of <code>CL_SNORM_INT8</code> and <code>CL_SNORM_INT16</code>, image read instructions will convert the channel values from an 8-bit or 16-bit signed integer to normalized half precision floating-point values in the range [-1.0h &#8230;&#8203; 1.0h].</p>
+<p>For images created with image channel data type of <code>CL_SNORM_<wbr>INT8</code> and <code>CL_SNORM_<wbr>INT16</code>, image read instructions will convert the channel values from an 8-bit or 16-bit signed integer to normalized half precision floating-point values in the range [-1.0h &#8230;&#8203; 1.0h].</p>
 </div>
 <div class="paragraph">
 <p>These conversions are performed as follows:</p>
@@ -6174,7 +6282,7 @@ To ensure precision of image addressing and filter calculations across any OpenC
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_UNORM_INT8</code> (8-bit unsigned integer) &#8594; <code>half</code></p>
+<p><code>CL_UNORM_<wbr>INT8</code> (8-bit unsigned integer) &#8594; <code>half</code></p>
 <div class="stemblock">
 <div class="content">
 \[normalized\_half\_value(x)=round\_to\_half(\frac{x}{255})\]
@@ -6182,7 +6290,7 @@ To ensure precision of image addressing and filter calculations across any OpenC
 </div>
 </li>
 <li>
-<p><code>CL_UNORM_INT_101010</code> (10-bit unsigned integer) &#8594; <code>half</code></p>
+<p><code>CL_UNORM_<wbr>INT_<wbr>101010</code> (10-bit unsigned integer) &#8594; <code>half</code></p>
 <div class="stemblock">
 <div class="content">
 \[normalized\_half\_value(x)=round\_to\_half(\frac{x}{1023})\]
@@ -6190,7 +6298,7 @@ To ensure precision of image addressing and filter calculations across any OpenC
 </div>
 </li>
 <li>
-<p><code>CL_UNORM_INT16</code> (16-bit unsigned integer) &#8594; <code>half</code></p>
+<p><code>CL_UNORM_<wbr>INT16</code> (16-bit unsigned integer) &#8594; <code>half</code></p>
 <div class="stemblock">
 <div class="content">
 \[normalized\_half\_value(x)=round\_to\_half(\frac{x}{65535})\]
@@ -6198,7 +6306,7 @@ To ensure precision of image addressing and filter calculations across any OpenC
 </div>
 </li>
 <li>
-<p><code>CL_SNORM_INT8</code> (8-bit signed integer) &#8594; <code>half</code></p>
+<p><code>CL_SNORM_<wbr>INT8</code> (8-bit signed integer) &#8594; <code>half</code></p>
 <div class="stemblock">
 <div class="content">
 \[normalized\_half\_value(x)=max(-1.0h, round\_to\_half(\frac{x}{127}))\]
@@ -6206,7 +6314,7 @@ To ensure precision of image addressing and filter calculations across any OpenC
 </div>
 </li>
 <li>
-<p><code>CL_SNORM_INT16</code> (16-bit signed integer) &#8594; <code>half</code></p>
+<p><code>CL_SNORM_<wbr>INT16</code> (16-bit signed integer) &#8594; <code>half</code></p>
 <div class="stemblock">
 <div class="content">
 \[normalized\_half\_value(x)=max(-1.0h, round\_to\_half(\frac{x}{32767}))\]
@@ -6219,7 +6327,7 @@ To ensure precision of image addressing and filter calculations across any OpenC
 <p>The precision of the above conversions is &lt;= 1.5 ulp except for the following cases:</p>
 </div>
 <div class="paragraph">
-<p>For <code>CL_UNORM_INT8</code>:</p>
+<p>For <code>CL_UNORM_<wbr>INT8</code>:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -6232,7 +6340,7 @@ To ensure precision of image addressing and filter calculations across any OpenC
 </ul>
 </div>
 <div class="paragraph">
-<p>For <code>CL_UNORM_INT_101010</code>:</p>
+<p>For <code>CL_UNORM_<wbr>INT_<wbr>101010</code>:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -6245,7 +6353,7 @@ To ensure precision of image addressing and filter calculations across any OpenC
 </ul>
 </div>
 <div class="paragraph">
-<p>For <code>CL_UNORM_INT16</code>:</p>
+<p>For <code>CL_UNORM_<wbr>INT16</code>:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -6258,7 +6366,7 @@ To ensure precision of image addressing and filter calculations across any OpenC
 </ul>
 </div>
 <div class="paragraph">
-<p>For <code>CL_SNORM_INT8</code>:</p>
+<p>For <code>CL_SNORM_<wbr>INT8</code>:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -6274,7 +6382,7 @@ To ensure precision of image addressing and filter calculations across any OpenC
 </ul>
 </div>
 <div class="paragraph">
-<p>For <code>CL_SNORM_INT16</code>:</p>
+<p>For <code>CL_SNORM_<wbr>INT16</code>:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -6293,10 +6401,10 @@ To ensure precision of image addressing and filter calculations across any OpenC
 <div class="sect4">
 <h5 id="converting-half-precision-floating-point-values-to-normalized-integer-channel-data-types"><a class="anchor" href="#converting-half-precision-floating-point-values-to-normalized-integer-channel-data-types"></a>7.4.1.2. Converting Half Precision Floating-point Values to Normalized Integer Channel Data Types</h5>
 <div class="paragraph">
-<p>For images created with image channel data type of <code>CL_UNORM_INT8</code> and <code>CL_UNORM_INT16</code>, image write instructions will convert the half precision floating-point color value to an 8-bit or 16-bit unsigned integer.</p>
+<p>For images created with image channel data type of <code>CL_UNORM_<wbr>INT8</code> and <code>CL_UNORM_<wbr>INT16</code>, image write instructions will convert the half precision floating-point color value to an 8-bit or 16-bit unsigned integer.</p>
 </div>
 <div class="paragraph">
-<p>For images created with image channel data type of <code>CL_SNORM_INT8</code> and <code>CL_SNORM_INT16</code>, image write instructions will convert the half precision floating-point color value to an 8-bit or 16-bit signed integer.</p>
+<p>For images created with image channel data type of <code>CL_SNORM_<wbr>INT8</code> and <code>CL_SNORM_<wbr>INT16</code>, image write instructions will convert the half precision floating-point color value to an 8-bit or 16-bit signed integer.</p>
 </div>
 <div class="paragraph">
 <p>OpenCL implementations may choose to approximate the rounding mode used in the conversions described below.
@@ -6308,7 +6416,7 @@ When approximate rounding is used instead of the preferred rounding, the result 
 <div class="ulist">
 <ul>
 <li>
-<p><code>half</code> &#8594; <code>CL_UNORM_INT8</code> (8-bit unsigned integer)</p>
+<p><code>half</code> &#8594; <code>CL_UNORM_<wbr>INT8</code> (8-bit unsigned integer)</p>
 <div class="stemblock">
 <div class="content">
 \[\begin{aligned}
@@ -6331,7 +6439,7 @@ When approximate rounding is used instead of the preferred rounding, the result 
 </div>
 </li>
 <li>
-<p><code>half</code> &#8594; <code>CL_UNORM_INT16</code> (16-bit unsigned integer)</p>
+<p><code>half</code> &#8594; <code>CL_UNORM_<wbr>INT16</code> (16-bit unsigned integer)</p>
 <div class="stemblock">
 <div class="content">
 \[\begin{aligned}
@@ -6354,7 +6462,7 @@ When approximate rounding is used instead of the preferred rounding, the result 
 </div>
 </li>
 <li>
-<p><code>half</code> &#8594; <code>CL_SNORM_INT8</code> (8-bit signed integer)</p>
+<p><code>half</code> &#8594; <code>CL_SNORM_<wbr>INT8</code> (8-bit signed integer)</p>
 <div class="stemblock">
 <div class="content">
 \[\begin{aligned}
@@ -6377,7 +6485,7 @@ When approximate rounding is used instead of the preferred rounding, the result 
 </div>
 </li>
 <li>
-<p><code>half</code> &#8594; <code>CL_SNORM_INT16</code> (16-bit signed integer)</p>
+<p><code>half</code> &#8594; <code>CL_SNORM_<wbr>INT16</code> (16-bit signed integer)</p>
 <div class="stemblock">
 <div class="content">
 \[\begin{aligned}
@@ -6405,10 +6513,10 @@ When approximate rounding is used instead of the preferred rounding, the result 
 <div class="sect4">
 <h5 id="converting-normalized-integer-channel-data-types-to-floating-point-values"><a class="anchor" href="#converting-normalized-integer-channel-data-types-to-floating-point-values"></a>7.4.1.3. Converting Normalized Integer Channel Data Types to Floating-point Values</h5>
 <div class="paragraph">
-<p>For images created with image channel data type of <code>CL_UNORM_INT8</code> and <code>CL_UNORM_INT16</code>, image read instructions will convert the channel values from an 8-bit or 16-bit unsigned integer to normalized floating-point values in the range [0.0f &#8230;&#8203; 1.0f].</p>
+<p>For images created with image channel data type of <code>CL_UNORM_<wbr>INT8</code> and <code>CL_UNORM_<wbr>INT16</code>, image read instructions will convert the channel values from an 8-bit or 16-bit unsigned integer to normalized floating-point values in the range [0.0f &#8230;&#8203; 1.0f].</p>
 </div>
 <div class="paragraph">
-<p>For images created with image channel data type of <code>CL_SNORM_INT8</code> and <code>CL_SNORM_INT16</code>, image read instructions will convert the channel values from an 8-bit or 16-bit signed integer to normalized floating-point values in the range [-1.0f &#8230;&#8203; 1.0f].</p>
+<p>For images created with image channel data type of <code>CL_SNORM_<wbr>INT8</code> and <code>CL_SNORM_<wbr>INT16</code>, image read instructions will convert the channel values from an 8-bit or 16-bit signed integer to normalized floating-point values in the range [-1.0f &#8230;&#8203; 1.0f].</p>
 </div>
 <div class="paragraph">
 <p>These conversions are performed as follows:</p>
@@ -6416,7 +6524,7 @@ When approximate rounding is used instead of the preferred rounding, the result 
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_UNORM_INT8</code> (8-bit unsigned integer) &#8594; <code>float</code></p>
+<p><code>CL_UNORM_<wbr>INT8</code> (8-bit unsigned integer) &#8594; <code>float</code></p>
 <div class="stemblock">
 <div class="content">
 \[normalized\_float\_value(x)=round\_to\_float(\frac{x}{255})\]
@@ -6424,7 +6532,7 @@ When approximate rounding is used instead of the preferred rounding, the result 
 </div>
 </li>
 <li>
-<p><code>CL_UNORM_INT_101010</code> (10-bit unsigned integer) &#8594; <code>float</code></p>
+<p><code>CL_UNORM_<wbr>INT_<wbr>101010</code> (10-bit unsigned integer) &#8594; <code>float</code></p>
 <div class="stemblock">
 <div class="content">
 \[normalized\_float\_value(x)=round\_to\_float(\frac{x}{1023})\]
@@ -6432,7 +6540,7 @@ When approximate rounding is used instead of the preferred rounding, the result 
 </div>
 </li>
 <li>
-<p><code>CL_UNORM_INT16</code> (16-bit unsigned integer) &#8594; <code>float</code></p>
+<p><code>CL_UNORM_<wbr>INT16</code> (16-bit unsigned integer) &#8594; <code>float</code></p>
 <div class="stemblock">
 <div class="content">
 \[normalized\_float\_value(x)=round\_to\_float(\frac{x}{65535})\]
@@ -6440,7 +6548,7 @@ When approximate rounding is used instead of the preferred rounding, the result 
 </div>
 </li>
 <li>
-<p><code>CL_SNORM_INT8</code> (8-bit signed integer) &#8594; <code>float</code></p>
+<p><code>CL_SNORM_<wbr>INT8</code> (8-bit signed integer) &#8594; <code>float</code></p>
 <div class="stemblock">
 <div class="content">
 \[normalized\_float\_value(x)=max(-1.0f, round\_to\_float(\frac{x}{127}))\]
@@ -6448,7 +6556,7 @@ When approximate rounding is used instead of the preferred rounding, the result 
 </div>
 </li>
 <li>
-<p><code>CL_SNORM_INT16</code> (16-bit signed integer) &#8594; <code>float</code></p>
+<p><code>CL_SNORM_<wbr>INT16</code> (16-bit signed integer) &#8594; <code>float</code></p>
 <div class="stemblock">
 <div class="content">
 \[normalized\_float\_value(x)=max(-1.0f, round\_to\_float(\frac{x}{32767}))\]
@@ -6461,7 +6569,7 @@ When approximate rounding is used instead of the preferred rounding, the result 
 <p>The precision of the above conversions is &lt;= 1.5 ulp except for the following cases.</p>
 </div>
 <div class="paragraph">
-<p>For <code>CL_UNORM_INT8</code>:</p>
+<p>For <code>CL_UNORM_<wbr>INT8</code>:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -6474,7 +6582,7 @@ When approximate rounding is used instead of the preferred rounding, the result 
 </ul>
 </div>
 <div class="paragraph">
-<p>For <code>CL_UNORM_INT_101010</code>:</p>
+<p>For <code>CL_UNORM_<wbr>INT_<wbr>101010</code>:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -6487,7 +6595,7 @@ When approximate rounding is used instead of the preferred rounding, the result 
 </ul>
 </div>
 <div class="paragraph">
-<p>For <code>CL_UNORM_INT16</code>:</p>
+<p>For <code>CL_UNORM_<wbr>INT16</code>:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -6500,7 +6608,7 @@ When approximate rounding is used instead of the preferred rounding, the result 
 </ul>
 </div>
 <div class="paragraph">
-<p>For <code>CL_SNORM_INT8</code>:</p>
+<p>For <code>CL_SNORM_<wbr>INT8</code>:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -6516,7 +6624,7 @@ When approximate rounding is used instead of the preferred rounding, the result 
 </ul>
 </div>
 <div class="paragraph">
-<p>For <code>CL_SNORM_INT16</code>:</p>
+<p>For <code>CL_SNORM_<wbr>INT16</code>:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -6535,10 +6643,10 @@ When approximate rounding is used instead of the preferred rounding, the result 
 <div class="sect4">
 <h5 id="converting-floating-point-values-to-normalized-integer-channel-data-types"><a class="anchor" href="#converting-floating-point-values-to-normalized-integer-channel-data-types"></a>7.4.1.4. Converting Floating-point Values to Normalized Integer Channel Data Types</h5>
 <div class="paragraph">
-<p>For images created with image channel data type of <code>CL_UNORM_INT8</code> and <code>CL_UNORM_INT16</code>, image write instructions will convert the floating-point color value to an 8-bit or 16-bit unsigned integer.</p>
+<p>For images created with image channel data type of <code>CL_UNORM_<wbr>INT8</code> and <code>CL_UNORM_<wbr>INT16</code>, image write instructions will convert the floating-point color value to an 8-bit or 16-bit unsigned integer.</p>
 </div>
 <div class="paragraph">
-<p>For images created with image channel data type of <code>CL_SNORM_INT8</code> and <code>CL_SNORM_INT16</code>, image write instructions will convert the floating-point color value to an 8-bit or 16-bit signed integer.</p>
+<p>For images created with image channel data type of <code>CL_SNORM_<wbr>INT8</code> and <code>CL_SNORM_<wbr>INT16</code>, image write instructions will convert the floating-point color value to an 8-bit or 16-bit signed integer.</p>
 </div>
 <div class="paragraph">
 <p>OpenCL implementations may choose to approximate the rounding mode used in the conversions described below.
@@ -6550,7 +6658,7 @@ When approximate rounding is used instead of the preferred rounding, the result 
 <div class="ulist">
 <ul>
 <li>
-<p><code>float</code> &#8594; <code>CL_UNORM_INT8</code> (8-bit unsigned integer)</p>
+<p><code>float</code> &#8594; <code>CL_UNORM_<wbr>INT8</code> (8-bit unsigned integer)</p>
 <div class="stemblock">
 <div class="content">
 \[\begin{aligned}
@@ -6573,7 +6681,7 @@ When approximate rounding is used instead of the preferred rounding, the result 
 </div>
 </li>
 <li>
-<p><code>float</code> &#8594; <code>CL_UNORM_INT_101010</code> (10-bit unsigned integer)</p>
+<p><code>float</code> &#8594; <code>CL_UNORM_<wbr>INT_<wbr>101010</code> (10-bit unsigned integer)</p>
 <div class="stemblock">
 <div class="content">
 \[\begin{aligned}
@@ -6596,7 +6704,7 @@ When approximate rounding is used instead of the preferred rounding, the result 
 </div>
 </li>
 <li>
-<p><code>float</code> &#8594; <code>CL_UNORM_INT16</code> (16-bit unsigned integer)</p>
+<p><code>float</code> &#8594; <code>CL_UNORM_<wbr>INT16</code> (16-bit unsigned integer)</p>
 <div class="stemblock">
 <div class="content">
 \[\begin{aligned}
@@ -6619,7 +6727,7 @@ When approximate rounding is used instead of the preferred rounding, the result 
 </div>
 </li>
 <li>
-<p><code>float</code> &#8594; <code>CL_SNORM_INT8</code> (8-bit signed integer)</p>
+<p><code>float</code> &#8594; <code>CL_SNORM_<wbr>INT8</code> (8-bit signed integer)</p>
 <div class="stemblock">
 <div class="content">
 \[\begin{aligned}
@@ -6642,7 +6750,7 @@ When approximate rounding is used instead of the preferred rounding, the result 
 </div>
 </li>
 <li>
-<p><code>float</code> &#8594; <code>CL_SNORM_INT16</code> (16-bit signed integer)</p>
+<p><code>float</code> &#8594; <code>CL_SNORM_<wbr>INT16</code> (16-bit signed integer)</p>
 <div class="stemblock">
 <div class="content">
 \[\begin{aligned}
@@ -6671,7 +6779,7 @@ When approximate rounding is used instead of the preferred rounding, the result 
 <div class="sect3">
 <h4 id="conversion-rules-for-half-precision-floating-point-channel-data-type"><a class="anchor" href="#conversion-rules-for-half-precision-floating-point-channel-data-type"></a>7.4.2. Conversion Rules for Half Precision Floating-point Channel Data Type</h4>
 <div class="paragraph">
-<p>For images created with a channel data type of <code>CL_HALF_FLOAT</code>, the conversions of half to float and half to half are lossless.
+<p>For images created with a channel data type of <code>CL_HALF_<wbr>FLOAT</code>, the conversions of half to float and half to half are lossless.
 Conversions from float to half round the mantissa using the round to nearest even or round to zero rounding mode.
 Denormalized numbers for the half data type which may be generated when converting a float to a half may be flushed to zero.
 A float NaN must be converted to an appropriate NaN in the half type.
@@ -6700,10 +6808,10 @@ A float INF must be converted to an appropriate INF in the half type.</p>
 <div class="sect3">
 <h4 id="conversion-rules-for-signed-and-unsigned-8-bit-16-bit-and-32-bit-integer-channel-data-types"><a class="anchor" href="#conversion-rules-for-signed-and-unsigned-8-bit-16-bit-and-32-bit-integer-channel-data-types"></a>7.4.4. Conversion Rules for Signed and Unsigned 8-bit, 16-bit and 32-bit Integer Channel Data Types</h4>
 <div class="paragraph">
-<p>For images created with image channel data type of <code>CL_SIGNED_INT8</code>, <code>CL_SIGNED_INT16</code> and <code>CL_SIGNED_INT32</code>, image read instructions will return the unmodified integer values stored in the image at specified location.</p>
+<p>For images created with image channel data type of <code>CL_SIGNED_<wbr>INT8</code>, <code>CL_SIGNED_<wbr>INT16</code> and <code>CL_SIGNED_<wbr>INT32</code>, image read instructions will return the unmodified integer values stored in the image at specified location.</p>
 </div>
 <div class="paragraph">
-<p>Likewise, for images created with image channel data type of <code>CL_UNSIGNED_INT8</code>, <code>CL_UNSIGNED_INT16</code> and <code>CL_UNSIGNED_INT32</code>, image read instructions will return the unmodified unsigned integer values stored in the image at specified location.</p>
+<p>Likewise, for images created with image channel data type of <code>CL_UNSIGNED_<wbr>INT8</code>, <code>CL_UNSIGNED_<wbr>INT16</code> and <code>CL_UNSIGNED_<wbr>INT32</code>, image read instructions will return the unmodified unsigned integer values stored in the image at specified location.</p>
 </div>
 <div class="paragraph">
 <p>Image write instructions will perform one of the following conversions:</p>
@@ -6711,7 +6819,7 @@ A float INF must be converted to an appropriate INF in the half type.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>32 bit signed integer &#8594; <code>CL_SIGNED_INT8</code> (8-bit signed integer):</p>
+<p>32 bit signed integer &#8594; <code>CL_SIGNED_<wbr>INT8</code> (8-bit signed integer):</p>
 <div class="stemblock">
 <div class="content">
 \[int8\_value(x) = clamp(x, -128, 127)\]
@@ -6719,7 +6827,7 @@ A float INF must be converted to an appropriate INF in the half type.</p>
 </div>
 </li>
 <li>
-<p>32 bit signed integer &#8594; <code>CL_SIGNED_INT16</code> (16-bit signed integer):</p>
+<p>32 bit signed integer &#8594; <code>CL_SIGNED_<wbr>INT16</code> (16-bit signed integer):</p>
 <div class="stemblock">
 <div class="content">
 \[int16\_value(x) = clamp(x, -32768, 32767)\]
@@ -6727,7 +6835,7 @@ A float INF must be converted to an appropriate INF in the half type.</p>
 </div>
 </li>
 <li>
-<p>32 bit signed integer &#8594; <code>CL_SIGNED_INT32</code> (32-bit signed integer):</p>
+<p>32 bit signed integer &#8594; <code>CL_SIGNED_<wbr>INT32</code> (32-bit signed integer):</p>
 <div class="stemblock">
 <div class="content">
 \[int32\_value(x) = x \quad \text{(no conversion)}\]
@@ -6735,7 +6843,7 @@ A float INF must be converted to an appropriate INF in the half type.</p>
 </div>
 </li>
 <li>
-<p>32 bit unsigned integer &#8594; <code>CL_UNSIGNED_INT8</code> (8-bit unsigned integer):</p>
+<p>32 bit unsigned integer &#8594; <code>CL_UNSIGNED_<wbr>INT8</code> (8-bit unsigned integer):</p>
 <div class="stemblock">
 <div class="content">
 \[uint8\_value(x) = clamp(x, 0, 255)\]
@@ -6743,7 +6851,7 @@ A float INF must be converted to an appropriate INF in the half type.</p>
 </div>
 </li>
 <li>
-<p>32 bit unsigned integer &#8594; <code>CL_UNSIGNED_INT16</code> (16-bit unsigned integer):</p>
+<p>32 bit unsigned integer &#8594; <code>CL_UNSIGNED_<wbr>INT16</code> (16-bit unsigned integer):</p>
 <div class="stemblock">
 <div class="content">
 \[uint16\_value(x) = clamp(x, 0, 65535)\]
@@ -6751,7 +6859,7 @@ A float INF must be converted to an appropriate INF in the half type.</p>
 </div>
 </li>
 <li>
-<p>32 bit unsigned integer &#8594; <code>CL_UNSIGNED_INT32</code> (32-bit unsigned integer):</p>
+<p>32 bit unsigned integer &#8594; <code>CL_UNSIGNED_<wbr>INT32</code> (32-bit unsigned integer):</p>
 <div class="stemblock">
 <div class="content">
 \[uint32\_value(x) = x \quad \text{(no conversion)}\]
@@ -7144,25 +7252,25 @@ versions are summarized below.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>cl_khr_subgroup_extended_types</code></p>
+<p><code>cl_khr_<wbr>subgroup_<wbr>extended_<wbr>types</code></p>
 </li>
 <li>
-<p><code>cl_khr_subgroup_non_uniform_vote</code></p>
+<p><code>cl_khr_<wbr>subgroup_<wbr>non_<wbr>uniform_<wbr>vote</code></p>
 </li>
 <li>
-<p><code>cl_khr_subgroup_ballot</code></p>
+<p><code>cl_khr_<wbr>subgroup_<wbr>ballot</code></p>
 </li>
 <li>
-<p><code>cl_khr_subgroup_non_uniform_arithmetic</code></p>
+<p><code>cl_khr_<wbr>subgroup_<wbr>non_<wbr>uniform_<wbr>arithmetic</code></p>
 </li>
 <li>
-<p><code>cl_khr_subgroup_shuffle</code></p>
+<p><code>cl_khr_<wbr>subgroup_<wbr>shuffle</code></p>
 </li>
 <li>
-<p><code>cl_khr_subgroup_shuffle_relative</code></p>
+<p><code>cl_khr_<wbr>subgroup_<wbr>shuffle_<wbr>relative</code></p>
 </li>
 <li>
-<p><code>cl_khr_subgroup_clustered_reduce</code></p>
+<p><code>cl_khr_<wbr>subgroup_<wbr>clustered_<wbr>reduce</code></p>
 </li>
 </ul>
 </div>
@@ -7188,13 +7296,13 @@ versions are summarized below.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>cl_khr_extended_bit_ops</code></p>
+<p><code>cl_khr_<wbr>extended_<wbr>bit_<wbr>ops</code></p>
 </li>
 <li>
-<p><code>cl_khr_spirv_extended_debug_info</code></p>
+<p><code>cl_khr_<wbr>spirv_<wbr>extended_<wbr>debug_<wbr>info</code></p>
 </li>
 <li>
-<p><code>cl_khr_spirv_linkonce_odr</code></p>
+<p><code>cl_khr_<wbr>spirv_<wbr>linkonce_<wbr>odr</code></p>
 </li>
 </ul>
 </div>
@@ -7221,6 +7329,29 @@ versions are summarized below.</p>
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p>Changes from <strong>v3.0.15</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Clarified that 16-bit and 64-bit floats can be passed as kernel arguments to SPIR-V kernels, see <a href="https://github.com/KhronosGroup/OpenCL-Docs/pull/1049">#1049</a>.</p>
+</li>
+<li>
+<p>Adds the numerical value of the image channel order and image channel data type to several tables, see <a href="https://github.com/KhronosGroup/OpenCL-Docs/pull/1050">#1050</a>.</p>
+</li>
+<li>
+<p>Added new extension:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>cl_khr_<wbr>kernel_<wbr>clock</code> (provisional)</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
 </div>
 </div>
 </div>
@@ -7233,8 +7364,8 @@ versions are summarized below.</p>
 </div>
 <div id="footer" style="max-width: 100%;">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-06 14:39:26 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 12:00:00 -0700
 </div>
 </div>
 
