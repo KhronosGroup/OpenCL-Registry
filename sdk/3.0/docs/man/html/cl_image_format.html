@@ -780,7 +780,8 @@ format, and is defined as:</p>
 </div>
 <div id="cl_image_format" class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-opencl" data-lang="opencl">typedef struct cl_image_format {
+<pre class="highlight"><code class="language-opencl" data-lang="opencl">// Provided by CL_VERSION_1_0
+typedef struct cl_image_format {
     cl_channel_order    image_channel_order;
     cl_channel_type     image_channel_data_type;
 } cl_image_format;</code></pre>
@@ -794,13 +795,13 @@ format, and is defined as:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>image_channel_order</code> specifies the number of channels and the channel
+<p><em>image_channel_order</em> specifies the number of channels and the channel
 layout i.e. the memory layout in which channels are stored in the image.
 Valid values are described in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#image-channel-order-table" target="_blank" rel="noopener">Image Channel
 Order</a> table.</p>
 </li>
 <li>
-<p><code>image_channel_data_type</code> describes the size of the channel data type.
+<p><em>image_channel_data_type</em> describes the size of the channel data type.
 The list of supported values is described in the
 <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#image-channel-data-types-table" target="_blank" rel="noopener">Image Channel Data Types</a> table.
 The number of bits per element determined by the <code>image_channel_data_type</code>
@@ -832,7 +833,8 @@ and <code>image_channel_order</code> must be a power of two.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEPTH</code></p>
-<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.0.</p></td>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.0.</p>
+<p class="tableblock">Also supported if the <code>cl_khr_<wbr>depth_<wbr>images</code> extension is supported.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A single channel image format where the single channel represents a <code>DEPTH</code> component.</p></td>
 </tr>
 <tr>
@@ -854,7 +856,19 @@ and <code>image_channel_order</code> must be a power of two.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_Rx</code></p>
 <p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.1.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A two channel image format, where the first channel represents a <code>RED</code> component and the second channel is ignored.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A two channel image format, where the first channel represents a <code>RED</code>
+    component and the second channel is ignored.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEPTH_<wbr>STENCIL</code></p>
+<p class="tableblock">provided by the <code>cl_khr_gl_depth_images</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A two channel image format, where the first channel represents
+    a <code>DEPTH</code> component and the second channel represents
+    a stencil component.
+    This format can only be used if the image channel data type is
+    <code>CL_UNORM_<wbr>INT24</code> or <code>CL_FLOAT</code>.</p>
+<p class="tableblock">    See <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#restrictions-on-depth-stencil-images" target="_blank" rel="noopener">Restrictions on
+    Depth/Stencil Images</a>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_RGB</code></p></td>
@@ -920,7 +934,8 @@ and <code>image_channel_order</code> must be a power of two.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Each channel component is a normalized unsigned 8-bit integer value</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_UNORM_<wbr>INT16</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_UNORM_<wbr>INT16</code></p>
+<p class="tableblock">Also supported if the <code>cl_khr_<wbr>depth_<wbr>images</code> extension is supported.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Each channel component is a normalized unsigned 16-bit integer value</p></td>
 </tr>
 <tr>
@@ -965,6 +980,11 @@ and <code>image_channel_order</code> must be a power of two.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Each channel component is an unnormalized unsigned 16-bit integer value</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_UNORM_<wbr>INT24</code></p>
+<p class="tableblock">provided by the <code>cl_khr_gl_depth_images</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Each channel component is a normalized unsigned 24-bit integer value</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_UNSIGNED_<wbr>INT32</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Each channel component is an unnormalized unsigned 32-bit integer value</p></td>
 </tr>
@@ -973,7 +993,8 @@ and <code>image_channel_order</code> must be a power of two.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Each channel component is a 16-bit half-float value</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_FLOAT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_FLOAT</code></p>
+<p class="tableblock">Also supported if the <code>cl_khr_<wbr>depth_<wbr>images</code> extension is supported.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Each channel component is a single precision floating-point value</p></td>
 </tr>
 </tbody>
@@ -1117,7 +1138,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -1127,8 +1148,8 @@ Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

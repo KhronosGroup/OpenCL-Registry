@@ -805,11 +805,13 @@ Vector types with three elements, i.e. where <em>n</em> is 3, <a href="https://w
 <col style="width: 50%;">
 <col style="width: 50%;">
 </colgroup>
-<tbody>
+<thead>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Type</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>char<em>n</em></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A vector of <em>n</em> 8-bit signed two&#8217;s complement integer values.</p></td>
@@ -843,15 +845,17 @@ Vector types with three elements, i.e. where <em>n</em> is 3, <a href="https://w
 <td class="tableblock halign-left valign-top"><p class="tableblock">A vector of <em>n</em> 64-bit unsigned integer values.</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>half<em>n</em></code> <sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnotedef_3" title="View footnote.">3</a>]</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A vector of <em>n</em> 16-bit floating-point values.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>float<em>n</em></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A vector of <em>n</em> 32-bit floating-point values.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>double<em>n</em></code> <sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnotedef_3" title="View footnote.">3</a>]</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>double<em>n</em></code> <sup class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnotedef_4" title="View footnote.">4</a>]</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A vector of <em>n</em> 64-bit floating-point values.</p>
-<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for OpenCL C 1.2 or newer. In
-      OpenCL C 3.0 it requires support of the <code>__opencl_c_<wbr>fp64</code> feature.
-      Also see extension <strong>cl_khr_fp64</strong>.</p></td>
+<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#double-precision-support" target="_blank" rel="noopener">double-precision</a>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -867,11 +871,13 @@ application:</p>
 <col style="width: 50%;">
 <col style="width: 50%;">
 </colgroup>
-<tbody>
+<thead>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Type in OpenCL Language</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>API type for application</strong></p></td>
+<th class="tableblock halign-left valign-top">Type in OpenCL Language</th>
+<th class="tableblock halign-left valign-top">API type for application</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>char<em>n</em></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_char<em>n</em></code></p></td>
@@ -903,6 +909,10 @@ application:</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ulong<em>n</em></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_ulong<em>n</em></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>half<em>n</em></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_half<em>n</em></code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>float<em>n</em></code></p></td>
@@ -940,7 +950,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -954,16 +964,19 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <a href="#_footnoteref_1">1</a>. Built-in vector data types are supported by the OpenCL implementation even if the underlying compute device does not natively support any or all of the vector data types. They are to be converted by the device compiler to appropriate instructions that use underlying built-in types supported natively by the compute device. Refer to Appendix B in the OpenCL API specification for a description of the order of the components of a vector type in memory.
 </div>
 <div class="footnote" id="_footnotedef_2">
-<a href="#_footnoteref_2">2</a>. The <code>long<em>n</em></code> and <code>ulong<em>n</em></code> vector types are optional types for EMBEDDED profile devices that are supported if the value of the <code>CL_DEVICE_EXTENSIONS</code> device query contains <strong>cles_khr_int64</strong>. An OpenCL C 3.0 compiler must also define the <code>__opencl_c_int64</code> feature macro unconditionally for FULL profile devices, or for EMBEDDED profile devices that support these types.
+<a href="#_footnoteref_2">2</a>. The <code>long<em>n</em></code> and <code>ulong<em>n</em></code> vector types are optional types for EMBEDDED profile devices that are supported if the value of the <code>CL_DEVICE_<wbr>EXTENSIONS</code> device query contains <strong>cles_khr_int64</strong>. An OpenCL C 3.0 compiler must also define the <code>__opencl_c_<wbr>int64</code> feature macro unconditionally for FULL profile devices, or for EMBEDDED profile devices that support these types.
 </div>
 <div class="footnote" id="_footnotedef_3">
-<a href="#_footnoteref_3">3</a>. The <code>double<em>n</em></code> vector type is an optional type that is supported if the value of the <code>CL_DEVICE_DOUBLE_FP_CONFIG</code> device query is not zero. If this is the case then an OpenCL C 3.0 compiler must also define the <code>__opencl_c_fp64</code> feature macro.
+<a href="#_footnoteref_3">3</a>. Only if the <code>cl_khr_<wbr>fp16</code> extension is supported and has been enabled.
+</div>
+<div class="footnote" id="_footnotedef_4">
+<a href="#_footnoteref_4">4</a>. The <code>double<em>n</em></code> vector type is an optional type that is supported if the value of the <code>CL_DEVICE_<wbr>DOUBLE_<wbr>FP_<wbr>CONFIG</code> device query is not zero. If this is the case then an OpenCL C 3.0 compiler must also define the <code>__opencl_c_<wbr>fp64</code> feature macro.
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

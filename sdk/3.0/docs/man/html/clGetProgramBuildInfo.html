@@ -780,7 +780,8 @@ function</p>
 </div>
 <div id="clGetProgramBuildInfo" class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-opencl" data-lang="opencl">cl_int clGetProgramBuildInfo(
+<pre class="highlight"><code class="language-opencl" data-lang="opencl">// Provided by CL_VERSION_1_0
+cl_int clGetProgramBuildInfo(
     cl_program program,
     cl_device_id device,
     cl_program_build_info param_name,
@@ -908,7 +909,16 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
         associated with <em>device</em>.
         This is the case when the specified <em>program</em> object was linked by
         <strong>clLinkProgram</strong> without the <code>-create-library</code> link option, or when an
-        executable binary was built using <strong>clBuildProgram</strong>.</p></td>
+        executable binary was built using <strong>clBuildProgram</strong>.</p>
+<p class="tableblock">        <code>CL_PROGRAM_<wbr>BINARY_<wbr>TYPE_<wbr>INTERMEDIATE</code>&#8201;&#8212;&#8201;An intermediate
+        (non-source) representation for the program is loaded as a binary.
+        The program must be further processed with <strong>clCompileProgram</strong> or
+        <strong>clBuildProgram</strong>.</p>
+<p class="tableblock">        If processed with <strong>clCompileProgram</strong>, the result will be a binary of
+        type <code>CL_PROGRAM_<wbr>BINARY_<wbr>TYPE_<wbr>COMPILED_<wbr>OBJECT</code> or
+        <code>CL_PROGRAM_<wbr>BINARY_<wbr>TYPE_<wbr>LIBRARY</code>.
+        If processed with <strong>clBuildProgram</strong>, the result will be a binary of
+        type <code>CL_PROGRAM_<wbr>BINARY_<wbr>TYPE_<wbr>EXECUTABLE</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_PROGRAM_<wbr>BUILD_<wbr>GLOBAL_<wbr>VARIABLE_<wbr>TOTAL_<wbr>SIZE</code></p>
@@ -998,7 +1008,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -1008,8 +1018,8 @@ Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

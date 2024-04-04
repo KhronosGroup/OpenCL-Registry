@@ -779,7 +779,8 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 </div>
 <div id="clGetProgramInfo" class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-opencl" data-lang="opencl">cl_int clGetProgramInfo(
+<pre class="highlight"><code class="language-opencl" data-lang="opencl">// Provided by CL_VERSION_1_0
+cl_int clGetProgramInfo(
     cl_program program,
     cl_program_info param_name,
     size_t param_value_size,
@@ -874,25 +875,28 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
         specified to <strong>clCreateProgramWithSource</strong> with a null terminator.
         The concatenation strips any nulls in the original source strings.</p>
 <p class="tableblock">        If <em>program</em> is created using <strong>clCreateProgramWithBinary</strong>,
-        <strong>clCreateProgramWithIL</strong> or <strong>clCreateProgramWithBuiltInKernels</strong>, a
-        null string or the appropriate program source code is returned
-        depending on whether or not the program source code is stored in the
-        binary.</p>
+        <strong>clCreateProgramWithIL</strong>,
+<strong>clCreateProgramWithILKHR</strong>,
+        or <strong>clCreateProgramWithBuiltInKernels</strong>, a null string or the
+        appropriate program source code is returned depending on whether or
+        not the program source code is stored in the binary.</p>
 <p class="tableblock">        The actual number of characters that represents the program source
         code including the null terminator is returned in
         <em>param_value_size_ret</em>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_PROGRAM_<wbr>IL</code></p>
-<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.1.
-Also see extension <strong>cl_khr_il_program</strong>.</p></td>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.1.</p>
+<p class="tableblock"><code>CL_PROGRAM_<wbr>IL_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_il_program</code> extension.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>char</code>[]</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the program IL for programs created with
+<strong>clCreateProgramWithILKHR</strong> or
         <strong>clCreateProgramWithIL</strong>.</p>
 <p class="tableblock">        If <em>program</em> is created with <strong>clCreateProgramWithSource</strong>,
         <strong>clCreateProgramWithBinary</strong> or <strong>clCreateProgramWithBuiltInKernels</strong>
         the memory pointed to by param_value will be unchanged and
-        param_value_size_retwill be set to 0.</p></td>
+        <em>param_value_size_ret</em> will be set to 0.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_PROGRAM_<wbr>BINARY_<wbr>SIZES</code></p></td>
@@ -1053,7 +1057,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -1069,8 +1073,8 @@ Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

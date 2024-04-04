@@ -767,22 +767,40 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <h1>clEnqueueReleaseDX9MediaSurfacesKHR(3) Manual Page</h1>
 <h2 id="_name">Name</h2>
 <div class="sectionbody">
-<p>clEnqueueReleaseDX9MediaSurfacesKHR - Release OpenCL memory objects that have been created from media surfaces.</p>
+<p>clEnqueueReleaseDX9MediaSurfacesKHR - Release OpenCL memory objects created from a media surface</p>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
 <h2 id="_c_specification"><a class="anchor" href="#_c_specification"></a>C Specification</h2>
 <div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">cl_int clEnqueueReleaseDX9MediaSurfacesKHR(cl_command_queue command_queue,
-                                           cl_uint num_objects,
-                                           const cl_mem *mem_objects,
-                                           cl_uint num_events_in_wait_list,
-                                           const cl_event *event_wait_list,
-                                           cl_event *event)</code></pre>
+<div class="paragraph">
+<p>To release OpenCL memory objects that have been created from media surfaces,
+call the function</p>
 </div>
+<div id="clEnqueueReleaseDX9MediaSurfacesKHR" class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-opencl" data-lang="opencl">// Provided by cl_khr_dx9_media_sharing
+cl_int clEnqueueReleaseDX9MediaSurfacesKHR(
+    cl_command_queue command_queue,
+    cl_uint num_objects,
+    const cl_mem* mem_objects,
+    cl_uint num_events_in_wait_list,
+    const cl_event* event_wait_list,
+    cl_event* event);</code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<strong>clEnqueueReleaseDX9MediaSurfacesKHR</strong> is provided by the <code>cl_khr_dx9_media_sharing</code> extension.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -792,34 +810,29 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <div class="ulist">
 <ul>
 <li>
-<p><em>command_queue</em> - A valid command-queue.</p>
-</li>
-<li>
-<p><em>num_objects</em> - The number of memory objects to be released in
+<p><em>num_objects</em> is the number of memory objects to be released in
 <em>mem_objects</em>.</p>
 </li>
 <li>
-<p><em>mem_objects</em> - A pointer to a list of OpenCL memory objects that were
+<p><em>mem_objects</em> is a pointer to a list of OpenCL memory objects that were
 created from media surfaces.</p>
 </li>
 <li>
-<p><em>num_events_in_wait_list</em> - Number of events in <em>event_wait_list</em>.</p>
-</li>
-<li>
-<p><em>event_wait_list</em> - Specify events that need to complete before this
-particular command can be executed. If <em>event_wait_list</em> is NULL, then
-this particular command does not wait on any event to complete. If
-<em>event_wait_list</em> is NULL, <em>num_events_in_wait_list</em> must be 0. If
-<em>event_wait_list</em> is not NULL, the list of events pointed to by
+<p><em>event_wait_list</em> and <em>num_events_in_wait_list</em> specify events that need
+to complete before this particular command can be executed.
+If <em>event_wait_list</em> is <code>NULL</code>, then this particular command does not
+wait on any event to complete.
+If <em>event_wait_list</em> is <code>NULL</code>, <em>num_events_in_wait_list</em> must be 0.
+If <em>event_wait_list</em> is not <code>NULL</code>, the list of events pointed to by
 <em>event_wait_list</em> must be valid and <em>num_events_in_wait_list</em> must be
 greater than 0.</p>
 </li>
 <li>
-<p><em>event</em> returns an event object that identifies this command and
-can be used to query or wait for this command to complete.
+<p><em>event</em> returns an event object that identifies this command and can be
+used to query or wait for this command to complete.
 If <em>event</em> is <code>NULL</code> or the enqueue is unsuccessful, no event will be
-created and therefore it will not be possible to query the status of this
-command or to wait for this command to complete.
+created and therefore it will not be possible to query the status of
+this command or to wait for this command to complete.
 If <em>event_wait_list</em> and <em>event</em> are not <code>NULL</code>, <em>event</em> must not refer
 to an element of the <em>event_wait_list</em> array.</p>
 </li>
@@ -828,302 +841,78 @@ to an element of the <em>event_wait_list</em> array.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_notes"><a class="anchor" href="#_notes"></a>Notes</h2>
+<h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Used to release OpenCL memory objects that have been created from media surfaces.
-The media surfaces are released by the OpenCL context associated with <em>command_queue</em>.</p>
+<p>The media surfaces are released by the OpenCL context associated with
+<em>command_queue</em>.</p>
 </div>
 <div class="paragraph">
-<p>OpenCL memory objects created from media surfaces which have been acquired by OpenCL must be released by OpenCL before they may be accessed by the media adapter API.
-Accessing a media surface while its corresponding OpenCL memory object is acquired is in error and will result in undefined behavior, including but not limited to possible OpenCL errors, data corruption, and program termination.</p>
+<p>OpenCL memory objects created from media surfaces which have been acquired
+by OpenCL must be released by OpenCL before they may be accessed by the
+media adapter API.
+Accessing a media surface while its corresponding OpenCL memory object is
+acquired is in error and will result in undefined behavior, including but
+not limited to possible OpenCL errors, data corruption, and program
+termination.</p>
 </div>
 <div class="paragraph">
-<p>If <code>CL_CONTEXT_INTEROP_USER_SYNC</code> is not specified as <code>CL_TRUE</code> during context creation, <code>clEnqueueReleaseDX9MediaSurfacesKHR</code> provides the synchronization guarantee that any calls to media adapter APIs involving the interop device(s) used in the OpenCL context made after the call to <code>clEnqueueReleaseDX9MediaSurfacesKHR</code> will not start executing until after all events in <em>event_wait_list</em> are complete and all work already submitted to <em>command_queue</em> completes execution.
-If the context was created with properties specifying <code>CL_CONTEXT_INTEROP_USER_SYNC</code> as <code>CL_TRUE</code>, the user is responsible for guaranteeing that any media adapter API calls involving the interop device(s) used in the OpenCL context made after <code>clEnqueueReleaseDX9MediaSurfacesKHR</code> will not start executing until after event returned by <code>clEnqueueReleaseDX9MediaSurfacesKHR</code> reports completion.</p>
+<p>If <code>CL_CONTEXT_<wbr>INTEROP_<wbr>USER_<wbr>SYNC</code> is not specified as <code>CL_TRUE</code> during
+context creation, <strong>clEnqueueReleaseDX9MediaSurfacesKHR</strong> provides the
+synchronization guarantee that any calls to media adapter APIs involving the
+interop device(s) used in the OpenCL context made after the call to
+<strong>clEnqueueReleaseDX9MediaSurfacesKHR</strong> will not start executing until after
+all events in <em>event_wait_list</em> are complete and all work already submitted
+to <em>command_queue</em> completes execution.
+If the context was created with properties specifying
+<code>CL_CONTEXT_<wbr>INTEROP_<wbr>USER_<wbr>SYNC</code> as <code>CL_TRUE</code>, the user is responsible for
+guaranteeing that any media adapter API calls involving the interop
+device(s) used in the OpenCL context made after
+<strong>clEnqueueReleaseDX9MediaSurfacesKHR</strong> will not start executing until after
+event returned by <strong>clEnqueueReleaseDX9MediaSurfacesKHR</strong> reports completion.</p>
 </div>
 <div class="paragraph">
-<p>General information about sharing memory objects with DX9 follows.</p>
-</div>
-<div class="paragraph">
-<p>The goal of this extension is to allow applications to use media surfaces as
-OpenCL memory objects. This allows efficient sharing of data between OpenCL
-and selected adapter APIs (only DX9 for now). If this extension is
-supported, an OpenCL image object can be created from a media surface and
-the OpenCL API can be used to execute kernels that read and/or write memory
-objects that are media surfaces. Note that OpenCL memory objects may be
-created from the adapter media surface if and only if the OpenCL context has
-been created from that adapter.</p>
-</div>
-<div class="paragraph">
-<p>If this extension is supported by an implementation, the string
-"cl_khr_dx9_media_sharing" will be present in the <code>CL_PLATFORM_EXTENSIONS</code>
-(see <a href="clGetPlatformInfo.html">clGetPlatformInfo</a>) or <code>CL_DEVICE_EXTENSIONS</code> (see
-<a href="clGetDeviceInfo.html">clGetDeviceInfo</a>).</p>
-</div>
-<div class="paragraph">
-<p>As currently proposed the interfaces for this extension would be provided in
-<code>cl_dx9_media_sharing.h</code>.</p>
-</div>
-<div class="paragraph">
-<div class="title">Surface formats for Media Surface Sharing</div>
-<p>This section includes the D3D surface formats that are supported when the
-adapter type is one of the Direct 3D lineage. Using a D3D surface format not
-listed here is an error. To extend the use of this extension to support
-media adapters beyond DirectX9 tables similar to the ones in this section
-will need to be defined for the surface formats supported by the new media
-adapter. All implementations that support this extension are required to
-support the NV12 surface format, the other surface formats supported are the
-same surface formats that the adapter you are sharing with supports as long
-as they are listed in the tables below (Tables 9.10.3 and 9.10.4).</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">FOUR CC code</th>
-<th class="tableblock halign-left valign-top">CL image format (channel order, channel data type)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>FOURCC('N', 'V', '1', '2'), Plane 0</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_R, CL_UNORM_INT8</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>FOURCC('N', 'V', '1', '2'), Plane 1</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_RG, CL_UNORM_INT8</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>FOURCC('Y', 'V', '1', '2'), Plane 0</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_R, CL_UNORM_INT8</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>FOURCC('Y', 'V', '1', '2'), Plane 1</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_R, CL_UNORM_INT8</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>FOURCC('Y', 'V', '1', '2'), Plane 2</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_R, CL_UNORM_INT8</code></p>
-</div></div></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph">
-<p>In the table above, NV12 Plane 0 corresponds to the luminance (Y) channel
-and Plane 1 corresponds to the UV channels. The YV12 Plane 0 corresponds to
-the Y channel, Plane 1 to the U channel and Plane 2 to the V channel. Note
-that the YUV formats map to <code>CL_R</code> and <code>CL_RG</code> but do not perform any YUV to
-RGB conversion and vice-versa.</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">D3D format</th>
-<th class="tableblock halign-left valign-top">CL image format (channel order, channel data type)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>D3DFMT_R32F</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_R, CL_FLOAT</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>D3DFMT_R16F</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_R, CL_HALF_FLOAT</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>D3DFMT_L16</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_R, CL_UNORM_INT16</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>D3DFMT_A8</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_A, CL_UNORM_INT8</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>D3DFMT_L8</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_R, CL_UNORM_INT8</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>D3DFMT_G32R32F</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_RG, CL_FLOAT</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>D3DFMT_G16R16F</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_RG, CL_HALF_FLOAT</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>D3DFMT_G16R16</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_RG, CL_UNORM_INT16</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>D3DFMT_A8L8</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_RG, CL_UNORM_INT8</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>D3DFMT_A32B32G32R32F</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_RGBA, CL_FLOAT</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>D3DFMT_A16B16G16R16F</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_RGBA, CL_HALF_FLOAT</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>D3DFMT_A16B16G16R16</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_RGBA, CL_UNORM_INT16</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>D3DFMT_A8B8G8R8</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_RGBA, CL_UNORM_INT8</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>D3DFMT_X8B8G8R8</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_RGBA, CL_UNORM_INT8</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>D3DFMT_A8R8G8B8</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_BGRA, CL_UNORM_INT8</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>D3DFMT_X8R8G8B8</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_BGRA, CL_UNORM_INT8</code></p>
-</div></div></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph">
-<p>Note that D3D9 format names seem to imply that the order of the color
-channels are switched relative to OpenCL but this is not the case. For
-example, layout of channels for each pixel for <code>D3DFMT_A32FB32FG32FR32F</code> is
-the same as <code>CL_RGBA</code>, <code>CL_FLOAT</code>.</p>
-</div>
-<div class="paragraph">
-<p>Properties of media surface objects may be queried using
-<a href="clGetMemObjectInfo.html">clGetMemObjectInfo</a> and <a href="clGetImageInfo.html">clGetImageInfo</a> with <em>param_name</em>
-<code>CL_MEM_DX9_MEDIA_ADAPTER_TYPE_KHR</code>, <code>CL_MEM_DX9_MEDIA_SURFACE_INFO_KHR</code> and
-<code>CL_IMAGE_DX9_MEDIA_SURFACE_PLANE_KHR</code>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_errors"><a class="anchor" href="#_errors"></a>Errors</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Returns <code>CL_SUCCESS</code> returns <code>CL_SUCCESS</code> if the function is executed successfully.
-If <em>num_objects</em> is 0 and &lt;_mem_objects_&gt; is NULL then the function does nothing and returns <code>CL_SUCCESS</code>.
+<p><strong>clEnqueueReleaseDX9MediaSurfacesKHR</strong> returns <code>CL_SUCCESS</code> if the function
+is executed successfully.
+If <em>num_objects</em> is 0 and &lt;<em>mem_objects</em>&gt; is <code>NULL</code> the function does
+nothing and returns <code>CL_SUCCESS</code>.
 Otherwise it returns one of the following errors:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_INVALID_VALUE</code> if <em>num_objects</em> is zero and <em>mem_objects</em> is not a NULL value or if <em>num_objects</em> &gt; 0 and <em>mem_objects</em> is NULL.</p>
+<p><code>CL_INVALID_<wbr>VALUE</code> if <em>num_objects</em> is zero and <em>mem_objects</em> is not a
+<code>NULL</code> value or if <em>num_objects</em> &gt; 0 and <em>mem_objects</em> is <code>NULL</code>.</p>
 </li>
 <li>
-<p><code>CL_INVALID_MEM_OBJECT</code> if memory objects in <em>mem_objects</em> are not valid OpenCL memory objects or if memory objects in <em>mem_objects</em> have not been created from valid media surfaces.</p>
+<p><code>CL_INVALID_<wbr>MEM_<wbr>OBJECT</code> if memory objects in <em>mem_objects</em> are not valid
+OpenCL memory objects or if memory objects in <em>mem_objects</em> have not
+been created from valid media surfaces.</p>
 </li>
 <li>
-<p><code>CL_INVALID_COMMAND_QUEUE</code> if <em>command_queue</em> is not a valid command-queue.</p>
+<p><code>CL_INVALID_<wbr>COMMAND_<wbr>QUEUE</code> if <em>command_queue</em> is not a valid
+command-queue.</p>
 </li>
 <li>
-<p><code>CL_INVALID_CONTEXT</code> if context associated with <em>command_queue</em> was not created from a media object.</p>
+<p><code>CL_INVALID_<wbr>CONTEXT</code> if context associated with <em>command_queue</em> was not
+created from a media object.</p>
 </li>
 <li>
-<p><code>CL_DX9_MEDIA_SURFACE_NOT_ACQUIRED_KHR</code> if memory objects in <em>mem_objects</em> have not been previously been acquired using <a href="clEnqueueAcquireDX9MediaSurfacesKHR.html">clEnqueueAcquireDX9MediaSurfacesKHR</a> or have been released using <code>clEnqueueReleaseDX9MediaSurfacesKHR</code> since the last time that they were acquired.</p>
+<p><code>CL_DX9_<wbr>MEDIA_<wbr>SURFACE_<wbr>NOT_<wbr>ACQUIRED_<wbr>KHR</code> if memory objects in
+<em>mem_objects</em> have not previously been acquired using
+<strong>clEnqueueAcquireDX9MediaSurfacesKHR</strong>, or have been released using
+<strong>clEnqueueReleaseDX9MediaSurfacesKHR</strong> since the last time that they were
+acquired.</p>
 </li>
 <li>
-<p><code>CL_INVALID_EVENT_WAIT_LIST</code> if <em>event_wait_list</em> is NULL and <code>num_event_in_wait_list</code> &gt; 0, or <em>event_wait_list</em> is not NULL and <code>num_event_in_wait_list</code> is 0, or if event objects in <em>event_wait_list</em> are not valid events.</p>
+<p><code>CL_INVALID_<wbr>EVENT_<wbr>WAIT_<wbr>LIST</code> if <em>event_wait_list</em> is <code>NULL</code> and
+<em>num_events_in_wait_list</em> &gt; 0, or <em>event_wait_list</em> is not <code>NULL</code> and
+<em>num_events_in_wait_list</em>&gt; is 0, or if event objects in
+<em>event_wait_list</em> are not valid events.</p>
 </li>
 <li>
-<p><code>CL_OUT_OF_HOST_MEMORY</code> if there is a failure to allocate resources required by the OpenCL implementation on the host.</p>
+<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code> if there is a failure to allocate resources
+required by the OpenCL implementation on the host.</p>
 </li>
 </ul>
 </div>
@@ -1133,7 +922,7 @@ Otherwise it returns one of the following errors:</p>
 <h2 id="_see_also"><a class="anchor" href="#_see_also"></a>See Also</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="cl_khr_dx9_media_sharing.html">cl_khr_dx9_media_sharing</a></p>
+<p><a href="cl_command_queue.html">cl_command_queue</a>, <a href="cl_event.html">cl_event</a>, <a href="cl_khr_dx9_media_sharing.html">cl_khr_dx9_media_sharing</a>, <a href="cl_mem.html">cl_mem</a>, <a href="cl_uint.html">cl_uint</a></p>
 </div>
 </div>
 </div>
@@ -1141,10 +930,11 @@ Otherwise it returns one of the following errors:</p>
 <h2 id="_document_notes"><a class="anchor" href="#_document_notes"></a>Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Extension Specification at URL</p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#clEnqueueReleaseDX9MediaSurfacesKHR" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_Ext.html#clEnqueueReleaseDX9MediaSurfacesKHR" class="bare">https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_Ext.html#clEnqueueReleaseDX9MediaSurfacesKHR</a></p>
+<p>This page is extracted from the OpenCL Specification.
+Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 </div>
 </div>
@@ -1152,7 +942,7 @@ Otherwise it returns one of the following errors:</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -1162,8 +952,8 @@ Otherwise it returns one of the following errors:</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

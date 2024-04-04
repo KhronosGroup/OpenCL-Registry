@@ -786,8 +786,8 @@ events.</p>
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top"><strong>Built-in Function</strong></th>
-<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
+<th class="tableblock halign-left valign-top">Built-in Function</th>
+<th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
 <tbody>
@@ -857,13 +857,13 @@ events.</p>
 <p><em>value</em> is a pointer to two 64-bit values.</p>
 </div>
 <div class="paragraph">
-<p>The first 64-bit value describes the elapsed time <code>CL_PROFILING_COMMAND_END</code>
-- <code>CL_PROFLING_COMMAND_START</code> for the command identified by <em>event</em> in
+<p>The first 64-bit value describes the elapsed time <code>CL_PROFILING_<wbr>COMMAND_<wbr>END</code>
+- <code>CL_PROFILING_<wbr>COMMAND_<wbr>START</code> for the command identified by <em>event</em> in
 nanoseconds.</p>
 </div>
 <div class="paragraph">
 <p>The second 64-bit value describes the elapsed time
-<code>CL_PROFILING_COMMAND_COMPLETE</code> - <code>CL_PROFILING_COMAMND_START</code> for the
+<code>CL_PROFILING_<wbr>COMMAND_<wbr>COMPLETE</code> - <code>CL_PROFILING_<wbr>COMMAND_<wbr>START</code> for the
 command identified by <em>event</em> in nanoseconds.</p>
 </div>
 <div class="admonitionblock note">
@@ -889,17 +889,17 @@ the same <em>event</em> is undefined.</p>
 host.
 These events created by the OpenCL runtime can only be used on the host,
 i.e. as events passed in the <em>event_wait_list</em> argument to various
-<strong>clEnqueue</strong> APIs or runtime APIs that take events as arguments, such as
+enqueue APIs or runtime APIs that take events as arguments, such as
 <strong>clRetainEvent</strong>, <strong>clReleaseEvent</strong>, and <strong>clGetEventProfilingInfo</strong>.</p>
 </div>
 <div class="paragraph">
 <p>Similarly, events can be used to identify commands enqueued to a device
 queue (from a kernel).
 These event objects cannot be passed to the host or used by OpenCL runtime
-APIs such as the <strong>clEnqueue</strong> APIs or runtime APIs that take event arguments.</p>
+APIs such as the enqueue APIs or runtime APIs that take event arguments.</p>
 </div>
 <div class="paragraph">
-<p><strong>clRetainEvent</strong> and <strong>clReleaseEvent</strong> will return <code>CL_INVALID_OPERATION</code> if
+<p><strong>clRetainEvent</strong> and <strong>clReleaseEvent</strong> will return <code>CL_INVALID_<wbr>OPERATION</code> if
 <em>event</em> specified is an event that refers to any kernel enqueued to a device
 queue using <strong>enqueue_kernel</strong> or <strong>enqueue_marker</strong>, or is a user event created
 by <strong>create_user_event</strong>.</p>
@@ -1019,7 +1019,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -1029,8 +1029,8 @@ Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

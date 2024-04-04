@@ -781,21 +781,52 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <p><em>aQual</em> in the following table refers to one of the access qualifiers.
 For write functions this may be <code>write_only</code> or <code>read_write</code>.</p>
 </div>
+<div class="paragraph">
+<p>If the <code>cl_khr_<wbr>mipmap_<wbr>image_<wbr>writes</code> extension macro is supported, write
+functions which do not explicitly specify a level of detail <em>lod</em> write to
+mip level 0 if <em>image</em> is a mipmapped image.
+<em>mipwidth</em>, <em>mipheight</em>, and <em>mipdepth</em> in the table refer to the width,
+height, and depth of the <em>image</em> mip level specified by <em>lod</em> respectively;
+<em>miplayers</em> refers to the number of layers in <em>image</em>; and <em>miplevels</em>
+refers to the number of mip levels in <em>image</em>.</p>
+</div>
+<div class="paragraph">
+<p>If the <code>cl_khr_<wbr>srgb_<wbr>image_<wbr>writes</code> extension macro is supported, the
+<strong>write_imagef</strong> functions described below may write to sRGB images.
+Linear to sRGB conversion is performed by the function.
+Only the R, G, and B components are converted from linear to sRGB; the A
+component is written as-is.</p>
+</div>
 <table id="table-image-write" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. Built-in Image Write Functions</caption>
 <colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
+<col style="width: 42.8571%;">
+<col style="width: 57.1429%;">
 </colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Function</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Function</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">void <strong>write_imagef</strong>(<em>aQual</em> image2d_t <em>image</em>, int2 <em>coord</em>, float4 <em>color</em>)<br>
-  void <strong>write_imagei</strong>(<em>aQual</em> image2d_t <em>image</em>, int2 <em>coord</em>, int4 <em>color</em>)<br>
-  void <strong>write_imageui</strong>(<em>aQual</em> image2d_t <em>image</em>, int2 <em>coord</em>, uint4 <em>color</em>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">void <strong>write_imagef</strong>(<br>
+  <em>aQual</em> image2d_t <em>image</em>,<br>
+  int2 <em>coord</em>,<br>
+  float4 <em>color</em>)<br>
+  void <strong>write_imageh</strong>(<br>
+  <em>aQual</em> image2d_t <em>image</em>,<br>
+  int2 <em>coord</em>,<br>
+  half4 <em>color</em>)<br>
+  void <strong>write_imagei</strong>(<br>
+  <em>aQual</em> image2d_t <em>image</em>,<br>
+  int2 <em>coord</em>,<br>
+  int4 <em>color</em>)<br>
+  void <strong>write_imageui</strong>(<br>
+  <em>aQual</em> image2d_t <em>image</em>,<br>
+  int2 <em>coord</em>,<br>
+  uint4 <em>color</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Write <em>color</em> value to location specified by <em>coord.xy</em> in the 2D
       image object specified by <em>image</em>.
       Appropriate data format conversion to the specified image format is
@@ -803,39 +834,55 @@ For write functions this may be <code>write_only</code> or <code>read_write</cod
       <em>coord.x</em> and <em>coord.y</em> are considered to be unnormalized coordinates,
       and must be in the range [0, image width-1] and [0, image height-1]
       respectively.</p>
-<p class="tableblock">      <strong>write_imagef</strong> can only be used with image objects created with
+<p class="tableblock">      <strong>write_imagef</strong>
+and <strong>write_imageh</strong>
+      can only be used with image objects created with
       <em>image_channel_data_type</em> set to one of the pre-defined packed formats
-      or set to <code>CL_SNORM_INT8</code>, <code>CL_UNORM_INT8</code>, <code>CL_SNORM_INT16</code>,
-      <code>CL_UNORM_INT16</code>, <code>CL_HALF_FLOAT</code> or <code>CL_FLOAT</code>.
+      or set to <code>CL_SNORM_<wbr>INT8</code>, <code>CL_UNORM_<wbr>INT8</code>, <code>CL_SNORM_<wbr>INT16</code>,
+      <code>CL_UNORM_<wbr>INT16</code>, <code>CL_HALF_<wbr>FLOAT</code> or <code>CL_FLOAT</code>.
       Appropriate data format conversion will be done to convert channel
       data from a floating-point value to actual data format in which the
       channels are stored.</p>
 <p class="tableblock">      <strong>write_imagei</strong> can only be used with image objects created with
       <em>image_channel_data_type</em> set to one of the following values:</p>
-<p class="tableblock">      <code>CL_SIGNED_INT8</code>,<br>
-      <code>CL_SIGNED_INT16</code> and<br>
-      <code>CL_SIGNED_INT32</code>.</p>
+<p class="tableblock">      <code>CL_SIGNED_<wbr>INT8</code>,<br>
+      <code>CL_SIGNED_<wbr>INT16</code> and<br>
+      <code>CL_SIGNED_<wbr>INT32</code>.</p>
 <p class="tableblock">      <strong>write_imageui</strong> can only be used with image objects created with
       <em>image_channel_data_type</em> set to one of the following values:</p>
-<p class="tableblock">      <code>CL_UNSIGNED_INT8</code>,<br>
-      <code>CL_UNSIGNED_INT16</code> and<br>
-      <code>CL_UNSIGNED_INT32</code>.</p>
-<p class="tableblock">      The behavior of <strong>write_imagef</strong>, <strong>write_imagei</strong> and <strong>write_imageui</strong> for
+<p class="tableblock">      <code>CL_UNSIGNED_<wbr>INT8</code>,<br>
+      <code>CL_UNSIGNED_<wbr>INT16</code> and<br>
+      <code>CL_UNSIGNED_<wbr>INT32</code>.</p>
+<p class="tableblock">      The behavior of <strong>write_imagef</strong>,
+<strong>write_imageh</strong>,
+      <strong>write_imagei</strong> and <strong>write_imageui</strong> for
       image objects created with <em>image_channel_data_type</em> values not
       specified in the description above or with <em>x</em> and <em>y</em> coordinate
       values that are not in the range [0, image width-1] and [0, image
-      height-1], respectively, is undefined.</p></td>
+      height-1], respectively, is undefined.</p>
+<p class="tableblock">      <strong>write_imageh</strong> <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">requires</a> support for the
+      <code>cl_khr_<wbr>fp16</code> extension macro.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">void <strong>write_imagef</strong>(<em>aQual</em> image2d_array_t <em>image</em>, int4 <em>coord</em>,
+<td class="tableblock halign-left valign-top"><p class="tableblock">void <strong>write_imagef</strong>(<br>
+  <em>aQual</em> image2d_array_t <em>image</em>,<br>
+  int4 <em>coord</em>,<br>
   float4 <em>color</em>)<br>
-  void <strong>write_imagei</strong>(<em>aQual</em> image2d_array_t <em>image</em>, int4 <em>coord</em>,
+  void <strong>write_imageh</strong>(<br>
+  <em>aQual</em> image2d_array_t <em>image</em>,<br>
+  int4 <em>coord</em>,<br>
+  half4 <em>color</em>)<br>
+  void <strong>write_imagei</strong>(<br>
+  <em>aQual</em> image2d_array_t <em>image</em>,<br>
+  int4 <em>coord</em>,<br>
   int4 <em>color</em>)<br>
-  void <strong>write_imageui</strong>(<em>aQual</em> image2d_array_t <em>image</em>, int4 <em>coord</em>,
+  void <strong>write_imageui</strong>(<br>
+  <em>aQual</em> image2d_array_t <em>image</em>,<br>
+  int4 <em>coord</em>,<br>
   uint4 <em>color</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Write <em>color</em> value to location specified by <em>coord.xy</em> in the 2D
       image identified by <em>coord.z</em> in the 2D image array specified by
@@ -845,46 +892,72 @@ For write functions this may be <code>write_only</code> or <code>read_write</cod
       <em>coord.x</em>, <em>coord.y</em> and <em>coord.z</em> are considered to be unnormalized
       coordinates, and must be in the range [0, image width-1] and [0, image
       height-1], and [0, image number of layers-1], respectively.</p>
-<p class="tableblock">      <strong>write_imagef</strong> can only be used with image objects created with
+<p class="tableblock">      <strong>write_imagef</strong>
+and <strong>write_imageh</strong>
+      can only be used with image objects created with
       <em>image_channel_data_type</em> set to one of the pre-defined packed formats
-      or set to <code>CL_SNORM_INT8</code>, <code>CL_UNORM_INT8</code>, <code>CL_SNORM_INT16</code>,
-      <code>CL_UNORM_INT16</code>, <code>CL_HALF_FLOAT</code> or <code>CL_FLOAT</code>.
+      or set to <code>CL_SNORM_<wbr>INT8</code>, <code>CL_UNORM_<wbr>INT8</code>, <code>CL_SNORM_<wbr>INT16</code>,
+      <code>CL_UNORM_<wbr>INT16</code>, <code>CL_HALF_<wbr>FLOAT</code> or <code>CL_FLOAT</code>.
       Appropriate data format conversion will be done to convert channel
       data from a floating-point value to actual data format in which the
       channels are stored.</p>
 <p class="tableblock">      <strong>write_imagei</strong> can only be used with image objects created with
       <em>image_channel_data_type</em> set to one of the following values:</p>
-<p class="tableblock">      <code>CL_SIGNED_INT8</code>,<br>
-      <code>CL_SIGNED_INT16</code> and<br>
-      <code>CL_SIGNED_INT32</code>.</p>
+<p class="tableblock">      <code>CL_SIGNED_<wbr>INT8</code>,<br>
+      <code>CL_SIGNED_<wbr>INT16</code> and<br>
+      <code>CL_SIGNED_<wbr>INT32</code>.</p>
 <p class="tableblock">      <strong>write_imageui</strong> can only be used with image objects created with
       <em>image_channel_data_type</em> set to one of the following values:</p>
-<p class="tableblock">      <code>CL_UNSIGNED_INT8</code>,<br>
-      <code>CL_UNSIGNED_INT16</code> and<br>
-      <code>CL_UNSIGNED_INT32</code>.</p>
-<p class="tableblock">      The behavior of <strong>write_imagef</strong>, <strong>write_imagei</strong> and <strong>write_imageui</strong> for
+<p class="tableblock">      <code>CL_UNSIGNED_<wbr>INT8</code>,<br>
+      <code>CL_UNSIGNED_<wbr>INT16</code> and<br>
+      <code>CL_UNSIGNED_<wbr>INT32</code>.</p>
+<p class="tableblock">      The behavior of <strong>write_imagef</strong>,
+<strong>write_imageh</strong>,
+      <strong>write_imagei</strong> and <strong>write_imageui</strong> for
       image objects created with <em>image_channel_data_type</em> values not
       specified in the description above or with (<em>x</em>, <em>y</em>, <em>z</em>) coordinate
       values that are not in the range [0, image width-1], [0, image
       height-1], and [0, image number of layers-1], respectively, is
-      undefined.</p></td>
+      undefined.</p>
+<p class="tableblock">      <strong>write_imageh</strong> <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">requires</a> support for the
+      <code>cl_khr_<wbr>fp16</code> extension macro.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">void <strong>write_imagef</strong>(<em>aQual</em> image1d_t <em>image</em>, int <em>coord</em>,
+<td class="tableblock halign-left valign-top"><p class="tableblock">void <strong>write_imagef</strong>(<br>
+  <em>aQual</em> image1d_t <em>image</em>,<br>
+  int <em>coord</em>,<br>
   float4 <em>color</em>)<br>
-  void <strong>write_imagei</strong>(<em>aQual</em> image1d_t <em>image</em>, int <em>coord</em>,
+  void <strong>write_imageh</strong>(<br>
+  <em>aQual</em> image1d_t <em>image</em>,<br>
+  int <em>coord</em>,<br>
+  half4 <em>color</em>)<br>
+  void <strong>write_imagei</strong>(<br>
+  <em>aQual</em> image1d_t <em>image</em>,<br>
+  int <em>coord</em>,<br>
   int4 <em>color</em>)<br>
-  void <strong>write_imageui</strong>(<em>aQual</em> image1d_t <em>image</em>, int <em>coord</em>,
+  void <strong>write_imageui</strong>(<br>
+  <em>aQual</em> image1d_t <em>image</em>,<br>
+  int <em>coord</em>,<br>
   uint4 <em>color</em>)<br>
-  void <strong>write_imagef</strong>(<em>aQual</em> image1d_buffer_t <em>image</em>, int <em>coord</em>,
+  void <strong>write_imagef</strong>(<br>
+  <em>aQual</em> image1d_buffer_t <em>image</em>,<br>
+  int <em>coord</em>,<br>
   float4 <em>color</em>)<br>
-  void <strong>write_imagei</strong>(<em>aQual</em> image1d_buffer_t <em>image</em>, int <em>coord</em>,
+  void <strong>write_imageh</strong>(<br>
+  <em>aQual</em> image1d_buffer_t <em>image</em>,<br>
+  int <em>coord</em>,<br>
+  half4 <em>color</em>)<br>
+  void <strong>write_imagei</strong>(<br>
+  <em>aQual</em> image1d_buffer_t <em>image</em>,<br>
+  int <em>coord</em>,<br>
   int4 <em>color</em>)<br>
-  void <strong>write_imageui</strong>(<em>aQual</em> image1d_buffer_t <em>image</em>, int <em>coord</em>,
+  void <strong>write_imageui</strong>(<br>
+  <em>aQual</em> image1d_buffer_t <em>image</em>,<br>
+  int <em>coord</em>,<br>
   uint4 <em>color</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Write <em>color</em> value to location specified by <em>coord</em> in the 1D image
       or 1D image buffer object specified by <em>image</em>.
@@ -892,39 +965,55 @@ For write functions this may be <code>write_only</code> or <code>read_write</cod
       done before writing the color value.
       <em>coord</em> is considered to be an unnormalized coordinate, and must be in
       the range [0, image width-1].</p>
-<p class="tableblock">      <strong>write_imagef</strong> can only be used with image objects created with
+<p class="tableblock">      <strong>write_imagef</strong>
+and <strong>write_imageh</strong>
+      can only be used with image objects created with
       <em>image_channel_data_type</em> set to one of the pre-defined packed formats
-      or set to <code>CL_SNORM_INT8</code>, <code>CL_UNORM_INT8</code>, <code>CL_SNORM_INT16</code>,
-      <code>CL_UNORM_INT16</code>, <code>CL_HALF_FLOAT</code> or <code>CL_FLOAT</code>.
+      or set to <code>CL_SNORM_<wbr>INT8</code>, <code>CL_UNORM_<wbr>INT8</code>, <code>CL_SNORM_<wbr>INT16</code>,
+      <code>CL_UNORM_<wbr>INT16</code>, <code>CL_HALF_<wbr>FLOAT</code> or <code>CL_FLOAT</code>.
       Appropriate data format conversion will be done to convert channel
       data from a floating-point value to actual data format in which the
       channels are stored.</p>
 <p class="tableblock">      <strong>write_imagei</strong> can only be used with image objects created with
       <em>image_channel_data_type</em> set to one of the following values:</p>
-<p class="tableblock">      <code>CL_SIGNED_INT8</code>,<br>
-      <code>CL_SIGNED_INT16</code> and<br>
-      <code>CL_SIGNED_INT32</code>.</p>
+<p class="tableblock">      <code>CL_SIGNED_<wbr>INT8</code>,<br>
+      <code>CL_SIGNED_<wbr>INT16</code> and<br>
+      <code>CL_SIGNED_<wbr>INT32</code>.</p>
 <p class="tableblock">      <strong>write_imageui</strong> can only be used with image objects created with
       <em>image_channel_data_type</em> set to one of the following values:</p>
-<p class="tableblock">      <code>CL_UNSIGNED_INT8</code>,<br>
-      <code>CL_UNSIGNED_INT16</code> and<br>
-      <code>CL_UNSIGNED_INT32</code>.</p>
-<p class="tableblock">      The behavior of <strong>write_imagef</strong>, <strong>write_imagei</strong> and <strong>write_imageui</strong> for
+<p class="tableblock">      <code>CL_UNSIGNED_<wbr>INT8</code>,<br>
+      <code>CL_UNSIGNED_<wbr>INT16</code> and<br>
+      <code>CL_UNSIGNED_<wbr>INT32</code>.</p>
+<p class="tableblock">      The behavior of <strong>write_imagef</strong>,
+<strong>write_imageh</strong>,
+      <strong>write_imagei</strong> and <strong>write_imageui</strong> for
       image objects created with <em>image_channel_data_type</em> values not
       specified in the description above, or with a coordinate value that is
       not in the range [0, image width-1], is undefined.</p>
-<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for OpenCL C 1.2 or newer.</p></td>
+<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for OpenCL C 1.2 or newer.</p>
+<p class="tableblock">      <strong>write_imageh</strong> <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">requires</a> support for the
+      <code>cl_khr_<wbr>fp16</code> extension macro.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">void <strong>write_imagef</strong>(<em>aQual</em> image1d_array_t <em>image</em>, int2 <em>coord</em>,
+<td class="tableblock halign-left valign-top"><p class="tableblock">void <strong>write_imagef</strong>(<br>
+  <em>aQual</em> image1d_array_t <em>image</em>,<br>
+  int2 <em>coord</em>,<br>
   float4 <em>color</em>)<br>
-  void <strong>write_imagei</strong>(<em>aQual</em> image1d_array_t <em>image</em>, int2 <em>coord</em>,
+  void <strong>write_imageh</strong>(<br>
+  <em>aQual</em> image1d_array_t <em>image</em>,<br>
+  int2 <em>coord</em>,<br>
+  half4 <em>color</em>)<br>
+  void <strong>write_imagei</strong>(<br>
+  <em>aQual</em> image1d_array_t <em>image</em>,<br>
+  int2 <em>coord</em>,<br>
   int4 <em>color</em>)<br>
-  void <strong>write_imageui</strong>(<em>aQual</em> image1d_array_t <em>image</em>, int2 <em>coord</em>,
+  void <strong>write_imageui</strong>(<br>
+  <em>aQual</em> image1d_array_t <em>image</em>,<br>
+  int2 <em>coord</em>,
   uint4 <em>color</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Write <em>color</em> value to location specified by <em>coord.x</em> in the 1D image
       identified by <em>coord.y</em> in the 1D image array specified by <em>image</em>.
@@ -933,24 +1022,28 @@ For write functions this may be <code>write_only</code> or <code>read_write</cod
       <em>coord.x</em> and <em>coord.y</em> are considered to be unnormalized coordinates
       and must be in the range [0, image width-1] and [0, image number of
       layers-1], respectively.</p>
-<p class="tableblock">      <strong>write_imagef</strong> can only be used with image objects created with
+<p class="tableblock">      <strong>write_imagef</strong>
+and <strong>write_imageh</strong>
+      can only be used with image objects created with
       <em>image_channel_data_type</em> set to one of the pre-defined packed formats
-      or set to <code>CL_SNORM_INT8</code>, <code>CL_UNORM_INT8</code>, <code>CL_SNORM_INT16</code>,
-      <code>CL_UNORM_INT16</code>, <code>CL_HALF_FLOAT</code> or <code>CL_FLOAT</code>.
+      or set to <code>CL_SNORM_<wbr>INT8</code>, <code>CL_UNORM_<wbr>INT8</code>, <code>CL_SNORM_<wbr>INT16</code>,
+      <code>CL_UNORM_<wbr>INT16</code>, <code>CL_HALF_<wbr>FLOAT</code> or <code>CL_FLOAT</code>.
       Appropriate data format conversion will be done to convert channel
       data from a floating-point value to actual data format in which the
       channels are stored.</p>
 <p class="tableblock">      <strong>write_imagei</strong> can only be used with image objects created with
       <em>image_channel_data_type</em> set to one of the following values:</p>
-<p class="tableblock">      <code>CL_SIGNED_INT8</code>,<br>
-      <code>CL_SIGNED_INT16</code> and<br>
-      <code>CL_SIGNED_INT32</code>.</p>
+<p class="tableblock">      <code>CL_SIGNED_<wbr>INT8</code>,<br>
+      <code>CL_SIGNED_<wbr>INT16</code> and<br>
+      <code>CL_SIGNED_<wbr>INT32</code>.</p>
 <p class="tableblock">      <strong>write_imageui</strong> can only be used with image objects created with
       <em>image_channel_data_type</em> set to one of the following values:</p>
-<p class="tableblock">      <code>CL_UNSIGNED_INT8</code>,<br>
-      <code>CL_UNSIGNED_INT16</code> and<br>
-      <code>CL_UNSIGNED_INT32</code>.</p>
-<p class="tableblock">      The behavior of <strong>write_imagef</strong>, <strong>write_imagei</strong> and <strong>write_imageui</strong> for
+<p class="tableblock">      <code>CL_UNSIGNED_<wbr>INT8</code>,<br>
+      <code>CL_UNSIGNED_<wbr>INT16</code> and<br>
+      <code>CL_UNSIGNED_<wbr>INT32</code>.</p>
+<p class="tableblock">      The behavior of <strong>write_imagef</strong>,
+<strong>write_imageh</strong>,
+      <strong>write_imagei</strong> and <strong>write_imageui</strong> for
       image objects created with <em>image_channel_data_type</em> values not
       specified in the description above or with (<em>x</em>, <em>y</em>) coordinate
       values that are not in the range [0, image width-1] and [0, image
@@ -962,7 +1055,9 @@ For write functions this may be <code>write_only</code> or <code>read_write</cod
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">void <strong>write_imagef</strong>(<em>aQual</em> image2d_depth_t <em>image</em>, int2 <em>coord</em>,
+<td class="tableblock halign-left valign-top"><p class="tableblock">void <strong>write_imagef</strong>(<br>
+  <em>aQual</em> image2d_depth_t <em>image</em>,<br>
+  int2 <em>coord</em>,<br>
   float <em>depth</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Write <em>depth</em> value to location specified by <em>coord.xy</em> in the 2D
       depth image object specified by <em>image</em>.
@@ -972,7 +1067,7 @@ For write functions this may be <code>write_only</code> or <code>read_write</cod
       and must be in the range [0, image width-1], and [0, image height-1],
       respectively.</p>
 <p class="tableblock">      <strong>write_imagef</strong> can only be used with image objects created with
-      <em>image_channel_data_type</em> set to <code>CL_UNORM_INT16</code>, <code>CL_UNORM_INT24</code> or
+      <em>image_channel_data_type</em> set to <code>CL_UNORM_<wbr>INT16</code>, <code>CL_UNORM_<wbr>INT24</code> or
       <code>CL_FLOAT</code>.
       Appropriate data format conversion will be done to convert depth valye
       from a floating-point value to actual data format associated with the
@@ -982,15 +1077,17 @@ For write functions this may be <code>write_only</code> or <code>read_write</cod
       specified in the description above or with (<em>x</em>, <em>y</em>) coordinate
       values that are not in the range [0, image width-1] and [0, image
       height-1], respectively, is undefined.</p>
-<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for OpenCL C 2.0 or newer, also see
-      <code>cl_khr_depth_images</code> extension.</p></td>
+<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for OpenCL C 2.0 or newer, or for
+      the <code>cl_khr_<wbr>depth_<wbr>images</code> extension macro.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">void <strong>write_imagef</strong>(<em>aQual</em> image2d_array_depth_t <em>image</em>, int4 <em>coord</em>,
+<td class="tableblock halign-left valign-top"><p class="tableblock">void <strong>write_imagef</strong>(<br>
+  <em>aQual</em> image2d_array_depth_t <em>image</em>,<br>
+  int4 <em>coord</em>,<br>
   float <em>depth</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Write <em>depth</em> value to location specified by <em>coord.xy</em> in the 2D
       image identified by <em>coord.z</em> in the 2D depth image array specified by
@@ -1001,7 +1098,7 @@ For write functions this may be <code>write_only</code> or <code>read_write</cod
       coordinates, and must be in the range [0, image width-1], [0, image
       height-1], and [0, image number of layers-1], respectively.</p>
 <p class="tableblock">      <strong>write_imagef</strong> can only be used with image objects created with
-      <em>image_channel_data_type</em> set to <code>CL_UNORM_INT16</code>, <code>CL_UNORM_INT24</code> or
+      <em>image_channel_data_type</em> set to <code>CL_UNORM_<wbr>INT16</code>, <code>CL_UNORM_<wbr>INT24</code> or
       <code>CL_FLOAT</code>.
       Appropriate data format conversion will be done to convert depth valye
       from a floating-point value to actual data format associated with the
@@ -1011,52 +1108,254 @@ For write functions this may be <code>write_only</code> or <code>read_write</cod
       specified in the description above or with (<em>x</em>, <em>y</em>, <em>z</em>) coordinate
       values that are not in the range [0, image width-1], [0, image
       height-1], [0, image number of layers-1], respectively, is undefined.</p>
-<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for OpenCL C 2.0 or newer, also see
-      <code>cl_khr_depth_images</code> extension.</p></td>
+<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for OpenCL C 2.0 or newer, or for
+      the <code>cl_khr_<wbr>depth_<wbr>images</code> extension macro.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">void <strong>write_imagef</strong>(<em>aQual</em> image3d_t <em>image</em>, int4 <em>coord</em>,
+<td class="tableblock halign-left valign-top"><p class="tableblock">void <strong>write_imagef</strong>(<br>
+  <em>aQual</em> image3d_t <em>image</em>,<br>
+  int4 <em>coord</em>,<br>
   float4 <em>color</em>)<br>
-  void <strong>write_imagei</strong>(<em>aQual</em> image3d_t <em>image</em>, int4 <em>coord</em>,
+  void <strong>write_imageh</strong>(<br>
+  <em>aQual</em> image3d_t <em>image</em>,<br>
+  int4 <em>coord</em>,<br>
+  half4 <em>color</em>)<br>
+  void <strong>write_imagei</strong>(<br>
+  <em>aQual</em> image3d_t <em>image</em>,<br>
+  int4 <em>coord</em>,<br>
   int4 <em>color</em>)<br>
-  void <strong>write_imageui</strong>(<em>aQual</em> image3d_t <em>image</em>, int4 <em>coord</em>,
+  void <strong>write_imageui</strong>(<br>
+  <em>aQual</em> image3d_t <em>image</em>,<br>
+  int4 <em>coord</em>,<br>
   uint4 <em>color</em>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Write color value to location specified by <em>coord.xyz</em> in the 3D image
-      object specified by <em>image</em>.
+<td class="tableblock halign-left valign-top"><p class="tableblock">Write <em>color</em> value to the location specified by <em>coord.xyz</em> in the 3D
+      image object specified by <em>image</em>.
       Appropriate data format conversion to the specified image format is
       done before writing the color value.
       <em>coord.x</em>, <em>coord.y</em> and <em>coord.z</em> are considered to be unnormalized
       coordinates, and must be in the range [0, image width-1], [0, image
       height-1], and [0, image depth-1], respectively.</p>
-<p class="tableblock">      <strong>write_imagef</strong> can only be used with image objects created with
-      image_channel_data_type set to one of the pre-defined packed formats
-      or set to <code>CL_SNORM_INT8</code>, <code>CL_UNORM_INT8</code>, <code>CL_SNORM_INT16</code>,
-      <code>CL_UNORM_INT16</code>, <code>CL_HALF_FLOAT</code> or <code>CL_FLOAT</code>.
+<p class="tableblock">      <strong>write_imagef</strong>
+and <strong>write_imageh</strong>
+      can only be used with image objects created with
+      <em>image_channel_data_type</em> set to one of the pre-defined packed formats
+      or set to <code>CL_SNORM_<wbr>INT8</code>, <code>CL_UNORM_<wbr>INT8</code>, <code>CL_SNORM_<wbr>INT16</code>,
+      <code>CL_UNORM_<wbr>INT16</code>, <code>CL_HALF_<wbr>FLOAT</code> or <code>CL_FLOAT</code>.
       Appropriate data format conversion will be done to convert channel
       data from a floating-point value to actual data format in which the
       channels are stored.</p>
 <p class="tableblock">      <strong>write_imagei</strong> can only be used with image objects created with
-      image_channel_data_type set to one of the following values:</p>
-<p class="tableblock">      <code>CL_SIGNED_INT8</code>,<br>
-      <code>CL_SIGNED_INT16</code> and<br>
-      <code>CL_SIGNED_INT32</code>.</p>
+      <em>image_channel_data_type</em> set to one of the following values:</p>
+<p class="tableblock">      <code>CL_SIGNED_<wbr>INT8</code>,<br>
+      <code>CL_SIGNED_<wbr>INT16</code>, or<br>
+      <code>CL_SIGNED_<wbr>INT32</code>.</p>
 <p class="tableblock">      <strong>write_imageui</strong> can only be used with image objects created with
-      image_channel_data_type set to one of the following values:</p>
-<p class="tableblock">      <code>CL_UNSIGNED_INT8</code>,<br>
-      <code>CL_UNSIGNED_INT16</code> and<br>
-      <code>CL_UNSIGNED_INT32</code>.</p>
-<p class="tableblock">      The behavior of <strong>write_imagef</strong>, <strong>write_imagei</strong> and <strong>write_imageui</strong> for
+      <em>image_channel_data_type</em> set to one of the following values:</p>
+<p class="tableblock">      <code>CL_UNSIGNED_<wbr>INT8</code>,<br>
+      <code>CL_UNSIGNED_<wbr>INT16</code>, or<br>
+      <code>CL_UNSIGNED_<wbr>INT32</code>.</p>
+<p class="tableblock">      The behavior of <strong>write_imagef</strong>,
+<strong>write_imageh</strong>,
+      <strong>write_imagei</strong> and <strong>write_imageui</strong> for
       image objects with <em>image_channel_data_type</em> values not specified in
       the description above or with (<em>x</em>, <em>y</em>, <em>z</em>) coordinate values that
       are not in the range [0, image width-1], [0, image height-1], and [0,
       image depth-1], respectively, is undefined.</p>
 <p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for OpenCL C 2.0, or OpenCL C 3.0 or
       newer and the <code>__opencl_c_<wbr>3d_<wbr>image_<wbr>writes</code> feature, or the
-      <code>cl_khr_3d_image_writes</code> extension.</p></td>
+      <code>cl_khr_<wbr>3d_<wbr>image_<wbr>writes</code> extension.</p>
+<p class="tableblock">      <strong>write_imageh</strong> <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">requires</a> support for the
+      <code>cl_khr_<wbr>fp16</code> extension macro.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-opencl_c" data-lang="opencl_c">void write_imagef(
+  write_only image2d_t image,
+  int2 coord,
+  int lod,
+  float4 color)
+
+void write_imagei(
+  write_only image2d_t image,
+  int2 coord,
+  int lod,
+  int4 color)
+
+void write_imageui(
+  write_only image2d_t image,
+  int2 coord,
+  int lod,
+  uint4 color)
+
+void write_imagef(
+  write_only image2d_depth_t image,
+  int2 coord,
+  int lod,
+  float depth)</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Write <em>color</em> value to location specified by <em>coord.xy</em> in the mip
+      level specified by <em>lod</em> in the 2D image object specified by <em>image</em>.
+      Appropriate data format conversion to the specified image format is
+      done before writing the color value.</p>
+<p class="tableblock">      <em>lod</em> must be in the range [0, <em>miplevels</em>-1].
+      <em>coord.x</em> and <em>coord.y</em> are considered to be unnormalized coordinates
+      and must be in the range [0, <em>mipwidth</em>-1] and [0, <em>mipheight</em>-1]
+      respectively.
+      Behavior is undefined if <em>lod</em>, <em>coord.x</em>, or <em>coord.y</em> is not in
+      range.</p>
+<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for the
+      <code>cl_khr_<wbr>mipmap_<wbr>image_<wbr>writes</code> extension macro.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-opencl_c" data-lang="opencl_c">void write_imagef(
+  write_only image1d_t image,
+  int coord,
+  int lod,
+  float4 color)
+
+void write_imagei(
+  write_only image1d_t image,
+  int coord,
+  int lod,
+  int4 color)
+
+void write_imageui(
+  write_only image1d_t image,
+  int coord,
+  int lod,
+  uint4 color)</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Write <em>color</em> value to location specified by <em>coord</em> in the mip level
+      specified by <em>lod</em> in the 1D image object specified by <em>image</em>.
+      Appropriate data format conversion to the specified image format is
+      done before writing the color value.</p>
+<p class="tableblock">      <em>lod</em> must be in the range [0, <em>miplevels</em>-1].
+      <em>coord</em> is considered to be an unnormalized coordinate and must be in
+      the range [0, <em>mipwidth</em>-1].
+      Behavior is undefined if <em>lod</em> or <em>coord</em> is not in range.</p>
+<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for the
+      <code>cl_khr_<wbr>mipmap_<wbr>image_<wbr>writes</code> extension macro.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-opencl_c" data-lang="opencl_c">void write_imagef(
+  write_only image1d_array_t image,
+  int2 coord,
+  int lod,
+  float4 color)
+
+void write_imagei(
+  write_only image1d_array_t image,
+  int2 coord,
+  int lod,
+  int4 color)
+
+void write_imageui(
+  write_only image1d_array_t image,
+  int2 coord,
+  int lod,
+  uint4 color)</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Write <em>color</em> value to location specified by <em>coord.x</em> in the 1D image
+      identified by <em>coord.y</em> and mip level <em>lod</em> in the 1D image array
+      specified by <em>image</em>.
+      Appropriate data format conversion to the specified image format is done
+      before writing the color value.</p>
+<p class="tableblock">      <em>lod</em> must be in the range [0, <em>miplevels</em>-1].
+      <em>coord.x</em> and <em>coord.y</em> are considered to be unnormalized coordinates
+      and must be in the range [0, <em>mipwidth</em>-1] and [0, <em>miplayers</em> -1]
+      respectively.
+      Behavior is undefined if <em>lod</em>, <em>coord.x</em>, or <em>coord.y</em> is not in range.</p>
+<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for the
+      <code>cl_khr_<wbr>mipmap_<wbr>image_<wbr>writes</code> extension macro.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-opencl_c" data-lang="opencl_c">void write_imagef(
+  write_only image2d_array_t image,
+  int4 coord,
+  int lod,
+  float4 color)
+
+void write_imagei(
+  write_only image2d_array_t image,
+  int4 coord,
+  int lod,
+  int4 color)
+
+void write_imageui(
+  write_only image2d_array_t image,
+  int4 coord,
+  int lod,
+  uint4 color)
+
+void write_imagef(
+  write_only image2d_array_depth_t image,
+  int4 coord,
+  int lod,
+  float depth)</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Write <em>color</em> value to location specified by <em>coord.xy</em> in the 2D image
+      identified by <em>coord.z</em> and mip level <em>lod</em> in the 2D image array
+      specified by <em>image</em>.
+      Appropriate data format conversion to the specified image format is done
+      before writing the color value.</p>
+<p class="tableblock">      <em>lod</em> must be in the range [0, <em>miplevels</em>-1].
+      <em>coord.x</em>, <em>coord.y</em> and <em>coord.z</em> are considered to be unnormalized
+      coordinates and must be in the range [0, <em>mipwidth</em>-1], [0,
+      <em>mipheight</em>-1], and [0, <em>miplayers</em>-1] respectively.
+      Behavior is undefined if
+      <em>lod</em>, <em>coord.x</em>, <em>coord.y</em>, or <em>coord.z</em> is not in range.</p>
+<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for the
+      <code>cl_khr_<wbr>mipmap_<wbr>image_<wbr>writes</code> extension macro.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-opencl_c" data-lang="opencl_c">void write_imagef(
+  write_only image3d_t image,
+  int4 coord,
+  int lod,
+  float4 color)
+
+void write_imagei(
+  write_only image3d_t image,
+  int4 coord,
+  int lod,
+  int4 color)
+
+void write_imageui(
+  write_only image3d_t image,
+  int4 coord,
+  int lod,
+  uint4 color)</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Write <em>color</em> value to location specified by <em>coord.xyz</em> and mip level
+      <em>lod</em> in the 3D image object specified by <em>image</em>.
+      Appropriate data format conversion to the specified image format is done
+      before writing the color value.</p>
+<p class="tableblock">      <em>lod</em> must be in the range [0, <em>miplevels</em>-1].
+      <em>coord.x</em>, <em>coord.y</em> and <em>coord.z</em> are considered to be unnormalized
+      coordinates and must be in the range [0, <em>mipwidth</em>-1], [0,
+      <em>mipheight</em>-1] and [0, <em>mipdepth</em>-1] respectively.
+      Behavior is undefined if <em>lod</em>, <em>coord.x</em>, <em>coord.y</em>, or <em>coord.z</em> is
+      not in range.</p>
+<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for the
+      <code>cl_khr_<wbr>mipmap_<wbr>image_<wbr>writes</code> extension macro.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1086,7 +1385,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -1096,8 +1395,8 @@ Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

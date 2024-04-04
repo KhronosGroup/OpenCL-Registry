@@ -767,17 +767,40 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <h1>cl_khr_terminate_context(3) Manual Page</h1>
 <h2 id="_name">Name</h2>
 <div class="sectionbody">
-<p>cl_khr_terminate_context - Extension allowing an API to release a context.</p>
+<p>cl_khr_terminate_context - OpenCL extension</p>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_c_specification"><a class="anchor" href="#_c_specification"></a>C Specification</h2>
+<h2 id="_ratification_status"><a class="anchor" href="#_ratification_status"></a>Ratification Status</h2>
 <div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#pragma OPENCL EXTENSION cl_khr_terminate_context : enable</code></pre>
+<div class="paragraph">
+<p>Ratified</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_extension_and_version_dependencies"><a class="anchor" href="#_extension_and_version_dependencies"></a>Extension and Version Dependencies</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>None</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_other_extension_metadata"><a class="anchor" href="#_other_extension_metadata"></a>Other Extension Metadata</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Last Modified Date</strong></dt>
+<dd>
+<p>2020-04-21</p>
+</dd>
+<dt class="hdlist1"><strong>IP Status</strong></dt>
+<dd>
+<p>No known IP claims.</p>
+</dd>
+</dl>
 </div>
 </div>
 </div>
@@ -785,38 +808,118 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
+<p>The <code>cl_khr_<wbr>terminate_<wbr>context</code> extension provides a new query to check
+whether a device can terminate an OpenCL context, and adds an API to
+terminate a context.</p>
+</div>
+<div class="paragraph">
 <p>Today, OpenCL provides an API to release a context.
-This operation is done only after all queues, memory object, programs and kernels are released, which in turn might wait for all ongoing operations to complete.
-However, there are cases in which a fast release is required, or release operation cannot be done, as commands are stuck in mid execution.
-An example of the first case can be program termination due to exception, or quick shutdown due to low power.
-Examples of the second case are when a kernel is running too long, or gets stuck, or it may result from user action which makes the results of the computation unnecessary.</p>
+This operation is done only after all queues, memory object, programs and
+kernels are released, which in turn might wait for all ongoing operations to
+complete.
+However, there are cases in which a fast release is required, or release
+operation cannot be done, as commands are stuck in mid execution.
+An example of the first case can be program termination due to exception, or
+quick shutdown due to low power.
+Examples of the second case are when a kernel is running too long, or gets
+stuck, or it may result from user action which makes the results of the
+computation unnecessary.</p>
 </div>
 <div class="paragraph">
-<p>In many cases, the driver or the device is capable of speeding up the closure of ongoing operations when the results are no longer required in a much more expedient manner than waiting for all previously enqueued operations to finish.</p>
+<p>In many cases, the driver or the device is capable of speeding up the
+closure of ongoing operations when the results are no longer required in a
+much more expedient manner than waiting for all previously enqueued
+operations to finish.</p>
 </div>
-<div class="paragraph">
-<p>This extension implements a new query to check whether a device can terminate an OpenCL context and adds an API to terminate a context.</p>
 </div>
-<div class="paragraph">
-<p>This extensions enables the following function:</p>
 </div>
+<div class="sect1">
+<h2 id="_new_commands"><a class="anchor" href="#_new_commands"></a>New Commands</h2>
+<div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p><a href="clTerminateContextKHR.html">clTerminateContextKHR</a></p>
+<p><strong>clTerminateContextKHR</strong></p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>This extensions adds changes to the following:</p>
 </div>
+</div>
+<div class="sect1">
+<h2 id="_new_types"><a class="anchor" href="#_new_types"></a>New Types</h2>
+<div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p><a href="clGetDeviceInfo.html">clGetDeviceInfo</a></p>
+<p><code>cl_device_<wbr>terminate_<wbr>capability_<wbr>khr</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_new_enums"><a class="anchor" href="#_new_enums"></a>New Enums</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><code>cl_device_<wbr>info</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_DEVICE_<wbr>TERMINATE_<wbr>CAPABILITY_<wbr>KHR</code></p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><a href="clCreateContext.html">clCreateContext</a></p>
+<p><code>cl_context_<wbr>properties</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_CONTEXT_<wbr>TERMINATE_<wbr>KHR</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>cl_device_<wbr>terminate_<wbr>capability_<wbr>khr</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_DEVICE_<wbr>TERMINATE_<wbr>CAPABILITY_<wbr>CONTEXT_<wbr>KHR</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>New Error codes</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_CONTEXT_<wbr>TERMINATED_<wbr>KHR</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_version_history"><a class="anchor" href="#_version_history"></a>Version History</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Revision 1.0.0, 2020-04-21</p>
+<div class="ulist">
+<ul>
+<li>
+<p>First assigned version.</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -826,7 +929,7 @@ Examples of the second case are when a kernel is running too long, or gets stuck
 <h2 id="_see_also"><a class="anchor" href="#_see_also"></a>See Also</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="clTerminateContextKHR.html">clTerminateContextKHR</a></p>
+<p>No cross-references are available</p>
 </div>
 </div>
 </div>
@@ -834,10 +937,11 @@ Examples of the second case are when a kernel is running too long, or gets stuck
 <h2 id="_document_notes"><a class="anchor" href="#_document_notes"></a>Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Extension Specification at URL</p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#cl_khr_terminate_context" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_terminate_context" class="bare">https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_terminate_context</a></p>
+<p>This page is a generated document.
+Fixes and changes should be made to the generator scripts, not directly.</p>
 </div>
 </div>
 </div>
@@ -845,7 +949,7 @@ Examples of the second case are when a kernel is running too long, or gets stuck
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -855,8 +959,8 @@ Examples of the second case are when a kernel is running too long, or gets stuck
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

@@ -767,17 +767,46 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <h1>cl_khr_gl_msaa_sharing(3) Manual Page</h1>
 <h2 id="_name">Name</h2>
 <div class="sectionbody">
-<p>cl_khr_gl_msaa_sharing - Extends the CL/GL sharing to support GL multi-sampled texture (color or depth).</p>
+<p>cl_khr_gl_msaa_sharing - OpenCL extension</p>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_c_specification"><a class="anchor" href="#_c_specification"></a>C Specification</h2>
+<h2 id="_ratification_status"><a class="anchor" href="#_ratification_status"></a>Ratification Status</h2>
 <div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#pragma OPENCL EXTENSION cl_khr_gl_msaa_sharing : enable</code></pre>
+<div class="paragraph">
+<p>Ratified</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_extension_and_version_dependencies"><a class="anchor" href="#_extension_and_version_dependencies"></a>Extension and Version Dependencies</h2>
+<div class="sectionbody">
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><code><a href="#cl_khr_gl_depth_images">[cl_khr_gl_depth_images]</a></code><br>
+and<br>
+<code><a href="#cl_khr_gl_sharing">[cl_khr_gl_sharing]</a></code><br></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_other_extension_metadata"><a class="anchor" href="#_other_extension_metadata"></a>Other Extension Metadata</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Last Modified Date</strong></dt>
+<dd>
+<p>2020-04-21</p>
+</dd>
+<dt class="hdlist1"><strong>IP Status</strong></dt>
+<dd>
+<p>No known IP claims.</p>
+</dd>
+</dl>
 </div>
 </div>
 </div>
@@ -785,100 +814,59 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This extension name is <code>cl_khr_gl_msaa_sharing</code>.
-This extension requires <a href="cl_khr_gl_depth_images.html">cl_khr_gl_depth_images</a>.</p>
+<p><code>cl_khr_<wbr>gl_<wbr>msaa_<wbr>sharing</code> extends the <code>cl_khr_<wbr>gl_<wbr>sharing</code> extension to
+allow a shared OpenCL/OpenGL image object to be created from an OpenGL
+multi-sampled (&#8220;MSAA&#8221;) color or depth texture.</p>
 </div>
 <div class="paragraph">
-<p>This extension adds read_image and write_image functions to the built-in
-<a href="imageReadFunctions.html">Image Read Functions</a> and
-<a href="imageWriteFunctions.html">Image Write Functions</a>, respectively.</p>
+<p>This extension adds multi-sample support to <strong>clCreateFromGLTexture</strong> and
+<strong>clGetGLTextureInfo</strong>, and allows <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#setting-kernel-arguments" target="_blank" rel="noopener">passing
+multi-sample images to compute kernels</a>.</p>
 </div>
 <div class="paragraph">
-<p>Multi-sample CL image objects (MSAA) can only be read from a kernel.
-Multi-sample CL image objects cannot be used as arguments to <a href="clEnqueueReadImage.html">clEnqueueReadImage</a> ,
-<a href="clEnqueueWriteImage.html">clEnqueueWriteImage</a>,
-<a href="clEnqueueCopyImage.html">clEnqueueCopyImage</a>,
-<a href="clEnqueueCopyImageToBuffer.html">clEnqueueCopyImageToBuffer</a>,
-<a href="clEnqueueCopyBufferToImage.html">clEnqueueCopyBufferToImage</a>,
-<a href="clEnqueueMapImage.html">clEnqueueMapImage</a> and
-<a href="clEnqueueFillImage.html">clEnqueueFillImage</a> and will return a <code>CL_INVALID_OPERATION</code> error.</p>
+<p>This extension requires <code>cl_khr_<wbr>gl_<wbr>depth_<wbr>images</code>.</p>
 </div>
 <div class="paragraph">
-<p>Add the following new data types to table 6.3 in section 6.1.3 of the OpenCL 2.1 specification (see <a href="otherDataTypes.html">otherDataTypes</a>):</p>
+<p>See the <a href="OpenCL_C.html#cl_khr_gl_msaa_sharing">cl_khr_gl_msaa_sharing</a>
+section of the OpenCL C specification for more information.</p>
 </div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>image2d_msaa_t</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>A 2D multi-sample color image.
-      Refer to section 6.13.14 for a detailed description of the built-in functions that use this type.</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>image2d_array_msaa_t</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>A 2D multi-sample color image array.
-      Refer to section 6.13.14 for a detailed description of the built-in functions that use this type.</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>image2d_msaa_depth_t</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>A 2D multi-sample depth image.
-      Refer to section 6.13.14 for a detailed description of the built-in functions that use this type.</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>image2d_array_msaa_depth_t</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>A 2D multi-sample depth image array.
-      Refer to section 6.13.14 for a detailed description of the built-in functions that use this type.</p>
-</div></div></td>
-</tr>
-</tbody>
-</table>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-When a multisample image is accessed in a kernel, the access takes one
-vector of integers describing which pixel to fetch and an integer
-corresponding to the sample numbers describing which sample within the pixel
-to fetch. <em>sample</em> identifies the sample position in the multi-sample image.
-</td>
-</tr>
-</table>
 </div>
-<div class="paragraph">
-<p>For best performance, we recommend that <em>sample</em> be a literal value so it is
-known at compile time and the OpenCL compiler can perform appropriate
-optimizations for multisample reads on the device.</p>
 </div>
-<div class="paragraph">
-<p>No standard sampling instructions are allowed on the multisample image.
-Accessing a coordinate outside the image and/or a sample that is outside the number of samples associated with each pixel in the image is undefined</p>
+<div class="sect1">
+<h2 id="_new_enums"><a class="anchor" href="#_new_enums"></a>New Enums</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><code>cl_gl_<wbr>texture_<wbr>info</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_GL_<wbr>NUM_<wbr>SAMPLES</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_version_history"><a class="anchor" href="#_version_history"></a>Version History</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Revision 1.0.0, 2020-04-21</p>
+<div class="ulist">
+<ul>
+<li>
+<p>First assigned version.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -886,9 +874,7 @@ Accessing a coordinate outside the image and/or a sample that is outside the num
 <h2 id="_see_also"><a class="anchor" href="#_see_also"></a>See Also</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="imageReadFunctions.html">Image Read Functions</a>,
-<a href="imageWriteFunctions.html">Image Write Functions</a>,
-<a href="clGetGLTextureInfo.html">clGetGLTextureInfo</a></p>
+<p>No cross-references are available</p>
 </div>
 </div>
 </div>
@@ -896,10 +882,11 @@ Accessing a coordinate outside the image and/or a sample that is outside the num
 <h2 id="_document_notes"><a class="anchor" href="#_document_notes"></a>Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Extension Specification at URL</p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#cl_khr_gl_msaa_sharing" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_gl_msaa_sharing" class="bare">https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_gl_msaa_sharing</a></p>
+<p>This page is a generated document.
+Fixes and changes should be made to the generator scripts, not directly.</p>
 </div>
 </div>
 </div>
@@ -907,7 +894,7 @@ Accessing a coordinate outside the image and/or a sample that is outside the num
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -917,8 +904,8 @@ Accessing a coordinate outside the image and/or a sample that is outside the num
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

@@ -767,24 +767,42 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <h1>clGetDeviceIDsFromDX9MediaAdapterKHR(3) Manual Page</h1>
 <h2 id="_name">Name</h2>
 <div class="sectionbody">
-<p>clGetDeviceIDsFromDX9MediaAdapterKHR - Query a media adapter for any associated OpenCL devices.</p>
+<p>clGetDeviceIDsFromDX9MediaAdapterKHR - Query media adapter for any associated OpenCL devices</p>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
 <h2 id="_c_specification"><a class="anchor" href="#_c_specification"></a>C Specification</h2>
 <div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">cl_int clGetDeviceIDsFromDX9MediaAdapterKHR(cl_platform_id platform,
-                                            cl_uint num_media_adapters,
-                                            cl_dx9_media_adapter_type_khr *media_adapters_type,
-                                            void *media_adapters,
-                                            cl_dx9_media_adapter_set_khr media_adapter_set,
-                                            cl_uint num_entries,
-                                            cl_device_id *devices,
-                                            cl_int *num_devices)</code></pre>
+<div class="paragraph">
+<p>To query a media adapter for any associated OpenCL devices, call the
+function</p>
 </div>
+<div id="clGetDeviceIDsFromDX9MediaAdapterKHR" class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-opencl" data-lang="opencl">// Provided by cl_khr_dx9_media_sharing
+cl_int clGetDeviceIDsFromDX9MediaAdapterKHR(
+    cl_platform_id platform,
+    cl_uint num_media_adapters,
+    cl_dx9_media_adapter_type_khr* media_adapter_type,
+    void* media_adapters,
+    cl_dx9_media_adapter_set_khr media_adapter_set,
+    cl_uint num_entries,
+    cl_device_id* devices,
+    cl_uint* num_devices);</code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<strong>clGetDeviceIDsFromDX9MediaAdapterKHR</strong> is provided by the <code>cl_khr_dx9_media_sharing</code> extension.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -794,125 +812,47 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <div class="ulist">
 <ul>
 <li>
-<p><em>platform</em> - Refers to the platform ID returned by
-<a href="clGetPlatformIDs.html">clGetPlatformIDs</a>.</p>
+<p><em>platform</em> refers to the platform ID returned by <strong>clGetPlatformIDs</strong>.</p>
 </li>
 <li>
-<p><em>num_media_adapters</em> - Specifies the number of media adapters.</p>
+<p><em>num_media_adapters</em> specifies the number of media adapters.</p>
 </li>
 <li>
-<p><em>media_adapters_type</em> - An array of <em>num_media_adapters</em> entries. Each
-entry specifies the type of media adapter and must be one of the values
-described in the table (Table 9.10.1) below.</p>
-<div class="openblock">
-<div class="content">
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">cl_dx9_media_adapter_type_khr</th>
-<th class="tableblock halign-left valign-top">Type of media adapters</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_ADAPTER_D3D9_KHR</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>IDirect3DDevice9 *</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_ADAPTER_D3D9EX_KHR</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>IDirect3DDevice9Ex *</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_ADAPTER_DXVA_KHR</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>IDXVAHD_Device *</p>
-</div></div></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><em>media_adapters_type</em> is an array of <em>num_media_adapters</em> entries.
+Each entry specifies the type of media adapter and must be one of the
+values described in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#dx9-media-adapter-types" target="_blank" rel="noopener">media adapter type
+table</a> below.</p>
 </li>
 <li>
-<p><em>media_adapters</em> - An array of <em>num_media_adapters</em> entries. Each entry
-specifies the actual adapter whose type is specified by
-<code>media_adapter_type</code>. The <em>media_adapters</em> must be one of the types
-describes in the table above.</p>
+<p><em>media_adapters</em> is an array of <em>num_media_adapters</em> entries.
+Each entry specifies the actual adapter whose type is specified by
+<em>media_adapter_type</em>.
+The <em>media_adapters</em> must be one of the types described in the
+<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#dx9-media-adapter-types" target="_blank" rel="noopener">cl_dx9_media_adapter_type_khr values</a>
+table.</p>
 </li>
 <li>
-<p><em>media_adapter_set</em> - Specifies the set of adapters to return and must
-be one of the values described in the table (Table 9.10.2) below.</p>
-<div class="openblock">
-<div class="content">
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">cl_dx9_media_adapter_set_khr</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_PREFERRED_DEVICES_FOR_DX9_MEDIA_ADAPTER_KHR</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>The preferred OpenCL devices associated with the media adapter.</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_ALL_DEVICES_FOR_DX9_MEDIA_ADAPTER_KHR</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_ALL_DEVICES_FOR_MEDIA_DX9_ADAPTER_KHR</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>All OpenCL devices that may interoperate with the media adapter.</p>
-</div></div></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><em>media_adapter_set</em> specifies the set of adapters to return and must be
+one of the values described in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#dx9-media-adapter-sets" target="_blank" rel="noopener">cl_dx9_media_adapter_set_khr values</a> table.</p>
 </li>
 <li>
-<p><em>num_entries</em> - The number of cl_device_id entries that can be added to
-<em>devices</em>. If <em>devices</em> is not NULL, the <em>num_entries</em> must be greater
-than zero.</p>
+<p><em>num_entries</em> is the number of <code>cl_device_<wbr>id</code> entries that can be
+added to <em>devices</em>.
+If <em>devices</em> is not <code>NULL</code>, the <em>num_entries</em> must be greater than zero.</p>
 </li>
 <li>
-<p><em>devices</em> - Returns a list of OpenCL devices found that support the list
-of media adapters specified. The <code>cl_device_id</code> values returned in
-<em>devices</em> can be used to identify a specific OpenCL device. If <em>devices</em>
-is NULL, this argument is ignored. The number of OpenCL devices returned
-is the minimum of the value specified by <em>num_entries</em> or the number of
-OpenCL devices whose type matches <code>device_type</code>.</p>
+<p><em>devices</em> returns a list of OpenCL devices found that support the list
+of media adapters specified.
+The <code>cl_device_<wbr>id</code> values returned in <em>devices</em> can be used to
+identify a specific OpenCL device.
+If <em>devices</em> argument is <code>NULL</code>, this argument is ignored.
+The number of OpenCL devices returned is the minimum of the value
+specified by <em>num_entries</em> or the number of OpenCL devices whose type
+matches <em>device_type</em>.</p>
 </li>
 <li>
-<p><em>num_devices</em> - Returns the number of OpenCL devices. If <em>num_devices</em>
-is NULL, this argument is ignored.</p>
+<p><em>num_devices</em> returns the number of OpenCL devices.
+If <em>num_devices</em> is <code>NULL</code>, this argument is ignored.</p>
 </li>
 </ul>
 </div>
@@ -921,299 +861,97 @@ is NULL, this argument is ignored.</p>
 <div class="sect1">
 <h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>Queries a media adapter for any associated OpenCL devices.
-Adapters with associated OpenCL devices can enable media surface sharing between the two.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_notes"><a class="anchor" href="#_notes"></a>Notes</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>General information about sharing memory objects with DX9 follows.</p>
-</div>
-<div class="paragraph">
-<p>The goal of this extension is to allow applications to use media surfaces as
-OpenCL memory objects. This allows efficient sharing of data between OpenCL
-and selected adapter APIs (only DX9 for now). If this extension is
-supported, an OpenCL image object can be created from a media surface and
-the OpenCL API can be used to execute kernels that read and/or write memory
-objects that are media surfaces. Note that OpenCL memory objects may be
-created from the adapter media surface if and only if the OpenCL context has
-been created from that adapter.</p>
-</div>
-<div class="paragraph">
-<p>If this extension is supported by an implementation, the string
-"cl_khr_dx9_media_sharing" will be present in the <code>CL_PLATFORM_EXTENSIONS</code>
-(see <a href="clGetPlatformInfo.html">clGetPlatformInfo</a>) or <code>CL_DEVICE_EXTENSIONS</code> (see
-<a href="clGetDeviceInfo.html">clGetDeviceInfo</a>).</p>
-</div>
-<div class="paragraph">
-<p>As currently proposed the interfaces for this extension would be provided in
-<code>cl_dx9_media_sharing.h</code>.</p>
-</div>
-<div class="paragraph">
-<div class="title">Surface formats for Media Surface Sharing</div>
-<p>This section includes the D3D surface formats that are supported when the
-adapter type is one of the Direct 3D lineage. Using a D3D surface format not
-listed here is an error. To extend the use of this extension to support
-media adapters beyond DirectX9 tables similar to the ones in this section
-will need to be defined for the surface formats supported by the new media
-adapter. All implementations that support this extension are required to
-support the NV12 surface format, the other surface formats supported are the
-same surface formats that the adapter you are sharing with supports as long
-as they are listed in the tables below (Tables 9.10.3 and 9.10.4).</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
+<table id="dx9-media-adapter-types" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. DirectX 9 object types that may be used by <strong>clGetDeviceIDsFromDX9MediaAdapterKHR</strong></caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">FOUR CC code</th>
-<th class="tableblock halign-left valign-top">CL image format (channel order, channel data type)</th>
+<th class="tableblock halign-left valign-top"><code>cl_dx9_<wbr>media_<wbr>adapter_<wbr>type_<wbr>khr</code></th>
+<th class="tableblock halign-left valign-top">Type of Media Adapter</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>FOURCC('N', 'V', '1', '2'), Plane 0</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_R, CL_UNORM_INT8</code></p>
-</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_ADAPTER_<wbr>D3D9_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_dx9_media_sharing</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>IDirect3DDevice9 *</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>FOURCC('N', 'V', '1', '2'), Plane 1</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_RG, CL_UNORM_INT8</code></p>
-</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_ADAPTER_<wbr>D3D9EX_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_dx9_media_sharing</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>IDirect3DDevice9Ex *</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>FOURCC('Y', 'V', '1', '2'), Plane 0</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_R, CL_UNORM_INT8</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>FOURCC('Y', 'V', '1', '2'), Plane 1</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_R, CL_UNORM_INT8</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>FOURCC('Y', 'V', '1', '2'), Plane 2</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_R, CL_UNORM_INT8</code></p>
-</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_ADAPTER_<wbr>DXVA_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_dx9_media_sharing</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>IDXVAHD_Device *</code></p></td>
 </tr>
 </tbody>
 </table>
-<div class="paragraph">
-<p>In the table above, NV12 Plane 0 corresponds to the luminance (Y) channel
-and Plane 1 corresponds to the UV channels. The YV12 Plane 0 corresponds to
-the Y channel, Plane 1 to the U channel and Plane 2 to the V channel. Note
-that the YUV formats map to <code>CL_R</code> and <code>CL_RG</code> but do not perform any YUV to
-RGB conversion and vice-versa.</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
+<table id="dx9-media-adapter-sets" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 2. Sets of devices queriable using <strong>clGetDeviceIDsFromDX9MediaAdapterKHR</strong></caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">D3D format</th>
-<th class="tableblock halign-left valign-top">CL image format (channel order, channel data type)</th>
+<th class="tableblock halign-left valign-top"><code>cl_dx9_<wbr>media_<wbr>adapter_<wbr>set_<wbr>khr</code></th>
+<th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>D3DFMT_R32F</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_R, CL_FLOAT</code></p>
-</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_PREFERRED_<wbr>DEVICES_<wbr>FOR_<wbr>DX9_<wbr>MEDIA_<wbr>ADAPTER_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_dx9_media_sharing</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The preferred OpenCL devices associated with the media adapter.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>D3DFMT_R16F</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_R, CL_HALF_FLOAT</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>D3DFMT_L16</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_R, CL_UNORM_INT16</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>D3DFMT_A8</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_A, CL_UNORM_INT8</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>D3DFMT_L8</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_R, CL_UNORM_INT8</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>D3DFMT_G32R32F</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_RG, CL_FLOAT</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>D3DFMT_G16R16F</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_RG, CL_HALF_FLOAT</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>D3DFMT_G16R16</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_RG, CL_UNORM_INT16</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>D3DFMT_A8L8</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_RG, CL_UNORM_INT8</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>D3DFMT_A32B32G32R32F</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_RGBA, CL_FLOAT</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>D3DFMT_A16B16G16R16F</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_RGBA, CL_HALF_FLOAT</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>D3DFMT_A16B16G16R16</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_RGBA, CL_UNORM_INT16</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>D3DFMT_A8B8G8R8</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_RGBA, CL_UNORM_INT8</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>D3DFMT_X8B8G8R8</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_RGBA, CL_UNORM_INT8</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>D3DFMT_A8R8G8B8</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_BGRA, CL_UNORM_INT8</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>D3DFMT_X8R8G8B8</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_BGRA, CL_UNORM_INT8</code></p>
-</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_ALL_<wbr>DEVICES_<wbr>FOR_<wbr>DX9_<wbr>MEDIA_<wbr>ADAPTER_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_dx9_media_sharing</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">All OpenCL devices that may interoperate with the media adapter</p></td>
 </tr>
 </tbody>
 </table>
 <div class="paragraph">
-<p>Note that D3D9 format names seem to imply that the order of the color
-channels are switched relative to OpenCL but this is not the case. For
-example, layout of channels for each pixel for <code>D3DFMT_A32FB32FG32FR32F</code> is
-the same as <code>CL_RGBA</code>, <code>CL_FLOAT</code>.</p>
-</div>
-<div class="paragraph">
-<p>Properties of media surface objects may be queried using
-<a href="clGetMemObjectInfo.html">clGetMemObjectInfo</a> and <a href="clGetImageInfo.html">clGetImageInfo</a> with <em>param_name</em>
-<code>CL_MEM_DX9_MEDIA_ADAPTER_TYPE_KHR</code>, <code>CL_MEM_DX9_MEDIA_SURFACE_INFO_KHR</code> and
-<code>CL_IMAGE_DX9_MEDIA_SURFACE_PLANE_KHR</code>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_errors"><a class="anchor" href="#_errors"></a>Errors</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Returns <code>CL_SUCCESS</code> if the function is executed successfully.
+<p><strong>clGetDeviceIDsFromDX9MediaAdapterKHR</strong> returns <code>CL_SUCCESS</code> if the function
+is executed successfully.
 Otherwise, it returns one of the following errors:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_INVALID_PLATFORM</code> if <em>platform</em> is not a valid platform.</p>
+<p><code>CL_INVALID_<wbr>PLATFORM</code> if <em>platform</em> is not a valid platform.</p>
 </li>
 <li>
-<p><code>CL_INVALID_VALUE</code> if <em>num_media_adapters</em> is zero or if <em>media_adapters_type</em> is NULL or if <em>media_adapters</em> is NULL.</p>
+<p><code>CL_INVALID_<wbr>VALUE</code> if <em>num_media_adapters</em> is zero or if
+<em>media_adapters_type</em> is <code>NULL</code> or if <em>media_adapters</em> is <code>NULL</code>.</p>
 </li>
 <li>
-<p><code>CL_INVALID_VALUE</code> if any of the entries in <em>media_adapters_type</em> or <em>media_adapters</em> is not a valid value.</p>
+<p><code>CL_INVALID_<wbr>VALUE</code> if any of the entries in <em>media_adapters_type</em> or
+<em>media_adapters</em> is not a valid value.</p>
 </li>
 <li>
-<p><code>CL_INVALID_VALUE</code> if <em>media_adapter_set</em> is not a valid value.</p>
+<p><code>CL_INVALID_<wbr>VALUE</code> if <em>media_adapter_set</em> is not a valid value.</p>
 </li>
 <li>
-<p><code>CL_INVALID_VALUE</code> if <em>num_entries</em> is equal to zero and <em>devices</em> is not NULL or if both <em>num_devices</em> and <em>devices</em> are NULL.</p>
+<p><code>CL_INVALID_<wbr>VALUE</code> if <em>num_entries</em> is equal to zero and <em>devices</em> is
+not <code>NULL</code> or if both <em>num_devices</em> and <em>devices</em> are <code>NULL</code>.</p>
 </li>
 <li>
-<p><code>CL_DEVICE_NOT_FOUND</code> if no OpenCL devices that correspond to adapters specified in <em>media_adapters</em> and <em>media_adapters_type</em> were found.</p>
+<p><code>CL_DEVICE_<wbr>NOT_<wbr>FOUND</code> if no OpenCL devices that correspond to adapters
+specified in <em>media_adapters</em> and <em>media_adapters_type</em> were found.</p>
 </li>
 <li>
-<p><code>CL_OUT_OF_RESOURCES</code> if there is a failure to allocate resources required by the OpenCL implementation on the device.</p>
+<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources
+required by the OpenCL implementation on the device.</p>
 </li>
 <li>
-<p><code>CL_OUT_OF_HOST_MEMORY</code> if there is a failure to allocate resources required by the OpenCL implementation on the host.</p>
+<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code> if there is a failure to allocate resources
+required by the OpenCL implementation on the host.</p>
 </li>
 </ul>
 </div>
@@ -1223,7 +961,7 @@ Otherwise, it returns one of the following errors:</p>
 <h2 id="_see_also"><a class="anchor" href="#_see_also"></a>See Also</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="cl_khr_dx9_media_sharing.html">cl_khr_dx9_media_sharing</a></p>
+<p><a href="cl_device_id.html">cl_device_id</a>, <a href="cl_dx9_media_adapter_set_khr.html">cl_dx9_media_adapter_set_khr</a>, <a href="cl_dx9_media_adapter_type_khr.html">cl_dx9_media_adapter_type_khr</a>, <a href="cl_khr_dx9_media_sharing.html">cl_khr_dx9_media_sharing</a>, <a href="cl_platform_id.html">cl_platform_id</a>, <a href="cl_uint.html">cl_uint</a></p>
 </div>
 </div>
 </div>
@@ -1231,10 +969,11 @@ Otherwise, it returns one of the following errors:</p>
 <h2 id="_document_notes"><a class="anchor" href="#_document_notes"></a>Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Extension Specification at URL</p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#clGetDeviceIDsFromDX9MediaAdapterKHR" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_Ext.html#clGetDeviceIDsFromDX9MediaAdapterKHR" class="bare">https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_Ext.html#clGetDeviceIDsFromDX9MediaAdapterKHR</a></p>
+<p>This page is extracted from the OpenCL Specification.
+Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 </div>
 </div>
@@ -1242,7 +981,7 @@ Otherwise, it returns one of the following errors:</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -1252,8 +991,8 @@ Otherwise, it returns one of the following errors:</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

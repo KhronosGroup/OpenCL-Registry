@@ -778,17 +778,36 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <p>The following built-in function calls to read images with a sampler are
 supported <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup>.</p>
 </div>
+<div class="paragraph">
+<p>If the <code>cl_khr_<wbr>mipmap_<wbr>image</code> extension macro is supported, read
+functions which do not either</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>explicitly specify a level of detail <em>lod</em>, or</p>
+</li>
+<li>
+<p>compute a level of detail from <em>gradient</em> parameters</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>read from mip level 0 if <em>image</em> is a mipmapped image.</p>
+</div>
 <table id="table-image-read" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. Built-in Image Read Functions</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
 </colgroup>
-<tbody>
+<thead>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Function</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
+<th class="tableblock halign-left valign-top">Function</th>
+<th class="tableblock halign-left valign-top">Description</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">float4 <strong>read_imagef</strong>(read_only image2d_t <em>image</em>, sampler_t <em>sampler</em>,
   int2 <em>coord</em>)<br>
@@ -798,13 +817,13 @@ supported <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#
       the 2D image object specified by <em>image</em>.</p>
 <p class="tableblock">      <strong>read_imagef</strong> returns floating-point values in the range [0.0, 1.0]
       for image objects created with <em>image_channel_data_type</em> set to one of
-      the pre-defined packed formats or <code>CL_UNORM_INT8</code>, or
-      <code>CL_UNORM_INT16</code>.</p>
+      the pre-defined packed formats or <code>CL_UNORM_<wbr>INT8</code>, or
+      <code>CL_UNORM_<wbr>INT16</code>.</p>
 <p class="tableblock">      <strong>read_imagef</strong> returns floating-point values in the range [-1.0, 1.0]
       for image objects created with <em>image_channel_data_type</em> set to
-      <code>CL_SNORM_INT8</code>, or <code>CL_SNORM_INT16</code>.</p>
+      <code>CL_SNORM_<wbr>INT8</code>, or <code>CL_SNORM_<wbr>INT16</code>.</p>
 <p class="tableblock">      <strong>read_imagef</strong> returns floating-point values for image objects created
-      with <em>image_channel_data_type</em> set to <code>CL_HALF_FLOAT</code> or <code>CL_FLOAT</code>.</p>
+      with <em>image_channel_data_type</em> set to <code>CL_HALF_<wbr>FLOAT</code> or <code>CL_FLOAT</code>.</p>
 <p class="tableblock">      The <strong>read_imagef</strong> calls that take integer coordinates must use a
       sampler with filter mode set to <code>CLK_FILTER_NEAREST</code>, normalized
       coordinates set to <code>CLK_NORMALIZED_COORDS_FALSE</code> and addressing mode
@@ -813,6 +832,37 @@ supported <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#
 <p class="tableblock">      Values returned by <strong>read_imagef</strong> for image objects with
       <em>image_channel_data_type</em> values not specified in the description
       above are undefined.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">half4 <strong>read_imageh</strong>(read_only image2d_t <em>image</em>, sampler_t <em>sampler</em>,
+  int2 <em>coord</em>)<br>
+  half4 <strong>read_imageh</strong>(read_only image2d_t <em>image</em>, sampler_t <em>sampler</em>,
+  float2 <em>coord</em>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use the coordinate <em>(coord.x, coord.y)</em> to do an element lookup in the
+      2D image object specified by <em>image</em>.</p>
+<p class="tableblock">      <strong>read_imageh</strong> returns half-precision floating-point values in the
+      range [0.0, 1.0] for image objects created with
+      <em>image_channel_data_type</em> set to one of the pre-defined packed
+      formats or <code>CL_UNORM_<wbr>INT8</code>, or <code>CL_UNORM_<wbr>INT16</code>.</p>
+<p class="tableblock">      <strong>read_imageh</strong> returns half-precision floating-point values in the
+      range [-1.0, 1.0] for image objects created with
+      <em>image_channel_data_type</em> set to <code>CL_SNORM_<wbr>INT8</code>, or <code>CL_SNORM_<wbr>INT16</code>.</p>
+<p class="tableblock">      <strong>read_imageh</strong> returns half-precision floating-point values for image
+      objects created with <em>image_channel_data_type</em> set to <code>CL_HALF_<wbr>FLOAT</code>.</p>
+<p class="tableblock">      The <strong>read_imageh</strong> calls that take integer coordinates must use a
+      sampler with filter mode set to <code>CLK_FILTER_NEAREST</code>, normalized
+      coordinates set to <code>CLK_NORMALIZED_COORDS_FALSE</code> and addressing mode
+      set to <code>CLK_ADDRESS_CLAMP_TO_EDGE</code>, <code>CLK_ADDRESS_CLAMP</code> or
+      <code>CLK_ADDRESS_NONE</code>; otherwise the values returned are undefined.</p>
+<p class="tableblock">      Values returned by <strong>read_imageh</strong> for image objects with
+      <em>image_channel_data_type</em> values not specified in the description
+      above are undefined.</p>
+<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for the <code>cl_khr_<wbr>fp16</code> extension
+      macro.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"></td>
@@ -834,16 +884,16 @@ supported <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#
       Each channel will be stored in a 32-bit integer.</p>
 <p class="tableblock">      <strong>read_imagei</strong> can only be used with image objects created with
       <em>image_channel_data_type</em> set to one of the following values:</p>
-<p class="tableblock">      <code>CL_SIGNED_INT8</code>,<br>
-      <code>CL_SIGNED_INT16</code> and<br>
-      <code>CL_SIGNED_INT32</code>.</p>
+<p class="tableblock">      <code>CL_SIGNED_<wbr>INT8</code>,<br>
+      <code>CL_SIGNED_<wbr>INT16</code> and<br>
+      <code>CL_SIGNED_<wbr>INT32</code>.</p>
 <p class="tableblock">      If the <em>image_channel_data_type</em> is not one of the above values, the
       values returned by <strong>read_imagei</strong> are undefined.</p>
 <p class="tableblock">      <strong>read_imageui</strong> can only be used with image objects created with
       <em>image_channel_data_type</em> set to one of the following values:</p>
-<p class="tableblock">      <code>CL_UNSIGNED_INT8</code>,<br>
-      <code>CL_UNSIGNED_INT16</code> and<br>
-      <code>CL_UNSIGNED_INT32</code>.</p>
+<p class="tableblock">      <code>CL_UNSIGNED_<wbr>INT8</code>,<br>
+      <code>CL_UNSIGNED_<wbr>INT16</code> and<br>
+      <code>CL_UNSIGNED_<wbr>INT32</code>.</p>
 <p class="tableblock">      If the <em>image_channel_data_type</em> is not one of the above values, the
       values returned by <strong>read_imageui</strong> are undefined.</p>
 <p class="tableblock">      The <strong>read_image{i|ui}</strong> calls support a nearest filter only.
@@ -869,13 +919,13 @@ supported <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#
       <em>coord.w</em> is ignored.</p>
 <p class="tableblock">      <strong>read_imagef</strong> returns floating-point values in the range [0.0, 1.0]
       for image objects created with <em>image_channel_data_type</em> set to one of
-      the pre-defined packed formats or <code>CL_UNORM_INT8</code>, or
-      <code>CL_UNORM_INT16</code>.</p>
+      the pre-defined packed formats or <code>CL_UNORM_<wbr>INT8</code>, or
+      <code>CL_UNORM_<wbr>INT16</code>.</p>
 <p class="tableblock">      <strong>read_imagef</strong> returns floating-point values in the range [-1.0, 1.0]
       for image objects created with <em>image_channel_data_type</em> set to
-      <code>CL_SNORM_INT8</code>, or <code>CL_SNORM_INT16</code>.</p>
+      <code>CL_SNORM_<wbr>INT8</code>, or <code>CL_SNORM_<wbr>INT16</code>.</p>
 <p class="tableblock">      <strong>read_imagef</strong> returns floating-point values for image objects created
-      with <em>image_channel_data_type</em> set to <code>CL_HALF_FLOAT</code> or <code>CL_FLOAT</code>.</p>
+      with <em>image_channel_data_type</em> set to <code>CL_HALF_<wbr>FLOAT</code> or <code>CL_FLOAT</code>.</p>
 <p class="tableblock">      The <strong>read_imagef</strong> calls that take integer coordinates must use a
       sampler with filter mode set to <code>CLK_FILTER_NEAREST</code>, normalized
       coordinates set to <code>CLK_NORMALIZED_COORDS_FALSE</code> and addressing mode
@@ -884,6 +934,38 @@ supported <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#
 <p class="tableblock">      Values returned by <strong>read_imagef</strong> for image objects with
       <em>image_channel_data_type</em> values not specified in the description are
       undefined.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">half4 <strong>read_imageh</strong>(read_only image3d_t <em>image</em>, sampler_t <em>sampler</em>,
+  int4 <em>coord</em> )<br>
+  half4 <strong>read_imageh</strong>(read_only image3d_t <em>image</em>, sampler_t <em>sampler</em>,
+  float4 <em>coord</em>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use the coordinate <em>(coord.x</em>, <em>coord.y</em>, <em>coord.z)</em> to do an
+      elementlookup in the 3D image object specified by <em>image</em>.
+      <em>coord.w</em> is ignored.</p>
+<p class="tableblock">      <strong>read_imageh</strong> returns half-precision floating-point values in the
+      range [0.0, 1.0] for image objects created with
+      <em>image_channel_data_type</em> set to one of the pre-defined packed formats
+      or <code>CL_UNORM_<wbr>INT8</code>, or <code>CL_UNORM_<wbr>INT16</code>.</p>
+<p class="tableblock">      <strong>read_imageh</strong> returns half-precision floating-point values in the
+      range [-1.0, 1.0] for image objects created with
+      <em>image_channel_data_type</em> set to <code>CL_SNORM_<wbr>INT8</code>, or <code>CL_SNORM_<wbr>INT16</code>.</p>
+<p class="tableblock">      <strong>read_imageh</strong> returns half-precision floating-point values for image
+      objects created with <em>image_channel_data_type</em> set to <code>CL_HALF_<wbr>FLOAT</code>.</p>
+<p class="tableblock">      The <strong>read_imageh</strong> calls that take integer coordinates must use a
+      sampler with filter mode set to <code>CLK_FILTER_NEAREST</code>, normalized
+      coordinates set to <code>CLK_NORMALIZED_COORDS_FALSE</code> and addressing mode
+      set to <code>CLK_ADDRESS_CLAMP_TO_EDGE</code>, <code>CLK_ADDRESS_CLAMP</code> or
+      <code>CLK_ADDRESS_NONE</code>; otherwise the values returned are undefined.</p>
+<p class="tableblock">      Values returned by <strong>read_imageh</strong> for image objects with
+      <em>image_channel_data_type</em> values not specified in the description are
+      undefined.</p>
+<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for the <code>cl_khr_<wbr>fp16</code> extension
+      macro.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"></td>
@@ -906,16 +988,16 @@ supported <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#
       Each channel will be stored in a 32-bit integer.</p>
 <p class="tableblock">      <strong>read_imagei</strong> can only be used with image objects created with
       <em>image_channel_data_type</em> set to one of the following values:</p>
-<p class="tableblock">      <code>CL_SIGNED_INT8</code>,<br>
-      <code>CL_SIGNED_INT16</code> and<br>
-      <code>CL_SIGNED_INT32</code>.</p>
+<p class="tableblock">      <code>CL_SIGNED_<wbr>INT8</code>,<br>
+      <code>CL_SIGNED_<wbr>INT16</code> and<br>
+      <code>CL_SIGNED_<wbr>INT32</code>.</p>
 <p class="tableblock">      If the <em>image_channel_data_type</em> is not one of the above values, the
       values returned by <strong>read_imagei</strong> are undefined.</p>
 <p class="tableblock">      <strong>read_imageui</strong> can only be used with image objects created with
       <em>image_channel_data_type</em> set to one of the following values:</p>
-<p class="tableblock">      <code>CL_UNSIGNED_INT8</code>,<br>
-      <code>CL_UNSIGNED_INT16</code> and<br>
-      <code>CL_UNSIGNED_INT32</code>.</p>
+<p class="tableblock">      <code>CL_UNSIGNED_<wbr>INT8</code>,<br>
+      <code>CL_UNSIGNED_<wbr>INT16</code> and<br>
+      <code>CL_UNSIGNED_<wbr>INT32</code>.</p>
 <p class="tableblock">      If the <em>image_channel_data_type</em> is not one of the above values, the
       values returned by <strong>read_imageui</strong> are undefined.</p>
 <p class="tableblock">      The <strong>read_image{i|ui}</strong> calls support a nearest filter only.
@@ -939,22 +1021,57 @@ supported <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#
 <td class="tableblock halign-left valign-top"><p class="tableblock">Use <em>coord.xy</em> to do an element lookup in the 2D image identified by
       <em>coord.z</em> in the 2D image array specified by <em>image</em>.</p>
 <p class="tableblock">      <strong>read_imagef</strong> returns floating-point values in the range [0.0, 1.0]
-      for image objects created with image_channel_data_type set to one of
-      the pre-defined packed formats or <code>CL_UNORM_INT8</code>, or
-      <code>CL_UNORM_INT16</code>.</p>
+      for image objects created with <em>image_channel_data_type</em> set to one of
+      the pre-defined packed formats or <code>CL_UNORM_<wbr>INT8</code>, or
+      <code>CL_UNORM_<wbr>INT16</code>.</p>
 <p class="tableblock">      <strong>read_imagef</strong> returns floating-point values in the range [-1.0, 1.0]
-      for image objects created with image_channel_data_type set to
-      <code>CL_SNORM_INT8</code>, or <code>CL_SNORM_INT16</code>.</p>
+      for image objects created with <em>image_channel_data_type</em> set to
+      <code>CL_SNORM_<wbr>INT8</code>, or <code>CL_SNORM_<wbr>INT16</code>.</p>
 <p class="tableblock">      <strong>read_imagef</strong> returns floating-point values for image objects created
-      with image_channel_data_type set to <code>CL_HALF_FLOAT</code> or <code>CL_FLOAT</code>.</p>
+      with <em>image_channel_data_type</em> set to <code>CL_HALF_<wbr>FLOAT</code> or <code>CL_FLOAT</code>.</p>
 <p class="tableblock">      The <strong>read_imagef</strong> calls that take integer coordinates must use a
       sampler with filter mode set to <code>CLK_FILTER_NEAREST</code>, normalized
       coordinates set to <code>CLK_NORMALIZED_COORDS_FALSE</code> and addressing mode
       set to <code>CLK_ADDRESS_CLAMP_TO_EDGE</code>, <code>CLK_ADDRESS_CLAMP</code> or
       <code>CLK_ADDRESS_NONE</code>; otherwise the values returned are undefined.</p>
 <p class="tableblock">      Values returned by <strong>read_imagef</strong> for image objects with
-      image_channel_data_type values not specified in the description above
+      <em>image_channel_data_type</em> values not specified in the description above
       are undefined.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">half4 <strong>read_imageh</strong>(read_only image2d_array_t <em>image</em>, sampler_t
+  <em>sampler</em>, int4 <em>coord</em>)<br>
+  half4 <strong>read_imageh</strong>(read_only image2d_array_t <em>image</em>, sampler_t
+  <em>sampler</em>, float4 <em>coord</em>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use <em>coord.xy</em> to do an element lookup in the 2D image identified by
+      <em>coord.z</em> in the 2D image array specified by <em>image</em>.</p>
+<p class="tableblock">      <strong>read_imageh</strong> returns half-precision floating-point values in the
+      range [0.0, 1.0] for image objects created with
+      <em>image_channel_data_type</em> set to one of the pre-defined packed formats
+      or <code>CL_UNORM_<wbr>INT8</code>, or <code>CL_UNORM_<wbr>INT16</code>.</p>
+<p class="tableblock">      <strong>read_imageh</strong> returns half-precision floating-point values in the
+      range [-1.0, 1.0] for image objects created with
+      <em>image_channel_data_type</em> set to <code>CL_SNORM_<wbr>INT8</code>, or <code>CL_SNORM_<wbr>INT16</code>.</p>
+<p class="tableblock">      <strong>read_imageh</strong> returns half-precision floating-point values for image
+      objects created with <em>image_channel_data_type</em> set to <code>CL_HALF_<wbr>FLOAT</code>.</p>
+<p class="tableblock">      The <strong>read_imageh</strong> calls that take integer coordinates must use a
+      sampler with filter mode set to <code>CLK_FILTER_NEAREST</code>, normalized
+      coordinates set to <code>CLK_NORMALIZED_COORDS_FALSE</code> and addressing mode
+      set to <code>CLK_ADDRESS_CLAMP_TO_EDGE</code>, <code>CLK_ADDRESS_CLAMP</code> or
+      <code>CLK_ADDRESS_NONE</code>; otherwise the values returned are undefined.</p>
+<p class="tableblock">      Values returned by <strong>read_imageh</strong> for image objects with
+      <em>image_channel_data_type</em> values not specified in the description above
+      are undefined.</p>
+<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for the <code>cl_khr_<wbr>fp16</code> extension
+      macro.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">int4 <strong>read_imagei</strong>(read_only image2d_array_t <em>image</em>, sampler_t <em>sampler</em>,
@@ -972,16 +1089,16 @@ supported <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#
       Each channel will be stored in a 32-bit integer.</p>
 <p class="tableblock">      <strong>read_imagei</strong> can only be used with image objects created with
       <em>image_channel_data_type</em> set to one of the following values:</p>
-<p class="tableblock">      <code>CL_SIGNED_INT8</code>,<br>
-      <code>CL_SIGNED_INT16</code> and<br>
-      <code>CL_SIGNED_INT32</code>.</p>
+<p class="tableblock">      <code>CL_SIGNED_<wbr>INT8</code>,<br>
+      <code>CL_SIGNED_<wbr>INT16</code> and<br>
+      <code>CL_SIGNED_<wbr>INT32</code>.</p>
 <p class="tableblock">      If the <em>image_channel_data_type</em> is not one of the above values, the
       values returned by <strong>read_imagei</strong> are undefined.</p>
 <p class="tableblock">      <strong>read_imageui</strong> can only be used with image objects created with
       <em>image_channel_data_type</em> set to one of the following values:</p>
-<p class="tableblock">      <code>CL_UNSIGNED_INT8</code>,<br>
-      <code>CL_UNSIGNED_INT16</code> and<br>
-      <code>CL_UNSIGNED_INT32</code>.</p>
+<p class="tableblock">      <code>CL_UNSIGNED_<wbr>INT8</code>,<br>
+      <code>CL_UNSIGNED_<wbr>INT16</code> and<br>
+      <code>CL_UNSIGNED_<wbr>INT32</code>.</p>
 <p class="tableblock">      If the <em>image_channel_data_type</em> is not one of the above values, the
       values returned by <strong>read_imageui</strong> are undefined.</p>
 <p class="tableblock">      The <strong>read_image{i|ui}</strong> calls support a nearest filter only.
@@ -1006,13 +1123,13 @@ supported <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#
       by <em>image</em>.</p>
 <p class="tableblock">      <strong>read_imagef</strong> returns floating-point values in the range [0.0, 1.0]
       for image objects created with <em>image_channel_data_type</em> set to one of
-      the pre-defined packed formats or <code>CL_UNORM_INT8</code>, or
-      <code>CL_UNORM_INT16</code>.</p>
+      the pre-defined packed formats or <code>CL_UNORM_<wbr>INT8</code>, or
+      <code>CL_UNORM_<wbr>INT16</code>.</p>
 <p class="tableblock">      <strong>read_imagef</strong> returns floating-point values in the range [-1.0, 1.0]
       for image objects created with <em>image_channel_data_type</em> set to
-      <code>CL_SNORM_INT8</code>, or <code>CL_SNORM_INT16</code>.</p>
+      <code>CL_SNORM_<wbr>INT8</code>, or <code>CL_SNORM_<wbr>INT16</code>.</p>
 <p class="tableblock">      <strong>read_imagef</strong> returns floating-point values for image objects created
-      with <em>image_channel_data_type</em> set to <code>CL_HALF_FLOAT</code> or <code>CL_FLOAT</code>.</p>
+      with <em>image_channel_data_type</em> set to <code>CL_HALF_<wbr>FLOAT</code> or <code>CL_FLOAT</code>.</p>
 <p class="tableblock">      The <strong>read_imagef</strong> calls that take integer coordinates must use a
       sampler with filter mode set to <code>CLK_FILTER_NEAREST</code>, normalized
       coordinates set to <code>CLK_NORMALIZED_COORDS_FALSE</code> and addressing mode
@@ -1022,6 +1139,37 @@ supported <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#
       <em>image_channel_data_type</em> values not specified in the description
       above are undefined.</p>
 <p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for OpenCL C 1.2 or newer.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">half4 <strong>read_imageh</strong>(read_only image1d_t <em>image</em>, sampler_t <em>sampler</em>,
+  int <em>coord</em>)<br>
+  half4 <strong>read_imageh</strong>(read_only image1d_t <em>image</em>, sampler_t <em>sampler</em>,
+  float <em>coord</em>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use <em>coord</em> to do an element lookup in the 1D image object specified
+      by <em>image</em>.</p>
+<p class="tableblock">      <strong>read_imageh</strong> returns half-precision floating-point values in the
+      range [0.0, 1.0] for image objects created with
+      <em>image_channel_data_type</em> set to one of the pre-defined packed formats
+      or <code>CL_UNORM_<wbr>INT8</code>, or <code>CL_UNORM_<wbr>INT16</code>.</p>
+<p class="tableblock">      <strong>read_imageh</strong> returns half-precision floating-point values in the
+      range [-1.0, 1.0] for image objects created with
+      <em>image_channel_data_type</em> set to <code>CL_SNORM_<wbr>INT8</code>, or <code>CL_SNORM_<wbr>INT16</code>.</p>
+<p class="tableblock">      <strong>read_imageh</strong> returns half-precision floating-point values for image
+      objects created with <em>image_channel_data_type</em> set to <code>CL_HALF_<wbr>FLOAT</code>.</p>
+<p class="tableblock">      The <strong>read_imageh</strong> calls that take integer coordinates must use a
+      sampler with filter mode set to <code>CLK_FILTER_NEAREST</code>, normalized
+      coordinates set to <code>CLK_NORMALIZED_COORDS_FALSE</code> and addressing mode
+      set to <code>CLK_ADDRESS_CLAMP_TO_EDGE</code>, <code>CLK_ADDRESS_CLAMP</code> or
+      <code>CLK_ADDRESS_NONE</code>; otherwise the values returned are undefined.</p>
+<p class="tableblock">      Values returned by <strong>read_imageh</strong> for image objects with
+      <em>image_channel_data_type</em> values not specified in the description
+      above are undefined.</p>
+<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for the <code>cl_khr_<wbr>fp16</code> extension
+      macro.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"></td>
@@ -1043,16 +1191,16 @@ supported <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#
       Each channel will be stored in a 32-bit integer.</p>
 <p class="tableblock">      <strong>read_imagei</strong> can only be used with image objects created with
       <em>image_channel_data_type</em> set to one of the following values:</p>
-<p class="tableblock">      <code>CL_SIGNED_INT8</code>,<br>
-      <code>CL_SIGNED_INT16</code> and<br>
-      <code>CL_SIGNED_INT32</code>.</p>
+<p class="tableblock">      <code>CL_SIGNED_<wbr>INT8</code>,<br>
+      <code>CL_SIGNED_<wbr>INT16</code> and<br>
+      <code>CL_SIGNED_<wbr>INT32</code>.</p>
 <p class="tableblock">      If the <em>image_channel_data_type</em> is not one of the above values, the
       values returned by <strong>read_imagei</strong> are undefined.</p>
 <p class="tableblock">      <strong>read_imageui</strong> can only be used with image objects created with
       <em>image_channel_data_type</em> set to one of the following values:</p>
-<p class="tableblock">      <code>CL_UNSIGNED_INT8</code>,<br>
-      <code>CL_UNSIGNED_INT16</code> and<br>
-      <code>CL_UNSIGNED_INT32</code>.</p>
+<p class="tableblock">      <code>CL_UNSIGNED_<wbr>INT8</code>,<br>
+      <code>CL_UNSIGNED_<wbr>INT16</code> and<br>
+      <code>CL_UNSIGNED_<wbr>INT32</code>.</p>
 <p class="tableblock">      If the <em>image_channel_data_type</em> is not one of the above values, the
       values returned by <strong>read_imageui</strong> are undefined.</p>
 <p class="tableblock">      The <strong>read_image{i|ui}</strong> calls support a nearest filter only.
@@ -1077,23 +1225,58 @@ supported <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#
 <td class="tableblock halign-left valign-top"><p class="tableblock">Use <em>coord.x</em> to do an element lookup in the 1D image identified by
       <em>coord.y</em> in the 1D image array specified by <em>image</em>.</p>
 <p class="tableblock">      <strong>read_imagef</strong> returns floating-point values in the range [0.0, 1.0]
-      for image objects created with image_channel_data_type set to one of
-      the pre-defined packed formats or <code>CL_UNORM_INT8</code>, or
-      <code>CL_UNORM_INT16</code>.</p>
+      for image objects created with <em>image_channel_data_type</em> set to one of
+      the pre-defined packed formats or <code>CL_UNORM_<wbr>INT8</code>, or
+      <code>CL_UNORM_<wbr>INT16</code>.</p>
 <p class="tableblock">      <strong>read_imagef</strong> returns floating-point values in the range [-1.0, 1.0]
-      for image objects created with image_channel_data_type set to
-      <code>CL_SNORM_INT8</code>, or <code>CL_SNORM_INT16</code>.</p>
+      for image objects created with <em>image_channel_data_type</em> set to
+      <code>CL_SNORM_<wbr>INT8</code>, or <code>CL_SNORM_<wbr>INT16</code>.</p>
 <p class="tableblock">      <strong>read_imagef</strong> returns floating-point values for image objects created
-      with image_channel_data_type set to <code>CL_HALF_FLOAT</code> or <code>CL_FLOAT</code>.</p>
+      with <em>image_channel_data_type</em> set to <code>CL_HALF_<wbr>FLOAT</code> or <code>CL_FLOAT</code>.</p>
 <p class="tableblock">      The <strong>read_imagef</strong> calls that take integer coordinates must use a
       sampler with filter mode set to <code>CLK_FILTER_NEAREST</code>, normalized
       coordinates set to <code>CLK_NORMALIZED_COORDS_FALSE</code> and addressing mode
       set to <code>CLK_ADDRESS_CLAMP_TO_EDGE</code>, <code>CLK_ADDRESS_CLAMP</code> or
       <code>CLK_ADDRESS_NONE</code>; otherwise the values returned are undefined.</p>
 <p class="tableblock">      Values returned by <strong>read_imagef</strong> for image objects with
-      image_channel_data_type values not specified in the description above
+      <em>image_channel_data_type</em> values not specified in the description above
       are undefined.</p>
 <p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for OpenCL C 1.2 or newer.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">half4 <strong>read_imageh</strong>(read_only image1d_array_t <em>image</em>,
+   sampler_t <em>sampler</em>, int2 <em>coord</em>)<br>
+  half4 <strong>read_imageh</strong>(read_only image1d_array_t <em>image</em>,
+  sampler_t <em>sampler</em>, float2 <em>coord</em>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use <em>coord.x</em> to do an element lookup in the 1D image identified by
+      <em>coord.y</em> in the 1D image array specified by <em>image</em>.</p>
+<p class="tableblock">      <strong>read_imageh</strong> returns half-precision floating-point values in the
+      range [0.0, 1.0] for image objects created with
+      <em>image_channel_data_type</em> set to one of the pre-defined packed formats
+      or <code>CL_UNORM_<wbr>INT8</code>, or <code>CL_UNORM_<wbr>INT16</code>.</p>
+<p class="tableblock">      <strong>read_imageh</strong> returns half-precision floating-point values in the
+      range [-1.0, 1.0] for image objects created with
+      <em>image_channel_data_type</em> set to <code>CL_SNORM_<wbr>INT8</code>, or <code>CL_SNORM_<wbr>INT16</code>.</p>
+<p class="tableblock">      <strong>read_imageh</strong> returns half-precision floating-point values for image
+      objects created with <em>image_channel_data_type</em> set to <code>CL_HALF_<wbr>FLOAT</code>.</p>
+<p class="tableblock">      The <strong>read_imageh</strong> calls that take integer coordinates must use a
+      sampler with filter mode set to <code>CLK_FILTER_NEAREST</code>, normalized
+      coordinates set to <code>CLK_NORMALIZED_COORDS_FALSE</code> and addressing mode
+      set to <code>CLK_ADDRESS_CLAMP_TO_EDGE</code>, <code>CLK_ADDRESS_CLAMP</code> or
+      <code>CLK_ADDRESS_NONE</code>; otherwise the values returned are undefined.</p>
+<p class="tableblock">      Values returned by <strong>read_imageh</strong> for image objects with
+      <em>image_channel_data_type</em> values not specified in the description above
+      are undefined.</p>
+<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for the <code>cl_khr_<wbr>fp16</code> extension
+      macro.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">int4 <strong>read_imagei</strong>(read_only image1d_array_t <em>image</em>, sampler_t <em>sampler</em>,
@@ -1111,16 +1294,16 @@ supported <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#
       in a 32-bit integer.</p>
 <p class="tableblock">      <strong>read_imagei</strong> can only be used with image objects created with
       <em>image_channel_data_type</em> set to one of the following values:</p>
-<p class="tableblock">      <code>CL_SIGNED_INT8</code>,<br>
-      <code>CL_SIGNED_INT16</code> and<br>
-      <code>CL_SIGNED_INT32</code>.</p>
+<p class="tableblock">      <code>CL_SIGNED_<wbr>INT8</code>,<br>
+      <code>CL_SIGNED_<wbr>INT16</code> and<br>
+      <code>CL_SIGNED_<wbr>INT32</code>.</p>
 <p class="tableblock">      If the <em>image_channel_data_type</em> is not one of the above values, the
       values returned by <strong>read_imagei</strong> are undefined.</p>
 <p class="tableblock">      <strong>read_imageui</strong> can only be used with image objects created with
       <em>image_channel_data_type</em> set to one of the following values:</p>
-<p class="tableblock">      <code>CL_UNSIGNED_INT8</code>,<br>
-      <code>CL_UNSIGNED_INT16</code> and<br>
-      <code>CL_UNSIGNED_INT32</code>.</p>
+<p class="tableblock">      <code>CL_UNSIGNED_<wbr>INT8</code>,<br>
+      <code>CL_UNSIGNED_<wbr>INT16</code> and<br>
+      <code>CL_UNSIGNED_<wbr>INT32</code>.</p>
 <p class="tableblock">      If the <em>image_channel_data_type</em> is not one of the above values, the
       values returned by <strong>read_imageui</strong> are undefined.</p>
 <p class="tableblock">      The <strong>read_image{i|ui}</strong> calls support a nearest filter only.
@@ -1146,7 +1329,7 @@ supported <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#
       the 2D depth image object specified by <em>image</em>.</p>
 <p class="tableblock">      <strong>read_imagef</strong> returns a floating-point value in the range [0.0, 1.0]
       for depth image objects created with <em>image_channel_data_type</em> set to
-      <code>CL_UNORM_INT16</code> or <code>CL_UNORM_INT24</code>.</p>
+      <code>CL_UNORM_<wbr>INT16</code> or <code>CL_UNORM_<wbr>INT24</code>.</p>
 <p class="tableblock">      <strong>read_imagef</strong> returns a floating-point value for depth image objects
       created with <em>image_channel_data_type</em> set to <code>CL_FLOAT</code>.</p>
 <p class="tableblock">      The <strong>read_imagef</strong> calls that take integer coordinates must use a
@@ -1157,8 +1340,8 @@ supported <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#
 <p class="tableblock">      Values returned by <strong>read_imagef</strong> for depth image objects with
       <em>image_channel_data_type</em> values not specified in the description
       above are undefined.</p>
-<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for OpenCL C 2.0 or newer, also see
-      <code>cl_khr_depth_images</code> extension.</p></td>
+<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for OpenCL C 2.0 or newer, or for
+      the <code>cl_khr_<wbr>depth_<wbr>images</code> extension macro.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"></td>
@@ -1173,7 +1356,7 @@ supported <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#
       <em>coord.z</em> in the 2D depth image array specified by <em>image</em>.</p>
 <p class="tableblock">      <strong>read_imagef</strong> returns a floating-point value in the range [0.0, 1.0]
       for depth image objects created with <em>image_channel_data_type</em> set to
-      <code>CL_UNORM_INT16</code> or <code>CL_UNORM_INT24</code>.</p>
+      <code>CL_UNORM_<wbr>INT16</code> or <code>CL_UNORM_<wbr>INT24</code>.</p>
 <p class="tableblock">      <strong>read_imagef</strong> returns a floating-point value for depth image objects
       created with <em>image_channel_data_type</em> set to <code>CL_FLOAT</code>.</p>
 <p class="tableblock">      The <strong>read_imagef</strong> calls that take integer coordinates must use a
@@ -1184,12 +1367,331 @@ supported <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#
 <p class="tableblock">      Values returned by <strong>read_imagef</strong> for image objects with
       <em>image_channel_data_type</em> values not specified in the description
       above are undefined.</p>
-<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for OpenCL C 2.0 or newer, also see
-      <code>cl_khr_depth_images</code> extension.</p></td>
+<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for OpenCL C 2.0 or newer, or for
+      the <code>cl_khr_<wbr>depth_<wbr>images</code> extension macro.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-opencl_c" data-lang="opencl_c">float4 read_imagef(
+  read_only image2d_t image,
+  sampler_t sampler,
+  float2 coord,
+  float lod)
+
+int4 read_imagei(
+  read_only image2d_t image,
+  sampler_t sampler,
+  float2 coord,
+  float lod)
+
+uint4 read_imageui(
+  read_only image2d_t image,
+  sampler_t sampler,
+  float2 coord,
+  float lod)
+
+float read_imagef(
+  read_only image2d_depth_t image,
+  sampler_t sampler,
+  float2 coord,
+  float lod)</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use the coordinate <em>coord.xy</em> to do an element lookup in the mip level
+      specified by <em>lod</em> in the 2D image object specified by <em>image</em>.</p>
+<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for the <code>cl_khr_<wbr>mipmap_<wbr>image</code>
+      extension macro.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-opencl_c" data-lang="opencl_c">float4 read_imagef(
+  read_only image2d_t image,
+  sampler_t sampler,
+  float2 coord,
+  float2 gradient_x,
+  float2 gradient_y)
+
+int4 read_imagei(
+  read_only image2d_t image,
+  sampler_t sampler,
+  float2 coord,
+  float2 gradient_x,
+  float2 gradient_y)
+
+uint4 read_imageui(
+  read_only image2d_t image,
+  sampler_t sampler,
+  float2 coord,
+  float2 gradient_x,
+  float2 gradient_y)
+
+float read_imagef(
+  read_only image2d_depth_t image,
+  sampler_t sampler,
+  float2 coord,
+  float2 gradient_x,
+  float2 gradient_y)</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use the gradients to compute the lod and coordinate <em>coord.xy</em> to do
+      an element lookup in the mip level specified by the computed lod in
+      the 2D image object specified by <em>image</em>.</p>
+<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for the <code>cl_khr_<wbr>mipmap_<wbr>image</code>
+      extension macro.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-opencl_c" data-lang="opencl_c">float4 read_imagef(
+  read_only image1d_t image,
+  sampler_t sampler,
+  float coord,
+  float lod)
+
+int4 read_imagei(
+  read_only image1d_t image,
+  sampler_t sampler,
+  float coord,
+  float lod)
+
+uint4 read_imageui(
+  read_only image1d_t image,
+  sampler_t sampler,
+  float coord,
+  float lod)</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use the coordinate <em>coord</em> to do an element lookup in the mip level
+      specified by <em>lod</em> in the 1D image object specified by <em>image</em>.</p>
+<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for the <code>cl_khr_<wbr>mipmap_<wbr>image</code>
+      extension macro.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-opencl_c" data-lang="opencl_c">float4 read_imagef(
+  read_only image1d_t image,
+  sampler_t sampler,
+  float coord,
+  float gradient_x,
+  float gradient_y)
+
+int4 read_imagei(
+  read_only image1d_t image,
+  sampler_t sampler,
+  float coord,
+  float gradient_x,
+  float gradient_y)
+
+uint4 read_imageui(
+  read_only image1d_t image,
+  sampler_t sampler,
+  float coord,
+  float gradient_x,
+  float gradient_y)</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use the gradients to compute the lod and coordinate <em>coord</em> to do an
+      element lookup in the mip level specified by the computed lod in the
+      1D image object specified by <em>image</em>.</p>
+<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for the <code>cl_khr_<wbr>mipmap_<wbr>image</code>
+      extension macro.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-opencl_c" data-lang="opencl_c">float4 read_imagef(
+  read_only image3d_t image,
+  sampler_t sampler,
+  float4 coord,
+  float lod)
+
+int4 read_imagei(
+  read_only image3d_t image,
+  sampler_t sampler,
+  float4 coord,
+  float lod)
+
+uint4 read_imageui(
+  read_only image3d_t image,
+  sampler_t sampler,
+  float4 coord,
+  float lod)</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use the coordinate <em>coord.xyz</em> to do an element lookup in the mip
+      level specified by <em>lod</em> in the 3D image object specified by <em>image</em>.</p>
+<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for the <code>cl_khr_<wbr>mipmap_<wbr>image</code>
+      extension macro.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-opencl_c" data-lang="opencl_c">float4 read_imagef(
+  read_only image3d_t image,
+  sampler_t sampler,
+  float4 coord,
+  float4 gradient_x,
+  float4 gradient_y)
+
+int4 read_imagei(
+  read_only image3d_t image,
+  sampler_t sampler,
+  float4 coord,
+  float4 gradient_x,
+  float4 gradient_y)
+
+uint4 read_imageui(
+  read_only image3d_t image,
+  sampler_t sampler,
+  float4 coord,
+  float4 gradient_x,
+  float4 gradient_y)</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use the gradients to compute the lod and coordinate <em>coord.xyz</em> to do
+      an element lookup in the mip level specified by the computed lod in
+      the 3D image object specified by <em>image</em>.</p>
+<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for the <code>cl_khr_<wbr>mipmap_<wbr>image</code>
+      extension macro.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-opencl_c" data-lang="opencl_c">float4 read_imagef(
+  read_only image1d_array_t image,
+  sampler_t sampler,
+  float2 coord,
+  float lod)
+
+int4 read_imagei(
+  read_only image1d_array_t image,
+  sampler_t sampler,
+  float2 coord,
+  float lod)
+
+uint4 read_imageui(
+  read_only image1d_array_t image,
+  sampler_t sampler,
+  float2 coord,
+  float lod)</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use the coordinate <em>coord.x</em> to do an element lookup in the 1D image
+      identified by <em>coord.x</em> and mip level specified by <em>lod</em> in the 1D
+      image array specified by <em>image</em>.</p>
+<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for the <code>cl_khr_<wbr>mipmap_<wbr>image</code>
+      extension macro.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-opencl_c" data-lang="opencl_c">float4 read_imagef(
+  read_only image1d_array_t image,
+  sampler_t sampler,
+  float2 coord,
+  float gradient_x,
+  float gradient_y)
+
+int4 read_imagei(
+  read_only image1d_array_t image,
+  sampler_t sampler,
+  float2 coord,
+  float gradient_x,
+  float gradient_y)
+
+uint4 read_imageui(
+  read_only image1d_array_t image,
+  sampler_t sampler,
+  float2 coord,
+  float gradient_x,
+  float gradient_y)</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use the gradients to compute the lod and coordinate <em>coord.x</em> to do an
+      element lookup in the mip level specified by the computed lod in the
+      1D image array specified by <em>image</em>.</p>
+<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for the <code>cl_khr_<wbr>mipmap_<wbr>image</code>
+      extension macro.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-opencl_c" data-lang="opencl_c">float4 read_imagef(
+  read_only image2d_array_t image,
+  sampler_t sampler,
+  float4 coord,
+  float lod)
+
+int4 read_imagei(
+  read_only image2d_array_t image,
+  sampler_t sampler,
+  float4 coord,
+  float lod)
+
+uint4 read_imageui(
+  read_only image2d_array_t image,
+  sampler_t sampler,
+  float4 coord,
+  float lod)
+
+float read_imagef(
+  read_only image2d_array_depth_t image,
+  sampler_t sampler,
+  float4 coord,
+  float lod)</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use the coordinate <em>coord.xy</em> to do an element lookup in the 2D image
+      identified by <em>coord.z</em> and mip level specified by <em>lod</em> in the 2D
+      image array specified by <em>image</em>.</p>
+<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for the <code>cl_khr_<wbr>mipmap_<wbr>image</code>
+      extension macro.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-opencl_c" data-lang="opencl_c">float4 read_imagef(
+  read_only image2d_array_t image,
+  sampler_t sampler,
+  float4 coord,
+  float2 gradient_x,
+  float2 gradient_y)
+
+int4 read_imagei(
+  read_only image2d_array_t image,
+  sampler_t sampler,
+  float4 coord,
+  float2 gradient_x,
+  float2 gradient_y)
+
+uint4 read_imageui(
+  read_only image2d_array_t image,
+  sampler_t sampler,
+  float4 coord,
+  float2 gradient_x,
+  float2 gradient_y)
+
+float read_imagef(
+  read_only image2d_array_depth_t image,
+  sampler_t sampler,
+  float4 coord,
+  float2 gradient_x,
+  float2 gradient_y)</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use the gradients to compute the lod coordinate and <em>coord.xy</em> to do
+      an element lookup in the 2D image identified by <em>coord.z</em> and mip
+      level specified by the computed lod in the 2D image array specified by
+      <em>image</em>.</p>
+<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for the <code>cl_khr_<wbr>mipmap_<wbr>image</code>
+      extension macro.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1219,7 +1721,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -1235,8 +1737,8 @@ Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

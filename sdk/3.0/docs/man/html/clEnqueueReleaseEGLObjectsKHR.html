@@ -767,21 +767,40 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <h1>clEnqueueReleaseEGLObjectsKHR(3) Manual Page</h1>
 <h2 id="_name">Name</h2>
 <div class="sectionbody">
-<p>clEnqueueReleaseEGLObjectsKHR - Release OpenCL memory objects that have been created from EGL resources.</p>
+<p>clEnqueueReleaseEGLObjectsKHR - Release OpenCL memory objects created from EGL resources</p>
 </div>
 </div>
 <div id="content">
-<div id="preamble">
+<div class="sect1">
+<h2 id="_c_specification"><a class="anchor" href="#_c_specification"></a>C Specification</h2>
 <div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">cl_int clEnqueueReleaseEGLObjectsKHR(cl_command_queue command_queue,
-                                     cl_uint num_objects,
-                                     const cl_mem *mem_objects,
-                                     cl_uint num_events_in_wait_list,
-                                     const cl_event *event_wait_list,
-                                     cl_event *event)</code></pre>
+<div class="paragraph">
+<p>To release OpenCL memory objects that have been created from EGL resources,
+call the function</p>
 </div>
+<div id="clEnqueueReleaseEGLObjectsKHR" class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-opencl" data-lang="opencl">// Provided by cl_khr_egl_image
+cl_int clEnqueueReleaseEGLObjectsKHR(
+    cl_command_queue command_queue,
+    cl_uint num_objects,
+    const cl_mem* mem_objects,
+    cl_uint num_events_in_wait_list,
+    const cl_event* event_wait_list,
+    cl_event* event);</code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<strong>clEnqueueReleaseEGLObjectsKHR</strong> is provided by the <code>cl_khr_egl_image</code> extension.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -791,36 +810,36 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <div class="ulist">
 <ul>
 <li>
-<p><em>command_queue</em> - A valid command-queue.</p>
+<p><em>command_queue</em> is a valid command-queue.</p>
 </li>
 <li>
-<p><em>num_objects</em> - The number of memory objects to be acquired in
+<p><em>num_objects</em> is the number of memory objects to be acquired in
 <em>mem_objects</em>.</p>
 </li>
 <li>
-<p><em>mem_objects</em> - A pointer to a list of OpenCL memory objects that were
-created from EGL resources, within the context associated with
-<em>command_queue</em>.</p>
+<p><em>mem_objects</em> is a pointer to a list of OpenCL memory objects that were
+created from EGL resources, within the context associate with
+command_queue.</p>
 </li>
 <li>
-<p><em>num_events_in_wait_list</em> - Number of events in <em>event_wait_list</em>.</p>
-</li>
-<li>
-<p><em>event_wait_list</em> - Specify events that need to complete before this
-particular command can be executed. If <em>event_wait_list</em> is NULL, then
-this particular command does not wait on any event to complete. If
-<em>event_wait_list</em> is NULL, <em>num_events_in_wait_list</em> must be 0. If
-<em>event_wait_list</em> is not NULL, the list of events pointed to by
+<p><em>event_wait_list</em> and <em>num_events_in_wait_list</em> specify events that need
+to complete before this particular command can be executed.
+If <em>event_wait_list</em> is <code>NULL</code>, then this particular command does not
+wait on any event to complete.
+If <em>event_wait_list</em> is <code>NULL</code>, <em>num_events_in_wait_list</em> must be 0.
+If <em>event_wait_list</em> is not <code>NULL</code>, the list of events pointed to by
 <em>event_wait_list</em> must be valid and <em>num_events_in_wait_list</em> must be
-greater than 0. The events specified in <em>event_wait_list</em> act as
-synchronization points.</p>
+greater than 0.
+The events specified in <em>event_wait_list</em> act as synchronization points.</p>
 </li>
 <li>
-<p><em>event</em> - Returns an event object that identifies this command and can
-be used to query or queue a wait for the command to complete. <em>event</em>
-can be NULL in which case it will not be possible for the application to
-query the status of this command or queue a wait for this command to
-complete.</p>
+<p><em>event</em> returns an event object that identifies this command and can be
+used to query or wait for this command to complete.
+If <em>event</em> is <code>NULL</code> or the enqueue is unsuccessful, no event will be
+created and therefore it will not be possible to query the status of
+this command or to wait for this command to complete.
+If <em>event_wait_list</em> and <em>event</em> are not <code>NULL</code>, <em>event</em> must not refer
+to an element of the <em>event_wait_list</em> array.</p>
 </li>
 </ul>
 </div>
@@ -830,53 +849,56 @@ complete.</p>
 <h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This function is used to release OpenCL memory objects that have been
-created from EGL resources. The EGL objects are released by the OpenCL
-context associated with <em>command_queue</em>.</p>
+<p>The EGL objects are released by the OpenCL context associated with
+&lt;command_queue&gt;.</p>
 </div>
 <div class="paragraph">
 <p>OpenCL memory objects created from EGL resources which have been acquired by
 OpenCL must be released by OpenCL before they may be accessed by EGL or by
-EGL client APIs.</p>
-</div>
-<div class="paragraph">
-<p>Accessing a EGL resource while its corresponding OpenCL memory object is
+EGL client APIs.
+Accessing a EGL resource while its corresponding OpenCL memory object is
 acquired is in error and will result in undefined behavior, including but
 not limited to possible OpenCL errors, data corruption, and program
 termination.</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_errors"><a class="anchor" href="#_errors"></a>Errors</h2>
-<div class="sectionbody">
 <div class="paragraph">
-<p>Returns <code>CL_SUCCESS</code> if the function is executed successfully. If
-<em>num_objects</em> is 0 and <em>mem_objects</em> is NULL the function does nothing and
-returns <code>CL_SUCCESS</code>. Otherwise, it returns one of the following errors:</p>
+<p><strong>clEnqueueReleaseEGLObjectsKHR</strong> returns <code>CL_SUCCESS</code> if the function is
+executed successfully.
+If <em>num_objects</em> is 0 and <em>mem_objects</em> is <code>NULL</code> then the function does
+nothing and returns <code>CL_SUCCESS</code>.
+Otherwise it returns one of the following errors:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_INVALID_VALUE</code> if <em>num_objects</em> is zero and <em>mem_objects</em> is not a NULL value or if <em>num_objects</em> &gt; 0 and <em>mem_objects</em> is NULL.</p>
+<p><code>CL_INVALID_<wbr>VALUE</code> if <em>num_objects</em> is zero and <em>mem_objects</em> is not a
+<code>NULL</code> value or if num_objects &gt; 0 and mem_objects is <code>NULL</code>.</p>
 </li>
 <li>
-<p><code>CL_INVALID_MEM_OBJECT</code> if memory objects in <em>mem_objects</em> are not valid OpenCL memory objects in the context associated with <em>command_queue</em>.</p>
+<p><code>CL_INVALID_<wbr>MEM_<wbr>OBJECT</code> if memory objects in <em>mem_objects</em> are not valid
+OpenCL memory objects in the context associated with <em>command_queue</em>.</p>
 </li>
 <li>
-<p><code>CL_INVALID_EGL_OBJECT_KHR</code> if memory objects in <em>mem_objects</em> have not been created from EGL resources.</p>
+<p><code>CL_INVALID_<wbr>EGL_<wbr>OBJECT_<wbr>KHR</code> if memory objects in <em>mem_objects</em> have not
+been created from EGL resources.</p>
 </li>
 <li>
-<p><code>CL_INVALID_COMMAND_QUEUE</code> if <em>command_queue</em> is not a valid command-queue.</p>
+<p><code>CL_INVALID_<wbr>COMMAND_<wbr>QUEUE</code> if <em>command_queue</em> is not a valid
+command-queue.</p>
 </li>
 <li>
-<p><code>CL_INVALID_EVENT_WAIT_LIST</code> if <em>event_wait_list</em> is NULL and <em>num_events_in_wait_list</em> &gt; 0, or <em>event_wait_list</em> is not NULL and <em>num_events_in_wait_list</em> is 0, or if event objects in <em>event_wait_list</em> are not valid events.</p>
+<p><code>CL_INVALID_<wbr>EVENT_<wbr>WAIT_<wbr>LIST</code> if <em>event_wait_list</em> is <code>NULL</code> and
+<em>num_events_in_wait_list</em> &gt; 0, or <em>event_wait_list</em> is not <code>NULL</code> and
+<em>num_events_in_wait_list</em> is 0, or if event objects in <em>event_wait_list</em>
+are not valid events.</p>
 </li>
 <li>
-<p><code>CL_OUT_OF_RESOURCES</code> if there is a failure to allocate resources required by the OpenCL implementation on the device.</p>
+<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources
+required by the OpenCL implementation on the device.</p>
 </li>
 <li>
-<p><code>CL_OUT_OF_HOST_MEMORY</code> if there is a failure to allocate resources required by the OpenCL implementation on the host.</p>
+<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code> if there is a failure to allocate resources
+required by the OpenCL implementation on the host.</p>
 </li>
 </ul>
 </div>
@@ -886,10 +908,7 @@ returns <code>CL_SUCCESS</code>. Otherwise, it returns one of the following erro
 <h2 id="_see_also"><a class="anchor" href="#_see_also"></a>See Also</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="cl_khr_egl_image.html">cl_khr_egl_image</a>,
-<a href="cl_khr_egl_event.html">cl_khr_egl_event</a>,
-<a href="clEnqueueAcquireEGLObjectsKHR.html">clEnqueueAcquireEGLObjectsKHR</a>,
-<a href="clCreateFromEGLImageKHR.html">clCreateFromEGLImageKHR</a></p>
+<p><a href="cl_command_queue.html">cl_command_queue</a>, <a href="cl_event.html">cl_event</a>, <a href="cl_khr_egl_image.html">cl_khr_egl_image</a>, <a href="cl_mem.html">cl_mem</a>, <a href="cl_uint.html">cl_uint</a></p>
 </div>
 </div>
 </div>
@@ -897,10 +916,11 @@ returns <code>CL_SUCCESS</code>. Otherwise, it returns one of the following erro
 <h2 id="_document_notes"><a class="anchor" href="#_document_notes"></a>Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Extension Specification at URL</p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#clEnqueueReleaseEGLObjectsKHR" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_egl_image" class="bare">https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_egl_image</a></p>
+<p>This page is extracted from the OpenCL Specification.
+Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 </div>
 </div>
@@ -908,7 +928,7 @@ returns <code>CL_SUCCESS</code>. Otherwise, it returns one of the following erro
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -918,8 +938,8 @@ returns <code>CL_SUCCESS</code>. Otherwise, it returns one of the following erro
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

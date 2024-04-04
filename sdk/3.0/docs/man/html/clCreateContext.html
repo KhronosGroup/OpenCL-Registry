@@ -779,7 +779,8 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 </div>
 <div id="clCreateContext" class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-opencl" data-lang="opencl">cl_context clCreateContext(
+<pre class="highlight"><code class="language-opencl" data-lang="opencl">// Provided by CL_VERSION_1_0
+cl_context clCreateContext(
     const cl_context_properties* properties,
     cl_uint num_devices,
     const cl_device_id* devices,
@@ -801,10 +802,10 @@ corresponding values.
 Each property name is immediately followed by the corresponding desired
 value.
 The list is terminated with 0.
-The list of supported properties is described in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#context-properties-table" target="_blank" rel="noopener">Context Properties</a> table.
-<em>properties</em> can be <code>NULL</code> in which case the platform that is selected is
-implementation-defined.</p>
+The list of supported properties, and their default values if not
+present in <em>properties</em>, is described in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#context-properties-table" target="_blank" rel="noopener">Context Properties</a> table.
+<em>properties</em> can be <code>NULL</code>, in which case all properties take on their
+default values.</p>
 </li>
 <li>
 <p><em>num_devices</em> is the number of devices specified in the <em>devices</em> argument.</p>
@@ -883,7 +884,8 @@ on one or more devices specified in the context.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_CONTEXT_<wbr>PLATFORM</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_platform_<wbr>id</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the platform to use.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the platform to use.</p>
+<p class="tableblock">        Defaults to an implementation-defined platform if not specified.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_CONTEXT_<wbr>INTEROP_<wbr>USER_<wbr>SYNC</code></p>
@@ -894,11 +896,152 @@ on one or more devices specified in the context.</p>
         Please refer to the specific sections in the OpenCL Extension
         Specification that describe sharing with other APIs for restrictions
         on using this flag.</p>
-<p class="tableblock">        If <code>CL_CONTEXT_<wbr>INTEROP_<wbr>USER_<wbr>SYNC</code> is not specified, a default of
-        <code>CL_FALSE</code> is assumed.</p></td>
+<p class="tableblock">        Defaults to <code>CL_FALSE</code> if not specified.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_CONTEXT_<wbr>ADAPTER_<wbr>D3D9_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_dx9_media_sharing</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>IDirect3DDevice9 *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies an <code>IDirect3DDevice9</code> to use for D3D9 interop.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_CONTEXT_<wbr>ADAPTER_<wbr>D3D9EX_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_dx9_media_sharing</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>IDirect3DDeviceEx*</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies an <code>IDirect3DDevice9Ex</code> to use for D3D9 interop.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_CONTEXT_<wbr>ADAPTER_<wbr>DXVA_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_dx9_media_sharing</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>IDXVAHD_Device *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies an <code>IDXVAHD_Device</code> to use for DXVA interop.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_CONTEXT_<wbr>D3D10_<wbr>DEVICE_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_d3d10_sharing</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ID3D10Device *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the <code>ID3D10Device *</code> to use for Direct3D 10 interoperability.</p>
+<p class="tableblock">      The default value is <code>NULL</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_CONTEXT_<wbr>D3D11_<wbr>DEVICE_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_d3d11_sharing</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ID3D11Device *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the <code>ID3D11Device *</code> to use for Direct3D 11 interoperability.</p>
+<p class="tableblock">      The default value is <code>NULL</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_GL_<wbr>CONTEXT_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_gl_sharing</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OpenGL context handle</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OpenGL context to associate the OpenCL context with</p>
+<p class="tableblock">      Defaults to 0 if not specified.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_CGL_<wbr>SHAREGROUP_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_gl_sharing</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CGL share group handle</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CGL share group to associate the OpenCL context with</p>
+<p class="tableblock">      Defaults to 0 if not specified.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_EGL_<wbr>DISPLAY_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_gl_sharing</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">EGL <code>EGLDisplay</code> handle</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>EGLDisplay</code> an OpenGL context was created with respect to</p>
+<p class="tableblock">      Defaults to <code>EGL_NO_DISPLAY</code> if not specified.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_GLX_<wbr>DISPLAY_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_gl_sharing</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X handle</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X Display an OpenGL context was created with respect to</p>
+<p class="tableblock">      Defaults to <code>None</code> if not specified.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_WGL_<wbr>HDC_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_gl_sharing</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Windows HDC handle</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HDC an OpenGL context was created with respect to</p>
+<p class="tableblock">      Defaults to 0 if not specified.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_CONTEXT_<wbr>MEMORY_<wbr>INITIALIZE_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_initialize_memory</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_context_<wbr>memory_<wbr>initialize_<wbr>khr</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Describes which memory types for the context must be initialized.
+      This is a bit-field, where the following values are currently
+      supported:</p>
+<p class="tableblock">      <code>CL_CONTEXT_<wbr>MEMORY_<wbr>INITIALIZE_<wbr>LOCAL_<wbr>KHR</code>&#8201;&#8212;&#8201;Initialize local
+      memory to zeros.</p>
+<p class="tableblock">      <code>CL_CONTEXT_<wbr>MEMORY_<wbr>INITIALIZE_<wbr>PRIVATE_<wbr>KHR</code>&#8201;&#8212;&#8201;Initialize
+      private memory to zeros.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_CONTEXT_<wbr>TERMINATE_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_terminate_context</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_bool</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies whether the context can be terminated.
+      The default value is <code>CL_FALSE</code>.</p></td>
 </tr>
 </tbody>
 </table>
+<div class="paragraph">
+<p>Some of the properties specified in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#context-properties-table" target="_blank" rel="noopener">Context
+Properties</a> table control sharing of OpenCL memory objects with OpenGL
+buffer, texture, and renderbuffer objects.</p>
+</div>
+<div id="specifying-gl-context" class="paragraph">
+<p>Depending on the platform-specific API used to bind OpenGL contexts to the
+window system, the following properties may be set to identify an OpenGL
+context:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>When the CGL binding API is supported, the property
+<code>CL_CGL_<wbr>SHAREGROUP_<wbr>KHR</code> should be set to a CGLShareGroup handle to a CGL
+share group object.</p>
+</li>
+<li>
+<p>When the EGL binding API is supported, the property <code>CL_GL_<wbr>CONTEXT_<wbr>KHR</code>
+should be set to an EGLContext handle to an OpenGL ES or OpenGL context,
+and the property <code>CL_EGL_<wbr>DISPLAY_<wbr>KHR</code> should be set to the <code>EGLDisplay</code>
+handle of the display used to create the OpenGL ES or OpenGL context.</p>
+</li>
+<li>
+<p>When the GLX binding API is supported, the property <code>CL_GL_<wbr>CONTEXT_<wbr>KHR</code>
+should be set to a GLXContext handle to an OpenGL context, and the
+property <code>CL_GLX_<wbr>DISPLAY_<wbr>KHR</code> should be set to the <code>Display</code> handle of
+the X Window System display used to create the OpenGL context.</p>
+</li>
+<li>
+<p>When the WGL binding API is supported, the property <code>CL_GL_<wbr>CONTEXT_<wbr>KHR</code>
+should be set to an HGLRC handle to an OpenGL context, and the property
+<code>CL_WGL_<wbr>HDC_<wbr>KHR</code> should be set to the HDC handle of the display used to
+create the OpenGL context.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Memory objects created in the context so specified may be shared with the
+specified OpenGL or OpenGL ES context (as well as with any other OpenGL
+contexts on the share list of that context, according to the description of
+sharing in the GLX 1.4 and EGL 1.5 specifications, and the WGL documentation
+for OpenGL implementations on Microsoft Windows), or with the explicitly
+identified OpenGL share group for CGL.
+If no OpenGL or OpenGL ES context or share group is specified in the
+property list, then memory objects may not be shared, and attempts to create
+such objects will result in a <code>CL_INVALID_<wbr>GL_<wbr>SHAREGROUP_<wbr>REFERENCE_<wbr>KHR</code>
+error.</p>
+</div>
+<div class="paragraph">
+<p>OpenCL / OpenGL sharing does not support the <code>CL_CONTEXT_<wbr>INTEROP_<wbr>USER_<wbr>SYNC</code>
+property defined in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#context-properties-table" target="_blank" rel="noopener">Context Properties</a>
+table.
+Specifying this property when creating a context with OpenCL / OpenGL
+sharing will return an appropriate error.</p>
+</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -923,12 +1066,12 @@ returned in <em>errcode_ret</em>:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_INVALID_<wbr>PLATFORM</code> if <em>properties</em> is <code>NULL</code> and no platform could be
-selected or if platform value specified in <em>properties</em> is not a valid
-platform.</p>
+<p><code>CL_INVALID_<wbr>PLATFORM</code> if no platform is specified in <em>properties</em> and no
+platform could be selected, or if the platform specified in <em>properties</em> is
+not a valid platform.</p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>PROPERTY</code> if context property name in <em>properties</em> is not a
+<p><code>CL_INVALID_<wbr>PROPERTY</code> if a context property name in <em>properties</em> is not a
 supported property name, if the value specified for a supported property
 name is not valid, or if the same property name is specified more than
 once.
@@ -958,6 +1101,144 @@ by the OpenCL implementation on the device.</p>
 <li>
 <p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code> if there is a failure to allocate resources
 required by the OpenCL implementation on the host.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The following errors may be returned if the <code>cl_khr_<wbr>dx9_<wbr>media_<wbr>sharing</code>
+extension is supported:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_INVALID_<wbr>DX9_<wbr>MEDIA_<wbr>ADAPTER_<wbr>KHR</code> if any of the values of the
+properties <code>CL_CONTEXT_<wbr>ADAPTER_<wbr>D3D9_<wbr>KHR</code>,
+<code>CL_CONTEXT_<wbr>ADAPTER_<wbr>D3D9EX_<wbr>KHR</code> or <code>CL_CONTEXT_<wbr>ADAPTER_<wbr>DXVA_<wbr>KHR</code> is
+non-<code>NULL</code> and does not specify a valid media adapter with which the
+<em>cl_device_ids</em> against which this context is to be created may
+interoperate.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The following errors may be returned if the <code>cl_khr_<wbr>d3d10_<wbr>sharing</code>
+extension is supported:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_INVALID_<wbr>D3D10_<wbr>DEVICE_<wbr>KHR</code> if the value of the property
+<code>CL_CONTEXT_<wbr>D3D10_<wbr>DEVICE_<wbr>KHR</code> is non-<code>NULL</code> and does not specify a valid
+Direct3D 10 device with which the <em>cl_device_ids</em> against which this
+context is to be created may interoperate.</p>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>OPERATION</code> if Direct3D 10 interoperability is specified by
+setting <code>CL_INVALID_<wbr>D3D10_<wbr>DEVICE_<wbr>KHR</code> to a non-<code>NULL</code> value, and
+interoperability with another graphics API is also specified.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The following errors may be returned if the <code>cl_khr_<wbr>d3d11_<wbr>sharing</code>
+extension is supported:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_INVALID_<wbr>D3D11_<wbr>DEVICE_<wbr>KHR</code> if the value of the property
+<code>CL_CONTEXT_<wbr>D3D11_<wbr>DEVICE_<wbr>KHR</code> is non-<code>NULL</code> and does not specify a valid
+Direct3D 11 device with which the <em>cl_device_ids</em> against which this
+context is to be created may interoperate.</p>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>OPERATION</code> if Direct3D 11 interoperability is specified by
+setting <code>CL_INVALID_<wbr>D3D11_<wbr>DEVICE_<wbr>KHR</code> to a non-<code>NULL</code> value, and
+interoperability with another graphics API is also specified.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The following errors may be returned if the <code>cl_khr_<wbr>gl_<wbr>sharing</code>
+extension is supported:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_INVALID_<wbr>GL_<wbr>SHAREGROUP_<wbr>REFERENCE_<wbr>KHR</code> if a context was specified for
+an OpenGL or OpenGL ES implementation using the EGL, GLX, or WGL binding
+APIs, as <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#specifying-gl-context" target="_blank" rel="noopener">described above</a>; and any of the
+following conditions hold:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The specified display and context properties do not identify a valid
+OpenGL or OpenGL ES context.</p>
+</li>
+<li>
+<p>The specified context does not support buffer and renderbuffer objects.</p>
+</li>
+<li>
+<p>The specified context is not compatible with the OpenCL context being
+created (for example, it exists in a physically distinct address space,
+such as another hardware device; or it does not support sharing data
+with OpenCL due to implementation restrictions).</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>GL_<wbr>SHAREGROUP_<wbr>REFERENCE_<wbr>KHR</code> if a share group was specified
+for a CGL-based OpenGL implementation by setting the property
+<code>CL_CGL_<wbr>SHAREGROUP_<wbr>KHR</code>, and the specified share group does not identify
+a valid CGL share group object.</p>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>OPERATION</code> if a context was specified as described above and
+any of the following conditions hold:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>A context or share group object was specified for one of CGL, EGL, GLX,
+or WGL and the OpenGL implementation does not support that
+window-system binding API.</p>
+</li>
+<li>
+<p>More than one of the properties <code>CL_CGL_<wbr>SHAREGROUP_<wbr>KHR</code>,
+<code>CL_EGL_<wbr>DISPLAY_<wbr>KHR</code>, <code>CL_GLX_<wbr>DISPLAY_<wbr>KHR</code>, and <code>CL_WGL_<wbr>HDC_<wbr>KHR</code> is set
+to a non-default value.</p>
+</li>
+<li>
+<p>Both of the properties <code>CL_CGL_<wbr>SHAREGROUP_<wbr>KHR</code> and <code>CL_GL_<wbr>CONTEXT_<wbr>KHR</code>
+are set to non-default values.</p>
+</li>
+<li>
+<p>Any of the devices specified in the <em>devices</em> argument cannot support
+OpenCL objects which share the data store of an OpenGL object.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>PROPERTY</code> if both <code>CL_CONTEXT_<wbr>INTEROP_<wbr>USER_<wbr>SYNC</code>, and any of
+the properties defined by the <code>cl_khr_<wbr>gl_<wbr>sharing</code> extension are
+defined in <em>properties</em>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The following errors may be returned if the <code>cl_khr_<wbr>terminate_<wbr>context</code>
+extension is supported:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_INVALID_<wbr>PROPERTY</code> if the <code>cl_khr_<wbr>terminate_<wbr>context</code> extension is
+supported and <code>CL_CONTEXT_<wbr>TERMINATE_<wbr>KHR</code> is set to <code>CL_TRUE</code> in
+<em>properties</em>, but not all of the devices associated with the context
+support the ability to support context termination (i.e.
+<code>CL_DEVICE_<wbr>TERMINATE_<wbr>CAPABILITY_<wbr>CONTEXT_<wbr>KHR</code> is set for
+<code>CL_DEVICE_<wbr>TERMINATE_<wbr>CAPABILITY_<wbr>KHR</code>).</p>
 </li>
 </ul>
 </div>
@@ -1009,7 +1290,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -1025,8 +1306,8 @@ Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

@@ -780,7 +780,8 @@ language into that object, call the function</p>
 </div>
 <div id="clCreateProgramWithIL" class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-opencl" data-lang="opencl">cl_program clCreateProgramWithIL(
+<pre class="highlight"><code class="language-opencl" data-lang="opencl">// Provided by CL_VERSION_2_1
+cl_program clCreateProgramWithIL(
     cl_context context,
     const void* il,
     size_t length,
@@ -795,7 +796,31 @@ language into that object, call the function</p>
 </td>
 <td class="content">
 <strong>clCreateProgramWithIL</strong> is <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.1.
-Also see extension <strong>cl_khr_il_program</strong>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>or the equivalent</p>
+</div>
+<div id="clCreateProgramWithILKHR" class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-opencl" data-lang="opencl">// Provided by cl_khr_il_program
+cl_program clCreateProgramWithILKHR(
+    cl_context context,
+    const void* il,
+    size_t length,
+    cl_int* errcode_ret);</code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<strong>clCreateProgramWithILKHR</strong> is provided by the <code>cl_khr_il_program</code> extension.
 </td>
 </tr>
 </table>
@@ -811,8 +836,11 @@ Also see extension <strong>cl_khr_il_program</strong>.
 <p><em>context</em> must be a valid OpenCL context.</p>
 </li>
 <li>
-<p><em>il</em> is a pointer to a <em>length</em>-byte block of memory containing SPIR-V or an
+<p><em>il</em> is a pointer to a block of memory containing SPIR-V or an
 implementation-defined intermediate language.</p>
+</li>
+<li>
+<p><em>length</em> is the length of the block pointed to by <em>il</em>.</p>
 </li>
 <li>
 <p><em>errcode_ret</em> will return an appropriate error code.
@@ -851,9 +879,9 @@ language programs.</p>
 <p><code>CL_INVALID_<wbr>VALUE</code> if <em>il</em> is <code>NULL</code> or if <em>length</em> is zero.</p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if the <em>length</em>-byte memory pointed to by <em>il</em> does not
-contain well-formed intermediate language input that can be consumed by
-the OpenCL runtime.</p>
+<p><code>CL_INVALID_<wbr>VALUE</code> if the <em>length</em>-byte block of memory pointed to by
+<em>il</em> does not contain well-formed intermediate language input that can
+be consumed by the OpenCL runtime.</p>
 </li>
 <li>
 <p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources required
@@ -871,7 +899,7 @@ required by the OpenCL implementation on the host.</p>
 <h2 id="_see_also"><a class="anchor" href="#_see_also"></a>See Also</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="CL_VERSION_2_1.html">CL_VERSION_2_1</a>, <a href="cl_context.html">cl_context</a>, <a href="cl_int.html">cl_int</a></p>
+<p><a href="CL_VERSION_2_1.html">CL_VERSION_2_1</a>, <a href="cl_context.html">cl_context</a>, <a href="cl_int.html">cl_int</a>, <a href="cl_khr_il_program.html">cl_khr_il_program</a></p>
 </div>
 </div>
 </div>
@@ -891,7 +919,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -901,8 +929,8 @@ Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

@@ -780,7 +780,8 @@ type <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_foot
 </div>
 <div id="clCreateContextFromType" class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-opencl" data-lang="opencl">cl_context clCreateContextFromType(
+<pre class="highlight"><code class="language-opencl" data-lang="opencl">// Provided by CL_VERSION_1_0
+cl_context clCreateContextFromType(
     const cl_context_properties* properties,
     cl_device_type device_type,
     void (CL_CALLBACK* pfn_notify)(const char* errinfo, const void* private_info, size_t cb, void* user_data),
@@ -800,10 +801,10 @@ type <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_foot
 corresponding values.
 Each property name is immediately followed by the corresponding desired
 value.
-The list of supported properties is described in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#context-properties-table" target="_blank" rel="noopener">Context Properties</a> table.
-<em>properties</em> can also be <code>NULL</code> in which case the platform that is selected
-is implementation-defined.</p>
+The list of supported properties, and their default values if not
+present in <em>properties</em>, is described in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#context-properties-table" target="_blank" rel="noopener">Context Properties</a> table.
+<em>properties</em> can be <code>NULL</code>, in which case all properties take on their
+default values.</p>
 </li>
 <li>
 <p><em>device_type</em> is a bit-field that identifies the type of device and is
@@ -838,12 +839,12 @@ returned in <em>errcode_ret</em>:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_INVALID_<wbr>PLATFORM</code> if <em>properties</em> is <code>NULL</code> and no platform could be
-selected or if platform value specified in <em>properties</em> is not a valid
-platform.</p>
+<p><code>CL_INVALID_<wbr>PLATFORM</code> if no platform is specified in <em>properties</em> and no
+platform could be selected, or if the platform specified in <em>properties</em> is
+not a valid platform.</p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>PROPERTY</code> if context property name in <em>properties</em> is not a
+<p><code>CL_INVALID_<wbr>PROPERTY</code> if a context property name in <em>properties</em> is not a
 supported property name, if the value specified for a supported property
 name is not valid, or if the same property name is specified more than
 once.
@@ -874,6 +875,128 @@ required by the OpenCL implementation on the host.</p>
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p>The following errors may be returned if the <code>cl_khr_<wbr>dx9_<wbr>media_<wbr>sharing</code>
+extension is supported:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_INVALID_<wbr>DX9_<wbr>MEDIA_<wbr>ADAPTER_<wbr>KHR</code> if any of the values of the
+properties <code>CL_CONTEXT_<wbr>ADAPTER_<wbr>D3D9_<wbr>KHR</code>,
+<code>CL_CONTEXT_<wbr>ADAPTER_<wbr>D3D9EX_<wbr>KHR</code> or <code>CL_CONTEXT_<wbr>ADAPTER_<wbr>DXVA_<wbr>KHR</code> is
+non-<code>NULL</code> and does not specify a valid media adapter with which the
+<em>cl_device_ids</em> against which this context is to be created may
+interoperate.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The following errors may be returned if the <code>cl_khr_<wbr>d3d10_<wbr>sharing</code>
+extension is supported:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_INVALID_<wbr>D3D10_<wbr>DEVICE_<wbr>KHR</code> if the value of the property
+<code>CL_CONTEXT_<wbr>D3D10_<wbr>DEVICE_<wbr>KHR</code> is non-<code>NULL</code> and does not specify a valid
+Direct3D 10 device with which the <em>cl_device_ids</em> against which this
+context is to be created may interoperate.</p>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>OPERATION</code> if Direct3D 10 interoperability is specified by
+setting <code>CL_INVALID_<wbr>D3D10_<wbr>DEVICE_<wbr>KHR</code> to a non-<code>NULL</code> value, and
+interoperability with another graphics API is also specified.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The following errors may be returned if the <code>cl_khr_<wbr>d3d11_<wbr>sharing</code>
+extension is supported:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_INVALID_<wbr>D3D11_<wbr>DEVICE_<wbr>KHR</code> if the value of the property
+<code>CL_CONTEXT_<wbr>D3D11_<wbr>DEVICE_<wbr>KHR</code> is non-<code>NULL</code> and does not specify a valid
+Direct3D 11 device with which the <em>cl_device_ids</em> against which this
+context is to be created may interoperate.</p>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>OPERATION</code> if Direct3D 11 interoperability is specified by
+setting <code>CL_INVALID_<wbr>D3D11_<wbr>DEVICE_<wbr>KHR</code> to a non-<code>NULL</code> value, and
+interoperability with another graphics API is also specified.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The following errors may be returned if the <code>cl_khr_<wbr>gl_<wbr>sharing</code>
+extension is supported:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_INVALID_<wbr>GL_<wbr>SHAREGROUP_<wbr>REFERENCE_<wbr>KHR</code> if a context was specified for
+an OpenGL or OpenGL ES implementation using the EGL, GLX, or WGL binding
+APIs, as <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#specifying-gl-context" target="_blank" rel="noopener">described for <code>clCreateContext</code></a>; and
+any of the following conditions hold:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The specified display and context properties do not identify a valid
+OpenGL or OpenGL ES context.</p>
+</li>
+<li>
+<p>The specified context does not support buffer and renderbuffer objects.</p>
+</li>
+<li>
+<p>The specified context is not compatible with the OpenCL context being
+created (for example, it exists in a physically distinct address space,
+such as another hardware device; or it does not support sharing data
+with OpenCL due to implementation restrictions).</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>GL_<wbr>SHAREGROUP_<wbr>REFERENCE_<wbr>KHR</code> if a share group was specified
+for a CGL-based OpenGL implementation by setting the property
+<code>CL_CGL_<wbr>SHAREGROUP_<wbr>KHR</code>, and the specified share group does not identify
+a valid CGL share group object.</p>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>OPERATION</code> if a context was specified as described above and
+any of the following conditions hold:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>A context or share group object was specified for one of CGL, EGL, GLX,
+or WGL and the OpenGL implementation does not support that
+window-system binding API.</p>
+</li>
+<li>
+<p>More than one of the properties <code>CL_CGL_<wbr>SHAREGROUP_<wbr>KHR</code>,
+<code>CL_EGL_<wbr>DISPLAY_<wbr>KHR</code>, <code>CL_GLX_<wbr>DISPLAY_<wbr>KHR</code>, and <code>CL_WGL_<wbr>HDC_<wbr>KHR</code> is set
+to a non-default value.</p>
+</li>
+<li>
+<p>Both of the properties <code>CL_CGL_<wbr>SHAREGROUP_<wbr>KHR</code> and <code>CL_GL_<wbr>CONTEXT_<wbr>KHR</code>
+are set to non-default values.</p>
+</li>
+<li>
+<p>Any of the devices specified in the <em>devices</em> argument cannot support
+OpenCL objects which share the data store of an OpenGL object.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>PROPERTY</code> if both <code>CL_CONTEXT_<wbr>INTEROP_<wbr>USER_<wbr>SYNC</code>, and any of
+the properties defined by the <code>cl_khr_<wbr>gl_<wbr>sharing</code> extension are
+defined in <em>properties</em>.</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -900,7 +1023,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -916,8 +1039,8 @@ Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

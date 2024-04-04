@@ -767,22 +767,40 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <h1>clEnqueueAcquireGLObjects(3) Manual Page</h1>
 <h2 id="_name">Name</h2>
 <div class="sectionbody">
-<p>clEnqueueAcquireGLObjects - Acquire OpenCL memory objects that have been created from OpenGL objects.</p>
+<p>clEnqueueAcquireGLObjects - Acquire OpenCL memory objects created from OpenGL objects</p>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
 <h2 id="_c_specification"><a class="anchor" href="#_c_specification"></a>C Specification</h2>
 <div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">cl_int clEnqueueAcquireGLObjects(cl_command_queue command_queue,
-                                 cl_uint num_objects,
-                                 const cl_mem *mem_objects,
-                                 cl_uint num_events_in_wait_list,
-                                 const cl_event *event_wait_list,
-                                 cl_event *event)</code></pre>
+<div class="paragraph">
+<p>To acquire OpenCL memory objects that have been created from OpenGL objects,
+call the function</p>
 </div>
+<div id="clEnqueueAcquireGLObjects" class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-opencl" data-lang="opencl">// Provided by cl_khr_gl_sharing
+cl_int clEnqueueAcquireGLObjects(
+    cl_command_queue command_queue,
+    cl_uint num_objects,
+    const cl_mem* mem_objects,
+    cl_uint num_events_in_wait_list,
+    const cl_event* event_wait_list,
+    cl_event* event);</code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<strong>clEnqueueAcquireGLObjects</strong> is provided by the <code>cl_khr_gl_sharing</code> extension.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -792,71 +810,38 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <div class="ulist">
 <ul>
 <li>
-<p><em>command_queue</em> - A valid command-queue. All devices used to create the
-OpenCL context associated with <em>command_queue</em> must support acquiring
-shared CL/GL objects. This constraint is enforced at context creation
-time.</p>
+<p><em>command_queue</em> is a valid command-queue.
+All devices used to create the OpenCL context associated with
+<em>command_queue</em> must support acquiring shared OpenCL/OpenGL objects.
+This constraint is enforced at context creation time.</p>
 </li>
 <li>
-<p><em>num_objects</em> - The number of memory objects to be acquired in
+<p><em>num_objects</em> is the number of memory objects to be acquired in
 <em>mem_objects</em>.</p>
 </li>
 <li>
-<p><em>mem_objects</em> - A pointer to a list of CL memory objects that correspond
-to GL objects.</p>
+<p><em>mem_objects</em> is a pointer to a list of OpenCL memory objects that
+correspond to OpenGL objects.</p>
 </li>
 <li>
-<p><em>num_events_in_wait_list</em> - Number of events in <em>event_wait_list</em>.</p>
-</li>
-<li>
-<p><em>event_wait_list</em> - Specify events that need to complete before this
-particular command can be executed. If <em>event_wait_list</em> is NULL, then
-this particular command does not wait on any event to complete. If
-<em>event_wait_list</em> is NULL, <em>num_events_in_wait_list</em> must be 0. If
-<em>event_wait_list</em> is not NULL, the list of events pointed to by
+<p><em>event_wait_list</em> and <em>num_events_in_wait_list</em> specify events that need
+to complete before this particular command can be executed.
+If <em>event_wait_list</em> is <code>NULL</code>, then this particular command does not
+wait on any event to complete.
+If <em>event_wait_list</em> is <code>NULL</code>, <em>num_events_in_wait_list</em> must be 0.
+If <em>event_wait_list</em> is not <code>NULL</code>, the list of events pointed to by
 <em>event_wait_list</em> must be valid and <em>num_events_in_wait_list</em> must be
-greater than 0. The events specified in <em>event_wait_list</em> act as
-synchronization points.</p>
+greater than 0.
+The events specified in <em>event_wait_list</em> act as synchronization points.</p>
 </li>
 <li>
-<p><em>event</em> - Returns an event object that identifies this command and can
-be used to query or queue a wait for the command to complete. <em>event</em>
-can be NULL in which case it will not be possible for the application to
-query the status of this command or queue a wait for this command to
-complete. If <em>event_wait_list</em> and <em>event</em> are not NULL, <em>event</em> should
-not refer to an element of the <em>event_wait_list</em> array.</p>
-<div class="openblock">
-<div class="content">
-<div class="paragraph">
-<p>If the <a href="cl_khr_gl_event.html">cl_khr_gl_event</a> extension is supported, if an OpenGL context
-is bound to the current thread, then any OpenGL commands which</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>affect or access the contents of a memory object listed in the
-<em>mem_objects</em> list, and</p>
-</li>
-<li>
-<p>were issued on that OpenGL context prior to the call to
-<code>clEnqueueAcquireGLObjects</code></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>will complete before execution of any OpenCL commands following the
-<code>clEnqueueAcquireGLObjects</code> which affect or access any of those memory
-objects. If a non-NULL event object is returned, it will report completion
-only after completion of such OpenGL commands.</p>
-</div>
-<div class="paragraph">
-<p>If the <a href="cl_khr_egl_event.html">cl_khr_egl_event</a> extension is supported, prior to calling
-<code>clEnqueueAcquireGLObjects</code>, the application must ensure that any pending
-EGL or EGL client API operations which access the objects specified in
-<em>mem_objects</em> have completed.</p>
-</div>
-</div>
-</div>
+<p><em>event</em> returns an event object that identifies this command and can be
+used to query wait for this command to complete.
+If <em>event</em> is <code>NULL</code> or the enqueue is unsuccessful, no event will be
+created and therefore it will not be possible to query the status of
+this command or to wait for this command to complete.
+If <em>event_wait_list</em> and <em>event</em> are not <code>NULL</code>, <em>event</em> must not refer
+to an element of the <em>event_wait_list</em> array.</p>
 </li>
 </ul>
 </div>
@@ -866,571 +851,77 @@ EGL or EGL client API operations which access the objects specified in
 <h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>These objects need to be acquired before they can be used by any OpenCL commands queued to a command-queue.
-The OpenGL objects are acquired by the OpenCL context associated with <em>command_queue</em> and can therefore be used by all command-queues associated with the OpenCL context.</p>
+<p>If an OpenGL context is bound to the current thread, then any OpenGL
+commands which</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_notes"><a class="anchor" href="#_notes"></a>Notes</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>General information about GL sharing follows.</p>
-</div>
-<div class="paragraph">
-<p>The OpenCL specification in section 9.7 defines how to share data with
-texture and buffer objects in a parallel OpenGL implementation, but does not
-define how the association between an OpenCL context and an OpenGL context
-or share group is established. This extension defines optional attributes to
-OpenCL context creation routines which associate a GL context or share group
-object with a newly created OpenCL context. If this extension is supported
-by an implementation, the string "cl_khr_gl_sharing" will be present in the
-<code>CL_DEVICE_EXTENSIONS</code> string described in the table of allowed values for
-<em>param_name</em> for <a href="clGetDeviceInfo.html">clGetDeviceInfo</a> or in the <code>CL_PLATFORM_EXTENSIONS</code>
-string described in the table of allowed values for <em>param_name</em> for
-<a href="clGetPlatformInfo.html">clGetPlatformInfo</a>.</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>affect or access the contents of a memory object listed in the
+<em>mem_objects</em> list, and</p>
+</li>
+<li>
+<p>were issued on that OpenGL context prior to the call to
+<strong>clEnqueueAcquireGLObjects</strong></p>
+</li>
+</ol>
 </div>
 <div class="paragraph">
-<p>This section discusses OpenCL functions that allow applications to use
-OpenGL buffer, texture, and renderbuffer objects as OpenCL memory objects.
-This allows efficient sharing of data between OpenCL and OpenGL. The OpenCL
-API may be used to execute kernels that read and/or write memory objects
-that are also OpenGL objects.</p>
+<p>will complete before execution of any OpenCL commands following the
+<strong>clEnqueueAcquireGLObjects</strong> which affect or access any of those memory
+objects.
+If a non-<code>NULL</code> <em>event</em> object is returned, it will report completion only
+after completion of such OpenGL commands.</p>
 </div>
 <div class="paragraph">
-<p>An OpenCL image object may be created from an OpenGL texture or renderbuffer
-object. An OpenCL buffer object may be created from an OpenGL buffer object.</p>
+<p>These objects need to be acquired before they can be used by any OpenCL
+commands queued to a command-queue or the behaviour is undefined.
+The OpenGL objects are acquired by the OpenCL context associated with
+<em>command_queue</em> and can therefore be used by all command-queues associated
+with the OpenCL context.</p>
 </div>
 <div class="paragraph">
-<p>Any supported OpenGL object defined within the GL share group object, or the
-share group associated with the GL context from which the CL context is
-created, may be shared, with the exception of the default OpenGL objects
-(i.e. objects named zero), which may not be shared.</p>
-</div>
-<div class="paragraph">
-<div class="title">OpenGL and Corresponding OpenCL Image Formats</div>
-<p>The table below (Table 9.4) describes the list of GL texture internal
-formats and the corresponding CL image formats.
-If a GL texture object with an internal format from the table below is
-successfully created by OpenGL, then there is guaranteed to be a mapping to
-one of the corresponding CL image format(s) in that table.
-Texture objects created with other OpenGL internal formats may (but are not
-guaranteed to) have a mapping to a CL image format; if such mappings exist,
-they are guaranteed to preserve all color components, data types, and at
-least the number of bits/component actually allocated by OpenGL for that
-format.</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">GL internal format</th>
-<th class="tableblock halign-left valign-top">CL image format (channel order, channel data type)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>GL_RGBA8</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_RGBA, CL_UNORM_INT8 or CL_BGRA, CL_UNORM_INT8</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>GL_SRGBA8_ALPHA8</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_sRGBA, CL_UNORM_INT8</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>GL_RGBA</code>,
-  <code>GL_UNSIGNED_INT_8_8_8_8_REV</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_RGBA, CL_UNORM_INT8</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>GL_BGRA</code>,
-  <code>GL_UNSIGNED_INT_8_8_8_8_REV</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_BGRA, CL_UNORM_INT8</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>GL_RGBA8I, GL_RGBA8I_EXT</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_RGBA, CL_SIGNED_INT8</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>GL_RGBA16I, GL_RGBA16I_EXT</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_RGBA, CL_SIGNED_INT16</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>GL_RGBA32I, GL_RGBA32I_EXT</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_RGBA, CL_SIGNED_INT32</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>GL_RGBA8UI, GL_RGBA8UI_EXT</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_RGBA, CL_UNSIGNED_INT8</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>GL_RGBA16UI, GL_RGBA16UI_EXT</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_RGBA, CL_UNSIGNED_INT16</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>GL_RGBA32UI, GL_RGBA32UI_EXT</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_RGBA, CL_UNSIGNED_INT32</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>GL_RGBA8_SNORM</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_RGBA, CL_SNORM_INT8</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>GL_RGBA16</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_RGBA, CL_UNORM_INT16</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>GL_RGBA16_SNORM</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_RGBA, CL_SNORM_INT166</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>GL_RGBA16F, GL_RGBA16F_ARB</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_RGBA, CL_HALF_FLOAT</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>GL_RGBA32F, GL_RGBA32F_ARB</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_RGBA, CL_FLOAT</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>GL_R8</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_R, CL_UNORM_INT8</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>GL_R8_SNORM</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_R, CL_SNORM_INT8</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>GL_R16</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_R, CL_UNORM_INT16</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>GL_R16_SNORM</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_R, CL_SNORM_INT16</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>GL_R16F</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_R, CL_HALF_FLOAT</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>GL_R32F</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_R, CL_FLOAT</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>GL_R8I</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_R, CL_SIGNED_INT8</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>GL_R16I</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_R, CL_SIGNED_INT16</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>GL_R32I</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_R, CL_SIGNED_INT32</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>GL_R8UI</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_R, CL_UNSIGNED_INT8</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>GL_R16UI</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_R, CL_UNSIGNED_INT16</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>GL_R32UI</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_R, CL_UNSIGNED_INT32</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>GL_RG8</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_RG, CL_UNORM_INT8</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>GL_RG8_SNORM</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_RG, CL_SNORM_INT8</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>GL_RG16</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_RG, CL_UNORM_INT16</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>GL_RG16_SNORM</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_RG, CL_SNORM_INT16</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>GL_RG16F</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_RG, CL_HALF_FLOAT</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>GL_RG32F</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_RG, CL_FLOAT</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>GL_RG8I</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_RG, CL_SIGNED_INT8</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>GL_RG16I</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_RG, CL_SIGNED_INT16</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>GL_RG32I</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_RG, CL_SIGNED_INT32</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>GL_RG8UI</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_RG, CL_UNSIGNED_INT8</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>GL_RG16UI</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_RG, CL_UNSIGNED_INT16</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>GL_RG32UI</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_RG, CL_UNSIGNED_INT32</code></p>
-</div></div></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph">
-<p>If the <a href="cl_khr_gl_depth_images.html">cl_khr_gl_depth_images</a> extension is enabled, the following
-new image formats are added to table 9.4 in section 9.6.3.1 of the OpenCL
-2.0 extension specification. If a GL texture object with an internal format
-from table 9.4 is successfully created by OpenGL, then there is guaranteed
-to be a mapping to one of the corresponding CL image format(s) in that
-table.</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">GL internal format</th>
-<th class="tableblock halign-left valign-top">CL image format (channel order, channel data type)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>GL_DEPTH_COMPONENT32F</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_DEPTH, CL_FLOAT</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>GL_DEPTH_COMPONENT16</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_DEPTH, CL_UNORM_INT16</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>GL_DEPTH24_STENCIL8</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_DEPTH_STENCIL, CL_UNORM_INT24</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>GL_DEPTH32F_STENCIL8</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_DEPTH_STENCIL, CL_FLOAT</code></p>
-</div></div></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph">
-<div class="title">Lifetime of [GL] Shared Objects</div>
-<p>An OpenCL memory object created from an OpenGL object (hereinafter refered
-to as a "shared CL/GL object") remains valid as long as the corresponding GL
-object has not been deleted. If the GL object is deleted through the GL API
-(e.g. <code>glDeleteBuffers</code>, <code>glDeleteTextures</code>, or <code>glDeleteRenderbuffers</code>),
-subsequent use of the CL buffer or image object will result in undefined
-behavior, including but not limited to possible CL errors and data
-corruption, but may not result in program termination.</p>
-</div>
-<div class="paragraph">
-<p>The CL context and corresponding command-queues are dependent on the
-existence of the GL share group object, or the share group associated with
-the GL context from which the CL context is created. If the GL share group
-object or all GL contexts in the share group are destroyed, any use of the
-CL context or command-queue(s) will result in undefined behavior, which may
-include program termination. Applications should destroy the CL
-command-queue(s) and CL context before destroying the corresponding GL share
-group or contexts.</p>
-</div>
-<div class="paragraph">
-<div class="title">Synchronizing OpenCL and OpenGL Access</div>
-<p>In order to ensure data integrity, the application is responsible for
-synchronizing access to shared CL/GL objects by their respective APIs.
-Failure to provide such synchronization may result in race conditions and
-other undefined behavior including non-portability between implementations.</p>
-</div>
-<div class="paragraph">
-<p>Prior to calling <a href="clEnqueueAcquireGLObjects.html">clEnqueueAcquireGLObjects</a>, the application must
-ensure that any pending GL operations which access the objects specified in
-<em>mem_objects</em> have completed. This may be accomplished portably by issuing
-and waiting for completion of a <code>glFinish</code> command on all GL contexts with
-pending references to these objects. Implementations may offer more
-efficient synchronization methods; for example on some platforms calling
-<code>glFlush</code> may be sufficient, or synchronization may be implicit within a
-thread, or there may be vendor-specific extensions that enable placing a
-fence in the GL command stream and waiting for completion of that fence in
-the CL command-queue. Note that no synchronization methods other than
-<code>glFinish</code> are portable between OpenGL implementations at this time.</p>
-</div>
-<div class="paragraph">
-<p>When the extension <a href="cl_khr_egl_event.html">cl_khr_egl_event</a> is supported: Prior to calling
-<a href="clEnqueueAcquireGLObjects.html">clEnqueueAcquireGLObjects</a>, the application must ensure that any
-pending EGL or EGL client API operations which access the objects specified
-in <em>mem_objects</em> have completed. If the <a href="cl_khr_egl_event.html">cl_khr_egl_event</a> extension
-is supported and the EGL context in question supports fence sync objects,
-<em>explicit synchronisation</em> can be achieved as set out in section 5.7.1. If
-the <a href="cl_khr_egl_event.html">cl_khr_egl_event</a> extension is not supported, completion of EGL
-client API commands may be determined by issuing and waiting for completion
-of commands such as <code>glFinish</code> or <code>vgFinish</code> on all client API contexts with
-pending references to these objects. Some implementations may offer other
-efficient synchronization methods. If such methods exist they will be
-described in platform-specific documentation. Note that no synchronization
-methods other than <code>glFinish</code> and <code>vgFinish</code> are portable between all EGL
-client API implementations and all OpenCL implementations. While this is the
-only way to ensure completion that is portable to all platforms, these are
-expensive operation and their use should be avoided if the
-<a href="cl_khr_egl_event.html">cl_khr_egl_event</a> extension is supported on a platform.</p>
-</div>
-<div class="paragraph">
-<p>Similarly, after calling <a href="clEnqueueReleaseGLObjects.html">clEnqueueReleaseGLObjects</a>, the application is
-responsible for ensuring that any pending OpenCL operations which access the
-objects specified in <em>mem_objects</em> have completed prior to executing
-subsequent GL commands which reference these objects. This may be
-accomplished portably by calling <a href="clWaitForEvents.html">clWaitForEvents</a> with the event object
-returned by <a href="clEnqueueReleaseGLObjects.html">clEnqueueReleaseGLObjects</a>, or by calling <a href="clFinish.html">clFinish</a>.
-As above, some implementations may offer more efficient methods.</p>
-</div>
-<div class="paragraph">
-<p>The application is responsible for maintaining the proper order of
-operations if the CL and GL contexts are in separate threads.</p>
-</div>
-<div class="paragraph">
-<p>If a GL context is bound to a thread other than the one in which
-<a href="clEnqueueReleaseGLObjects.html">clEnqueueReleaseGLObjects</a> is called, changes to any of the objects in
-<em>mem_objects</em> may not be visible to that context without additional steps
-being taken by the application. For an OpenGL 3.1 (or later) context, the
-requirements are described in Appendix D ("Shared Objects and Multiple
-Contexts") of the OpenGL 3.1 Specification. For prior versions of OpenGL,
-the requirements are implementation-dependent.</p>
-</div>
-<div class="paragraph">
-<p>Attempting to access the data store of an OpenGL object after it has been
-acquired by OpenCL and before it has been released will result in undefined
-behavior. Similarly, attempting to access a shared CL/GL object from OpenCL
-before it has been acquired by the OpenCL command-queue, or after it has
-been released, will result in undefined behavior.</p>
-</div>
-<div class="paragraph">
-<p>If the <a href="cl_khr_gl_event.html">cl_khr_gl_event</a> extension is supported,
-then the OpenCL implementation will ensure that any such pending OpenGL
-operations are complete for an OpenGL context bound to the same thread as
-the OpenCL context. This is referred to as implicit synchronization.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_errors"><a class="anchor" href="#_errors"></a>Errors</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Returns <code>CL_SUCCESS</code> if the function is executed successfully.
-If <em>num_objects</em> is 0 and <em>mem_objects</em> is NULL the function does nothing and returns <code>CL_SUCCESS</code>.
+<p><strong>clEnqueueAcquireGLObjects</strong> returns <code>CL_SUCCESS</code> if the function is executed
+successfully.
+If <em>num_objects</em> is 0 and <em>mem_objects</em> is <code>NULL</code> the function does nothing
+and returns <code>CL_SUCCESS</code>.
 Otherwise, it returns one of the following errors:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_INVALID_VALUE</code> if <em>num_objects</em> is zero and <em>mem_objects</em> is not a NULL value or if <em>num_objects</em> &gt; 0 and <em>mem_objects</em> is NULL.</p>
+<p><code>CL_INVALID_<wbr>VALUE</code> if <em>num_objects</em> is zero and <em>mem_objects</em> is not a
+<code>NULL</code> value or if <em>num_objects</em> &gt; 0 and <em>mem_objects</em> is <code>NULL</code>.</p>
 </li>
 <li>
-<p><code>CL_INVALID_MEM_OBJECT</code> if memory objects in <em>mem_objects</em> are not valid OpenCL memory objects.</p>
+<p><code>CL_INVALID_<wbr>MEM_<wbr>OBJECT</code> if memory objects in <em>mem_objects</em> are not valid
+OpenCL memory objects.</p>
 </li>
 <li>
-<p><code>CL_INVALID_COMMAND_QUEUE</code> if <em>command_queue</em> is not a valid command-queue.</p>
+<p><code>CL_INVALID_<wbr>COMMAND_<wbr>QUEUE</code> if <em>command_queue</em> is not a valid
+command-queue.</p>
 </li>
 <li>
-<p><code>CL_INVALID_CONTEXT</code> if context associated with <em>command_queue</em> was not created from an OpenGL context.</p>
+<p><code>CL_INVALID_<wbr>CONTEXT</code> if context associated with <em>command_queue</em> was not
+created from an OpenGL context</p>
 </li>
 <li>
-<p><code>CL_INVALID_GL_OBJECT</code> if memory objects in <em>mem_objects</em> have not been created from a GL object(s).</p>
+<p><code>CL_INVALID_<wbr>GL_<wbr>OBJECT</code> if memory objects in <em>mem_objects</em> have not been
+created from an OpenGL object(s).</p>
 </li>
 <li>
-<p><code>CL_INVALID_EVENT_WAIT_LIST</code> if <em>event_wait_list</em> is NULL and <em>num_events_in_wait_list</em> &gt; 0, or <em>event_wait_list</em> is not NULL and <em>num_events_in_wait_list</em> is 0, or if event objects in <em>event_wait_list</em> are not valid events.</p>
+<p><code>CL_INVALID_<wbr>EVENT_<wbr>WAIT_<wbr>LIST</code> if <em>event_wait_list</em> is <code>NULL</code> and
+<em>num_events_in_wait_list</em> &gt; 0, or <em>event_wait_list</em> is not <code>NULL</code> and
+<em>num_events_in_wait_list</em> is 0, or if event objects in <em>event_wait_list</em>
+are not valid events.</p>
 </li>
 <li>
-<p><code>CL_OUT_OF_RESOURCES</code> if there is a failure to allocate resources required by the OpenCL implementation on the device.</p>
+<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources
+required by the OpenCL implementation on the device.</p>
 </li>
 <li>
-<p><code>CL_OUT_OF_HOST_MEMORY</code> if there is a failure to allocate resources required by the OpenCL implementation on the host.</p>
+<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code> if there is a failure to allocate resources
+required by the OpenCL implementation on the host.</p>
 </li>
 </ul>
 </div>
@@ -1440,10 +931,7 @@ Otherwise, it returns one of the following errors:</p>
 <h2 id="_see_also"><a class="anchor" href="#_see_also"></a>See Also</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="cl_khr_gl_sharing.html">cl_khr_gl_sharing</a>,
-<a href="cl_khr_gl_event.html">cl_khr_gl_event</a>,
-<a href="clEnqueueReleaseGLObjects.html">clEnqueueReleaseGLObjects</a>,
-<a href="clCreateBuffer.html">clCreateBuffer</a></p>
+<p><a href="cl_command_queue.html">cl_command_queue</a>, <a href="cl_event.html">cl_event</a>, <a href="cl_khr_gl_sharing.html">cl_khr_gl_sharing</a>, <a href="cl_mem.html">cl_mem</a>, <a href="cl_uint.html">cl_uint</a></p>
 </div>
 </div>
 </div>
@@ -1451,10 +939,11 @@ Otherwise, it returns one of the following errors:</p>
 <h2 id="_document_notes"><a class="anchor" href="#_document_notes"></a>Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Extension Specification at URL</p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#clEnqueueAcquireGLObjects" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_Ext.html#clEnqueueAcquireGLObjects" class="bare">https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_Ext.html#clEnqueueAcquireGLObjects</a></p>
+<p>This page is extracted from the OpenCL Specification.
+Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 </div>
 </div>
@@ -1462,7 +951,7 @@ Otherwise, it returns one of the following errors:</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -1472,8 +961,8 @@ Otherwise, it returns one of the following errors:</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

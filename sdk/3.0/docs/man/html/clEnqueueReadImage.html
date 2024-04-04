@@ -781,7 +781,8 @@ host memory.</p>
 </div>
 <div id="clEnqueueReadImage" class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-opencl" data-lang="opencl">cl_int clEnqueueReadImage(
+<pre class="highlight"><code class="language-opencl" data-lang="opencl">// Provided by CL_VERSION_1_0
+cl_int clEnqueueReadImage(
     cl_command_queue command_queue,
     cl_mem image,
     cl_bool blocking_read,
@@ -797,7 +798,8 @@ host memory.</p>
 </div>
 <div id="clEnqueueWriteImage" class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-opencl" data-lang="opencl">cl_int clEnqueueWriteImage(
+<pre class="highlight"><code class="language-opencl" data-lang="opencl">// Provided by CL_VERSION_1_0
+cl_int clEnqueueWriteImage(
     cl_command_queue command_queue,
     cl_mem image,
     cl_bool blocking_write,
@@ -852,7 +854,9 @@ If <em>image</em> is a 2D image object, <em>region</em>[2] must be 1.
 If <em>image</em> is a 1D image or 1D image buffer object, <em>region</em>[1] and
 <em>region</em>[2] must be 1.
 If <em>image</em> is a 1D image array object, <em>region</em>[2] must be 1.
-The values in <em>region</em> cannot be 0.</p>
+The values in <em>region</em> cannot be 0.
+If <em>image</em> is a mipmapped image, the mip level to read or write is
+determined from <em>origin</em> as described in <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#image-mipmap-access" target="_blank" rel="noopener">Specifying Mipmap Levels to Image Operations</a></p>
 </li>
 <li>
 <p><em>row_pitch</em> in <strong>clEnqueueReadImage</strong> and <em>input_row_pitch</em> in
@@ -1027,6 +1031,11 @@ by the OpenCL implementation on the device.</p>
 <p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code> if there is a failure to allocate resources
 required by the OpenCL implementation on the host.</p>
 </li>
+<li>
+<p><code>CL_INVALID_<wbr>MIP_<wbr>LEVEL</code> if the <code>cl_khr_<wbr>mipmap_<wbr>image</code> extension is
+supported, and the mip level specified in <em>origin</em> is not a valid level
+for <em>image</em>,</p>
+</li>
 </ul>
 </div>
 <div class="admonitionblock note">
@@ -1122,7 +1131,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -1132,8 +1141,8 @@ Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

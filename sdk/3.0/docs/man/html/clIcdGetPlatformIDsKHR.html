@@ -767,18 +767,37 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <h1>clIcdGetPlatformIDsKHR(3) Manual Page</h1>
 <h2 id="_name">Name</h2>
 <div class="sectionbody">
-<p>clIcdGetPlatformIDsKHR - Obtain the list of platforms accessible through the Khronos ICD Loader.</p>
+<p>clIcdGetPlatformIDsKHR - Query platforms accessible through the Khronos ICD Loader</p>
 </div>
 </div>
 <div id="content">
-<div id="preamble">
+<div class="sect1">
+<h2 id="_c_specification"><a class="anchor" href="#_c_specification"></a>C Specification</h2>
 <div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">cl_int clIcdGetPlatformIDsKHR(cl_uint num_entries,
-                              cl_platform_id *platforms,
-                              cl_uint *num_platforms)</code></pre>
+<div class="paragraph">
+<p>To obtain the list of platforms accessible through the Khronos ICD Loader,
+call the function:</p>
 </div>
+<div id="clIcdGetPlatformIDsKHR" class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-opencl" data-lang="opencl">// Provided by cl_khr_icd
+cl_int clIcdGetPlatformIDsKHR(
+    cl_uint num_entries,
+    cl_platform_id* platforms,
+    cl_uint* num_platforms);</code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<strong>clIcdGetPlatformIDsKHR</strong> is provided by the <code>cl_khr_icd</code> extension.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -788,50 +807,44 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <div class="ulist">
 <ul>
 <li>
-<p><em>num_entries</em> - The number of <code>cl_platform_id</code> entries that can be added
-to <em>platforms</em>. If <em>platforms</em> is not NULL, then <em>num_entries</em> must be
-greater than zero.</p>
+<p><em>num_entries</em> is the number of <code>cl_platform_<wbr>id</code> entries that can be
+added to <em>platforms</em>.
+If <em>platforms</em> is not <code>NULL</code>, then <em>num_entries</em> must be greater than
+zero.</p>
 </li>
 <li>
-<p><em>platforms</em> - Returns a list of OpenCL platforms available for access
-through the Khronos ICD Loader. The <code>cl_platform_id</code> values returned in
-<em>platforms</em> are ICD compatible and can be used to identify a specific
-OpenCL platform. If <em>platforms</em> is NULL, then this argument is ignored.
+<p><em>platforms</em> returns a list of OpenCL platforms available for access
+through the Khronos ICD Loader.
+The <code>cl_platform_<wbr>id</code> values returned in <em>platforms</em> are ICD
+compatible and can be used to identify a specific OpenCL platform.
+If the <em>platforms</em> argument is <code>NULL</code>, then this argument is ignored.
 The number of OpenCL platforms returned is the minimum of the value
 specified by <em>num_entries</em> or the number of OpenCL platforms available.</p>
 </li>
 <li>
-<p><em>num_platforms</em> - Returns the number of OpenCL platforms available. If
-<em>num_platforms</em> is NULL, then this argument is ignored.</p>
+<p><em>num_platforms</em> returns the number of OpenCL platforms available.
+If <em>num_platforms</em> is <code>NULL</code>, then this argument is ignored.</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_notes"><a class="anchor" href="#_notes"></a>Notes</h2>
+<h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This function is enabled by the
-<a href="cl_khr_icd.html">cl_khr_icd</a> extension.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_errors"><a class="anchor" href="#_errors"></a>Errors</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Returns <code>CL_SUCCESS</code> if the function is executed successfully and there are
-a non zero number of platforms available, else it returns on the errors
-below:</p>
+<p><strong>clIcdGetPlatformIDsKHR</strong> returns <code>CL_SUCCESS</code> if the function is executed
+successfully and there are a non zero number of platforms available.
+Otherwise, it returns one of the following errors:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_PLATFORM_NOT_FOUND_KHR</code> if zero platforms are available.</p>
+<p><code>CL_PLATFORM_<wbr>NOT_<wbr>FOUND_<wbr>KHR</code> if zero platforms are available.</p>
 </li>
 <li>
-<p><code>CL_INVALID_VALUE</code> if <em>num_entries</em> is equal to zero and <em>platforms</em> is not NULL or if both <em>num_platforms</em> and <em>platforms</em> are NULL.</p>
+<p><code>CL_INVALID_<wbr>VALUE</code> if <em>num_entries</em> is equal to zero and <em>platforms</em> is
+not <code>NULL</code> or if both <em>num_platforms</em> and <em>platforms</em> are <code>NULL</code>.</p>
 </li>
 </ul>
 </div>
@@ -841,8 +854,7 @@ below:</p>
 <h2 id="_see_also"><a class="anchor" href="#_see_also"></a>See Also</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="clGetPlatformIDs.html">clGetPlatformIDs</a>,
-<a href="cl_khr_icd.html">cl_khr_icd</a></p>
+<p><a href="cl_khr_icd.html">cl_khr_icd</a>, <a href="cl_platform_id.html">cl_platform_id</a>, <a href="cl_uint.html">cl_uint</a></p>
 </div>
 </div>
 </div>
@@ -850,10 +862,11 @@ below:</p>
 <h2 id="_document_notes"><a class="anchor" href="#_document_notes"></a>Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Extension Specification at URL</p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#clIcdGetPlatformIDsKHR" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_icd" class="bare">https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_icd</a></p>
+<p>This page is extracted from the OpenCL Specification.
+Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 </div>
 </div>
@@ -861,7 +874,7 @@ below:</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -871,8 +884,8 @@ below:</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

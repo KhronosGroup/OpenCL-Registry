@@ -767,17 +767,44 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <h1>cl_khr_gl_event(3) Manual Page</h1>
 <h2 id="_name">Name</h2>
 <div class="sectionbody">
-<p>cl_khr_gl_event - Create an OpenCL event object from a GL sync object.</p>
+<p>cl_khr_gl_event - OpenCL extension</p>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_c_specification"><a class="anchor" href="#_c_specification"></a>C Specification</h2>
+<h2 id="_ratification_status"><a class="anchor" href="#_ratification_status"></a>Ratification Status</h2>
 <div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">cl_khr_gl_event</code></pre>
+<div class="paragraph">
+<p>Ratified</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_extension_and_version_dependencies"><a class="anchor" href="#_extension_and_version_dependencies"></a>Extension and Version Dependencies</h2>
+<div class="sectionbody">
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><code><a href="#cl_khr_gl_sharing">[cl_khr_gl_sharing]</a></code><br></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_other_extension_metadata"><a class="anchor" href="#_other_extension_metadata"></a>Other Extension Metadata</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Last Modified Date</strong></dt>
+<dd>
+<p>2020-04-21</p>
+</dd>
+<dt class="hdlist1"><strong>IP Status</strong></dt>
+<dd>
+<p>No known IP claims.</p>
+</dd>
+</dl>
 </div>
 </div>
 </div>
@@ -785,48 +812,169 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This extension enables the function <a href="clCreateEventFromGLsyncKHR.html">clCreateEventFromGLsyncKHR</a>.</p>
+<p><code>cl_khr_<wbr>gl_<wbr>event</code> allows creating OpenCL event objects linked to OpenGL
+fence sync objects, potentially improving efficiency of sharing images and
+buffers between the two APIs.
+The companion <code>GL_ARB_cl_event</code> extension provides the complementary
+functionality of creating an OpenGL sync object from an OpenCL event object.</p>
 </div>
 <div class="paragraph">
-<p>This extension allows creating OpenCL event objects linked to OpenGL fence sync objects, potentially improving efficiency of sharing images and buffers between the two APIs.
-The companion <code>GL_ARB_cl_event</code> OpenGL extension provides the complementary functionality of creating an OpenGL sync object from an OpenCL event object.</p>
-</div>
-<div class="paragraph">
-<p>In addition, this extension modifies the behavior of <a href="clEnqueueAcquireGLObjects.html">clEnqueueAcquireGLObjects</a> and
-<a href="clEnqueueReleaseGLObjects.html">clEnqueueReleaseGLObjects</a> to implicitly guarantee synchronization with an OpenGL context bound in the same thread as the OpenCL context.</p>
-</div>
-<div class="paragraph">
-<p>If this extension is supported by an implementation, the string <code>cl_khr_gl_event</code> will be present in the <code>CL_PLATFORM_EXTENSIONS</code> (see <a href="clGetPlatformInfo.html">clGetPlatformInfo</a>) or <code>CL_DEVICE_EXTENSIONS</code> string (see
-<a href="clGetDeviceInfo.html">clGetDeviceInfo</a>).</p>
+<p>In addition, this extension modifies the behavior of
+<strong>clEnqueueAcquireGLObjects</strong> and <strong>clEnqueueReleaseGLObjects</strong> to
+<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#event-command-types-for-shared-opencl-opencl-memory-objects" target="_blank" rel="noopener">implicitly
+guarantee synchronization</a> with an OpenGL context bound in the same thread
+as the OpenCL context.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_notes"><a class="anchor" href="#_notes"></a>Notes</h2>
+<h2 id="_new_commands"><a class="anchor" href="#_new_commands"></a>New Commands</h2>
 <div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>clCreateEventFromGLsyncKHR</strong></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_new_enums"><a class="anchor" href="#_new_enums"></a>New Enums</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><code>cl_command_<wbr>type</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_COMMAND_<wbr>GL_<wbr>FENCE_<wbr>SYNC_<wbr>OBJECT_<wbr>KHR</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_issues"><a class="anchor" href="#_issues"></a>Issues</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>How are references between CL events and GL syncs handled?</p>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
-<p>Event objects can also be used to reflect the status of an OpenGL sync object.
-The sync object in turn refers to a fence command executing in an OpenGL command stream.
-This provides another method of coordinating sharing of buffers and images between OpenGL and OpenCL (see section 9.7.6.1).</p>
+<p><strong>PROPOSED</strong>: The linked CL event places a single reference on the GL sync
+object.
+That reference is removed when the CL event is deleted.
+A more expensive alternative would be to reflect changes in the CL event
+reference count through to the GL sync.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>How are linkages to synchronization primitives in other APIs handled?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>UNRESOLVED</strong>.
+We will at least want to have a way to link events to EGL sync objects.
+There is probably no analogous DX concept.
+There would be an entry point for each type of synchronization primitive to
+be linked to, such as <strong>clCreateEventFromEGLSyncKHR</strong>.</p>
 </div>
 <div class="paragraph">
-<p>If the <code>cl_khr_gl_event</code> extension is supported, then the OpenCL implementation will ensure that any such pending OpenGL operations are complete for an OpenGL context bound to the same thread as the OpenCL context.
-This is referred to as implicit synchronization.</p>
+<p>An alternative is a generic clCreateEventFromExternalEvent taking an
+attribute list.
+The attribute list would include information defining the type of the
+external primitive and additional information (GL sync object handle, EGL
+display and sync object handle, etc.) specific to that type.
+This allows a single entry point to be reused.</p>
 </div>
 <div class="paragraph">
-<p>If the <code>cl_khr_gl_event</code> extension is supported and the OpenGL context in question supports fence sync objects, completion of OpenGL commands may also be determined by placing a GL fence command after those commands using <code>glFenceSync</code>, creating an event from the resulting GL sync object using <a href="clCreateEventFromGLsyncKHR.html">clCreateEventFromGLsyncKHR</a>, and determining completion of that event object via
-<a href="clEnqueueAcquireGLObjects.html">clEnqueueAcquireGLObjects</a>.
-This method may be considerably more efficient than calling <code>glFinish</code>, and is referred to as <code>explicit synchronization</code>.
-Explicit synchronization is most useful when an OpenGL context bound to another thread is accessing the memory objects.</p>
+<p>These will probably be separate extensions following the API proposed here.</p>
 </div>
-<div class="paragraph">
-<p>If the <code>cl_khr_gl_event</code> extension is not supported, completion of OpenGL commands may be determined by issuing and waiting for completion of a <code>glFinish</code> command on all OpenGL contexts with pending references to these objects.
-Some implementations may offer other efficient synchronization methods.
-If such methods exist they will be described in platform-specific documentation.</p>
 </div>
+</div>
+</li>
+<li>
+<p>Should the <code>CL_EVENT_<wbr>COMMAND_<wbr>TYPE</code> correspond to the type of command
+(fence) or the type of the linked sync object?</p>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
-<p>Note that no synchronization method other than <code>glFinish</code> is portable between all OpenGL implementations and all OpenCL implementations.
-While this is the only way to ensure completion that is portable to all platforms, <code>glFinish</code> is an expensive operation and its use should be avoided if the <code>cl_khr_gl_event</code> extension is supported on a platform.</p>
+<p><strong>PROPOSED</strong>: To the type of the linked sync object.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Should we support both explicit and implicit synchronization?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>PROPOSED</strong>: Yes.
+Implicit synchronization is suitable when GL and CL are executing in the
+same application thread.
+Explicit synchronization is suitable when they are executing in different
+threads but the expense of glFinish is too high.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Should this be a platform or device extension?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>PROPOSED</strong>: Platform extension.
+This may result in considerable under-the-hood work to implement the
+sync&#8594;event semantics using only the public GL API, however, when multiple
+drivers and devices with different GL support levels coexist in the same
+runtime.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Where can events generated from GL syncs be usable?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>PROPOSED</strong>: Only with <strong>clEnqueueAcquireGLObjects</strong>, and attempting to use such
+an event elsewhere will generate an error.
+There is no apparent use case for using such events elsewhere, and possibly
+some cost to supporting it, balanced by the cost of checking the source of
+events in all other commands accepting them as parameters.</p>
+</div>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_version_history"><a class="anchor" href="#_version_history"></a>Version History</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Revision 1.0.0, 2020-04-21</p>
+<div class="ulist">
+<ul>
+<li>
+<p>First assigned version.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -834,8 +982,7 @@ While this is the only way to ensure completion that is portable to all platform
 <h2 id="_see_also"><a class="anchor" href="#_see_also"></a>See Also</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="EXTENSION.html">EXTENSION</a>,
-<a href="clCreateEventFromGLsyncKHR.html">clCreateEventFromGLsyncKHR</a></p>
+<p>No cross-references are available</p>
 </div>
 </div>
 </div>
@@ -843,10 +990,11 @@ While this is the only way to ensure completion that is portable to all platform
 <h2 id="_document_notes"><a class="anchor" href="#_document_notes"></a>Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Extension Specification at URL</p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#cl_khr_gl_event" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_gl_event" class="bare">https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_gl_event</a></p>
+<p>This page is a generated document.
+Fixes and changes should be made to the generator scripts, not directly.</p>
 </div>
 </div>
 </div>
@@ -854,7 +1002,7 @@ While this is the only way to ensure completion that is portable to all platform
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -864,8 +1012,8 @@ While this is the only way to ensure completion that is portable to all platform
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

@@ -767,19 +767,37 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <h1>clGetGLObjectInfo(3) Manual Page</h1>
 <h2 id="_name">Name</h2>
 <div class="sectionbody">
-<p>clGetGLObjectInfo - Query an OpenGL object used to create an OpenCL memory object.</p>
+<p>clGetGLObjectInfo - Query OpenGL object and object type used to create an OpenCL memory object</p>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
 <h2 id="_c_specification"><a class="anchor" href="#_c_specification"></a>C Specification</h2>
 <div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">cl_int clGetGLObjectInfo(cl_mem memobj,
-                         cl_gl_object_type *gl_object_type,
-                         GLuint *gl_object_name)</code></pre>
+<div class="paragraph">
+<p>To query the OpenGL object and object type used to create an OpenCL memory
+object, call the function</p>
 </div>
+<div id="clGetGLObjectInfo" class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-opencl" data-lang="opencl">// Provided by cl_khr_gl_sharing
+cl_int clGetGLObjectInfo(
+    cl_mem memobj,
+    cl_gl_object_type* gl_object_type,
+    cl_GLuint* gl_object_name);</code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<strong>clGetGLObjectInfo</strong> is provided by the <code>cl_khr_gl_sharing</code> extension.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -789,19 +807,19 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <div class="ulist">
 <ul>
 <li>
-<p><em>memobj</em> - An OpenCL memory object handle.</p>
+<p><em>memobj</em> is the memory object to query.</p>
 </li>
 <li>
-<p><em>gl_object_type</em> - Returns the type of GL object attached to <em>memobj</em>
-and can be <code>CL_GL_OBJECT_BUFFER</code>, <code>CL_GL_OBJECT_TEXTURE2D</code>,
-<code>CL_GL_OBJECT_TEXTURE3D</code>, <code>CL_GL_OBJECT_TEXTURE2D_ARRAY</code>,
-<code>CL_GL_OBJECT_TEXTURE1D</code>, <code>CL_GL_OBJECT_TEXTURE1D_ARRAY</code>,
-<code>CL_GL_OBJECT_TEXTURE_BUFFER</code>, or <code>CL_GL_OBJECT_RENDERBUFFER</code>. If
-<em>gl_object_type</em> is NULL, it is ignored.</p>
+<p><em>gl_object_type</em> returns the type of OpenGL object attached to <em>memobj</em>
+and can be <code>CL_GL_<wbr>OBJECT_<wbr>BUFFER</code>, <code>CL_GL_<wbr>OBJECT_<wbr>TEXTURE2D</code>,
+<code>CL_GL_<wbr>OBJECT_<wbr>TEXTURE3D</code>, <code>CL_GL_<wbr>OBJECT_<wbr>TEXTURE2D_<wbr>ARRAY</code>,
+<code>CL_GL_<wbr>OBJECT_<wbr>TEXTURE1D</code>, <code>CL_GL_<wbr>OBJECT_<wbr>TEXTURE1D_<wbr>ARRAY</code>,
+<code>CL_GL_<wbr>OBJECT_<wbr>TEXTURE_<wbr>BUFFER</code>, or <code>CL_GL_<wbr>OBJECT_<wbr>RENDERBUFFER</code>.
+If <em>gl_object_type</em> is <code>NULL</code>, it is ignored</p>
 </li>
 <li>
-<p><em>gl_object_name</em> - Returns the GL object name used to create <em>memobj</em>.
-If <em>gl_object_name</em> is NULL, it is ignored.</p>
+<p><em>gl_object_name</em> returns the OpenGL object name used to create <em>memobj</em>.
+If <em>gl_object_name</em> is <code>NULL</code>, it is ignored.</p>
 </li>
 </ul>
 </div>
@@ -811,31 +829,26 @@ If <em>gl_object_name</em> is NULL, it is ignored.</p>
 <h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The OpenGL object used to create the OpenCL memory object and information about the object type i.e.
-whether it is a texture, renderbuffer, or buffer object can be queried using this function.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_errors"><a class="anchor" href="#_errors"></a>Errors</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Returns <code>CL_SUCCESS</code> if the call was executed successfully.
+<p><strong>clGetGLObjectInfo</strong> returns <code>CL_SUCCESS</code> if the call was executed
+successfully.
 Otherwise, it returns one of the following errors:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_INVALID_MEM_OBJECT</code> if <em>memobj</em> is not a valid OpenCL memory object.</p>
+<p><code>CL_INVALID_<wbr>MEM_<wbr>OBJECT</code> if <em>memobj</em> is not a valid OpenCL memory object.</p>
 </li>
 <li>
-<p><code>CL_INVALID_GL_OBJECT</code> if there is no GL object associated with <em>memobj</em>.</p>
+<p><code>CL_INVALID_<wbr>GL_<wbr>OBJECT</code> if there is no OpenGL object associated with
+<em>memobj</em>.</p>
 </li>
 <li>
-<p><code>CL_OUT_OF_RESOURCES</code> if there is a failure to allocate resources required by the OpenCL implementation on the device.</p>
+<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources
+required by the OpenCL implementation on the device.</p>
 </li>
 <li>
-<p><code>CL_OUT_OF_HOST_MEMORY</code> if there is a failure to allocate resources required by the OpenCL implementation on the host.</p>
+<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code> if there is a failure to allocate resources
+required by the OpenCL implementation on the host.</p>
 </li>
 </ul>
 </div>
@@ -845,8 +858,7 @@ Otherwise, it returns one of the following errors:</p>
 <h2 id="_see_also"><a class="anchor" href="#_see_also"></a>See Also</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="cl_khr_gl_sharing.html">cl_khr_gl_sharing</a>,
-<a href="clGetGLTextureInfo.html">clGetGLTextureInfo</a></p>
+<p><a href="cl_GLuint.html">cl_GLuint</a>, <a href="cl_gl_object_type.html">cl_gl_object_type</a>, <a href="cl_khr_gl_sharing.html">cl_khr_gl_sharing</a>, <a href="cl_mem.html">cl_mem</a></p>
 </div>
 </div>
 </div>
@@ -854,10 +866,11 @@ Otherwise, it returns one of the following errors:</p>
 <h2 id="_document_notes"><a class="anchor" href="#_document_notes"></a>Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Extension Specification at URL</p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#clGetGLObjectInfo" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_Ext.html#clGetGLObjectInfo" class="bare">https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_Ext.html#clGetGLObjectInfo</a></p>
+<p>This page is extracted from the OpenCL Specification.
+Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 </div>
 </div>
@@ -865,7 +878,7 @@ Otherwise, it returns one of the following errors:</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -875,8 +888,8 @@ Otherwise, it returns one of the following errors:</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

@@ -775,19 +775,55 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#table-vector-loadstore" target="_blank" rel="noopener">following table</a> describes the list of supported
-functions that allow you to read and write vector types from a pointer to
-memory.
-We use the generic type <code>gentype</code> to indicate the built-in data types
-<code>char</code>, <code>uchar</code>, <code>short</code>, <code>ushort</code>, <code>int</code>, <code>uint</code>, <code>long</code> <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup>, <code>ulong</code>,
-<code>float</code> or <code>double</code> <sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup>.
-We use the generic type name <code>gentype<em>n</em></code> to represent n-element vectors
-of <code>gentype</code> elements.
-We use the type name <code>half<em>n</em></code> to represent n-element vectors of half
-elements.
-The suffix <em>n</em> is also used in the function names (i.e. <strong>vload<em>n</em></strong>,
-<strong>vstore<em>n</em></strong> etc.), where <em>n</em> = 2, 3 <sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnotedef_3" title="View footnote.">3</a>]</sup>, 4, 8 or
-16.</p>
+<p>The <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#table-vector-loadstore" target="_blank" rel="noopener">Built-in Vector Data Load and Store
+Functions</a> table describes the list of supported functions that allow you
+to read and write vector types from a pointer to memory.</p>
+</div>
+<div class="paragraph">
+<p>The generic type name <code>gentype</code> indicates that the function can take any of</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>char</code>, <code>uchar</code>, <code>short</code>, <code>ushort</code>, <code>int</code>, <code>uint</code>, <code>long</code>
+<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup> or <code>ulong</code></p>
+</li>
+<li>
+<p><code>float</code> or <code>double</code> <sup class="footnote" id="_footnote_double-supported">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup></p>
+</li>
+<li>
+<p><code>half</code> <sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnotedef_3" title="View footnote.">3</a>]</sup></p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+All functions taking or returning <code>half</code> types are supported only when
+the <code>cl_khr_<wbr>fp16</code> extension macro is supported.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>as the type for the arguments.</p>
+</div>
+<div class="paragraph">
+<p>The generic type name <code>gentype<em>n</em></code> indicates an <em>n</em>-element vector of
+<code>gentype</code> elements.</p>
+</div>
+<div class="paragraph">
+<p>The generic type name <code>half<em>n</em></code> indicates an <em>n</em>-element vector of <code>half</code>
+elements.</p>
+</div>
+<div class="paragraph">
+<p>The suffix <em>n</em> is also used in the function names (i.e. <strong>vload<em>n</em></strong>,
+<strong>vstore<em>n</em></strong> etc.), where <em>n</em> = 2, 3 <sup class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnotedef_4" title="View footnote.">4</a>]</sup>, 4,
+8 or 16.</p>
 </div>
 <table id="table-vector-loadstore" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. Built-in Vector Data Load and Store Functions</caption>
@@ -795,48 +831,52 @@ The suffix <em>n</em> is also used in the function names (i.e. <strong>vload<em>
 <col style="width: 70%;">
 <col style="width: 30%;">
 </colgroup>
-<tbody>
+<thead>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Function</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
+<th class="tableblock halign-left valign-top">Function</th>
+<th class="tableblock halign-left valign-top">Description</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">gentype<em>n</em> <strong>vload<em>n</em></strong>(size_t <em>offset</em>, const __global gentype *<em>p</em>)<br>
   gentype<em>n</em> <strong>vload<em>n</em></strong>(size_t <em>offset</em>, const __local gentype *<em>p</em>)<br>
   gentype<em>n</em> <strong>vload<em>n</em></strong>(size_t <em>offset</em>, const __constant gentype *<em>p</em>)<br>
-  gentype<em>n</em> <strong>vload<em>n</em></strong>(size_t <em>offset</em>, const __private gentype *<em>p</em>)<br></p>
+  gentype<em>n</em> <strong>vload<em>n</em></strong>(size_t <em>offset</em>, const __private gentype *<em>p</em>)</p>
 <p class="tableblock">  For OpenCL C 2.0, or OpenCL C 3.0 or newer with the
-  <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code> feature:<br></p>
+  <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code> feature:</p>
 <p class="tableblock">  gentype<em>n</em> <strong>vload<em>n</em></strong>(size_t <em>offset</em>, const gentype *<em>p</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return <code>sizeof(gentype<em>n</em>)</code> bytes of data, where the first <code>(<em>n</em> *
       sizeof(gentype))</code> bytes are read from the address
       computed as <code>(<em>p</em> +  (<em>offset</em> * <em>n</em>))</code>.
       The computed address must be 8-bit aligned if <code>gentype</code> is <code>char</code> or
-      <code>uchar</code>; 16-bit aligned if <code>gentype</code> is <code>short</code> or <code>ushort</code>; 32-bit
-      aligned if <code>gentype</code> is <code>int</code>, <code>uint</code>, or <code>float</code>; and 64-bit aligned
-      if <code>gentype</code> is <code>long</code> or <code>ulong</code>.</p></td>
+      <code>uchar</code>; 16-bit aligned if <code>gentype</code> is
+<code>half</code>,
+      <code>short</code> or <code>ushort</code>; 32-bit aligned if <code>gentype</code> is <code>int</code>, <code>uint</code>, or
+      <code>float</code>; and 64-bit aligned if <code>gentype</code> is <code>long</code> or <code>ulong</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">void <strong>vstore<em>n</em></strong>(gentype<em>n</em> <em>data</em>, size_t <em>offset</em>, __global gentype *<em>p</em>)<br>
   void <strong>vstore<em>n</em></strong>(gentype<em>n</em> <em>data</em>, size_t <em>offset</em>, __local gentype *<em>p</em>)<br>
-  void <strong>vstore<em>n</em></strong>(gentype<em>n</em> <em>data</em>, size_t <em>offset</em>, __private gentype *<em>p</em>)<br></p>
+  void <strong>vstore<em>n</em></strong>(gentype<em>n</em> <em>data</em>, size_t <em>offset</em>, __private gentype *<em>p</em>)</p>
 <p class="tableblock">  For OpenCL C 2.0, or OpenCL C 3.0 or newer with the
-  <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code> feature:<br></p>
+  <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code> feature:</p>
 <p class="tableblock">  void <strong>vstore<em>n</em></strong>(gentype<em>n</em> <em>data</em>, size_t <em>offset</em>, gentype *<em>p</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Write <code><em>n</em> * sizeof(gentype)</code> bytes given by <em>data</em> to the address
       computed as <code>(<em>p</em> +  (<em>offset</em> * <em>n</em>))</code>.
       The computed address must be 8-bit aligned if <code>gentype</code> is <code>char</code> or
-      <code>uchar</code>; 16-bit aligned if <code>gentype</code> is <code>short</code> or <code>ushort</code>; 32-bit
-      aligned if <code>gentype</code> is <code>int</code>, <code>uint</code>, or <code>float</code>; and 64-bit aligned
-      if <code>gentype</code> is <code>long</code> or <code>ulong</code>.</p></td>
+      <code>uchar</code>; 16-bit aligned if <code>gentype</code> is
+<code>half</code>,
+      <code>short</code> or <code>ushort</code>; 32-bit aligned if <code>gentype</code> is <code>int</code>, <code>uint</code>, or
+      <code>float</code>; and 64-bit aligned if <code>gentype</code> is <code>long</code> or <code>ulong</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">float <strong>vload_half</strong>(size_t <em>offset</em>, const __global half *<em>p</em>)<br>
   float <strong>vload_half</strong>(size_t <em>offset</em>, const __local half *<em>p</em>)<br>
   float <strong>vload_half</strong>(size_t <em>offset</em>, const __constant half *<em>p</em>)<br>
-  float <strong>vload_half</strong>(size_t <em>offset</em>, const __private half *<em>p</em>)<br></p>
+  float <strong>vload_half</strong>(size_t <em>offset</em>, const __private half *<em>p</em>)</p>
 <p class="tableblock">  For OpenCL C 2.0, or OpenCL C 3.0 or newer with the
-  <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code> feature:<br></p>
+  <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code> feature:</p>
 <p class="tableblock">  float <strong>vload_half</strong>(size_t <em>offset</em>, const half *<em>p</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Read <code>sizeof(half)</code> bytes of data from the address computed as <code>(<em>p</em>
       +  <em>offset</em>)</code>.
@@ -849,9 +889,9 @@ The suffix <em>n</em> is also used in the function names (i.e. <strong>vload<em>
 <td class="tableblock halign-left valign-top"><p class="tableblock">float<em>n</em> <strong>vload_half<em>n</em></strong>(size_t <em>offset</em>, const __global half *<em>p</em>)<br>
   float<em>n</em> <strong>vload_half<em>n</em></strong>(size_t <em>offset</em>, const __local half *<em>p</em>)<br>
   float<em>n</em> <strong>vload_half<em>n</em></strong>(size_t <em>offset</em>, const __constant half *<em>p</em>)<br>
-  float<em>n</em> <strong>vload_half<em>n</em></strong>(size_t <em>offset</em>, const __private half *<em>p</em>)<br></p>
+  float<em>n</em> <strong>vload_half<em>n</em></strong>(size_t <em>offset</em>, const __private half *<em>p</em>)</p>
 <p class="tableblock">  For OpenCL C 2.0, or OpenCL C 3.0 or newer with the
-  <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code> feature:<br></p>
+  <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code> feature:</p>
 <p class="tableblock">  float<em>n</em> <strong>vload_half<em>n</em></strong>(size_t <em>offset</em>, const half *<em>p</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Read <code>(<em>n</em> * sizeof(half))</code> bytes of data from the address computed as
       <code>(<em>p</em> +  (<em>offset * n</em>))</code>.
@@ -865,19 +905,19 @@ The suffix <em>n</em> is also used in the function names (i.e. <strong>vload<em>
   void <strong>vstore_half_rte</strong>(float <em>data</em>, size_t <em>offset</em>, __global half *<em>p</em>)<br>
   void <strong>vstore_half_rtz</strong>(float <em>data</em>, size_t <em>offset</em>, __global half *<em>p</em>)<br>
   void <strong>vstore_half_rtp</strong>(float <em>data</em>, size_t <em>offset</em>, __global half *<em>p</em>)<br>
-  void <strong>vstore_half_rtn</strong>(float <em>data</em>, size_t <em>offset</em>, __global half *<em>p</em>)<br></p>
+  void <strong>vstore_half_rtn</strong>(float <em>data</em>, size_t <em>offset</em>, __global half *<em>p</em>)</p>
 <p class="tableblock">  void <strong>vstore_half</strong>(float <em>data</em>, size_t <em>offset</em>, __local half *<em>p</em>)<br>
   void <strong>vstore_half_rte</strong>(float <em>data</em>, size_t <em>offset</em>, __local half *<em>p</em>)<br>
   void <strong>vstore_half_rtz</strong>(float <em>data</em>, size_t <em>offset</em>, __local half *<em>p</em>)<br>
   void <strong>vstore_half_rtp</strong>(float <em>data</em>, size_t <em>offset</em>, __local half *<em>p</em>)<br>
-  void <strong>vstore_half_rtn</strong>(float <em>data</em>, size_t <em>offset</em>, __local half *<em>p</em>)<br></p>
+  void <strong>vstore_half_rtn</strong>(float <em>data</em>, size_t <em>offset</em>, __local half *<em>p</em>)</p>
 <p class="tableblock">  void <strong>vstore_half</strong>(float <em>data</em>, size_t <em>offset</em>, __private half *<em>p</em>)<br>
   void <strong>vstore_half_rte</strong>(float <em>data</em>, size_t <em>offset</em>, __private half *<em>p</em>)<br>
   void <strong>vstore_half_rtz</strong>(float <em>data</em>, size_t <em>offset</em>, __private half *<em>p</em>)<br>
   void <strong>vstore_half_rtp</strong>(float <em>data</em>, size_t <em>offset</em>, __private half *<em>p</em>)<br>
-  void <strong>vstore_half_rtn</strong>(float <em>data</em>, size_t <em>offset</em>, __private half *<em>p</em>)<br></p>
+  void <strong>vstore_half_rtn</strong>(float <em>data</em>, size_t <em>offset</em>, __private half *<em>p</em>)</p>
 <p class="tableblock">  For OpenCL C 2.0, or OpenCL C 3.0 or newer with the
-  <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code> feature:<br></p>
+  <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code> feature:</p>
 <p class="tableblock">  void <strong>vstore_half</strong>(float <em>data</em>, size_t <em>offset</em>, half *<em>p</em>)<br>
   void <strong>vstore_half_rte</strong>(float <em>data</em>, size_t <em>offset</em>, half *<em>p</em>)<br>
   void <strong>vstore_half_rtz</strong>(float <em>data</em>, size_t <em>offset</em>, half *<em>p</em>)<br>
@@ -896,19 +936,19 @@ The suffix <em>n</em> is also used in the function names (i.e. <strong>vload<em>
   void <strong>vstore_half<em>n</em>_rte</strong>(float<em>n</em> <em>data</em>, size_t <em>offset</em>, __global half *<em>p</em>)<br>
   void <strong>vstore_half<em>n</em>_rtz</strong>(float<em>n</em> <em>data</em>, size_t <em>offset</em>, __global half *<em>p</em>)<br>
   void <strong>vstore_half<em>n</em>_rtp</strong>(float<em>n</em> <em>data</em>, size_t <em>offset</em>, __global half *<em>p</em>)<br>
-  void <strong>vstore_half<em>n</em>_rtn</strong>(float<em>n</em> <em>data</em>, size_t <em>offset</em>, __global half *<em>p</em>)<br></p>
+  void <strong>vstore_half<em>n</em>_rtn</strong>(float<em>n</em> <em>data</em>, size_t <em>offset</em>, __global half *<em>p</em>)</p>
 <p class="tableblock">  void <strong>vstore_half<em>n</em></strong>(float<em>n</em> <em>data</em>, size_t <em>offset</em>, __local half *<em>p</em>)<br>
   void <strong>vstore_half<em>n</em>_rte</strong>(float<em>n</em> <em>data</em>, size_t <em>offset</em>, __local half *<em>p</em>)<br>
   void <strong>vstore_half<em>n</em>_rtz</strong>(float<em>n</em> <em>data</em>, size_t <em>offset</em>, __local half *<em>p</em>)<br>
   void <strong>vstore_half<em>n</em>_rtp</strong>(float<em>n</em> <em>data</em>, size_t <em>offset</em>, __local half *<em>p</em>)<br>
-  void <strong>vstore_half<em>n</em>_rtn</strong>(float<em>n</em> <em>data</em>, size_t <em>offset</em>, __local half *<em>p</em>)<br></p>
+  void <strong>vstore_half<em>n</em>_rtn</strong>(float<em>n</em> <em>data</em>, size_t <em>offset</em>, __local half *<em>p</em>)</p>
 <p class="tableblock">  void <strong>vstore_half<em>n</em></strong>(float<em>n</em> <em>data</em>, size_t <em>offset</em>, __private half *<em>p</em>)<br>
   void <strong>vstore_half<em>n</em>_rte</strong>(float<em>n</em> <em>data</em>, size_t <em>offset</em>, __private half *<em>p</em>)<br>
   void <strong>vstore_half<em>n</em>_rtz</strong>(float<em>n</em> <em>data</em>, size_t <em>offset</em>, __private half *<em>p</em>)<br>
   void <strong>vstore_half<em>n</em>_rtp</strong>(float<em>n</em> <em>data</em>, size_t <em>offset</em>, __private half *<em>p</em>)<br>
-  void <strong>vstore_half<em>n</em>_rtn</strong>(float<em>n</em> <em>data</em>, size_t <em>offset</em>, __private half *<em>p</em>)<br></p>
+  void <strong>vstore_half<em>n</em>_rtn</strong>(float<em>n</em> <em>data</em>, size_t <em>offset</em>, __private half *<em>p</em>)</p>
 <p class="tableblock">  For OpenCL C 2.0, or OpenCL C 3.0 or newer with the
-  <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code> feature:<br></p>
+  <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code> feature:</p>
 <p class="tableblock">  void <strong>vstore_half<em>n</em></strong>(float<em>n</em> <em>data</em>, size_t <em>offset</em>, half *<em>p</em>)<br>
   void <strong>vstore_half<em>n</em>_rte</strong>(float<em>n</em> <em>data</em>, size_t <em>offset</em>, half *<em>p</em>)<br>
   void <strong>vstore_half<em>n</em>_rtz</strong>(float<em>n</em> <em>data</em>, size_t <em>offset</em>, half *<em>p</em>)<br>
@@ -928,19 +968,19 @@ The suffix <em>n</em> is also used in the function names (i.e. <strong>vload<em>
   void <strong>vstore_half_rte</strong>(double <em>data</em>, size_t <em>offset</em>, __global half *<em>p</em>)<br>
   void <strong>vstore_half_rtz</strong>(double <em>data</em>, size_t <em>offset</em>, __global half *<em>p</em>)<br>
   void <strong>vstore_half_rtp</strong>(double <em>data</em>, size_t <em>offset</em>, __global half *<em>p</em>)<br>
-  void <strong>vstore_half_rtn</strong>(double <em>data</em>, size_t <em>offset</em>, __global half *<em>p</em>)<br></p>
+  void <strong>vstore_half_rtn</strong>(double <em>data</em>, size_t <em>offset</em>, __global half *<em>p</em>)</p>
 <p class="tableblock">  void <strong>vstore_half</strong>(double <em>data</em>, size_t <em>offset</em>, __local half *<em>p</em>)<br>
   void <strong>vstore_half_rte</strong>(double <em>data</em>, size_t <em>offset</em>, __local half *<em>p</em>)<br>
   void <strong>vstore_half_rtz</strong>(double <em>data</em>, size_t <em>offset</em>, __local half *<em>p</em>)<br>
   void <strong>vstore_half_rtp</strong>(double <em>data</em>, size_t <em>offset</em>, __local half *<em>p</em>)<br>
-  void <strong>vstore_half_rtn</strong>(double <em>data</em>, size_t <em>offset</em>, __local half *<em>p</em>)<br></p>
+  void <strong>vstore_half_rtn</strong>(double <em>data</em>, size_t <em>offset</em>, __local half *<em>p</em>)</p>
 <p class="tableblock">  void <strong>vstore_half</strong>(double <em>data</em>, size_t <em>offset</em>, __private half *<em>p</em>)<br>
   void <strong>vstore_half_rte</strong>(double <em>data</em>, size_t <em>offset</em>, __private half *<em>p</em>)<br>
   void <strong>vstore_half_rtz</strong>(double <em>data</em>, size_t <em>offset</em>, __private half *<em>p</em>)<br>
   void <strong>vstore_half_rtp</strong>(double <em>data</em>, size_t <em>offset</em>, __private half *<em>p</em>)<br>
-  void <strong>vstore_half_rtn</strong>(double <em>data</em>, size_t <em>offset</em>, __private half *<em>p</em>)<br></p>
+  void <strong>vstore_half_rtn</strong>(double <em>data</em>, size_t <em>offset</em>, __private half *<em>p</em>)</p>
 <p class="tableblock">  For OpenCL C 2.0, or OpenCL C 3.0 or newer with the
-  <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code> feature:<br></p>
+  <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code> feature:</p>
 <p class="tableblock">  void <strong>vstore_half</strong>(double <em>data</em>, size_t <em>offset</em>, half *<em>p</em>)<br>
   void <strong>vstore_half_rte</strong>(double <em>data</em>, size_t <em>offset</em>, half *<em>p</em>)<br>
   void <strong>vstore_half_rtz</strong>(double <em>data</em>, size_t <em>offset</em>, half *<em>p</em>)<br>
@@ -959,19 +999,19 @@ The suffix <em>n</em> is also used in the function names (i.e. <strong>vload<em>
   void <strong>vstore_half<em>n</em>_rte</strong>(double<em>n</em> <em>data</em>, size_t <em>offset</em>, __global half *<em>p</em>)<br>
   void <strong>vstore_half<em>n</em>_rtz</strong>(double<em>n</em> <em>data</em>, size_t <em>offset</em>, __global half *<em>p</em>)<br>
   void <strong>vstore_half<em>n</em>_rtp</strong>(double<em>n</em> <em>data</em>, size_t <em>offset</em>, __global half *<em>p</em>)<br>
-  void <strong>vstore_half<em>n</em>_rtn</strong>(double<em>n</em> <em>data</em>, size_t <em>offset</em>, __global half *<em>p</em>)<br></p>
+  void <strong>vstore_half<em>n</em>_rtn</strong>(double<em>n</em> <em>data</em>, size_t <em>offset</em>, __global half *<em>p</em>)</p>
 <p class="tableblock">  void <strong>vstore_half<em>n</em></strong>(double<em>n</em> <em>data</em>, size_t <em>offset</em>, __local half *<em>p</em>)<br>
   void <strong>vstore_half<em>n</em>_rte</strong>(double<em>n</em> <em>data</em>, size_t <em>offset</em>, __local half *<em>p</em>)<br>
   void <strong>vstore_half<em>n</em>_rtz</strong>(double<em>n</em> <em>data</em>, size_t <em>offset</em>, __local half *<em>p</em>)<br>
   void <strong>vstore_half<em>n</em>_rtp</strong>(double<em>n</em> <em>data</em>, size_t <em>offset</em>, __local half *<em>p</em>)<br>
-  void <strong>vstore_half<em>n</em>_rtn</strong>(double<em>n</em> <em>data</em>, size_t <em>offset</em>, __local half *<em>p</em>)<br></p>
+  void <strong>vstore_half<em>n</em>_rtn</strong>(double<em>n</em> <em>data</em>, size_t <em>offset</em>, __local half *<em>p</em>)</p>
 <p class="tableblock">  void <strong>vstore_half<em>n</em></strong>(double<em>n</em> <em>data</em>, size_t <em>offset</em>, __private half *<em>p</em>)<br>
   void <strong>vstore_half<em>n</em>_rte</strong>(double<em>n</em> <em>data</em>, size_t <em>offset</em>, __private half *<em>p</em>)<br>
   void <strong>vstore_half<em>n</em>_rtz</strong>(double<em>n</em> <em>data</em>, size_t <em>offset</em>, __private half *<em>p</em>)<br>
   void <strong>vstore_half<em>n</em>_rtp</strong>(double<em>n</em> <em>data</em>, size_t <em>offset</em>, __private half *<em>p</em>)<br>
-  void <strong>vstore_half<em>n</em>_rtn</strong>(double<em>n</em> <em>data</em>, size_t <em>offset</em>, __private half *<em>p</em>)<br></p>
+  void <strong>vstore_half<em>n</em>_rtn</strong>(double<em>n</em> <em>data</em>, size_t <em>offset</em>, __private half *<em>p</em>)</p>
 <p class="tableblock">  For OpenCL C 2.0, or OpenCL C 3.0 or newer with the
-  <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code> feature:<br></p>
+  <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code> feature:</p>
 <p class="tableblock">  void <strong>vstore_half<em>n</em></strong>(double<em>n</em> <em>data</em>, size_t <em>offset</em>, half *<em>p</em>)<br>
   void <strong>vstore_half<em>n</em>_rte</strong>(double<em>n</em> <em>data</em>, size_t <em>offset</em>, half *<em>p</em>)<br>
   void <strong>vstore_half<em>n</em>_rtz</strong>(double<em>n</em> <em>data</em>, size_t <em>offset</em>, half *<em>p</em>)<br>
@@ -989,9 +1029,9 @@ The suffix <em>n</em> is also used in the function names (i.e. <strong>vload<em>
 <td class="tableblock halign-left valign-top"><p class="tableblock">float<em>n</em> <strong>vloada_half<em>n</em></strong>(size_t <em>offset</em>, const __global half *<em>p</em>)<br>
   float<em>n</em> <strong>vloada_half<em>n</em></strong>(size_t <em>offset</em>, const __local half *<em>p</em>)<br>
   float<em>n</em> <strong>vloada_half<em>n</em></strong>(size_t <em>offset</em>, const __constant half *<em>p</em>)<br>
-  float<em>n</em> <strong>vloada_half<em>n</em></strong>(size_t <em>offset</em>, const __private half *<em>p</em>)<br></p>
+  float<em>n</em> <strong>vloada_half<em>n</em></strong>(size_t <em>offset</em>, const __private half *<em>p</em>)</p>
 <p class="tableblock">  For OpenCL C 2.0, or OpenCL C 3.0 or newer with the
-  <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code> feature:<br></p>
+  <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code> feature:</p>
 <p class="tableblock">  float<em>n</em> <strong>vloada_half<em>n</em></strong>(size_t <em>offset</em>, const half *<em>p</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">For n = 2, 4, 8 and 16, read <code>sizeof(half<em>n</em>)</code> bytes of data from
       the address computed as (<em>p</em> + (<em>offset</em> * <em>n</em>)).
@@ -1008,19 +1048,19 @@ The suffix <em>n</em> is also used in the function names (i.e. <strong>vload<em>
   void <strong>vstorea_half<em>n</em>_rte</strong>(float<em>n</em> <em>data</em>, size_t <em>offset</em>, __global half *<em>p</em>)<br>
   void <strong>vstorea_half<em>n</em>_rtz</strong>(float<em>n</em> <em>data</em>, size_t <em>offset</em>, __global half *<em>p</em>)<br>
   void <strong>vstorea_half<em>n</em>_rtp</strong>(float<em>n</em> <em>data</em>, size_t <em>offset</em>, __global half *<em>p</em>)<br>
-  void <strong>vstorea_half<em>n</em>_rtn</strong>(float<em>n</em> <em>data</em>, size_t <em>offset</em>, __global half *<em>p</em>)<br></p>
+  void <strong>vstorea_half<em>n</em>_rtn</strong>(float<em>n</em> <em>data</em>, size_t <em>offset</em>, __global half *<em>p</em>)</p>
 <p class="tableblock">  void <strong>vstorea_half<em>n</em></strong>(float<em>n</em> <em>data</em>, size_t <em>offset</em>, __local half *<em>p</em>)<br>
   void <strong>vstorea_half<em>n</em>_rte</strong>(float<em>n</em> <em>data</em>, size_t <em>offset</em>, __local half *<em>p</em>)<br>
   void <strong>vstorea_half<em>n</em>_rtz</strong>(float<em>n</em> <em>data</em>, size_t <em>offset</em>, __local half *<em>p</em>)<br>
   void <strong>vstorea_half<em>n</em>_rtp</strong>(float<em>n</em> <em>data</em>, size_t <em>offset</em>, __local half *<em>p</em>)<br>
-  void <strong>vstorea_half<em>n</em>_rtn</strong>(float<em>n</em> <em>data</em>, size_t <em>offset</em>, __local half *<em>p</em>)<br></p>
+  void <strong>vstorea_half<em>n</em>_rtn</strong>(float<em>n</em> <em>data</em>, size_t <em>offset</em>, __local half *<em>p</em>)</p>
 <p class="tableblock">  void <strong>vstorea_half<em>n</em></strong>(float<em>n</em> <em>data</em>, size_t <em>offset</em>, __private half *<em>p</em>)<br>
   void <strong>vstorea_half<em>n</em>_rte</strong>(float<em>n</em> <em>data</em>, size_t <em>offset</em>, __private half *<em>p</em>)<br>
   void <strong>vstorea_half<em>n</em>_rtz</strong>(float<em>n</em> <em>data</em>, size_t <em>offset</em>, __private half *<em>p</em>)<br>
   void <strong>vstorea_half<em>n</em>_rtp</strong>(float<em>n</em> <em>data</em>, size_t <em>offset</em>, __private half *<em>p</em>)<br>
-  void <strong>vstorea_half<em>n</em>_rtn</strong>(float<em>n</em> <em>data</em>, size_t <em>offset</em>, __private half *<em>p</em>)<br></p>
+  void <strong>vstorea_half<em>n</em>_rtn</strong>(float<em>n</em> <em>data</em>, size_t <em>offset</em>, __private half *<em>p</em>)</p>
 <p class="tableblock">  For OpenCL C 2.0, or OpenCL C 3.0 or newer with the
-  <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code> feature:<br></p>
+  <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code> feature:</p>
 <p class="tableblock">  void <strong>vstorea_half<em>n</em></strong>(float<em>n</em> <em>data</em>, size_t <em>offset</em>, half *<em>p</em>)<br>
   void <strong>vstorea_half<em>n</em>_rte</strong>(float<em>n</em> <em>data</em>, size_t <em>offset</em>, half *<em>p</em>)<br>
   void <strong>vstorea_half<em>n</em>_rtz</strong>(float<em>n</em> <em>data</em>, size_t <em>offset</em>, half *<em>p</em>)<br>
@@ -1042,19 +1082,19 @@ The suffix <em>n</em> is also used in the function names (i.e. <strong>vload<em>
   void <strong>vstorea_half<em>n</em>_rte</strong>(double<em>n</em> <em>data</em>, size_t <em>offset</em>, __global half *<em>p</em>)<br>
   void <strong>vstorea_half<em>n</em>_rtz</strong>(double<em>n</em> <em>data</em>, size_t <em>offset</em>, __global half *<em>p</em>)<br>
   void <strong>vstorea_half<em>n</em>_rtp</strong>(double<em>n</em> <em>data</em>, size_t <em>offset</em>, __global half *<em>p</em>)<br>
-  void <strong>vstorea_half<em>n</em>_rtn</strong>(double<em>n</em> <em>data</em>, size_t <em>offset</em>, __global half *<em>p</em>)<br></p>
+  void <strong>vstorea_half<em>n</em>_rtn</strong>(double<em>n</em> <em>data</em>, size_t <em>offset</em>, __global half *<em>p</em>)</p>
 <p class="tableblock">  void <strong>vstorea_half<em>n</em></strong>(double<em>n</em> <em>data</em>, size_t <em>offset</em>, __local half *<em>p</em>)<br>
   void <strong>vstorea_half<em>n</em>_rte</strong>(double<em>n</em> <em>data</em>, size_t <em>offset</em>, __local half *<em>p</em>)<br>
   void <strong>vstorea_half<em>n</em>_rtz</strong>(double<em>n</em> <em>data</em>, size_t <em>offset</em>, __local half *<em>p</em>)<br>
   void <strong>vstorea_half<em>n</em>_rtp</strong>(double<em>n</em> <em>data</em>, size_t <em>offset</em>, __local half *<em>p</em>)<br>
-  void <strong>vstorea_half<em>n</em>_rtn</strong>(double<em>n</em> <em>data</em>, size_t <em>offset</em>, __local half *<em>p</em>)<br></p>
+  void <strong>vstorea_half<em>n</em>_rtn</strong>(double<em>n</em> <em>data</em>, size_t <em>offset</em>, __local half *<em>p</em>)</p>
 <p class="tableblock">  void <strong>vstorea_half<em>n</em></strong>(double<em>n</em> <em>data</em>, size_t <em>offset</em>, __private half *<em>p</em>)<br>
   void <strong>vstorea_half<em>n</em>_rte</strong>(double<em>n</em> <em>data</em>, size_t <em>offset</em>, __private half *<em>p</em>)<br>
   void <strong>vstorea_half<em>n</em>_rtz</strong>(double<em>n</em> <em>data</em>, size_t <em>offset</em>, __private half *<em>p</em>)<br>
   void <strong>vstorea_half<em>n</em>_rtp</strong>(double<em>n</em> <em>data</em>, size_t <em>offset</em>, __private half *<em>p</em>)<br>
-  void <strong>vstorea_half<em>n</em>_rtn</strong>(double<em>n</em> <em>data</em>, size_t <em>offset</em>, __private half *<em>p</em>)<br></p>
+  void <strong>vstorea_half<em>n</em>_rtn</strong>(double<em>n</em> <em>data</em>, size_t <em>offset</em>, __private half *<em>p</em>)</p>
 <p class="tableblock">  For OpenCL C 2.0, or OpenCL C 3.0 or newer with the
-  <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code> feature:<br></p>
+  <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code> feature:</p>
 <p class="tableblock">  void <strong>vstorea_half<em>n</em></strong>(double<em>n</em> <em>data</em>, size_t <em>offset</em>, half *<em>p</em>)<br>
   void <strong>vstorea_half<em>n</em>_rte</strong>(double<em>n</em> <em>data</em>, size_t <em>offset</em>, half *<em>p</em>)<br>
   void <strong>vstorea_half<em>n</em>_rtz</strong>(double<em>n</em> <em>data</em>, size_t <em>offset</em>, half *<em>p</em>)<br>
@@ -1125,7 +1165,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -1136,19 +1176,22 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <div id="footnotes">
 <hr>
 <div class="footnote" id="_footnotedef_1">
-<a href="#_footnoteref_1">1</a>. Only if 64-bit integers are supported. In OpenCL C 3.0 this will be indicated by the presence of the <code>__opencl_c_int64</code> feature macro.
+<a href="#_footnoteref_1">1</a>. Only if 64-bit integers are supported. In OpenCL C 3.0 this will be indicated by the presence of the <code>__opencl_c_<wbr>int64</code> feature macro.
 </div>
 <div class="footnote" id="_footnotedef_2">
-<a href="#_footnoteref_2">2</a>. Only if double precision is supported. In OpenCL C 3.0 this will be indicated by the presence of the <code>__opencl_c_fp64</code> feature macro.
+<a href="#_footnoteref_2">2</a>. Only if double precision is supported. In OpenCL C 3.0 this will be indicated by the presence of the <code>__opencl_c_<wbr>fp64</code> feature macro.
 </div>
 <div class="footnote" id="_footnotedef_3">
-<a href="#_footnoteref_3">3</a>. <strong>vload3</strong> and <strong>vload_half3</strong> read (<em>x</em>,<em>y</em>,<em>z</em>) components from address <code>(<em>p</em> + (<em>offset</em> * 3))</code> into a 3-component vector. <strong>vstore3</strong> and <strong>vstore_half3</strong> write (<em>x</em>,<em>y</em>,<em>z</em>) components from a 3-component vector to address <code>(<em>p</em> + (<em>offset</em> * 3))</code>. In addition, <strong>vloada_half3</strong> reads (<em>x</em>,<em>y</em>,<em>z</em>) components from address <code>(<em>p</em> + (<em>offset</em> * 4))</code> into a 3-component vector and <strong>vstorea_half3</strong> writes (<em>x</em>,<em>y</em>,<em>z</em>) components from a 3-component vector to address <code>(<em>p</em> +  (<em>offset</em> * 4))</code>. Whether <strong>vloada_half3</strong> and <strong>vstorea_half3</strong> read/write padding data between the third vector element and the next alignment boundary is implementation-defined. The <strong>vloada_</strong> and <strong>vstorea_</strong> variants are provided to access data that is aligned to the size of the vector, and are intended to enable performance on hardware that can take advantage of the increased alignment.
+<a href="#_footnoteref_3">3</a>. Only if the <code>cl_khr_<wbr>fp16</code> extension is supported and has been enabled.
+</div>
+<div class="footnote" id="_footnotedef_4">
+<a href="#_footnoteref_4">4</a>. <strong>vload3</strong> and <strong>vload_half3</strong> read (<em>x</em>,<em>y</em>,<em>z</em>) components from address <code>(<em>p</em> + (<em>offset</em> * 3))</code> into a 3-component vector. <strong>vstore3</strong> and <strong>vstore_half3</strong> write (<em>x</em>,<em>y</em>,<em>z</em>) components from a 3-component vector to address <code>(<em>p</em> + (<em>offset</em> * 3))</code>. In addition, <strong>vloada_half3</strong> reads (<em>x</em>,<em>y</em>,<em>z</em>) components from address <code>(<em>p</em> + (<em>offset</em> * 4))</code> into a 3-component vector and <strong>vstorea_half3</strong> writes (<em>x</em>,<em>y</em>,<em>z</em>) components from a 3-component vector to address <code>(<em>p</em> +  (<em>offset</em> * 4))</code>. Whether <strong>vloada_half3</strong> and <strong>vstorea_half3</strong> read/write padding data between the third vector element and the next alignment boundary is implementation-defined. The <strong>vloada_</strong> and <strong>vstorea_</strong> variants are provided to access data that is aligned to the size of the vector, and are intended to enable performance on hardware that can take advantage of the increased alignment.
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

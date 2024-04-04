@@ -778,17 +778,82 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <p>The <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#table-builtin-common" target="_blank" rel="noopener">following table</a> describes the list of built-in
 common functions.
 These all operate component-wise.
-The description is per-component.
-We use the generic type name <code>gentype</code> to indicate that the function can take
-<code>float</code>, <code>float2</code>, <code>float3</code>, <code>float4</code>, <code>float8</code>, <code>float16</code>, <code>double</code>
-<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup>, <code>double2</code>, <code>double3</code>, <code>double4</code>,
-<code>double8</code> or <code>double16</code> as the type for the arguments.
-We use the generic type name <code>gentypef</code> to indicate that the function can
-take <code>float</code>, <code>float2</code>, <code>float3</code>, <code>float4</code>, <code>float8</code>, or <code>float16</code> as the
-type for the arguments.
-We use the generic type name <code>gentyped</code> to indicate that the function can
-take <code>double</code>, <code>double2</code>, <code>double3</code>, <code>double4</code>, <code>double8</code> or <code>double16</code> as
-the type for the arguments.</p>
+The description is per-component.</p>
+</div>
+<div class="paragraph">
+<p>The generic type name <code>gentype</code> indicates that the function can take any of</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>float</code>, <code>float2</code>, <code>float3</code>, <code>float4</code>, <code>float8</code>, or <code>float16</code></p>
+</li>
+<li>
+<p><code>double</code> <sup class="footnote" id="_footnote_double-supported">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup>, <code>double2</code>,
+<code>double3</code>, <code>double4</code>, <code>double8</code> or <code>double16</code></p>
+</li>
+<li>
+<p><code>half</code> <sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup>, <code>half2</code>, <code>half3</code>, <code>half4</code>,
+<code>half8</code> or <code>half16</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>as the type for the arguments.</p>
+</div>
+<div class="paragraph">
+<p>The generic type name <code>gentypef</code> indicates that the function can take any of</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>float</code>, <code>float2</code>, <code>float3</code>, <code>float4</code>, <code>float8</code>, or <code>float16</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>as the type for the arguments.</p>
+</div>
+<div class="paragraph">
+<p>The generic type name <code>gentyped</code> <sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnotedef_3" title="View footnote.">3</a>]</sup> indicates
+that the function can take any of</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>double</code>, <code>double2</code>, <code>double3</code>, <code>double4</code>, <code>double8</code> or <code>double16</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>as the type for the arguments.</p>
+</div>
+<div class="paragraph">
+<p>The generic type name <code>gentypeh</code> <sup class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnotedef_4" title="View footnote.">4</a>]</sup> indicates
+that the function can take any of</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>half</code>, <code>half2</code>, <code>half3</code>, <code>half4</code>, <code>half8</code> or <code>half16</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>as the type for the arguments.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+All functions taking or returning <code>half</code> types are supported only when
+the <code>cl_khr_<wbr>fp16</code> extension macro is supported.
+</td>
+</tr>
+</table>
 </div>
 <table id="table-builtin-common" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. Built-in Scalar and Vector Argument Common Functions</caption>
@@ -796,15 +861,18 @@ the type for the arguments.</p>
 <col style="width: 50%;">
 <col style="width: 50%;">
 </colgroup>
-<tbody>
+<thead>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Function</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
+<th class="tableblock halign-left valign-top">Function</th>
+<th class="tableblock halign-left valign-top">Description</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>clamp</strong>(gentype <em>x</em>, gentype <em>minval</em>, gentype <em>maxval</em>)<br>
   gentypef <strong>clamp</strong>(gentypef <em>x</em>, float <em>minval</em>, float <em>maxval</em>)<br>
-  gentyped <strong>clamp</strong>(gentyped <em>x</em>, double <em>minval</em>, double <em>maxval</em>)</p></td>
+  gentyped <strong>clamp</strong>(gentyped <em>x</em>, double <em>minval</em>, double <em>maxval</em>)</p>
+<p class="tableblock">gentypeh <strong>clamp</strong>(gentypeh <em>x</em>, half <em>minval</em>, half <em>maxval</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns <strong>fmin</strong>(<strong>fmax</strong>(<em>x</em>, <em>minval</em>), <em>maxval</em>).
       Results are undefined if <em>minval</em> &gt; <em>maxval</em>.</p></td>
 </tr>
@@ -815,26 +883,52 @@ the type for the arguments.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>max</strong>(gentype <em>x</em>, gentype <em>y</em>)<br>
   gentypef <strong>max</strong>(gentypef <em>x</em>, float <em>y</em>)<br>
-  gentyped <strong>max</strong>(gentyped <em>x</em>, double <em>y</em>)</p></td>
+  gentyped <strong>max</strong>(gentyped <em>x</em>, double <em>y</em>)</p>
+<p class="tableblock">gentypeh <strong>max</strong>(gentypeh <em>x</em>, half <em>y</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns <em>y</em> if <em>x</em> &lt; <em>y</em>, otherwise it returns <em>x</em>.
       If <em>x</em> or <em>y</em> are infinite or NaN, the return values are undefined.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>min</strong>(gentype <em>x</em>, gentype <em>y</em>)<br>
   gentypef <strong>min</strong>(gentypef <em>x</em>, float <em>y</em>)<br>
-  gentyped <strong>min</strong>(gentyped <em>x</em>, double <em>y</em>)</p></td>
+  gentyped <strong>min</strong>(gentyped <em>x</em>, double <em>y</em>)</p>
+<p class="tableblock">gentypeh <strong>min</strong>(gentypeh <em>x</em>, half <em>y</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns <em>y</em> if <em>y</em> &lt; <em>x</em>, otherwise it returns <em>x</em>.
       If <em>x</em> or <em>y</em> are infinite or NaN, the return values are undefined.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>mix</strong>(gentype <em>x</em>, gentype <em>y</em>, gentype <em>a</em>)<br>
   gentypef <strong>mix</strong>(gentypef <em>x</em>, gentypef <em>y</em>, float <em>a</em>)<br>
-  gentyped <strong>mix</strong>(gentyped <em>x</em>, gentyped <em>y</em>, double <em>a</em>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the linear blend of <em>x</em> &amp; <em>y</em> implemented as:</p>
-<p class="tableblock">      <em>x</em> + (<em>y</em> - <em>x</em>) * <em>a</em></p>
-<p class="tableblock">      <em>a</em> must be a value in the range [0.0, 1.0].
-      If <em>a</em> is not in the range [0.0, 1.0], the return values are
-      undefined.</p></td>
+  gentyped <strong>mix</strong>(gentyped <em>x</em>, gentyped <em>y</em>, double <em>a</em>)</p>
+<p class="tableblock">gentypeh <strong>mix</strong>(gentypeh <em>x</em>, gentypeh <em>y</em>, half <em>a</em>)</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Returns the linear blend of <em>x</em> and <em>y</em> implemented as:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>_x_ + (_y_ - _x_) * _a_</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>_a_ must be a value in the range [0.0, 1.0].
+If _a_ is not in the range [0.0, 1.0], the return values are
+undefined.</pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The half-precision <strong>mix</strong> function can be implemented using
+contractions such as <strong>mad</strong> or <strong>fma</strong>.
+</td>
+</tr>
+</table>
+</div></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>radians</strong>(gentype <em>degrees</em>)</p></td>
@@ -843,13 +937,15 @@ the type for the arguments.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>step</strong>(gentype <em>edge</em>, gentype <em>x</em>)<br>
   gentypef <strong>step</strong>(float <em>edge</em>, gentypef <em>x</em>)<br>
-  gentyped <strong>step</strong>(double <em>edge</em>, gentyped <em>x</em>)</p></td>
+  gentyped <strong>step</strong>(double <em>edge</em>, gentyped <em>x</em>)</p>
+<p class="tableblock">gentypeh <strong>step</strong>(half <em>edge</em>, gentypeh <em>x</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns 0.0 if <em>x</em> &lt; <em>edge</em>, otherwise it returns 1.0.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>smoothstep</strong>(gentype <em>edge0</em>, gentype <em>edge1</em>, gentype <em>x</em>)<br>
   gentypef <strong>smoothstep</strong>(float <em>edge0</em>, float <em>edge1</em>, gentypef <em>x</em>)<br>
-  gentyped <strong>smoothstep</strong>(double <em>edge0</em>, double <em>edge1</em>, gentyped <em>x</em>)</p></td>
+  gentyped <strong>smoothstep</strong>(double <em>edge0</em>, double <em>edge1</em>, gentyped <em>x</em>)</p>
+<p class="tableblock">gentypeh <strong>smoothstep</strong>(half <em>edge0</em>, half <em>edge1</em>, gentypeh <em>x</em>)</p></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>Returns 0.0 if <em>x</em> &lt;= <em>edge0</em> and 1.0 if <em>x</em> &gt;= <em>edge1</em> and performs
       smooth Hermite interpolation between 0 and 1 when <em>edge0</em> &lt; <em>x</em> &lt;
@@ -870,6 +966,19 @@ return t * t * (3 - 2 * t);</code></pre>
 <div class="paragraph">
 <p>Results are undefined if <em>edge0</em> &gt;= <em>edge1</em> or if <em>x</em>, <em>edge0</em> or <em>edge1</em> is
 a NaN.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The half-precision <strong>mix</strong> function can be implemented using
+contractions such as <strong>mad</strong> or <strong>fma</strong>.
+</td>
+</tr>
+</table>
 </div></div></td>
 </tr>
 <tr>
@@ -906,7 +1015,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -917,13 +1026,22 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <div id="footnotes">
 <hr>
 <div class="footnote" id="_footnotedef_1">
-<a href="#_footnoteref_1">1</a>. Only if double precision is supported. In OpenCL C 3.0 this will be indicated by the presence of the <code>__opencl_c_fp64</code> feature macro.
+<a href="#_footnoteref_1">1</a>. Only if double precision is supported. In OpenCL C 3.0 this will be indicated by the presence of the <code>__opencl_c_<wbr>fp64</code> feature macro.
+</div>
+<div class="footnote" id="_footnotedef_2">
+<a href="#_footnoteref_2">2</a>. Only if the <code>cl_khr_<wbr>fp16</code> extension is supported and has been enabled.
+</div>
+<div class="footnote" id="_footnotedef_3">
+<a href="#_footnoteref_3">3</a>. Only if double precision is supported. In OpenCL C 3.0 this will be indicated by the presence of the <code>__opencl_c_<wbr>fp64</code> feature macro.
+</div>
+<div class="footnote" id="_footnotedef_4">
+<a href="#_footnoteref_4">4</a>. Only if the <code>cl_khr_<wbr>fp16</code> extension is supported and has been enabled.
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

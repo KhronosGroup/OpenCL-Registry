@@ -809,18 +809,20 @@ size vector.</p>
 are scalar and a vector signed integer type of the same size as the source
 operands if the source operands are vector types.
 Vector source operands of type <code>char<em>n</em></code> and <code>uchar<em>n</em></code> return a
-<code>char<em>n</em></code> result; vector source operands of type <code>short<em>n</em></code> and
+<code>char<em>n</em></code> result; vector source operands of type
+<code>_half<em>n</em></code> <sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup>,
+<code>short<em>n</em></code> and
 <code>ushort<em>n</em></code> return a <code>short<em>n</em></code> result; vector source operands of type
 <code>int<em>n</em></code>, <code>uint<em>n</em></code> and <code>float<em>n</em></code> return an <code>int<em>n</em></code> result; vector
 source operands of type <code>long<em>n</em></code>, <code>ulong<em>n</em></code> and <code>double<em>n</em></code> return a
 <code>long<em>n</em></code> result.</p>
 </div>
 <div class="paragraph">
-<p>For scalar types, the equality operators return 0 if the specified relation
-is <em>false</em> and return 1 if the specified relation is <em>true</em>.
+<p>For scalar types, the equality operators shall return 0 if the specified
+relation is <em>false</em> and return 1 if the specified relation is <em>true</em>.
 For vector types, the equality operators shall return 0 if the specified
-relation is <em>false</em> and -1 (i.e. all bits set) if the specified relation is
-<em>true</em>.
+relation is <em>false</em> and return -1 (i.e. all bits set) if the specified
+relation is <em>true</em>.
 The equality operator equal (<strong>==</strong>) returns 0 if one or both arguments are
 not a number (NaN).
 The equality operator not equal (<strong>!=</strong>) returns 1 (for scalar source
@@ -853,7 +855,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -866,11 +868,14 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <div class="footnote" id="_footnotedef_1">
 <a href="#_footnoteref_1">1</a>. To test whether any or all elements in the result of a vector relational operator test <em>true</em>, for example to use in the context in an <strong>if ( )</strong> statement, please see the <a href="#relational-functions"><strong>any</strong> and <strong>all</strong> built-ins</a>.
 </div>
+<div class="footnote" id="_footnotedef_2">
+<a href="#_footnoteref_2">2</a>. Only if the <code>cl_khr_<wbr>fp16</code> extension is supported and has been enabled.
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

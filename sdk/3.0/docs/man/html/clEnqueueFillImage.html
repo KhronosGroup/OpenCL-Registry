@@ -780,7 +780,8 @@ the function</p>
 </div>
 <div id="clEnqueueFillImage" class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-opencl" data-lang="opencl">cl_int clEnqueueFillImage(
+<pre class="highlight"><code class="language-opencl" data-lang="opencl">// Provided by CL_VERSION_1_2
+cl_int clEnqueueFillImage(
     cl_command_queue command_queue,
     cl_mem image,
     const void* fill_color,
@@ -829,8 +830,8 @@ unsigned integer type, is a four component signed integer value if the
 <em>image</em> channel data type is an unnormalized signed integer type and is a
 four component unsigned integer value if the <em>image</em> channel data type is an
 unnormalized unsigned integer type.
-The fill color will be converted to the appropriate image channel format and
-order associated with <em>image</em>.</p>
+The fill color will be converted to the appropriate image channel format
+and order associated with <em>image</em>.</p>
 </li>
 <li>
 <p><em>origin</em> defines the (<em>x</em>, <em>y</em>, <em>z</em>) offset in pixels in the 1D, 2D or 3D
@@ -843,7 +844,10 @@ If <em>image</em> is a 1D image array object, <em>origin</em>[2] must be 0.
 If <em>image</em> is a 1D image array object, <em>origin</em>[1] describes the image index
 in the 1D image array.
 If <em>image</em> is a 2D image array object, <em>origin</em>[2] describes the image index
-in the 2D image array.</p>
+in the 2D image array.
+If <em>image</em> is a mipmapped image, the mip level to fill is determined
+from <em>origin</em> as described in <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#image-mipmap-access" target="_blank" rel="noopener">Specifying Mipmap
+Levels to Image Operations</a></p>
 </li>
 <li>
 <p><em>region</em> defines the (<em>width</em>, <em>height</em>, <em>depth</em>) in pixels of the 1D, 2D or
@@ -954,6 +958,11 @@ by the OpenCL implementation on the device.</p>
 <p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code> if there is a failure to allocate resources
 required by the OpenCL implementation on the host.</p>
 </li>
+<li>
+<p><code>CL_INVALID_<wbr>MIP_<wbr>LEVEL</code> if the <code>cl_khr_<wbr>mipmap_<wbr>image</code> extension is
+supported, and the mip level specified in <em>origin</em> is not a valid level
+for <em>image</em>,</p>
+</li>
 </ul>
 </div>
 </div>
@@ -982,7 +991,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -992,8 +1001,8 @@ Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

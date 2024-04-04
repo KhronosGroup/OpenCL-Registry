@@ -767,17 +767,40 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <h1>cl_khr_d3d11_sharing(3) Manual Page</h1>
 <h2 id="_name">Name</h2>
 <div class="sectionbody">
-<p>cl_khr_d3d11_sharing - Provide interoperability between OpenCL and Direct3D 11.</p>
+<p>cl_khr_d3d11_sharing - OpenCL extension</p>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_c_specification"><a class="anchor" href="#_c_specification"></a>C Specification</h2>
+<h2 id="_ratification_status"><a class="anchor" href="#_ratification_status"></a>Ratification Status</h2>
 <div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#pragma OPENCL EXTENSION cl_khr_d3d11_sharing : enable</code></pre>
+<div class="paragraph">
+<p>Ratified</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_extension_and_version_dependencies"><a class="anchor" href="#_extension_and_version_dependencies"></a>Extension and Version Dependencies</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>None</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_other_extension_metadata"><a class="anchor" href="#_other_extension_metadata"></a>Other Extension Metadata</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Last Modified Date</strong></dt>
+<dd>
+<p>2020-04-21</p>
+</dd>
+<dt class="hdlist1"><strong>IP Status</strong></dt>
+<dd>
+<p>No known IP claims.</p>
+</dd>
+</dl>
 </div>
 </div>
 </div>
@@ -785,59 +808,175 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The goal of this extension is to provide interoperability between OpenCL and Direct3D 11.
-This is designed to function analogously to the <a href="cl_khr_gl_sharing.html">cl_khr_gl_sharing</a> as defined in sections 9.7 and 9.8.
-If this extension is supported by an implementation, the string "cl_khr_d3d11_sharing" will be present in the <code>CL_PLATFORM_EXTENSIONS</code> or <code>CL_DEVICE_EXTENSIONS</code> string described in the table of allowed values for <em>param_name</em> for <a href="clGetDeviceInfo.html">clGetDeviceInfo</a> or
-<a href="clGetPlatformInfo.html">clGetPlatformInfo</a>.</p>
+<p><code>cl_khr_<wbr>d3d11_<wbr>sharing</code> provides interoperability between OpenCL and Direct3D 11.</p>
 </div>
-<div class="paragraph">
-<p>As currently proposed, the interfaces for this extension are provided in the header file <code>cl_d3d11.h</code>.</p>
 </div>
-<div class="paragraph">
-<p>If the <code>cl_khr_d3d11_sharing</code> extension is supported, then the following functions are enabled:</p>
 </div>
+<div class="sect1">
+<h2 id="_new_commands"><a class="anchor" href="#_new_commands"></a>New Commands</h2>
+<div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p><a href="clGetDeviceIDsFromD3D11KHR.html">clGetDeviceIDsFromD3D11KHR</a></p>
+<p><strong>clGetDeviceIDsFromD3D11KHR</strong></p>
 </li>
 <li>
-<p><a href="clCreateFromD3D11BufferKHR.html">clCreateFromD3D11BufferKHR</a></p>
+<p><strong>clCreateFromD3D11BufferKHR</strong></p>
 </li>
 <li>
-<p><a href="clCreateFromD3D11Texture2DKHR.html">clCreateFromD3D11Texture2DKHR</a></p>
+<p><strong>clCreateFromD3D11Texture2DKHR</strong></p>
 </li>
 <li>
-<p><a href="clCreateFromD3D11Texture3DKHR.html">clCreateFromD3D11Texture3DKHR</a></p>
+<p><strong>clCreateFromD3D11Texture3DKHR</strong></p>
 </li>
 <li>
-<p><a href="clEnqueueAcquireD3D11ObjectsKHR.html">clEnqueueAcquireD3D11ObjectsKHR</a></p>
+<p><strong>clEnqueueAcquireD3D11ObjectsKHR</strong></p>
 </li>
 <li>
-<p><a href="clEnqueueReleaseD3D11ObjectsKHR.html">clEnqueueReleaseD3D11ObjectsKHR</a></p>
+<p><strong>clEnqueueReleaseD3D11ObjectsKHR</strong></p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>The OpenCL functions enabled by the <code>cl_khr_d3d11_sharing</code> extension allow applications to use Direct3D 11 resources as OpenCL memory objects.
-This allows efficient sharing of data between OpenCL and Direct3D 11.
-The OpenCL API may be used to execute kernels that read and/or write memory objects that are also Direct3D 11 resources.
-An OpenCL image object may be created from a Direct3D 11 texture resource.
-An OpenCL buffer object may be created from a Direct3D 11 buffer resource.
-OpenCL memory objects may be created from Direct3D 11 objects if and only if the OpenCL context has been created from a Direct3D 11 device.</p>
 </div>
-<div class="paragraph">
-<div class="title">Lifetime of Shared [D3D11] Objects</div>
-<p>An OpenCL memory object created from a Direct3D 11 resource remains valid as long as the corresponding Direct3D 11 resource has not been deleted.
-If the Direct3D 11 resource is deleted through the Direct3D 11 API, subsequent use of the OpenCL memory object will result in undefined behavior, including but not limited to possible OpenCL errors, data corruption, and program termination.</p>
 </div>
-<div class="paragraph">
-<p>The successful creation of a cl_context against a Direct3D 11 device specified via the context create parameter <code>CL_CONTEXT_D3D11_DEVICE_KHR</code> will increment the internal Direct3D reference count on the specified Direct3D 11 device.
-The internal Direct3D reference count on that Direct3D 11 device will be decremented when the OpenCL reference count on the returned OpenCL context drops to zero.</p>
+<div class="sect1">
+<h2 id="_new_types"><a class="anchor" href="#_new_types"></a>New Types</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><code>cl_d3d11_<wbr>device_<wbr>source_<wbr>khr</code></p>
+</li>
+<li>
+<p><code>cl_d3d11_<wbr>device_<wbr>set_<wbr>khr</code></p>
+</li>
+</ul>
 </div>
-<div class="paragraph">
-<p>The OpenCL context and corresponding command-queues are dependent on the existence of the Direct3D 11 device from which the OpenCL context was created.
-If the Direct3D 11 device is deleted through the Direct3D 11 API, subsequent use of the OpenCL context will result in undefined behavior, including but not limited to possible OpenCL errors, data corruption, and program termination.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_new_enums"><a class="anchor" href="#_new_enums"></a>New Enums</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><code>cl_d3d11_<wbr>device_<wbr>source_<wbr>khr</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_D3D11_<wbr>DEVICE_<wbr>KHR</code></p>
+</li>
+<li>
+<p><code>CL_D3D11_<wbr>DXGI_<wbr>ADAPTER_<wbr>KHR</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>cl_d3d11_<wbr>device_<wbr>set_<wbr>khr</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_PREFERRED_<wbr>DEVICES_<wbr>FOR_<wbr>D3D11_<wbr>KHR</code></p>
+</li>
+<li>
+<p><code>CL_ALL_<wbr>DEVICES_<wbr>FOR_<wbr>D3D11_<wbr>KHR</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>cl_context_<wbr>properties</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_CONTEXT_<wbr>D3D11_<wbr>DEVICE_<wbr>KHR</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>cl_context_<wbr>info</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_CONTEXT_<wbr>D3D11_<wbr>PREFER_<wbr>SHARED_<wbr>RESOURCES_<wbr>KHR</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>cl_mem_<wbr>info</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_MEM_<wbr>D3D11_<wbr>RESOURCE_<wbr>KHR</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>cl_image_<wbr>info</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_IMAGE_<wbr>D3D11_<wbr>SUBRESOURCE_<wbr>KHR</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>cl_command_<wbr>type</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_COMMAND_<wbr>ACQUIRE_<wbr>D3D11_<wbr>OBJECTS_<wbr>KHR</code></p>
+</li>
+<li>
+<p><code>CL_COMMAND_<wbr>RELEASE_<wbr>D3D11_<wbr>OBJECTS_<wbr>KHR</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>New Error Codes</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_INVALID_<wbr>D3D11_<wbr>DEVICE_<wbr>KHR</code></p>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>D3D11_<wbr>RESOURCE_<wbr>KHR</code></p>
+</li>
+<li>
+<p><code>CL_D3D11_<wbr>RESOURCE_<wbr>ALREADY_<wbr>ACQUIRED_<wbr>KHR</code></p>
+</li>
+<li>
+<p><code>CL_D3D11_<wbr>RESOURCE_<wbr>NOT_<wbr>ACQUIRED_<wbr>KHR</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_version_history"><a class="anchor" href="#_version_history"></a>Version History</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Revision 1.0.0, 2020-04-21</p>
+<div class="ulist">
+<ul>
+<li>
+<p>First assigned version.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -845,13 +984,7 @@ If the Direct3D 11 device is deleted through the Direct3D 11 API, subsequent use
 <h2 id="_see_also"><a class="anchor" href="#_see_also"></a>See Also</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="EXTENSION.html">EXTENSION</a>,
-<a href="clGetDeviceIDsFromD3D11KHR.html">clGetDeviceIDsFromD3D11KHR</a>,
-<a href="clCreateFromD3D11BufferKHR.html">clCreateFromD3D11BufferKHR</a>,
-<a href="clCreateFromD3D11Texture2DKHR.html">clCreateFromD3D11Texture2DKHR</a>,
-<a href="clCreateFromD3D11Texture3DKHR.html">clCreateFromD3D11Texture3DKHR</a>,
-<a href="clEnqueueAcquireD3D10ObjectsKHR.html">clEnqueueAcquireD3D10ObjectsKHR</a>,
-<a href="clEnqueueReleaseD3D11ObjectsKHR.html">clEnqueueReleaseD3D11ObjectsKHR</a></p>
+<p>No cross-references are available</p>
 </div>
 </div>
 </div>
@@ -859,10 +992,11 @@ If the Direct3D 11 device is deleted through the Direct3D 11 API, subsequent use
 <h2 id="_document_notes"><a class="anchor" href="#_document_notes"></a>Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Extension Specification at URL</p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#cl_khr_d3d11_sharing" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_d3d11_sharing" class="bare">https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_d3d11_sharing</a></p>
+<p>This page is a generated document.
+Fixes and changes should be made to the generator scripts, not directly.</p>
 </div>
 </div>
 </div>
@@ -870,7 +1004,7 @@ If the Direct3D 11 device is deleted through the Direct3D 11 API, subsequent use
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -880,8 +1014,8 @@ If the Direct3D 11 device is deleted through the Direct3D 11 API, subsequent use
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

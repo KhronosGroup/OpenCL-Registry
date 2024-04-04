@@ -767,19 +767,37 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <h1>clCreateEventFromGLsyncKHR(3) Manual Page</h1>
 <h2 id="_name">Name</h2>
 <div class="sectionbody">
-<p>clCreateEventFromGLsyncKHR - Creates an event object linked to an OpenGL sync object.</p>
+<p>clCreateEventFromGLsyncKHR - Create OpenCL event object linked to an OpenGL sync object</p>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
 <h2 id="_c_specification"><a class="anchor" href="#_c_specification"></a>C Specification</h2>
 <div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">cl_event clCreateEventFromGLsyncKHR(cl_context context,
-                                    GLsync sync,
-                                    cl_int *errcode_ret)</code></pre>
+<div class="paragraph">
+<p>To create an OpenCL event object linked to an OpenGL fence sync object, call
+the function</p>
 </div>
+<div id="clCreateEventFromGLsyncKHR" class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-opencl" data-lang="opencl">// Provided by cl_khr_gl_event
+cl_event clCreateEventFromGLsyncKHR(
+    cl_context context,
+    cl_GLsync sync,
+    cl_int* errcode_ret);</code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<strong>clCreateEventFromGLsyncKHR</strong> is provided by the <code>cl_khr_gl_event</code> extension.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -789,16 +807,16 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <div class="ulist">
 <ul>
 <li>
-<p><em>context</em> - A valid OpenCL context created from an OpenGL context or
-share group, using the <a href="cl_khr_gl_sharing.html">cl_khr_gl_sharing</a> extension.</p>
+<p><em>context</em> is a valid OpenCL context created from an OpenGL context or
+share group, using the <code>cl_khr_<wbr>gl_<wbr>sharing</code> extension.</p>
 </li>
 <li>
-<p><em>sync</em> - The name of a sync object in the GL share group associated with
-<em>context</em>.</p>
+<p><em>sync</em> is the name of a sync object in the GL share group associated
+with <em>context</em>.</p>
 </li>
 <li>
-<p><em>errcode_ret</em> - An appropriate error code. If <em>errcode_ret</em> is NULL, no
-error code is returned.</p>
+<p><em>errcode_ret</em> will return an appropriate error code.
+If <em>errcode_ret</em> is <code>NULL</code>, no error code is returned.</p>
 </li>
 </ul>
 </div>
@@ -808,60 +826,65 @@ error code is returned.</p>
 <h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>An event object may be created by linking to an OpenGL sync object.
-Completion of such an event object is equivalent to waiting for completion of the fence command associated with the linked GL sync object.</p>
+<p>Completion of such an event object is equivalent to waiting for completion
+of the fence command associated with the linked GL sync object.</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_notes"><a class="anchor" href="#_notes"></a>Notes</h2>
-<div class="sectionbody">
 <div class="paragraph">
-<p>The parameters of an event object linked to a GL sync object will return the following values when queried with <a href="clGetEventInfo.html">clGetEventInfo</a>:</p>
+<p><strong>clCreateEventFromGLsyncKHR</strong> returns a valid OpenCL event object and
+<em>errcode_ret</em> is set to <code>CL_SUCCESS</code> if the event object is created
+successfully.
+Otherwise, it returns a <code>NULL</code> value with one of the following error values
+returned in <em>errcode_ret</em>:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The <code>CL_EVENT_COMMAND_QUEUE</code> of a linked event is NULL, because the event is not associated with any OpenCL command-queue.</p>
+<p><code>CL_INVALID_<wbr>CONTEXT</code> if <em>context</em> is not a valid context, or was not
+created from a GL context.</p>
 </li>
 <li>
-<p>The <code>CL_EVENT_COMMAND_TYPE</code> of a linked event is <code>CL_COMMAND_GL_FENCE_SYNC_OBJECT_KHR</code>, indicating that the event is associated with a GL sync object, rather than an OpenCL command.</p>
-</li>
-<li>
-<p>The <code>CL_EVENT_COMMAND_EXECUTION_STATUS</code> of a linked event is either <code>CL_SUBMITTED</code>, indicating that the fence command associated with the sync object has not yet completed, or <code>CL_COMPLETE</code>, indicating that the fence command has completed.</p>
+<p><code>CL_INVALID_<wbr>GL_<wbr>OBJECT</code> if <em>sync</em> is not the name of a sync object in the
+GL share group associated with <em>context</em>.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p><code>clCreateEventFromGLsyncKHR</code> performs an implicit <a href="clRetainEvent.html">clRetainEvent</a> on the returned event object.
-Creating a linked event object also places a reference on the linked GL sync object.
-When the event object is deleted, the reference will be removed from the GL sync object.</p>
-</div>
-<div class="paragraph">
-<p>Events returned from <code>clCreateEventFromGLsyncKHR</code> can be used in the
-<em>event_wait_list</em> argument to <a href="clEnqueueAcquireGLObjects.html">clEnqueueAcquireGLObjects</a> and CL APIs
-that take a <code>cl_event</code> as an argument but do not enqueue commands. Passing
-such events to any other CL API that enqueues commands will generate a
-<code>CL_INVALID_EVENT</code> error.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_errors"><a class="anchor" href="#_errors"></a>Errors</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Returns a valid OpenCL event object and <em>errcode_ret</em> is set to <code>CL_SUCCESS</code> if the event object is created successfully.
-Otherwise, it returns a NULL value with one of the following error values returned in <em>errcode_ret</em>:</p>
+<p>The parameters of an event object linked to a GL sync object will return the
+following values when queried with <strong>clGetEventInfo</strong>:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_INVALID_CONTEXT</code> if <em>context</em> is not a valid context or was not created from a GL context.</p>
+<p>The <code>CL_EVENT_<wbr>COMMAND_<wbr>QUEUE</code> of a linked event is <code>NULL</code>, because the
+event is not associated with any OpenCL command-queue.</p>
 </li>
 <li>
-<p><code>CL_INVALID_GL_OBJECT</code> if <em>sync</em> is not the name of a sync object in the GL share group associated with <em>context</em>.</p>
+<p>The <code>CL_EVENT_<wbr>COMMAND_<wbr>TYPE</code> of a linked event is
+<code>CL_COMMAND_<wbr>GL_<wbr>FENCE_<wbr>SYNC_<wbr>OBJECT_<wbr>KHR</code>, indicating that the event is
+associated with a GL sync object, rather than an OpenCL command.</p>
+</li>
+<li>
+<p>The <code>CL_EVENT_<wbr>COMMAND_<wbr>EXECUTION_<wbr>STATUS</code> of a linked event is either
+<code>CL_SUBMITTED</code>, indicating that the fence command associated with the
+sync object has not yet completed, or <code>CL_COMPLETE</code>, indicating that the
+fence command has completed.</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p><strong>clCreateEventFromGLsyncKHR</strong> performs an implicit <strong>clRetainEvent</strong> on the
+returned event object.
+Creating a linked event object also places a reference on the linked GL sync
+object.
+When the event object is deleted, the reference will be removed from the GL
+sync object.</p>
+</div>
+<div class="paragraph">
+<p>Events returned from <strong>clCreateEventFromGLsyncKHR</strong> can be used in the
+<em>event_wait_list</em> argument to <strong>clEnqueueAcquireGLObjects</strong> and CL APIs that
+take a <code>cl_event</code> as an argument but do not enqueue commands.
+Passing such events to any other CL API that enqueues commands will generate
+a <code>CL_INVALID_<wbr>EVENT</code> error.</p>
 </div>
 </div>
 </div>
@@ -869,11 +892,7 @@ Otherwise, it returns a NULL value with one of the following error values return
 <h2 id="_see_also"><a class="anchor" href="#_see_also"></a>See Also</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="cl_khr_gl_sharing.html">cl_khr_gl_sharing</a>,
-<a href="cl_khr_gl_event.html">cl_khr_gl_event</a>,
-<a href="clGetEventInfo.html">clGetEventInfo</a>,
-<a href="clEnqueueAcquireGLObjects.html">clEnqueueAcquireGLObjects</a>,
-<a href="clRetainEvent.html">clRetainEvent</a></p>
+<p><a href="cl_GLsync.html">cl_GLsync</a>, <a href="cl_context.html">cl_context</a>, <a href="cl_int.html">cl_int</a>, <a href="cl_khr_gl_event.html">cl_khr_gl_event</a></p>
 </div>
 </div>
 </div>
@@ -881,10 +900,11 @@ Otherwise, it returns a NULL value with one of the following error values return
 <h2 id="_document_notes"><a class="anchor" href="#_document_notes"></a>Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Extension Specification at URL</p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#clCreateEventFromGLsyncKHR" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_Ext.html#clCreateFromGLBuffer" class="bare">https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_Ext.html#clCreateFromGLBuffer</a></p>
+<p>This page is extracted from the OpenCL Specification.
+Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 </div>
 </div>
@@ -892,7 +912,7 @@ Otherwise, it returns a NULL value with one of the following error values return
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -902,8 +922,8 @@ Otherwise, it returns a NULL value with one of the following error values return
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

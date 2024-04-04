@@ -798,21 +798,89 @@ in the calling environment, and always return the same value as they would
 if called with the round to nearest even rounding mode.</p>
 </div>
 <div class="paragraph">
-<p>The <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#table-builtin-math" target="_blank" rel="noopener">Built-in Scalar and Vector Argument Math Functions</a>
-table describes the list of built-in math functions that can take scalar or
-vector arguments.
-We use the generic type name <code>gentype</code> to indicate that the function can take
-<code>float</code>, <code>float2</code>, <code>float3</code>, <code>float4</code>, <code>float8</code>, <code>float16</code>, <code>double</code>
-<sup class="footnote" id="_footnote_double-supported">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup>, <code>double2</code>,
-<code>double3</code>, <code>double4</code>, <code>double8</code> or <code>double16</code> as the type for the arguments.
-We use the generic type name <code>gentypef</code> to indicate that the function can
-take <code>float</code>, <code>float2</code>, <code>float3</code>, <code>float4</code>, <code>float8</code>, or <code>float16</code> as the
-type for the arguments.
-We use the generic type name <code>gentyped</code> <sup class="footnoteref">[<a class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup> to
-indicate that the function can take <code>double</code>, <code>double2</code>, <code>double3</code>, <code>double4</code>,
-<code>double8</code> or <code>double16</code> as the type for the arguments.
-For any specific use of a function, the actual type has to be the same for
-all arguments and the return type, unless otherwise specified.</p>
+<p>The <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#table-builtin-math" target="_blank" rel="noopener">Built-in Scalar and Vector Argument Math
+Functions</a> table describes the list of built-in math functions that can
+take scalar or vector arguments.</p>
+</div>
+<div class="paragraph">
+<p>The generic type name <code>gentype</code> indicates that the function can take any of</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>float</code>, <code>float2</code>, <code>float3</code>, <code>float4</code>, <code>float8</code>, or <code>float16</code></p>
+</li>
+<li>
+<p><code>double</code> <sup class="footnote" id="_footnote_double-supported">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup>, <code>double2</code>,
+<code>double3</code>, <code>double4</code>, <code>double8</code> or <code>double16</code></p>
+</li>
+<li>
+<p><code>half</code> <sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup>, <code>half2</code>, <code>half3</code>, <code>half4</code>,
+<code>half8</code> or <code>half16</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>as the type for the arguments.</p>
+</div>
+<div class="paragraph">
+<p>The generic type name <code>gentypef</code> indicates that the function can take any of</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>float</code>, <code>float2</code>, <code>float3</code>, <code>float4</code>, <code>float8</code>, or <code>float16</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>as the type for the arguments.</p>
+</div>
+<div class="paragraph">
+<p>The generic type name <code>gentyped</code> <sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnotedef_3" title="View footnote.">3</a>]</sup> indicates
+that the function can take any of</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>double</code>, <code>double2</code>, <code>double3</code>, <code>double4</code>, <code>double8</code> or <code>double16</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>as the type for the arguments.</p>
+</div>
+<div class="paragraph">
+<p>The generic type name <code>gentypeh</code> <sup class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnotedef_4" title="View footnote.">4</a>]</sup> indicates
+that the function can take any of</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>half</code>, <code>half2</code>, <code>half3</code>, <code>half4</code>, <code>half8</code> or <code>half16</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>as the type for the arguments.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+All functions taking or returning <code>half</code> types are supported only when
+the <code>cl_khr_<wbr>fp16</code> extension macro is supported.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>For any specific use of a function with <code>gentype*</code> arguments the actual type
+has to be the same for all arguments and the return type, unless they are
+explicitly specified as an actual type.</p>
 </div>
 <table id="table-builtin-math" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. Built-in Scalar and Vector Argument Math Functions</caption>
@@ -820,11 +888,13 @@ all arguments and the return type, unless otherwise specified.</p>
 <col style="width: 50%;">
 <col style="width: 50%;">
 </colgroup>
-<tbody>
+<thead>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Function</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
+<th class="tableblock halign-left valign-top">Function</th>
+<th class="tableblock halign-left valign-top">Description</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>acos</strong>(gentype)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Arc cosine function. Returns an angle in radians.</p></td>
@@ -901,7 +971,7 @@ all arguments and the return type, unless otherwise specified.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>erf</strong>(gentype)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Error function encountered in integrating the
-      <a href="http://mathworld.wolfram.com/NormalDistribution.html"><em>normal
+      <a href="https://mathworld.wolfram.com/NormalDistribution.html"><em>normal
       distribution</em></a>.</p></td>
 </tr>
 <tr>
@@ -926,7 +996,7 @@ all arguments and the return type, unless otherwise specified.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>fdim</strong>(gentype <em>x</em>, gentype <em>y</em>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>x</em> - <em>y</em> if <em>x</em> &gt; <em>y</em>, +0 if <em>x</em> is less than or equal to y.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>x</em> - <em>y</em> if <em>x</em> &gt; <em>y</em>, +0 if <em>x</em> is less than or equal to <em>y</em>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>floor</strong>(gentype)</p></td>
@@ -943,7 +1013,8 @@ all arguments and the return type, unless otherwise specified.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>fmax</strong>(gentype <em>x</em>, gentype <em>y</em>)<br>
   gentypef <strong>fmax</strong>(gentypef <em>x</em>, float <em>y</em>)<br>
-  gentyped <strong>fmax</strong>(gentyped <em>x</em>, double <em>y</em>)</p></td>
+  gentyped <strong>fmax</strong>(gentyped <em>x</em>, double <em>y</em>)</p>
+<p class="tableblock">gentypeh <strong>fmax</strong>(gentypeh <em>x</em>, half <em>y</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns <em>y</em> if <em>x</em> &lt; <em>y</em>, otherwise it returns <em>x</em>.
       If one argument is a NaN, <strong>fmax</strong>() returns the other argument.
       If both arguments are NaNs, <strong>fmax</strong>() returns a NaN.</p></td>
@@ -951,11 +1022,12 @@ all arguments and the return type, unless otherwise specified.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>fmin</strong>(gentype <em>x</em>, gentype <em>y</em>)<br>
   gentypef <strong>fmin</strong>(gentypef <em>x</em>, float <em>y</em>)<br>
-  gentyped <strong>fmin</strong>(gentyped <em>x</em>, double <em>y</em>)</p></td>
+  gentyped <strong>fmin</strong>(gentyped <em>x</em>, double <em>y</em>)</p>
+<p class="tableblock">gentypeh <strong>fmax</strong>(gentypeh <em>x</em>, half <em>y</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns <em>y</em> if <em>y</em> &lt; <em>x</em>, otherwise it returns <em>x</em>.
       If one argument is a NaN, <strong>fmin</strong>() returns the other argument.
       If both arguments are NaNs, <strong>fmin</strong>() returns a NaN.
-      <sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup></p></td>
+      <sup class="footnote">[<a id="_footnoteref_5" class="footnote" href="#_footnotedef_5" title="View footnote.">5</a>]</sup></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>fmod</strong>(gentype <em>x</em>, gentype <em>y</em>)</p></td>
@@ -965,23 +1037,41 @@ all arguments and the return type, unless otherwise specified.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>fract</strong>(gentype <em>x</em>, __global gentype <em>*iptr</em>)<br>
   gentype <strong>fract</strong>(gentype <em>x</em>, __local gentype <em>*iptr</em>)<br>
-  gentype <strong>fract</strong>(gentype <em>x</em>, __private gentype <em>*iptr</em>)<br></p>
+  gentype <strong>fract</strong>(gentype <em>x</em>, __private gentype <em>*iptr</em>)</p>
 <p class="tableblock">  For OpenCL C 2.0, or OpenCL C 3.0 or newer with the
-  <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code> feature:<br></p>
+  <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code> feature:</p>
 <p class="tableblock">  gentype <strong>fract</strong>(gentype <em>x</em>, gentype <em>*iptr</em>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Returns <strong>fmin</strong>(<em>x</em> - <strong>floor</strong>(<em>x</em>), <code>0x1.fffffep-1f</code>).
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns <strong>fmin</strong>(<em>x</em> - <strong>floor</strong>(<em>x</em>), <code>C</code>), where <code>C</code> is the constant
+      <code>0x1.fffffep-1f</code> for <code>float</code> aguments, <code>0x1.fffffffffffffp-1</code> for <code>double</code>
+      arguments, and <code>0x1.ffcp-1h</code> for <code>half</code> arguments.
       <strong>floor</strong>(x) is returned in <em>iptr</em>.
-      <sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnotedef_3" title="View footnote.">3</a>]</sup></p></td>
+      <sup class="footnote">[<a id="_footnoteref_6" class="footnote" href="#_footnotedef_6" title="View footnote.">6</a>]</sup></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">half<em>n</em> <strong>frexp</strong>(half<em>n</em> <em>x</em>, __global int<em>n</em> *exp)<br>
+  half <strong>frexp</strong>(half <em>x</em>, __global int *exp)</p>
+<p class="tableblock">  half<em>n</em> <strong>frexp</strong>(half<em>n</em> <em>x</em>, __local int<em>n</em> *exp)<br>
+  half <strong>frexp</strong>(half <em>x</em>, __local int *exp)</p>
+<p class="tableblock">  half<em>n</em> <strong>frexp</strong>(half<em>n</em> <em>x</em>, __private int<em>n</em> *exp)<br>
+  half <strong>frexp</strong>(half <em>x</em>, __private int *exp)</p>
+<p class="tableblock">  For OpenCL C 2.0, or OpenCL C 3.0 or newer with the
+  <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code> feature:</p>
+<p class="tableblock">  half<em>n</em> <strong>frexp</strong>(half<em>n</em> <em>x</em>, int<em>n</em> *exp)<br>
+  half <strong>frexp</strong>(half <em>x</em>, int *exp)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extract mantissa and exponent from <em>x</em>.
+      For each component the mantissa returned is a <code>half</code> with magnitude in
+      the interval [1/2, 1) or 0.
+      Each component of <em>x</em> equals mantissa returned * 2<em><sup>exp</sup></em>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">float<em>n</em> <strong>frexp</strong>(float<em>n</em> <em>x</em>, __global int<em>n</em> *exp)<br>
-  float <strong>frexp</strong>(float <em>x</em>, __global int *exp)<br></p>
+  float <strong>frexp</strong>(float <em>x</em>, __global int *exp)</p>
 <p class="tableblock">  float<em>n</em> <strong>frexp</strong>(float<em>n</em> <em>x</em>, __local int<em>n</em> *exp)<br>
-  float <strong>frexp</strong>(float <em>x</em>, __local int *exp)<br></p>
+  float <strong>frexp</strong>(float <em>x</em>, __local int *exp)</p>
 <p class="tableblock">  float<em>n</em> <strong>frexp</strong>(float<em>n</em> <em>x</em>, __private int<em>n</em> *exp)<br>
-  float <strong>frexp</strong>(float <em>x</em>, __private int *exp)<br></p>
+  float <strong>frexp</strong>(float <em>x</em>, __private int *exp)</p>
 <p class="tableblock">  For OpenCL C 2.0, or OpenCL C 3.0 or newer with the
-  <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code> feature:<br></p>
+  <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code> feature:</p>
 <p class="tableblock">  float<em>n</em> <strong>frexp</strong>(float<em>n</em> <em>x</em>, int<em>n</em> *exp)<br>
   float <strong>frexp</strong>(float <em>x</em>, int *exp)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Extract mantissa and exponent from <em>x</em>.
@@ -991,13 +1081,13 @@ all arguments and the return type, unless otherwise specified.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">double<em>n</em> <strong>frexp</strong>(double<em>n</em> <em>x</em>, __global int<em>n</em> *exp)<br>
-  double <strong>frexp</strong>(double <em>x</em>, __global int *exp)<br></p>
+  double <strong>frexp</strong>(double <em>x</em>, __global int *exp)</p>
 <p class="tableblock">  double<em>n</em> <strong>frexp</strong>(double<em>n</em> <em>x</em>, __local int<em>n</em> *exp)<br>
-  double <strong>frexp</strong>(double <em>x</em>, __local int *exp)<br></p>
+  double <strong>frexp</strong>(double <em>x</em>, __local int *exp)</p>
 <p class="tableblock">  double<em>n</em> <strong>frexp</strong>(double<em>n</em> <em>x</em>, __private int<em>n</em> *exp)<br>
-  double <strong>frexp</strong>(double <em>x</em>, __private int *exp)<br></p>
+  double <strong>frexp</strong>(double <em>x</em>, __private int *exp)</p>
 <p class="tableblock">  For OpenCL C 2.0, or OpenCL C 3.0 or newer with the
-  <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code> feature:<br></p>
+  <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code> feature:</p>
 <p class="tableblock">  double<em>n</em> <strong>frexp</strong>(double<em>n</em> <em>x</em>, int<em>n</em> *exp)<br>
   double <strong>frexp</strong>(double <em>x</em>, int *exp)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Extract mantissa and exponent from <em>x</em>.
@@ -1014,7 +1104,9 @@ all arguments and the return type, unless otherwise specified.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">int<em>n</em> <strong>ilogb</strong>(float<em>n</em> <em>x</em>)<br>
   int <strong>ilogb</strong>(float <em>x</em>)<br>
   int<em>n</em> <strong>ilogb</strong>(double<em>n</em> <em>x</em>)<br>
-  int <strong>ilogb</strong>(double <em>x</em>)</p></td>
+  int <strong>ilogb</strong>(double <em>x</em>)</p>
+<p class="tableblock">  int<em>n</em> <strong>ilogb</strong>(half<em>n</em> <em>x</em>)<br>
+  int <strong>ilogb</strong>(half <em>x</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return the exponent as an integer value.</p></td>
 </tr>
 <tr>
@@ -1023,29 +1115,40 @@ all arguments and the return type, unless otherwise specified.</p>
   float <strong>ldexp</strong>(float <em>x</em>, int <em>k</em>)<br>
   double<em>n</em> <strong>ldexp</strong>(double<em>n</em> <em>x</em>, int<em>n</em> <em>k</em>)<br>
   double<em>n</em> <strong>ldexp</strong>(double<em>n</em> <em>x</em>, int <em>k</em>)<br>
-  double <strong>ldexp</strong>(double <em>x</em>, int <em>k</em>)</p></td>
+  double <strong>ldexp</strong>(double <em>x</em>, int <em>k</em>)
+  half<em>n</em> <strong>ldexp</strong>(half<em>n</em> <em>x</em>, int<em>n</em> <em>k</em>)<br>
+  half<em>n</em> <strong>ldexp</strong>(half<em>n</em> <em>x</em>, int <em>k</em>)<br>
+  half <strong>ldexp</strong>(half <em>x</em>, int <em>k</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Multiply <em>x</em> by 2 to the power <em>k</em>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>lgamma</strong>(gentype <em>x</em>)<br></p>
-<p class="tableblock">  float<em>n</em> <strong>lgamma_r</strong>(float<em>n</em> <em>x</em>, __global int<em>n</em> *<em>signp</em>)<br>
+<td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>lgamma</strong>(gentype <em>x</em>)<br>
+  float<em>n</em> <strong>lgamma_r</strong>(float<em>n</em> <em>x</em>, __global int<em>n</em> *<em>signp</em>)<br>
   float <strong>lgamma_r</strong>(float <em>x</em>, __global int *<em>signp</em>)<br>
   double<em>n</em> <strong>lgamma_r</strong>(double<em>n</em> <em>x</em>, __global int<em>n</em> *<em>signp</em>)<br>
-  double <strong>lgamma_r</strong>(double <em>x</em>, __global int *<em>signp</em>)<br></p>
+  double <strong>lgamma_r</strong>(double <em>x</em>, __global int *<em>signp</em>)</p>
+<p class="tableblock">  half<em>n</em> <strong>lgamma_r</strong>(half<em>n</em> <em>x</em>, __global int<em>n</em> *<em>signp</em>)<br>
+  half <strong>lgamma_r</strong>(half <em>x</em>, __global int *<em>signp</em>)<br></p>
 <p class="tableblock">  float<em>n</em> <strong>lgamma_r</strong>(float<em>n</em> <em>x</em>, __local int<em>n</em> *<em>signp</em>)<br>
   float <strong>lgamma_r</strong>(float <em>x</em>, __local int *<em>signp</em>)<br>
   double<em>n</em> <strong>lgamma_r</strong>(double<em>n</em> <em>x</em>, __local int<em>n</em> *<em>signp</em>)<br>
-  double <strong>lgamma_r</strong>(double <em>x</em>, __local int *<em>signp</em>)<br></p>
+  double <strong>lgamma_r</strong>(double <em>x</em>, __local int *<em>signp</em>)</p>
+<p class="tableblock">  half<em>n</em> <strong>lgamma_r</strong>(half<em>n</em> <em>x</em>, __local int<em>n</em> *<em>signp</em>)<br>
+  half <strong>lgamma_r</strong>(half <em>x</em>, __local int *<em>signp</em>)<br></p>
 <p class="tableblock">  float<em>n</em> <strong>lgamma_r</strong>(float<em>n</em> <em>x</em>, __private int<em>n</em> *<em>signp</em>)<br>
   float <strong>lgamma_r</strong>(float <em>x</em>, __private int *<em>signp</em>)<br>
   double<em>n</em> <strong>lgamma_r</strong>(double<em>n</em> <em>x</em>, __private int<em>n</em> *<em>signp</em>)<br>
-  double <strong>lgamma_r</strong>(double <em>x</em>, __private int *<em>signp</em>)<br></p>
+  double <strong>lgamma_r</strong>(double <em>x</em>, __private int *<em>signp</em>)</p>
+<p class="tableblock">  half<em>n</em> <strong>lgamma_r</strong>(half<em>n</em> <em>x</em>, __private int<em>n</em> *<em>signp</em>)<br>
+  half <strong>lgamma_r</strong>(half <em>x</em>, __private int *<em>signp</em>)<br></p>
 <p class="tableblock">  For OpenCL C 2.0, or OpenCL C 3.0 or newer with the
-  <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code> feature:<br></p>
+  <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code> feature:</p>
 <p class="tableblock">  float<em>n</em> <strong>lgamma_r</strong>(float<em>n</em> <em>x</em>, int<em>n</em> *<em>signp</em>)<br>
   float <strong>lgamma_r</strong>(float <em>x</em>, int *<em>signp</em>)<br>
   double<em>n</em> <strong>lgamma_r</strong>(double<em>n</em> <em>x</em>, int<em>n</em> *<em>signp</em>)<br>
-  double <strong>lgamma_r</strong>(double <em>x</em>, int *<em>signp</em>)</p></td>
+  double <strong>lgamma_r</strong>(double <em>x</em>, int *<em>signp</em>)</p>
+<p class="tableblock">  half<em>n</em> <strong>lgamma_r</strong>(half<em>n</em> <em>x</em>, int<em>n</em> *<em>signp</em>)<br>
+  half <strong>lgamma_r</strong>(half <em>x</em>, int *<em>signp</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Log gamma function.
       Returns the natural logarithm of the absolute value of the gamma
       function.
@@ -1076,11 +1179,12 @@ all arguments and the return type, unless otherwise specified.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>mad</strong>(gentype <em>a</em>, gentype <em>b</em>, gentype <em>c</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>mad</strong> computes <em>a</em> * <em>b</em> + <em>c</em>.
-    The function may compute <em>a</em> * <em>b</em> + <em>c</em> with reduced accuracy
-    in the embedded profile.  See the OpenCL SPIR-V Environment Specification
-    for details. On some hardware the mad instruction may provide better
-    performance than expanded computation of <em>a</em> * <em>b</em> + <em>c</em>.
-    <sup class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnotedef_4" title="View footnote.">4</a>]</sup></p></td>
+      The function may compute <em>a</em> * <em>b</em> + <em>c</em> with reduced accuracy in the
+      embedded profile.
+      See the OpenCL SPIR-V Environment Specification for details.
+      On some hardware the mad instruction may provide better performance
+      than expanded computation of <em>a</em> * <em>b</em> + <em>c</em>.
+      <sup class="footnote">[<a id="_footnoteref_7" class="footnote" href="#_footnotedef_7" title="View footnote.">7</a>]</sup></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>maxmag</strong>(gentype <em>x</em>, gentype <em>y</em>)</p></td>
@@ -1097,9 +1201,9 @@ all arguments and the return type, unless otherwise specified.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>modf</strong>(gentype <em>x</em>, __global gentype <em>*iptr</em>)<br>
   gentype <strong>modf</strong>(gentype <em>x</em>, __local gentype <em>*iptr</em>)<br>
-  gentype <strong>modf</strong>(gentype <em>x</em>, __private gentype <em>*iptr</em>)<br></p>
+  gentype <strong>modf</strong>(gentype <em>x</em>, __private gentype <em>*iptr</em>)</p>
 <p class="tableblock">  For OpenCL C 2.0, or OpenCL C 3.0 or newer with the
-  <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code> feature:<br></p>
+  <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code> feature:</p>
 <p class="tableblock">  gentype <strong>modf</strong>(gentype <em>x</em>, gentype <em>*iptr</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Decompose a floating-point number.
       The <strong>modf</strong> function breaks the argument <em>x</em> into integral and
@@ -1110,7 +1214,9 @@ all arguments and the return type, unless otherwise specified.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">float<em>n</em> <strong>nan</strong>(uint<em>n</em> <em>nancode</em>)<br>
   float <strong>nan</strong>(uint <em>nancode</em>)<br>
   double<em>n</em> <strong>nan</strong>(ulong<em>n</em> <em>nancode</em>)<br>
-  double <strong>nan</strong>(ulong <em>nancode</em>)</p></td>
+  double <strong>nan</strong>(ulong <em>nancode</em>)</p>
+<p class="tableblock">  half<em>n</em> <strong>nan</strong>(ushort<em>n</em> <em>nancode</em>)<br>
+  half <strong>nan</strong>(ushort <em>nancode</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns a quiet NaN.
       The <em>nancode</em> may be placed in the significand of the resulting NaN.</p></td>
 </tr>
@@ -1129,7 +1235,9 @@ all arguments and the return type, unless otherwise specified.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">float<em>n</em> <strong>pown</strong>(float<em>n</em> <em>x</em>, int<em>n</em> <em>y</em>)<br>
   float <strong>pown</strong>(float <em>x</em>, int <em>y</em>)<br>
   double<em>n</em> <strong>pown</strong>(double<em>n</em> <em>x</em>, int<em>n</em> <em>y</em>)<br>
-  double <strong>pown</strong>(double <em>x</em>, int <em>y</em>)</p></td>
+  double <strong>pown</strong>(double <em>x</em>, int <em>y</em>)</p>
+<p class="tableblock">  half<em>n</em> <strong>pown</strong>(half<em>n</em> <em>x</em>, int<em>n</em> <em>y</em>)<br>
+  half <strong>pown</strong>(half <em>x</em>, int <em>y</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Compute <em>x</em> to the power <em>y</em>, where <em>y</em> is an integer.</p></td>
 </tr>
 <tr>
@@ -1146,13 +1254,13 @@ all arguments and the return type, unless otherwise specified.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">float<em>n</em> <strong>remquo</strong>(float<em>n</em> <em>x</em>, float<em>n</em> <em>y</em>, __global int<em>n</em> <em>*quo</em>)<br>
-  float <strong>remquo</strong>(float <em>x</em>, float <em>y</em>, __global int <em>*quo</em>)<br></p>
+  float <strong>remquo</strong>(float <em>x</em>, float <em>y</em>, __global int <em>*quo</em>)</p>
 <p class="tableblock">  float<em>n</em> <strong>remquo</strong>(float<em>n</em> <em>x</em>, float<em>n</em> <em>y</em>, __local int<em>n</em> <em>*quo</em>)<br>
-  float <strong>remquo</strong>(float <em>x</em>, float <em>y</em>, __local int <em>*quo</em>)<br></p>
+  float <strong>remquo</strong>(float <em>x</em>, float <em>y</em>, __local int <em>*quo</em>)</p>
 <p class="tableblock">  float<em>n</em> <strong>remquo</strong>(float<em>n</em> <em>x</em>, float<em>n</em> <em>y</em>, __private int<em>n</em> <em>*quo</em>)<br>
-  float <strong>remquo</strong>(float <em>x</em>, float <em>y</em>, __private int <em>*quo</em>)<br></p>
+  float <strong>remquo</strong>(float <em>x</em>, float <em>y</em>, __private int <em>*quo</em>)</p>
 <p class="tableblock">  For OpenCL C 2.0, or OpenCL C 3.0 or newer with the
-  <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code> feature:<br></p>
+  <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code> feature:</p>
 <p class="tableblock">  float<em>n</em> <strong>remquo</strong>(float<em>n</em> <em>x</em>, float<em>n</em> <em>y</em>, int<em>n</em> <em>*quo</em>)<br>
   float <strong>remquo</strong>(float <em>x</em>, float <em>y</em>, int <em>*quo</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The <strong>remquo</strong> function computes the value r such that <em>r</em> = <em>x</em> -
@@ -1167,15 +1275,36 @@ all arguments and the return type, unless otherwise specified.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">double<em>n</em> <strong>remquo</strong>(double<em>n</em> <em>x</em>, double<em>n</em> <em>y</em>, __global int<em>n</em> <em>*quo</em>)<br>
-  double <strong>remquo</strong>(double <em>x</em>, double <em>y</em>, __global int <em>*quo</em>)<br></p>
+  double <strong>remquo</strong>(double <em>x</em>, double <em>y</em>, __global int <em>*quo</em>)</p>
 <p class="tableblock">  double<em>n</em> <strong>remquo</strong>(double<em>n</em> <em>x</em>, double<em>n</em> <em>y</em>, __local int<em>n</em> <em>*quo</em>)<br>
-  double <strong>remquo</strong>(double <em>x</em>, double <em>y</em>, __local int <em>*quo</em>)<br></p>
+  double <strong>remquo</strong>(double <em>x</em>, double <em>y</em>, __local int <em>*quo</em>)</p>
 <p class="tableblock">  double<em>n</em> <strong>remquo</strong>(double<em>n</em> <em>x</em>, double<em>n</em> <em>y</em>, __private int<em>n</em> <em>*quo</em>)<br>
-  double <strong>remquo</strong>(double <em>x</em>, double <em>y</em>, __private int <em>*quo</em>)<br></p>
+  double <strong>remquo</strong>(double <em>x</em>, double <em>y</em>, __private int <em>*quo</em>)</p>
 <p class="tableblock">  For OpenCL C 2.0, or OpenCL C 3.0 or newer with the
-  <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code> feature:<br></p>
+  <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code> feature:</p>
 <p class="tableblock">  double<em>n</em> <strong>remquo</strong>(double<em>n</em> <em>x</em>, double<em>n</em> <em>y</em>, int<em>n</em> <em>*quo</em>)<br>
   double <strong>remquo</strong>(double <em>x</em>, double <em>y</em>, int <em>*quo</em>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The <strong>remquo</strong> function computes the value r such that <em>r</em> = <em>x</em> -
+      <em>k</em>*<em>y</em>, where <em>k</em> is the integer nearest the exact value of <em>x</em>/<em>y</em>.
+      If there are two integers closest to <em>x</em>/<em>y</em>, <em>k</em> shall be the even
+      one.
+      If <em>r</em> is zero, it is given the same sign as <em>x</em>.
+      This is the same value that is returned by the <strong>remainder</strong> function.
+      <strong>remquo</strong> also calculates the lower seven bits of the integral quotient
+      <em>x</em>/<em>y</em>, and gives that value the same sign as <em>x</em>/<em>y</em>.
+      It stores this signed value in the object pointed to by <em>quo</em>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">half<em>n</em> <strong>remquo</strong>(half<em>n</em> <em>x</em>, half<em>n</em> <em>y</em>, __global int<em>n</em> <em>*quo</em>)<br>
+  half <strong>remquo</strong>(half <em>x</em>, half <em>y</em>, __global int <em>*quo</em>)</p>
+<p class="tableblock">  half<em>n</em> <strong>remquo</strong>(half<em>n</em> <em>x</em>, half<em>n</em> <em>y</em>, __local int<em>n</em> <em>*quo</em>)<br>
+  half <strong>remquo</strong>(half <em>x</em>, half <em>y</em>, __local int <em>*quo</em>)</p>
+<p class="tableblock">  half<em>n</em> <strong>remquo</strong>(half<em>n</em> <em>x</em>, half<em>n</em> <em>y</em>, __private int<em>n</em> <em>*quo</em>)<br>
+  half <strong>remquo</strong>(half <em>x</em>, half <em>y</em>, __private int <em>*quo</em>)</p>
+<p class="tableblock">  For OpenCL C 2.0 or with the
+  <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code> feature:</p>
+<p class="tableblock">  half<em>n</em> <strong>remquo</strong>(half<em>n</em> <em>x</em>, half<em>n</em> <em>y</em>, int<em>n</em> <em>*quo</em>)<br>
+  half <strong>remquo</strong>(half <em>x</em>, half <em>y</em>, int <em>*quo</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The <strong>remquo</strong> function computes the value r such that <em>r</em> = <em>x</em> -
       <em>k</em>*<em>y</em>, where <em>k</em> is the integer nearest the exact value of <em>x</em>/<em>y</em>.
       If there are two integers closest to <em>x</em>/<em>y</em>, <em>k</em> shall be the even
@@ -1196,7 +1325,9 @@ all arguments and the return type, unless otherwise specified.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">float<em>n</em> <strong>rootn</strong>(float<em>n</em> <em>x</em>, int<em>n</em> <em>y</em>)<br>
   float <strong>rootn</strong>(float <em>x</em>, int <em>y</em>)<br>
   double<em>n</em> <strong>rootn</strong>(double<em>n</em> <em>x</em>, int<em>n</em> <em>y</em>)<br>
-  double <strong>rootn</strong>(double <em>x</em>, int <em>y</em>)</p></td>
+  double <strong>rootn</strong>(double <em>x</em>, int <em>y</em>)</p>
+<p class="tableblock">  half<em>n</em> <strong>rootn</strong>(half<em>n</em> <em>x</em>, int<em>n</em> <em>y</em>)<br>
+  half <strong>rootn</strong>(half <em>x</em>, int <em>y</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Compute <em>x</em> to the power 1/<em>y</em>.</p></td>
 </tr>
 <tr>
@@ -1215,11 +1346,11 @@ all arguments and the return type, unless otherwise specified.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>sincos</strong>(gentype <em>x</em>, __global gentype <em>*cosval</em>)<br>
   gentype <strong>sincos</strong>(gentype <em>x</em>, __local gentype <em>*cosval</em>)<br>
-  gentype <strong>sincos</strong>(gentype <em>x</em>, __private gentype <em>*cosval</em>)<br></p>
+  gentype <strong>sincos</strong>(gentype <em>x</em>, __private gentype <em>*cosval</em>)</p>
 <p class="tableblock">  For OpenCL C 2.0, or OpenCL C 3.0 or newer with the
-  <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code> feature:<br></p>
+  <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code> feature:</p>
 <p class="tableblock">  gentype <strong>sincos</strong>(gentype <em>x</em>, gentype <em>*cosval</em>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Compute sine and cosine of x.
+<td class="tableblock halign-left valign-top"><p class="tableblock">Compute sine and cosine of <em>x</em>.
       The computed sine is the return value and computed cosine is returned
       in <em>cosval</em>, where <em>x</em> is an angle in radians.</p></td>
 </tr>
@@ -1288,17 +1419,33 @@ divide and reciprocal.</p>
 following table can take <code>float</code>, <code>float2</code>, <code>float3</code>, <code>float4</code>, <code>float8</code> or
 <code>float16</code> as the type for the arguments.</p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The use of <code>half</code> in this table does not refer to the argument and
+return types, which are 32-bit floating-point values, but to the accuracy
+requirements of the function results.
+</td>
+</tr>
+</table>
+</div>
 <table id="table-builtin-half-native-math" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 2. Built-in Scalar and Vector <em>half</em> and <em>native</em> Math Functions</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
 </colgroup>
-<tbody>
+<thead>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Function</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
+<th class="tableblock halign-left valign-top">Function</th>
+<th class="tableblock halign-left valign-top">Description</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>half_cos</strong>(gentype <em>x</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Compute cosine.
@@ -1478,7 +1625,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -1489,22 +1636,31 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <div id="footnotes">
 <hr>
 <div class="footnote" id="_footnotedef_1">
-<a href="#_footnoteref_1">1</a>. Only if double precision is supported. In OpenCL C 3.0 this will be indicated by the presence of the <code>__opencl_c_fp64</code> feature macro.
+<a href="#_footnoteref_1">1</a>. Only if double precision is supported. In OpenCL C 3.0 this will be indicated by the presence of the <code>__opencl_c_<wbr>fp64</code> feature macro.
 </div>
 <div class="footnote" id="_footnotedef_2">
-<a href="#_footnoteref_2">2</a>. <strong>fmin</strong> and <strong>fmax</strong> behave as defined by C99 and may not match the IEEE 754-2008 definition for <strong>minNum</strong> and <strong>maxNum</strong> with regard to signaling NaNs. Specifically, signaling NaNs may behave as quiet NaNs.
+<a href="#_footnoteref_2">2</a>. Only if the <code>cl_khr_<wbr>fp16</code> extension is supported and has been enabled.
 </div>
 <div class="footnote" id="_footnotedef_3">
-<a href="#_footnoteref_3">3</a>. The <strong>min</strong>() operator is there to prevent <strong>fract</strong>(-small) from returning 1.0. It returns the largest positive floating-point number less than 1.0.
+<a href="#_footnoteref_3">3</a>. Only if double precision is supported. In OpenCL C 3.0 this will be indicated by the presence of the <code>__opencl_c_<wbr>fp64</code> feature macro.
 </div>
 <div class="footnote" id="_footnotedef_4">
-<a href="#_footnoteref_4">4</a>. The user is cautioned that for some usages, e.g. <strong>mad</strong>(a, b, -a*b), the definition of <strong>mad</strong>() is loose enough in the embedded profile that almost any result is allowed from <strong>mad</strong>() for some values of a and b.
+<a href="#_footnoteref_4">4</a>. Only if the <code>cl_khr_<wbr>fp16</code> extension is supported and has been enabled.
+</div>
+<div class="footnote" id="_footnotedef_5">
+<a href="#_footnoteref_5">5</a>. <strong>fmin</strong> and <strong>fmax</strong> behave as defined by C99 and may not match the IEEE 754-2008 definition for <strong>minNum</strong> and <strong>maxNum</strong> with regard to signaling NaNs. Specifically, signaling NaNs may behave as quiet NaNs.
+</div>
+<div class="footnote" id="_footnotedef_6">
+<a href="#_footnoteref_6">6</a>. The <strong>min</strong>() operator is there to prevent <strong>fract</strong>(-small) from returning 1.0. It returns the largest positive floating-point number less than 1.0.
+</div>
+<div class="footnote" id="_footnotedef_7">
+<a href="#_footnoteref_7">7</a>. The user is cautioned that for some usages, e.g. <strong>mad</strong>(a, b, -a*b), the definition of <strong>mad</strong>() is loose enough in the embedded profile or with half-precision arguments that almost any result is allowed from <strong>mad</strong>() for some values of a and b.
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

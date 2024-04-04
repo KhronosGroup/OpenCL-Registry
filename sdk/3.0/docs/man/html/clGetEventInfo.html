@@ -779,7 +779,8 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 </div>
 <div id="clGetEventInfo" class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-opencl" data-lang="opencl">cl_int clGetEventInfo(
+<pre class="highlight"><code class="language-opencl" data-lang="opencl">// Provided by CL_VERSION_1_0
+cl_int clGetEventInfo(
     cl_event event,
     cl_event_info param_name,
     size_t param_value_size,
@@ -845,7 +846,10 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_EVENT_<wbr>COMMAND_<wbr>QUEUE</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_command_<wbr>queue</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return the command-queue associated with <em>event</em>.
-        For user event objects, a <code>NULL</code> value is returned.</p></td>
+        For user event objects, a <code>NULL</code> value is returned.</p>
+<p class="tableblock">        If the <code>cl_khr_<wbr>command_<wbr>buffer_<wbr>multi_<wbr>device</code> extension is
+        supported, for events returned by a command-buffer enqueue operation
+        to multiple command-queues, <code>NULL</code> is returned.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_EVENT_<wbr>CONTEXT</code></p>
@@ -864,17 +868,29 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_int</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return the execution status of the command identified by event.
         Valid values are:</p>
-<p class="tableblock">        <code>CL_QUEUED</code> (command has been enqueued in the command-queue),</p>
-<p class="tableblock">        <code>CL_SUBMITTED</code> (enqueued command has been submitted by the host to the
-        device associated with the command-queue),</p>
-<p class="tableblock">        <code>CL_RUNNING</code> (device is currently executing this command),</p>
-<p class="tableblock">        <code>CL_COMPLETE</code> (the command has completed), or</p>
-<p class="tableblock">        Error code given by a negative integer value. (command was
+<p class="tableblock">        <code>CL_QUEUED</code> - Command has been enqueued in the command-queue.</p>
+<p class="tableblock">        <code>CL_SUBMITTED</code> - Enqueued command has been submitted by the host to the
+        device associated with the command-queue.</p>
+<p class="tableblock">        <code>CL_RUNNING</code> - Device is currently executing this command.</p>
+<p class="tableblock">        <code>CL_COMPLETE</code> - The command has completed.</p>
+<p class="tableblock">        Or an error code given by a negative integer value (command was
         abnormally terminated - this may be caused by a bad memory access
         etc.).
         These error codes come from the same set of error codes that are
         returned from the platform or runtime API calls as return values or
-        errcode_ret values.</p></td>
+        <strong>errcode_ret</strong> values.</p>
+<p class="tableblock">        If the <code>cl_khr_<wbr>command_<wbr>buffer_<wbr>multi_<wbr>device</code> extension is
+        supported, for events returned by a command-buffer enqueue operation
+        to multiple command-queues the semantics of execution status is as
+        follows:</p>
+<p class="tableblock">        <code>CL_QUEUED</code> - Command-buffer has been enqueued across the
+        command-queues.</p>
+<p class="tableblock">        <code>CL_SUBMITTED</code> - Commands from the command-buffer have been
+        submitted by the host to any device associated with one of the
+        command-queues.</p>
+<p class="tableblock">        <code>CL_RUNNING</code> - Any command from the command-buffer has started
+        execution on a device.</p>
+<p class="tableblock">        <code>CL_COMPLETE</code> - All commands have completed on all devices.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_EVENT_<wbr>REFERENCE_<wbr>COUNT</code> <sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup></p></td>
@@ -891,8 +907,8 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top"><strong>Events Created By</strong></th>
-<th class="tableblock halign-left valign-top"><strong>Event Command Type</strong></th>
+<th class="tableblock halign-left valign-top">Events Created By</th>
+<th class="tableblock halign-left valign-top">Event Command Type</th>
 </tr>
 </thead>
 <tbody>
@@ -1031,6 +1047,89 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <code>CL_COMMAND_<wbr>MIGRATE_<wbr>MEM_<wbr>OBJECTS</code>, but may return an implementation-defined
 event command type for <strong>clEnqueueSVMMigrateMem</strong>.</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>clEnqueueCommandBufferKHR</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_COMMAND_<wbr>COMMAND_<wbr>BUFFER_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_command_buffer</code> extension.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>clEnqueueAcquireDX9MediaSurfacesKHR</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_COMMAND_<wbr>ACQUIRE_<wbr>DX9_<wbr>MEDIA_<wbr>SURFACES_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_dx9_media_sharing</code> extension.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>clEnqueueReleaseDX9MediaSurfacesKHR</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_COMMAND_<wbr>RELEASE_<wbr>DX9_<wbr>MEDIA_<wbr>SURFACES_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_dx9_media_sharing</code> extension.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>clEnqueueAcquireD3D10ObjectsKHR</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_COMMAND_<wbr>ACQUIRE_<wbr>D3D10_<wbr>OBJECTS_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_d3d10_sharing</code> extension.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>clEnqueueReleaseD3D10ObjectsKHR</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_COMMAND_<wbr>RELEASE_<wbr>D3D10_<wbr>OBJECTS_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_d3d10_sharing</code> extension.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>clEnqueueAcquireD3D11ObjectsKHR</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_COMMAND_<wbr>ACQUIRE_<wbr>D3D11_<wbr>OBJECTS_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_d3d11_sharing</code> extension.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>clEnqueueReleaseD3D11ObjectsKHR</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_COMMAND_<wbr>RELEASE_<wbr>D3D11_<wbr>OBJECTS_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_d3d11_sharing</code> extension.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>clEnqueueAcquireEGLObjectsKHR</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_COMMAND_<wbr>ACQUIRE_<wbr>EGL_<wbr>OBJECTS_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_egl_image</code> extension.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>clEnqueueReleaseEGLObjectsKHR</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_COMMAND_<wbr>RELEASE_<wbr>EGL_<wbr>OBJECTS_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_egl_image</code> extension.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>clCreateEventFromEGLSyncKHR</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_COMMAND_<wbr>EGL_<wbr>FENCE_<wbr>SYNC_<wbr>OBJECT_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_egl_image</code> extension.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>clEnqueueAcquireExternalMemObjectsKHR</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_COMMAND_<wbr>ACQUIRE_<wbr>EXTERNAL_<wbr>MEM_<wbr>OBJECTS_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_external_memory</code> extension.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>clEnqueueReleaseExternalMemObjectsKHR</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_COMMAND_<wbr>RELEASE_<wbr>EXTERNAL_<wbr>MEM_<wbr>OBJECTS_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_external_memory</code> extension.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>clEnqueueAcquireGLObjects</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_COMMAND_<wbr>ACQUIRE_<wbr>GL_<wbr>OBJECTS</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>clEnqueueReleaseGLObjects</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_COMMAND_<wbr>RELEASE_<wbr>GL_<wbr>OBJECTS</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>clCreateEventFromGLsyncKHR</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_COMMAND_<wbr>GL_<wbr>FENCE_<wbr>SYNC_<wbr>OBJECT_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_gl_event</code> extension.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>clEnqueueSignalSemaphoresKHR</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_COMMAND_<wbr>SEMAPHORE_<wbr>SIGNAL_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_semaphore</code> extension.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>clEnqueueWaitSemaphoresKHR</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_COMMAND_<wbr>SEMAPHORE_<wbr>WAIT_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_semaphore</code> extension.</p></td>
+</tr>
 </tbody>
 </table>
 <div class="paragraph">
@@ -1096,7 +1195,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -1115,8 +1214,8 @@ Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

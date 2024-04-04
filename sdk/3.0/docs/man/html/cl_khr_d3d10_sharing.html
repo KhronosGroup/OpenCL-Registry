@@ -767,17 +767,40 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <h1>cl_khr_d3d10_sharing(3) Manual Page</h1>
 <h2 id="_name">Name</h2>
 <div class="sectionbody">
-<p>cl_khr_d3d10_sharing - Provide interoperability between OpenCL and Direct3D 10.</p>
+<p>cl_khr_d3d10_sharing - OpenCL extension</p>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_c_specification"><a class="anchor" href="#_c_specification"></a>C Specification</h2>
+<h2 id="_ratification_status"><a class="anchor" href="#_ratification_status"></a>Ratification Status</h2>
 <div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#pragma OPENCL EXTENSION cl_khr_d3d10_sharing : enable</code></pre>
+<div class="paragraph">
+<p>Ratified</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_extension_and_version_dependencies"><a class="anchor" href="#_extension_and_version_dependencies"></a>Extension and Version Dependencies</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>None</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_other_extension_metadata"><a class="anchor" href="#_other_extension_metadata"></a>Other Extension Metadata</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Last Modified Date</strong></dt>
+<dd>
+<p>2020-04-21</p>
+</dd>
+<dt class="hdlist1"><strong>IP Status</strong></dt>
+<dd>
+<p>No known IP claims.</p>
+</dd>
+</dl>
 </div>
 </div>
 </div>
@@ -785,81 +808,285 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>If the <code>cl_khr_d3d10_sharing</code> extension is supported, then the following functions are enabled:</p>
+<p><code>cl_khr_<wbr>d3d10_<wbr>sharing</code> provides interoperability between OpenCL and Direct3D 10.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_new_commands"><a class="anchor" href="#_new_commands"></a>New Commands</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>clGetDeviceIDsFromD3D10KHR</strong></p>
+</li>
+<li>
+<p><strong>clCreateFromD3D10BufferKHR</strong></p>
+</li>
+<li>
+<p><strong>clCreateFromD3D10Texture2DKHR</strong></p>
+</li>
+<li>
+<p><strong>clCreateFromD3D10Texture3DKHR</strong></p>
+</li>
+<li>
+<p><strong>clEnqueueAcquireD3D10ObjectsKHR</strong></p>
+</li>
+<li>
+<p><strong>clEnqueueReleaseD3D10ObjectsKHR</strong></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_new_types"><a class="anchor" href="#_new_types"></a>New Types</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><code>cl_d3d10_<wbr>device_<wbr>source_<wbr>khr</code></p>
+</li>
+<li>
+<p><code>cl_d3d10_<wbr>device_<wbr>set_<wbr>khr</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_new_enums"><a class="anchor" href="#_new_enums"></a>New Enums</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><code>cl_d3d10_<wbr>device_<wbr>source_<wbr>khr</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_D3D10_<wbr>DEVICE_<wbr>KHR</code></p>
+</li>
+<li>
+<p><code>CL_D3D10_<wbr>DXGI_<wbr>ADAPTER_<wbr>KHR</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>cl_d3d10_<wbr>device_<wbr>set_<wbr>khr</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_PREFERRED_<wbr>DEVICES_<wbr>FOR_<wbr>D3D10_<wbr>KHR</code></p>
+</li>
+<li>
+<p><code>CL_ALL_<wbr>DEVICES_<wbr>FOR_<wbr>D3D10_<wbr>KHR</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>cl_context_<wbr>properties</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_CONTEXT_<wbr>D3D10_<wbr>DEVICE_<wbr>KHR</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>cl_context_<wbr>info</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_CONTEXT_<wbr>D3D10_<wbr>PREFER_<wbr>SHARED_<wbr>RESOURCES_<wbr>KHR</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>cl_mem_<wbr>info</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_MEM_<wbr>D3D10_<wbr>RESOURCE_<wbr>KHR</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>cl_image_<wbr>info</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_IMAGE_<wbr>D3D10_<wbr>SUBRESOURCE_<wbr>KHR</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>cl_command_<wbr>type</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_COMMAND_<wbr>ACQUIRE_<wbr>D3D10_<wbr>OBJECTS_<wbr>KHR</code></p>
+</li>
+<li>
+<p><code>CL_COMMAND_<wbr>RELEASE_<wbr>D3D10_<wbr>OBJECTS_<wbr>KHR</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>New Error Codes</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_INVALID_<wbr>D3D10_<wbr>DEVICE_<wbr>KHR</code></p>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>D3D10_<wbr>RESOURCE_<wbr>KHR</code></p>
+</li>
+<li>
+<p><code>CL_D3D10_<wbr>RESOURCE_<wbr>ALREADY_<wbr>ACQUIRED_<wbr>KHR</code></p>
+</li>
+<li>
+<p><code>CL_D3D10_<wbr>RESOURCE_<wbr>NOT_<wbr>ACQUIRED_<wbr>KHR</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_issues"><a class="anchor" href="#_issues"></a>Issues</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Should this extension be KHR or EXT?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>PROPOSED</strong>: KHR.
+If this extension is to be approved by Khronos then it should be KHR,
+otherwise EXT.
+Not all platforms can support this extension, but that is also true of
+OpenGL interop.</p>
+</div>
+<div class="paragraph">
+<p><strong>RESOLVED</strong>: KHR.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Requiring SharedHandle on ID3D10Resource</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>Requiring this can largely simplify things at the DDI level and make some
+implementations faster.
+However, the DirectX spec only defines the shared handle for a subset of the
+resources we would like to support:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="clGetDeviceIDsFromD3D10KHR.html">clGetDeviceIDsFromD3D10KHR</a></p>
-</li>
-<li>
-<p><a href="clCreateFromD3D10BufferKHR.html">clCreateFromD3D10BufferKHR</a></p>
-</li>
-<li>
-<p><a href="clCreateFromD3D10Texture2DKHR.html">clCreateFromD3D10Texture2DKHR</a></p>
-</li>
-<li>
-<p><a href="clCreateFromD3D10Texture3DKHR.html">clCreateFromD3D10Texture3DKHR</a></p>
-</li>
-<li>
-<p><a href="clEnqueueAcquireD3D10ObjectsKHR.html">clEnqueueAcquireD3D10ObjectsKHR</a></p>
-</li>
-<li>
-<p><a href="clEnqueueReleaseD3D10ObjectsKHR.html">clEnqueueReleaseD3D10ObjectsKHR</a></p>
+<p><code>D3D10_RESOURCE_MISC_SHARED</code> - Enables the sharing of resource data
+between two or more Direct3D devices.
+The only resources that can be shared are 2D non-mipmapped textures.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>General information about sharing memory objects with Direct3D 10 follows.</p>
+<p><strong>PROPOSED</strong>: A: Add wording to the spec about some implementations needing
+the resource setup as shared:</p>
 </div>
 <div class="paragraph">
-<p>The goal of this extension is to provide interoperability between OpenCL and
-Direct3D 10. This is designed to function analogously to the
-<a href="cl_khr_gl_sharing.html">cl_khr_gl_sharing</a> as defined in sections 9.7 and 9.8. If this
-extension is supported by an implementation, the string
-"cl_khr_d3d10_sharing" will be present in the <code>CL_PLATFORM_EXTENSIONS</code> (see
-<a href="clGetPlatformInfo.html">clGetPlatformInfo</a>) or <code>CL_DEVICE_EXTENSIONS</code> (see
-<a href="clGetDeviceInfo.html">clGetDeviceInfo</a>).</p>
+<p>Some implementations may require the resource to be shared on the D3D10 side
+of the API.</p>
 </div>
 <div class="paragraph">
-<p>As currently proposed the interfaces for this extension would be provided in
-<code>cl_d3d10.h</code>.</p>
+<p>If we do that, do we need another enum to describe this failure case?</p>
 </div>
 <div class="paragraph">
-<p>The OpenCL functions enabled by the <a href="cl_khr_d3d10_sharing.html">cl_khr_d3d10_sharing</a> extension
-allow applications to use Direct3D 10 resources as OpenCL memory objects.
-This allows efficient sharing of data between OpenCL and Direct3D 10. The
-OpenCL API may be used to execute kernels that read and/or write memory
-objects that are also Direct3D 10 resources. An OpenCL image object may be
-created from a Direct3D 10 texture resource. An OpenCL buffer object may be
-created from a Direct3D 10 buffer resource. OpenCL memory objects may be
-created from Direct3D 10 objects if and only if the OpenCL context has been
-created from a Direct3D 10 device.</p>
+<p><strong>PROPOSED</strong>: B: Require that all implementations support both shared and
+non-shared resources.
+The restrictions prohibiting multisample textures and the flag
+D3D10_USAGE_IMMUTABLE guarantee software access to all shareable resources.</p>
 </div>
 <div class="paragraph">
-<div class="title">Lifetime of Shared [D3D10] Objects</div>
-<p>An OpenCL memory object created from a Direct3D 10 resource remains valid as
-long as the corresponding Direct3D 10 resource has not been deleted. If the
-Direct3D 10 resource is deleted through the Direct3D 10 API, subsequent use
-of the OpenCL memory object will result in undefined behavior, including but
-not limited to possible OpenCL errors, data corruption, and program
-termination.</p>
+<p><strong>RESOLVED</strong>: Require that implementations support both
+D3D10_RESOURCE_MISC_SHARED being set and not set.
+Add the query for <code>CL_CONTEXT_<wbr>D3D10_<wbr>PREFER_<wbr>SHARED_<wbr>RESOURCES_<wbr>KHR</code> to
+determine on a per-context basis which method will be faster.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Texture1D support</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>There is not a matching CL type, so do we want to support this and map to
+buffer or Texture2D?</p>
 </div>
 <div class="paragraph">
-<p>The successful creation of a <code>cl_context</code> against a Direct3D 10 device
-specified via the context create parameter <code>CL_CONTEXT_D3D10_DEVICE_KHR</code>
-will increment the internal Direct3D reference count on the specified
-Direct3D 10 device. The internal Direct3D reference count on that Direct3D
-10 device will be decremented when the OpenCL reference count on the
-returned OpenCL context drops to zero.</p>
+<p><strong>RESOLVED</strong>: We will not add support for ID3D10Texture1D objects unless a
+corresponding OpenCL 1D Image type is created.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>CL/D3D10 queries</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The GL interop has <strong>clGetGLObjectInfo</strong> and <strong>clGetGLTextureInfo</strong>.
+It is unclear if these are needed on the D3D10 interop side since the D3D10
+spec makes these queries trivial on the D3D10 object itself.
+Also, not all of the semantics of the GL call map across.</p>
 </div>
 <div class="paragraph">
-<p>The OpenCL context and corresponding command-queues are dependent on the
-existence of the Direct3D 10 device from which the OpenCL context was
-created. If the Direct3D 10 device is deleted through the Direct3D 10 API,
-subsequent use of the OpenCL context will result in undefined behavior,
-including but not limited to possible OpenCL errors, data corruption, and
-program termination.</p>
+<p><strong>PROPOSED</strong>: Add the <strong>clGetMemObjectInfo</strong> and <strong>clGetImageInfo</strong> parameter
+names <code>CL_MEM_<wbr>D3D10_<wbr>RESOURCE_<wbr>KHR</code> and <code>CL_IMAGE_<wbr>D3D10_<wbr>SUBRESOURCE_<wbr>KHR</code> to
+query the D3D10 resource from which a <code>cl_mem</code> was created.
+From this data, any D3D10 side information may be queried using the D3D10
+API.</p>
+</div>
+<div class="paragraph">
+<p><strong>RESOLVED</strong>: We will use <strong>clGetMemObjectInfo</strong> and <strong>clGetImageInfo</strong> to access
+this information.</p>
+</div>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_version_history"><a class="anchor" href="#_version_history"></a>Version History</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Revision 1.0.0, 2020-04-21</p>
+<div class="ulist">
+<ul>
+<li>
+<p>First assigned version.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -867,9 +1094,7 @@ program termination.</p>
 <h2 id="_see_also"><a class="anchor" href="#_see_also"></a>See Also</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="EXTENSION.html">EXTENSION</a>,
-<a href="clGetPlatformInfo.html">clGetPlatformInfo</a>,
-<a href="clGetDeviceInfo.html">clGetDeviceInfo</a></p>
+<p>No cross-references are available</p>
 </div>
 </div>
 </div>
@@ -877,10 +1102,11 @@ program termination.</p>
 <h2 id="_document_notes"><a class="anchor" href="#_document_notes"></a>Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Extension Specification at URL</p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#cl_khr_d3d10_sharing" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_d3d10_sharing" class="bare">https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_d3d10_sharing</a></p>
+<p>This page is a generated document.
+Fixes and changes should be made to the generator scripts, not directly.</p>
 </div>
 </div>
 </div>
@@ -888,7 +1114,7 @@ program termination.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -898,8 +1124,8 @@ program termination.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 
