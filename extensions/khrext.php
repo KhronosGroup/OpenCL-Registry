@@ -85,6 +85,8 @@
 </li>
 <li><a href="specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_integer_dot_product">cl_khr_integer_dot_product</a>
 </li>
+<li><a href="specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_kernel_clock">cl_khr_kernel_clock</a>
+</li>
 <li><a href="specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_int32_atomics">cl_khr_local_int32_base_atomics</a>
 </li>
 <li><a href="specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_int32_atomics">cl_khr_local_int32_extended_atomics</a>

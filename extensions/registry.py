@@ -551,6 +551,11 @@ registry = {
         'flags' : { 'public' },
         'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_int64_atomics',
     },
+    'cl_khr_kernel_clock' : {
+        'khrnumber' : 70,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_kernel_clock',
+    },
     'cl_khr_local_int32_base_atomics' : {
         'khrnumber' : 30,
         'flags' : { 'public' },
