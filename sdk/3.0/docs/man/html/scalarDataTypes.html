@@ -783,11 +783,13 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <col style="width: 50%;">
 <col style="width: 50%;">
 </colgroup>
-<tbody>
+<thead>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Type</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>bool</code> <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A conditional data type which is either <em>true</em> or <em>false</em>.
@@ -835,16 +837,14 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>double</code> <sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnotedef_3" title="View footnote.">3</a>]</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A 64-bit floating-point number.
-      The <code>double</code> data type must conform to the IEEE 754 double precision
+      The <code>double</code> data type must conform to the IEEE 754 double-precision
       storage format.</p>
-<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for OpenCL C 1.2 or newer. In
-      OpenCL C 3.0 it requires support of the <code>__opencl_c_<wbr>fp64</code> feature.
-      Also see extension <strong>cl_khr_fp64</strong>.</p></td>
+<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#double-precision-support" target="_blank" rel="noopener">double-precision</a>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>half</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A 16-bit floating-point number.
-      The <code>half</code> data type must conform to the IEEE 754-2008 half precision
+      The <code>half</code> data type must conform to the IEEE 754-2008 half-precision
       storage format.</p></td>
 </tr>
 <tr>
@@ -877,13 +877,6 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 </tbody>
 </table>
 <div class="paragraph">
-<p>If the double-precision floating-point extension <strong>cl_khr_fp64</strong> or the
-<code>__opencl_c_<wbr>fp64</code> feature is not supported, implementations may
-implicitly cast double-precision floating-point literals to
-single-precision literals. The use of double-precision literals without
-double-precision support should result in a diagnostic.</p>
-</div>
-<div class="paragraph">
 <p>Most built-in scalar data types are also declared as appropriate types in
 the OpenCL API (and header files) that can be used by an application.
 The following table describes the built-in scalar data type in the OpenCL C
@@ -895,11 +888,13 @@ application:</p>
 <col style="width: 50%;">
 <col style="width: 50%;">
 </colgroup>
-<tbody>
+<thead>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Type in OpenCL Language</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>API type for application</strong></p></td>
+<th class="tableblock halign-left valign-top">Type in OpenCL Language</th>
+<th class="tableblock halign-left valign-top">API type for application</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>bool</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">n/a</p></td>
@@ -996,7 +991,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -1010,22 +1005,22 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <a href="#_footnoteref_1">1</a>. When any scalar value is converted to <code>bool</code>, the result is 0 if the value compares equal to 0; otherwise, the result is 1.
 </div>
 <div class="footnote" id="_footnotedef_2">
-<a href="#_footnoteref_2">2</a>. The <code>long</code>, <code>unsigned long</code> and <code>ulong</code> scalar types are optional types for EMBEDDED profile devices that are supported if the value of the <code>CL_DEVICE_EXTENSIONS</code> device query contains <strong>cles_khr_int64</strong>. An OpenCL C 3.0 compiler must also define the <code>__opencl_c_int64</code> feature macro unconditionally for FULL profile devices, or for EMBEDDED profile devices that support these types.
+<a href="#_footnoteref_2">2</a>. The <code>long</code>, <code>unsigned long</code> and <code>ulong</code> scalar types are optional types for EMBEDDED profile devices that are supported if the value of the <code>CL_DEVICE_<wbr>EXTENSIONS</code> device query contains <strong>cles_khr_int64</strong>. An OpenCL C 3.0 compiler must also define the <code>__opencl_c_<wbr>int64</code> feature macro unconditionally for FULL profile devices, or for EMBEDDED profile devices that support these types.
 </div>
 <div class="footnote" id="_footnotedef_3">
-<a href="#_footnoteref_3">3</a>. The <code>double</code> scalar type is an optional type that is supported if the value of the <code>CL_DEVICE_DOUBLE_FP_CONFIG</code> device query is not zero. If this is the case then an OpenCL C 3.0 compiler must also define the <code>__opencl_c_fp64</code> feature macro.
+<a href="#_footnoteref_3">3</a>. The <code>double</code> scalar type is an optional type that is supported if the value of the <code>CL_DEVICE_<wbr>DOUBLE_<wbr>FP_<wbr>CONFIG</code> device query is not zero. If this is the case then an OpenCL C 3.0 compiler must also define the <code>__opencl_c_<wbr>fp64</code> feature macro.
 </div>
 <div class="footnote" id="_footnotedef_4">
-<a href="#_footnoteref_4">4</a>. This is a 32-bit type if the value of the <code>CL_DEVICE_ADDRESS_BITS</code> device query is 32-bits, and a 64-bit type if the value of the query is 64-bits.
+<a href="#_footnoteref_4">4</a>. This is a 32-bit type if the value of the <code>CL_DEVICE_<wbr>ADDRESS_<wbr>BITS</code> device query is 32-bits, and a 64-bit type if the value of the query is 64-bits.
 </div>
 <div class="footnote" id="_footnotedef_5">
-<a href="#_footnoteref_5">5</a>. <a href="#unified-spec">Requires</a> support for OpenCL C 1.2 or above. Also see extension <strong>cl_khr_fp64</strong>.
+<a href="#_footnoteref_5">5</a>. <a href="#unified-spec">Requires</a> support for OpenCL C 1.2 or above. Also see extension <code>cl_khr_<wbr>fp64</code>.
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

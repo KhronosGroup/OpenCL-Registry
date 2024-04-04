@@ -780,7 +780,8 @@ the function:</p>
 </div>
 <div id="clGetPlatformInfo" class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-opencl" data-lang="opencl">cl_int clGetPlatformInfo(
+<pre class="highlight"><code class="language-opencl" data-lang="opencl">// Provided by CL_VERSION_1_0
+cl_int clGetPlatformInfo(
     cl_platform_id platform,
     cl_platform_info param_name,
     size_t param_value_size,
@@ -878,8 +879,12 @@ in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/O
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_PLATFORM_<wbr>NUMERIC_<wbr>VERSION</code></p>
-<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 3.0.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_version</code></p></td>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 3.0.</p>
+<p class="tableblock">or</p>
+<p class="tableblock"><code>CL_PLATFORM_<wbr>NUMERIC_<wbr>VERSION_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_extended_versioning</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_version</code></p>
+<p class="tableblock">or <code>cl_version_<wbr>khr</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the detailed (major, minor, patch) version supported by the
         platform. The major and minor version numbers returned must match
         those returned via <code>CL_PLATFORM_<wbr>VERSION</code>.</p></td>
@@ -905,8 +910,12 @@ in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/O
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_PLATFORM_<wbr>EXTENSIONS_<wbr>WITH_<wbr>VERSION</code></p>
-<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 3.0.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_name_<wbr>version</code>[]</p></td>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 3.0.</p>
+<p class="tableblock">or</p>
+<p class="tableblock"><code>CL_PLATFORM_<wbr>EXTENSIONS_<wbr>WITH_<wbr>VERSION_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_extended_versioning</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_name_<wbr>version</code>[]</p>
+<p class="tableblock">or <code>cl_name_<wbr>version_<wbr>khr</code>[]</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns an array of description (name and version) structures that lists
         all the extensions supported by the platform. The same extension name
         must not be reported more than once. The list of extensions reported
@@ -922,6 +931,70 @@ in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/O
         platforms supporting OpenCL 2.1 or 2.2.
         This value must be 0 for devices that do not support device and
         host timer synchronization.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_PLATFORM_<wbr>COMMAND_<wbr>BUFFER_<wbr>CAPABILITIES_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_command_buffer_multi_device</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_platform_<wbr>command_<wbr>buffer_<wbr>capabilities_<wbr>khr</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Describes platform command-buffer capabilities, encoded as bits in a
+      bitfield.
+      Supported capabilities are:</p>
+<p class="tableblock">      <code>CL_COMMAND_<wbr>BUFFER_<wbr>PLATFORM_<wbr>UNIVERSAL_<wbr>SYNC_<wbr>KHR</code> - Platform
+      supports the ability to synchronize all commands in a command-buffer
+      using sync-points, irrespective of the queue the individual commands
+      are recorded to.</p>
+<p class="tableblock">provided by the <code>cl_khr_command_buffer_multi_device</code> extension.</p>
+<p class="tableblock">      <code>CL_COMMAND_<wbr>BUFFER_<wbr>PLATFORM_<wbr>REMAP_<wbr>QUEUES_<wbr>KHR</code> - Platform
+      supports the ability to create a deep copy of an existing
+      command-buffer with the commands explicitly remapped to different,
+      potentially <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#compatible" target="_blank" rel="noopener">incompatible</a>, queues.</p>
+<p class="tableblock">provided by the <code>cl_khr_command_buffer_multi_device</code> extension.</p>
+<p class="tableblock">      <code>CL_COMMAND_<wbr>BUFFER_<wbr>PLATFORM_<wbr>AUTOMATIC_<wbr>REMAP_<wbr>KHR</code> - Platform
+      supports the ability to create a remapped command-buffer where the
+      mapping of commands to queues is done by the OpenCL runtime in a way
+      it determines as optimal.
+      If <code>CL_COMMAND_<wbr>BUFFER_<wbr>PLATFORM_<wbr>AUTOMATIC_<wbr>REMAP_<wbr>KHR</code> is reported,
+      <code>CL_COMMAND_<wbr>BUFFER_<wbr>PLATFORM_<wbr>REMAP_<wbr>QUEUES_<wbr>KHR</code> must also be reported.</p>
+<p class="tableblock">provided by the <code>cl_khr_command_buffer_multi_device</code> extension.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_PLATFORM_<wbr>EXTERNAL_<wbr>MEMORY_<wbr>IMPORT_<wbr>HANDLE_<wbr>TYPES_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_external_memory</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_external_<wbr>memory_<wbr>handle_<wbr>type_<wbr>khr</code>[]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the list of importable external memory handle types
+        supported by all devices in <em>platform</em>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_PLATFORM_<wbr>SEMAPHORE_<wbr>TYPES_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_semaphore</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_semaphore_<wbr>type_<wbr>khr</code>[]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the list of the semaphore types supported all devices in
+        <em>platform</em>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_PLATFORM_<wbr>SEMAPHORE_<wbr>IMPORT_<wbr>HANDLE_<wbr>TYPES_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_external_semaphore</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_external_<wbr>semaphore_<wbr>handle_<wbr>type_<wbr>khr</code>[]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the list of importable external semaphore handle types
+      supported by all devices in <em>platform</em>.</p>
+<p class="tableblock">      The size of this query may be 0 if no importable external semaphore
+      handle types are supported by all devices in <em>platform</em>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_PLATFORM_<wbr>SEMAPHORE_<wbr>EXPORT_<wbr>HANDLE_<wbr>TYPES_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_external_semaphore</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_external_<wbr>semaphore_<wbr>handle_<wbr>type_<wbr>khr</code>[]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the list of exportable external semaphore handle types
+      supported by all devices in the platform.</p>
+<p class="tableblock">      This size of this query may be 0 if no exportable external semaphore
+      handle types are supported by all devices in <em>platform</em>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_PLATFORM_<wbr>ICD_<wbr>SUFFIX_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_icd</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>char</code>[]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The function name suffix used to identify extension functions to be
+      directed to this platform by the ICD Loader.</p></td>
 </tr>
 </tbody>
 </table>
@@ -974,7 +1047,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -996,8 +1069,8 @@ Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

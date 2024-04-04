@@ -781,7 +781,8 @@ and dimensions of an image or image array when creating an image using
 </div>
 <div id="cl_image_desc" class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-opencl" data-lang="opencl">typedef struct cl_image_desc {
+<pre class="highlight"><code class="language-opencl" data-lang="opencl">// Provided by CL_VERSION_1_2
+typedef struct cl_image_desc {
     cl_mem_object_type    image_type;
     size_t                image_width;
     size_t                image_height;
@@ -806,13 +807,13 @@ and dimensions of an image or image array when creating an image using
 <div class="ulist">
 <ul>
 <li>
-<p><code>image_type</code> describes the image type and must be either
+<p><em>image_type</em> describes the image type and must be either
 <code>CL_MEM_<wbr>OBJECT_<wbr>IMAGE1D</code>, <code>CL_MEM_<wbr>OBJECT_<wbr>IMAGE1D_<wbr>BUFFER</code>,
 <code>CL_MEM_<wbr>OBJECT_<wbr>IMAGE1D_<wbr>ARRAY</code>, <code>CL_MEM_<wbr>OBJECT_<wbr>IMAGE2D</code>,
 <code>CL_MEM_<wbr>OBJECT_<wbr>IMAGE2D_<wbr>ARRAY</code>, or <code>CL_MEM_<wbr>OBJECT_<wbr>IMAGE3D</code>.</p>
 </li>
 <li>
-<p><code>image_width</code> is the width of the image in pixels.
+<p><em>image_width</em> is the width of the image in pixels.
 For a 2D image and image array, the image width must be a value ≥ 1 and
 ≤ <code>CL_DEVICE_<wbr>IMAGE2D_<wbr>MAX_<wbr>WIDTH</code>.
 For a 3D image, the image width must be a value ≥ 1 and ≤
@@ -823,7 +824,7 @@ For a 1D image and 1D image array, the image width must be a value ≥ 1
 and ≤ <code>CL_DEVICE_<wbr>IMAGE2D_<wbr>MAX_<wbr>WIDTH</code>.</p>
 </li>
 <li>
-<p><code>image_height</code> is the height of the image in pixels.
+<p><em>image_height</em> is the height of the image in pixels.
 This is only used if the image is a 2D or 3D image, or a 2D image array.
 For a 2D image or image array, the image height must be a value ≥ 1 and
 ≤ <code>CL_DEVICE_<wbr>IMAGE2D_<wbr>MAX_<wbr>HEIGHT</code>.
@@ -831,48 +832,61 @@ For a 3D image, the image height must be a value ≥ 1 and ≤
 <code>CL_DEVICE_<wbr>IMAGE3D_<wbr>MAX_<wbr>HEIGHT</code>.</p>
 </li>
 <li>
-<p><code>image_depth</code> is the depth of the image in pixels.
+<p><em>image_depth</em> is the depth of the image in pixels.
 This is only used if the image is a 3D image and must be a value ≥ 1 and
 ≤ <code>CL_DEVICE_<wbr>IMAGE3D_<wbr>MAX_<wbr>DEPTH</code>.</p>
 </li>
 <li>
-<p><code>image_array_size</code> <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup> is the number of
+<p><em>image_array_size</em> <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup> is the number of
 images in the image array.
 This is only used if the image is a 1D or 2D image array.
 The values for <code>image_array_size</code>, if specified, must be a value ≥ 1 and
 ≤ <code>CL_DEVICE_<wbr>IMAGE_<wbr>MAX_<wbr>ARRAY_<wbr>SIZE</code>.</p>
 </li>
 <li>
-<p><code>image_row_pitch</code> is the scan-line pitch in bytes.
-This must be 0 if <em>host_ptr</em> is <code>NULL</code> and can be either 0 or ≥
-<code>image_width</code> × size of element in bytes if <em>host_ptr</em> is not <code>NULL</code>.
-If <em>host_ptr</em> is not <code>NULL</code> and <code>image_row_pitch</code> = 0, <code>image_row_pitch</code> is
-calculated as <code>image_width</code> × size of element in bytes.
-If <code>image_row_pitch</code> is not 0, it must be a multiple of the image element
-size in bytes.
-For a 2D image created from a buffer, the pitch specified (or computed if
-pitch specified is 0) must be a multiple of the maximum of the
-<code>CL_DEVICE_<wbr>IMAGE_<wbr>PITCH_<wbr>ALIGNMENT</code> value for all devices in the context
-associated with the buffer specified by <code>mem_object</code> that support images.</p>
+<p><em>image_row_pitch</em> is the scan-line pitch in bytes.
+The <em>image_row_pitch</em> must be zero if <em>host_ptr</em> is <code>NULL</code>,
+the image is not an image created from an external memory handle,
+and the image is not a 2D image created from a buffer,
+If <em>image_row_pitch</em> is zero and <em>host_ptr</em> is not <code>NULL</code>, then the
+image row pitch is calculated as <em>image_width</em> × the size of an
+image element in bytes.
+If <em>image_row_pitch</em> is zero and the image is created from an external
+memory handle, then the image row pitch is implementation-defined.
+The image row pitch must be ≥ <em>image_width</em> × the size of an
+image element in bytes, and must be a multiple of the size of an image
+element in bytes.
+For a 2D image created from a buffer the image row pitch must also be a
+multiple of the maximum of the <code>CL_DEVICE_<wbr>IMAGE_<wbr>PITCH_<wbr>ALIGNMENT</code> value
+for all devices in the context that support images.</p>
 </li>
 <li>
-<p><code>image_slice_pitch</code> is the size in bytes of each 2D slice in the 3D image or
-the size in bytes of each image in a 1D or 2D image array.
-This must be 0 if <em>host_ptr</em> is <code>NULL</code>.
-If <em>host_ptr</em> is not <code>NULL</code>, <code>image_slice_pitch</code> can be either 0 or ≥
-<code>image_row_pitch</code> × <code>image_height</code> for a 2D image array or 3D image
-and can be either 0 or ≥ <code>image_row_pitch</code> for a 1D image array.
-If <em>host_ptr</em> is not <code>NULL</code> and <code>image_slice_pitch</code> = 0, <code>image_slice_pitch</code>
-is calculated as <code>image_row_pitch</code> × <code>image_height</code> for a 2D image
-array or 3D image and <code>image_row_pitch</code> for a 1D image array.
-If <code>image_slice_pitch</code> is not 0, it must be a multiple of the
-<code>image_row_pitch</code>.</p>
+<p><em>image_slice_pitch</em> is the size in bytes of each 2D slice in a 3D image,
+or the size in bytes of each image in a 1D or 2D image array.
+The <em>image_slice_pitch</em> must be zero if <em>host_ptr</em> is <code>NULL</code>
+and the image is not an image created from an external memory handle,
+If <em>image_slice_pitch</em> is zero and <em>host_ptr</em> is not <code>NULL</code> then the
+image slice pitch is calculated as the image row pitch ×
+<em>image_height</em> for a 2D image array or a 3D image, and as the image row
+pitch for a 1D image array.
+If <em>image_slice_pitch</em> is zero and the image is created from an external
+memory handle, then the image slice pitch is implementation-defined.
+The image slice pitch must be ≥ the image image row pitch ×
+<em>image_height</em> for a 2D image array or a 3D image, must be ≥ the
+image row pitch for a 1D image array, and must be a multiple of the
+image row pitch.</p>
 </li>
 <li>
-<p><code>num_mip_levels</code> and <code>num_samples</code> must be 0.</p>
+<p><em>num_mip_levels</em> must be
+0 unless the <code>cl_khr_<wbr>mipmap_<wbr>image</code> extension is supported, in which
+case it must be a value greater than 1 specifying the number of mipmap
+levels in the image.</p>
 </li>
 <li>
-<p><code>mem_object</code> may refer to a valid buffer or image memory object.
+<p><em>num_samples</em> must be 0.</p>
+</li>
+<li>
+<p><em>mem_object</em> may refer to a valid buffer or image memory object.
 <code>mem_object</code> can be a buffer memory object if <code>image_type</code> is
 <code>CL_MEM_<wbr>OBJECT_<wbr>IMAGE1D_<wbr>BUFFER</code> or
 <code>CL_MEM_<wbr>OBJECT_<wbr>IMAGE2D</code> <sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup>.
@@ -941,11 +955,102 @@ image channel data type associated with <code>mem_object</code>.</p>
 </li>
 <li>
 <p>The image channel order specified in <em>image_format</em> must be compatible
-with the image channel order associated with <code>mem_object</code>.
-Compatible image channel orders
-<sup class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnotedef_4" title="View footnote.">4</a>]</sup> are:</p>
+with the image channel order associated with <code>mem_object</code>, as described
+in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#compatibile-image-channel-orders-table" target="_blank" rel="noopener">Compatible Image
+Channel Orders</a> table.</p>
 </li>
 </ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The image channel order compatibility constraint allows creation of a
+sRGB view of the image from a linear RGB view or vice-versa, i.e. the pixels
+stored in the image can be accessed as linear RGB or sRGB values.
+</td>
+</tr>
+</table>
+</div>
+<table id="compatibile-image-channel-orders-table" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Compatible Image Channel Orders</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Image Channel Order in <em>image_format</em>:</th>
+<th class="tableblock halign-left valign-top">Image Channel Order associated with <code>mem_object</code>:</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_sBGRA</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_BGRA</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_BGRA</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_sBGRA</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_sRGBA</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_RGBA</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_RGBA</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_sRGBA</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_sRGB</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_RGB</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_RGB</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_sRGB</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_sRGBx</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_RGBx</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_RGBx</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_sRGBx</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEPTH</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_R</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Concurrent reading from, writing to and copying between both a buffer object
+and 1D image buffer or 2D image object associated with the buffer object is
+undefined.
+Only reading from both a buffer object and 1D image buffer or 2D image
+object associated with the buffer object is defined.</p>
+</div>
+<div class="paragraph">
+<p>Writing to an image created from a buffer and then reading from this buffer
+in a kernel even if appropriate synchronization operations (such as a
+barrier) are performed between the writes and reads is undefined.
+Similarly, writing to the buffer and reading from the image created from
+this buffer with appropriate synchronization between the writes and reads is
+undefined.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -973,7 +1078,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -992,14 +1097,11 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <div class="footnote" id="_footnotedef_3">
 <a href="#_footnoteref_3">3</a>. To create an image object from another image object that share the data store between these image objects.
 </div>
-<div class="footnote" id="_footnotedef_4">
-<a href="#_footnoteref_4">4</a>. This allows creation of a sRGB view of the image from a linear RGB view or vice-versa, i.e. the pixels stored in the image can be accessed as linear RGB or sRGB values.
-</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

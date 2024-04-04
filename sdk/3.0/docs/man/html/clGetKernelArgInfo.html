@@ -779,7 +779,8 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 </div>
 <div id="clGetKernelArgInfo" class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-opencl" data-lang="opencl">cl_int clGetKernelArgInfo(
+<pre class="highlight"><code class="language-opencl" data-lang="opencl">// Provided by CL_VERSION_1_2
+cl_int clGetKernelArgInfo(
     cl_kernel kernel,
     cl_uint arg_index,
     cl_kernel_arg_info param_name,
@@ -847,9 +848,22 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Kernel argument information is only available if the program object
-associated with <em>kernel</em> is created with <strong>clCreateProgramWithSource</strong> and the
-program executable was built with the <code>-cl-kernel-arg-info option</code> specified
-in options argument to <strong>clBuildProgram</strong> or <strong>clCompileProgram</strong>.</p>
+associated with <em>kernel</em>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>is created with <strong>clCreateProgramWithBinary</strong> and the program executable
+is built with the <code>-cl-kernel-arg-info</code> and <code>-x spir</code> options specified
+in the <em>options</em> argument to <strong>clBuildProgram</strong> or <strong>clCompileProgram</strong>, if
+the <code>cl_khr_<wbr>spir</code> extension is supported; or,</p>
+</li>
+<li>
+<p>is created with <strong>clCreateProgramWithSource</strong> and the program executable
+is built with the <code>-cl-kernel-arg-info option</code> specified in the
+<em>options</em> argument to <strong>clBuildProgram</strong> or <strong>clCompileProgram</strong>,</p>
+</li>
+</ul>
 </div>
 <table id="kernel-argument-info-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. List of supported param_names by <strong>clGetKernelArgInfo</strong></caption>
@@ -917,14 +931,29 @@ in options argument to <strong>clBuildProgram</strong> or <strong>clCompileProgr
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns a bitfield describing one or more type qualifiers specified
         for the argument given by <em>arg_index</em>.
         The returned values can be:</p>
-<p class="tableblock">        <code>CL_KERNEL_<wbr>ARG_<wbr>TYPE_<wbr>CONST</code>
-        <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup>
-        <sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup><br>
+<p class="tableblock">        <code>CL_KERNEL_<wbr>ARG_<wbr>TYPE_<wbr>CONST</code><br>
         <code>CL_KERNEL_<wbr>ARG_<wbr>TYPE_<wbr>RESTRICT</code><br>
         <code>CL_KERNEL_<wbr>ARG_<wbr>TYPE_<wbr>VOLATILE</code><br>
         <code>CL_KERNEL_<wbr>ARG_<wbr>TYPE_<wbr>PIPE</code>, or<br>
         <code>CL_KERNEL_<wbr>ARG_<wbr>TYPE_<wbr>NONE</code></p>
-<p class="tableblock">        <code>CL_KERNEL_<wbr>ARG_<wbr>TYPE_<wbr>NONE</code> is returned for all parameters passed by
+<p class="tableblock">        <code>CL_KERNEL_<wbr>ARG_<wbr>TYPE_<wbr>CONST</code> is returned if the kernel argument is a
+        pointer and the referenced type is declared with the <code>const</code> qualifier.
+        For example, a kernel argument declared as <code>global int const*</code> returns
+        <code>CL_KERNEL_<wbr>ARG_<wbr>TYPE_<wbr>CONST</code> but a kernel argument declared as <code>global
+        int* const</code> does not.
+        Additionally, <code>CL_KERNEL_<wbr>ARG_<wbr>TYPE_<wbr>CONST</code> is returned if the kernel
+        argument is declared with the <code>constant</code> address space qualifier.</p>
+<p class="tableblock">        <code>CL_KERNEL_<wbr>ARG_<wbr>TYPE_<wbr>RESTRICT</code> is returned if the pointer type is marked
+        <code>restrict</code>.
+        For example, <code>global int* restrict</code> returns
+        <code>CL_KERNEL_<wbr>ARG_<wbr>TYPE_<wbr>RESTRICT</code>.</p>
+<p class="tableblock">        <code>CL_KERNEL_<wbr>ARG_<wbr>TYPE_<wbr>VOLATILE</code> is returned for
+        <code>CL_KERNEL_<wbr>ARG_<wbr>TYPE_<wbr>QUALIFIER</code> if the kernel argument is a pointer and
+        the referenced type is declared with the <code>volatile</code> qualifier.
+        For example, a kernel argument declared as <code>global int volatile*</code>
+        returns <code>CL_KERNEL_<wbr>ARG_<wbr>TYPE_<wbr>VOLATILE</code> but a kernel argument declared as
+        <code>global int* volatile</code> does not.</p>
+<p class="tableblock">        <code>CL_KERNEL_<wbr>ARG_<wbr>TYPE_<wbr>NONE</code> is returned for all kernel arguments passed by
         value.</p></td>
 </tr>
 <tr>
@@ -986,7 +1015,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -994,19 +1023,10 @@ Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 </div>
 </div>
-<div id="footnotes">
-<hr>
-<div class="footnote" id="_footnotedef_1">
-<a href="#_footnoteref_1">1</a>. <code>CL_KERNEL_<wbr>ARG_<wbr>TYPE_<wbr>CONST</code> is returned if the argument is a pointer and the referenced type is declared with the const qualifier. For example, a kernel argument declared as <code>global int const *x</code> returns <code>CL_KERNEL_<wbr>ARG_<wbr>TYPE_<wbr>CONST</code> but a kernel argument declared as <code>global int * const x</code> does not.<br> Similarly, <code>CL_KERNEL_<wbr>ARG_<wbr>TYPE_<wbr>RESTRICT</code> will be returned if the pointer type is marked <code>restrict</code>. For example, <code>global int * restrict x</code> returns <code>CL_KERNEL_<wbr>ARG_<wbr>TYPE_<wbr>RESTRICT</code>.<br> <code>CL_KERNEL_<wbr>ARG_<wbr>TYPE_<wbr>VOLATILE</code> is returned for <code>CL_KERNEL_<wbr>ARG_<wbr>TYPE_<wbr>QUALIFIER</code> if the argument is a pointer and the referenced type is declared with the volatile qualifier. For example, a kernel argument declared as <code>global int volatile *x</code> returns <code>CL_KERNEL_<wbr>ARG_<wbr>TYPE_<wbr>VOLATILE</code> but a kernel argument declared as <code>global int * volatile x</code> does not.
-</div>
-<div class="footnote" id="_footnotedef_2">
-<a href="#_footnoteref_2">2</a>. <code>CL_KERNEL_<wbr>ARG_<wbr>TYPE_<wbr>CONST</code> is returned for <code>CL_KERNEL_<wbr>ARG_<wbr>TYPE_<wbr>QUALIFIER</code> if the argument is declared with the <code>constant</code> address space qualifier.
-</div>
-</div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

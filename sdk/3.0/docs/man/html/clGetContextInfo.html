@@ -779,7 +779,8 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 </div>
 <div id="clGetContextInfo" class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-opencl" data-lang="opencl">cl_int clGetContextInfo(
+<pre class="highlight"><code class="language-opencl" data-lang="opencl">// Provided by CL_VERSION_1_0
+cl_int clGetContextInfo(
     cl_context context,
     cl_context_info param_name,
     size_t param_value_size,
@@ -875,6 +876,26 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
         implementation must return <em>param_value_size_ret</em> equal to 0,
         indicating that there are no properties to be returned.</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_CONTEXT_<wbr>D3D10_<wbr>PREFER_<wbr>SHARED_<wbr>RESOURCES_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_d3d10_sharing</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_bool</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns <code>CL_TRUE</code> if Direct3D 10 resources created as shared by
+      setting <em>MiscFlags</em> to include <code>D3D10_RESOURCE_MISC_SHARED</code> will
+      perform faster when shared with OpenCL, compared with resources which
+      have not set this flag.
+      Otherwise returns <code>CL_FALSE</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_CONTEXT_<wbr>D3D11_<wbr>PREFER_<wbr>SHARED_<wbr>RESOURCES_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_d3d11_sharing</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_bool</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns <code>CL_TRUE</code> if Direct3D 11 resources created as shared by
+      setting <em>MiscFlags</em> to include <code>D3D11_RESOURCE_MISC_SHARED</code> will
+      perform faster when shared with OpenCL, compared with resources which
+      have not set this flag.
+      Otherwise returns <code>CL_FALSE</code>.</p></td>
+</tr>
 </tbody>
 </table>
 <div class="paragraph">
@@ -929,7 +950,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -945,8 +966,8 @@ Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

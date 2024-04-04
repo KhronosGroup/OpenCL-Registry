@@ -780,7 +780,8 @@ function</p>
 </div>
 <div id="clCreateCommandQueueWithProperties" class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-opencl" data-lang="opencl">cl_command_queue clCreateCommandQueueWithProperties(
+<pre class="highlight"><code class="language-opencl" data-lang="opencl">// Provided by CL_VERSION_2_0
+cl_command_queue clCreateCommandQueueWithProperties(
     cl_context context,
     cl_device_id device,
     const cl_queue_properties* properties,
@@ -795,7 +796,31 @@ function</p>
 </td>
 <td class="content">
 <strong>clCreateCommandQueueWithProperties</strong> is <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.0.
-Also see extension <strong>cl_khr_create_command_queue</strong>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>or the equivalent</p>
+</div>
+<div id="clCreateCommandQueueWithPropertiesKHR" class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-opencl" data-lang="opencl">// Provided by cl_khr_create_command_queue
+cl_command_queue clCreateCommandQueueWithPropertiesKHR(
+    cl_context context,
+    cl_device_id device,
+    const cl_queue_properties_khr* properties,
+    cl_int* errcode_ret);</code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<strong>clCreateCommandQueueWithPropertiesKHR</strong> is provided by the <code>cl_khr_create_command_queue</code> extension.
 </td>
 </tr>
 </table>
@@ -813,8 +838,8 @@ Also see extension <strong>cl_khr_create_command_queue</strong>.
 <li>
 <p><em>device</em> must be a device or sub-device associated with <em>context</em>.
 It can either be in the list of devices and sub-devices specified when
-<em>context</em> is created using <strong>clCreateContext</strong> or be a root device with the
-same device type as specified when <em>context</em> is created using
+<em>context</em> is created using <strong>clCreateContext</strong> or be a root device with
+the same device type as specified when <em>context</em> is created using
 <strong>clCreateContextFromType</strong>.</p>
 </li>
 <li>
@@ -874,13 +899,13 @@ If <em>errcode_ret</em> is <code>NULL</code>, no error code is returned.</p>
         If <code>CL_QUEUE_<wbr>ON_<wbr>DEVICE</code> is set,
         <code>CL_QUEUE_<wbr>OUT_<wbr>OF_<wbr>ORDER_<wbr>EXEC_<wbr>MODE_<wbr>ENABLE</code>
         <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup>
-        must also be set.
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.0.</p>
+        must also be set.</p>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.0.</p>
 <p class="tableblock">        <code>CL_QUEUE_<wbr>ON_<wbr>DEVICE_<wbr>DEFAULT</code>
         <sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup> -
         indicates that this is the default device queue.
-        This can only be used with <code>CL_QUEUE_<wbr>ON_<wbr>DEVICE</code>.
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.0.</p>
+        This can only be used with <code>CL_QUEUE_<wbr>ON_<wbr>DEVICE</code>.</p>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.0.</p>
 <p class="tableblock">        If <code>CL_QUEUE_<wbr>PROPERTIES</code> is not specified an in-order host command-queue
         is created for the specified device</p></td>
 </tr>
@@ -897,6 +922,41 @@ If <em>errcode_ret</em> is <code>NULL</code>, no error code is returned.</p>
 <p class="tableblock">        If <code>CL_QUEUE_<wbr>SIZE</code> is not specified, the device queue is created with
         <code>CL_DEVICE_<wbr>QUEUE_<wbr>ON_<wbr>DEVICE_<wbr>PREFERRED_<wbr>SIZE</code> as the size of the queue.</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_QUEUE_<wbr>PRIORITY_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_priority_hints</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_queue_<wbr>priority_<wbr>khr</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies a priority hint for command queues belonging to the same
+        OpenCL context.</p>
+<p class="tableblock">        NOTE: Refer to the user guide associated with each implementation
+        supporting this extension for its priority behavior guarantees, if
+        any.</p>
+<p class="tableblock">        <code>CL_QUEUE_<wbr>PRIORITY_<wbr>HIGH_<wbr>KHR</code> - Indicates command queues
+        should have high priority.</p>
+<p class="tableblock">        <code>CL_QUEUE_<wbr>PRIORITY_<wbr>MED_<wbr>KHR</code> - Indicates command queues should
+        have medium priority.</p>
+<p class="tableblock">        <code>CL_QUEUE_<wbr>PRIORITY_<wbr>LOW_<wbr>KHR</code> - Indicates command queues should
+        have low priority.</p>
+<p class="tableblock">        If <code>CL_QUEUE_<wbr>PRIORITY_<wbr>KHR</code> is not specified, the default priority
+        <code>CL_QUEUE_<wbr>PRIORITY_<wbr>MED_<wbr>KHR</code> is used.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_QUEUE_<wbr>THROTTLE_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_throttle_hints</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_queue_<wbr>throttle_<wbr>khr</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies a throttle hint for a command queue.</p>
+<p class="tableblock">        NOTE: Refer to the user guide associated with each implementation
+        supporting this extension for its throttling behavior guarantees, if
+        any.</p>
+<p class="tableblock">        <code>CL_QUEUE_<wbr>THROTTLE_<wbr>HIGH_<wbr>KHR</code> - Indicates the queue should
+        execute at full throttle, which may consume more energy.</p>
+<p class="tableblock">        <code>CL_QUEUE_<wbr>THROTTLE_<wbr>MED_<wbr>KHR</code> - Indicates normal throttling
+        behavior.</p>
+<p class="tableblock">        <code>CL_QUEUE_<wbr>THROTTLE_<wbr>LOW_<wbr>KHR</code> - Indicates the queue should
+        execute at low throttle, optimized for lowest energy consumption.</p>
+<p class="tableblock">        If <code>CL_QUEUE_<wbr>THROTTLE_<wbr>KHR</code> is not specified, the default priority
+        <code>CL_QUEUE_<wbr>THROTTLE_<wbr>MED_<wbr>KHR</code> is used.</p></td>
+</tr>
 </tbody>
 </table>
 <div class="paragraph">
@@ -912,8 +972,8 @@ returned in <em>errcode_ret</em>:</p>
 <p><code>CL_INVALID_<wbr>CONTEXT</code> if <em>context</em> is not a valid context.</p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>DEVICE</code> if <em>device</em> is not a valid device or is not associated
-with <em>context</em>.</p>
+<p><code>CL_INVALID_<wbr>DEVICE</code> if <em>device</em> is not a valid device or is not
+associated with <em>context</em>.</p>
 </li>
 <li>
 <p><code>CL_INVALID_<wbr>VALUE</code> if values specified in <em>properties</em> are not valid.</p>
@@ -923,8 +983,18 @@ with <em>context</em>.</p>
 valid but are not supported by the device.</p>
 </li>
 <li>
-<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources required
-by the OpenCL implementation on the device.</p>
+<p><code>CL_INVALID_<wbr>QUEUE_<wbr>PROPERTIES</code> if the <code>cl_khr_<wbr>priority_<wbr>hints</code>
+extension is supported, the <code>CL_QUEUE_<wbr>PRIORITY_<wbr>KHR</code> property is
+specified, and the queue is a <code>CL_QUEUE_<wbr>ON_<wbr>DEVICE</code>.</p>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>QUEUE_<wbr>PROPERTIES</code> if the <code>cl_khr_<wbr>throttle_<wbr>hints</code>
+extension is supported, the <code>CL_QUEUE_<wbr>THROTTLE_<wbr>KHR</code> property is
+specified, and the queue is a <code>CL_QUEUE_<wbr>ON_<wbr>DEVICE</code>.</p>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources
+required by the OpenCL implementation on the device.</p>
 </li>
 <li>
 <p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code> if there is a failure to allocate resources
@@ -938,7 +1008,7 @@ required by the OpenCL implementation on the host.</p>
 <h2 id="_see_also"><a class="anchor" href="#_see_also"></a>See Also</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="CL_VERSION_2_0.html">CL_VERSION_2_0</a>, <a href="cl_context.html">cl_context</a>, <a href="cl_device_id.html">cl_device_id</a>, <a href="cl_int.html">cl_int</a>, <a href="cl_queue_properties.html">cl_queue_properties</a></p>
+<p><a href="CL_VERSION_2_0.html">CL_VERSION_2_0</a>, <a href="cl_context.html">cl_context</a>, <a href="cl_device_id.html">cl_device_id</a>, <a href="cl_int.html">cl_int</a>, <a href="cl_khr_create_command_queue.html">cl_khr_create_command_queue</a>, <a href="cl_queue_properties.html">cl_queue_properties</a>, <a href="cl_queue_properties_khr.html">cl_queue_properties_khr</a></p>
 </div>
 </div>
 </div>
@@ -958,7 +1028,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -977,8 +1047,8 @@ Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

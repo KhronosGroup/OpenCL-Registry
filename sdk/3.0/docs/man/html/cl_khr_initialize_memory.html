@@ -767,17 +767,40 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <h1>cl_khr_initialize_memory(3) Manual Page</h1>
 <h2 id="_name">Name</h2>
 <div class="sectionbody">
-<p>cl_khr_initialize_memory - Extension adding support for initializing local and private memory before a kernel begins execution.</p>
+<p>cl_khr_initialize_memory - OpenCL extension</p>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_c_specification"><a class="anchor" href="#_c_specification"></a>C Specification</h2>
+<h2 id="_ratification_status"><a class="anchor" href="#_ratification_status"></a>Ratification Status</h2>
 <div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#pragma OPENCL EXTENSION cl_khr_initialize_memory : enable</code></pre>
+<div class="paragraph">
+<p>Ratified</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_extension_and_version_dependencies"><a class="anchor" href="#_extension_and_version_dependencies"></a>Extension and Version Dependencies</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>None</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_other_extension_metadata"><a class="anchor" href="#_other_extension_metadata"></a>Other Extension Metadata</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Last Modified Date</strong></dt>
+<dd>
+<p>2020-04-21</p>
+</dd>
+<dt class="hdlist1"><strong>IP Status</strong></dt>
+<dd>
+<p>No known IP claims.</p>
+</dd>
+</dl>
 </div>
 </div>
 </div>
@@ -785,58 +808,76 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Memory is allocated in various forms in OpenCL both explicitly (global memory) or implicitly (local, private memory).
-This allocation so far does not provide a straightforward mechanism to initialize the memory on allocation.
-In other words what is lacking is the equivalent of calloc for the currently supported malloc like capability.
-This functionality is useful for a variety of reasons including ease of debugging, application controlled limiting of visibility to previous contents of memory and in some cases, optimization.</p>
+<p><code>cl_khr_<wbr>initialize_<wbr>memory</code> adds OpenCL C support for initializing local and
+private memory before a kernel begins execution.
+This is accomplished by specifying a flag at context creation time affecting
+all such memory.</p>
 </div>
 <div class="paragraph">
-<p>This extension adds support for initializing local and private memory before a kernel begins execution.
-This extension name is <code>cl_khr_initialize_memory</code>.</p>
+<p>Memory is allocated in various forms in OpenCL both explicitly (global
+memory) or implicitly (local, private memory).
+This allocation so far does not provide a straightforward mechanism to
+initialize the memory on allocation.
+In other words what is lacking is the equivalent of <code>calloc</code> for the
+currently supported <code>malloc</code> like capability.
+This functionality is useful for a variety of reasons including ease of
+debugging, application controlled limiting of visibility to previous
+contents of memory and in some cases, optimization.</p>
 </div>
 <div class="paragraph">
-<p>Add a new context property to table 4.5 in section 4.4 (see <a href="clCreateContext.html">clCreateContext</a>):</p>
+<p>See the <a href="OpenCL_C.html#cl_khr_initialize_memory">Initializing Memory</a>
+section of the OpenCL C specification for more information.</p>
 </div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">cl_context_properties enum</th>
-<th class="tableblock halign-left valign-top">Property value</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_CONTEXT_MEMORY_INITIALIZE_KHR</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>cl_context_memory_initialize_khr</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Describes which memory types for the context must be initialized.
-      This is a bit-field, where the following values are currently supported:</p>
 </div>
-<div class="paragraph">
-<p>+
-  * <code>CL_CONTEXT_MEMORY_INITIALIZE_LOCAL_KHR</code> - Initialize local memory to zeros.
-  * <code>CL_CONTEXT_MEMORY_INITIALIZE_PRIVATE_KHR</code> - Initialize private memory to zeros.</p>
-</div></div></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph">
-<p>Updates to section 6.9 - Restrictions:</p>
 </div>
-<div class="paragraph">
-<p>If the context is created with <code>CL_CONTEXT_MEMORY_INITIALIZE_KHR</code>, appropriate memory locations as specified by the bit-field is initialized with zeroes, prior to the start of execution of any kernel.
-The driver chooses when, prior to kernel execution, the initialization of local and/or private memory is performed.
-The only requirement is there should be no values set from outside the context, which can be read during a kernel execution.</p>
+<div class="sect1">
+<h2 id="_new_enums"><a class="anchor" href="#_new_enums"></a>New Enums</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><code>cl_context_<wbr>properties</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_CONTEXT_<wbr>MEMORY_<wbr>INITIALIZE_<wbr>KHR</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>cl_context_<wbr>memory_<wbr>initialize_<wbr>khr</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_CONTEXT_<wbr>MEMORY_<wbr>INITIALIZE_<wbr>LOCAL_<wbr>KHR</code></p>
+</li>
+<li>
+<p><code>CL_CONTEXT_<wbr>MEMORY_<wbr>INITIALIZE_<wbr>PRIVATE_<wbr>KHR</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_version_history"><a class="anchor" href="#_version_history"></a>Version History</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Revision 1.0.0, 2020-04-21</p>
+<div class="ulist">
+<ul>
+<li>
+<p>First assigned version.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -852,10 +893,11 @@ The only requirement is there should be no values set from outside the context, 
 <h2 id="_document_notes"><a class="anchor" href="#_document_notes"></a>Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Extension Specification at URL</p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#cl_khr_initialize_memory" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_initialize_memory" class="bare">https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_initialize_memory</a></p>
+<p>This page is a generated document.
+Fixes and changes should be made to the generator scripts, not directly.</p>
 </div>
 </div>
 </div>
@@ -863,7 +905,7 @@ The only requirement is there should be no values set from outside the context, 
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -873,8 +915,8 @@ The only requirement is there should be no values set from outside the context, 
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

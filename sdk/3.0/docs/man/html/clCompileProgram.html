@@ -780,7 +780,8 @@ the OpenCL context associated with the program, call the function</p>
 </div>
 <div id="clCompileProgram" class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-opencl" data-lang="opencl">cl_int clCompileProgram(
+<pre class="highlight"><code class="language-opencl" data-lang="opencl">// Provided by CL_VERSION_1_2
+cl_int clCompileProgram(
     cl_program program,
     cl_uint num_devices,
     const cl_device_id* device_list,
@@ -830,7 +831,7 @@ describes the compilation options to be used for building the program
 executable.
 If <em>options</em> is a <code>NULL</code> pointer then it will have the same result as the
 empty string.
-Certain options are ignored when program is created with IL.
+Certain options are ignored when <em>program</em> is created with IL.
 The list of supported options is as described in <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#compiler-options" target="_blank" rel="noopener">Compiler Options</a>.</p>
 </li>
 <li>
@@ -995,8 +996,22 @@ the compile has completed.</p>
 </li>
 <li>
 <p><code>CL_INVALID_<wbr>OPERATION</code> if <em>program</em> has no source or IL available, i.e. it
-has not been created with <strong>clCreateProgramWithSource</strong> or
-<strong>clCreateProgramWithIL</strong>.</p>
+has not been created with one of</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>clCreateProgramWithIL</strong>
+or <strong>clCreateProgramWithILKHR</strong></p>
+</li>
+<li>
+<p><strong>clCreateProgramWithBinary</strong> where <code>-x spir</code> is present in <em>options</em>,
+if the <code>cl_khr_<wbr>spir</code> extension is supported.</p>
+</li>
+<li>
+<p><strong>clCreateProgramWithSource</strong></p>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources required
@@ -1034,7 +1049,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -1044,8 +1059,8 @@ Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

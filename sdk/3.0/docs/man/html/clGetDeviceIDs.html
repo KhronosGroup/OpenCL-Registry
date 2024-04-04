@@ -780,7 +780,8 @@ function <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_
 </div>
 <div id="clGetDeviceIDs" class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-opencl" data-lang="opencl">cl_int clGetDeviceIDs(
+<pre class="highlight"><code class="language-opencl" data-lang="opencl">// Provided by CL_VERSION_1_0
+cl_int clGetDeviceIDs(
     cl_platform_id platform,
     cl_device_type device_type,
     cl_uint num_entries,
@@ -868,36 +869,30 @@ If <em>num_devices</em> is <code>NULL</code>, this argument is ignored.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>TYPE_<wbr>CUSTOM</code></p>
 <p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.2.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Specialized devices that implement some of the OpenCL runtime APIs but
-    do not support all required OpenCL functionality.</p></td>
+    do not support all of the required OpenCL functionality.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>TYPE_<wbr>DEFAULT</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The default OpenCL device in the platform.
+    One device in the platform must be returned as the <code>CL_DEVICE_<wbr>TYPE_<wbr>DEFAULT</code>
+    device when passed as the <em>device_type</em> to <strong>clGetDeviceIDs</strong>.
+    <code>CL_DEVICE_<wbr>TYPE_<wbr>DEFAULT</code> is only used to query OpenCL devices using
+    <strong>clGetDeviceIDs</strong> or to create OpenCL contexts using
+    <strong>clCreateContextFromType</strong>, and will never be returned in <code>CL_DEVICE_<wbr>TYPE</code>
+    for any OpenCL device.
     The default OpenCL device must not be a <code>CL_DEVICE_<wbr>TYPE_<wbr>CUSTOM</code> device.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>TYPE_<wbr>ALL</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">All OpenCL devices available in the platform, except for
-    <code>CL_DEVICE_<wbr>TYPE_<wbr>CUSTOM</code> devices.</p></td>
+    <code>CL_DEVICE_<wbr>TYPE_<wbr>CUSTOM</code> devices.
+    <code>CL_DEVICE_<wbr>TYPE_<wbr>ALL</code> is only used to query OpenCL devices using
+    <strong>clGetDeviceIDs</strong> or to create OpenCL contexts using
+    <strong>clCreateContextFromType</strong>, and will never be returned in <code>CL_DEVICE_<wbr>TYPE</code>
+    for any OpenCL device.</p></td>
 </tr>
 </tbody>
 </table>
-<div class="paragraph">
-<p>The device type is purely informational and has no semantic meaning.</p>
-</div>
-<div class="paragraph">
-<p>Some devices may be more than one type.
-For example, a <code>CL_DEVICE_<wbr>TYPE_<wbr>CPU</code> device may also be a
-<code>CL_DEVICE_<wbr>TYPE_<wbr>GPU</code> device, or a <code>CL_DEVICE_<wbr>TYPE_<wbr>ACCELERATOR</code> device
-may also be some other, more descriptive device type.
-<code>CL_DEVICE_<wbr>TYPE_<wbr>CUSTOM</code> devices must not be combined with any other
-device types.</p>
-</div>
-<div class="paragraph">
-<p>One device in the platform should be a <code>CL_DEVICE_<wbr>TYPE_<wbr>DEFAULT</code> device.
-The default device should also be a more specific device type, such
-as <code>CL_DEVICE_<wbr>TYPE_<wbr>CPU</code> or <code>CL_DEVICE_<wbr>TYPE_<wbr>GPU</code>.</p>
-</div>
 <div class="paragraph">
 <p><strong>clGetDeviceIDs</strong> returns <code>CL_SUCCESS</code> if the function is executed
 successfully.
@@ -960,7 +955,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -976,8 +971,8 @@ Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

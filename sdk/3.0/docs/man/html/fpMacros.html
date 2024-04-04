@@ -835,50 +835,52 @@ the application.</p>
 <col style="width: 50%;">
 <col style="width: 50%;">
 </colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Macro in OpenCL Language</th>
+<th class="tableblock halign-left valign-top">Macro for application</th>
+</tr>
+</thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Macro in OpenCL Language</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Macro for application</strong></p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLT_DIG</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_FLT_DIG</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_FLT_<wbr>DIG</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLT_MANT_DIG</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_FLT_MANT_DIG</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_FLT_<wbr>MANT_<wbr>DIG</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLT_MAX_10_EXP</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_FLT_MAX_10_EXP</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_FLT_<wbr>MAX_<wbr>10_<wbr>EXP</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLT_MAX_EXP</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_FLT_MAX_EXP</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_FLT_<wbr>MAX_<wbr>EXP</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLT_MIN_10_EXP</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_FLT_MIN_10_EXP</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_FLT_<wbr>MIN_<wbr>10_<wbr>EXP</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLT_MIN_EXP</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_FLT_MIN_EXP</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_FLT_<wbr>MIN_<wbr>EXP</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLT_RADIX</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_FLT_RADIX</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_FLT_<wbr>RADIX</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLT_MAX</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_FLT_MAX</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_FLT_<wbr>MAX</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLT_MIN</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_FLT_MIN</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_FLT_<wbr>MIN</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLT_EPSILSON</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_FLT_EPSILON</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_FLT_<wbr>EPSILON</code></p></td>
 </tr>
 </tbody>
 </table>
@@ -898,11 +900,13 @@ They are of type <code>float</code> and are accurate within the precision of the
 <col style="width: 50%;">
 <col style="width: 50%;">
 </colgroup>
-<tbody>
+<thead>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Constant</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
+<th class="tableblock halign-left valign-top">Constant</th>
+<th class="tableblock halign-left valign-top">Description</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>M_E_F</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Value of <em>e</em></p></td>
@@ -958,13 +962,12 @@ They are of type <code>float</code> and are accurate within the precision of the
 </tbody>
 </table>
 <div class="paragraph">
-<p>If double precision is supported by the device, e.g. for OpenCL C 3.0 or newer
-the <code>__opencl_c_<wbr>fp64</code> feature macro is present, then the following macros
-and constants are also available:</p>
+<p>If <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#double-precision-support" target="_blank" rel="noopener">double-precision is supported by the
+device</a>, then the following macros and constants are also available:</p>
 </div>
 <div class="paragraph">
 <p>The <code>FP_FAST_FMA</code> macro indicates whether the <strong>fma</strong>() family of functions
-are fast compared with direct code for double precision floating-point.
+are fast compared with direct code for double-precision floating-point.
 If defined, the <code>FP_FAST_FMA</code> macro shall indicate that the <strong>fma</strong>() function
 generally executes about as fast as, or faster than, a multiply and an add
 of <code>double</code> operands</p>
@@ -997,46 +1000,48 @@ the application.</p>
 <col style="width: 50%;">
 <col style="width: 50%;">
 </colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Macro in OpenCL Language</th>
+<th class="tableblock halign-left valign-top">Macro for application</th>
+</tr>
+</thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Macro in OpenCL Language</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Macro for application</strong></p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>DBL_DIG</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DBL_DIG</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DBL_<wbr>DIG</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>DBL_MANT_DIG</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DBL_MANT_DIG</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DBL_<wbr>MANT_<wbr>DIG</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>DBL_MAX_10_EXP</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DBL_MAX_10_EXP</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DBL_<wbr>MAX_<wbr>10_<wbr>EXP</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>DBL_MAX_EXP</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DBL_MAX_EXP</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DBL_<wbr>MAX_<wbr>EXP</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>DBL_MIN_10_EXP</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DBL_MIN_10_EXP</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DBL_<wbr>MIN_<wbr>10_<wbr>EXP</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>DBL_MIN_EXP</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DBL_MIN_EXP</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DBL_<wbr>MIN_<wbr>EXP</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>DBL_MAX</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DBL_MAX</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DBL_<wbr>MAX</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>DBL_MIN</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DBL_MIN</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DBL_<wbr>MIN</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>DBL_EPSILSON</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DBL_EPSILON</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DBL_<wbr>EPSILON</code></p></td>
 </tr>
 </tbody>
 </table>
@@ -1050,11 +1055,13 @@ double type.</p>
 <col style="width: 50%;">
 <col style="width: 50%;">
 </colgroup>
-<tbody>
+<thead>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Constant</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
+<th class="tableblock halign-left valign-top">Constant</th>
+<th class="tableblock halign-left valign-top">Description</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>M_E</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Value of <em>e</em></p></td>
@@ -1109,6 +1116,167 @@ double type.</p>
 </tr>
 </tbody>
 </table>
+<div class="paragraph">
+<p>If the <code>cl_khr_<wbr>fp16</code> extension macro is supported, then the following
+macros and constants are also available:</p>
+</div>
+<div class="paragraph">
+<p>The <code>FP_FAST_FMA_HALF</code> macro indicates whether the <strong>fma</strong>() family of
+functions are fast compared with direct code for half-precision
+floating-point.
+If defined, the <code>FP_FAST_FMA_HALF</code> macro shall indicate that the <strong>fma</strong>()
+function generally executes about as fast as, or faster than, a multiply and
+an add of <code>half</code> operands.</p>
+</div>
+<div class="paragraph">
+<p>The macro names given in the following list must use the values specified.
+These constant expressions are suitable for use in #if preprocessing
+directives.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-opencl_c" data-lang="opencl_c">#define HALF_DIG            3
+#define HALF_MANT_DIG       11
+#define HALF_MAX_10_EXP     +4
+#define HALF_MAX_EXP        +16
+#define HALF_MIN_10_EXP     -4
+#define HALF_MIN_EXP        -13
+#define HALF_RADIX          2
+#define HALF_MAX            0x1.ffcp15h
+#define HALF_MIN            0x1.0p-14h
+#define HALF_EPSILON        0x1.0p-10h</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following table describes the built-in macro names given above in the
+OpenCL C programming language and the corresponding macro names available to
+the application.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Macro in OpenCL Language</th>
+<th class="tableblock halign-left valign-top">Macro for application</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>HALF_DIG</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_HALF_<wbr>DIG</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>HALF_MANT_DIG</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_HALF_<wbr>MANT_<wbr>DIG</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>HALF_MAX_10_EXP</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_HALF_<wbr>MAX_<wbr>10_<wbr>EXP</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>HALF_MAX_EXP</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_HALF_<wbr>MAX_<wbr>EXP</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>HALF_MIN_10_EXP</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_HALF_<wbr>MIN_<wbr>10_<wbr>EXP</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>HALF_MIN_EXP</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_HALF_<wbr>MIN_<wbr>EXP</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>HALF_RADIX</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_HALF_<wbr>RADIX</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>HALF_MAX</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_HALF_<wbr>MAX</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>HALF_MIN</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_HALF_<wbr>MIN</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>HALF_EPSILSON</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_HALF_<wbr>EPSILON</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The following constants are also available.
+They are of type <code>half</code> and are accurate within the precision of the <code>half</code>
+type.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Constant</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>M_E_H</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value of e</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>M_LOG2E_H</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value of log<sub>2</sub>e</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>M_LOG10E_H</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value of log<sub>10</sub>e</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>M_LN2_H</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value of log<sub>e</sub>2</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>M_LN10_H</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value of log<sub>e</sub>10</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>M_PI_H</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value of π</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>M_PI_2_H</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value of π / 2</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>M_PI_4_H</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value of π / 4</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>M_1_PI_H</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value of 1 / π</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>M_2_PI_H</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value of 2 / π</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>M_2_SQRTPI_H</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value of 2 / √π</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>M_SQRT2_H</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value of √2</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>M_SQRT1_2_H</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value of 1 / √2</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="sect1">
@@ -1135,7 +1303,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -1145,8 +1313,8 @@ Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

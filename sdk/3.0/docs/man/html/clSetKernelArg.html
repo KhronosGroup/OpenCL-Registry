@@ -780,7 +780,8 @@ function</p>
 </div>
 <div id="clSetKernelArg" class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-opencl" data-lang="opencl">cl_int clSetKernelArg(
+<pre class="highlight"><code class="language-opencl" data-lang="opencl">// Provided by CL_VERSION_1_0
+cl_int clSetKernelArg(
     cl_kernel kernel,
     cl_uint arg_index,
     size_t arg_size,
@@ -870,6 +871,17 @@ If the argument is of type <em>queue_t</em>, the <em>arg_value</em> entry must b
 pointer to the device queue object.</p>
 </div>
 <div class="paragraph">
+<p>If the <code>cl_khr_<wbr>gl_<wbr>msaa_<wbr>sharing</code> extension is supported, then:
+If the argument is a multi-sample 2D image, the <em>arg_value</em> entry must be a
+pointer to a multi-sample image object.
+If the argument is a multi-sample 2D depth image, the <em>arg_value</em> entry must
+be a pointer to a multisample depth image object.
+If the argument is a multi-sample 2D image array, the <em>arg_value</em> entry must
+be a pointer to a multi-sample image array object.
+If the argument is a multi-sample 2D depth image array, the <em>arg_value</em>
+entry must be a pointer to a multi-sample depth image array object.</p>
+</div>
+<div class="paragraph">
 <p>If the argument is declared to be a pointer of a built-in scalar or vector
 type, or a user defined structure type in the global or constant address
 space, the memory object specified as argument value must be a buffer object
@@ -952,6 +964,14 @@ Otherwise, it returns one of the following errors:</p>
 <li>
 <p><code>CL_INVALID_<wbr>MEM_<wbr>OBJECT</code> for an argument declared to be a memory object
 when the specified <em>arg_value</em> is not a valid memory object.</p>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>MEM_<wbr>OBJECT</code> for an argument declared to be a
+depth image, depth image array,
+multi-sample image, multi-sample image array, multi-sample depth image,
+or a multi-sample depth image array
+when the specified <em>arg_value</em> does not follow the rules described above
+for a depth memory object or memory array object argument.</p>
 </li>
 <li>
 <p><code>CL_INVALID_<wbr>SAMPLER</code> for an argument declared to be of type <em>sampler_t</em>
@@ -1038,7 +1058,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -1054,8 +1074,8 @@ Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

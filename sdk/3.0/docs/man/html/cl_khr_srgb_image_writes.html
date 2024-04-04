@@ -767,23 +767,78 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <h1>cl_khr_srgb_image_writes(3) Manual Page</h1>
 <h2 id="_name">Name</h2>
 <div class="sectionbody">
-<p>cl_khr_srgb_image_writes - Extension allowing writes to sRGB images from a kernel.</p>
+<p>cl_khr_srgb_image_writes - OpenCL extension</p>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
+<h2 id="_ratification_status"><a class="anchor" href="#_ratification_status"></a>Ratification Status</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Ratified</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_extension_and_version_dependencies"><a class="anchor" href="#_extension_and_version_dependencies"></a>Extension and Version Dependencies</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>None</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_other_extension_metadata"><a class="anchor" href="#_other_extension_metadata"></a>Other Extension Metadata</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Last Modified Date</strong></dt>
+<dd>
+<p>2020-04-21</p>
+</dd>
+<dt class="hdlist1"><strong>IP Status</strong></dt>
+<dd>
+<p>No known IP claims.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This extensions adds changes to the following:</p>
+<p><code>cl_khr_<wbr>srgb_<wbr>image_<wbr>writes</code> enables OpenCL C kernels to write to sRGB images
+using the <strong>write_imagef</strong> built-in function.
+The sRGB image formats that may be written to will be returned by
+<strong>clGetSupportedImageFormats</strong>.</p>
 </div>
+<div class="paragraph">
+<p>When the image is an sRGB image, the <strong>write_imagef</strong> built-in function will
+perform the linear to sRGB conversion.
+Only the R, G, and B components are converted from linear to sRGB; the A
+component is written as-is.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="OpenCL_C.html#cl_khr_srgb_image_writes">sRGB Image Write
+Functions</a> section of the OpenCL C specification for more information.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_version_history"><a class="anchor" href="#_version_history"></a>Version History</h2>
+<div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p><a href="imageWriteFunctions.html">imageWriteFunctions</a></p>
-</li>
+<p>Revision 1.0.0, 2020-04-21</p>
+<div class="ulist">
+<ul>
 <li>
-<p><a href="clGetSupportedImageFormats.html">clGetSupportedImageFormats</a></p>
+<p>First assigned version.</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -793,27 +848,7 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <h2 id="_see_also"><a class="anchor" href="#_see_also"></a>See Also</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="EXTENSION.html">EXTENSION</a>,
-<a href="clCreateProgramWithBinary.html">clCreateProgramWithBinary</a>,
-<a href="clBuildProgram.html">clBuildProgram</a>,
-<a href="clCompileProgram.html">clCompileProgram</a>,</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_description_2"><a class="anchor" href="#_description_2"></a>Description</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>This extension enables kernels to write to sRGB images using the
-<a href="imageWriteFunctions.html">imageWriteFunctions</a>[write_imagef] built-in function.
-The sRGB image formats that may be written to will be returned by
-<a href="clGetSupportedImageFormats.html">clGetSupportedImageFormats</a>.</p>
-</div>
-<div class="paragraph">
-<p>When the image is an sRGB image, the <a href="imageWriteFunctions.html">imageWriteFunctions</a>[write_imagef]
-built-in function will perform the linear to sRGB conversion. Only the R, G,
-and B components are converted from linear to sRGB; the A component is
-written as-is.</p>
+<p>No cross-references are available</p>
 </div>
 </div>
 </div>
@@ -821,10 +856,11 @@ written as-is.</p>
 <h2 id="_document_notes"><a class="anchor" href="#_document_notes"></a>Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Extension Specification at URL</p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#cl_khr_srgb_image_writes" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_srgb_image_writes" class="bare">https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_srgb_image_writes</a></p>
+<p>This page is a generated document.
+Fixes and changes should be made to the generator scripts, not directly.</p>
 </div>
 </div>
 </div>
@@ -832,7 +868,7 @@ written as-is.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -842,8 +878,8 @@ written as-is.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

@@ -788,32 +788,46 @@ For query functions this may be <code>read_only</code>, <code>write_only</code> 
 <col style="width: 50%;">
 <col style="width: 50%;">
 </colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Function</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Function</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">int <strong>get_image_width</strong>(<em>aQual</em> image2d_t <em>image</em>)<br>
-  int <strong>get_image_width</strong>(<em>aQual</em> image3d_t <em>image</em>)<br></p>
-<p class="tableblock">  For OpenCL C 1.2 or newer:<br></p>
+  int <strong>get_image_width</strong>(<em>aQual</em> image3d_t <em>image</em>)</p>
+<p class="tableblock">  For OpenCL C 1.2 or newer:</p>
 <p class="tableblock">  int <strong>get_image_width</strong>(<em>aQual</em> image1d_t <em>image</em>)<br>
   int <strong>get_image_width</strong>(<em>aQual</em> image1d_buffer_t <em>image</em>)<br>
   int <strong>get_image_width</strong>(<em>aQual</em> image1d_array_t <em>image</em>)<br>
-  int <strong>get_image_width</strong>(<em>aQual</em> image2d_array_t <em>image</em>)<br></p>
-<p class="tableblock">  For OpenCL C 2.0 or newer, also see <code>cl_khr_depth_images</code> extension:<br></p>
+  int <strong>get_image_width</strong>(<em>aQual</em> image2d_array_t <em>image</em>)</p>
+<p class="tableblock">  For OpenCL C 2.0 or newer, or if the <code>cl_khr_<wbr>depth_<wbr>images</code> extension
+  macro is supported:</p>
 <p class="tableblock">  int <strong>get_image_width</strong>(<em>aQual</em> image2d_depth_t <em>image</em>)<br>
-  int <strong>get_image_width</strong>(<em>aQual</em> image2d_array_depth_t <em>image</em>)</p></td>
+  int <strong>get_image_width</strong>(<em>aQual</em> image2d_array_depth_t <em>image</em>)</p>
+<p class="tableblock">  If the <code>cl_khr_<wbr>gl_<wbr>msaa_<wbr>sharing</code> extension macro is supported:</p>
+<p class="tableblock">  int <strong>get_image_width</strong>(<em>aQual</em> image2d_msaa_t image)<br>
+  int <strong>get_image_width</strong>(<em>aQual</em> image2d_array_msaa_t image)<br>
+  int <strong>get_image_width</strong>(<em>aQual</em> image2d_msaa_depth_t image)<br>
+  int <strong>get_image_width</strong>(<em>aQual</em> image2d_array_msaa_depth_t image)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return the image width in pixels.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">int <strong>get_image_height</strong>(<em>aQual</em> image2d_t <em>image</em>)<br>
-  int <strong>get_image_height</strong>(<em>aQual</em> image3d_t <em>image</em>)<br></p>
-<p class="tableblock">  For OpenCL C 1.2 or newer:<br></p>
-<p class="tableblock">  int <strong>get_image_height</strong>(<em>aQual</em> image2d_array_t <em>image</em>)<br></p>
-<p class="tableblock">  For OpenCL C 2.0 or newer, also see <code>cl_khr_depth_images</code> extension:<br></p>
+  int <strong>get_image_height</strong>(<em>aQual</em> image3d_t <em>image</em>)</p>
+<p class="tableblock">  For OpenCL C 1.2 or newer:</p>
+<p class="tableblock">  int <strong>get_image_height</strong>(<em>aQual</em> image2d_array_t <em>image</em>)</p>
+<p class="tableblock">  For OpenCL C 2.0 or newer, or if the <code>cl_khr_<wbr>depth_<wbr>images</code> extension
+  macro is supported:</p>
 <p class="tableblock">  int <strong>get_image_height</strong>(<em>aQual</em> image2d_depth_t <em>image</em>)<br>
-  int <strong>get_image_height</strong>(<em>aQual</em> image2d_array_depth_t <em>image</em>)</p></td>
+  int <strong>get_image_height</strong>(<em>aQual</em> image2d_array_depth_t <em>image</em>)</p>
+<p class="tableblock">  If the <code>cl_khr_<wbr>gl_<wbr>msaa_<wbr>sharing</code> extension macro is supported:</p>
+<p class="tableblock">  int <strong>get_image_height</strong>(<em>aQual</em> image2d_msaa_t image)<br>
+  int <strong>get_image_height</strong>(<em>aQual</em> image2d_array_msaa_t image)<br>
+  int <strong>get_image_height</strong>(<em>aQual</em> image2d_msaa_depth_t image)<br>
+  int <strong>get_image_height</strong>(<em>aQual</em> image2d_array_msaa_depth_t image)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return the image height in pixels.</p></td>
 </tr>
 <tr>
@@ -826,17 +840,23 @@ For query functions this may be <code>read_only</code>, <code>write_only</code> 
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">int <strong>get_image_channel_data_type</strong>(<em>aQual</em> image2d_t <em>image</em>)<br>
-  int <strong>get_image_channel_data_type</strong>(<em>aQual</em> image3d_t <em>image</em>)<br></p>
-<p class="tableblock">  For OpenCL C 1.2 or newer:<br></p>
+  int <strong>get_image_channel_data_type</strong>(<em>aQual</em> image3d_t <em>image</em>)</p>
+<p class="tableblock">  For OpenCL C 1.2 or newer:</p>
 <p class="tableblock">  int <strong>get_image_channel_data_type</strong>(<em>aQual</em> image1d_t <em>image</em>)<br>
   int <strong>get_image_channel_data_type</strong>(<em>aQual</em> image1d_buffer_t <em>image</em>)<br>
   int <strong>get_image_channel_data_type</strong>(<em>aQual</em> image2d_t <em>image</em>)<br>
   int <strong>get_image_channel_data_type</strong>(<em>aQual</em> image3d_t <em>image</em>)<br>
   int <strong>get_image_channel_data_type</strong>(<em>aQual</em> image1d_array_t <em>image</em>)<br>
-  int <strong>get_image_channel_data_type</strong>(<em>aQual</em> image2d_array_t <em>image</em>)<br></p>
-<p class="tableblock">  For OpenCL C 2.0 or newer, also see <code>cl_khr_depth_images</code> extension:<br></p>
+  int <strong>get_image_channel_data_type</strong>(<em>aQual</em> image2d_array_t <em>image</em>)</p>
+<p class="tableblock">  For OpenCL C 2.0 or newer, or if the <code>cl_khr_<wbr>depth_<wbr>images</code> extension
+  macro is supported:</p>
 <p class="tableblock">  int <strong>get_image_channel_data_type</strong>(<em>aQual</em> image2d_depth_t <em>image</em>)<br>
-  int <strong>get_image_channel_data_type</strong>(<em>aQual</em> image2d_array_depth_t <em>image</em>)</p></td>
+  int <strong>get_image_channel_data_type</strong>(<em>aQual</em> image2d_array_depth_t <em>image</em>)</p>
+<p class="tableblock">  If the <code>cl_khr_<wbr>gl_<wbr>msaa_<wbr>sharing</code> extension macro is supported:</p>
+<p class="tableblock">  int <strong>get_image_channel_data_type</strong>(<em>aQual</em> image2d_msaa_t image)<br>
+  int <strong>get_image_channel_data_type</strong>(<em>aQual</em> image2d_array_msaa_t image)<br>
+  int <strong>get_image_channel_data_type</strong>(<em>aQual</em> image2d_msaa_depth_t image)<br>
+  int <strong>get_image_channel_data_type</strong>(<em>aQual</em> image2d_array_msaa_depth_t image)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return the channel data type. Valid values are:</p>
 <p class="tableblock">      <code>CLK_SNORM_INT8</code><br>
       <code>CLK_SNORM_INT16</code><br>
@@ -853,20 +873,26 @@ For query functions this may be <code>read_only</code>, <code>write_only</code> 
       <code>CLK_UNSIGNED_INT32</code><br>
       <code>CLK_HALF_FLOAT</code><br>
       <code>CLK_FLOAT</code><br></p>
-<p class="tableblock">      Additionally, for OpenCL C 3.0 or newer:<br></p>
+<p class="tableblock">      Additionally, for OpenCL C 3.0 or newer:</p>
 <p class="tableblock">      <code>CLK_UNORM_INT_101010_2</code> <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">int <strong>get_image_channel_order</strong>(<em>aQual</em> image2d_t <em>image</em>)<br>
-  int <strong>get_image_channel_order</strong>(<em>aQual</em> image3d_t <em>image</em>)<br></p>
-<p class="tableblock">  For OpenCL C 1.2 or newer:<br></p>
+  int <strong>get_image_channel_order</strong>(<em>aQual</em> image3d_t <em>image</em>)</p>
+<p class="tableblock">  For OpenCL C 1.2 or newer:</p>
 <p class="tableblock">  int <strong>get_image_channel_order</strong>(<em>aQual</em> image1d_t <em>image</em>)<br>
   int <strong>get_image_channel_order</strong>(<em>aQual</em> image1d_buffer_t <em>image</em>)<br>
   int <strong>get_image_channel_order</strong>(<em>aQual</em> image1d_array_t <em>image</em>)<br>
-  int <strong>get_image_channel_order</strong>(<em>aQual</em> image2d_array_t <em>image</em>)<br></p>
-<p class="tableblock">  For OpenCL C 2.0 or newer, also see <code>cl_khr_depth_images</code> extension:<br></p>
+  int <strong>get_image_channel_order</strong>(<em>aQual</em> image2d_array_t <em>image</em>)</p>
+<p class="tableblock">  For OpenCL C 2.0 or newer, or if the <code>cl_khr_<wbr>depth_<wbr>images</code> extension
+  macro is supported:</p>
 <p class="tableblock">  int <strong>get_image_channel_order</strong>(<em>aQual</em> image2d_depth_t <em>image</em>)<br>
-  int <strong>get_image_channel_order</strong>(<em>aQual</em> image2d_array_depth_t <em>image</em>)</p></td>
+  int <strong>get_image_channel_order</strong>(<em>aQual</em> image2d_array_depth_t <em>image</em>)</p>
+<p class="tableblock">  If the <code>cl_khr_<wbr>gl_<wbr>msaa_<wbr>sharing</code> extension macro is supported:</p>
+<p class="tableblock">  int <strong>get_image_channel_order</strong>(<em>aQual</em> image2d_msaa_t image)<br>
+  int <strong>get_image_channel_order</strong>(<em>aQual</em> image2d_array_msaa_t image)<br>
+  int <strong>get_image_channel_order</strong>(<em>aQual</em> image2d_msaa_depth_t image)<br>
+  int <strong>get_image_channel_order</strong>(<em>aQual</em> image2d_array_msaa_depth_t image)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return the image channel order. Valid values are:</p>
 <p class="tableblock">      <code>CLK_A</code><br>
       <code>CLK_R</code><br>
@@ -877,12 +903,12 @@ For query functions this may be <code>read_only</code>, <code>write_only</code> 
       <code>CLK_ARGB</code><br>
       <code>CLK_BGRA</code><br>
       <code>CLK_INTENSITY</code><br>
-      <code>CLK_LUMINANCE</code><br></p>
-<p class="tableblock">      Additionally, for OpenCL C 1.1 or newer:<br></p>
+      <code>CLK_LUMINANCE</code></p>
+<p class="tableblock">      Additionally, for OpenCL C 1.1 or newer:</p>
 <p class="tableblock">      <code>CLK_Rx</code><br>
       <code>CLK_RGx</code><br>
-      <code>CLK_RGBx</code><br></p>
-<p class="tableblock">      Additionally, for OpenCL C 2.0 or newer:<br></p>
+      <code>CLK_RGBx</code></p>
+<p class="tableblock">      Additionally, for OpenCL C 2.0 or newer:</p>
 <p class="tableblock">      <code>CLK_ABGR</code><br>
       <code>CLK_DEPTH</code><br>
       <code>CLK_sRGB</code><br>
@@ -895,13 +921,19 @@ For query functions this may be <code>read_only</code>, <code>write_only</code> 
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">int2 <strong>get_image_dim</strong>(<em>aQual</em> image2d_t <em>image</em>)<br></p>
-<p class="tableblock">  For OpenCL C 1.2 or newer:<br></p>
-<p class="tableblock">  int2 <strong>get_image_dim</strong>(<em>aQual</em> image2d_array_t <em>image</em>)<br></p>
-<p class="tableblock">  For OpenCL C 2.0 or newer, also see <code>cl_khr_depth_images</code> extension:<br></p>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int2 <strong>get_image_dim</strong>(<em>aQual</em> image2d_t <em>image</em>)</p>
+<p class="tableblock">  For OpenCL C 1.2 or newer:</p>
+<p class="tableblock">  int2 <strong>get_image_dim</strong>(<em>aQual</em> image2d_array_t <em>image</em>)</p>
+<p class="tableblock">  For OpenCL C 2.0 or newer, or if the <code>cl_khr_<wbr>depth_<wbr>images</code> extension
+  macro is supported:</p>
 <p class="tableblock">  int2 <strong>get_image_dim</strong>(<em>aQual</em> image2d_depth_t <em>image</em>)<br>
-  int2 <strong>get_image_dim</strong>(<em>aQual</em> image2d_array_depth_t <em>image</em>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Return the 2D image width and height as an int2 type.
+  int2 <strong>get_image_dim</strong>(<em>aQual</em> image2d_array_depth_t <em>image</em>)</p>
+<p class="tableblock">  If the <code>cl_khr_<wbr>gl_<wbr>msaa_<wbr>sharing</code> extension macro is supported:</p>
+<p class="tableblock">  int2 <strong>get_image_dim</strong>(<em>aQual</em> image2d_msaa_t image)<br>
+  int2 <strong>get_image_dim</strong>(<em>aQual</em> image2d_array_msaa_t image)<br>
+  int2 <strong>get_image_dim</strong>(<em>aQual</em> image2d_msaa_depth_t image)<br>
+  int2 <strong>get_image_dim</strong>(<em>aQual</em> image2d_array_msaa_depth_t image)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Return the 2D image width and height as an <code>int2</code> type.
       The width is returned in the <em>x</em> component, and the height in the <em>y</em>
       component.</p></td>
 </tr>
@@ -916,16 +948,38 @@ For query functions this may be <code>read_only</code>, <code>write_only</code> 
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">For OpenCL C 1.2 or newer:<br></p>
-<p class="tableblock">  size_t <strong>get_image_array_size</strong>(<em>aQual</em> image2d_array_t <em>image</em>)<br></p>
-<p class="tableblock">  For OpenCL C 2.0 or newer, also see <code>cl_khr_depth_images</code> extension:<br></p>
-<p class="tableblock">  size_t <strong>get_image_array_size</strong>(<em>aQual</em> image2d_array_depth_t <em>image</em>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">For OpenCL C 1.2 or newer:</p>
+<p class="tableblock">  size_t <strong>get_image_array_size</strong>(<em>aQual</em> image2d_array_t <em>image</em>)</p>
+<p class="tableblock">  For OpenCL C 2.0 or newer, or if the <code>cl_khr_<wbr>depth_<wbr>images</code> extension
+  macro is supported:</p>
+<p class="tableblock">  size_t <strong>get_image_array_size</strong>(<em>aQual</em> image2d_array_depth_t <em>image</em>)</p>
+<p class="tableblock">  If the <code>cl_khr_<wbr>gl_<wbr>msaa_<wbr>sharing</code> extension macro is supported:</p>
+<p class="tableblock">  size_t <strong>get_image_array_size</strong>(<em>aQual</em> image2d_array_msaa_depth_t <em>image</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return the number of images in the 2D image array.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">For OpenCL C 1.2 or newer:<br></p>
+<td class="tableblock halign-left valign-top"><p class="tableblock">For OpenCL C 1.2 or newer:</p>
 <p class="tableblock">  size_t <strong>get_image_array_size</strong>(<em>aQual</em> image1d_array_t <em>image</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return the number of images in the 1D image array.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If the <code>cl_khr_<wbr>gl_<wbr>msaa_<wbr>sharing</code> extension macro is supported:</p>
+<p class="tableblock">  int <strong>get_image_num_samples</strong>(<em>aQual</em> image2d_msaa_t <em>image</em>)<br>
+  int <strong>get_image_num_samples</strong>(<em>aQual</em> image2d_array_msaa_t <em>image</em>)<br>
+  int <strong>get_image_num_samples</strong>(<em>aQual</em> image2d_msaa_depth_t <em>image</em>)<br>
+  int <strong>get_image_num_samples</strong>(<em>aQual</em> image2d_array_msaa_depth_t <em>image</em>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Return the number of samples in the 2D MSAA image</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If the <code>cl_khr_<wbr>mipmap_<wbr>image</code> extension macro is supported:</p>
+<p class="tableblock">  int <strong>get_image_num_mip_levels</strong>(<em>aQual</em> image1d_t <em>image</em>)<br>
+  int <strong>get_image_num_mip_levels</strong>(<em>aQual</em> image2d_t <em>image</em>)<br>
+  int <strong>get_image_num_mip_levels</strong>(<em>aQual</em> image3d_t <em>image</em>)<br>
+  int <strong>get_image_num_mip_levels</strong>(<em>aQual</em> image1d_array_t <em>image</em>)<br>
+  int <strong>get_image_num_mip_levels</strong>(<em>aQual</em> image2d_array_t <em>image</em>)<br>
+  int <strong>get_image_num_mip_levels</strong>(<em>aQual</em> image2d_depth_t <em>image</em>)<br>
+  int <strong>get_image_num_mip_levels</strong>(<em>aQual</em> image2d_array_depth_t <em>image</em>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Return the number of mip levels in <em>image</em>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -936,7 +990,7 @@ Query Functions</a> with the <code>CLK_</code> prefixes correspond to the <code>
 to describe the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#opencl-channel-order" target="_blank" rel="noopener">image channel order</a> and
 <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#opencl-channel-data-type" target="_blank" rel="noopener">data type</a> in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#opencl-spec" target="_blank" rel="noopener">OpenCL
 Specification</a>.
-For example, both <code>CL_UNORM_INT8</code> and <code>CLK_UNORM_INT8</code> refer to an image
+For example, both <code>CL_UNORM_<wbr>INT8</code> and <code>CLK_UNORM_INT8</code> refer to an image
 channel data type that is an unnormalized unsigned 8-bit integer.</p>
 </div>
 </div>
@@ -965,7 +1019,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -976,13 +1030,13 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <div id="footnotes">
 <hr>
 <div class="footnote" id="_footnotedef_1">
-<a href="#_footnoteref_1">1</a>. Although <code>CL_UNORM_INT_101010_2</code> was added in OpenCL 2.1, because there was no OpenCL C 2.1 this image channel order <a href="#unified-spec">requires</a> OpenCL 3.0.
+<a href="#_footnoteref_1">1</a>. Although <code>CL_UNORM_<wbr>INT_<wbr>101010_<wbr>2</code> was added in OpenCL 2.1, because there was no OpenCL C 2.1 this image channel order <a href="#unified-spec">requires</a> OpenCL 3.0.
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

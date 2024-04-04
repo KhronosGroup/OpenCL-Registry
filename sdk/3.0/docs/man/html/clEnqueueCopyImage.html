@@ -779,7 +779,8 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 </div>
 <div id="clEnqueueCopyImage" class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-opencl" data-lang="opencl">cl_int clEnqueueCopyImage(
+<pre class="highlight"><code class="language-opencl" data-lang="opencl">// Provided by CL_VERSION_1_0
+cl_int clEnqueueCopyImage(
     cl_command_queue command_queue,
     cl_mem src_image,
     cl_mem dst_image,
@@ -823,7 +824,10 @@ If <em>src_image</em> is a 1D image array object, <em>src_origin</em>[2] must be
 If <em>src_image</em> is a 1D image array object, <em>src_origin</em>[1] describes the
 image index in the 1D image array.
 If <em>src_image</em> is a 2D image array object, <em>src_origin</em>[2] describes the
-image index in the 2D image array.</p>
+image index in the 2D image array.
+If <em>src_image</em> is a mipmapped image, the mip level to read is determined
+from <em>src_origin</em> as described in <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#image-mipmap-access" target="_blank" rel="noopener">Specifying
+Mipmap Levels to Image Operations</a></p>
 </li>
 <li>
 <p><em>dst_origin</em> defines the (<em>x</em>, <em>y</em>, <em>z</em>) offset in pixels in the 1D, 2D or
@@ -836,7 +840,9 @@ If <em>dst_image</em> is a 1D image array object, <em>dst_origin</em>[2] must be
 If <em>dst_image</em> is a 1D image array object, <em>dst_origin</em>[1] describes the
 image index in the 1D image array.
 If <em>dst_image</em> is a 2D image array object, <em>dst_origin</em>[2] describes the
-image index in the 2D image array.</p>
+image index in the 2D image array.
+If <em>dst_image</em> is a mipmapped image, the mip level to write is
+determined from <em>dst_origin</em> as described in <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#image-mipmap-access" target="_blank" rel="noopener">Specifying Mipmap Levels to Image Operations</a></p>
 </li>
 <li>
 <p><em>region</em> defines the (<em>width</em>, <em>height</em>, <em>depth</em>) in pixels of the 1D, 2D or
@@ -964,6 +970,11 @@ not support images (i.e. <code>CL_DEVICE_<wbr>IMAGE_<wbr>SUPPORT</code> specifie
 <p><code>CL_MEM_<wbr>COPY_<wbr>OVERLAP</code> if <em>src_image</em> and <em>dst_image</em> are the same image
 object and the source and destination regions overlap.</p>
 </li>
+<li>
+<p><code>CL_INVALID_<wbr>MIP_<wbr>LEVEL</code> if the <code>cl_khr_<wbr>mipmap_<wbr>image</code> extension is
+supported, and the mip level specified in <em>src_origin</em> or <em>dst_origin</em>
+is not a valid level for the corresponding <em>src_image</em> or <em>dst_image</em>,</p>
+</li>
 </ul>
 </div>
 </div>
@@ -992,7 +1003,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -1002,8 +1013,8 @@ Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

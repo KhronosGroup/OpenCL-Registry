@@ -767,22 +767,40 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <h1>clEnqueueReleaseD3D11ObjectsKHR(3) Manual Page</h1>
 <h2 id="_name">Name</h2>
 <div class="sectionbody">
-<p>clEnqueueReleaseD3D11ObjectsKHR - Release OpenCL memory objects that have been created from Direct3D 11 resources.</p>
+<p>clEnqueueReleaseD3D11ObjectsKHR - Release OpenCL memory objects created from Direct3D 11 resources</p>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
 <h2 id="_c_specification"><a class="anchor" href="#_c_specification"></a>C Specification</h2>
 <div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">cl_int clEnqueueReleaseD3D11ObjectsKHR(cl_command_queue command_queue,
-                                       cl_uint num_objects,
-                                       const cl_mem *mem_objects,
-                                       cl_uint num_events_in_wait_list,
-                                       const cl_event *event_wait_list,
-                                       cl_event *event)</code></pre>
+<div class="paragraph">
+<p>To release OpenCL memory objects that have been created from Direct3D 11
+resources, call the function</p>
 </div>
+<div id="clEnqueueReleaseD3D11ObjectsKHR" class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-opencl" data-lang="opencl">// Provided by cl_khr_d3d11_sharing
+cl_int clEnqueueReleaseD3D11ObjectsKHR(
+    cl_command_queue command_queue,
+    cl_uint num_objects,
+    const cl_mem* mem_objects,
+    cl_uint num_events_in_wait_list,
+    const cl_event* event_wait_list,
+    cl_event* event);</code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<strong>clEnqueueReleaseD3D11ObjectsKHR</strong> is provided by the <code>cl_khr_d3d11_sharing</code> extension.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -792,31 +810,29 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <div class="ulist">
 <ul>
 <li>
-<p><em>num_objects</em> - The number of memory objects to be released in
+<p><em>num_objects</em> is the number of memory objects to be released in
 <em>mem_objects</em>.</p>
 </li>
 <li>
-<p><em>mem_objects</em> - A pointer to a list of OpenCL memory objects that were
+<p><em>mem_objects</em> is a pointer to a list of OpenCL memory objects that were
 created from Direct3D 11 resources.</p>
 </li>
 <li>
-<p><em>num_events_in_wait_list</em> - Number of events in <em>event_wait_list</em>.</p>
-</li>
-<li>
-<p><em>event_wait_list</em> - Specify events that need to complete before this
-particular command can be executed. If <em>event_wait_list</em> is NULL, then
-this particular command does not wait on any event to complete. If
-<em>event_wait_list</em> is NULL, <em>num_events_in_wait_list</em> must be 0. If
-<em>event_wait_list</em> is not NULL, the list of events pointed to by
+<p><em>event_wait_list</em> and <em>num_events_in_wait_list</em> specify events that need
+to complete before this particular command can be executed.
+If <em>event_wait_list</em> is <code>NULL</code>, then this particular command does not
+wait on any event to complete.
+If <em>event_wait_list</em> is <code>NULL</code>, <em>num_events_in_wait_list</em> must be 0.
+If <em>event_wait_list</em> is not <code>NULL</code>, the list of events pointed to by
 <em>event_wait_list</em> must be valid and <em>num_events_in_wait_list</em> must be
 greater than 0.</p>
 </li>
 <li>
-<p><em>event</em> returns an event object that identifies this command and
-can be used to query or wait for this command to complete.
+<p><em>event</em> returns an event object that identifies this command and can be
+used to query or wait for this command to complete.
 If <em>event</em> is <code>NULL</code> or the enqueue is unsuccessful, no event will be
-created and therefore it will not be possible to query the status of this
-command or to wait for this command to complete.
+created and therefore it will not be possible to query the status of
+this command or to wait for this command to complete.
 If <em>event_wait_list</em> and <em>event</em> are not <code>NULL</code>, <em>event</em> must not refer
 to an element of the <em>event_wait_list</em> array.</p>
 </li>
@@ -825,106 +841,78 @@ to an element of the <em>event_wait_list</em> array.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_notes"><a class="anchor" href="#_notes"></a>Notes</h2>
+<h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The Direct3D 11 objects are released by the OpenCL context associated with <em>command_queue</em>.</p>
+<p>The Direct3D 11 objects are released by the OpenCL context associated with
+<em>command_queue</em>.</p>
 </div>
 <div class="paragraph">
-<p>OpenCL memory objects created from Direct3D 11 resources which have been acquired by OpenCL must be released by OpenCL before they may be accessed by Direct3D 11.
-Accessing a Direct3D 11 resource while its corresponding OpenCL memory object is acquired is in error and will result in undefined behavior, including but not limited to possible OpenCL errors, data corruption, and program termination.</p>
-</div>
-<div class="paragraph">
-<p>If <code>CL_CONTEXT_INTEROP_USER_SYNC</code> is not specified as <code>CL_TRUE</code> during context creation, <code>clEnqueueReleaseD3D11ObjectsKHR</code> provides the synchronization guarantee that any calls to Direct3D 11 calls involving the interop device(s) used in the OpenCL context made after the call to <code>clEnqueueReleaseD3D11ObjectsKHR</code> will not start executing until after all events in <em>event_wait_list</em> are complete and all work already submitted to <em>command_queue</em> completes execution.
-If the context was created with properties specifying <code>CL_CONTEXT_INTEROP_USER_SYNC</code> as <code>CL_TRUE</code>, the user is responsible for guaranteeing that any Direct3D 11 calls involving the interop device(s) used in the OpenCL context made after <code>clEnqueueReleaseD3D11ObjectsKHR</code> will not start executing until after event returned by <code>clEnqueueReleaseD3D11ObjectsKHR</code> reports completion.</p>
-</div>
-<div class="paragraph">
-<div class="title">Sharing Memory Objects with Direct3D 11 Resources</div>
-<p>The goal of this extension is to provide interoperability between OpenCL and
-Direct3D 11. This is designed to function analogously to the
-<a href="cl_khr_gl_sharing.html">cl_khr_gl_sharing</a> as defined in sections 9.7 and 9.8. If this
-extension is supported by an implementation, the string
-"cl_khr_d3d11_sharing" will be present in the <code>CL_PLATFORM_EXTENSIONS</code> or
-<code>CL_DEVICE_EXTENSIONS</code> string described in the table of allowed values for
-<em>param_name</em> for <a href="clGetDeviceInfo.html">clGetDeviceInfo</a> or <a href="clGetPlatformInfo.html">clGetPlatformInfo</a>.</p>
-</div>
-<div class="paragraph">
-<p>As currently proposed the interfaces for this extension would be provided in
-<code>cl_d3d11.h</code>.</p>
-</div>
-<div class="paragraph">
-<p>This section discusses OpenCL functions that allow applications to use
-Direct3D 11 resources as OpenCL memory objects. This allows efficient
-sharing of data between OpenCL and Direct3D 11. The OpenCL API may be used
-to execute kernels that read and/or write memory objects that are also
-Direct3D 11 resources. An OpenCL image object may be created from a Direct3D
-11 texture resource. An OpenCL buffer object may be created from a Direct3D
-11 buffer resource. OpenCL memory objects may be created from Direct3D 11
-objects if and only if the OpenCL context has been created from a Direct3D
-11 device.</p>
-</div>
-<div class="paragraph">
-<div class="title">Lifetime of Shared Objects</div>
-<p>An OpenCL memory object created from a Direct3D 11 resource remains valid as
-long as the corresponding Direct3D 11 resource has not been deleted. If the
-Direct3D 11 resource is deleted through the Direct3D 11 API, subsequent use
-of the OpenCL memory object will result in undefined behavior, including but
-not limited to possible OpenCL errors, data corruption, and program
-termination.</p>
-</div>
-<div class="paragraph">
-<p>The successful creation of a <code>cl_context</code> against a Direct3D 11 device
-specified via the context create parameter <code>CL_CONTEXT_D3D11_DEVICE_KHR</code>
-will increment the internal Direct3D reference count on the specified
-Direct3D 11 device. The internal Direct3D reference count on that Direct3D
-11 device will be decremented when the OpenCL reference count on the
-returned OpenCL context drops to zero.</p>
-</div>
-<div class="paragraph">
-<p>The OpenCL context and corresponding command-queues are dependent on the
-existence of the Direct3D 11 device from which the OpenCL context was
-created. If the Direct3D 11 device is deleted through the Direct3D 11 API,
-subsequent use of the OpenCL context will result in undefined behavior,
+<p>OpenCL memory objects created from Direct3D 11 resources which have been
+acquired by OpenCL must be released by OpenCL before they may be accessed by
+Direct3D 11.
+Accessing a Direct3D 11 resource while its corresponding OpenCL memory
+object is acquired is in error and will result in undefined behavior,
 including but not limited to possible OpenCL errors, data corruption, and
 program termination.</p>
 </div>
 <div class="paragraph">
-<p>Properties of Direct3D 11 objects may be queried using
-<a href="clGetMemObjectInfo.html">clGetMemObjectInfo</a> and <a href="clGetImageInfo.html">clGetImageInfo</a> with <em>param_name</em>
-<code>CL_MEM_D3D11_RESOURCE_KHR</code> and <code>CL_IMAGE_D3D11_SUBRESOURCE_KHR</code>.</p>
+<p>If <code>CL_CONTEXT_<wbr>INTEROP_<wbr>USER_<wbr>SYNC</code> is not specified as <code>CL_TRUE</code> during
+context creation, <strong>clEnqueueReleaseD3D11ObjectsKHR</strong> provides the
+synchronization guarantee that any calls to Direct3D 11 calls involving the
+interop device(s) used in the OpenCL context made after the call to
+<strong>clEnqueueReleaseD3D11ObjectsKHR</strong> will not start executing until after all
+events in <em>event_wait_list</em> are complete and all work already submitted to
+<em>command_queue</em> completes execution.
+If the context was created with properties specifying
+<code>CL_CONTEXT_<wbr>INTEROP_<wbr>USER_<wbr>SYNC</code> as <code>CL_TRUE</code>, the user is responsible for
+guaranteeing that any Direct3D 11 calls involving the interop device(s) used
+in the OpenCL context made after <strong>clEnqueueReleaseD3D11ObjectsKHR</strong> will not
+start executing until after event returned by
+<strong>clEnqueueReleaseD3D11ObjectsKHR</strong> reports completion.</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_errors"><a class="anchor" href="#_errors"></a>Errors</h2>
-<div class="sectionbody">
 <div class="paragraph">
-<p>Returns <code>CL_SUCCESS</code> if the function is executed successfully.
-If <em>num_objects</em> is 0 and <em>mem_objects</em> is NULL the function does nothing and returns <code>CL_SUCCESS</code>.
+<p><strong>clEnqueueReleaseD3D11ObjectsKHR</strong> returns <code>CL_SUCCESS</code> if the function is
+executed successfully.
+If <em>num_objects</em> is 0 and <em>mem_objects</em> is <code>NULL</code> the function does nothing
+and returns <code>CL_SUCCESS</code>.
 Otherwise it returns one of the following errors:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_INVALID_VALUE</code> if <em>num_objects</em> is zero and <em>mem_objects</em> is not a NULL value or if <em>num_objects</em> &gt; 0 and <em>mem_objects</em> is NULL.</p>
+<p><code>CL_INVALID_<wbr>VALUE</code> if <em>num_objects</em> is zero and <em>mem_objects</em> is not a
+<code>NULL</code> value or if <em>num_objects</em> &gt; 0 and <em>mem_objects</em> is <code>NULL</code>.</p>
 </li>
 <li>
-<p><code>CL_INVALID_MEM_OBJECT</code> if memory objects in <em>mem_objects</em> are not valid OpenCL memory objects or if memory objects in <em>mem_objects</em> have not been created from Direct3D 11 resources.</p>
+<p><code>CL_INVALID_<wbr>MEM_<wbr>OBJECT</code> if memory objects in <em>mem_objects</em> are not valid
+OpenCL memory objects or if memory objects in <em>mem_objects</em> have not
+been created from Direct3D 11 resources.</p>
 </li>
 <li>
-<p><code>CL_INVALID_COMMAND_QUEUE</code> if <em>command_queue</em> is not a valid command-queue.</p>
+<p><code>CL_INVALID_<wbr>COMMAND_<wbr>QUEUE</code> if <em>command_queue</em> is not a valid
+command-queue.</p>
 </li>
 <li>
-<p><code>CL_INVALID_CONTEXT</code> if context associated with <em>command_queue</em> was not created from a Direct3D 11 device.</p>
+<p><code>CL_INVALID_<wbr>CONTEXT</code> if context associated with <em>command_queue</em> was not
+created from a Direct3D 11 device.</p>
 </li>
 <li>
-<p><code>CL_D3D11_RESOURCE_NOT_ACQUIRED_KHR</code> if memory objects in <em>mem_objects</em> have not previously been acquired using <a href="clEnqueueAcquireD3D11ObjectsKHR.html">clEnqueueAcquireD3D11ObjectsKHR</a>, or have been released using <code>clEnqueueReleaseD3D11ObjectsKHR</code> since the last time that they were acquired.</p>
+<p><code>CL_D3D11_<wbr>RESOURCE_<wbr>NOT_<wbr>ACQUIRED_<wbr>KHR</code> if memory objects in <em>mem_objects</em>
+have not previously been acquired using
+<strong>clEnqueueAcquireD3D11ObjectsKHR</strong>, or have been released using
+<strong>clEnqueueReleaseD3D11ObjectsKHR</strong> since the last time that they were
+acquired.</p>
 </li>
 <li>
-<p><code>CL_INVALID_EVENT_WAIT_LIST</code> if <em>event_wait_list</em> is NULL and <code>num_event_in_wait_list</code> &gt; 0, or <em>event_wait_list</em> is not NULL and <code>num_event_in_wait_list</code> is 0, or if event objects in <em>event_wait_list</em> are not valid events.</p>
+<p><code>CL_INVALID_<wbr>EVENT_<wbr>WAIT_<wbr>LIST</code> if <em>event_wait_list</em> is <code>NULL</code> and
+<em>num_events_in_wait_list</em> &gt; 0, or <em>event_wait_list</em> is not <code>NULL</code> and
+<em>num_events_in_wait_list</em>&gt; is 0, or if event objects in
+<em>event_wait_list</em> are not valid events.</p>
 </li>
 <li>
-<p><code>CL_OUT_OF_HOST_MEMORY</code> if there is a failure to allocate resources required by the OpenCL implementation on the host.</p>
+<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code> if there is a failure to allocate resources
+required by the OpenCL implementation on the host.</p>
 </li>
 </ul>
 </div>
@@ -934,7 +922,7 @@ Otherwise it returns one of the following errors:</p>
 <h2 id="_see_also"><a class="anchor" href="#_see_also"></a>See Also</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="cl_khr_d3d11_sharing.html">cl_khr_d3d11_sharing</a></p>
+<p><a href="cl_command_queue.html">cl_command_queue</a>, <a href="cl_event.html">cl_event</a>, <a href="cl_khr_d3d11_sharing.html">cl_khr_d3d11_sharing</a>, <a href="cl_mem.html">cl_mem</a>, <a href="cl_uint.html">cl_uint</a></p>
 </div>
 </div>
 </div>
@@ -942,10 +930,11 @@ Otherwise it returns one of the following errors:</p>
 <h2 id="_document_notes"><a class="anchor" href="#_document_notes"></a>Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Extension Specification at URL</p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#clEnqueueReleaseD3D11ObjectsKHR" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_Ext.html#clEnqueueReleaseD3D11ObjectsKHR" class="bare">https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_Ext.html#clEnqueueReleaseD3D11ObjectsKHR</a></p>
+<p>This page is extracted from the OpenCL Specification.
+Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 </div>
 </div>
@@ -953,7 +942,7 @@ Otherwise it returns one of the following errors:</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -963,8 +952,8 @@ Otherwise it returns one of the following errors:</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

@@ -767,17 +767,44 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <h1>cl_khr_gl_depth_images(3) Manual Page</h1>
 <h2 id="_name">Name</h2>
 <div class="sectionbody">
-<p>cl_khr_gl_depth_images - Extends CL/GL sharing to allow a CL image to be created from a GL depth or depth-stencil texture.</p>
+<p>cl_khr_gl_depth_images - OpenCL extension</p>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_c_specification"><a class="anchor" href="#_c_specification"></a>C Specification</h2>
+<h2 id="_ratification_status"><a class="anchor" href="#_ratification_status"></a>Ratification Status</h2>
 <div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#pragma OPENCL EXTENSION cl_khr_gl_depth_images : enable</code></pre>
+<div class="paragraph">
+<p>Ratified</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_extension_and_version_dependencies"><a class="anchor" href="#_extension_and_version_dependencies"></a>Extension and Version Dependencies</h2>
+<div class="sectionbody">
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><code><a href="#cl_khr_gl_sharing">[cl_khr_gl_sharing]</a></code><br></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_other_extension_metadata"><a class="anchor" href="#_other_extension_metadata"></a>Other Extension Metadata</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Last Modified Date</strong></dt>
+<dd>
+<p>2020-04-21</p>
+</dd>
+<dt class="hdlist1"><strong>IP Status</strong></dt>
+<dd>
+<p>No known IP claims.</p>
+</dd>
+</dl>
 </div>
 </div>
 </div>
@@ -785,82 +812,62 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The <code>cl_khr_gl_depth_images</code> extension extends CL / GL sharing (i.e.
-the <a href="cl_khr_gl_sharing.html">cl_khr_gl_sharing</a> extension) defined in section 9.7 to allow a CL depth image to be created from a GL depth or depth-stencil texture.
-If this extension is supported by an implementation, the string cl_khr_gl_depth_images will be present in the <code>CL_PLATFORM_EXTENSIONS</code> string described in table 4.1 or <code>CL_DEVICE_EXTENSIONS</code> string described in table 4.3.</p>
+<p><code>cl_khr_<wbr>gl_<wbr>depth_<wbr>images</code> extends OpenCL / OpenGL sharing defined by the
+<code>cl_khr_<wbr>gl_<wbr>sharing</code> extension to allow an OpenCL image to be created
+from an OpenGL depth or depth-stencil texture.</p>
 </div>
 <div class="paragraph">
-<p>Depth images with an image channel order of <code>CL_DEPTH_STENCIL</code> can only be created using the <a href="clCreateFromGLTexture.html">clCreateFromGLTexture</a> API.</p>
+<p>Depth images with an image channel order of <code>CL_DEPTH_<wbr>STENCIL</code> can only be
+created using the <strong>clCreateFromGLTexture</strong> API.</p>
 </div>
-<div class="paragraph">
-<p>For the image format given by channel order of <code>CL_DEPTH_STENCIL</code> and channel data type of <code>CL_UNORM_INT24</code>, the depth is stored as an unsigned normalized 24-bit value.</p>
 </div>
-<div class="paragraph">
-<p>For the image format given by channel order of <code>CL_DEPTH_STENCIL</code> and channel data type of <code>CL_FLOAT</code>, each pixel is two 32-bit values.
-The depth is stored as a single precision floating-point value followed by the stencil which is stored as a 8-bit integer value.</p>
 </div>
-<div class="paragraph">
-<p>The stencil value cannot be read or written using the read imagef and write imagef built-in functions in an OpenCL kernel.</p>
+<div class="sect1">
+<h2 id="_new_enums"><a class="anchor" href="#_new_enums"></a>New Enums</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><code>cl_channel_<wbr>order</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_DEPTH_<wbr>STENCIL</code></p>
+</li>
+</ul>
 </div>
-<div class="paragraph">
-<p>Depth image objects with an image channel order = <code>CL_DEPTH_STENCIL</code> cannot be used as arguments to <a href="clEnqueueReadImage.html">clEnqueueReadImage</a>,
-<a href="clEnqueueWriteImage.html">clEnqueueWriteImage</a>,
-<a href="clEnqueueCopyImage.html">clEnqueueCopyImage</a>,
-<a href="clEnqueueCopyImageToBuffer.html">clEnqueueCopyImageToBuffer</a>,
-<a href="clEnqueueCopyBufferToImage.html">clEnqueueCopyBufferToImage</a>,
-<a href="clEnqueueMapImage.html">clEnqueueMapImage</a> and
-<a href="clEnqueueFillImage.html">clEnqueueFillImage</a> and will return a <code>CL_INVALID_OPERATION</code> error.</p>
+</li>
+<li>
+<p><code>cl_channel_<wbr>type</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_UNORM_<wbr>INT24</code></p>
+</li>
+</ul>
 </div>
-<div class="paragraph">
-<p>The following new image formats are added to table 9.4 in section 9.7.3.1 of the OpenCL 2.1 extension specification.
-If a GL texture object with an internal format from table 9.4 is successfully created by OpenGL, then there is guaranteed to be a mapping to one of the corresponding CL image format(s) in that table.</p>
+</li>
+</ul>
 </div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">GL internal format</th>
-<th class="tableblock halign-left valign-top">CL image format (channel order, channel data type)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>GL_DEPTH_COMPONENT32F</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_DEPTH, CL_FLOAT</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>GL_DEPTH_COMPONENT16</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_DEPTH, CL_UNORM_INT16</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>GL_DEPTH24_STENCIL8</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_DEPTH_STENCIL, CL_UNORM_INT24</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>GL_DEPTH32F_STENCIL8</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>CL_DEPTH_STENCIL, CL_FLOAT</code></p>
-</div></div></td>
-</tr>
-</tbody>
-</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_version_history"><a class="anchor" href="#_version_history"></a>Version History</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Revision 1.0.0, 2020-04-21</p>
+<div class="ulist">
+<ul>
+<li>
+<p>First assigned version.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -875,10 +882,11 @@ If a GL texture object with an internal format from table 9.4 is successfully cr
 <h2 id="_document_notes"><a class="anchor" href="#_document_notes"></a>Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Extension Specification at URL</p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#cl_khr_gl_depth_images" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_gl_depth_images" class="bare">https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_gl_depth_images</a></p>
+<p>This page is a generated document.
+Fixes and changes should be made to the generator scripts, not directly.</p>
 </div>
 </div>
 </div>
@@ -886,7 +894,7 @@ If a GL texture object with an internal format from table 9.4 is successfully cr
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -896,8 +904,8 @@ If a GL texture object with an internal format from table 9.4 is successfully cr
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

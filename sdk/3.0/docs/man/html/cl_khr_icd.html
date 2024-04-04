@@ -767,17 +767,40 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <h1>cl_khr_icd(3) Manual Page</h1>
 <h2 id="_name">Name</h2>
 <div class="sectionbody">
-<p>cl_khr_icd - Extension through which the Khronos OpenCL installable client driver loader (ICD Loader) may expose multiple separate vendor installable client drivers (Vendor ICDs) for OpenCL.</p>
+<p>cl_khr_icd - OpenCL extension</p>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_c_specification"><a class="anchor" href="#_c_specification"></a>C Specification</h2>
+<h2 id="_ratification_status"><a class="anchor" href="#_ratification_status"></a>Ratification Status</h2>
 <div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#pragma OPENCL EXTENSION cl_khr_icd : enable</code></pre>
+<div class="paragraph">
+<p>Ratified</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_extension_and_version_dependencies"><a class="anchor" href="#_extension_and_version_dependencies"></a>Extension and Version Dependencies</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>None</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_other_extension_metadata"><a class="anchor" href="#_other_extension_metadata"></a>Other Extension Metadata</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Last Modified Date</strong></dt>
+<dd>
+<p>2020-04-21</p>
+</dd>
+<dt class="hdlist1"><strong>IP Status</strong></dt>
+<dd>
+<p>No known IP claims.</p>
+</dd>
+</dl>
 </div>
 </div>
 </div>
@@ -785,20 +808,42 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This is a platform extension which defines a simple mechanism through which the Khronos OpenCL installable client driver loader (ICD Loader) may expose multiple separate vendor installable client drivers (Vendor ICDs) for OpenCL.
-An application written against the ICD Loader will be able to access all <code>cl_platform_ids</code> exposed by all vendor implementations with the ICD Loader acting as a demultiplexor.
-If this extension is supported by an implementation, the string <code>cl_khr_icd</code> will be present in the <code>CL_PLATFORM_EXTENSIONS</code> string described in the table of allowed values for <em>param_name</em> for <a href="clGetDeviceInfo.html">clGetDeviceInfo</a>.</p>
+<p><code>cl_khr_<wbr>icd</code> describes a platform extension which defines a simple mechanism
+through which the Khronos OpenCL installable client driver loader (ICD
+Loader) may expose multiple separate vendor installable client drivers
+(Vendor ICDs) for OpenCL.
+An application written against the ICD Loader will be able to access all
+<code>cl_platform_<wbr>id</code>s exposed by all vendor implementations with the ICD
+Loader acting as a demultiplexor.</p>
 </div>
 <div class="paragraph">
-<p>If the <code>cl_khr_icd</code> extension is supported, then the <a href="clIcdGetPlatformIDsKHR.html">clIcdGetPlatformIDsKHR</a> function is enabled.</p>
+<p>This is a platform extension, so if this extension is supported by an
+implementation, the string <code>"cl_khr_icd"</code> will be present in the
+<code>CL_PLATFORM_<wbr>EXTENSIONS</code> string.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_source_code"><a class="anchor" href="#_source_code"></a>Source Code</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The official source for the ICD Loader is available on github, at:</p>
 </div>
 <div class="paragraph">
-<p>The official source for the ICD loader is available at the Khronos website.
-The complete <code>_cl_icd_dispatch</code> structure is defined in the header <code>icd_dispatch.h</code> which is available as a part of the source code.</p>
+<p><a href="https://github.com/KhronosGroup/OpenCL-ICD-Loader" class="bare">https://github.com/KhronosGroup/OpenCL-ICD-Loader</a></p>
 </div>
 <div class="paragraph">
-<div class="title">Inferring Vendors from Function Call Arguments</div>
-<p>At every OpenCL function call, the ICD Loader infers the vendor ICD function to call from the arguments to the function.
+<p>The complete <code>_cl_icd_dispatch</code> structure is defined in the header
+<code>cl_icd.h</code>, which is available as a part of the OpenCL headers.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_inferring_vendors_from_function_call_arguments"><a class="anchor" href="#_inferring_vendors_from_function_call_arguments"></a>Inferring Vendors From Function Call Arguments</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>At every OpenCL function call, the ICD Loader infers the vendor ICD function
+to call from the arguments to the function.
 An object is said to be ICD compatible if it is of the following structure:</p>
 </div>
 <div class="listingblock">
@@ -811,89 +856,351 @@ An object is said to be ICD compatible if it is of the following structure:</p>
 </div>
 </div>
 <div class="paragraph">
-<p><code>&lt;object&gt;</code> is one of <code>platform_id</code>, <code>device_id</code>, <code>context</code>, <code>command_queue</code>, <code>mem</code>, <code>program</code>, <code>kernel</code>, <code>event</code>, or <code>sampler</code>.</p>
+<p>&lt;object&gt; is one of platform_id, device_id, context, command_queue, mem,
+program, kernel, event, or sampler.</p>
 </div>
 <div class="paragraph">
-<p>The structure <code>_cl_icd_dispatch</code> is a function pointer dispatch table which is used to direct calls to a particular vendor implementation.
+<p>The structure <code>_cl_icd_dispatch</code> is a function pointer dispatch table which
+is used to direct calls to a particular vendor implementation.
 All objects created from ICD compatible objects must be ICD compatible.</p>
 </div>
 <div class="paragraph">
-<p>A link to source code which defines the entries in the function table structure <code>_cl_icd_dispatch</code> is available in the Sample Code section of the OpenCL specification.
-The order of the functions in <code>_cl_icd_dispatch</code> is determined by the ICD Loader&#8217;s source.
-The ICD Loader&#8217;s source&#8217;s <code>_cl_icd_dispatch</code> table is to be appended to only.</p>
+<p>The definition for <code>_cl_icd_dispatch</code> is provided along with the OpenCL
+headers.
+Existing members can never be removed from that structure but new members
+can be appended.</p>
 </div>
 <div class="paragraph">
-<p>Functions which do not have an argument from which the vendor implementation may be inferred are ignored, with the exception of <code>clGetExtensionFunctionAddress</code>.
-which is described below.</p>
+<p>Functions which do not have an argument from which the vendor implementation
+may be inferred have been deprecated and may be ignored.</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_icd_data"><a class="anchor" href="#_icd_data"></a>ICD Data</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<div class="title">ICD Data</div>
 <p>A Vendor ICD is defined by two pieces of data:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The Vendor ICD library specifies a library which contains the OpenCL entry points for the vendor&#8217;s OpenCL implementation.
-The vendor ICD&#8217;s library file name should include the vendor name, or a vendor-specific implementation identifier.</p>
+<p>The Vendor ICD library specifies a library which contains the OpenCL
+entry points for the vendor&#8217;s OpenCL implementation.
+The vendor ICD&#8217;s library file name should include the vendor name, or a
+vendor-specific implementation identifier.</p>
 </li>
 <li>
-<p>The Vendor ICD extension suffix is a short string which specifies the default suffix for extensions implemented only by that vendor.
-See Additions to Chapter 9 for details on the mechanism through which this is accomplished.
+<p>The Vendor ICD extension suffix is a short string which specifies the
+default suffix for extensions implemented only by that vendor.
 The vendor suffix string is optional.</p>
 </li>
 </ul>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_icd_loader_vendor_enumeration_on_windows"><a class="anchor" href="#_icd_loader_vendor_enumeration_on_windows"></a>ICD Loader Vendor Enumeration on Windows</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<div class="title">ICD Loader Vendor Enumeration on Windows</div>
-<p>To enumerate Vendor ICDs on Windows, the ICD Loader scans the values in the registry key <code>HKEY_LOCAL_MACHINE\SOFTWARE\Khronos\OpenCL\Vendors</code>.
-For each value in this key which has <code>DWORD</code> data set to 0, the ICD Loader opens the dynamic link library specified by the name of the value using <code>LoadLibraryA</code>.</p>
+<p>To enumerate Vendor ICDs on Windows, the ICD Loader will first scan for
+REG_SZ string values in the "Display Adapter" and "Software Components" HKR
+registry keys.
+The exact registry keys to scan should be obtained via PnP Configuration
+Manager APIs, but will look like:</p>
 </div>
 <div class="paragraph">
-<p>For example, if the registry contains the following value</p>
+<p>For 64-bit ICDs:</p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre>[HKEY_LOCAL_MACHINE\SOFTWARE\Khronos\OpenCL\Vendors]
+<pre>HKLM\SYSTEM\CurrentControlSet\Control\Class\
+{Display Adapter GUID}\{Instance ID}\OpenCLDriverName, or
+
+HKLM\SYSTEM\CurrentControlSet\Control\Class\
+{Software Component GUID}\{Instance ID}\OpenCLDriverName</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For 32-bit ICDs:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>HKLM\SYSTEM\CurrentControlSet\Control\Class\
+{Display Adapter GUID}\{Instance ID}\OpenCLDriverNameWoW, or
+
+HKLM\SYSTEM\CurrentControlSet\Control\Class\
+{Software Component GUID}\{Instance ID}\OpenCLDriverNameWoW</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>These registry values contain the path to the Vendor ICD library.
+For example, if the registry contains the value:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>[HKLM\SYSTEM\CurrentControlSet\Control\Class\{GUID}\{Instance}]
+"OpenCLDriverName"="c:\\vendor a\\vndra_ocl.dll"</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then the ICD Loader will open the Vendor ICD library:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>c:\vendor a\vndra_ocl.dll</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The ICD Loader will also scan for REG_DWORD values in the registry key:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>HKLM\SOFTWARE\Khronos\OpenCL\Vendors</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For each registry value in this key which has data set to 0, the ICD Loader
+will open the Vendor ICD library specified by the name of the registry
+value.</p>
+</div>
+<div class="paragraph">
+<p>For example, if the registry contains the value:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>[HKLM\SOFTWARE\Khronos\OpenCL\Vendors]
 "c:\\vendor a\\vndra_ocl.dll"=dword:00000000</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>then the ICD will open the library &#8220;c:\vendor a\vndra_ocl.dll&#8221;.</p>
+<p>Then the ICD Loader will open the Vendor ICD library:</p>
 </div>
+<div class="literalblock">
+<div class="content">
+<pre>c:\vendor a\vndra_ocl.dll</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_icd_loader_vendor_enumeration_on_linux"><a class="anchor" href="#_icd_loader_vendor_enumeration_on_linux"></a>ICD Loader Vendor Enumeration on Linux</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<div class="title">ICD Loader Vendor Enumeration on Linux</div>
-<p>To enumerate vendor ICDs on Linux, the ICD Loader scans the files in the path <code>/etc/OpenCL/vendors</code>.
+<p>To enumerate vendor ICDs on Linux, the ICD Loader scans the files in the
+path <code>/etc/OpenCL/vendors</code>.
 For each file in this path, the ICD Loader opens the file as a text file.
-The expected format for the file is a single line of text which specifies the Vendor ICD&#8217;s library.
-The ICD Loader will attempt to open that file as a shared object using <code>dlopen()</code>.
+The expected format for the file is a single line of text which specifies
+the Vendor ICD&#8217;s library.
+The ICD Loader will attempt to open that file as a shared object using
+dlopen().
 Note that the library specified may be an absolute path or just a file name.</p>
 </div>
 <div class="paragraph">
-<p>For example, if the following file exists <code>/etc/OpenCL/vendors/VendorA.icd</code> and contains the text <code>libVendorAOpenCL.so</code> then the ICD Loader will load the library &#8220;libVendorAOpenCL.so&#8221;.</p>
+<p>For example, if the following file exists</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>/etc/OpenCL/vendors/VendorA.icd</pre>
+</div>
 </div>
 <div class="paragraph">
-<div class="title">ICD Loader Vendor Enumeration on Android</div>
-<p>To enumerate vendor ICDs on Android, the ICD Loader scans the files in the path <code>/system/vendor/Khronos/OpenCL/vendors</code>.
+<p>and contains the text</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>libVendorAOpenCL.so</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>then the ICD Loader will load the library <code>libVendorAOpenCL.so</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_icd_loader_vendor_enumeration_on_android"><a class="anchor" href="#_icd_loader_vendor_enumeration_on_android"></a>ICD Loader Vendor Enumeration on Android</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To enumerate vendor ICDs on Android, the ICD Loader scans the files in the
+path <code>/system/vendor/Khronos/OpenCL/vendors</code>.
 For each file in this path, the ICD Loader opens the file as a text file.
-The expected format for the file is a single line of text which specifies the Vendor ICD&#8217;s library.
-The ICD Loader will attempt to open that file as a shared object using <code>dlopen()</code>.
+The expected format for the file is a single line of text which specifies
+the Vendor ICD&#8217;s library.
+The ICD Loader will attempt to open that file as a shared object using
+dlopen().
 Note that the library specified may be an absolute path or just a file name.</p>
 </div>
 <div class="paragraph">
-<p>For example, if the following file exists <code>/system/vendor/Khronos/OpenCL/vendors/VendorA.icd</code> and contains the text <code>libVendorAOpenCL.so</code> then the ICD Loader will load the library &#8220;libVendorAOpenCL.so&#8221;.</p>
+<p>For example, if the following file exists</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>/system/vendor/Khronos/OpenCL/vendors/VendorA.icd</pre>
+</div>
 </div>
 <div class="paragraph">
-<div class="title">Adding a Vendor Library</div>
-<p>Upon successfully loading a Vendor ICD&#8217;s library, the ICD Loader queries the following functions from the library: <a href="clIcdGetPlatformIDsKHR.html">clIcdGetPlatformIDsKHR</a>,
-<a href="clGetPlatformInfo.html">clGetPlatformInfo</a>, and <code>clGetExtensionFunctionAddress</code>.
-If any of these functions are not present then the ICD Loader will close and ignore the library.</p>
+<p>and contains the text</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>libVendorAOpenCL.so</pre>
+</div>
 </div>
 <div class="paragraph">
-<p>Next the ICD Loader queries available ICD-enabled platforms in the library using <a href="clIcdGetPlatformIDsKHR.html">clIcdGetPlatformIDsKHR</a>.
-For each of these platforms, the ICD Loader queries the platform&#8217;s extension string to verify that <code>cl_khr_icd</code> is supported, then queries the platform&#8217;s Vendor ICD extension suffix using <a href="clGetPlatformInfo.html">clGetPlatformInfo</a> with the value <code>CL_PLATFORM_ICD_SUFFIX_KHR</code>.</p>
+<p>then the ICD Loader will load the library <code>libVendorAOpenCL.so</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_adding_a_vendor_library"><a class="anchor" href="#_adding_a_vendor_library"></a>Adding a Vendor Library</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Upon successfully loading a Vendor ICD&#8217;s library, the ICD Loader queries the
+following functions from the library: <strong>clIcdGetPlatformIDsKHR</strong>,
+<strong>clGetPlatformInfo</strong>, and <strong>clGetExtensionFunctionAddress</strong> (note:
+<strong>clGetExtensionFunctionAddress</strong> has been deprecated, but is still required
+for the ICD Loader).
+If any of these functions are not present then the ICD Loader will close and
+ignore the library.</p>
 </div>
 <div class="paragraph">
-<p>If any of these steps fail, the ICD Loader will ignore the Vendor ICD and continue on to the next.</p>
+<p>Next the ICD Loader queries available ICD-enabled platforms in the library
+using <strong>clIcdGetPlatformIDsKHR</strong>.
+For each of these platforms, the ICD Loader queries the platform&#8217;s extension
+string to verify that <code>cl_khr_<wbr>icd</code> is supported, then queries the
+platform&#8217;s Vendor ICD extension suffix using <strong>clGetPlatformInfo</strong> with the
+value <code>CL_PLATFORM_<wbr>ICD_<wbr>SUFFIX_<wbr>KHR</code>.</p>
+</div>
+<div class="paragraph">
+<p>If any of these steps fail, the ICD Loader will ignore the Vendor ICD and
+continue on to the next.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_new_commands"><a class="anchor" href="#_new_commands"></a>New Commands</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>clIcdGetPlatformIDsKHR</strong></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_new_enums"><a class="anchor" href="#_new_enums"></a>New Enums</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Accepted as <em>param_name</em> to the function <strong>clGetPlatformInfo</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_PLATFORM_<wbr>ICD_<wbr>SUFFIX_<wbr>KHR</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Returned by <strong>clGetPlatformIDs</strong> when no platforms are found:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_PLATFORM_<wbr>NOT_<wbr>FOUND_<wbr>KHR</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_issues"><a class="anchor" href="#_issues"></a>Issues</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Some OpenCL functions do not take an object argument from which their
+vendor library may be identified (e.g, <strong>clUnloadCompiler</strong>), how will
+they be handled?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>RESOLVED</strong>: Such functions will be a noop for all calls through the ICD
+Loader.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>How are OpenCL extension to be handled?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>RESOLVED</strong>: Extension APIs must be queried using
+<strong>clGetExtensionFunctionAddressForPlatform</strong>.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>How will the ICD Loader handle a <code>NULL</code> <code>cl_platform_<wbr>id</code>?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>RESOLVED</strong>: The ICD will by default choose the first enumerated platform as
+the <code>NULL</code> platform.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>There exists no mechanism to unload the ICD Loader, should there be one?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>RESOLVED</strong>: As there is no standard mechanism for unloading a vendor
+implementation, do not add one for the ICD Loader.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>How will the ICD Loader handle <code>NULL</code> objects passed to the OpenCL
+functions?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>RESOLVED</strong>: The ICD Loader will check for <code>NULL</code> objects passed to the
+OpenCL functions without trying to dereference the <code>NULL</code> objects for
+obtaining the ICD dispatch table.
+On detecting a <code>NULL</code> object it will return one of the an invalid object
+error values (e.g. <code>CL_INVALID_<wbr>DEVICE</code> corresponding to the object in
+question.</p>
+</div>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_version_history"><a class="anchor" href="#_version_history"></a>Version History</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Revision 1.0.0, 2020-04-21</p>
+<div class="ulist">
+<ul>
+<li>
+<p>First assigned version.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -901,8 +1208,7 @@ For each of these platforms, the ICD Loader queries the platform&#8217;s extensi
 <h2 id="_see_also"><a class="anchor" href="#_see_also"></a>See Also</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="EXTENSION.html">EXTENSION</a>,
-<a href="clIcdGetPlatformIDsKHR.html">clIcdGetPlatformIDsKHR</a></p>
+<p>No cross-references are available</p>
 </div>
 </div>
 </div>
@@ -910,10 +1216,11 @@ For each of these platforms, the ICD Loader queries the platform&#8217;s extensi
 <h2 id="_document_notes"><a class="anchor" href="#_document_notes"></a>Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Extension Specification at URL</p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#cl_khr_icd" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_icd" class="bare">https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_icd</a></p>
+<p>This page is a generated document.
+Fixes and changes should be made to the generator scripts, not directly.</p>
 </div>
 </div>
 </div>
@@ -921,7 +1228,7 @@ For each of these platforms, the ICD Loader queries the platform&#8217;s extensi
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -931,8 +1238,8 @@ For each of these platforms, the ICD Loader queries the platform&#8217;s extensi
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

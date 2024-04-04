@@ -767,27 +767,52 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <h1>clTerminateContextKHR(3) Manual Page</h1>
 <h2 id="_name">Name</h2>
 <div class="sectionbody">
-<p>clTerminateContextKHR - Terminates all pending work associated with the context and renders all data owned by the context invalid.</p>
+<p>clTerminateContextKHR - Terminate pending work associated with a context and render data owned by the context invalid</p>
 </div>
 </div>
 <div id="content">
-<div id="preamble">
+<div class="sect1">
+<h2 id="_c_specification"><a class="anchor" href="#_c_specification"></a>C Specification</h2>
 <div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">cl_int clTerminateContextKHR(cl_context context)</code></pre>
+<div class="paragraph">
+<p>To terminate all pending work associated with a context and render all data
+owned by the context invalid, call the function</p>
 </div>
+<div id="clTerminateContextKHR" class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-opencl" data-lang="opencl">// Provided by cl_khr_terminate_context
+cl_int clTerminateContextKHR(
+    cl_context context);</code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<strong>clTerminateContextKHR</strong> is provided by the <code>cl_khr_terminate_context</code> extension.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_parameters"><a class="anchor" href="#_parameters"></a>Parameters</h2>
 <div class="sectionbody">
-
+<div class="ulist">
+<ul>
+<li>
+<p><em>context</em> must be a valid OpenCL context.</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_notes"><a class="anchor" href="#_notes"></a>Notes</h2>
+<h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>It is the responsibility of the application to release all objects
@@ -799,23 +824,25 @@ associated with the context being terminated.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>The execution status of enqueued commands will be <code>CL_TERMINATED_KHR</code>.
-Event objects can be queried using
-<a href="clGetEventInfo.html">clGetEventInfo</a>. Event callbacks can be
-registered and registered event callbacks will be called with
-<code>event_command_status</code> set to <code>CL_TERMINATED_KHR</code>.
-<a href="clWaitForEvents.html">clWaitForEvents</a> will return as immediately
-for commands associated with event objects specified in <code>event_list</code>.
-The status of user events can be set. Event objects can be retained and
-released. <a href="clGetEventProfilingInfo.html">clGetEventProfilingInfo</a>
-returns <code>CL_PROFILING_INFO_NOT_AVAILABLE</code>.</p>
+<p>The execution status of enqueued commands will be
+<code>CL_CONTEXT_<wbr>TERMINATED_<wbr>KHR</code>.
+Event objects can be queried using <strong>clGetEventInfo</strong>.
+Event callbacks can be registered and registered event callbacks will be
+called with <em>event_command_status</em> set to <code>CL_CONTEXT_<wbr>TERMINATED_<wbr>KHR</code>.
+<strong>clWaitForEvents</strong> will return as immediately for commands associated
+with event objects specified in event_list.
+The status of user events can be set.
+Event objects can be retained and released.
+<strong>clGetEventProfilingInfo</strong> returns <code>CL_PROFILING_<wbr>INFO_<wbr>NOT_<wbr>AVAILABLE</code>.</p>
 </li>
 <li>
-<p>The context is considered to be terminated. A callback function
-registered when the context was created will be called. Only queries,
-retain and release operations can be performed on the context. All other
-APIs that use a context as an argument will return
-<code>CL_CONTEXT_TERMINATED_KHR</code>.</p>
+<p>The context is considered to be terminated.
+A callback function registered when the context was created will be
+called.
+Only queries, retain and release operations can be performed on the
+context.
+All other APIs that use a context as an argument will return
+<code>CL_CONTEXT_<wbr>TERMINATED_<wbr>KHR</code>.</p>
 </li>
 <li>
 <p>The contents of the memory regions of the memory objects is undefined.
@@ -824,64 +851,60 @@ operations can be performed on the memory objects.</p>
 </li>
 <li>
 <p>Once a context has been terminated, all OpenCL API calls that create
-objects or enqueue commands will return <code>CL_CONTEXT_TERMINATED_KHR</code>.
+objects or enqueue commands will return <code>CL_CONTEXT_<wbr>TERMINATED_<wbr>KHR</code>.
 APIs that release OpenCL objects will continue to operate as though
-<code>clTerminateContextKHR</code> was not called.</p>
+<strong>clTerminateContextKHR</strong> was not called.</p>
 </li>
 <li>
 <p>The behavior of callbacks will remain unchanged, and will report
-appropriate error, if executing after termination of context. This
-behavior is similar to enqueued commands, after the command-queue has
-become invalid.</p>
+appropriate error, if executing after termination of context.
+This behavior is similar to enqueued commands, after the command-queue
+has become invalid.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>clTerminateContextKHR</strong> returns <code>CL_SUCCESS</code> if the function is executed
+successfully.
+Otherwise, it returns one of the following errors:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_INVALID_<wbr>CONTEXT</code> if <em>context</em> is not a valid OpenCL context.</p>
+</li>
+<li>
+<p><code>CL_CONTEXT_<wbr>TERMINATED_<wbr>KHR</code> if <em>context</em> has already been terminated.</p>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>OPERATION</code> if <em>context</em> was not created with
+<code>CL_CONTEXT_<wbr>TERMINATE_<wbr>KHR</code> set to <code>CL_TRUE</code>.</p>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources
+required by the OpenCL implementation on the device.</p>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code> if there is a failure to allocate resources
+required by the OpenCL implementation on the host.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
 <p>An implementation that supports this extension must be able to terminate
 commands currently executing on devices or queued across all command-queues
-associated with the context that is being terminated. The implementation
-cannot implement this extension by waiting for currently executing (or
-queued) commands to finish execution on devices associated with this context
-(i.e. doing a <a href="clFinish.html">clFinish</a>.</p>
-</div>
-<div class="paragraph">
-<p>In Table 4.5 (see <a href="clCreateContext.html">clCreateContext</a>), <code>CL_CONTEXT_TERMINATE_KHR</code>
-can be specified in the context properties only if all devices associated
-with the context support the ability to support context termination (i.e.
-<code>CL_DEVICE_TERMINATE_CAPABILITY_CONTEXT_KHR</code> is set for
-<code>CL_DEVICE_TERMINATE_CAPABILITY_KHR</code>). Otherwise, context creation fails
-with error code of <code>CL_INVALID_PROPERTY</code>.</p>
+associated with the context that is being terminated.
+The implementation cannot implement this extension by waiting for currently
+executing (or queued) commands to finish execution on devices associated
+with this context (i.e. doing a <strong>clFinish</strong>).</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_errors"><a class="anchor" href="#_errors"></a>Errors</h2>
+<h2 id="_see_also"><a class="anchor" href="#_see_also"></a>See Also</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>clTerminateContextKHR</code> returns <code>CL_SUCCESS</code> if the function is executed
-successfully. Otherwise, it returns one of the following errors:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>CL_INVALID_CONTEXT</code> if <em>context</em> is not a valid OpenCL context.</p>
-</li>
-<li>
-<p><code>CL_CONTEXT_TERMINATED_KHR</code> if <em>context</em> has already been terminated.</p>
-</li>
-<li>
-<p><code>CL_INVALID_OPERATION</code> if <em>context</em> was not created with
-<code>CL_CONTEXT_TERMINATE_KHR</code> set to <code>CL_TRUE</code>.</p>
-</li>
-<li>
-<p><code>CL_OUT_OF_RESOURCES</code> if there is a failure to allocate resources
-required by the OpenCL implementation on the device.</p>
-</li>
-<li>
-<p><code>CL_OUT_OF_HOST_MEMORY</code> if there is a failure to allocate resources
-required by the OpenCL implementation on the host.</p>
-</li>
-</ul>
+<p><a href="cl_context.html">cl_context</a>, <a href="cl_khr_terminate_context.html">cl_khr_terminate_context</a></p>
 </div>
 </div>
 </div>
@@ -889,10 +912,11 @@ required by the OpenCL implementation on the host.</p>
 <h2 id="_document_notes"><a class="anchor" href="#_document_notes"></a>Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Extension Specification at URL</p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#clTerminateContextKHR" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_terminate_context" class="bare">https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_terminate_context</a></p>
+<p>This page is extracted from the OpenCL Specification.
+Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 </div>
 </div>
@@ -900,7 +924,7 @@ required by the OpenCL implementation on the host.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -910,8 +934,8 @@ required by the OpenCL implementation on the host.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

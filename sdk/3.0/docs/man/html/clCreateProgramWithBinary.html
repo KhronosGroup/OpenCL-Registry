@@ -780,7 +780,8 @@ object, call the function</p>
 </div>
 <div id="clCreateProgramWithBinary" class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-opencl" data-lang="opencl">cl_program clCreateProgramWithBinary(
+<pre class="highlight"><code class="language-opencl" data-lang="opencl">// Provided by CL_VERSION_1_0
+cl_program clCreateProgramWithBinary(
     cl_context context,
     cl_uint num_devices,
     const cl_device_id* device_list,
@@ -819,6 +820,21 @@ For each device given by <em>device_list</em>[i], the pointer to the program bin
 for that device is given by <em>binaries</em>[i] and the length of this
 corresponding binary is given by <em>lengths</em>[i].
 <em>lengths</em>[i] cannot be zero and <em>binaries</em>[i] cannot be a <code>NULL</code> pointer.</p>
+</li>
+<li>
+<p><em>binary_status</em> returns whether the program binary for each device specified
+in <em>device_list</em> was loaded successfully or not.
+It is an array of <em>num_devices</em> entries and returns <code>CL_SUCCESS</code> in
+<em>binary_status</em>[i] if binary was successfully loaded for device specified by
+<em>device_list</em>[i]; otherwise returns <code>CL_INVALID_<wbr>VALUE</code> if <em>lengths</em>[i] is zero
+or if <em>binaries</em>[i] is a <code>NULL</code> value or <code>CL_INVALID_<wbr>BINARY</code> in
+<em>binary_status</em>[i] if program binary is not a valid binary for the specified
+device.
+If <em>binary_status</em> is <code>NULL</code>, it is ignored.</p>
+</li>
+<li>
+<p><em>errcode_ret</em> will return an appropriate error code.
+If <em>errcode_ret</em> is <code>NULL</code>, no error code is returned.</p>
 </li>
 </ul>
 </div>
@@ -864,21 +880,6 @@ They contain bits that describe one of the following:</p>
 <p>Implementation-specific intermediate representation (IR) which will be
 converted to the device-specific code.</p>
 </li>
-<li>
-<p><em>binary_status</em> returns whether the program binary for each device specified
-in <em>device_list</em> was loaded successfully or not.
-It is an array of <em>num_devices</em> entries and returns <code>CL_SUCCESS</code> in
-<em>binary_status</em>[i] if binary was successfully loaded for device specified by
-<em>device_list</em>[i]; otherwise returns <code>CL_INVALID_<wbr>VALUE</code> if <em>lengths</em>[i] is zero
-or if <em>binaries</em>[i] is a <code>NULL</code> value or <code>CL_INVALID_<wbr>BINARY</code> in
-<em>binary_status</em>[i] if program binary is not a valid binary for the specified
-device.
-If <em>binary_status</em> is <code>NULL</code>, it is ignored.</p>
-</li>
-<li>
-<p><em>errcode_ret</em> will return an appropriate error code.
-If <em>errcode_ret</em> is <code>NULL</code>, no error code is returned.</p>
-</li>
 </ul>
 </div>
 <div class="paragraph">
@@ -890,6 +891,13 @@ instance for appropriate OpenCL devices in the system.
 These executables can now be queried and cached by the application.
 The cached executables can be read and loaded by the application, which can
 help significantly reduce the application initialization time.</p>
+</div>
+<div class="paragraph">
+<p>If the <code>cl_khr_<wbr>spir</code> extension is supported, <strong>clCreateProgramWithBinary</strong>
+can be used to load a SPIR binary.
+Once a program object has been created from a SPIR binary, <strong>clBuildProgram</strong>
+can be called to build a program executable or <strong>clCompileProgram</strong> can be
+called to compile the SPIR binary.</p>
 </div>
 <div class="paragraph">
 <p><strong>clCreateProgramWithBinary</strong> returns a valid non-zero program object and
@@ -955,7 +963,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -965,8 +973,8 @@ Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

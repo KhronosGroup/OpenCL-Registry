@@ -784,11 +784,13 @@ OpenCL.</p>
 <col style="width: 50%;">
 <col style="width: 50%;">
 </colgroup>
-<tbody>
+<thead>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Type</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>image2d_t</code> <sup class="footnote" id="_footnote_image-functions">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A 2D image.</p></td>
@@ -820,14 +822,14 @@ OpenCL.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>image2d_depth_t</code> <sup class="footnoteref">[<a class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A 2D depth image.</p>
-<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for OpenCL C 2.0 or newer, also see
-      <code>cl_khr_depth_images</code> extension.</p></td>
+<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for OpenCL C 2.0 or newer, or for
+      the <code>cl_khr_<wbr>depth_<wbr>images</code> extension macro.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>image2d_array_depth_t</code> <sup class="footnoteref">[<a class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A 2D depth image array.</p>
-<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for OpenCL C 2.0 or newer, also see
-      <code>cl_khr_depth_images</code> extension.</p></td>
+<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for OpenCL C 2.0 or newer, or for
+      the <code>cl_khr_<wbr>depth_<wbr>images</code> extension macro.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>sampler_t</code> <sup class="footnoteref">[<a class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p></td>
@@ -878,6 +880,42 @@ OpenCL.</p>
 <p class="tableblock">      These flags are described in detail in the
       <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#synchronization-functions" target="_blank" rel="noopener">synchronization functions</a> section.</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>image2d_msaa_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A 2D multi-sample color image.
+      Refer to the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#built-in-image-sampler-less-read-functions" target="_blank" rel="noopener">Built-in
+      Image Sampler-less Read Functions</a> section for a detailed description
+      of the built-in functions that use this type.</p>
+<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for the
+      <code>cl_khr_<wbr>gl_<wbr>msaa_<wbr>sharing</code> extension macro.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>image2d_array_msaa_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A 2D multi-sample color image array.
+      Refer to the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#built-in-image-sampler-less-read-functions" target="_blank" rel="noopener">Built-in
+      Image Sampler-less Read Functions</a> section for a detailed description
+      of the built-in functions that use this type.</p>
+<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for the
+      <code>cl_khr_<wbr>gl_<wbr>msaa_<wbr>sharing</code> extension macro.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>image2d_msaa_depth_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A 2D multi-sample depth image.
+      Refer to the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#built-in-image-sampler-less-read-functions" target="_blank" rel="noopener">Built-in
+      Image Sampler-less Read Functions</a> section for a detailed description
+      of the built-in functions that use this type.</p>
+<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for the
+      <code>cl_khr_<wbr>gl_<wbr>msaa_<wbr>sharing</code> extension macro.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>image2d_array_msaa_depth_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A 2D multi-sample depth image array.
+      Refer to the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#built-in-image-sampler-less-read-functions" target="_blank" rel="noopener">Built-in
+      Image Sampler-less Read Functions</a> section for a detailed description
+      of the built-in functions that use this type.</p>
+<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for the
+      <code>cl_khr_<wbr>gl_<wbr>msaa_<wbr>sharing</code> extension macro.</p></td>
+</tr>
 </tbody>
 </table>
 <div class="admonitionblock note">
@@ -891,7 +929,7 @@ OpenCL.</p>
 <p>The <code>image2d_t</code>, <code>image3d_t</code>, <code>image2d_array_t</code>, <code>image1d_t</code>,
 <code>image1d_buffer_t</code>, <code>image1d_array_t</code>, <code>image2d_depth_t</code>,
 <code>image2d_array_depth_t</code> and <code>sampler_t</code> types are only defined if the device
-supports images, i.e. the value of the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#opencl-device-queries" target="_blank" rel="noopener"><code>CL_DEVICE_IMAGE_SUPPORT</code> device query</a>) is <code>CL_TRUE</code>.
+supports images, i.e. the value of the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#opencl-device-queries" target="_blank" rel="noopener"><code>CL_DEVICE_<wbr>IMAGE_<wbr>SUPPORT</code> device query</a>) is <code>CL_TRUE</code>.
 If this is the case then an OpenCL C 3.0 or newer compiler must also define
 the <code>__opencl_c_<wbr>images</code> feature macro.</p>
 </div>
@@ -916,11 +954,13 @@ data type available to the application:</p>
 <col style="width: 50%;">
 <col style="width: 50%;">
 </colgroup>
-<tbody>
+<thead>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Type in OpenCL C</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>API type for application</strong></p></td>
+<th class="tableblock halign-left valign-top">Type in OpenCL C</th>
+<th class="tableblock halign-left valign-top">API type for application</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>image2d_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_mem</code></p></td>
@@ -1009,7 +1049,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -1025,8 +1065,8 @@ Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

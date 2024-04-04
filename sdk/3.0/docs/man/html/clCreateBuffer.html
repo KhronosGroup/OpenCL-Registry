@@ -779,7 +779,8 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 </div>
 <div id="clCreateBuffer" class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-opencl" data-lang="opencl">cl_mem clCreateBuffer(
+<pre class="highlight"><code class="language-opencl" data-lang="opencl">// Provided by CL_VERSION_1_0
+cl_mem clCreateBuffer(
     cl_context context,
     cl_mem_flags flags,
     size_t size,
@@ -792,7 +793,8 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 </div>
 <div id="clCreateBufferWithProperties" class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-opencl" data-lang="opencl">cl_mem clCreateBufferWithProperties(
+<pre class="highlight"><code class="language-opencl" data-lang="opencl">// Provided by CL_VERSION_3_0
+cl_mem clCreateBufferWithProperties(
     cl_context context,
     const cl_mem_properties* properties,
     cl_mem_flags flags,
@@ -827,7 +829,9 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <p><em>properties</em> is an optional list of properties for the buffer object and their corresponding values.
 The list is terminated with the special property <code>0</code>.
 If no properties are required, <em>properties</em> may be <code>NULL</code>.
-OpenCL 3.0 does not define any optional properties for buffers.</p>
+OpenCL 3.0 does not define any optional properties for buffers,
+but extensions may define properties as described in the
+<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#external-buffer-memory-properties-table" class="bare" target="_blank" rel="noopener">https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#external-buffer-memory-properties-table</a>.</p>
 </li>
 <li>
 <p><em>flags</em> is a bit-field that is used to specify allocation and usage
@@ -877,6 +881,46 @@ Locations in the buffers underlying shared memory can be operated on using
 atomic operations to the devices level of support as defined in the memory
 model.</p>
 </div>
+<table id="external-buffer-memory-properties-table" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. List of supported buffer creation properties</caption>
+<colgroup>
+<col style="width: 33%;">
+<col style="width: 17%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Property</th>
+<th class="tableblock halign-left valign-top">Property Value</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_MEM_<wbr>DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_external_memory</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_device_<wbr>id</code>[]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the list of OpenCL devices (terminated with
+        <code>CL_MEM_<wbr>DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>END_<wbr>KHR</code>) to associate with the
+        external memory handle.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>If <code>CL_MEM_<wbr>DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>KHR</code> is not specified as part of <em>properties</em>,
+the memory object created by <strong>clCreateBufferWithProperties</strong> or
+<strong>clCreateImageWithProperties</strong> is by default accessible to all devices in the
+<em>context</em>.</p>
+</div>
+<div class="paragraph">
+<p>The properties used to create a buffer from an external memory handle are
+<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#external-memory-handle-types" target="_blank" rel="noopener">described for the corresponding
+extensions</a>.
+When a buffer is created from an external memory handle, the
+<em>flags</em> used to specify usage information for the buffer must not
+include <code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code>, <code>CL_MEM_<wbr>ALLOC_<wbr>HOST_<wbr>PTR</code>, or
+<code>CL_MEM_<wbr>COPY_<wbr>HOST_<wbr>PTR</code>, and the <em>host_ptr</em> argument must be <code>NULL</code>.</p>
+</div>
 <div class="paragraph">
 <p><strong>clCreateBuffer</strong> and <strong>clCreateBufferWithProperties</strong> returns a valid non-zero
 buffer object and <em>errcode_ret</em> is set to <code>CL_SUCCESS</code> if the buffer object
@@ -922,10 +966,64 @@ by the OpenCL implementation on the device.</p>
 <p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code> if there is a failure to allocate resources
 required by the OpenCL implementation on the host.</p>
 </li>
+<li>
+<p><code>CL_INVALID_<wbr>DEVICE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if a device identified by the property <code>CL_MEM_<wbr>DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>KHR</code>
+is not a valid device or is not associated with <em>context</em>, or</p>
+</li>
+<li>
+<p>if a device identified by property <code>CL_MEM_<wbr>DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>KHR</code>
+cannot import the requested external memory object type, or</p>
+</li>
+<li>
+<p>if <code>CL_MEM_<wbr>DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>KHR</code> is not specified as part of
+<em>properties</em> and one or more devices in <em>context</em> cannot import the
+requested external memory object type.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>VALUE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>properties</em> includes a supported external memory handle and <em>flags</em>
+includes <code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code>, <code>CL_MEM_<wbr>ALLOC_<wbr>HOST_<wbr>PTR</code>, or
+<code>CL_MEM_<wbr>COPY_<wbr>HOST_<wbr>PTR</code>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>HOST_<wbr>PTR</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>properties</em> includes a supported external memory handle and
+<em>host_ptr</em> is not <code>NULL</code>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>PROPERTY</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>properties</em> does not include a supported external memory handle and
+<code>CL_MEM_<wbr>DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>KHR</code> is specified as part of <em>properties</em>.</p>
+</li>
+</ul>
+</div>
+</li>
 </ul>
 </div>
 <table id="memory-flags-table" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. List of supported memory flag values</caption>
+<caption class="title">Table 2. List of supported memory flag values</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1060,7 +1158,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -1070,8 +1168,8 @@ Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

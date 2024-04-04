@@ -779,7 +779,8 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 </div>
 <div id="clGetKernelSubGroupInfo" class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-opencl" data-lang="opencl">cl_int clGetKernelSubGroupInfo(
+<pre class="highlight"><code class="language-opencl" data-lang="opencl">// Provided by CL_VERSION_2_1
+cl_int clGetKernelSubGroupInfo(
     cl_kernel kernel,
     cl_device_id device,
     cl_kernel_sub_group_info param_name,
@@ -790,24 +791,14 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
     size_t* param_value_size_ret);</code></pre>
 </div>
 </div>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-important" title="Important"></i>
-</td>
-<td class="content">
-<strong>clGetKernelSubGroupInfo</strong> is <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.1.
-Also see extension <strong>cl_khr_subgroups</strong>.
-</td>
-</tr>
-</table>
-</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_parameters"><a class="anchor" href="#_parameters"></a>Parameters</h2>
+<h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Also see <code>cl_khr_<wbr>subgroups</code>.</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
@@ -855,11 +846,6 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </li>
 </ul>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
-<div class="sectionbody">
 <table id="kernel-sub-group-info-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. List of supported param_names by <strong>clGetKernelSubGroupInfo</strong></caption>
 <colgroup>
@@ -879,8 +865,9 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_KERNEL_<wbr>MAX_<wbr>SUB_<wbr>GROUP_<wbr>SIZE_<wbr>FOR_<wbr>NDRANGE</code></p>
-<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.1.
-Also see extension <strong>cl_khr_subgroups</strong>.</p></td>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.1.</p>
+<p class="tableblock">The equivalent <code>CL_KERNEL_<wbr>MAX_<wbr>SUB_<wbr>GROUP_<wbr>SIZE_<wbr>FOR_<wbr>NDRANGE_<wbr>KHR</code> may be used if
+the <code>cl_khr_<wbr>subgroups</code> extension is supported.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>size_t</code>*</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>size_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the maximum sub-group size for this kernel.
@@ -895,8 +882,9 @@ Also see extension <strong>cl_khr_subgroups</strong>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_KERNEL_<wbr>SUB_<wbr>GROUP_<wbr>COUNT_<wbr>FOR_<wbr>NDRANGE</code></p>
-<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.1.
-Also see extension <strong>cl_khr_subgroups</strong>.</p></td>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.1.</p>
+<p class="tableblock">The equivalent <code>CL_KERNEL_<wbr>SUB_<wbr>GROUP_<wbr>COUNT_<wbr>FOR_<wbr>NDRANGE_<wbr>KHR</code> may be used if
+the <code>cl_khr_<wbr>subgroups</code> extension is supported.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>size_t</code>*</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>size_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the number of sub-groups that will be present in each
@@ -912,8 +900,8 @@ Also see extension <strong>cl_khr_subgroups</strong>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_KERNEL_<wbr>LOCAL_<wbr>SIZE_<wbr>FOR_<wbr>SUB_<wbr>GROUP_<wbr>COUNT</code></p>
-<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.1.
-Also see extension <strong>cl_khr_subgroups</strong>.</p></td>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.1.</p>
+<p class="tableblock">Also see <code>cl_khr_<wbr>subgroups</code>.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>size_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>size_t</code>[]</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the local size that will generate the requested number
@@ -933,8 +921,8 @@ Also see extension <strong>cl_khr_subgroups</strong>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_KERNEL_<wbr>MAX_<wbr>NUM_<wbr>SUB_<wbr>GROUPS</code></p>
-<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.1.
-Also see extension <strong>cl_khr_subgroups</strong>.</p></td>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.1.</p>
+<p class="tableblock">Also see <code>cl_khr_<wbr>subgroups</code>.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ignored</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>size_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This provides a mechanism for the application to query the
@@ -949,8 +937,8 @@ Also see extension <strong>cl_khr_subgroups</strong>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_KERNEL_<wbr>COMPILE_<wbr>NUM_<wbr>SUB_<wbr>GROUPS</code></p>
-<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.1.
-Also see extension <strong>cl_khr_subgroups</strong>.</p></td>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.1.</p>
+<p class="tableblock">Also see <code>cl_khr_<wbr>subgroups</code>.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ignored</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>size_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the number of sub-groups per work-group specified in the kernel
@@ -1025,7 +1013,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -1035,8 +1023,8 @@ Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

@@ -767,17 +767,40 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <h1>cl_khr_egl_image(3) Manual Page</h1>
 <h2 id="_name">Name</h2>
 <div class="sectionbody">
-<p>cl_khr_egl_image - Create derived resources, such as OpenCL image objects, from EGLImages.</p>
+<p>cl_khr_egl_image - OpenCL extension</p>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_c_specification"><a class="anchor" href="#_c_specification"></a>C Specification</h2>
+<h2 id="_ratification_status"><a class="anchor" href="#_ratification_status"></a>Ratification Status</h2>
 <div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#pragma OPENCL EXTENSION cl_khr_egl_image : enable</code></pre>
+<div class="paragraph">
+<p>Ratified</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_extension_and_version_dependencies"><a class="anchor" href="#_extension_and_version_dependencies"></a>Extension and Version Dependencies</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>None</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_other_extension_metadata"><a class="anchor" href="#_other_extension_metadata"></a>Other Extension Metadata</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Last Modified Date</strong></dt>
+<dd>
+<p>2020-04-21</p>
+</dd>
+<dt class="hdlist1"><strong>IP Status</strong></dt>
+<dd>
+<p>No known IP claims.</p>
+</dd>
+</dl>
 </div>
 </div>
 </div>
@@ -785,22 +808,185 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>If this extension is supported by an implementation, the string <code>cl_khr_egl_image</code> will be present in the <code>CL_PLATFORM_EXTENSIONS</code> string described in table 4.1 (see <a href="clGetPlatformInfo.html">clGetPlatformInfo</a>) or <code>CL_DEVICE_EXTENSIONS</code> string described in table 4.3 (see
-<a href="clGetDeviceInfo.html">clGetDeviceInfo</a>).</p>
+<p><code>cl_khr_<wbr>egl_<wbr>image</code> provides a mechanism to creating OpenCL memory objects
+from from EGLImages.</p>
 </div>
-<div class="paragraph">
-<p>If the <code>cl_khr_egl_image</code> extension is supported, then the following functions are enabled:</p>
 </div>
+</div>
+<div class="sect1">
+<h2 id="_new_commands"><a class="anchor" href="#_new_commands"></a>New Commands</h2>
+<div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p><a href="clCreateFromEGLImageKHR.html">clCreateFromEGLImageKHR</a></p>
+<p><strong>clCreateFromEGLImageKHR</strong></p>
 </li>
 <li>
-<p><a href="clEnqueueAcquireEGLObjectsKHR.html">clEnqueueAcquireEGLObjectsKHR</a></p>
+<p><strong>clEnqueueAcquireEGLObjectsKHR</strong></p>
 </li>
 <li>
-<p><a href="clEnqueueReleaseEGLObjectsKHR.html">clEnqueueReleaseEGLObjectsKHR</a></p>
+<p><strong>clEnqueueReleaseEGLObjectsKHR</strong></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_new_enums"><a class="anchor" href="#_new_enums"></a>New Enums</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><code>cl_command_<wbr>type</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_COMMAND_<wbr>ACQUIRE_<wbr>EGL_<wbr>OBJECTS_<wbr>KHR</code></p>
+</li>
+<li>
+<p><code>CL_COMMAND_<wbr>RELEASE_<wbr>EGL_<wbr>OBJECTS_<wbr>KHR</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>New Error Codes</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_EGL_<wbr>RESOURCE_<wbr>NOT_<wbr>ACQUIRED_<wbr>KHR</code></p>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>EGL_<wbr>OBJECT_<wbr>KHR</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_issues"><a class="anchor" href="#_issues"></a>Issues</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>This extension does not support reference counting of the images, so the
+onus is on the application to behave sensibly and not release the
+underlying <code>cl_mem</code> object while the <code>EGLImage</code> is still being
+used.</p>
+</li>
+<li>
+<p>In order to ensure data integrity, the application is responsible for
+synchronizing access to shared CL/EGL image objects by their respective
+APIs.
+Failure to provide such synchronization may result in race conditions
+and other undefined behavior.
+This may be accomplished by calling <strong>clWaitForEvents</strong> with the event
+objects returned by any OpenCL commands which use the shared image
+object or by calling <strong>clFinish</strong>.</p>
+</li>
+<li>
+<p>Currently <code>CL_MEM_<wbr>READ_<wbr>ONLY</code> is the only supported flag for <em>flags</em>.</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>RESOLVED</strong>: Implementation will now return an error if writing to a shared
+object that is not supported rather than disallowing it entirely.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Currently restricted to 2D image objects.</p>
+</li>
+<li>
+<p>What should happen for YUV color-space conversion, multi plane images,
+and chroma-siting, and channel mapping?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>RESOLVED</strong>: YUV is no longer explicitly described in this extension.
+Before this removal the behavior was dependent on the platform.
+This extension explicitly leaves the YUV layout to the platform and <code>EGLImage</code>
+source extension (i.e. is implementation specific).
+Colorspace conversion must be applied by the application using a color
+conversion matrix.</p>
+</div>
+<div class="paragraph">
+<p>The expected extension path if YUV color-space conversion is to be supported
+is to introduce a YUV image type and provide overloaded versions of the
+read_image built-in functions.</p>
+</div>
+<div class="paragraph">
+<p>Getting image information for a YUV image should return the original image
+size (non quantized size) when all of Y U and V are present in the image.
+If the planes have been separated then the actual dimensionality of the
+separated plane should be reported.
+For example with YUV 4:2:0 (NV12) with a YUV image of 256x256, the Y only
+image would return 256x256 whereas the UV only image would return 128x128.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Should an attribute list be used instead?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>RESOLVED</strong>: function has been changed to use an attribute list.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>What should happen for <code>EGLImage</code> extensions which introduce formats
+without a mapping to an OpenCL image channel data type or channel order?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>RESOLVED</strong>: This extension does not define those formats.
+It is expected that as additional EGL extensions are added to create EGL
+images from other sources, an extension to CL will be introduced where
+needed to represent those image types.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>What are the guarantees to synchronization behavior provided by the
+implementation?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The basic portable form of synchronization is to use a <strong>clFinish</strong>, as is the
+case for GL interop.
+In addition implementations which support the synchronization extensions
+<code>cl_khr_<wbr>egl_<wbr>event</code> and <code>EGL_KHR_cl_event</code> can interoperate more
+efficiently as described in those extensions.</p>
+</div>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_version_history"><a class="anchor" href="#_version_history"></a>Version History</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Revision 1.0.0, 2020-04-21</p>
+<div class="ulist">
+<ul>
+<li>
+<p>First assigned version.</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -810,8 +996,7 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <h2 id="_see_also"><a class="anchor" href="#_see_also"></a>See Also</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="EXTENSION.html">EXTENSION</a>,
-<a href="cl_khr_egl_event.html">cl_khr_egl_event</a></p>
+<p>No cross-references are available</p>
 </div>
 </div>
 </div>
@@ -819,10 +1004,11 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <h2 id="_document_notes"><a class="anchor" href="#_document_notes"></a>Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Extension Specification at URL</p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#cl_khr_egl_image" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_egl_image" class="bare">https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_egl_image</a></p>
+<p>This page is a generated document.
+Fixes and changes should be made to the generator scripts, not directly.</p>
 </div>
 </div>
 </div>
@@ -830,7 +1016,7 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -840,8 +1026,8 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

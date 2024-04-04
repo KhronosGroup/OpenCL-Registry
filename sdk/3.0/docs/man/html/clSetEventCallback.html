@@ -780,7 +780,8 @@ status, call the function</p>
 </div>
 <div id="clSetEventCallback" class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-opencl" data-lang="opencl">cl_int clSetEventCallback(
+<pre class="highlight"><code class="language-opencl" data-lang="opencl">// Provided by CL_VERSION_1_1
+cl_int clSetEventCallback(
     cl_event event,
     cl_int command_exec_callback_type,
     void (CL_CALLBACK* pfn_notify)(cl_event event, cl_int event_command_status, void *user_data),
@@ -812,17 +813,11 @@ status, call the function</p>
 <li>
 <p><em>command_exec_callback_type</em> specifies the command execution status for
 which the callback is registered.
-The command execution callback values for which a callback can be registered
-are: <code>CL_SUBMITTED</code>, <code>CL_RUNNING</code>, or
-<code>CL_COMPLETE</code> <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup>.
-There is no guarantee that the callback functions registered for various
-execution status values for an event will be called in the exact order that
-the execution status of a command changes.
-Furthermore, it should be noted that receiving a call back for an event with
-a status other than <code>CL_COMPLETE</code>, in no way implies that the memory model or
-execution model as defined by the OpenCL specification has changed.
-For example, it is not valid to assume that a corresponding memory transfer
-has completed unless the event is in a state <code>CL_COMPLETE</code>.</p>
+The command execution status types for which a callback can be registered
+are <code>CL_SUBMITTED</code>, <code>CL_RUNNING</code>, or <code>CL_COMPLETE</code>.
+The callback function registered for a <em>command_exec_callback_type</em> value of
+<code>CL_COMPLETE</code> will be called when the command has completed successfully or
+is abnormally terminated.</p>
 </li>
 <li>
 <p><em>pfn_event_notify</em> is the event callback function that can be registered by
@@ -866,23 +861,32 @@ called.
 <h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The registered callback function will be called when the execution status of
-command associated with <em>event</em> changes to an execution status equal to or
-past the status specified by <em>command_exec_status</em>.</p>
-</div>
-<div class="paragraph">
 <p>Each call to <strong>clSetEventCallback</strong> registers the specified user callback
 function on a callback stack associated with <em>event</em>.
 The order in which the registered user callback functions are called is
 undefined.</p>
 </div>
 <div class="paragraph">
-<p>All callbacks registered for an event object must be called before the event
-object is destroyed.
-Callbacks should return promptly.</p>
+<p>The registered callback function will be called when the execution status of the
+command associated with <em>event</em> changes to an execution status equal to or past
+the status specified by <em>command_exec_status</em>, or for the execution status
+<code>CL_COMPLETE</code>, if the command is abnormally terminated.
+There is no guarantee that the callback functions registered for various command
+execution status values for an event will be called in the exact order that the
+execution status of a command changes.
+Furthermore, it should be noted that calling a callback for an event execution
+status other than <code>CL_COMPLETE</code> in no way implies that the memory model or
+execution model as defined by the OpenCL specification has changed. For example,
+it is not valid to assume that a corresponding memory transfer has completed
+unless the event is in the state <code>CL_COMPLETE</code>.</p>
 </div>
 <div class="paragraph">
-<p>Behavior is undefined when calling expensive system routines, OpenCL APIs to
+<p>All callbacks registered for an event object must be called before the event
+object is destroyed.</p>
+</div>
+<div class="paragraph">
+<p>Callbacks should return promptly.
+Behavior is undefined when calling expensive system routines, OpenCL APIs to
 create contexts or command-queues, or blocking OpenCL APIs in an event callback.
 Rather than calling a blocking OpenCL API in an event callback, applications
 may call a non-blocking OpenCL API, then register a completion callback
@@ -945,7 +949,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -953,16 +957,10 @@ Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 </div>
 </div>
-<div id="footnotes">
-<hr>
-<div class="footnote" id="_footnotedef_1">
-<a href="#_footnoteref_1">1</a>. The callback function registered for a <em>command_exec_callback_type</em> value of <code>CL_COMPLETE</code> will be called when the command has completed successfully or is abnormally terminated.
-</div>
-</div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

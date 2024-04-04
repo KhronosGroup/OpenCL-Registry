@@ -834,7 +834,7 @@ short8 j = as_short8(i);
 
 float4 f;
 // Error. Result and operand have different sizes
-double4 g = as_double4(f); // Only if double precision is supported.
+double4 g = as_double4(f); // Only if double-precision is supported.
 
 float4 f;
 // Legal. g.xyz will have same values as f.xyz. g.w is undefined
@@ -867,7 +867,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -878,7 +878,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <div id="footnotes">
 <hr>
 <div class="footnote" id="_footnotedef_1">
-<a href="#_footnoteref_1">1</a>. Unless the <strong>cl_khr_fp16</strong> extension is supported and has been enabled.
+<a href="#_footnoteref_1">1</a>. Unless the <code>cl_khr_<wbr>fp16</code> extension is supported and has been enabled.
 </div>
 <div class="footnote" id="_footnotedef_2">
 <a href="#_footnoteref_2">2</a>. While the union is intended to reflect the organization of data in memory, the <strong>as_type</strong>() and <strong>as_type<em>n</em></strong>() constructs are intended to reflect the organization of data in register. The <strong>as_type</strong>() and <strong>as_type<em>n</em></strong>() constructs are intended to compile to no instructions on devices that use a shared register file designed to operate on both the operand and result types. Note that while differences in memory organization are expected to largely be limited to those arising from endianness, the register based representation may also differ due to size of the element in register. For example, an architecture may load a <code>char</code> into a 32-bit register, or a <code>char</code> vector into a SIMD vector register with fixed 32-bit element size. If the element count does not match, then the implementation should pick a data representation that most closely matches what would happen if an appropriate result type operator was applied to a register containing data of the source type. If the number of elements matches, then the <strong>as_type<em>n</em></strong>() should faithfully reproduce the behavior expected from a similar data type reinterpretation using memory/unions. So, for example if an implementation stores all single precision data as <code>double</code> in register, it should implement <strong>as_int</strong>(<code>float</code>) by first down-converting the <code>double</code> to single precision and then (if necessary) moving the single precision bits to a register suitable for operating on integer data. If data stored in different address spaces do not have the same endianness, then the &#8220;dominant endianness&#8221; of the device should prevail.
@@ -886,8 +886,8 @@ Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

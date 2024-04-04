@@ -779,7 +779,8 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 </div>
 <div id="clCreateSamplerWithProperties" class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-opencl" data-lang="opencl">cl_sampler clCreateSamplerWithProperties(
+<pre class="highlight"><code class="language-opencl" data-lang="opencl">// Provided by CL_VERSION_2_0
+cl_sampler clCreateSamplerWithProperties(
     cl_context context,
     const cl_sampler_properties* sampler_properties,
     cl_int* errcode_ret);</code></pre>
@@ -819,6 +820,10 @@ If a supported property and its value is not specified in
 <em>sampler_properties</em>, its default value will be used.
 <em>sampler_properties</em> can be <code>NULL</code> in which case the default values for
 supported sampler properties will be used.</p>
+</li>
+<li>
+<p><em>errcode_ret</em> will return an appropriate error code.
+If <em>errcode_ret</em> is <code>NULL</code>, no error code is returned.</p>
 </li>
 </ul>
 </div>
@@ -882,15 +887,55 @@ supported sampler properties will be used.</p>
         four image elements nearest to the image coordinate.</p>
 <p class="tableblock">        The default value is <code>CL_FILTER_<wbr>NEAREST</code>.</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_SAMPLER_<wbr>MIP_<wbr>FILTER_<wbr>MODE_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_mipmap_image</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_filter_<wbr>mode</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the mipmap filter used when sampling from a mipmapped
+        image.
+        The available filter are:</p>
+<p class="tableblock">        <code>CL_FILTER_<wbr>NEAREST</code> - Use the nearest mipmap level to the image
+        coordinate.</p>
+<p class="tableblock">        <code>CL_FILTER_<wbr>LINEAR</code> - Use a weighted average of the two mipmap levels
+        nearest to the image coordinate.</p>
+<p class="tableblock">        The default is <code>CL_FILTER_<wbr>NEAREST</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_SAMPLER_<wbr>LOD_<wbr>MIN_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_mipmap_image</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_float</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the minimum value to which the computed level of detail
+        <em>lambda</em> is clamped when sampling from a mipmapped image.</p>
+<p class="tableblock">        The default is <code>0.0f</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_SAMPLER_<wbr>LOD_<wbr>MAX_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_mipmap_image</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_float</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the maximum value to which the computed level of detail
+        <em>lambda</em> is clamped when sampling from a mipmapped image.</p>
+<p class="tableblock">        The default is <code>MAXFLOAT</code>.</p></td>
+</tr>
 </tbody>
 </table>
-<div class="ulist">
-<ul>
-<li>
-<p><em>errcode_ret</em> will return an appropriate error code.
-If <em>errcode_ret</em> is <code>NULL</code>, no error code is returned.</p>
-</li>
-</ul>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+When the <code>cl_khr_<wbr>mipmap_<wbr>image</code> extension is supported, the sampler
+properties <code>CL_SAMPLER_<wbr>MIP_<wbr>FILTER_<wbr>MODE_<wbr>KHR</code>, <code>CL_SAMPLER_<wbr>LOD_<wbr>MIN_<wbr>KHR</code> and
+<code>CL_SAMPLER_<wbr>LOD_<wbr>MAX_<wbr>KHR</code> cannot be specified with any samplers initialized
+in the OpenCL program source.
+Only the default values for these properties will be used.
+To create a sampler with specific values for these properties, a sampler
+object must be created with <strong>clCreateSamplerWithProperties</strong> and passed as an
+argument to a kernel.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p><strong>clCreateSamplerWithProperties</strong> returns a valid non-zero sampler object and
@@ -951,7 +996,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -961,8 +1006,8 @@ Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

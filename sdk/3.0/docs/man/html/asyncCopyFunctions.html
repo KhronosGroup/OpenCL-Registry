@@ -799,14 +799,50 @@ function on each iteration of the loop if any work-item executes the async copy
 or wait group events function on that iteration.</p>
 </div>
 <div class="paragraph">
-<p>We use the generic type name <code>gentype</code> to indicate the built-in data types <code>char</code>,
-<code>char<em>n</em></code>, <code>uchar</code>, <code>uchar<em>n</em></code>, <code>short</code>, <code>short<em>n</em></code>,
-<code>ushort</code>, <code>ushort<em>n</em></code>, <code>int</code>, <code>int<em>n</em></code>, <code>uint</code>,
-<code>uint<em>n</em></code>, <code>long</code> <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup>, <code>long<em>n</em></code>,
-<code>ulong</code>, <code>ulong<em>n</em></code>, <code>float</code>, <code>float<em>n</em></code>, <code>double</code>
-<sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup>, and <code>double<em>n</em></code> as the type for
-the arguments unless otherwise stated.
-<em>n</em> is 2, 3 <sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnotedef_3" title="View footnote.">3</a>]</sup>, 4, 8, or 16.</p>
+<p>The generic type name <code>gentype</code> indicates that the function can take any of</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>char</code>, <code>char<em>n</em></code>, <code>uchar</code>, or <code>uchar<em>n</em></code></p>
+</li>
+<li>
+<p><code>short</code>, <code>short<em>n</em></code>, <code>ushort</code>, or <code>ushort<em>n</em></code></p>
+</li>
+<li>
+<p><code>int</code>, <code>int<em>n</em></code>, <code>uint</code>, or <code>uint<em>n</em></code></p>
+</li>
+<li>
+<p><code>long</code> <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup>, <code>long<em>n</em></code>, <code>ulong</code>, or
+<code>ulong<em>n</em></code></p>
+</li>
+<li>
+<p><code>float</code>, <code>float<em>n</em></code></p>
+</li>
+<li>
+<p><code>double</code> <sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup> or <code>double<em>n</em></code></p>
+</li>
+<li>
+<p><code>half</code> <sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnotedef_3" title="View footnote.">3</a>]</sup> or <code>half<em>n</em></code></p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+All functions taking or returning <code>half</code> types are supported only when
+the <code>cl_khr_<wbr>fp16</code> extension macro is supported.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>as the type for the arguments unless otherwise stated.
+<em>n</em> is 2, 3 <sup class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnotedef_4" title="View footnote.">4</a>]</sup>, 4, 8, or 16.</p>
 </div>
 <table id="table-builtin-async-copy" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. Built-in Async Copy and Prefetch Functions</caption>
@@ -814,19 +850,23 @@ the arguments unless otherwise stated.
 <col style="width: 50%;">
 <col style="width: 50%;">
 </colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Function</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Function</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">event_t <strong>async_work_group_copy</strong>(__local gentype <em>*dst</em>,
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>event_t <strong>async_work_group_copy</strong>(__local gentype <em>*dst</em>,
   const __global gentype *<em>src</em>, size_t <em>num_gentypes</em>, event_t <em>event</em>)<br>
   event_t <strong>async_work_group_copy</strong>(__global gentype <em>*dst</em>,
-  const __local gentype *<em>src</em>, size_t <em>num_gentypes</em>, event_t <em>event</em>)</p></td>
+  const __local gentype *<em>src</em>, size_t <em>num_gentypes</em>, event_t <em>event</em>)</p>
+</div></div></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Perform an async copy of <em>num_gentypes</em> gentype elements from <em>src</em> to
-      <em>dst</em>.
-      Returns an event object that can be used by <strong>wait_group_events</strong> to
+      <em>dst</em>.</p>
+<p class="tableblock">      Returns an event object that can be used by <strong>wait_group_events</strong> to
       wait for the async copy to finish.
       The <em>event</em> argument can also be used to associate the
       <strong>async_work_group_copy</strong> with a previous async copy allowing an event
@@ -839,16 +879,18 @@ the arguments unless otherwise stated.
       data such as using a <strong>barrier</strong> before performing the copy.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><div class="content"></div></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">event_t <strong>async_work_group_strided_copy</strong>(__local gentype <em>*dst</em>,
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>event_t <strong>async_work_group_strided_copy</strong>(__local gentype <em>*dst</em>,
   const __global gentype *<em>src</em>, size_t <em>num_gentypes</em>, size_t <em>src_stride</em>,
   event_t <em>event</em>)<br>
   event_t <strong>async_work_group_strided_copy</strong>(__global gentype <em>*dst</em>,
   const __local gentype *<em>src</em>, size_t <em>num_gentypes</em>, size_t <em>dst_stride</em>,
-  event_t <em>event</em>)</p></td>
+  event_t <em>event</em>)</p>
+</div></div></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Perform an async gather of <em>num_gentypes</em> <code>gentype</code> elements from
       <em>src</em> to <em>dst</em>.
       The <em>src_stride</em> is the stride in elements for each <code>gentype</code>
@@ -873,26 +915,60 @@ the arguments unless otherwise stated.
 <p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for OpenCL C 1.1 or newer.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><div class="content"></div></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">void <strong>wait_group_events</strong>(int <em>num_events</em>, event_t *<em>event_list</em>)</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>void <strong>wait_group_events</strong>(int <em>num_events</em>, event_t *<em>event_list</em>)</p>
+</div></div></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Wait for events that identify the <strong>async_work_group_copy</strong> operations
       to complete.
       The event objects specified in <em>event_list</em> will be released after the
       wait is performed.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><div class="content"></div></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">void <strong>prefetch</strong>(const __global gentype *<em>p</em>, size_t <em>num_gentypes</em>)</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>void <strong>prefetch</strong>(const __global gentype *<em>p</em>, size_t <em>num_gentypes</em>)</p>
+</div></div></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Prefetch <code><em>num_gentypes</em> * sizeof(gentype)</code> bytes into the global
       cache.
       The prefetch instruction is applied to a work-item in a work-group and
       does not affect the functional behavior of the kernel.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-opencl_c" data-lang="opencl_c">void async_work_group_copy_fence(
+  cl_mem_fence_flags flags)</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Orders async copies produced by the work-items of a work-group
+      executing a kernel.
+      Async copies preceding the <strong>async_work_group_copy_fence</strong> must complete
+      their access to the designated memory or memories, including both
+      reads-from and writes-to it, before async copies following the fence
+      are allowed to start accessing these memories.
+      In other words, every async copy preceding the
+      <strong>async_work_group_copy_fence</strong> must happen-before every async copy
+      following the fence, with respect to the designated memory or
+      memories.</p>
+<p class="tableblock">      The <em>flags</em> argument specifies the memory address space and can be set
+      to a combination of the following literal values:</p>
+<p class="tableblock">      <code>CLK_LOCAL_MEM_FENCE</code><br>
+      <code>CLK_GLOBAL_MEM_FENCE</code></p>
+<p class="tableblock">      The async fence is performed by all work-items in a work-group and
+      this built-in function must therefore be encountered by all work-items
+      in a work-group executing the kernel with the same argument values;
+      otherwise the results are undefined.
+      This rule applies to ND-ranges implemented with uniform and
+      non-uniform work-groups.</p>
+<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for the
+      <code>cl_khr_<wbr>async_<wbr>work_<wbr>group_<wbr>copy_<wbr>fence</code> extension macro.</p></td>
 </tr>
 </tbody>
 </table>
@@ -938,7 +1014,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -949,19 +1025,22 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <div id="footnotes">
 <hr>
 <div class="footnote" id="_footnotedef_1">
-<a href="#_footnoteref_1">1</a>. Only if 64-bit integers are supported. In OpenCL C 3.0 this will be indicated by the presence of the <code>__opencl_c_int64</code> feature macro.
+<a href="#_footnoteref_1">1</a>. Only if 64-bit integers are supported. In OpenCL C 3.0 this will be indicated by the presence of the <code>__opencl_c_<wbr>int64</code> feature macro.
 </div>
 <div class="footnote" id="_footnotedef_2">
-<a href="#_footnoteref_2">2</a>. Only if double precision is supported. In OpenCL C 3.0 this will be indicated by the presence of the <code>__opencl_c_fp64</code> feature macro.
+<a href="#_footnoteref_2">2</a>. Only if double precision is supported. In OpenCL C 3.0 this will be indicated by the presence of the <code>__opencl_c_<wbr>fp64</code> feature macro.
 </div>
 <div class="footnote" id="_footnotedef_3">
-<a href="#_footnoteref_3">3</a>. <strong>async_work_group_copy</strong> and <strong>async_work_group_strided_copy</strong> for 3-component vector types behave as <strong>async_work_group_copy</strong> and <strong>async_work_group_strided_copy</strong> respectively for 4-component vector types.
+<a href="#_footnoteref_3">3</a>. Only if the <code>cl_khr_<wbr>fp16</code> extension is supported and has been enabled.
+</div>
+<div class="footnote" id="_footnotedef_4">
+<a href="#_footnoteref_4">4</a>. <strong>async_work_group_copy</strong> and <strong>async_work_group_strided_copy</strong> for 3-component vector types behave as <strong>async_work_group_copy</strong> and <strong>async_work_group_strided_copy</strong> respectively for 4-component vector types.
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

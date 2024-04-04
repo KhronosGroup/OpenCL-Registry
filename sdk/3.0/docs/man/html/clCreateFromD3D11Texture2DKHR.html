@@ -767,21 +767,39 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <h1>clCreateFromD3D11Texture2DKHR(3) Manual Page</h1>
 <h2 id="_name">Name</h2>
 <div class="sectionbody">
-<p>clCreateFromD3D11Texture2DKHR - Creates an OpenCL 2D image object from a subresource of a Direct3D 11 2D texture.</p>
+<p>clCreateFromD3D11Texture2DKHR - Create OpenCL 2D image object from a Direct3D 11 2D texture</p>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
 <h2 id="_c_specification"><a class="anchor" href="#_c_specification"></a>C Specification</h2>
 <div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">cl_mem clCreateFromD3D11Texture2DKHR(cl_context context,
-                                     cl_mem_flags flags,
-                                     ID3D11Texture2D *resource,
-                                     UINT subresource,
-                                     cl_int *errcode_ret)</code></pre>
+<div class="paragraph">
+<p>To create an OpenCL 2D image object from a subresource of a Direct3D 11 2D
+texture, call the function</p>
 </div>
+<div id="clCreateFromD3D11Texture2DKHR" class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-opencl" data-lang="opencl">// Provided by cl_khr_d3d11_sharing
+cl_mem clCreateFromD3D11Texture2DKHR(
+    cl_context context,
+    cl_mem_flags flags,
+    ID3D11Texture2D* resource,
+    UINT subresource,
+    cl_int* errcode_ret);</code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<strong>clCreateFromD3D11Texture2DKHR</strong> is provided by the <code>cl_khr_d3d11_sharing</code> extension.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -791,118 +809,95 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <div class="ulist">
 <ul>
 <li>
-<p><em>context</em> - A valid OpenCL context created from a Direct3D 11 device.</p>
+<p><em>context</em> is a valid OpenCL context created from a Direct3D 11 device.</p>
 </li>
 <li>
-<p><em>flags</em> - A bit-field that is used to specify usage information. May be
-<code>CL_MEM_READ_ONLY</code>, <code>CL_MEM_WRITE_ONLY</code>, or <code>CL_MEM_READ_WRITE</code>. (See
-the table for <a href="clCreateBuffer.html">clCreateBuffer</a> for more information.)</p>
+<p><em>flags</em> is a bit-field that is used to specify usage information.
+Refer to the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#memory-flags-table" target="_blank" rel="noopener">List of supported memory flag
+values</a> table for a description of <em>flags</em>.
+Only the <code>CL_MEM_<wbr>READ_<wbr>ONLY</code>, <code>CL_MEM_<wbr>WRITE_<wbr>ONLY</code> and <code>CL_MEM_<wbr>READ_<wbr>WRITE</code>
+flags specified in that table can be used.</p>
 </li>
 <li>
-<p><em>resource</em> - A pointer to the Direct3D 11 2D texture to share.</p>
+<p><em>resource</em> is a pointer to the Direct3D 11 2D texture to share.</p>
 </li>
 <li>
-<p><em>subresource</em> - The subresource of <em>resource</em> to share.</p>
+<p><em>subresource</em> is the subresource of <em>resource</em> to share.</p>
 </li>
 <li>
-<p><em>errcode_ret</em> - An appropriate error code. If <em>errcode_ret</em> is NULL, no
-error code is returned.</p>
+<p><em>errcode_ret</em> will return an appropriate error code.
+If <em>errcode_ret</em> is <code>NULL</code>, no error code is returned.</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_notes"><a class="anchor" href="#_notes"></a>Notes</h2>
+<h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The width, height and depth of the returned OpenCL 2D image object are determined by the width, height and depth of subresource <em>subresource</em> of <em>resource</em>.
-The channel type and order of the returned OpenCL 2D image object is determined by the format of <em>resource</em> as shown in Direct3D 11 and corresponding OpenCL image formats of <em>resource</em> in <a href="clCreateFromD3D11Texture3DKHR.html">clCreateFromD3D11Texture3DKHR</a>.</p>
+<p>The width and height of the returned OpenCL 2D image object are determined
+by the width and height of subresource <em>subresource</em> of <em>resource</em>.
+The channel type and order of the returned OpenCL 2D image object is
+determined by the format of <em>resource</em> and the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#dxgi-image-formats-table" target="_blank" rel="noopener">DXGI Formats and Corresponding OpenCL Image Formats</a> table.</p>
 </div>
 <div class="paragraph">
-<p>This call will increment the internal Direct3D reference count on <em>resource</em>.
-The internal Direct3D reference count on <em>resource</em> will be decremented when the OpenCL reference count on the returned OpenCL memory object drops to zero.</p>
+<p>This call will increment the internal Direct3D 11 reference count on
+<em>resource</em>.
+The internal Direct3D 11 reference count on <em>resource</em> will be decremented when
+the OpenCL reference count on the returned OpenCL memory object drops to
+zero.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Refer to the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#lifetime-of-shared-opencl-direct3d-memory-objects" target="_blank" rel="noopener">Lifetime of Shared Direct3D Memory Objects</a> and
+<a href="#acquiring-shared-opencl-opengl-memory-objects">Acquiring, Releasing, and
+Synchronizing Access to Shared OpenCL/OpenGL Memory Objects</a> sections for
+more information.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
-<div class="title">Sharing Memory Objects with Direct3D 11 Resources</div>
-<p>The goal of this extension is to provide interoperability between OpenCL and
-Direct3D 11. This is designed to function analogously to the
-<a href="cl_khr_gl_sharing.html">cl_khr_gl_sharing</a> as defined in sections 9.7 and 9.8. If this
-extension is supported by an implementation, the string
-"cl_khr_d3d11_sharing" will be present in the <code>CL_PLATFORM_EXTENSIONS</code> or
-<code>CL_DEVICE_EXTENSIONS</code> string described in the table of allowed values for
-<em>param_name</em> for <a href="clGetDeviceInfo.html">clGetDeviceInfo</a> or <a href="clGetPlatformInfo.html">clGetPlatformInfo</a>.</p>
-</div>
-<div class="paragraph">
-<p>As currently proposed the interfaces for this extension would be provided in
-<code>cl_d3d11.h</code>.</p>
-</div>
-<div class="paragraph">
-<p>This section discusses OpenCL functions that allow applications to use
-Direct3D 11 resources as OpenCL memory objects. This allows efficient
-sharing of data between OpenCL and Direct3D 11. The OpenCL API may be used
-to execute kernels that read and/or write memory objects that are also
-Direct3D 11 resources. An OpenCL image object may be created from a Direct3D
-11 texture resource. An OpenCL buffer object may be created from a Direct3D
-11 buffer resource. OpenCL memory objects may be created from Direct3D 11
-objects if and only if the OpenCL context has been created from a Direct3D
-11 device.</p>
-</div>
-<div class="paragraph">
-<div class="title">Lifetime of Shared Objects</div>
-<p>An OpenCL memory object created from a Direct3D 11 resource remains valid as
-long as the corresponding Direct3D 11 resource has not been deleted. If the
-Direct3D 11 resource is deleted through the Direct3D 11 API, subsequent use
-of the OpenCL memory object will result in undefined behavior, including but
-not limited to possible OpenCL errors, data corruption, and program
-termination.</p>
-</div>
-<div class="paragraph">
-<p>The successful creation of a <code>cl_context</code> against a Direct3D 11 device
-specified via the context create parameter <code>CL_CONTEXT_D3D11_DEVICE_KHR</code>
-will increment the internal Direct3D reference count on the specified
-Direct3D 11 device. The internal Direct3D reference count on that Direct3D
-11 device will be decremented when the OpenCL reference count on the
-returned OpenCL context drops to zero.</p>
-</div>
-<div class="paragraph">
-<p>The OpenCL context and corresponding command-queues are dependent on the
-existence of the Direct3D 11 device from which the OpenCL context was
-created. If the Direct3D 11 device is deleted through the Direct3D 11 API,
-subsequent use of the OpenCL context will result in undefined behavior,
-including but not limited to possible OpenCL errors, data corruption, and
-program termination.</p>
-</div>
-<div class="paragraph">
-<p>Properties of Direct3D 11 objects may be queried using
-<a href="clGetMemObjectInfo.html">clGetMemObjectInfo</a> and <a href="clGetImageInfo.html">clGetImageInfo</a> with <em>param_name</em>
-<code>CL_MEM_D3D11_RESOURCE_KHR</code> and <code>CL_IMAGE_D3D11_SUBRESOURCE_KHR</code>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_errors"><a class="anchor" href="#_errors"></a>Errors</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Returns a valid non-zero OpenCL image object and <em>errcode_ret</em> is set to <code>CL_SUCCESS</code> if the image object is created successfully.
-Otherwise, it returns a NULL value with one of the following error values returned in <em>errcode_ret</em>:</p>
+<p><strong>clCreateFromD3D11Texture2DKHR</strong> returns a valid non-zero OpenCL image object
+and <em>errcode_ret</em> is set to <code>CL_SUCCESS</code> if the image object is created
+successfully.
+Otherwise, it returns a <code>NULL</code> value with one of the following error values
+returned in <em>errcode_ret</em>:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_INVALID_CONTEXT</code> if <em>context</em> is not a valid context.</p>
+<p><code>CL_INVALID_<wbr>CONTEXT</code> if <em>context</em> is not a valid context.</p>
 </li>
 <li>
-<p><code>CL_INVALID_VALUE</code> if values specified in <em>flags</em> are not valid or if <em>subresource</em> is not a valid subresource index for <em>resource</em>.</p>
+<p><code>CL_INVALID_<wbr>VALUE</code> if values specified in <em>flags</em> are not valid or if
+<em>subresource</em> is not a valid subresource index for <em>resource</em>.</p>
 </li>
 <li>
-<p><code>CL_INVALID_D3D11_RESOURCE_KHR</code> if <em>resource</em> is not a Direct3D 11 texture resource, if <em>resource</em> was created with the <code>D3D11_USAGE</code> flag <code>D3D11_USAGE_IMMUTABLE</code>, if a <em>resource</em> is a multisampled texture, if a <code>cl_mem</code> from subresource <em>subresource</em> of <em>resource</em> has already been created using <code>clCreateFromD3D11Texture2DKHR</code>, or if <em>context</em> was not created against the same Direct3D 11 device from which <em>resource</em> was created.</p>
+<p><code>CL_INVALID_<wbr>D3D11_<wbr>RESOURCE_<wbr>KHR</code> if <em>resource</em> is not a Direct3D 11
+texture resource, if <em>resource</em> was created with the D3D11_USAGE flag
+D3D11_USAGE_IMMUTABLE, if <em>resource</em> is a multisampled texture, if a
+<code>cl_mem</code> from subresource <em>subresource</em> of <em>resource</em> has already
+been created using <strong>clCreateFromD3D11Texture2DKHR</strong>, or if <em>context</em> was
+not created against the same Direct3D 11 device from which <em>resource</em>
+was created.</p>
 </li>
 <li>
-<p><code>CL_INVALID_IMAGE_FORMAT_DESCRIPTOR</code> if the Direct3D 11 texture format of <em>resource</em> is not a value listed in the table of Direct3D 11 and corresponding OpenCL image formats for <a href="clCreateFromD3D11Texture3DKHR.html">clCreateFromD3D11Texture3DKHR</a>, or if the Direct3D 11 texture format of <em>resource</em> does not map to a supported OpenCL image format.</p>
+<p><code>CL_INVALID_<wbr>IMAGE_<wbr>FORMAT_<wbr>DESCRIPTOR</code> if the Direct3D 11 texture format
+of <em>resource</em> is not listed in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#dxgi-image-formats-table" target="_blank" rel="noopener">DXGI
+Formats and Corresponding OpenCL Image Formats</a> table or if the
+Direct3D 11 texture format of <em>resource</em> does not map to a supported
+OpenCL image format.</p>
 </li>
 <li>
-<p><code>CL_OUT_OF_HOST_MEMORY</code> if there is a failure to allocate resources required by the OpenCL implementation on the host.</p>
+<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code> if there is a failure to allocate resources
+required by the OpenCL implementation on the host.</p>
 </li>
 </ul>
 </div>
@@ -912,7 +907,7 @@ Otherwise, it returns a NULL value with one of the following error values return
 <h2 id="_see_also"><a class="anchor" href="#_see_also"></a>See Also</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="cl_khr_d3d11_sharing.html">cl_khr_d3d11_sharing</a></p>
+<p><a href="cl_context.html">cl_context</a>, <a href="cl_int.html">cl_int</a>, <a href="cl_khr_d3d11_sharing.html">cl_khr_d3d11_sharing</a>, <a href="cl_mem_flags.html">cl_mem_flags</a></p>
 </div>
 </div>
 </div>
@@ -920,10 +915,11 @@ Otherwise, it returns a NULL value with one of the following error values return
 <h2 id="_document_notes"><a class="anchor" href="#_document_notes"></a>Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Extension Specification at URL</p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#clCreateFromD3D11Texture2DKHR" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_Ext.html#clCreateFromD3D11Texture2DKHR" class="bare">https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_Ext.html#clCreateFromD3D11Texture2DKHR</a></p>
+<p>This page is extracted from the OpenCL Specification.
+Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 </div>
 </div>
@@ -931,7 +927,7 @@ Otherwise, it returns a NULL value with one of the following error values return
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -941,8 +937,8 @@ Otherwise, it returns a NULL value with one of the following error values return
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

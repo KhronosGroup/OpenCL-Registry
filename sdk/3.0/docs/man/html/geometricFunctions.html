@@ -776,12 +776,66 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <div class="sectionbody">
 <div class="paragraph">
 <p>The <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#table-builtin-geometric" target="_blank" rel="noopener">following table</a> describes the list of built-in
-geometric functions.
-These all operate component-wise.
-The description is per-component.
-<code>float<em>n</em></code> is <code>float</code>, <code>float2</code>, <code>float3</code>, or <code>float4</code> and <code>double<em>n</em></code> is
-<code>double</code> <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup>, <code>double2</code>, <code>double3</code>, or
-<code>double4</code>.</p>
+geometric functions.</p>
+</div>
+<div class="paragraph">
+<p>The generic type name <code>gentypef</code> indicates that the function can take any of</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>float</code>, <code>float2</code>, <code>float3</code>, or <code>float4</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>as the type for the arguments.</p>
+</div>
+<div class="paragraph">
+<p>The generic type name <code>gentyped</code> <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup> indicates
+that the function can take any of</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>double</code>, <code>double2</code>, <code>double3</code>, or <code>double4</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>as the type for the arguments.</p>
+</div>
+<div class="paragraph">
+<p>The generic type name <code>gentypeh</code> <sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup> indicates
+that the function can take any of</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>half</code>, <code>half2</code>, <code>half3</code>, or <code>half4</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>as the type for the arguments.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+All functions taking or returning <code>half</code> types are supported only when
+the <code>cl_khr_<wbr>fp16</code> extension macro is supported.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>For any specific use of a function with <code>gentype*</code> arguments the actual type
+has to be the same for all arguments and the return type, unless they are
+explicitly specified as an actual type.</p>
 </div>
 <table id="table-builtin-geometric" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. Built-in Scalar and Vector Argument Geometric Functions</caption>
@@ -789,39 +843,47 @@ The description is per-component.
 <col style="width: 50%;">
 <col style="width: 50%;">
 </colgroup>
-<tbody>
+<thead>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Function</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
+<th class="tableblock halign-left valign-top">Function</th>
+<th class="tableblock halign-left valign-top">Description</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">float4 <strong>cross</strong>(float4 <em>p0</em>, float4 <em>p1</em>)<br>
   float3 <strong>cross</strong>(float3 <em>p0</em>, float3 <em>p1</em>)<br>
   double4 <strong>cross</strong>(double4 <em>p0</em>, double4 <em>p1</em>)<br>
-  double3 <strong>cross</strong>(double3 <em>p0</em>, double3 <em>p1</em>)</p></td>
+  double3 <strong>cross</strong>(double3 <em>p0</em>, double3 <em>p1</em>)</p>
+<p class="tableblock">  half4 <strong>cross</strong>(half4 <em>p0</em>, half4 <em>p1</em>)<br>
+  half3 <strong>cross</strong>(half3 <em>p0</em>, half3 <em>p1</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the cross product of <em>p0.xyz</em> and <em>p1.xyz</em>.
       The <em>w</em> component of <code>float4</code> result returned will be 0.0.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">float <strong>dot</strong>(float<em>n</em> <em>p0</em>, float<em>n</em> <em>p1</em>)<br>
-  double <strong>dot</strong>(double<em>n</em> <em>p0</em>, double<em>n</em> <em>p1</em>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Compute dot product.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">float <strong>dot</strong>(gentypef <em>p0</em>, gentypef <em>p1</em>)<br>
+  double <strong>dot</strong>(gentyped <em>p0</em>, gentyped <em>p1</em>)</p>
+<p class="tableblock">half <strong>dot</strong>(gentypeh <em>p0</em>, gentypeh <em>p1</em>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Compute the dot product of <em>p0</em> and <em>p1</em>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">float <strong>distance</strong>(float<em>n</em> <em>p0</em>, float<em>n</em> <em>p1</em>)<br>
-  double <strong>distance</strong>(double<em>n</em> <em>p0</em>, double<em>n</em> <em>p1</em>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">float <strong>distance</strong>(gentypef <em>p0</em>, gentypef <em>p1</em>)<br>
+  double <strong>distance</strong>(gentyped <em>p0</em>, gentyped <em>p1</em>)</p>
+<p class="tableblock">half <strong>distance</strong>(gentypeh <em>p0</em>, gentypeh <em>p1</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the distance between <em>p0</em> and <em>p1</em>.
       This is calculated as <strong>length</strong>(<em>p0</em> - <em>p1</em>).</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">float <strong>length</strong>(float<em>n</em> <em>p</em>)<br>
-  double <strong>length</strong>(double<em>n</em> <em>p</em>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">float <strong>length</strong>(gentypef <em>p</em>)<br>
+  double <strong>length</strong>(gentyped <em>p</em>)</p>
+<p class="tableblock">half <strong>length</strong>(gentypeh <em>p</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return the length of vector <em>p</em>, i.e., √ <em>p.x</em><sup>2</sup> + <em>p.y</em> <sup>2</sup>
       +  &#8230;&#8203;</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">float<em>n</em> <strong>normalize</strong>(float<em>n</em> <em>p</em>)<br>
-  double<em>n</em> <strong>normalize</strong>(double<em>n</em> <em>p</em>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">gentypef <strong>normalize</strong>(gentypef <em>p</em>)<br>
+  gentyped <strong>normalize</strong>(gentyped <em>p</em>)</p>
+<p class="tableblock">gentypeh <strong>normalize</strong>(gentypeh <em>p</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns a vector in the same direction as <em>p</em> but with a length of 1.</p></td>
 </tr>
 <tr>
@@ -829,7 +891,7 @@ The description is per-component.
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">float <strong>fast_distance</strong>(float<em>n</em> <em>p0</em>, float<em>n</em> <em>p1</em>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">float <strong>fast_distance</strong>(float <em>p0</em>, float<em>n</em> <em>p1</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns <strong>fast_length</strong>(<em>p0</em> - <em>p1</em>).</p></td>
 </tr>
 <tr>
@@ -908,7 +970,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -919,13 +981,16 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <div id="footnotes">
 <hr>
 <div class="footnote" id="_footnotedef_1">
-<a href="#_footnoteref_1">1</a>. Only if double precision is supported. In OpenCL C 3.0 this will be indicated by the presence of the <code>__opencl_c_fp64</code> feature macro.
+<a href="#_footnoteref_1">1</a>. Only if double precision is supported. In OpenCL C 3.0 this will be indicated by the presence of the <code>__opencl_c_<wbr>fp64</code> feature macro.
+</div>
+<div class="footnote" id="_footnotedef_2">
+<a href="#_footnoteref_2">2</a>. Only if the <code>cl_khr_<wbr>fp16</code> extension is supported and has been enabled.
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

@@ -780,7 +780,8 @@ profiling is enabled, call the function</p>
 </div>
 <div id="clGetEventProfilingInfo" class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-opencl" data-lang="opencl">cl_int clGetEventProfilingInfo(
+<pre class="highlight"><code class="language-opencl" data-lang="opencl">// Provided by CL_VERSION_1_0
+cl_int clGetEventProfilingInfo(
     cl_event event,
     cl_profiling_info param_name,
     size_t param_value_size,
@@ -847,7 +848,11 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_ulong</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A 64-bit value that describes the current device time counter in
         nanoseconds when the command identified by event is enqueued in a
-        command-queue by the host.</p></td>
+        command-queue by the host.</p>
+<p class="tableblock">    If the <code>cl_khr_<wbr>command_<wbr>buffer_<wbr>multi_<wbr>device</code> extension is supported,
+    for events returned by a command-buffer enqueue operation to multiple
+    command-queues, the host time when the command-buffer has been enqueued
+    across the command-queues is used.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_PROFILING_<wbr>COMMAND_<wbr>SUBMIT</code></p></td>
@@ -855,21 +860,33 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A 64-bit value that describes the current device time counter in
         nanoseconds when the command identified by event that has been
         enqueued is submitted by the host to the device associated with the
-        command-queue.</p></td>
+        command-queue.</p>
+<p class="tableblock">    If the <code>cl_khr_<wbr>command_<wbr>buffer_<wbr>multi_<wbr>device</code> extension is supported,
+    for events returned by a command-buffer enqueue operation to multiple
+    command-queues, the host time is used when command-buffer commands have
+    been submitted to any command-queue.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_PROFILING_<wbr>COMMAND_<wbr>START</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_ulong</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A 64-bit value that describes the current device time counter in
         nanoseconds when the command identified by event starts execution on
-        the device.</p></td>
+        the device.</p>
+<p class="tableblock">    If the <code>cl_khr_<wbr>command_<wbr>buffer_<wbr>multi_<wbr>device</code> extension is supported,
+    for events returned by a command-buffer enqueue operation to multiple
+    command-queues, the host time is used when any device starts executing a
+    command-buffer command.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_PROFILING_<wbr>COMMAND_<wbr>END</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_ulong</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A 64-bit value that describes the current device time counter in
         nanoseconds when the command identified by event has finished
-        execution on the device.</p></td>
+        execution on the device.</p>
+<p class="tableblock">    If the <code>cl_khr_<wbr>command_<wbr>buffer_<wbr>multi_<wbr>device</code> extension is supported,
+    for events returned by a command-buffer enqueue operation to multiple
+    command-queues, the host time is used when the last command-buffer
+    command finishes execution on any device.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_PROFILING_<wbr>COMMAND_<wbr>COMPLETE</code></p>
@@ -878,7 +895,11 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A 64-bit value that describes the current device time counter in
         nanoseconds when the command identified by event and any child
         commands enqueued by this command on the device have finished
-        execution.</p></td>
+        execution.</p>
+<p class="tableblock">    If the <code>cl_khr_<wbr>command_<wbr>buffer_<wbr>multi_<wbr>device</code> extension is supported,
+    for events returned by a command-buffer enqueue operation to multiple
+    command-queues, the host time is used when the command-buffer has
+    completed execution across all command-queues.</p></td>
 </tr>
 </tbody>
 </table>
@@ -892,6 +913,25 @@ frequency and power states.
 The <code>CL_DEVICE_<wbr>PROFILING_<wbr>TIMER_<wbr>RESOLUTION</code> specifies the resolution of the
 timer i.e. the number of nanoseconds elapsed before the timer is
 incremented.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If the <code>cl_khr_<wbr>command_<wbr>buffer_<wbr>multi_<wbr>device</code> extension is supported, and
+if no reliable device timer sources are available to inform the host side,
+or parallel runtime scheduling makes it impossible to identify a first/last
+command, then an implementation may fallback to reporting
+<code>CL_PROFILING_<wbr>COMMAND_<wbr>SUBMIT</code> and <code>CL_PROFILING_<wbr>COMMAND_<wbr>COMPLETE</code> for
+<code>CL_PROFILING_<wbr>COMMAND_<wbr>START</code> and <code>CL_PROFILING_<wbr>COMMAND_<wbr>END</code> respectively.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p><strong>clGetEventProfilingInfo</strong> returns <code>CL_SUCCESS</code> if the function is executed
@@ -907,7 +947,12 @@ identified by <em>event</em> is not <code>CL_COMPLETE</code> or if <em>event</em
 object.
 Prior to OpenCL 3.0, implementations may return
 <code>CL_PROFILING_<wbr>INFO_<wbr>NOT_<wbr>AVAILABLE</code> for an event created by
-<strong>clEnqueueSVMFree</strong>.</p>
+<strong>clEnqueueSVMFree</strong>.
+<br>
+If the <code>cl_khr_<wbr>command_<wbr>buffer_<wbr>multi_<wbr>device</code> extension is supported,
+and if <em>event</em> was created from a call to <strong>clEnqueueCommandBufferKHR</strong>,
+<code>CL_PROFILING_<wbr>INFO_<wbr>NOT_<wbr>AVAILABLE</code> is returned if all the queues passed
+do not have <code>CL_QUEUE_<wbr>PROFILING_<wbr>ENABLE</code> set.</p>
 </li>
 <li>
 <p><code>CL_INVALID_<wbr>VALUE</code> if <em>param_name</em> is not valid, or if size in bytes
@@ -954,7 +999,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -964,8 +1009,8 @@ Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

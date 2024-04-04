@@ -779,7 +779,8 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 </div>
 <div id="clGetPlatformIDs" class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-opencl" data-lang="opencl">cl_int clGetPlatformIDs(
+<pre class="highlight"><code class="language-opencl" data-lang="opencl">// Provided by CL_VERSION_1_0
+cl_int clGetPlatformIDs(
     cl_uint num_entries,
     cl_platform_id* platforms,
     cl_uint* num_platforms);</code></pre>
@@ -795,12 +796,12 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <li>
 <p><em>num_entries</em> is the number of <code>cl_platform_<wbr>id</code> entries that can be added to
 <em>platforms</em>.
-If <em>platforms</em> is not <code>NULL</code>, the <em>num_entries</em> must be greater than zero.</p>
+If <em>platforms</em> is not <code>NULL</code>, <em>num_entries</em> must be greater than zero.</p>
 </li>
 <li>
 <p><em>platforms</em> returns a list of OpenCL platforms found.
-The <code>cl_platform_<wbr>id</code> values returned in <em>platforms</em> can be used to identify a
-specific OpenCL platform.
+The <code>cl_platform_<wbr>id</code> values returned in <em>platforms</em> can be used to
+identify a specific OpenCL platform.
 If <em>platforms</em> is <code>NULL</code>, this argument is ignored.
 The number of OpenCL platforms returned is the minimum of the value
 specified by <em>num_entries</em> or the number of OpenCL platforms available.</p>
@@ -818,11 +819,16 @@ If <em>num_platforms</em> is <code>NULL</code>, this argument is ignored.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p><strong>clGetPlatformIDs</strong> returns <code>CL_SUCCESS</code> if the function is executed
-successfully.
+and, if the <code>cl_khr_<wbr>icd</code> extension is supported, there are a non-zero
+number of platforms available.
 Otherwise, it returns one of the following errors:</p>
 </div>
 <div class="ulist">
 <ul>
+<li>
+<p><code>CL_PLATFORM_<wbr>NOT_<wbr>FOUND_<wbr>KHR</code> if the <code>cl_khr_<wbr>icd</code> extension is
+supported and zero platforms are available.</p>
+</li>
 <li>
 <p><code>CL_INVALID_<wbr>VALUE</code> if <em>num_entries</em> is equal to zero and <em>platforms</em> is
 not <code>NULL</code> or if both <em>num_platforms</em> and <em>platforms</em> are <code>NULL</code>.</p>
@@ -859,7 +865,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -869,8 +875,8 @@ Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

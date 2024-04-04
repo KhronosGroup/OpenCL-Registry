@@ -780,7 +780,8 @@ objects), call the function</p>
 </div>
 <div id="clGetMemObjectInfo" class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-opencl" data-lang="opencl">cl_int clGetMemObjectInfo(
+<pre class="highlight"><code class="language-opencl" data-lang="opencl">// Provided by CL_VERSION_1_0
+cl_int clGetMemObjectInfo(
     cl_mem memobj,
     cl_mem_info param_name,
     size_t param_value_size,
@@ -958,6 +959,38 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
         must return <em>param_value_size_ret</em> equal to 0, indicating that
         there are no properties to be returned.</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_MEM_<wbr>DX9_<wbr>MEDIA_<wbr>ADAPTER_<wbr>TYPE_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_dx9_media_sharing</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_dx9_<wbr>media_<wbr>adapter_<wbr>type_<wbr>khr</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If <em>memobj</em> was created using <strong>clCreateFromDX9MediaSurfaceKHR</strong>,
+      returns the <em>adapter_type</em> argument specified when <em>memobj</em> was
+      created.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_MEM_<wbr>DX9_<wbr>MEDIA_<wbr>SURFACE_<wbr>INFO_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_dx9_media_sharing</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_dx9_<wbr>surface_<wbr>info_<wbr>khr</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If <em>memobj</em> was created using <strong>clCreateFromDX9MediaSurfaceKHR</strong>,
+      returns the <em>surface_info</em> argument specified when <em>memobj</em> was
+      created.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_MEM_<wbr>D3D10_<wbr>RESOURCE_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_d3d10_sharing</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ID3D10Resource *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If <em>memobj</em> was created using <strong>clCreateFromD3D10BufferKHR</strong>,
+      <strong>clCreateFromD3D10Texture2DKHR</strong>, or <strong>clCreateFromD3D10Texture3DKHR</strong>,
+      returns the <em>resource</em> argument specified when <em>memobj</em> was created.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_MEM_<wbr>D3D11_<wbr>RESOURCE_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_d3d11_sharing</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ID3D11Resource *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If <em>memobj</em> was created using <strong>clCreateFromD3D11BufferKHR</strong>,
+      <strong>clCreateFromD3D11Texture2DKHR</strong>, or <strong>clCreateFromD3D11Texture3DKHR</strong>,
+      returns the <em>resource</em> argument specified when <em>memobj</em> was created.</p></td>
+</tr>
 </tbody>
 </table>
 <div class="paragraph">
@@ -983,6 +1016,47 @@ by the OpenCL implementation on the device.</p>
 <li>
 <p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code> if there is a failure to allocate resources
 required by the OpenCL implementation on the host.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The following errors may be returned if the <code>cl_khr_<wbr>dx9_<wbr>media_<wbr>sharing</code>
+extension is supported:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_INVALID_<wbr>DX9_<wbr>MEDIA_<wbr>SURFACE_<wbr>KHR</code> if <em>param_name</em> is
+<code>CL_MEM_<wbr>DX9_<wbr>MEDIA_<wbr>SURFACE_<wbr>INFO_<wbr>KHR</code> and <em>memobj</em> was not created by
+calling <strong>clCreateFromDX9MediaSurfaceKHR</strong> from a Direct3D9 surface.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The following errors may be returned if the <code>cl_khr_<wbr>d3d10_<wbr>sharing</code>
+extension is supported:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_INVALID_<wbr>D3D10_<wbr>RESOURCE_<wbr>KHR</code> if <em>param_name</em> is
+<code>CL_MEM_<wbr>D3D10_<wbr>RESOURCE_<wbr>KHR</code> and <em>memobj</em> was not created by calling
+<strong>clCreateFromD3D10BufferKHR</strong>, <strong>clCreateFromD3D10Texture2DKHR</strong>, or
+<strong>clCreateFromD3D10Texture3DKHR</strong>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The following errors may be returned if the <code>cl_khr_<wbr>d3d11_<wbr>sharing</code>
+extension is supported:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_INVALID_<wbr>D3D11_<wbr>RESOURCE_<wbr>KHR</code> if <em>param_name</em> is
+<code>CL_MEM_<wbr>D3D11_<wbr>RESOURCE_<wbr>KHR</code> and <em>memobj</em> was not created by calling
+<strong>clCreateFromD3D11BufferKHR</strong>, <strong>clCreateFromD3D11Texture2DKHR</strong>, or
+<strong>clCreateFromD3D11Texture3DKHR</strong>.</p>
 </li>
 </ul>
 </div>
@@ -1012,7 +1086,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -1031,8 +1105,8 @@ Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

@@ -803,8 +803,9 @@ described for <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified
 <em>n</em> is 2, 3, 4, 8, or 16.</p>
 </div>
 <div class="paragraph">
-<p>For any specific use of a function, the actual type has to be the same for
-all arguments and the return type unless otherwise specified.</p>
+<p>For any specific use of a function with <code>gentype*</code> arguments the actual type
+has to be the same for all arguments and the return type, unless they are
+explicitly specified as an actual type.</p>
 </div>
 <table id="table-builtin-functions" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. Built-in Scalar and Vector Integer Argument Functions</caption>
@@ -812,11 +813,13 @@ all arguments and the return type unless otherwise specified.</p>
 <col style="width: 50%;">
 <col style="width: 50%;">
 </colgroup>
-<tbody>
+<thead>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Function</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
+<th class="tableblock halign-left valign-top">Function</th>
+<th class="tableblock halign-left valign-top">Description</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ugentype <strong>abs</strong>(gentype <em>x</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns |x|.</p></td>
@@ -862,6 +865,61 @@ all arguments and the return type unless otherwise specified.</p>
 <p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for OpenCL 2.0 or newer.</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">uint <strong>dot</strong>(uchar4 a, uchar4 b)<br>
+  int <strong>dot</strong>(char4 a, char4 b)<br>
+  int <strong>dot</strong>(uchar4 a, char4 b)<br>
+  int <strong>dot</strong>(char4 a, uchar4 b)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dot</code> returns the dot product of the two input vectors <code>a</code> and <code>b</code>.
+      The components of <code>a</code> and <code>b</code> are sign- or zero-extended to the width
+      of the destination type and the vectors with extended components are
+      multiplied component-wise.
+      All the components of the resulting vectors are added together to form
+      the final result.</p>
+<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> that the
+      <code>__opencl_c_<wbr>integer_<wbr>dot_<wbr>product_<wbr>input_<wbr>4x8bit</code> feature macro is defined,</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">uint <strong>dot_acc_sat</strong>(uchar4 a, uchar4 b, uint acc)<br>
+  int <strong>dot_acc_sat</strong>(char4 a, char4 b, int acc)<br>
+  int <strong>dot_acc_sat</strong>(uchar4 a, char4 b, int acc)<br>
+  int <strong>dot_acc_sat</strong>(char4 a, uchar4 b, int acc)</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><code>dot_acc_sat</code> returns the saturating addition of the dot product of
+      the two input vectors <code>a</code> and <code>b</code> and the accumulator <code>acc</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>product = dot(a,b);
+result = add_sat(product, acc);</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> that the
+<code>__opencl_c_<wbr>integer_<wbr>dot_<wbr>product_<wbr>input_<wbr>4x8bit</code> feature macro is defined,</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">uint <strong>dot_4x8packed_uu_uint</strong>(uint a, uint b)<br>
+  int <strong>dot_4x8packed_ss_int</strong>(uint a, uint b)<br>
+  int <strong>dot_4x8packed_us_int</strong>(uint a, uint b)<br>
+  int <strong>dot_4x8packed_su_int</strong>(uint a, uint b)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns <strong>dot</strong> for 4x8 bit input vectors packed into a 32-bit word.</p>
+<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> that the
+      <code>__opencl_c_<wbr>integer_<wbr>dot_<wbr>product_<wbr>input_<wbr>4x8bit_<wbr>packed</code> feature macro is
+      defined,</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">uint <strong>dot_acc_sat_4x8packed_uu_uint</strong>(uint a, uint b, uint acc)<br>
+  int <strong>dot_acc_sat_4x8packed_ss_int</strong>(uint a, uint b, int acc)<br>
+  int <strong>dot_acc_sat_4x8packed_us_int</strong>(uint a, uint b, int acc)<br>
+  int <strong>dot_acc_sat_4x8packed_su_int</strong>(uint a, uint b, int acc)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns <strong>dot_acc_set</strong> for 4x8 bit input vectors packed into a 32-bit
+      word.</p>
+<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> that the
+      <code>__opencl_c_<wbr>integer_<wbr>dot_<wbr>product_<wbr>input_<wbr>4x8bit_<wbr>packed</code> feature macro is
+      defined,</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>mad_hi</strong>(gentype <em>a</em>, gentype <em>b</em>, gentype <em>c</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns <strong>mul_hi</strong>(<em>a</em>, <em>b</em>) + <em>c</em>.</p></td>
 </tr>
@@ -870,14 +928,14 @@ all arguments and the return type unless otherwise specified.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns <em>a</em> * <em>b</em> + <em>c</em> and saturates the result.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>max</strong>(gentype <em>x</em>, gentype <em>y</em>)<br></p>
-<p class="tableblock">  For OpenCL C 1.1 or newer:<br></p>
+<td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>max</strong>(gentype <em>x</em>, gentype <em>y</em>)</p>
+<p class="tableblock">  For OpenCL C 1.1 or newer:</p>
 <p class="tableblock">  gentype <strong>max</strong>(gentype <em>x</em>, sgentype <em>y</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns <em>y</em> if <em>x</em> &lt; <em>y</em>, otherwise it returns <em>x</em>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>min</strong>(gentype <em>x</em>, gentype <em>y</em>)<br></p>
-<p class="tableblock">  For OpenCL C 1.1 or newer:<br></p>
+<td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>min</strong>(gentype <em>x</em>, gentype <em>y</em>)</p>
+<p class="tableblock">  For OpenCL C 1.1 or newer:</p>
 <p class="tableblock">  gentype <strong>min</strong>(gentype <em>x</em>, sgentype <em>y</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns <em>y</em> if <em>y</em> &lt; <em>x</em>, otherwise it returns <em>x</em>.</p></td>
 </tr>
@@ -919,13 +977,13 @@ all arguments and the return type unless otherwise specified.</p>
   ulong <strong>upsample</strong>(uint <em>hi</em>, uint <em>lo</em>)<br>
   long<em>n</em> <strong>upsample</strong>(int<em>n</em> <em>hi</em>, uint<em>n</em> <em>lo</em>)<br>
   ulong<em>n</em> <strong>upsample</strong>(uint<em>n</em> <em>hi</em>, uint<em>n</em> <em>lo</em>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>result</em>[i] = ((long)<em>hi</em>[i] link:https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html# 32) | <em>lo</em>[i]<br>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>result</em>[i] = ((long)<em>hi</em>[i] &lt;&lt; 32) | <em>lo</em>[i]<br>
       <em>result</em>[i] = ((ulong)<em>hi</em>[i] &lt;&lt; 32) | <em>lo</em>[i]</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>popcount</strong>(gentype <em>x</em>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the number of non-zero bits in <em>x</em>.<br></p>
-<p class="tableblock">      &lt;&lt;unified-spec[Requires^] support for OpenCL C 1.2 or newer.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the number of non-zero bits in <em>x</em>.</p>
+<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for OpenCL C 1.2 or newer.</p></td>
 </tr>
 </tbody>
 </table>
@@ -942,11 +1000,13 @@ take <code>int</code>, <code>int2</code>, <code>int3</code>, <code>int4</code>, 
 <col style="width: 50%;">
 <col style="width: 50%;">
 </colgroup>
-<tbody>
+<thead>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Function</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
+<th class="tableblock halign-left valign-top">Function</th>
+<th class="tableblock halign-left valign-top">Description</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>mad24</strong>(gentype <em>x</em>, gentype <em>y</em>, gentype z)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Multipy two 24-bit integer values <em>x</em> and <em>y</em> and add the 32-bit
@@ -993,7 +1053,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2023 The Khronos Group Inc.</p>
+<p>Copyright 2014-2024 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -1004,7 +1064,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <div id="footnotes">
 <hr>
 <div class="footnote" id="_footnotedef_1">
-<a href="#_footnoteref_1">1</a>. Only if 64-bit integers are supported. In OpenCL C 3.0 this will be indicated by the presence of the <code>__opencl_c_int64</code> feature macro.
+<a href="#_footnoteref_1">1</a>. Only if 64-bit integers are supported. In OpenCL C 3.0 this will be indicated by the presence of the <code>__opencl_c_<wbr>int64</code> feature macro.
 </div>
 <div class="footnote" id="_footnotedef_2">
 <a href="#_footnoteref_2">2</a>. Frequently vector operations need n + 1 bits temporarily to calculate a result. The <strong>rhadd</strong> instruction gives you an extra bit without needing to upsample and downsample. This can be a profound performance win.
@@ -1012,8 +1072,8 @@ Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.15<br>
-Last updated 2023-12-14 12:09:08 -0800
+Version v3.0.16<br>
+Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 
