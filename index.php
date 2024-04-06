@@ -25,7 +25,8 @@ include_once("../../assets/static_pages/khr_page_top.php");
 <p> The latest version of OpenCL is OpenCL 3.0. </p>
 
 <p> The OpenCL specifications are now unified so they describe OpenCL 3.0
-    and all previous versions of OpenCL. </p>
+    and all previous versions of OpenCL, and include <tt>khr</tt> extensions
+    integrated into the core API and C specification language. </p>
 
 <ul>
 <li> OpenCL API Specification
@@ -249,11 +250,15 @@ include_once("../../assets/static_pages/khr_page_top.php");
     updated placeholder.)</p>
 
 
-    <h6 id="khrextspecs">Khronos Extension Specifications</h6>
+<h6 id="khrextspecs"> Khronos Extension Specifications </h6>
 
-<p> Khronos extensions are published in the OpenCL Extension Specification.
-    These links are to the appropriate chapter of the OpenCL Extension
-    Specification.</p>
+<p> Khronos <tt>khr</tt> extensions are now integrated into the core API and
+    C language Specifications. These links are to the appropriate extension
+    appendix of the OpenCL API Specification.</p>
+
+<p> <tt>khr</tt> extensions have been removed from the OpenCL Extensions
+    specification, and that document will eventually be retired once its
+    remaining content is integrated elsewhere. </p>
 
 <?php include("extensions/khrext.php"); ?>
 
