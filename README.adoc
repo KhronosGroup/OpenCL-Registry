@@ -3,59 +3,83 @@
 The OpenCL-Registry repository contains the OpenCL API and Extension
 Registry, including specifications, reference pages, and reference cards.
 It is also used as a backing store for the web view of the registry at
-https://www.khronos.org/registry/cl/ ; commits to the main branch of this
+https://registry.khronos.org/OpenCL/ ; commits to the main branch of this
 repository will be reflected there.
 
 Please file issues with the OpenCL API (specification bugs, feature
-requests, etc.) on the companion https://github.com/KhronosGroup/OpenCL-Docs
-repository.
+requests, etc.) in the companion
+link:https://github.com/KhronosGroup/OpenCL-Docs[OpenCL-Docs] repository.
 
 Issues that should be filed in *this* repository include adding OpenCL
-extension specifications, and problems with the content of the registry
-*itself*.
+extension specifications, and problems with the structure and content of the
+registry *itself*.
+
 
 == Reserving OpenCL Enumerant Ranges
 
-OpenCL enumerants are now documented in the specification repository
-https://github.com/KhronosGroup/OpenCL-Docs in the file
-https://github.com/KhronosGroup/OpenCL-Docs/blob/main/xml/cl.xml
+OpenCL enumerants are now documented in the
+link:https://github.com/KhronosGroup/OpenCL-Docs[OpenCL-Docs] repository in
+the file
+link:https://github.com/KhronosGroup/OpenCL-Docs/blob/main/xml/cl.xml[xml/cl.xml].
 
 New enumerant ranges can be allocated by proposing a pull request to `main`
 branch of OpenCL-Docs modifying `cl.xml`, following the
-existing examples. Allocate ranges starting at the lowest free values
-available (search for "`Reserved for vendor extensions`"). Ranges are not
-officially allocated until your pull request is *accepted* into `main`
-branch of the OpenCL-Docs repository. At that point you can use values from
-your assigned range for API extensions.
+existing examples.
+Allocate ranges starting at the lowest free values available (search for
+"`Reserved for vendor extensions`").
+Ranges are not officially allocated until your pull request is *accepted*
+into `main` branch of the OpenCL-Docs repository.
+At that point you can use values from your assigned range for API
+extensions.
 
-== Adding Extension Specifications
 
-Extension specification documents can be added by proposing a pull request
-to main, adding the specification '.txt' or '.html' file under
-'extensions/<vendor>/<filename>'. You must also:
+== Adding Khronos Extension Specifications
 
-* Modify 'extensions/registry.py' to include the extension, using the next
-  free extension number. Execute the python script 'nextfree.py' in the
-  'extensions/' directory to find the next free number. The extension `flags`
-  must be marked as `public` , similar to other entries in 'registry.py',
-  for the extension to be linked from the registry index page.
-* Include that extension number in the extension specification document
-* In the 'extensions/' directory, `make` to regenerate the HTML index file
-  'clext.php' from 'registry.py'. If this doesn't succeed due to not having
-  the right Python version or something like that, we'll take care of it
-  when merging to main.
+Khronos `khr` extensions must now be documented in the OpenCL API and OpenCL
+C Specifications, written as conditionally-included markup.
+Propose a pull request against the appropriate specification markup and XML
+files in the link:https://github.com/KhronosGroup/OpenCL-Docs[OpenCL-Docs]
+repository.
 
-Sometimes extension text files contain inappropriate UTF-8 characters. They
-should be restricted to the ASCII subset of UTF-8 at present. They can be
-identified using the iconv Linux command-line tool via
+
+== Adding Vendor Extension Specifications
+
+Vendor extension specification documents should be written as separate
+asciidoc markup files in the
+link:https://github.com/KhronosGroup/OpenCL-Docs[OpenCL-Docs] repository.
+Use the
+link:https://github.com/KhronosGroup/OpenCL-Docs/blob/main/extensions/cl_extension_template.asciidoc[asciidoc
+extension template] and follow the markup style of existing, similar
+extensions.
+Propose a pull request against the appropriate specification markup and XML
+files in the link:https://github.com/KhronosGroup/OpenCL-Docs[OpenCL-Docs]
+repository when you are ready to publish the extension.
+
+The repository maintainer will assist with importing the HTML generated from
+the asciidoc source file and making needed changes to files in this
+repository when publishing:
+
+  * Modify 'extensions/registry.py' to include the extension, using the next
+    free extension number.
+    Execute the python script 'nextfree.py' in the 'extensions/' directory
+    to find the next free number.
+    The extension `flags` must be marked as `public` , similar to other
+    entries in 'registry.py', for the extension to be linked from the
+    registry index page.
+  * Include that extension number in the extension specification document
+  * In the 'extensions/' directory, `make` to regenerate the HTML index file
+    'clext.php' from 'registry.py'.
+    If this doesn't succeed due to not having the right Python version or
+    something like that, we'll take care of it when merging to main.
+
+Older extensions are written as text (`.txt`) files.
+Sometimes extension text files contain inappropriate UTF-8 characters.
+They should be restricted to the ASCII subset of UTF-8.
+Problematic characters can be identified using the iconv Linux command-line
+tool:
 
     iconv -c -f utf-8 -t ascii filename.txt
 
-(see internal Bugzilla issue 16141 for more).
-
-It is recommended to use the asciidoc-based extension template to generate HTML
-extension specifications instead, see
-https://github.com/KhronosGroup/OpenCL-Docs/blob/master/extensions/cl_extension_template.asciidoc
 
 == Repository Contents
 
