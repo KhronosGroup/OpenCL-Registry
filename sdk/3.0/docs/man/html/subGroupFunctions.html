@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.16">
-<title>subGroupFunctions(3)</title>
+<title>subgroupFunctions(3)</title>
 <style>
 /*! normalize.css v2.1.2 | MIT License | git.io/normalize */
 /* ========================================================================== HTML5 display definitions ========================================================================== */
@@ -372,7 +372,7 @@ b.button:after { content: "]"; padding: 0 2px 0 3px; }
 #content #toc > :first-child { margin-top: 0; }
 #content #toc > :last-child { margin-bottom: 0; }
 
-#footer { max-width: 100%; background: none; padding: 1.25em; }
+#footer { max-width: 100%; background-color: none; padding: 1.25em; }
 
 #footer-text { color: black; line-height: 1.44; }
 
@@ -764,10 +764,10 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 </script></head>
 <body class="manpage">
 <div id="header">
-<h1>subGroupFunctions(3) Manual Page</h1>
+<h1>subgroupFunctions(3) Manual Page</h1>
 <h2 id="_name">Name</h2>
 <div class="sectionbody">
-<p>subGroupFunctions - Sub-Group Functions</p>
+<p>subgroupFunctions - Subgroup Functions</p>
 </div>
 </div>
 <div id="content">
@@ -782,102 +782,78 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 </td>
 <td class="content">
 The functionality described in this section <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">requires</a>
-support for
-the <code>cl_khr_<wbr>subgroups</code> extension macro; or for
-OpenCL C 3.0 or newer and the <code>__opencl_c_<wbr>subgroups</code> feature.
+support for OpenCL C 3.0 or newer and the <code>__opencl_c_<wbr>subgroups</code> feature.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>The <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#table-collective-functions" target="_blank" rel="noopener">following table</a> describes OpenCL C
-programming language built-in functions that operate on a sub-group level.
-These built-in functions must be encountered by all work-items in the
-sub-group executing the kernel.
+<p>The table below describes OpenCL C programming language built-in functions that operate on a subgroup level.
+These built-in functions must be encountered by all work-items in the subgroup executing the kernel.
 For the functions below, the generic type name <code>gentype</code> may be the one of the
 supported built-in scalar data types <code>int</code>, <code>uint</code>, <code>long</code>
-<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup>, <code>ulong</code>, <code>half</code>
-<sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup>, <code>float</code>, and <code>double</code>
-<sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnotedef_3" title="View footnote.">3</a>]</sup>.</p>
+<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup>, <code>ulong</code>, <code>half</code> <sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup>,
+<code>float</code>, and <code>double</code> <sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnotedef_3" title="View footnote.">3</a>]</sup>.</p>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If the <code>cl_khr_<wbr>subgroup_<wbr>extended_<wbr>types</code> extension is supported, the
-generic type name <code>gentype</code> may additionally be <code>char</code>, <code>uchar</code>, <code>short</code>, and
-<code>ushort</code>.
-For the <code>sub_group_broadcast</code> function, <code>gentype</code> may additionally be one of
-the supported built-in vector data types <code>char<em>n</em></code>, <code>uchar<em>n</em></code>,
-<code>short<em>n</em></code>, <code>ushort<em>n</em></code>, <code>int<em>n</em></code>, <code>uint<em>n</em></code>, <code>long<em>n</em></code>,
-<code>ulong<em>n</em></code>, <code>float<em>n</em></code>, <code>half<em>n</em></code> <sup class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnotedef_4" title="View footnote.">4</a>]</sup>, or
-<code>double<em>n</em></code> <sup class="footnote">[<a id="_footnoteref_5" class="footnote" href="#_footnotedef_5" title="View footnote.">5</a>]</sup>
-</td>
-</tr>
-</table>
-</div>
-<table id="table-collective-functions" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. Built-in Sub-Group Collective Functions</caption>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Built-in Subgroup Collective Functions</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Function</th>
-<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top"><strong>Function</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">int <strong>sub_group_all</strong> (int <em>predicate</em>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Evaluates <em>predicate</em> for all work-items in the sub-group and returns a
+<td class="tableblock halign-left valign-top"><p class="tableblock">Evaluates <em>predicate</em> for all work-items in the subgroup and returns a
   non-zero value if <em>predicate</em> evaluates to non-zero for all work-items in
-  the sub-group.</p></td>
+  the subgroup.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">int <strong>sub_group_any</strong> (int <em>predicate</em>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Evaluates <em>predicate</em> for all work-items in the sub-group and returns a
+<td class="tableblock halign-left valign-top"><p class="tableblock">Evaluates <em>predicate</em> for all work-items in the subgroup and returns a
   non-zero value if <em>predicate</em> evaluates to non-zero for any work-items in
-  the sub-group.</p></td>
+  the subgroup.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>sub_group_broadcast</strong> (<br>
   gentype <em>x</em>, uint <em>sub_group_local_id</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Broadcast the value of <em>x</em> for work-item identified by
   <em>sub_group_local_id</em> (value returned by <strong>get_sub_group_local_id</strong>) to all
-  work-items in the sub-group.</p>
+  work-items in the subgroup.</p>
 <p class="tableblock">  Behavior is undefined when the value of <em>sub_group_local_id</em> is not
-  equivalent for all work-items in the sub-group.</p>
+  equivalent for all work-items in the subgroup.</p>
 <p class="tableblock">  Behavior is undefined when <em>sub_group_local_id</em> is greater or equal to the
-  sub-group size.</p></td>
+  subgroup size.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>sub_group_reduce_&lt;op&gt;</strong> (<br>
   gentype <em>x</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return result of reduction operation specified by <strong>&lt;op&gt;</strong> for all values of
-  <em>x</em> specified by work-items in a sub-group.</p></td>
+  <em>x</em> specified by work-items in a subgroup.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>sub_group_scan_exclusive_&lt;op&gt;</strong> (<br>
   gentype <em>x</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Do an exclusive scan operation specified by <strong>&lt;op&gt;</strong> of all values specified
-  by work-items in a sub-group.
+  by work-items in a subgroup.
   The scan results are returned for each work-item.</p>
-<p class="tableblock">  The scan order is defined by increasing sub-group local ID within the
-  sub-group.</p></td>
+<p class="tableblock">  The scan order is defined by increasing subgroup local ID within the
+  subgroup.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>sub_group_scan_inclusive_&lt;op&gt;</strong> (<br>
   gentype <em>x</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Do an inclusive scan operation specified by <strong>&lt;op&gt;</strong> of all values specified
-  by work-items in a sub-group.
+  by work-items in a subgroup.
   The scan results are returned for each work-item.</p>
-<p class="tableblock">  The scan order is defined by increasing sub-group local ID within the
-  sub-group.</p></td>
+<p class="tableblock">  The scan order is defined by increasing subgroup local ID within the
+  subgroup.</p></td>
 </tr>
 </tbody>
 </table>
@@ -918,18 +894,16 @@ The order of these floating-point operations is also non-deterministic for a giv
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The functionality described in the following table <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">requires</a> support
-the <code>cl_khr_<wbr>subgroups</code> extension macro; or for
-OpenCL C 3.0 or newer and the <code>__opencl_c_<wbr>subgroups</code> and <code>__opencl_c_<wbr>pipes</code>
-features.
+The functionality described in the following table <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">requires</a> support for OpenCL C 3.0 or newer and the <code>__opencl_c_<wbr>subgroups</code>
+and <code>__opencl_c_<wbr>pipes</code> features.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>The <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#table-pipe-functions" target="_blank" rel="noopener">following table</a> describes built-in pipe
-functions that operate at a sub-group level.
-These built-in functions must be encountered by all work-items in a sub-group
+<p>The following table describes built-in pipe functions that operate at a
+subgroup level.
+These built-in functions must be encountered by all work-items in a subgroup
 executing the kernel with the same argument values, otherwise the behavior
 is undefined.
 We use the generic type name <code>gentype</code> to indicate the built-in OpenCL C
@@ -937,16 +911,16 @@ scalar or vector integer or floating-point data types or any user defined
 type built from these scalar and vector data types can be used as the type
 for the arguments to the pipe functions listed in <em>table 6.29</em>.</p>
 </div>
-<table id="table-pipe-functions" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 2. Built-in Sub-Group Pipe Functions</caption>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 2. Built-in Subgroup Pipe Functions</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Function</th>
-<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top"><strong>Function</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
 </tr>
 </thead>
 <tbody>
@@ -976,12 +950,12 @@ for the arguments to the pipe functions listed in <em>table 6.29</em>.</p>
 </tbody>
 </table>
 <div class="paragraph">
-<p>Note: Reservations made by a sub-group are ordered in the pipe as they are
+<p>Note: Reservations made by a subgroup are ordered in the pipe as they are
 ordered in the program.
-Reservations made by different sub-groups that belong to the same work-group
-can be ordered using sub-group synchronization.
-The order of sub-group based reservations that belong to different work
-groups is implementation-defined.</p>
+Reservations made by different subgroups that belong to the same work-group
+can be ordered using subgroup synchronization.
+The order of subgroup based reservations that belong to different work
+groups is implementation defined.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -990,28 +964,26 @@ groups is implementation-defined.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The functionality described in the following table <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">requires</a> support
-the <code>cl_khr_<wbr>subgroups</code> extension macro; or for
-OpenCL C 3.0 or newer and the <code>__opencl_c_<wbr>subgroups</code> and
-<code>__opencl_c_<wbr>device_<wbr>enqueue</code> features.
+The functionality described in the following table <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">requires</a> support for OpenCL C 3.0 or newer and the <code>__opencl_c_<wbr>subgroups</code>
+and <code>__opencl_c_<wbr>device_<wbr>enqueue</code> features.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>The <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#table-kernel-query-functions" target="_blank" rel="noopener">following table</a> describes built-in
-functions to query sub-group information for a block to be enqueued.</p>
+<p>The following table describes built-in functions to query subgroup
+information for a block to be enqueued.</p>
 </div>
-<table id="table-kernel-query-functions" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 3. Built-in Sub-Group Kernel Query Functions</caption>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 3. Built-in Subgroup Kernel Query Functions</caption>
 <colgroup>
 <col style="width: 55.5555%;">
 <col style="width: 44.4445%;">
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Built-in Function</th>
-<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top"><strong>Built-in Function</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
 </tr>
 </thead>
 <tbody>
@@ -1022,7 +994,7 @@ functions to query sub-group information for a block to be enqueued.</p>
 <p class="tableblock">  uint <strong>get_kernel_sub_group_count_for_ndrange</strong> (<br>
   const ndrange_t <em>ndrange</em>,<br>
   void (^block)(local void *, &#8230;&#8203;));</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the number of sub-groups in each work-group of the dispatch (except
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the number of subgroups in each work-group of the dispatch (except
   for the last in cases where the global size does not divide cleanly into
   work-groups) given the combination of the passed ndrange and block.</p>
 <p class="tableblock">  <em>block</em> specifies the block to be enqueued.</p></td>
@@ -1034,7 +1006,7 @@ functions to query sub-group information for a block to be enqueued.</p>
 <p class="tableblock">  uint <strong>get_kernel_max_sub_group_size_for_ndrange</strong> (<br>
   const ndrange_t <em>ndrange</em>,<br>
   void (^block)(local void *, &#8230;&#8203;));</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the maximum sub-group size for a block.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the maximum subgroup size for a block.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1052,7 +1024,7 @@ functions to query sub-group information for a block to be enqueued.</p>
 <h2 id="_document_notes"><a class="anchor" href="#_document_notes"></a>Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#sub-group-functions" target="_blank" rel="noopener">OpenCL C Specification</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#subgroup-functions" target="_blank" rel="noopener">OpenCL C Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the OpenCL C Specification.
@@ -1064,7 +1036,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2024 The Khronos Group Inc.</p>
+<p>Copyright 2014-2023 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -1075,25 +1047,19 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <div id="footnotes">
 <hr>
 <div class="footnote" id="_footnotedef_1">
-<a href="#_footnoteref_1">1</a>. Only if 64-bit integers are supported. In OpenCL C 3.0 this will be indicated by the presence of the <code>__opencl_c_<wbr>int64</code> feature macro.
+<a href="#_footnoteref_1">1</a>. Only if 64-bit integers are supported. In OpenCL C 3.0 this will be indicated by the presence of the <code>__opencl_c_int64</code> feature macro.
 </div>
 <div class="footnote" id="_footnotedef_2">
-<a href="#_footnoteref_2">2</a>. Only if the <code>cl_khr_<wbr>fp16</code> extension is supported and has been enabled.
+<a href="#_footnoteref_2">2</a>. Only if the <strong>cl_khr_fp16</strong> extension is supported and has been enabled.
 </div>
 <div class="footnote" id="_footnotedef_3">
-<a href="#_footnoteref_3">3</a>. Only if double precision is supported. In OpenCL C 3.0 this will be indicated by the presence of the <code>__opencl_c_<wbr>fp64</code> feature macro.
-</div>
-<div class="footnote" id="_footnotedef_4">
-<a href="#_footnoteref_4">4</a>. Only if the <code>cl_khr_<wbr>fp16</code> extension is supported and has been enabled.
-</div>
-<div class="footnote" id="_footnotedef_5">
-<a href="#_footnoteref_5">5</a>. Only if double precision is supported. In OpenCL C 3.0 this will be indicated by the presence of the <code>__opencl_c_<wbr>fp64</code> feature macro.
+<a href="#_footnoteref_3">3</a>. Only if double precision is supported. In OpenCL C 3.0 this will be indicated by the presence of the <code>__opencl_c_fp64</code> feature macro.
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.16<br>
-Last updated 2024-04-04 13:33:43 -0700
+Version v3.0.14<br>
+Last updated 2023-04-17 15:22:10 -0700
 </div>
 </div>
 
