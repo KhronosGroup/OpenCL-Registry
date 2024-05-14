@@ -441,11 +441,6 @@ registry = {
         'flags' : { 'public' },
         'url' : 'specs/3.0-unified/html/OpenCL_API.html#cl_khr_external_memory',
     },
-    'cl_khr_external_memory_dx' : {
-        'khrnumber' : 55,
-        'flags' : { 'public' },
-        'url' : 'specs/3.0-unified/html/OpenCL_API.html#cl_khr_external_memory',
-    },
     'cl_khr_external_memory_opaque_fd' : {
         'khrnumber' : 56,
         'flags' : { 'public' },
@@ -458,11 +453,6 @@ registry = {
     },
     'cl_khr_external_semaphore' : {
         'khrnumber' : 58,
-        'flags' : { 'public' },
-        'url' : 'specs/3.0-unified/html/OpenCL_API.html#cl_khr_external_semaphore',
-    },
-    'cl_khr_external_semaphore_dx_fence' : {
-        'khrnumber' : 59,
         'flags' : { 'public' },
         'url' : 'specs/3.0-unified/html/OpenCL_API.html#cl_khr_external_semaphore',
     },
