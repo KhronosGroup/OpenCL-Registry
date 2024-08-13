@@ -51,6 +51,8 @@
 </li>
 <li><a href="extensions/ext/cl_ext_image_from_buffer.html">cl_ext_image_from_buffer</a>
 </li>
+<li><a href="extensions/ext/cl_ext_image_raw10_raw12.html">cl_ext_image_raw10_raw12</a>
+</li>
 <li><a href="extensions/ext/cl_ext_image_requirements_info.html">cl_ext_image_requirements_info</a>
 </li>
 <li><a href="extensions/ext/cl_ext_migrate_memobject.txt">cl_ext_migrate_memobject</a>

@@ -126,6 +126,11 @@ registry = {
         'flags' : { 'public' },
         'url' : 'extensions/ext/cl_ext_image_from_buffer.html',
     },
+    'cl_ext_image_raw10_raw12' : {
+        'number' : 84,
+        'flags' : { 'public' },
+        'url' : 'extensions/ext/cl_ext_image_raw10_raw12.html',
+    },
     'cl_ext_image_requirements_info' : {
         'number' : 83,
         'flags' : { 'public' },
