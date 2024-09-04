@@ -119,6 +119,8 @@
 </li>
 <li><a href="extensions/intel/cl_intel_split_work_group_barrier.html">cl_intel_split_work_group_barrier</a>
 </li>
+<li><a href="extensions/intel/cl_intel_subgroup_buffer_prefetch.html">cl_intel_subgroup_buffer_prefetch</a>
+</li>
 <li><a href="extensions/intel/cl_intel_subgroup_matrix_multiply_accumulate.html">cl_intel_subgroup_matrix_multiply_accumulate</a>
 </li>
 <li><a href="extensions/intel/cl_intel_subgroup_split_matrix_multiply_accumulate.html">cl_intel_subgroup_split_matrix_multiply_accumulate</a>
