@@ -884,12 +884,6 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <a href="#_footnoteref_2">2</a>. While the union is intended to reflect the organization of data in memory, the <strong>as_type</strong>() and <strong>as_type<em>n</em></strong>() constructs are intended to reflect the organization of data in register. The <strong>as_type</strong>() and <strong>as_type<em>n</em></strong>() constructs are intended to compile to no instructions on devices that use a shared register file designed to operate on both the operand and result types. Note that while differences in memory organization are expected to largely be limited to those arising from endianness, the register based representation may also differ due to size of the element in register. For example, an architecture may load a <code>char</code> into a 32-bit register, or a <code>char</code> vector into a SIMD vector register with fixed 32-bit element size. If the element count does not match, then the implementation should pick a data representation that most closely matches what would happen if an appropriate result type operator was applied to a register containing data of the source type. If the number of elements matches, then the <strong>as_type<em>n</em></strong>() should faithfully reproduce the behavior expected from a similar data type reinterpretation using memory/unions. So, for example if an implementation stores all single precision data as <code>double</code> in register, it should implement <strong>as_int</strong>(<code>float</code>) by first down-converting the <code>double</code> to single precision and then (if necessary) moving the single precision bits to a register suitable for operating on integer data. If data stored in different address spaces do not have the same endianness, then the &#8220;dominant endianness&#8221; of the device should prevail.
 </div>
 </div>
-<div id="footer">
-<div id="footer-text">
-Version v3.0.16<br>
-Last updated 2024-04-04 13:33:43 -0700
-</div>
-</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
 </body>

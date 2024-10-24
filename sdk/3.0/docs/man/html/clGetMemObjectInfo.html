@@ -803,7 +803,7 @@ cl_int clGetMemObjectInfo(
 <p><em>param_name</em> specifies the information to query.
 The list of supported <em>param_name</em> types and the information returned in
 <em>param_value</em> by <strong>clGetMemObjectInfo</strong> is described in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#mem-info-table" target="_blank" rel="noopener">Memory Object Info</a> table.</p>
+<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#mem-info-table" target="_blank" rel="noopener">Memory Object Queries</a> table.</p>
 </li>
 <li>
 <p><em>param_value</em> is a pointer to memory where the appropriate result being
@@ -811,10 +811,11 @@ queried is returned.
 If <em>param_value</em> is <code>NULL</code>, it is ignored.</p>
 </li>
 <li>
-<p><em>param_value_size</em> is used to specify the size in bytes of memory pointed to
-by <em>param_value</em>.
-This size must be ≥ size of return type as described in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#mem-info-table" target="_blank" rel="noopener">Memory Object Info</a> table.</p>
+<p><em>param_value_size</em> specifies the size in bytes of memory pointed to by
+<em>param_value</em>.
+This size must be greater than or equal to the size of the return type
+specified in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#mem-info-table" target="_blank" rel="noopener">Memory Object Queries</a> table.
+If <em>param_value</em> is <code>NULL</code>, it is ignored.</p>
 </li>
 <li>
 <p><em>param_value_size_ret</em> returns the actual size in bytes of data being
@@ -1004,10 +1005,11 @@ Otherwise, it returns one of the following errors:</p>
 <p><code>CL_INVALID_<wbr>MEM_<wbr>OBJECT</code> if <em>memobj</em> is a not a valid memory object.</p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if <em>param_name</em> is not valid, or if size in bytes
-specified by <em>param_value_size</em> is &lt; size of return type as described in
-the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#mem-info-table" target="_blank" rel="noopener">Memory Object Info</a> table and <em>param_value</em> is not
-<code>NULL</code>.</p>
+<p><code>CL_INVALID_<wbr>VALUE</code> if <em>param_name</em> is not one of the supported values, or
+if the size in bytes specified by <em>param_value_size</em> is less than size of
+the return type specified in the
+<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#mem-info-table" target="_blank" rel="noopener">Memory Object Queries</a> table
+and <em>param_value</em> is not <code>NULL</code>.</p>
 </li>
 <li>
 <p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources required
@@ -1101,12 +1103,6 @@ Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 <div class="footnote" id="_footnotedef_2">
 <a href="#_footnoteref_2">2</a>. The reference count returned should be considered immediately stale. It is unsuitable for general use in applications. This feature is provided for identifying memory leaks.
-</div>
-</div>
-<div id="footer">
-<div id="footer-text">
-Version v3.0.16<br>
-Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

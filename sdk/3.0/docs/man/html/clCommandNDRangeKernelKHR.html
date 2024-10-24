@@ -783,7 +783,7 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 cl_int clCommandNDRangeKernelKHR(
     cl_command_buffer_khr command_buffer,
     cl_command_queue command_queue,
-    const cl_ndrange_kernel_command_properties_khr* properties,
+    const cl_command_properties_khr* properties,
     cl_kernel kernel,
     cl_uint work_dim,
     const size_t* global_work_offset,
@@ -841,7 +841,7 @@ properties will be used.
 The <code>cl_khr_<wbr>command_<wbr>buffer</code> extension does not define any
 properties, but supported properties defined by extensions are defined
 in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#ndrange-kernel-properties-table" target="_blank" rel="noopener">List of supported properties
-by <strong>clCommandNDRangeKernelKHR</strong></a> table.</p>
+by clCommandNDRangeKernelKHR</a> table.</p>
 </li>
 <li>
 <p><em>kernel</em> is a valid kernel object which <strong>must</strong> have its arguments set.
@@ -1043,8 +1043,12 @@ command-queue listed on <em>command_buffer</em> creation.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_INVALID_<wbr>CONTEXT</code> if the context associated with <em>command_queue</em>,
-<em>command_buffer</em>, and <em>kernel</em> are not the same.</p>
+<p><code>CL_INVALID_<wbr>CONTEXT</code> if the context associated with <em>command_buffer</em> and
+<em>kernel</em> is not the same.</p>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>CONTEXT</code> if <em>command_queue</em> is not <code>NULL</code>, and the context
+associated with <em>command_queue</em> and <em>command_buffer</em> is not the same.</p>
 </li>
 </ul>
 </div>
@@ -1072,10 +1076,10 @@ not valid synchronization-points.</p>
 command-buffer.</p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if values specified in <em>properties</em> are not valid</p>
+<p><code>CL_INVALID_<wbr>OPERATION</code> if <em>command_buffer</em> has been finalized.</p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>OPERATION</code> if <em>command_buffer</em> has been finalized.</p>
+<p><code>CL_INVALID_<wbr>VALUE</code> if values specified in <em>properties</em> are not valid.</p>
 </li>
 <li>
 <p><code>CL_INVALID_<wbr>VALUE</code> if the <code>cl_khr_<wbr>command_<wbr>buffer_<wbr>mutable_<wbr>dispatch</code>
@@ -1123,7 +1127,7 @@ If <em>command_queue</em> is <code>NULL</code>, the device associated with
 <h2 id="_see_also"><a class="anchor" href="#_see_also"></a>See Also</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="cl_command_buffer_khr.html">cl_command_buffer_khr</a>, <a href="cl_command_queue.html">cl_command_queue</a>, <a href="cl_kernel.html">cl_kernel</a>, <a href="cl_khr_command_buffer.html">cl_khr_command_buffer</a>, <a href="cl_mutable_command_khr.html">cl_mutable_command_khr</a>, <a href="cl_ndrange_kernel_command_properties_khr.html">cl_ndrange_kernel_command_properties_khr</a>, <a href="cl_sync_point_khr.html">cl_sync_point_khr</a>, <a href="cl_uint.html">cl_uint</a></p>
+<p><a href="cl_command_buffer_khr.html">cl_command_buffer_khr</a>, <a href="cl_command_properties_khr.html">cl_command_properties_khr</a>, <a href="cl_command_queue.html">cl_command_queue</a>, <a href="cl_kernel.html">cl_kernel</a>, <a href="cl_khr_command_buffer.html">cl_khr_command_buffer</a>, <a href="cl_mutable_command_khr.html">cl_mutable_command_khr</a>, <a href="cl_sync_point_khr.html">cl_sync_point_khr</a>, <a href="cl_uint.html">cl_uint</a></p>
 </div>
 </div>
 </div>
@@ -1149,12 +1153,6 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
 </div>
 </div>
-</div>
-</div>
-<div id="footer">
-<div id="footer-text">
-Version v3.0.16<br>
-Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

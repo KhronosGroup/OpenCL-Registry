@@ -844,8 +844,37 @@ command to complete.</p>
 <strong>clEnqueueReleaseExternalMemObjectsKHR</strong> before using them through any
 commands in the other API.
 This is to guarantee that the state of memory objects is up-to-date and they
-are accessible to the other API.
-See &#8220;Example with Acquire / Release&#8221; provided in
+are accessible to the other API.</p>
+</div>
+<div class="paragraph">
+<p>The following restrictions shall apply:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Each memory object must be released only once. Releasing a memory object
+multiple times without acquiring it results in implementation-defined
+behavior.</p>
+</li>
+<li>
+<p>The release must be performed on a command-queue associated with a device
+that was one of the devices specified via <code>CL_MEM_<wbr>DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>KHR</code>
+when the memory object was imported using <strong>clCreateBufferWithProperties</strong> or
+<strong>clCreateImageWithProperties</strong>. If <code>CL_MEM_<wbr>DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>KHR</code> was not
+specified, the release can be performed on a command-queue associated with
+any device in the context.</p>
+</li>
+<li>
+<p>The memory object will be released for all devices specified via
+<code>CL_MEM_<wbr>DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>KHR</code> when the memory object was imported
+using <strong>clCreateBufferWithProperties</strong> or <strong>clCreateImageWithProperties</strong>.
+If <code>CL_MEM_<wbr>DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>KHR</code> was not specified, the memory object
+will be released for all devices in the context.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>See &#8220;Example with Acquire / Release&#8221; provided in
 <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#cl_khr_external_memory-Sample-Code" class="bare" target="_blank" rel="noopener">https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#cl_khr_external_memory-Sample-Code</a> for more details on how to use this
 API.</p>
 </div>
@@ -954,12 +983,6 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
 </div>
 </div>
-</div>
-</div>
-<div id="footer">
-<div id="footer-text">
-Version v3.0.16<br>
-Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

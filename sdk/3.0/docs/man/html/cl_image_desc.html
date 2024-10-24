@@ -871,27 +871,28 @@ image slice pitch is calculated as the image row pitch ×
 pitch for a 1D image array.
 If <em>image_slice_pitch</em> is zero and the image is created from an external
 memory handle, then the image slice pitch is implementation-defined.
-The image slice pitch must be ≥ the image image row pitch ×
+The image slice pitch must be ≥ the image row pitch ×
 <em>image_height</em> for a 2D image array or a 3D image, must be ≥ the
 image row pitch for a 1D image array, and must be a multiple of the
 image row pitch.</p>
 </li>
 <li>
-<p><em>num_mip_levels</em> must be
-0 unless the <code>cl_khr_<wbr>mipmap_<wbr>image</code> extension is supported, in which
-case it must be a value greater than 1 specifying the number of mipmap
-levels in the image.</p>
+<p><em>num_mip_levels</em> must be <code>0</code>, indicating that the image has a single
+mipmap level, unless the <code>cl_khr_<wbr>mipmap_<wbr>image</code> extension is supported.
+When the <code>cl_khr_<wbr>mipmap_<wbr>image</code> extension is supported, <em>num_mip_levels</em>
+may additionally specify the total number of mipmap levels in the image,
+including the base level <sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup>.</p>
 </li>
 <li>
-<p><em>num_samples</em> must be 0.</p>
+<p><em>num_samples</em> must be <code>0</code>.</p>
 </li>
 <li>
 <p><em>mem_object</em> may refer to a valid buffer or image memory object.
 <code>mem_object</code> can be a buffer memory object if <code>image_type</code> is
 <code>CL_MEM_<wbr>OBJECT_<wbr>IMAGE1D_<wbr>BUFFER</code> or
-<code>CL_MEM_<wbr>OBJECT_<wbr>IMAGE2D</code> <sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup>.
-<code>mem_object</code> can be an image object if <code>image_type</code> is
 <code>CL_MEM_<wbr>OBJECT_<wbr>IMAGE2D</code> <sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnotedef_3" title="View footnote.">3</a>]</sup>.
+<code>mem_object</code> can be an image object if <code>image_type</code> is
+<code>CL_MEM_<wbr>OBJECT_<wbr>IMAGE2D</code> <sup class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnotedef_4" title="View footnote.">4</a>]</sup>.
 Otherwise it must be <code>NULL</code>.
 The image pixels are taken from the memory objects data store.
 When the contents of the specified memory objects data store are modified,
@@ -1092,16 +1093,13 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <a href="#_footnoteref_1">1</a>. Note that reading and writing 2D image arrays from a kernel with <code>image_array_size</code> equal to one may perform worse than 2D images.
 </div>
 <div class="footnote" id="_footnotedef_2">
-<a href="#_footnoteref_2">2</a>. To create a 2D image from a buffer object that share the data store between the image and buffer object.
+<a href="#_footnoteref_2">2</a>. Therefore, specifying <em>num_mip_levels</em> equal to either <code>0</code> or <code>1</code> creates an image with a single mipmap level.
 </div>
 <div class="footnote" id="_footnotedef_3">
-<a href="#_footnoteref_3">3</a>. To create an image object from another image object that share the data store between these image objects.
+<a href="#_footnoteref_3">3</a>. To create a 2D image from a buffer object that share the data store between the image and buffer object.
 </div>
-</div>
-<div id="footer">
-<div id="footer-text">
-Version v3.0.16<br>
-Last updated 2024-04-04 13:33:43 -0700
+<div class="footnote" id="_footnotedef_4">
+<a href="#_footnoteref_4">4</a>. To create an image object from another image object that share the data store between these image objects.
 </div>
 </div>
 
