@@ -823,10 +823,11 @@ queried is returned.
 If <em>param_value</em> is <code>NULL</code>, it is ignored.</p>
 </li>
 <li>
-<p><em>param_value_size</em> is used to specify the size in bytes of memory pointed to
-by <em>param_value</em>.
-This size must be ≥ size of return type as described in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#pipe-info-table" target="_blank" rel="noopener">Pipe Object Queries</a> table.</p>
+<p><em>param_value_size</em> specifies the size in bytes of memory pointed to by
+<em>param_value</em>.
+This size must be greater than or equal to the size of the return type
+specified in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#pipe-info-table" target="_blank" rel="noopener">Pipe Object Queries</a> table.
+If <em>param_value</em> is <code>NULL</code>, it is ignored.</p>
 </li>
 <li>
 <p><em>param_value_size_ret</em> returns the actual size in bytes of data being
@@ -840,31 +841,6 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <div class="sect1">
 <h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p><strong>clGetPipeInfo</strong> returns <code>CL_SUCCESS</code> if the function is executed successfully.
-Otherwise, it returns one of the following errors:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>CL_INVALID_<wbr>MEM_<wbr>OBJECT</code> if <em>pipe</em> is a not a valid pipe object.</p>
-</li>
-<li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if <em>param_name</em> is not valid, or if size in bytes
-specified by <em>param_value_size</em> is &lt; size of return type as described in
-the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#pipe-info-table" target="_blank" rel="noopener">Pipe Object Queries</a> table and <em>param_value</em> is
-not <code>NULL</code>.</p>
-</li>
-<li>
-<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources required
-by the OpenCL implementation on the device.</p>
-</li>
-<li>
-<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code> if there is a failure to allocate resources
-required by the OpenCL implementation on the host.</p>
-</li>
-</ul>
-</div>
 <table id="pipe-info-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. List of supported param_names by <strong>clGetPipeInfo</strong></caption>
 <colgroup>
@@ -910,6 +886,32 @@ required by the OpenCL implementation on the host.</p>
 </tr>
 </tbody>
 </table>
+<div class="paragraph">
+<p><strong>clGetPipeInfo</strong> returns <code>CL_SUCCESS</code> if the function is executed successfully.
+Otherwise, it returns one of the following errors:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_INVALID_<wbr>MEM_<wbr>OBJECT</code> if <em>pipe</em> is a not a valid pipe object.</p>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>VALUE</code> if <em>param_name</em> is not one of the supported values, or
+if the size in bytes specified by <em>param_value_size</em> is less than size of
+the return type specified in the
+<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#pipe-info-table" target="_blank" rel="noopener">Pipe Object Queries</a> table
+and <em>param_value</em> is not <code>NULL</code>.</p>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources required
+by the OpenCL implementation on the device.</p>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code> if there is a failure to allocate resources
+required by the OpenCL implementation on the host.</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -942,12 +944,6 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
 </div>
 </div>
-</div>
-</div>
-<div id="footer">
-<div id="footer-text">
-Version v3.0.16<br>
-Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

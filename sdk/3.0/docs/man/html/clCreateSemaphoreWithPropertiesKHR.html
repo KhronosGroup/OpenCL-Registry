@@ -869,10 +869,15 @@ properties by <code>cl_semaphore_<wbr>properties_<wbr>khr</code> that can be pas
 <div class="paragraph">
 <p>If <code>CL_SEMAPHORE_<wbr>DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>KHR</code> is not specified as part of
 <em>sema_props</em>, the semaphore object created by
-<strong>clCreateSemaphoreWithPropertiesKHR</strong> is by default accessible to all devices
+<strong>clCreateSemaphoreWithPropertiesKHR</strong> is by default associated with all devices
 in the <em>context</em>.
 For a multi-device context <code>CL_SEMAPHORE_<wbr>DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>KHR</code> must be
 specified in <em>sema_props</em>.</p>
+</div>
+<div class="paragraph">
+<p>The properties used to create a semaphore from an external semaphore handle are
+<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#external-semaphore-handle-types" target="_blank" rel="noopener">described for the corresponding
+extensions</a>.</p>
 </div>
 <div class="paragraph">
 <p><em>errcode_ret</em> returns an appropriate error code.
@@ -880,7 +885,7 @@ If <em>errcode_ret</em> is <code>NULL</code>, no error code is returned.</p>
 </div>
 <div class="paragraph">
 <p><strong>clCreateSemaphoreWithPropertiesKHR</strong> returns a valid semaphore object in an
-un-signaled state and and <em>errcode_ret</em> is set to <code>CL_SUCCESS</code> if the
+un-signaled state and <em>errcode_ret</em> is set to <code>CL_SUCCESS</code> if the
 function is executed successfully.
 Otherwise, it returns a <code>NULL</code> value with one of the following error values
 returned in <em>errcode_ret</em>:</p>
@@ -944,6 +949,10 @@ well as <code>CL_SEMAPHORE_<wbr>EXPORT_<wbr>HANDLE_<wbr>TYPES_<wbr>KHR</code>. E
 handle from a semaphore that was created by importing an external
 semaphore handle is not permitted.</p>
 </li>
+<li>
+<p><code>CL_INVALID_<wbr>PROPERTY</code> if <em>sema_props</em> includes more than one external
+semaphore handle.</p>
+</li>
 </ul>
 </div>
 </div>
@@ -978,12 +987,6 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
 </div>
 </div>
-</div>
-</div>
-<div id="footer">
-<div id="footer-text">
-Version v3.0.16<br>
-Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

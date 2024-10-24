@@ -820,10 +820,11 @@ queried is returned.
 If <em>param_value</em> is <code>NULL</code>, it is ignored.</p>
 </li>
 <li>
-<p><em>param_value_size</em> is used to specify the size in bytes of memory pointed to
-by <em>param_value</em>.
-This size must be ≥ size of return type as described in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#kernel-workgroup-info-table" target="_blank" rel="noopener">Kernel Object Device Queries</a> table.</p>
+<p><em>param_value_size</em> specifies the size in bytes of memory pointed to by
+<em>param_value</em>.
+This size must be greater than or equal to the size of the return type
+specified in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#kernel-workgroup-info-table" target="_blank" rel="noopener">Kernel Object Device Queries</a> table.
+If <em>param_value</em> is <code>NULL</code>, it is ignored.</p>
 </li>
 <li>
 <p><em>param_value_size_ret</em> returns the actual size in bytes of data being
@@ -857,11 +858,11 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.2.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>size_t</code>[3]</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This provides a mechanism for the application to query the maximum
-        global size that can be used to execute a kernel (i.e.
+        global size that can be used to execute a kernel (i.e. the
         <em>global_work_size</em> argument to <strong>clEnqueueNDRangeKernel</strong>) on a custom
-        device given by device or a built-in kernel on an OpenCL device
-        given by device.</p>
-<p class="tableblock">        If device is not a custom device and kernel is not a built-in
+        device given by <em>device</em> or a built-in kernel on an OpenCL device
+        given by <em>device</em>.</p>
+<p class="tableblock">        If <em>device</em> is not a custom device and <em>kernel</em> is not a built-in
         kernel, <strong>clGetKernelWorkGroupInfo</strong> returns the error
         <code>CL_INVALID_<wbr>VALUE</code>.</p></td>
 </tr>
@@ -930,22 +931,23 @@ Otherwise, it returns one of the following errors:</p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>CL_INVALID_<wbr>KERNEL</code> if <em>kernel</em> is a not a valid kernel object.</p>
+</li>
+<li>
 <p><code>CL_INVALID_<wbr>DEVICE</code> if <em>device</em> is not in the list of devices associated
 with <em>kernel</em> or if <em>device</em> is <code>NULL</code> but there is more than one device
 associated with <em>kernel</em>.</p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if <em>param_name</em> is not valid, or if size in bytes
-specified by <em>param_value_size</em> is &lt; size of return type as described in
-the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#kernel-workgroup-info-table" target="_blank" rel="noopener">Kernel Object Device Queries</a> table
+<p><code>CL_INVALID_<wbr>VALUE</code> if <em>param_name</em> is not one of the supported values, or
+if the size in bytes specified by <em>param_value_size</em> is less than size of
+the return type specified in the
+<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#kernel-workgroup-info-table" target="_blank" rel="noopener">Kernel Object Device Queries</a> table
 and <em>param_value</em> is not <code>NULL</code>.</p>
 </li>
 <li>
 <p><code>CL_INVALID_<wbr>VALUE</code> if <em>param_name</em> is <code>CL_KERNEL_<wbr>GLOBAL_<wbr>WORK_<wbr>SIZE</code> and
 <em>device</em> is not a custom device and <em>kernel</em> is not a built-in kernel.</p>
-</li>
-<li>
-<p><code>CL_INVALID_<wbr>KERNEL</code> if <em>kernel</em> is a not a valid kernel object.</p>
 </li>
 <li>
 <p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources required
@@ -989,12 +991,6 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
 </div>
 </div>
-</div>
-</div>
-<div id="footer">
-<div id="footer-text">
-Version v3.0.16<br>
-Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

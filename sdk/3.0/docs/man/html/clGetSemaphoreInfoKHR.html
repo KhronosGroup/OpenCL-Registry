@@ -813,20 +813,20 @@ cl_int clGetSemaphoreInfoKHR(
 <li>
 <p><em>param_name</em> is a constant that specifies the semaphore information to
 query, and must be one of the values shown in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#cl_khr_semaphore_info-table" target="_blank" rel="noopener">Semaphore Queries</a> table.</p>
+<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#semaphore-info-table" target="_blank" rel="noopener">Semaphore Queries</a> table.</p>
 </li>
 <li>
 <p><em>param_value</em> is a pointer to memory where the result of the query is
-returned as described in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#cl_khr_semaphore_info-table" target="_blank" rel="noopener">Semaphore
+returned as described in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#semaphore-info-table" target="_blank" rel="noopener">Semaphore
 Queries</a> table.
 If <em>param_value</em> is <code>NULL</code>, it is ignored.</p>
 </li>
 <li>
-<p><em>param_value_size</em> specifies the size in bytes of memory pointed to
+<p><em>param_value_size</em> specifies the size in bytes of memory pointed to by
 <em>param_value</em>.
 This size must be greater than or equal to the size of the return type
-described in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#cl_khr_semaphore_info-table" target="_blank" rel="noopener">Semaphore Queries</a>
-table.</p>
+specified in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#semaphore-info-table" target="_blank" rel="noopener">Semaphore Queries</a> table.
+If <em>param_value</em> is <code>NULL</code>, it is ignored.</p>
 </li>
 <li>
 <p><em>param_value_size_ret</em> returns the actual size in bytes of data being
@@ -840,7 +840,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <div class="sect1">
 <h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
 <div class="sectionbody">
-<table id="cl_khr_semaphore_info-table" class="tableblock frame-all grid-all stretch">
+<table id="semaphore-info-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. List of parameter names supported by <strong>clGetSemaphoreInfoKHR</strong></caption>
 <colgroup>
 <col style="width: 33%;">
@@ -916,30 +916,14 @@ Otherwise, it returns one of the following errors:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_INVALID_<wbr>SEMAPHORE_<wbr>KHR</code></p>
-<div class="ulist">
-<ul>
-<li>
-<p>if <em>sema_object</em> is not a valid semaphore</p>
-</li>
-</ul>
-</div>
+<p><code>CL_INVALID_<wbr>SEMAPHORE_<wbr>KHR</code> if <em>sema_object</em> is not a valid semaphore.</p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>VALUE</code></p>
-<div class="ulist">
-<ul>
-<li>
-<p>if <em>param_name</em> is not one of the attribute defined in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#cl_khr_semaphore_info-table" target="_blank" rel="noopener">Semaphore Queries</a> table or</p>
-</li>
-<li>
-<p>if <em>param_value_size</em> is less than the size of Return Type of the
-corresponding <em>param_name</em> attribute as defined in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#cl_khr_semaphore_info-table" target="_blank" rel="noopener">Semaphore Queries</a> table.</p>
-</li>
-</ul>
-</div>
+<p><code>CL_INVALID_<wbr>VALUE</code> if <em>param_name</em> is not one of the supported values, or
+if the size in bytes specified by <em>param_value_size</em> is less than size of
+the return type specified in the
+<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#semaphore-info-table" target="_blank" rel="noopener">Semaphore Queries</a> table
+and <em>param_value</em> is not <code>NULL</code>.</p>
 </li>
 <li>
 <p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources
@@ -989,12 +973,6 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <hr>
 <div class="footnote" id="_footnotedef_1">
 <a href="#_footnoteref_1">1</a>. The reference count returned should be considered immediately stale. It is unsuitable for general use in applications. This feature is provided for identifying memory leaks.
-</div>
-</div>
-<div id="footer">
-<div id="footer-text">
-Version v3.0.16<br>
-Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

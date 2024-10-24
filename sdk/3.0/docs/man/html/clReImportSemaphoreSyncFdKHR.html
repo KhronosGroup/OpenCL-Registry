@@ -775,7 +775,7 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <h2 id="_c_specification"><a class="anchor" href="#_c_specification"></a>C Specification</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To re-imported a handle of type <code>CL_SEMAPHORE_<wbr>HANDLE_<wbr>SYNC_<wbr>FD_<wbr>KHR</code> into an
+<p>To re-import a handle of type <code>CL_SEMAPHORE_<wbr>HANDLE_<wbr>SYNC_<wbr>FD_<wbr>KHR</code> into an
 existing semaphore, call the function:</p>
 </div>
 <div id="clReImportSemaphoreSyncFdKHR" class="listingblock">
@@ -799,7 +799,10 @@ cl_int clReImportSemaphoreSyncFdKHR(
 properties.</p>
 </li>
 <li>
-<p><em>reimport_props</em> must be <code>NULL</code>, and is reserved for future use.</p>
+<p><em>reimport_props</em> is an optional list of properties that affect the
+re-import behavior. The list is terminated with the special property <code>0</code>.
+If no properties are required, <em>reimport_props</em> may be <code>NULL</code>. This extension
+does not define any optional properties.</p>
 </li>
 <li>
 <p><em>fd</em> specifies an external file descriptor handle to import</p>
@@ -820,7 +823,7 @@ The semaphore <em>sema_object</em> must have originally imported an external han
 of type <code>CL_SEMAPHORE_<wbr>HANDLE_<wbr>SYNC_<wbr>FD_<wbr>KHR</code>.</p>
 </div>
 <div class="paragraph">
-<p><strong>clGetSemaphoreHandleForTypeKHR</strong> returns <code>CL_SUCCESS</code> if the semaphore
+<p><strong>clReImportSemaphoreSyncFdKHR</strong> returns <code>CL_SUCCESS</code> if the semaphore
 handle is re-imported successfully.
 Otherwise, it returns one of the following errors:</p>
 </div>
@@ -885,12 +888,6 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
 </div>
 </div>
-</div>
-</div>
-<div id="footer">
-<div id="footer-text">
-Version v3.0.16<br>
-Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

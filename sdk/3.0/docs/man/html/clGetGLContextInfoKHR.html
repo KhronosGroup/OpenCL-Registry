@@ -816,7 +816,8 @@ If <em>param_value</em> is <code>NULL</code>, it is ignored.</p>
 <p><em>param_value_size</em> specifies the size in bytes of memory pointed to by
 <em>param_value</em>.
 This size must be greater than or equal to the size of the return type
-described in the table below.</p>
+specified in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#gl-context-info-table" target="_blank" rel="noopener">Supported Device Types</a> table.
+If <em>param_value</em> is <code>NULL</code>, it is ignored.</p>
 </li>
 <li>
 <p><em>param_value_size_ret</em> returns the actual size in bytes of data being
@@ -918,23 +919,19 @@ to a non-default value.</p>
 <p>Both of the properties <code>CL_CGL_<wbr>SHAREGROUP_<wbr>KHR</code> and <code>CL_GL_<wbr>CONTEXT_<wbr>KHR</code>
 are set to non-default values.</p>
 </li>
-<li>
-<p>Any of the devices specified in the &lt;devices&gt; argument cannot support
-OpenCL objects which share the data store of an OpenGL object.</p>
-</li>
 </ul>
 </div>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if an property name other than those specified in
-<em>table 4.5</em> is specified in <em>properties</em>.</p>
+<p><code>CL_INVALID_<wbr>VALUE</code> if a property name specified in <em>properties</em> is
+invalid.</p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if <em>param_name</em> is not one of the values listed in
-the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#gl-context-info-table" target="_blank" rel="noopener">GL context information that can be
-queried with_ <strong>clGetGLContextInfoKHR</strong></a> table, or if the size in bytes
-specified by <em>param_value_size</em> is less than the size of the return type
-shown in the table and <em>param_value</em> is not a <code>NULL</code> value</p>
+<p><code>CL_INVALID_<wbr>VALUE</code> if <em>param_name</em> is not one of the supported values, or
+if the size in bytes specified by <em>param_value_size</em> is less than size of
+the return type specified in the
+<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#gl-context-info-table" target="_blank" rel="noopener">Supported Device Types</a> table
+and <em>param_value</em> is not <code>NULL</code>.</p>
 </li>
 <li>
 <p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources
@@ -978,12 +975,6 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
 </div>
 </div>
-</div>
-</div>
-<div id="footer">
-<div id="footer-text">
-Version v3.0.16<br>
-Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

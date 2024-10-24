@@ -784,7 +784,9 @@ future enqueues of <em>command_buffer</em>, call the function</p>
 <pre class="highlight"><code class="language-opencl" data-lang="opencl">// Provided by cl_khr_command_buffer_mutable_dispatch
 cl_int clUpdateMutableCommandsKHR(
     cl_command_buffer_khr command_buffer,
-    const cl_mutable_base_config_khr* mutable_config);</code></pre>
+    cl_uint num_configs,
+    const cl_command_buffer_update_type_khr* config_types,
+    const void** configs);</code></pre>
 </div>
 </div>
 <div class="admonitionblock important">
@@ -810,8 +812,17 @@ cl_int clUpdateMutableCommandsKHR(
 <p><em>command_buffer</em> refers to a valid command-buffer object.</p>
 </li>
 <li>
-<p><em>mutable_config</em> is a pointer to a <code>cl_mutable_<wbr>base_<wbr>config_<wbr>khr</code>
-structure defining updates to make to mutable-commands.</p>
+<p><em>num_configs</em>  Number of elements in the <em>config_types</em> and <em>config</em> arrays.</p>
+</li>
+<li>
+<p><em>config_types</em> An array of length <em>num_configs</em> with each element identifying
+the type of each config in <em>configs</em> at the same array index.</p>
+</li>
+<li>
+<p><em>configs</em> An array of length <em>num_configs</em> containing structs which define how a
+mutable-command handle in <em>command_buffer</em> is to be updated, each of which is
+interpreted using <em>config_types</em> at the same index with the mapping defined
+in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#update-config-mapping" target="_blank" rel="noopener">Mutable Command Update Structs</a> section.</p>
 </li>
 </ul>
 </div>
@@ -840,22 +851,19 @@ command-buffer.</p>
 <code>CL_COMMAND_<wbr>BUFFER_<wbr>MUTABLE_<wbr>KHR</code> flag.</p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if the <em>type</em> member of <em>mutable_config</em> is not
-<code>CL_STRUCTURE_<wbr>TYPE_<wbr>MUTABLE_<wbr>BASE_<wbr>CONFIG_<wbr>KHR</code>.</p>
+<p><code>CL_INVALID_<wbr>VALUE</code> if <em>config_types</em> is <code>NULL</code> and <em>num_configs</em> &gt; 0, or
+<em>config_types</em> is not <code>NULL</code> and <em>num_configs</em> is 0.</p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if the <em>mutable_dispatch_list</em> member of
-<em>mutable_config</em> is <code>NULL</code> and <em>num_mutable_dispatch</em> &gt; 0, or
-<em>mutable_dispatch_list</em> is not <code>NULL</code> and <em>num_mutable_dispatch</em> is 0.</p>
+<p><code>CL_INVALID_<wbr>VALUE</code> if <em>configs</em> is <code>NULL</code> and <em>num_configs</em> &gt; 0, or
+<em>configs</em> is not <code>NULL</code> and <em>num_configs</em> is 0.</p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if the <em>next</em> member of <em>mutable_config</em> is not
-<code>NULL</code> and any iteration of the structure pointer chain does not contain
-valid <em>type</em> and <em>next</em> members.</p>
+<p><code>CL_INVALID_<wbr>VALUE</code> if any element of <em>config_types</em> is not a valid
+<code>cl_command_<wbr>buffer_<wbr>update_<wbr>type_<wbr>khr</code> enum.</p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if <em>mutable_config</em> is <code>NULL</code>, or if both <em>next</em> and
-<em>mutable_dispatch_list</em> members of <em>mutable_config</em> are <code>NULL</code>.</p>
+<p><code>CL_INVALID_<wbr>VALUE</code> if any element of <em>configs</em> is NULL.</p>
 </li>
 <li>
 <p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources
@@ -907,24 +915,20 @@ number when the ND-range command was recorded, the behavior is undefined.</p>
 </table>
 </div>
 <div class="paragraph">
-<p>If the <em>mutable_dispatch_list</em> member of <em>mutable_config</em> is non-<code>NULL</code>,
-then errors defined by <strong>clEnqueueNDRangeKernel</strong>, <strong>clSetKernelExecInfo</strong>,
-<strong>clSetKernelArg</strong>, and <strong>clSetKernelArgSVMPointer</strong> are returned by
-<strong>clUpdateMutableCommandsKHR</strong> if any of the array elements are set to an
-invalid value.
-Additionally, the following errors are returned if any
-<code>cl_mutable_<wbr>dispatch_<wbr>config_<wbr>khr</code> element of the array violates the
-defined conditions:</p>
+<p>If <em>configs</em> is non-<code>NULL</code>, then for any <code>cl_mutable_<wbr>dispatch_<wbr>config_<wbr>khr</code>
+element of the array the errors defined by <strong>clEnqueueNDRangeKernel</strong>,
+<strong>clSetKernelExecInfo</strong>, <strong>clSetKernelArg</strong>, and <strong>clSetKernelArgSVMPointer</strong> are
+returned by <strong>clUpdateMutableCommandsKHR</strong> if any of the struct elements are set
+to an invalid value. Additionally, the following errors are returned if any
+<code>cl_mutable_<wbr>dispatch_<wbr>config_<wbr>khr</code> element of the array violates the defined
+conditions:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
 <p><code>CL_INVALID_<wbr>MUTABLE_<wbr>COMMAND_<wbr>KHR</code> if <em>command</em> is not a valid mutable
-command object, or created from <em>command_buffer</em>.</p>
-</li>
-<li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if <em>type</em> is not
-<code>CL_STRUCTURE_<wbr>TYPE_<wbr>MUTABLE_<wbr>DISPATCH_<wbr>CONFIG_<wbr>KHR</code>.</p>
+ command object returned from <strong>clCommandNDRangeKernelKHR</strong>, or created from
+<em>command_buffer</em>.</p>
 </li>
 <li>
 <p><code>CL_INVALID_<wbr>OPERATION</code> if the values of <em>local_work_size</em> and/or
@@ -979,7 +983,7 @@ or <em>arg_svm_list</em> is not <code>NULL</code> and <em>num_svm_args</em> is 0
 <h2 id="_see_also"><a class="anchor" href="#_see_also"></a>See Also</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="cl_command_buffer_khr.html">cl_command_buffer_khr</a>, <a href="cl_khr_command_buffer_mutable_dispatch.html">cl_khr_command_buffer_mutable_dispatch</a>, <a href="cl_mutable_base_config_khr.html">cl_mutable_base_config_khr</a></p>
+<p><a href="cl_command_buffer_khr.html">cl_command_buffer_khr</a>, <a href="cl_command_buffer_update_type_khr.html">cl_command_buffer_update_type_khr</a>, <a href="cl_khr_command_buffer_mutable_dispatch.html">cl_khr_command_buffer_mutable_dispatch</a>, <a href="cl_uint.html">cl_uint</a></p>
 </div>
 </div>
 </div>
@@ -1005,12 +1009,6 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
 </div>
 </div>
-</div>
-</div>
-<div id="footer">
-<div id="footer-text">
-Version v3.0.16<br>
-Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

@@ -775,7 +775,11 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <h2 id="_c_specification"><a class="anchor" href="#_c_specification"></a>C Specification</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To export an external handle from a semaphore, call the function</p>
+<p>Export operations have the same transference as the specified handle type&#8217;s import operations. Additionally, exporting a semaphore payload to a handle with copy transference has the same side effects on the source semaphore&#8217;s payload as executing a semaphore wait operation.</p>
+</div>
+<div class="paragraph">
+<p>Please refer to handle specific documentation for more details on transference requirements per handle type.
+To export an external handle from a semaphore, call the function</p>
 </div>
 <div id="clGetSemaphoreHandleForTypeKHR" class="listingblock">
 <div class="content">
@@ -788,6 +792,18 @@ cl_int clGetSemaphoreHandleForTypeKHR(
     void* handle_ptr,
     size_t* handle_size_ret);</code></pre>
 </div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<strong>clGetSemaphoreHandleForTypeKHR</strong> is provided by the <code>cl_khr_external_semaphore</code> extension.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -810,12 +826,16 @@ returned for this exportable <em>sema_object</em>, and must be one of the
 values specified when <em>sema_object</em> was created.</p>
 </li>
 <li>
-<p><em>handle_size</em> specifies the size of memory pointed by <em>handle_ptr</em>.</p>
-</li>
-<li>
 <p><em>handle_ptr</em> is a pointer to memory where the exported external handle
 is returned.
-If <em>param_value</em> is <code>NULL</code>, it is ignored.</p>
+If <em>handle_ptr</em> is <code>NULL</code>, it is ignored.</p>
+</li>
+<li>
+<p><em>handle_size</em> specifies the size in bytes of memory pointed to by
+<em>handle_ptr</em>.
+This size must be greater than or equal to the size of the handle type
+specified by <em>handle_type</em>.
+If <em>handle_ptr</em> is <code>NULL</code>, it is ignored.</p>
 </li>
 <li>
 <p><em>handle_size_ret</em> returns the actual size in bytes for the external
@@ -837,17 +857,7 @@ Otherwise, it returns one of the following errors:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_INVALID_<wbr>SEMAPHORE_<wbr>KHR</code></p>
-<div class="ulist">
-<ul>
-<li>
-<p>if <em>sema_object</em> is not a valid semaphore</p>
-</li>
-<li>
-<p>if <em>sema_object</em> is not exportable</p>
-</li>
-</ul>
-</div>
+<p><code>CL_INVALID_<wbr>SEMAPHORE_<wbr>KHR</code> if <em>sema_object</em> is not a valid semaphore.</p>
 </li>
 <li>
 <p><code>CL_INVALID_<wbr>DEVICE</code></p>
@@ -871,8 +881,8 @@ Otherwise, it returns one of the following errors:</p>
 not specified when <em>sema_object</em> was created.</p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if <em>handle_size</em> is less than the size needed to
-store the returned handle.</p>
+<p><code>CL_INVALID_<wbr>VALUE</code> if the size in bytes specified by <em>handle_size</em> is
+less than size of the requested handle and <em>handle_ptr</em> is not <code>NULL</code>.</p>
 </li>
 <li>
 <p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources
@@ -916,12 +926,6 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
 </div>
 </div>
-</div>
-</div>
-<div id="footer">
-<div id="footer-text">
-Version v3.0.16<br>
-Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

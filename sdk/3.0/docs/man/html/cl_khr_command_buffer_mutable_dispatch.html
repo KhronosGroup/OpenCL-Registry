@@ -806,7 +806,7 @@ See the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/
 <dl>
 <dt class="hdlist1"><strong>Last Modified Date</strong></dt>
 <dd>
-<p>2022-08-31</p>
+<p>2024-09-05</p>
 </dd>
 <dt class="hdlist1"><strong>IP Status</strong></dt>
 <dd>
@@ -892,42 +892,16 @@ in a new command-buffer.</p>
 <h2 id="_interactions_with_other_extensions"><a class="anchor" href="#_interactions_with_other_extensions"></a>Interactions With Other Extensions</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The <code>cl_command_<wbr>buffer_<wbr>structure_<wbr>type_<wbr>khr</code> type has been added to this
-extension for the purpose of allowing expansion of mutable functionality in
-future extensions layered on top of
-<code>cl_khr_<wbr>command_<wbr>buffer_<wbr>mutable_<wbr>dispatch</code>.
-Any parameter that is a structure containing a <code>void* next</code> member <strong>must</strong>
-have a value of <code>next</code> that is either <code>NULL</code>, or is a pointer to a valid
-structure defined by <code>cl_khr_<wbr>command_<wbr>buffer_<wbr>mutable_<wbr>dispatch</code> or an
-extension layered on top.
-To be a valid structure in the pointer chain the first member of the
-structure <strong>must</strong> be a <code>cl_command_<wbr>buffer_<wbr>structure_<wbr>type_<wbr>khr</code> identifier
-for the structure being iterated through, and the second member a <code>void*
-next</code> pointer to the next structure in the chain.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>This approach is based on structure pointer chains in Vulkan, for more
-details see the &#8220;Valid Usage for Structure Pointer Chains&#8221; section of the
-Vulkan specification.</p>
-</div>
-</td>
-</tr>
-</table>
+<p>The <strong>clUpdateMutableCommandsKHR</strong> entry-point has been designed for the purpose
+of allowing expansion of mutable functionality in future extensions layered on
+top of <code>cl_khr_command_buffer_mutable_dispatch</code>.</p>
 </div>
 <div class="paragraph">
-<p>This is designed so that another extension layered on
-<code>cl_khr_<wbr>command_<wbr>buffer_<wbr>mutable_<wbr>dispatch</code> could allow modification of
-commands recorded to a command-buffer other than kernel execution commands.
-As all command recording entry-points return a <code>cl_mutable_<wbr>command_<wbr>khr</code>
-handle, and aspects like which <code>cl_mem</code> object a command uses could
-also be updated between enqueues of the command-buffer.</p>
+<p>A new extension can define its own structure type to specify the update
+configuration it requires, with a matching
+<code>cl_command_<wbr>buffer_<wbr>update_<wbr>type_<wbr>khr</code> value. This new structure type can
+then be passed to <strong>clUpdateMutableCommandsKHR</strong> where it is reinterpreted from a
+void pointer using <code>cl_command_<wbr>buffer_<wbr>update_<wbr>type_<wbr>khr</code>.</p>
 </div>
 </div>
 </div>
@@ -958,10 +932,7 @@ also be updated between enqueues of the command-buffer.</p>
 <p><code>cl_mutable_<wbr>command_<wbr>info_<wbr>khr</code></p>
 </li>
 <li>
-<p><code>cl_command_<wbr>buffer_<wbr>structure_<wbr>type_<wbr>khr</code></p>
-</li>
-<li>
-<p><code>cl_mutable_<wbr>base_<wbr>config_<wbr>khr</code></p>
+<p><code>cl_command_<wbr>buffer_<wbr>update_<wbr>type_<wbr>khr</code></p>
 </li>
 <li>
 <p><code>cl_mutable_<wbr>dispatch_<wbr>asserts_<wbr>khr</code></p>
@@ -995,7 +966,7 @@ also be updated between enqueues of the command-buffer.</p>
 </div>
 </li>
 <li>
-<p><code>cl_ndrange_<wbr>kernel_<wbr>command_<wbr>properties_<wbr>khr</code></p>
+<p><code>cl_command_<wbr>properties_<wbr>khr</code></p>
 <div class="ulist">
 <ul>
 <li>
@@ -1050,7 +1021,7 @@ also be updated between enqueues of the command-buffer.</p>
 <p><code>CL_MUTABLE_<wbr>COMMAND_<wbr>COMMAND_<wbr>BUFFER_<wbr>KHR</code></p>
 </li>
 <li>
-<p><code>CL_MUTABLE_<wbr>DISPATCH_<wbr>PROPERTIES_<wbr>ARRAY_<wbr>KHR</code></p>
+<p><code>CL_MUTABLE_<wbr>COMMAND_<wbr>PROPERTIES_<wbr>ARRAY_<wbr>KHR</code></p>
 </li>
 <li>
 <p><code>CL_MUTABLE_<wbr>DISPATCH_<wbr>KERNEL_<wbr>KHR</code></p>
@@ -1094,12 +1065,9 @@ also be updated between enqueues of the command-buffer.</p>
 </div>
 </li>
 <li>
-<p><code>cl_command_<wbr>buffer_<wbr>structure_<wbr>type_<wbr>khr</code></p>
+<p><code>cl_command_<wbr>buffer_<wbr>update_<wbr>type_<wbr>khr</code></p>
 <div class="ulist">
 <ul>
-<li>
-<p><code>CL_STRUCTURE_<wbr>TYPE_<wbr>MUTABLE_<wbr>BASE_<wbr>CONFIG_<wbr>KHR</code></p>
-</li>
 <li>
 <p><code>CL_STRUCTURE_<wbr>TYPE_<wbr>MUTABLE_<wbr>DISPATCH_<wbr>CONFIG_<wbr>KHR</code></p>
 </li>
@@ -1215,7 +1183,7 @@ kernel void vector_addition(global int* tile1, global int* tile2,
   CL_CHECK(clSetKernelArg(kernel, 2, sizeof(cl_mem), &amp;output_buffers[0]));
 
   // Instruct the nd-range command to allow for mutable kernel arguments
-  cl_ndrange_kernel_command_properties_khr mutable_properties[] = {
+  cl_command_properties_khr mutable_properties[] = {
       CL_MUTABLE_DISPATCH_UPDATABLE_FIELDS_KHR,
       CL_MUTABLE_DISPATCH_ARGUMENTS_KHR, 0};
 
@@ -1274,8 +1242,6 @@ kernel void vector_addition(global int* tile1, global int* tile2,
       cl_mutable_dispatch_arg_khr arg_2{2, sizeof(cl_mem), &amp;output_buffer};
       cl_mutable_dispatch_arg_khr args[] = {arg_0, arg_1, arg_2};
       cl_mutable_dispatch_config_khr dispatch_config{
-          CL_STRUCTURE_TYPE_MUTABLE_DISPATCH_CONFIG_KHR,
-          nullptr,
           command_handle,
           3 /* num_args */,
           0 /* num_svm_arg */,
@@ -1287,12 +1253,16 @@ kernel void vector_addition(global int* tile1, global int* tile2,
           nullptr /* global_work_offset */,
           nullptr /* global_work_size */,
           nullptr /* local_work_size */};
-      cl_mutable_base_config_khr mutable_config{
-          CL_STRUCTURE_TYPE_MUTABLE_BASE_CONFIG_KHR, nullptr, 1,
-          &amp;dispatch_config};
 
       // Update the command buffer with the mutable configuration
-      error = clUpdateMutableCommandsKHR(command_buffer, &amp;mutable_config);
+      cl_uint num_configs = 1;
+      cl_command_buffer_update_type_khr config_types[1] = {
+          CL_STRUCTURE_TYPE_MUTABLE_DISPATCH_CONFIG_KHR
+      };
+      const void* configs[1] = {&amp;dispatch_config};
+      error = clUpdateMutableCommandsKHR(command_buffer, num_configs,
+                                         config_types, configs);
+
       CL_CHECK(error);
     }
 
@@ -1411,6 +1381,28 @@ may be a introduced as a stand alone extension.</p>
 </ul>
 </div>
 </li>
+<li>
+<p>Revision 0.9.2, 2024-06-19</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Change <strong>clUpdateMutableCommandsKHR</strong> API to pass configs as an array rather
+than linked list (provisional).</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Revision 0.9.3, 2024-09-05</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Rename <code>CL_MUTABLE_DISPATCH_PROPERTIES_ARRAY_KHR</code> to
+<code>CL_MUTABLE_COMMAND_PROPERTIES_ARRAY_KHR</code> (provisional).</p>
+</li>
+</ul>
+</div>
+</li>
 </ul>
 </div>
 </div>
@@ -1445,12 +1437,6 @@ Fixes and changes should be made to the generator scripts, not directly.</p>
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
 </div>
 </div>
-</div>
-</div>
-<div id="footer">
-<div id="footer-text">
-Version v3.0.16<br>
-Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

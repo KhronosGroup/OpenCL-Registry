@@ -814,19 +814,19 @@ cl_int clGetMutableCommandInfoKHR(
 <p><em>param_name</em> specifies the information to query.
 The list of supported <em>param_name</em> types and the information returned in
 <em>param_value</em> by <strong>clGetMutableCommandInfoKHR</strong> is described in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#mutable-command-object-queries" target="_blank" rel="noopener">Mutable Command Object Queries</a>
-table.</p>
-</li>
-<li>
-<p><em>param_value_size</em> is used to specify the size in bytes of memory
-pointed to by <em>param_value</em>.
-This size must be ≥ size of return type as described in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#mutable-command-object-queries" target="_blank" rel="noopener">Mutable Command Object Queries</a>
+<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#mutable-command-info-table" target="_blank" rel="noopener">Mutable Command Object Queries</a>
 table.</p>
 </li>
 <li>
 <p><em>param_value</em> is a pointer to memory where the appropriate result being
 queried is returned.
+If <em>param_value</em> is <code>NULL</code>, it is ignored.</p>
+</li>
+<li>
+<p><em>param_value_size</em> is used to specify the size in bytes of memory
+pointed to by <em>param_value</em>.
+This size must be greater than or equal to the size of the return type
+specified in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#mutable-command-info-table" target="_blank" rel="noopener">Mutable Command Object Queries</a> table.
 If <em>param_value</em> is <code>NULL</code>, it is ignored.</p>
 </li>
 <li>
@@ -841,7 +841,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <div class="sect1">
 <h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
 <div class="sectionbody">
-<table id="mutable-command-object-queries" class="tableblock frame-all grid-all stretch">
+<table id="mutable-command-info-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. <em>Mutable Command Object Queries</em></caption>
 <colgroup>
 <col style="width: 33%;">
@@ -880,20 +880,17 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
       is used with the matching command.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_MUTABLE_<wbr>DISPATCH_<wbr>PROPERTIES_<wbr>ARRAY_<wbr>KHR</code></p>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_MUTABLE_<wbr>COMMAND_<wbr>PROPERTIES_<wbr>ARRAY_<wbr>KHR</code></p>
 <p class="tableblock">provided by the <code>cl_khr_command_buffer_mutable_dispatch</code> extension.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_ndrange_<wbr>kernel_<wbr>command_<wbr>properties_<wbr>khr</code>[]</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Return the properties argument specified on <em>command</em> recording with
-      <strong>clCommandNDRangeKernelKHR</strong>.</p>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_command_<wbr>properties_<wbr>khr</code>[]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Return the properties argument specified on <em>command</em> recording.</p>
 <p class="tableblock">      If the properties argument specified on creation of <em>command</em> was not
       <code>NULL</code>, the implementation must return the values specified in the
       properties argument in the same order and without including additional
       properties.</p>
 <p class="tableblock">      If the properties argument specified on creation of <em>command</em> was
-      <code>NULL</code>, or <em>command</em> was not recorded from a
-      <strong>clCommandNDRangeKernelKHR</strong> command, the implementation must return
-      <em>param_value_size_ret</em> equal to 0, indicating that there are no
-      properties to be returned.</p></td>
+      <code>NULL</code>, the implementation must return <em>param_value_size_ret</em> equal to 0,
+      indicating that there are no properties to be returned.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_MUTABLE_<wbr>DISPATCH_<wbr>KERNEL_<wbr>KHR</code></p>
@@ -975,14 +972,15 @@ Otherwise, it returns one of the following errors:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if <em>param_name</em> is not valid, or if size in bytes
-specified by <em>param_value_size</em> is &lt; size of return type as described in
-the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#mutable-command-object-queries" target="_blank" rel="noopener">Mutable Command Object Queries</a>
-table and <em>param_value</em> is not <code>NULL</code>.</p>
-</li>
-<li>
 <p><code>CL_INVALID_<wbr>MUTABLE_<wbr>COMMAND_<wbr>KHR</code> if <em>command</em> is not a valid mutable
 command object.</p>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>VALUE</code> if <em>param_name</em> is not one of the supported values, or
+if the size in bytes specified by <em>param_value_size</em> is less than size of
+the return type specified in the
+<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#mutable-command-info-table" target="_blank" rel="noopener">Mutable Command Object Queries</a> table
+and <em>param_value</em> is not <code>NULL</code>.</p>
 </li>
 <li>
 <p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources
@@ -1026,12 +1024,6 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
 </div>
 </div>
-</div>
-</div>
-<div id="footer">
-<div id="footer-text">
-Version v3.0.16<br>
-Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 
