@@ -4,8 +4,9 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.16">
-<title>cl_khr_external_semaphore_dx_fence(3)</title>
+<meta name="generator" content="Asciidoctor 2.0.18">
+<meta name="author" content="Khronos&#174; OpenCL Working Group">
+<title>cl_ext_image_raw10_raw12</title>
 <style>
 /*! normalize.css v2.1.2 | MIT License | git.io/normalize */
 /* ========================================================================== HTML5 display definitions ========================================================================== */
@@ -742,9 +743,98 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="../../katex/katex.min.css">
-<script src="../../katex/katex.min.js"></script>
-<script src="../../katex/contrib/auto-render.min.js"></script>
+<style>
+/*! Stylesheet for CodeRay to loosely match GitHub themes | MIT License */
+pre.CodeRay{background:#f7f7f8}
+.CodeRay .line-numbers{border-right:1px solid;opacity:.35;padding:0 .5em 0 0;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+.CodeRay span.line-numbers{display:inline-block;margin-right:.75em}
+.CodeRay .line-numbers strong{color:#000}
+table.CodeRay{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.CodeRay td{vertical-align:top;line-height:inherit}
+table.CodeRay td.line-numbers{text-align:right}
+table.CodeRay td.code{padding:0 0 0 .75em}
+.CodeRay .debug{color:#fff!important;background:navy!important}
+.CodeRay .annotation{color:#007}
+.CodeRay .attribute-name{color:navy}
+.CodeRay .attribute-value{color:#700}
+.CodeRay .binary{color:#509}
+.CodeRay .comment{color:#998;font-style:italic}
+.CodeRay .char{color:#04d}
+.CodeRay .char .content{color:#04d}
+.CodeRay .char .delimiter{color:#039}
+.CodeRay .class{color:#458;font-weight:bold}
+.CodeRay .complex{color:#a08}
+.CodeRay .constant,.CodeRay .predefined-constant{color:teal}
+.CodeRay .color{color:#099}
+.CodeRay .class-variable{color:#369}
+.CodeRay .decorator{color:#b0b}
+.CodeRay .definition{color:#099}
+.CodeRay .delimiter{color:#000}
+.CodeRay .doc{color:#970}
+.CodeRay .doctype{color:#34b}
+.CodeRay .doc-string{color:#d42}
+.CodeRay .escape{color:#666}
+.CodeRay .entity{color:#800}
+.CodeRay .error{color:#808}
+.CodeRay .exception{color:inherit}
+.CodeRay .filename{color:#099}
+.CodeRay .function{color:#900;font-weight:bold}
+.CodeRay .global-variable{color:teal}
+.CodeRay .hex{color:#058}
+.CodeRay .integer,.CodeRay .float{color:#099}
+.CodeRay .include{color:#555}
+.CodeRay .inline{color:#000}
+.CodeRay .inline .inline{background:#ccc}
+.CodeRay .inline .inline .inline{background:#bbb}
+.CodeRay .inline .inline-delimiter{color:#d14}
+.CodeRay .inline-delimiter{color:#d14}
+.CodeRay .important{color:#555;font-weight:bold}
+.CodeRay .interpreted{color:#b2b}
+.CodeRay .instance-variable{color:teal}
+.CodeRay .label{color:#970}
+.CodeRay .local-variable{color:#963}
+.CodeRay .octal{color:#40e}
+.CodeRay .predefined{color:#369}
+.CodeRay .preprocessor{color:#579}
+.CodeRay .pseudo-class{color:#555}
+.CodeRay .directive{font-weight:bold}
+.CodeRay .type{font-weight:bold}
+.CodeRay .predefined-type{color:inherit}
+.CodeRay .reserved,.CodeRay .keyword{color:#000;font-weight:bold}
+.CodeRay .key{color:#808}
+.CodeRay .key .delimiter{color:#606}
+.CodeRay .key .char{color:#80f}
+.CodeRay .value{color:#088}
+.CodeRay .regexp .delimiter{color:#808}
+.CodeRay .regexp .content{color:#808}
+.CodeRay .regexp .modifier{color:#808}
+.CodeRay .regexp .char{color:#d14}
+.CodeRay .regexp .function{color:#404;font-weight:bold}
+.CodeRay .string{color:#d20}
+.CodeRay .string .string .string{background:#ffd0d0}
+.CodeRay .string .content{color:#d14}
+.CodeRay .string .char{color:#d14}
+.CodeRay .string .delimiter{color:#d14}
+.CodeRay .shell{color:#d14}
+.CodeRay .shell .delimiter{color:#d14}
+.CodeRay .symbol{color:#990073}
+.CodeRay .symbol .content{color:#a60}
+.CodeRay .symbol .delimiter{color:#630}
+.CodeRay .tag{color:teal}
+.CodeRay .tag-special{color:#d70}
+.CodeRay .variable{color:#036}
+.CodeRay .insert{background:#afa}
+.CodeRay .delete{background:#faa}
+.CodeRay .change{color:#aaf;background:#007}
+.CodeRay .head{color:#f8f;background:#505}
+.CodeRay .insert .insert{color:#080}
+.CodeRay .delete .delete{color:#800}
+.CodeRay .change .change{color:#66f}
+.CodeRay .head .head{color:#f4f}
+</style>
+<link rel="stylesheet" href="../katex/katex.min.css">
+<script src="../katex/katex.min.js"></script>
+<script src="../katex/contrib/auto-render.min.js"></script>
     <!-- Use KaTeX to render math once document is loaded, see
          https://github.com/Khan/KaTeX/tree/master/contrib/auto-render -->
 <script>
@@ -762,116 +852,431 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
         );
     });
 </script></head>
-<body class="manpage">
+<body class="book">
 <div id="header">
-<h1>cl_khr_external_semaphore_dx_fence(3) Manual Page</h1>
-<h2 id="_name">Name</h2>
-<div class="sectionbody">
-<p>cl_khr_external_semaphore_dx_fence - OpenCL extension</p>
+<h1>cl_ext_image_raw10_raw12</h1>
+<div class="details">
+<span id="author" class="author">Khronos<sup>&#174;</sup> OpenCL Working Group</span><br>
+<span id="revnumber">version v3.0.16-32-gb32ac1b,</span>
+<span id="revdate">Tue, 13 Aug 2024 17:23:35 +0000</span>
+<br><span id="revremark">from git branch: main commit: b32ac1bdd06027f1514c8f8a27324a94142f580e</span>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_ratification_status"><a class="anchor" href="#_ratification_status"></a>Ratification Status</h2>
+<h2 id="_name_strings"><a class="anchor" href="#_name_strings"></a>Name Strings</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Ratified</p>
+<p><code>cl_ext_image_raw10_raw12</code></p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_extension_and_version_dependencies"><a class="anchor" href="#_extension_and_version_dependencies"></a>Extension and Version Dependencies</h2>
+<h2 id="_contact"><a class="anchor" href="#_contact"></a>Contact</h2>
 <div class="sectionbody">
-<div class="openblock">
+<div class="paragraph">
+<p>Please see the <strong>Issues</strong> list in the Khronos <strong>OpenCL-Docs</strong> repository:<br>
+<a href="https://github.com/KhronosGroup/OpenCL-Docs" class="bare">https://github.com/KhronosGroup/OpenCL-Docs</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_contributors"><a class="anchor" href="#_contributors"></a>Contributors</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Kevin Petit, Arm Ltd.<br>
+Jeremy Kemp, Google<br></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_notice"><a class="anchor" href="#_notice"></a>Notice</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Copyright 2008-2024 The Khronos Group Inc.</p>
+</div>
+<div class="paragraph">
+<p>This Specification is protected by copyright laws and contains material proprietary to Khronos.
+Except as described by these terms, it or any components may not be reproduced, republished,
+distributed, transmitted, displayed, broadcast or otherwise exploited in any manner without the
+express prior written permission of Khronos.</p>
+</div>
+<div class="paragraph">
+<p>This Specification has been created under the Khronos Intellectual Property Rights
+Policy, which is Attachment A of the Khronos Group Membership Agreement available at
+www.khronos.org/files/member_agreement.pdf and defines the terms 'Scope', 'Compliant Portion',
+and 'Necessary Patent Claims'.</p>
+</div>
+<div class="paragraph">
+<p>Khronos grants a conditional copyright license to use and reproduce the
+unmodified Specification for any purpose, without fee or royalty, EXCEPT no licenses
+to any patent, trademark or other intellectual property rights are granted under these
+terms. Parties desiring to implement the Specification and make use of Khronos trademarks
+in relation to that implementation, and receive reciprocal patent license protection under
+the Khronos Intellectual Property Rights Policy must become Adopters and confirm the
+implementation as conformant under the process defined by Khronos for this Specification;
+see <a href="https://www.khronos.org/adopters" class="bare">https://www.khronos.org/adopters</a>.</p>
+</div>
+<div class="paragraph">
+<p>Khronos makes no, and expressly disclaims any, representations or warranties,
+express or implied, regarding this Specification, including, without limitation:
+merchantability, fitness for a particular purpose, non-infringement of any
+intellectual property, correctness, accuracy, completeness, timeliness, and
+reliability. Under no circumstances will Khronos, or any of its Promoters,
+Contributors or Members, or their respective partners, officers, directors,
+employees, agents or representatives be liable for any damages, whether direct,
+indirect, special or consequential damages for lost revenues, lost profits, or
+otherwise, arising from or in connection with these materials.</p>
+</div>
+<div class="paragraph">
+<p>Where this Specification identifies specific sections of external references, only those
+specifically identified sections define normative functionality. The Khronos Intellectual
+Property Rights Policy excludes external references to materials and associated enabling
+technology not created by Khronos from the Scope of this specification, and any licenses
+that may be required to implement such referenced materials and associated technologies
+must be obtained separately and may involve royalty payments.</p>
+</div>
+<div class="paragraph">
+<p>Khronos® and Vulkan® are registered trademarks, and SPIR™, SPIR-V™, and SYCL™ are trademarks
+of The Khronos Group Inc. OpenCL™ is a trademark of Apple Inc. used under license by Khronos.
+OpenGL® is a registered trademark and the OpenGL ES™ and OpenGL SC™ logos
+are trademarks of Hewlett Packard Enterprise used under license by Khronos.
+All other product names, trademarks, and/or company names are used solely for identification
+and belong to their respective owners.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_status"><a class="anchor" href="#_status"></a>Status</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Complete.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_version"><a class="anchor" href="#_version"></a>Version</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Built On: 2024-07-10<br>
+Version: 1.0.0</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dependencies"><a class="anchor" href="#_dependencies"></a>Dependencies</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This extension is written against the OpenCL Specification version 3.0.14.</p>
+</div>
+<div class="paragraph">
+<p>This extension requires OpenCL 1.2.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_overview"><a class="anchor" href="#_overview"></a>Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This extension adds support for single channel RAW10 and RAW12 images typically
+used to represent Bayer pattern images coming from an image sensor.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_new_api_enums"><a class="anchor" href="#_new_api_enums"></a>New API Enums</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>New values for <code>cl_channel_type</code>:</p>
+</div>
+<div class="listingblock">
 <div class="content">
-<div class="paragraph">
-<p><code><a href="#versions-1-2">OpenCL 1.2</a></code><br>
-and<br>
-<code><a href="#cl_khr_semaphore">[cl_khr_semaphore]</a></code><br>
-and<br>
-<code><a href="#cl_khr_external_semaphore">[cl_khr_external_semaphore]</a></code><br></p>
+<pre class="CodeRay highlight"><code data-lang="c">CL_UNSIGNED_INT_RAW10_EXT       <span class="hex">0x10E3</span>
+CL_UNSIGNED_INT_RAW12_EXT       <span class="hex">0x10E4</span></code></pre>
 </div>
-</div>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>This is a <em>provisional</em> extension and <strong class="purple">must</strong> be used with caution.
-See the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#boilerplate-provisional-header" target="_blank" rel="noopener">description</a> of provisional header files for enablement and stability details.</strong></p>
-</li>
-</ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_other_extension_metadata"><a class="anchor" href="#_other_extension_metadata"></a>Other Extension Metadata</h2>
+<h2 id="_new_opencl_c_feature_names"><a class="anchor" href="#_new_opencl_c_feature_names"></a>New OpenCL C Feature Names</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">__opencl_c_ext_image_raw10_raw12</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_new_opencl_c_enums"><a class="anchor" href="#_new_opencl_c_enums"></a>New OpenCL C Enums</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Value returned by <code>get_image_channel_data_type</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">CLK_UNSIGNED_INT_RAW10_EXT
+CLK_UNSIGNED_INT_RAW12_EXT</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_modifications_to_the_opencl_api_specification"><a class="anchor" href="#_modifications_to_the_opencl_api_specification"></a>Modifications to the OpenCL API Specification</h2>
 <div class="sectionbody">
 <div class="dlist">
 <dl>
-<dt class="hdlist1"><strong>Last Modified Date</strong></dt>
+<dt class="hdlist1">(Modify Section 5.3.1, <strong>Creating Image Objects</strong>) </dt>
 <dd>
-<p>2021-09-10</p>
+<div class="openblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">(Add the following to Table 17, <em>List of supported Image Channel Data Types</em>) </dt>
+</dl>
+</div>
+</div>
+</div>
 </dd>
-<dt class="hdlist1"><strong>IP Status</strong></dt>
+</dl>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Image Channel Data Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_UNSIGNED_<wbr>INT_<wbr>RAW10_<wbr>EXT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Each channel component is an unnormalized unsigned 10-bit integer value.
+  The channel order must be <code>CL_R</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_UNSIGNED_<wbr>INT_<wbr>RAW12_<wbr>EXT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Each channel component is an unnormalized unsigned 12-bit integer value.
+  The channel order must be <code>CL_R</code>.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="openblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">(Add the following to Section 5.3.1.1, <em>Image Format Descriptor</em>) </dt>
+</dl>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>If <code>image_channel_data_type</code> = <code>CL_UNSIGNED_<wbr>INT_<wbr>RAW10_<wbr>EXT</code>, pixel data is densely
+packed in each row and each 4 consecutive pixels are packed into 5 bytes. Each one
+of the first 4 bytes contains the top 8 bits of each pixel, the fifth byte
+contains the 2 least significant bits of the 4 pixels. The memory layout of
+this image format is described below (<code>Pi[j]</code> stands for the jth bit of the
+ith pixel):</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 11.1111%;">
+<col style="width: 11.1111%;">
+<col style="width: 11.1111%;">
+<col style="width: 11.1111%;">
+<col style="width: 11.1111%;">
+<col style="width: 11.1111%;">
+<col style="width: 11.1111%;">
+<col style="width: 11.1111%;">
+<col style="width: 11.1112%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"></th>
+<th class="tableblock halign-left valign-top">bit 7</th>
+<th class="tableblock halign-left valign-top">bit 6</th>
+<th class="tableblock halign-left valign-top">bit 5</th>
+<th class="tableblock halign-left valign-top">bit 4</th>
+<th class="tableblock halign-left valign-top">bit 3</th>
+<th class="tableblock halign-left valign-top">bit 2</th>
+<th class="tableblock halign-left valign-top">bit 1</th>
+<th class="tableblock halign-left valign-top">bit 0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Byte 0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P0[9]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P0[8]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P0[7]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P0[6]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P0[5]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P0[4]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P0[3]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P0[2]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Byte 1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P1[9]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P1[8]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P1[7]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P1[6]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P1[5]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P1[4]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P1[3]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P1[2]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Byte 2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P2[9]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P2[8]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P2[7]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P2[6]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P2[5]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P2[4]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P2[3]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P2[2]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Byte 3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P3[9]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P3[8]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P3[7]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P3[6]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P3[5]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P3[4]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P3[3]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P3[2]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Byte 4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P3[1]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P3[0]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P2[1]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P2[0]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P1[1]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P1[0]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P0[1]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P0[0]</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>If <code>image_channel_data_type</code> = <code>CL_UNSIGNED_<wbr>INT_<wbr>RAW12_<wbr>EXT</code>, pixel data is densely
+packed in each row and each 2 consecutive pixels are packed into 3 bytes. The
+first and second byte contains the top 8 bits of first and second pixel. The
+third byte contains the 4 least significant bits of the two pixels, the memory
+layout of this image format is described below (<code>Pi[j]</code> stands for the jth bit
+of the ith pixel):</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 11.1111%;">
+<col style="width: 11.1111%;">
+<col style="width: 11.1111%;">
+<col style="width: 11.1111%;">
+<col style="width: 11.1111%;">
+<col style="width: 11.1111%;">
+<col style="width: 11.1111%;">
+<col style="width: 11.1111%;">
+<col style="width: 11.1112%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"></th>
+<th class="tableblock halign-left valign-top">bit 7</th>
+<th class="tableblock halign-left valign-top">bit 6</th>
+<th class="tableblock halign-left valign-top">bit 5</th>
+<th class="tableblock halign-left valign-top">bit 4</th>
+<th class="tableblock halign-left valign-top">bit 3</th>
+<th class="tableblock halign-left valign-top">bit 2</th>
+<th class="tableblock halign-left valign-top">bit 1</th>
+<th class="tableblock halign-left valign-top">bit 0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Byte 0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P0[11]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P0[10]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P0[9]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P0[8]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P0[7]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P0[6]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P0[5]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P0[4]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Byte 1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P1[11]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P1[10]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P1[9]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P1[8]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P1[7]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P1[6]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P1[5]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P1[4]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Byte 2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P1[3]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P1[2]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P1[1]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P1[0]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P0[3]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P0[2]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P0[1]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P0[0]</p></td>
+</tr>
+</tbody>
+</table>
+<div class="openblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">(Modify Section 5.3.1.2, <em>Image Descriptor</em>) </dt>
+</dl>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Add the following to the description of <code>image_width</code>:</p>
+</div>
+<div class="paragraph">
+<p>The image width must be a multiple of 4 for images <code>image_channel_data_type</code>
+is <code>CL_UNSIGNED_<wbr>INT_<wbr>RAW10_<wbr>EXT</code>. The image width must be a multiple of 2 for
+images <code>image_channel_data_type</code> is <code>CL_UNSIGNED_<wbr>INT_<wbr>RAW12_<wbr>EXT</code>.</p>
+</div>
+<div class="openblock">
+<div class="content">
+
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_modifications_to_the_opencl_c_specification"><a class="anchor" href="#_modifications_to_the_opencl_c_specification"></a>Modifications to the OpenCL C Specification</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">(Modify section 6.15.15.5, <strong>Built-in Image Query Functions</strong>) </dt>
 <dd>
-<p>No known IP claims.</p>
-</dd>
-<dt class="hdlist1"><strong>Contributors</strong></dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p>Ajit Hakke-Patil, NVIDIA</p>
-</li>
-<li>
-<p>Amit Rao, NVIDIA</p>
-</li>
-<li>
-<p>Balaji Calidas, QUALCOMM</p>
-</li>
-<li>
-<p>Ben Ashbaugh, INTEL</p>
-</li>
-<li>
-<p>Carsten Rohde, NVIDIA</p>
-</li>
-<li>
-<p>Christoph Kubisch, NVIDIA</p>
-</li>
-<li>
-<p>Debalina Bhattacharjee, NVIDIA</p>
-</li>
-<li>
-<p>Faith Ekstrand, INTEL</p>
-</li>
-<li>
-<p>James Jones, NVIDIA</p>
-</li>
-<li>
-<p>Jeremy Kemp, IMAGINATION</p>
-</li>
-<li>
-<p>Joshua Kelly, QUALCOMM</p>
-</li>
-<li>
-<p>Karthik Raghavan Ravi, NVIDIA</p>
-</li>
-<li>
-<p>Kedar Patil, NVIDIA</p>
-</li>
-<li>
-<p>Kevin Petit, ARM</p>
-</li>
-<li>
-<p>Nikhil Joshi, NVIDIA</p>
-</li>
-<li>
-<p>Sharan Ashwathnarayan, NVIDIA</p>
-</li>
-<li>
-<p>Vivek Kini, NVIDIA</p>
-</li>
-</ul>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>Add the following definitions to the list of valid values that can be
+returned by the <code>get_image_channel_data_type</code> functions:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">CLK_UNSIGNED_INT_RAW10_EXT
+CLK_UNSIGNED_INT_RAW12_EXT</code></pre>
+</div>
+</div>
+</div>
 </div>
 </dd>
 </dl>
@@ -879,89 +1284,59 @@ See the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/
 </div>
 </div>
 <div class="sect1">
-<h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
+<h2 id="_conformance_tests"><a class="anchor" href="#_conformance_tests"></a>Conformance tests</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p><code>cl_khr_<wbr>external_<wbr>semaphore_<wbr>dx_<wbr>fence</code> supports importing and exporting a
-D3D12 fence as an external semaphore using the APIs introduced by
-<code>cl_khr_<wbr>external_<wbr>semaphore</code>.</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Extend all image conformance tests to cover the new formats.</p>
+</li>
+</ol>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_new_enums"><a class="anchor" href="#_new_enums"></a>New Enums</h2>
+<h2 id="_issues"><a class="anchor" href="#_issues"></a>Issues</h2>
 <div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p><code>cl_external_<wbr>semaphore_<wbr>handle_<wbr>type_<wbr>khr</code></p>
-<div class="ulist">
-<ul>
-<li>
-<p><code>CL_SEMAPHORE_<wbr>HANDLE_<wbr>D3D12_<wbr>FENCE_<wbr>KHR</code></p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
+<div class="paragraph">
+<p>None.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_version_history"><a class="anchor" href="#_version_history"></a>Version History</h2>
 <div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>Revision 0.9.0, 2021-09-10</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Initial version (provisional).</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_see_also"><a class="anchor" href="#_see_also"></a>See Also</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>No cross-references are available</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_document_notes"><a class="anchor" href="#_document_notes"></a>Document Notes</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#cl_khr_external_semaphore_dx_fence" target="_blank" rel="noopener">OpenCL Specification</a></p>
-</div>
-<div class="paragraph">
-<p>This page is a generated document.
-Fixes and changes should be made to the generator scripts, not directly.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Copyright 2014-2024 The Khronos Group Inc.</p>
-</div>
-<div class="paragraph">
-<p>SPDX-License-Identifier: CC-BY-4.0</p>
-</div>
+<table class="tableblock frame-all grid-rows stretch">
+<colgroup>
+<col style="width: 4.7619%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Version</th>
+<th class="tableblock halign-left valign-top">Date</th>
+<th class="tableblock halign-left valign-top">Author</th>
+<th class="tableblock halign-left valign-top">Changes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2023-05-03</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kevin Petit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Initial revision</strong></p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v3.0.16<br>
-Last updated 2024-04-04 13:33:43 -0700
+Version v3.0.16-32-gb32ac1b<br>
+Last updated 2024-07-10 18:18:41 +0100
 </div>
 </div>
 

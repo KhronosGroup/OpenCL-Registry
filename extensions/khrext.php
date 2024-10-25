@@ -41,15 +41,11 @@
 </li>
 <li><a href="specs/3.0-unified/html/OpenCL_API.html#cl_khr_external_memory">cl_khr_external_memory_dma_buf</a>
 </li>
-<li><a href="specs/3.0-unified/html/OpenCL_API.html#cl_khr_external_memory">cl_khr_external_memory_dx</a>
-</li>
 <li><a href="specs/3.0-unified/html/OpenCL_API.html#cl_khr_external_memory">cl_khr_external_memory_opaque_fd</a>
 </li>
 <li><a href="specs/3.0-unified/html/OpenCL_API.html#cl_khr_external_semaphore">cl_khr_external_memory_win32</a>
 </li>
 <li><a href="specs/3.0-unified/html/OpenCL_API.html#cl_khr_external_semaphore">cl_khr_external_semaphore</a>
-</li>
-<li><a href="specs/3.0-unified/html/OpenCL_API.html#cl_khr_external_semaphore">cl_khr_external_semaphore_dx_fence</a>
 </li>
 <li><a href="specs/3.0-unified/html/OpenCL_API.html#cl_khr_external_semaphore">cl_khr_external_semaphore_opaque_fd</a>
 </li>

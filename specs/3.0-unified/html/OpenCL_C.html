@@ -997,9 +997,9 @@ pre.rouge {
 <h1>The OpenCL<sup>&#8482;</sup> C Specification</h1>
 <div class="details">
 <span id="author" class="author">Khronos<sup>&#174;</sup> OpenCL Working Group</span><br>
-<span id="revnumber">version v3.0.16,</span>
-<span id="revdate">Thu, 04 Apr 2024 12:00:0 +0000</span>
-<br><span id="revremark">from git branch: main commit: 16880f9276828e66bb97017f10f34f97423d1bcf</span>
+<span id="revnumber">version v3.0.17,</span>
+<span id="revdate">Thu, 24 Oct 2024 12:00:0 +0000</span>
+<br><span id="revremark">from git branch: main commit: 503dbce015b12289e5454a26daa7bea7e8c56688</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -3146,7 +3146,7 @@ For example:</p>
 <div class="content">
 <pre class="rouge highlight"><code data-lang="opencl_c"><span class="kt">float8</span> <span class="n">vf</span><span class="p">;</span>
 
-<span class="kt">float</span> <span class="o">*</span><span class="n">f</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">vf</span><span class="p">.</span><span class="n">x</span><span class="p">;</span> <span class="n">m</span>         <span class="c1">// is illegal</span>
+<span class="kt">float</span> <span class="o">*</span><span class="n">f</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">vf</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>           <span class="c1">// is illegal</span>
 <span class="kt">float2</span> <span class="o">*</span><span class="n">f2</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">vf</span><span class="p">.</span><span class="n">s07</span><span class="p">;</span>       <span class="c1">// is illegal</span>
 
 <span class="kt">float4</span> <span class="o">*</span><span class="n">odd</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">vf</span><span class="p">.</span><span class="n">odd</span><span class="p">;</span>      <span class="c1">// is illegal</span>
@@ -8435,7 +8435,7 @@ the application.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_FLT_<wbr>MIN</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLT_EPSILSON</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLT_EPSILON</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_FLT_<wbr>EPSILON</code></p></td>
 </tr>
 </tbody>
@@ -8596,7 +8596,7 @@ the application.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DBL_<wbr>MIN</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DBL_EPSILSON</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DBL_EPSILON</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DBL_<wbr>EPSILON</code></p></td>
 </tr>
 </tbody>
@@ -8757,7 +8757,7 @@ the application.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_HALF_<wbr>MIN</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>HALF_EPSILSON</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>HALF_EPSILON</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_HALF_<wbr>EPSILON</code></p></td>
 </tr>
 </tbody>
@@ -17707,9 +17707,9 @@ execution.</p>
 <p class="tableblock">      <em>block</em> specifies the block to be enqueued.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">uint <strong>get_kernel_preferred_&#8203;work_group_size_multiple</strong>(
+<td class="tableblock halign-left valign-top"><p class="tableblock">uint <strong>get_kernel_<wbr>preferred_<wbr>work_<wbr>group_<wbr>size_<wbr>multiple</strong>(
   void (^block)(void))<br>
-  uint <strong>get_kernel_preferred_&#8203;work_group_size_multiple</strong>(
+  uint <strong>get_kernel_<wbr>preferred_<wbr>work_<wbr>group_<wbr>size_<wbr>multiple</strong>(
   void (^block)(local gentype *, &#8230;&#8203;))</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the preferred multiple of work-group size for launch.
       This is a performance hint.
@@ -19388,127 +19388,127 @@ and SPIR-V instructions and required SPIR-V capabilities.</p>
 <td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">For OpenCL 2.1 or <code>cl_khr_<wbr>subgroups</code>:</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_&#8203;sub_&#8203;group_&#8203;size</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_sub_<wbr>group_<wbr>size</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>SubgroupSize</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Kernel</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_&#8203;max_&#8203;sub_&#8203;group_&#8203;size</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_max_<wbr>sub_<wbr>group_<wbr>size</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>SubgroupMaxSize</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Kernel</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_&#8203;num_&#8203;sub_&#8203;groups</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_num_<wbr>sub_<wbr>groups</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>NumSubgroups</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Kernel</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_&#8203;enqueued_&#8203;num_&#8203;sub_&#8203;groups</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_enqueued_<wbr>num_<wbr>sub_<wbr>groups</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>NumEnqueuedSubgroups</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Kernel</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_&#8203;sub_&#8203;group_&#8203;id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_sub_<wbr>group_<wbr>id</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>SubgroupId</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Kernel</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_&#8203;sub_&#8203;group_&#8203;local_&#8203;id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_sub_<wbr>group_<wbr>local_<wbr>id</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>SubgroupLocalInvocationId</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Kernel</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;barrier</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>barrier</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpControlBarrier</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">None Needed</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;all</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>all</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupAll</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;any</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>any</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupAny</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;broadcast</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>broadcast</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupBroadcast</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;reduce_&#8203;add</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>reduce_<wbr>add</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupIAdd</strong>, <strong>OpGroupFAdd</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;reduce_&#8203;min</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>reduce_<wbr>min</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupSMin</strong>, <strong>OpGroupUMin</strong>, <strong>OpGroupFMin</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;reduce_&#8203;max</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>reduce_<wbr>max</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupSMax</strong>, <strong>OpGroupUMax</strong>, <strong>OpGroupFMax</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;scan_&#8203;exclusive_&#8203;add</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>scan_<wbr>exclusive_<wbr>add</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupIAdd</strong>, <strong>OpGroupFAdd</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;scan_&#8203;exclusive_&#8203;min</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>scan_<wbr>exclusive_<wbr>min</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupSMin</strong>, <strong>OpGroupUMin</strong>, <strong>OpGroupFMin</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;scan_&#8203;exclusive_&#8203;max</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>scan_<wbr>exclusive_<wbr>max</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupSMax</strong>, <strong>OpGroupUMax</strong>, <strong>OpGroupFMax</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;scan_&#8203;inclusive_&#8203;add</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>scan_<wbr>inclusive_<wbr>add</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupIAdd</strong>, <strong>OpGroupFAdd</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;scan_&#8203;inclusive_&#8203;min</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>scan_<wbr>inclusive_<wbr>min</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupSMin</strong>, <strong>OpGroupUMin</strong>, <strong>OpGroupFMin</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;scan_&#8203;inclusive_&#8203;max</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>scan_<wbr>inclusive_<wbr>max</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupSMax</strong>, <strong>OpGroupUMax</strong>, <strong>OpGroupFMax</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;reserve_&#8203;read_&#8203;pipe</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>reserve_<wbr>read_<wbr>pipe</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupReserveReadPipePackets</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pipes</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;reserve_&#8203;write_&#8203;pipe</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>reserve_<wbr>write_<wbr>pipe</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupReserveReadWritePackets</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pipes</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;commit_&#8203;read_&#8203;pipe</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>commit_<wbr>read_<wbr>pipe</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupCommitReadPipe</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pipes</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;commit_&#8203;write_&#8203;pipe</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>commit_<wbr>write_<wbr>pipe</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupCommitWritePipe</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pipes</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_&#8203;kernel_&#8203;sub_&#8203;group_&#8203;count_&#8203;for_&#8203;ndrange</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_kernel_<wbr>sub_<wbr>group_<wbr>count_<wbr>for_<wbr>ndrange</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGetKernelNDrangeSubGroupCount</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>DeviceEnqueue</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_&#8203;kernel_&#8203;max_&#8203;sub_&#8203;group_&#8203;size_&#8203;for_&#8203;ndrange</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_kernel_<wbr>max_<wbr>sub_<wbr>group_<wbr>size_<wbr>for_<wbr>ndrange</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGetKernelNDrangeMaxSubGroupSize</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>DeviceEnqueue</strong></p></td>
 </tr>
@@ -19516,77 +19516,77 @@ and SPIR-V instructions and required SPIR-V capabilities.</p>
 <td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">For <code>cl_khr_<wbr>subgroup_<wbr>ballot</code>:</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;broadcast</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>non_<wbr>uniform_<wbr>broadcast</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformBroadcast</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformBallot</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;broadcast_&#8203;first</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>broadcast_<wbr>first</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformBroadcastFirst</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformBallot</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;ballot</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>ballot</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformBallot</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformBallot</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;inverse_&#8203;ballot</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>inverse_<wbr>ballot</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformInverseBallot</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformBallot</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;ballot_&#8203;bit_&#8203;extract</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>ballot_<wbr>bit_<wbr>extract</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformBallotBitExtract</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformBallot</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;ballot_&#8203;bit_&#8203;count</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>ballot_<wbr>bit_<wbr>count</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformBallotBitCount</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformBallot</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;ballot_&#8203;inclusive_&#8203;scan</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>ballot_<wbr>inclusive_<wbr>scan</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformBallotBitCount</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformBallot</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;ballot_&#8203;exclusive_&#8203;scan</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>ballot_<wbr>exclusive_<wbr>scan</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformBallotBitCount</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformBallot</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;ballot_&#8203;find_&#8203;lsb</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>ballot_<wbr>find_<wbr>lsb</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformBallotFindLSB</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformBallot</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;ballot_&#8203;find_&#8203;msb</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>ballot_<wbr>find_<wbr>msb</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformBallotFindMSB</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformBallot</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_&#8203;sub_&#8203;group_&#8203;eq_&#8203;mask</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_sub_<wbr>group_<wbr>eq_<wbr>mask</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>SubgroupEqMask</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformBallot</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_&#8203;sub_&#8203;group_&#8203;ge_&#8203;mask</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_sub_<wbr>group_<wbr>ge_<wbr>mask</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>SubgroupGeMask</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformBallot</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_&#8203;sub_&#8203;group_&#8203;gt_&#8203;mask</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_sub_<wbr>group_<wbr>gt_<wbr>mask</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>SubgroupGtMask</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformBallot</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_&#8203;sub_&#8203;group_&#8203;le_&#8203;mask</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_sub_<wbr>group_<wbr>le_<wbr>mask</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>SubgroupLeMask</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformBallot</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_&#8203;sub_&#8203;group_&#8203;lt_&#8203;mask</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_sub_<wbr>group_<wbr>lt_<wbr>mask</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>SubgroupLtMask</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformBallot</strong></p></td>
 </tr>
@@ -19594,52 +19594,52 @@ and SPIR-V instructions and required SPIR-V capabilities.</p>
 <td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">For <code>cl_khr_<wbr>subgroup_<wbr>clustered_<wbr>reduce</code>:</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;clustered_&#8203;reduce_&#8203;add</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>clustered_<wbr>reduce_<wbr>add</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformIAdd</strong>, <strong>OpGroupNonUniformFAdd</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformClustered</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;clustered_&#8203;reduce_&#8203;mul</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>clustered_<wbr>reduce_<wbr>mul</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformIMul</strong>, <strong>OpGroupNonUniformFMul</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformClustered</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;clustered_&#8203;reduce_&#8203;min</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>clustered_<wbr>reduce_<wbr>min</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformSMin</strong>, <strong>OpGroupNonUniformUMin</strong>, <strong>OpGroupNonUniformFMin</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformClustered</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;clustered_&#8203;reduce_&#8203;max</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>clustered_<wbr>reduce_<wbr>max</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformSMax</strong>, <strong>OpGroupNonUniformUMax</strong>, <strong>OpGroupNonUniformFMax</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformClustered</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;clustered_&#8203;reduce_&#8203;and</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>clustered_<wbr>reduce_<wbr>and</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformBitwiseAnd</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformClustered</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;clustered_&#8203;reduce_&#8203;or</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>clustered_<wbr>reduce_<wbr>or</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformBitwiseOr</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformClustered</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;clustered_&#8203;reduce_&#8203;xor</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>clustered_<wbr>reduce_<wbr>xor</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformBitwiseXor</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformClustered</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;clustered_&#8203;reduce_&#8203;logical_&#8203;and</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>clustered_<wbr>reduce_<wbr>logical_<wbr>and</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformLogicalAnd</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformClustered</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;clustered_&#8203;reduce_&#8203;logical_&#8203;or</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>clustered_<wbr>reduce_<wbr>logical_<wbr>or</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformLogicalOr</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformClustered</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;clustered_&#8203;reduce_&#8203;logical_&#8203;xor</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>clustered_<wbr>reduce_<wbr>logical_<wbr>xor</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformLogicalXor</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformClustered</strong></p></td>
 </tr>
@@ -19648,52 +19648,52 @@ and SPIR-V instructions and required SPIR-V capabilities.</p>
     Note: This extension adds new types to uniform sub-group operations.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;broadcast</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>broadcast</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupBroadcast</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;reduce_&#8203;add</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>reduce_<wbr>add</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupIAdd</strong>, <strong>OpGroupFAdd</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;reduce_&#8203;min</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>reduce_<wbr>min</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupSMin</strong>, <strong>OpGroupUMin</strong>, <strong>OpGroupFMin</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;reduce_&#8203;max</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>reduce_<wbr>max</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupSMax</strong>, <strong>OpGroupUMax</strong>, <strong>OpGroupFMax</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;scan_&#8203;exclusive_&#8203;add</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>scan_<wbr>exclusive_<wbr>add</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupIAdd</strong>, <strong>OpGroupFAdd</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;scan_&#8203;exclusive_&#8203;min</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>scan_<wbr>exclusive_<wbr>min</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupSMin</strong>, <strong>OpGroupUMin</strong>, <strong>OpGroupFMin</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;scan_&#8203;exclusive_&#8203;max</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>scan_<wbr>exclusive_<wbr>max</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupSMax</strong>, <strong>OpGroupUMax</strong>, <strong>OpGroupFMax</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;scan_&#8203;inclusive_&#8203;add</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>scan_<wbr>inclusive_<wbr>add</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupIAdd</strong>, <strong>OpGroupFAdd</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;scan_&#8203;inclusive_&#8203;min</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>scan_<wbr>inclusive_<wbr>min</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupSMin</strong>, <strong>OpGroupUMin</strong>, <strong>OpGroupFMin</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;scan_&#8203;inclusive_&#8203;max</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>scan_<wbr>inclusive_<wbr>max</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupSMax</strong>, <strong>OpGroupUMax</strong>, <strong>OpGroupFMax</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
 </tr>
@@ -19701,152 +19701,152 @@ and SPIR-V instructions and required SPIR-V capabilities.</p>
 <td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">For <code>cl_khr_<wbr>subgroup_<wbr>non_<wbr>uniform_<wbr>arithmetic</code>:</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;reduce_&#8203;add</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>non_<wbr>uniform_<wbr>reduce_<wbr>add</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformIAdd</strong>, <strong>OpGroupNonUniformFAdd</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;reduce_&#8203;mul</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>non_<wbr>uniform_<wbr>reduce_<wbr>mul</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformIMul</strong>, <strong>OpGroupNonUniformFMul</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;reduce_&#8203;min</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>non_<wbr>uniform_<wbr>reduce_<wbr>min</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformSMin</strong>, <strong>OpGroupNonUniformUMin</strong>, <strong>OpGroupNonUniformFMin</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;reduce_&#8203;max</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>non_<wbr>uniform_<wbr>reduce_<wbr>max</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformSMax</strong>, <strong>OpGroupNonUniformUMax</strong>, <strong>OpGroupNonUniformFMax</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;reduce_&#8203;and</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>non_<wbr>uniform_<wbr>reduce_<wbr>and</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformBitwiseAnd</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;reduce_&#8203;or</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>non_<wbr>uniform_<wbr>reduce_<wbr>or</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformBitwiseOr</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;reduce_&#8203;xor</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>non_<wbr>uniform_<wbr>reduce_<wbr>xor</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformBitwiseXor</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;reduce_&#8203;logical_&#8203;and</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>non_<wbr>uniform_<wbr>reduce_<wbr>logical_<wbr>and</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformLogicalAnd</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;reduce_&#8203;logical_&#8203;or</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>non_<wbr>uniform_<wbr>reduce_<wbr>logical_<wbr>or</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformLogicalOr</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;reduce_&#8203;logical_&#8203;xor</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>non_<wbr>uniform_<wbr>reduce_<wbr>logical_<wbr>xor</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformLogicalXor</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;scan_&#8203;inclusive_&#8203;add</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>non_<wbr>uniform_<wbr>scan_<wbr>inclusive_<wbr>add</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformIAdd</strong>, <strong>OpGroupNonUniformFAdd</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;scan_&#8203;inclusive_&#8203;mul</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>non_<wbr>uniform_<wbr>scan_<wbr>inclusive_<wbr>mul</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformIMul</strong>, <strong>OpGroupNonUniformFMul</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;scan_&#8203;inclusive_&#8203;min</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>non_<wbr>uniform_<wbr>scan_<wbr>inclusive_<wbr>min</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformSMin</strong>, <strong>OpGroupNonUniformUMin</strong>, <strong>OpGroupNonUniformFMin</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;scan_&#8203;inclusive_&#8203;max</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>non_<wbr>uniform_<wbr>scan_<wbr>inclusive_<wbr>max</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformSMax</strong>, <strong>OpGroupNonUniformUMax</strong>, <strong>OpGroupNonUniformFMax</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;scan_&#8203;inclusive_&#8203;and</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>non_<wbr>uniform_<wbr>scan_<wbr>inclusive_<wbr>and</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformBitwiseAnd</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;scan_&#8203;inclusive_&#8203;or</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>non_<wbr>uniform_<wbr>scan_<wbr>inclusive_<wbr>or</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformBitwiseOr</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;scan_&#8203;inclusive_&#8203;xor</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>non_<wbr>uniform_<wbr>scan_<wbr>inclusive_<wbr>xor</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformBitwiseXor</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;scan_&#8203;inclusive_&#8203;logical_&#8203;and</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>non_<wbr>uniform_<wbr>scan_<wbr>inclusive_<wbr>logical_<wbr>and</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformLogicalAnd</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;scan_&#8203;inclusive_&#8203;logical_&#8203;or</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>non_<wbr>uniform_<wbr>scan_<wbr>inclusive_<wbr>logical_<wbr>or</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformLogicalOr</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;scan_&#8203;inclusive_&#8203;logical_&#8203;xor</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>non_<wbr>uniform_<wbr>scan_<wbr>inclusive_<wbr>logical_<wbr>xor</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformLogicalXor</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;scan_&#8203;exclusive_&#8203;add</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>non_<wbr>uniform_<wbr>scan_<wbr>exclusive_<wbr>add</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformIAdd</strong>, <strong>OpGroupNonUniformFAdd</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;scan_&#8203;exclusive_&#8203;mul</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>non_<wbr>uniform_<wbr>scan_<wbr>exclusive_<wbr>mul</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformIMul</strong>, <strong>OpGroupNonUniformFMul</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;scan_&#8203;exclusive_&#8203;min</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>non_<wbr>uniform_<wbr>scan_<wbr>exclusive_<wbr>min</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformSMin</strong>, <strong>OpGroupNonUniformUMin</strong>, <strong>OpGroupNonUniformFMin</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;&#8203;scan_&#8203;exclusive_&#8203;max</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>non_<wbr>uniform_<wbr>scan_<wbr>exclusive_<wbr>max</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformSMax</strong>, <strong>OpGroupNonUniformUMax</strong>, <strong>OpGroupNonUniformFMax</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;&#8203;scan_&#8203;exclusive_&#8203;and</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>non_<wbr>uniform_<wbr>scan_<wbr>exclusive_<wbr>and</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformBitwiseAnd</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;&#8203;scan_&#8203;exclusive_&#8203;or</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>non_<wbr>uniform_<wbr>scan_<wbr>exclusive_<wbr>or</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformBitwiseOr</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;&#8203;scan_&#8203;exclusive_&#8203;xor</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>non_<wbr>uniform_<wbr>scan_<wbr>exclusive_<wbr>xor</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformBitwiseXor</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;&#8203;scan_&#8203;exclusive_&#8203;logical_&#8203;and</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>non_<wbr>uniform_<wbr>scan_<wbr>exclusive_<wbr>logical_<wbr>and</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformLogicalAnd</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;&#8203;scan_&#8203;exclusive_&#8203;logical_&#8203;or</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>non_<wbr>uniform_<wbr>scan_<wbr>exclusive_<wbr>logical_<wbr>or</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformLogicalOr</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;&#8203;scan_&#8203;exclusive_&#8203;logical_&#8203;xor</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>non_<wbr>uniform_<wbr>scan_<wbr>exclusive_<wbr>logical_<wbr>xor</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformLogicalXor</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformArithmetic</strong></p></td>
 </tr>
@@ -19854,22 +19854,22 @@ and SPIR-V instructions and required SPIR-V capabilities.</p>
 <td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">For <code>cl_khr_<wbr>subgroup_<wbr>non_<wbr>uniform_<wbr>vote</code>:</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;elect</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>elect</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformElect</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniform</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;all</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>non_<wbr>uniform_<wbr>all</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformAll</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformVote</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;any</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>non_<wbr>uniform_<wbr>any</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformAny</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformVote</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;non_&#8203;uniform_&#8203;all_&#8203;equal</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>non_<wbr>uniform_<wbr>all_<wbr>equal</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformAllEqual</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformVote</strong></p></td>
 </tr>
@@ -19877,12 +19877,12 @@ and SPIR-V instructions and required SPIR-V capabilities.</p>
 <td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">For <code>cl_khr_<wbr>subgroup_<wbr>shuffle</code>:</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;shuffle</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>shuffle</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformShuffle</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformShuffle</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;shuffle_&#8203;xor</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>shuffle_<wbr>xor</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformShuffleXor</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformShuffle</strong></p></td>
 </tr>
@@ -19890,12 +19890,12 @@ and SPIR-V instructions and required SPIR-V capabilities.</p>
 <td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">For <code>cl_khr_<wbr>subgroup_<wbr>shuffle_<wbr>relative</code>:</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;shuffle_&#8203;up</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>shuffle_<wbr>up</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformShuffleUp</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformShuffleRelative</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_&#8203;group_&#8203;shuffle_&#8203;down</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>shuffle_<wbr>down</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformShuffleDown</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformShuffleRelative</strong></p></td>
 </tr>
@@ -21345,7 +21345,8 @@ operations and builtins with <code>-cl-unsafe-math-optimizations</code> <a href=
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>atan2</strong>(<em>y</em>, <em>x</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Derived implementations may implement as <strong>atan</strong>(<em>y</em> / <em>x</em>) for <em>x</em> &gt; 0,
       <strong>atan</strong>(<em>y</em> / <em>x</em>) + <code>M_PI_F</code> for <em>x</em> &lt; 0 and <em>y</em> &gt; 0, and
-      <strong>atan</strong>(<em>y</em> / <em>x</em>) - <code>M_PI_F</code> for <em>x</em> &lt; 0 and <em>y</em> &lt; 0.</p></td>
+      <strong>atan</strong>(<em>y</em> / <em>x</em>) - <code>M_PI_F</code> for <em>x</em> &lt; 0 and <em>y</em> &lt; 0.
+      For non-derived implementations, the error is ≤ 8192 ulp.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>atan2pi</strong>(<em>y</em>, <em>x</em>)</p></td>
@@ -23693,7 +23694,7 @@ When approximate rounding is used instead of the preferred rounding, the
 result of the conversion must satisfy the bound given below.</p>
 </div>
 <div class="paragraph">
-<p><code>half</code> {rightarrow` <code>CL_UNORM_<wbr>INT8</code> (8-bit unsigned integer)</p>
+<p><code>half</code> → <code>CL_UNORM_<wbr>INT8</code> (8-bit unsigned integer)</p>
 </div>
 <div class="ulist none">
 <ul class="none">
@@ -23712,7 +23713,7 @@ result of the conversion must satisfy the bound given below.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p><code>half</code> {rightarrow` <code>CL_UNORM_<wbr>INT_<wbr>101010</code> (10-bit unsigned integer)</p>
+<p><code>half</code> → <code>CL_UNORM_<wbr>INT_<wbr>101010</code> (10-bit unsigned integer)</p>
 </div>
 <div class="ulist none">
 <ul class="none">
@@ -23732,7 +23733,7 @@ result of the conversion must satisfy the bound given below.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p><code>half</code> {rightarrow` <code>CL_UNORM_<wbr>INT16</code> (16-bit unsigned integer)</p>
+<p><code>half</code> → <code>CL_UNORM_<wbr>INT16</code> (16-bit unsigned integer)</p>
 </div>
 <div class="ulist none">
 <ul class="none">
@@ -23752,7 +23753,7 @@ result of the conversion must satisfy the bound given below.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p><code>half</code> {rightarrow` <code>CL_SNORM_<wbr>INT8</code> (8-bit signed integer)</p>
+<p><code>half</code> → <code>CL_SNORM_<wbr>INT8</code> (8-bit signed integer)</p>
 </div>
 <div class="ulist none">
 <ul class="none">
@@ -23771,7 +23772,7 @@ result of the conversion must satisfy the bound given below.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p><code>half</code> {rightarrow` <code>CL_SNORM_<wbr>INT16</code> (16-bit signed integer)</p>
+<p><code>half</code> → <code>CL_SNORM_<wbr>INT16</code> (16-bit signed integer)</p>
 </div>
 <div class="ulist none">
 <ul class="none">
@@ -24249,6 +24250,19 @@ The OpenCL Extension specification will be removed in a subsequent revision.</p>
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p>Changes from <strong>v3.0.16</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Documented the error bounds for a non-derived <code>atan2</code> implementation with unsafe math optimizations, see <a href="https://github.com/KhronosGroup/OpenCL-Docs/pull/1073">#1073</a>.</p>
+</li>
+<li>
+<p>Fixed a typo affecting <code>EPSILON</code> macros, see <a href="https://github.com/KhronosGroup/OpenCL-Docs/pull/1225">#1225</a>.</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 </div>
@@ -24596,12 +24610,6 @@ The OpenCL Extension specification will be removed in a subsequent revision.</p>
 </div>
 <div class="footnote" id="_footnotedef_114">
 <a href="#_footnoteref_114">114</a>. Here <code>TYPE_MIN</code> and <code>TYPE_MIN_EXP</code> should be substituted by constants appropriate to the floating-point type under consideration, such as <code>FLT_MIN</code> and <code>FLT_MIN_EXP</code> for <code>float</code>.
-</div>
-</div>
-<div id="footer" style="max-width: 100%;">
-<div id="footer-text">
-Version v3.0.16<br>
-Last updated 2024-04-04 12:00:00 -0700
 </div>
 </div>
 

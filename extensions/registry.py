@@ -126,6 +126,11 @@ registry = {
         'flags' : { 'public' },
         'url' : 'extensions/ext/cl_ext_image_from_buffer.html',
     },
+    'cl_ext_image_raw10_raw12' : {
+        'number' : 84,
+        'flags' : { 'public' },
+        'url' : 'extensions/ext/cl_ext_image_raw10_raw12.html',
+    },
     'cl_ext_image_requirements_info' : {
         'number' : 83,
         'flags' : { 'public' },
@@ -301,6 +306,11 @@ registry = {
         'flags' : { 'public' },
         'url' : 'extensions/intel/cl_intel_subgroup_buffer_prefetch.html',
     },
+    'cl_intel_subgroup_local_block_io' : {
+        'number' : 84,
+        'flags' : { 'public' },
+        'url' : 'extensions/intel/cl_intel_subgroup_local_block_io.html',
+    },
     'cl_intel_subgroup_matrix_multiply_accumulate' : {
         'number' : 78,
         'flags' : { 'public' },
@@ -446,11 +456,6 @@ registry = {
         'flags' : { 'public' },
         'url' : 'specs/3.0-unified/html/OpenCL_API.html#cl_khr_external_memory',
     },
-    'cl_khr_external_memory_dx' : {
-        'khrnumber' : 55,
-        'flags' : { 'public' },
-        'url' : 'specs/3.0-unified/html/OpenCL_API.html#cl_khr_external_memory',
-    },
     'cl_khr_external_memory_opaque_fd' : {
         'khrnumber' : 56,
         'flags' : { 'public' },
@@ -463,11 +468,6 @@ registry = {
     },
     'cl_khr_external_semaphore' : {
         'khrnumber' : 58,
-        'flags' : { 'public' },
-        'url' : 'specs/3.0-unified/html/OpenCL_API.html#cl_khr_external_semaphore',
-    },
-    'cl_khr_external_semaphore_dx_fence' : {
-        'khrnumber' : 59,
         'flags' : { 'public' },
         'url' : 'specs/3.0-unified/html/OpenCL_API.html#cl_khr_external_semaphore',
     },

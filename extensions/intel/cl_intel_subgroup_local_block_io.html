@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.16">
-<title>cl_khr_external_memory_dx(3)</title>
+<title>cl_intel_subgroup_local_block_io</title>
 <style>
 /*! normalize.css v2.1.2 | MIT License | git.io/normalize */
 /* ========================================================================== HTML5 display definitions ========================================================================== */
@@ -742,9 +742,98 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="../../katex/katex.min.css">
-<script src="../../katex/katex.min.js"></script>
-<script src="../../katex/contrib/auto-render.min.js"></script>
+<style>
+/* Stylesheet for CodeRay to match GitHub theme | MIT License | http://foundation.zurb.com */
+pre.CodeRay{background:#f7f7f8}
+.CodeRay .line-numbers{border-right:1px solid currentColor;opacity:.35;padding:0 .5em 0 0}
+.CodeRay span.line-numbers{display:inline-block;margin-right:.75em}
+.CodeRay .line-numbers strong{color:#000}
+table.CodeRay{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.CodeRay td{vertical-align:top;line-height:inherit}
+table.CodeRay td.line-numbers{text-align:right}
+table.CodeRay td.code{padding:0 0 0 .75em}
+.CodeRay .debug{color:#fff !important;background:#000080 !important}
+.CodeRay .annotation{color:#007}
+.CodeRay .attribute-name{color:#000080}
+.CodeRay .attribute-value{color:#700}
+.CodeRay .binary{color:#509}
+.CodeRay .comment{color:#998;font-style:italic}
+.CodeRay .char{color:#04d}
+.CodeRay .char .content{color:#04d}
+.CodeRay .char .delimiter{color:#039}
+.CodeRay .class{color:#458;font-weight:bold}
+.CodeRay .complex{color:#a08}
+.CodeRay .constant,.CodeRay .predefined-constant{color:#008080}
+.CodeRay .color{color:#099}
+.CodeRay .class-variable{color:#369}
+.CodeRay .decorator{color:#b0b}
+.CodeRay .definition{color:#099}
+.CodeRay .delimiter{color:#000}
+.CodeRay .doc{color:#970}
+.CodeRay .doctype{color:#34b}
+.CodeRay .doc-string{color:#d42}
+.CodeRay .escape{color:#666}
+.CodeRay .entity{color:#800}
+.CodeRay .error{color:#808}
+.CodeRay .exception{color:inherit}
+.CodeRay .filename{color:#099}
+.CodeRay .function{color:#900;font-weight:bold}
+.CodeRay .global-variable{color:#008080}
+.CodeRay .hex{color:#058}
+.CodeRay .integer,.CodeRay .float{color:#099}
+.CodeRay .include{color:#555}
+.CodeRay .inline{color:#000}
+.CodeRay .inline .inline{background:#ccc}
+.CodeRay .inline .inline .inline{background:#bbb}
+.CodeRay .inline .inline-delimiter{color:#d14}
+.CodeRay .inline-delimiter{color:#d14}
+.CodeRay .important{color:#555;font-weight:bold}
+.CodeRay .interpreted{color:#b2b}
+.CodeRay .instance-variable{color:#008080}
+.CodeRay .label{color:#970}
+.CodeRay .local-variable{color:#963}
+.CodeRay .octal{color:#40e}
+.CodeRay .predefined{color:#369}
+.CodeRay .preprocessor{color:#579}
+.CodeRay .pseudo-class{color:#555}
+.CodeRay .directive{font-weight:bold}
+.CodeRay .type{font-weight:bold}
+.CodeRay .predefined-type{color:inherit}
+.CodeRay .reserved,.CodeRay .keyword {color:#000;font-weight:bold}
+.CodeRay .key{color:#808}
+.CodeRay .key .delimiter{color:#606}
+.CodeRay .key .char{color:#80f}
+.CodeRay .value{color:#088}
+.CodeRay .regexp .delimiter{color:#808}
+.CodeRay .regexp .content{color:#808}
+.CodeRay .regexp .modifier{color:#808}
+.CodeRay .regexp .char{color:#d14}
+.CodeRay .regexp .function{color:#404;font-weight:bold}
+.CodeRay .string{color:#d20}
+.CodeRay .string .string .string{background:#ffd0d0}
+.CodeRay .string .content{color:#d14}
+.CodeRay .string .char{color:#d14}
+.CodeRay .string .delimiter{color:#d14}
+.CodeRay .shell{color:#d14}
+.CodeRay .shell .delimiter{color:#d14}
+.CodeRay .symbol{color:#990073}
+.CodeRay .symbol .content{color:#a60}
+.CodeRay .symbol .delimiter{color:#630}
+.CodeRay .tag{color:#008080}
+.CodeRay .tag-special{color:#d70}
+.CodeRay .variable{color:#036}
+.CodeRay .insert{background:#afa}
+.CodeRay .delete{background:#faa}
+.CodeRay .change{color:#aaf;background:#007}
+.CodeRay .head{color:#f8f;background:#505}
+.CodeRay .insert .insert{color:#080}
+.CodeRay .delete .delete{color:#800}
+.CodeRay .change .change{color:#66f}
+.CodeRay .head .head{color:#f4f}
+</style>
+<link rel="stylesheet" href="../katex/katex.min.css">
+<script src="../katex/katex.min.js"></script>
+<script src="../katex/contrib/auto-render.min.js"></script>
     <!-- Use KaTeX to render math once document is loaded, see
          https://github.com/Khan/KaTeX/tree/master/contrib/auto-render -->
 <script>
@@ -762,248 +851,641 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
         );
     });
 </script></head>
-<body class="manpage">
+<body class="book">
 <div id="header">
-<h1>cl_khr_external_memory_dx(3) Manual Page</h1>
-<h2 id="_name">Name</h2>
-<div class="sectionbody">
-<p>cl_khr_external_memory_dx - OpenCL extension</p>
+<h1>cl_intel_subgroup_local_block_io</h1>
+<div class="details">
+<span id="revnumber">version v3.0.16-44-g866bc960,</span>
+<span id="revdate">Wed Sep  4 02:00:00 PM PDT 2024</span>
+<br><span id="revremark">from git branch: main commit: 866bc9603bbff5dad1ed188c37574421f6139cf3</span>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_ratification_status"><a class="anchor" href="#_ratification_status"></a>Ratification Status</h2>
+<h2 id="_name_strings"><a class="anchor" href="#_name_strings"></a>Name Strings</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Ratified</p>
+<p><code>cl_intel_subgroup_local_block_io</code></p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_extension_and_version_dependencies"><a class="anchor" href="#_extension_and_version_dependencies"></a>Extension and Version Dependencies</h2>
+<h2 id="_contact"><a class="anchor" href="#_contact"></a>Contact</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Ben Ashbaugh, Intel (ben 'dot' ashbaugh 'at' intel 'dot' com)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_contributors"><a class="anchor" href="#_contributors"></a>Contributors</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Ben Ashbaugh, Intel</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_notice"><a class="anchor" href="#_notice"></a>Notice</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Copyright (c) 2023 Intel Corporation.  All rights reserved.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_status"><a class="anchor" href="#_status"></a>Status</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Shipping</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_version"><a class="anchor" href="#_version"></a>Version</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Built On: 2024-09-04<br>
+Version: 1.0.0</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dependencies"><a class="anchor" href="#_dependencies"></a>Dependencies</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>OpenCL 1.2 and support for <code>cl_intel_subgroups</code> is required.
+This extension is written against version 8 of the <code>cl_intel_subgroups</code> specification.
+This extension interacts with the <code>cl_intel_subgroups_char</code>, <code>cl_intel_subgroups_short</code>, <code>cl_intel_subgroups_long</code>, and <code>cl_intel_spirv_subgroups</code> extensions.</p>
+</div>
+<div class="paragraph">
+<p>This extension requires OpenCL support for SPIR-V, either via OpenCL 2.1 or newer, or via the <code>cl_khr_il_program</code> extension.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_overview"><a class="anchor" href="#_overview"></a>Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This extension extends the subgroup block read and write functions defined by <code>cl_intel_subgroups</code> (and, when supported, <code>cl_intel_subgroups_char</code>, <code>cl_intel_subgroups_short</code>, and <code>cl_intel_subgroups_long</code>) to support reading from and writing to pointers to the <code>__local</code> memory address space in addition to pointers to the <code>__global</code> memory address space.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_new_api_functions"><a class="anchor" href="#_new_api_functions"></a>New API Functions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>None.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_new_api_enums"><a class="anchor" href="#_new_api_enums"></a>New API Enums</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>None.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_new_opencl_c_functions"><a class="anchor" href="#_new_opencl_c_functions"></a>New OpenCL C Functions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Add variants of the <code>uint</code> subgroup block read and write functions that support loading from and storing to pointers to the <code>__local</code> address space:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>uint  intel_sub_group_block_read_ui( const __local uint* p )
+uint2 intel_sub_group_block_read_ui2( const __local uint* p )
+uint4 intel_sub_group_block_read_ui4( const __local uint* p )
+uint8 intel_sub_group_block_read_ui8( const __local uint* p )
+
+void  intel_sub_group_block_write_ui( __local uint* p, uint data )
+void  intel_sub_group_block_write_ui2( __local uint* p, uint2 data )
+void  intel_sub_group_block_write_ui4( __local uint* p, uint4 data )
+void  intel_sub_group_block_write_ui8( __local uint* p, uint8 data )</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For naming consistency, also add un-suffixed aliases of the <code>uint</code> functions as originally described in the <code>cl_intel_subgroups</code> extension:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>uint  intel_sub_group_block_read( const __local uint* p )
+uint2 intel_sub_group_block_read2( const __local uint* p )
+uint4 intel_sub_group_block_read4( const __local uint* p )
+uint8 intel_sub_group_block_read8( const __local uint* p )
+
+void  intel_sub_group_block_write( __local uint* p, uint data )
+void  intel_sub_group_block_write2( __local uint* p, uint2 data )
+void  intel_sub_group_block_write4( __local uint* p, uint4 data )
+void  intel_sub_group_block_write8( __local uint* p, uint8 data )</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If <code>cl_intel_subgroups_char</code> is supported, add variants of the <code>uchar</code> subgroup block read and write functions that support loading from and storing to pointers to the <code>__local</code> address space:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>uchar  intel_sub_group_block_read_uc( const __local uchar* p )
+uchar2 intel_sub_group_block_read_uc2( const __local uchar* p )
+uchar4 intel_sub_group_block_read_uc4( const __local uchar* p )
+uchar8 intel_sub_group_block_read_uc8( const __local uchar* p )
+uchar16 intel_sub_group_block_read_uc16( const __local uchar* p )
+
+void  intel_sub_group_block_write_uc( __local uchar* p, uchar data )
+void  intel_sub_group_block_write_uc2( __local uchar* p, uchar2 data )
+void  intel_sub_group_block_write_uc4( __local uchar* p, uchar4 data )
+void  intel_sub_group_block_write_uc8( __local uchar* p, uchar8 data )
+void  intel_sub_group_block_write_uc16( __local uchar* p, uchar16 data )</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If <code>cl_intel_subgroups_short</code> is supported, add variants of the <code>ushort</code> subgroup block read and write functions that support loading from and storing to pointers to the <code>__local</code> address space:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>ushort  intel_sub_group_block_read_us( const __local ushort* p )
+ushort2 intel_sub_group_block_read_us2( const __local ushort* p )
+ushort4 intel_sub_group_block_read_us4( const __local ushort* p )
+ushort8 intel_sub_group_block_read_us8( const __local ushort* p )
+
+void  intel_sub_group_block_write_us( __local ushort* p, ushort data )
+void  intel_sub_group_block_write_us2( __local ushort* p, ushort2 data )
+void  intel_sub_group_block_write_us4( __local ushort* p, ushort4 data )
+void  intel_sub_group_block_write_us8( __local ushort* p, ushort8 data )</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If <code>cl_intel_subgroups_long</code> is supported, add variants of the <code>ulong</code> subgroup block read and write functions that support loading from and storing to pointers to the <code>__local</code> address space:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>ulong  intel_sub_group_block_read_ul( const __local ulong* p )
+ulong2 intel_sub_group_block_read_ul2( const __local ulong* p )
+ulong4 intel_sub_group_block_read_ul4( const __local ulong* p )
+ulong8 intel_sub_group_block_read_ul8( const __local ulong* p )
+
+void  intel_sub_group_block_write_ul( __local ulong* p, ulong data )
+void  intel_sub_group_block_write_ul2( __local ulong* p, ulong2 data )
+void  intel_sub_group_block_write_ul4( __local ulong* p, ulong4 data )
+void  intel_sub_group_block_write_ul8( __local ulong* p, ulong8 data )</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_modifications_to_the_opencl_c_specification"><a class="anchor" href="#_modifications_to_the_opencl_c_specification"></a>Modifications to the OpenCL C Specification</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_modifications_to_section_6_13_x_sub_group_read_and_write_functions"><a class="anchor" href="#_modifications_to_section_6_13_x_sub_group_read_and_write_functions"></a>Modifications to Section 6.13.X "Sub Group Read and Write Functions"</h3>
+<div class="paragraph">
+<p>This section was added by the <code>cl_intel_subgroups</code> extension.</p>
+</div>
+<div class="paragraph">
+<p>Add versions of the 32-bit block read and write functions that support loading from and storing to pointers to the <code>__local</code> address space:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 55.5555%;">
+<col style="width: 44.4445%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Function</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="opencl_c">uint  intel_sub_group_block_read(
+        const __global uint* p )
+uint2 intel_sub_group_block_read2(
+        const __global uint* p )
+uint4 intel_sub_group_block_read4(
+        const __global uint* p )
+uint8 intel_sub_group_block_read8(
+        const __global uint* p )
+
+uint  intel_sub_group_block_read_ui(
+        const __global uint* p )
+uint2 intel_sub_group_block_read_ui2(
+        const __global uint* p )
+uint4 intel_sub_group_block_read_ui4(
+        const __global uint* p )
+uint8 intel_sub_group_block_read_ui8(
+        const __global uint* p )
+
+uint  intel_sub_group_block_read(
+        const __local uint* p )
+uint2 intel_sub_group_block_read2(
+        const __local uint* p )
+uint4 intel_sub_group_block_read4(
+        const __local uint* p )
+uint8 intel_sub_group_block_read8(
+        const __local uint* p )
+
+uint  intel_sub_group_block_read_ui(
+        const __local uint* p )
+uint2 intel_sub_group_block_read_ui2(
+        const __local uint* p )
+uint4 intel_sub_group_block_read_ui4(
+        const __local uint* p )
+uint8 intel_sub_group_block_read_ui8(
+        const __local uint* p )</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reads 1, 2, 4, or 8 uints of data for each work item in the subgroup from the specified pointer as a block operation&#8230;&#8203;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="opencl_c">void  intel_sub_group_block_write(
+        __global uint* p, uint data )
+void  intel_sub_group_block_write2(
+        __global uint* p, uint2 data )
+void  intel_sub_group_block_write4(
+        __global uint* p, uint4 data )
+void  intel_sub_group_block_write8(
+        __global uint* p, uint8 data )
+
+void  intel_sub_group_block_write_ui(
+        __global uint* p, uint data )
+void  intel_sub_group_block_write_ui2(
+        __global uint* p, uint2 data )
+void  intel_sub_group_block_write_ui4(
+        __global uint* p, uint4 data )
+void  intel_sub_group_block_write_ui8(
+        __global uint* p, uint8 data )
+
+void  intel_sub_group_block_write(
+        __local uint* p, uint data )
+void  intel_sub_group_block_write2(
+        __local uint* p, uint2 data )
+void  intel_sub_group_block_write4(
+        __local uint* p, uint4 data )
+void  intel_sub_group_block_write8(
+        __local uint* p, uint8 data )
+
+void  intel_sub_group_block_write_ui(
+        __local uint* p, uint data )
+void  intel_sub_group_block_write_ui2(
+        __local uint* p, uint2 data )
+void  intel_sub_group_block_write_ui4(
+        __local uint* p, uint4 data )
+void  intel_sub_group_block_write_ui8(
+        __local uint* p, uint8 data )</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Writes 1, 2, 4, or 8 uints of data for each work item in the subgroup to the specified pointer as a block operation&#8230;&#8203;</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>If <code>cl_intel_subgroups_char</code> is supported, add versions of the 8-bit block read and write functions that support loading from and storing to pointers to the <code>__local</code> address space:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 55.5555%;">
+<col style="width: 44.4445%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Function</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="opencl_c">uchar   intel_sub_group_block_read_uc(
+          const __global uchar* p )
+uchar2  intel_sub_group_block_read_uc2(
+          const __global uchar* p )
+uchar4  intel_sub_group_block_read_uc4(
+          const __global uchar* p )
+uchar8  intel_sub_group_block_read_uc8(
+          const __global uchar* p )
+uchar16 intel_sub_group_block_read_uc16(
+          const __global uchar* p )
+
+uchar   intel_sub_group_block_read_uc(
+          const __local uchar* p )
+uchar2  intel_sub_group_block_read_uc2(
+          const __local uchar* p )
+uchar4  intel_sub_group_block_read_uc4(
+          const __local uchar* p )
+uchar8  intel_sub_group_block_read_uc8(
+          const __local uchar* p )
+uchar16 intel_sub_group_block_read_uc16(
+          const __local uchar* p )</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reads 1, 2, 4, 8, or 16 uchars of data for each work item in the subgroup from the specified pointer as a block operation&#8230;&#8203;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="opencl_c">void  intel_sub_group_block_write_uc(
+        __global uchar* p, uchar data )
+void  intel_sub_group_block_write_uc2(
+        __global uchar* p, uchar2 data )
+void  intel_sub_group_block_write_uc4(
+        __global uchar* p, uchar4 data )
+void  intel_sub_group_block_write_uc8(
+        __global uchar* p, uchar8 data )
+void  intel_sub_group_block_write_uc16(
+        __global uchar* p, uchar16 data )
+
+void  intel_sub_group_block_write_uc(
+        __local uchar* p, uchar data )
+void  intel_sub_group_block_write_uc2(
+        __local uchar* p, uchar2 data )
+void  intel_sub_group_block_write_uc4(
+        __local uchar* p, uchar4 data )
+void  intel_sub_group_block_write_uc8(
+        __local uchar* p, uchar8 data )
+void  intel_sub_group_block_write_uc16(
+        __local uchar* p, uchar16 data )</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Writes 1, 2, 4, 8, or 16 uchars of data for each work item in the subgroup to the specified pointer as a block operation&#8230;&#8203;</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>If <code>cl_intel_subgroups_short</code> is supported, add versions of the 16-bit block read and write functions that support loading from and storing to pointers to the <code>__local</code> address space:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 55.5555%;">
+<col style="width: 44.4445%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Function</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="opencl_c">ushort  intel_sub_group_block_read_us(
+          const __global ushort* p )
+ushort2 intel_sub_group_block_read_us2(
+          const __global ushort* p )
+ushort4 intel_sub_group_block_read_us4(
+          const __global ushort* p )
+ushort8 intel_sub_group_block_read_us8(
+          const __global ushort* p )
+
+ushort  intel_sub_group_block_read_us(
+          const __local ushort* p )
+ushort2 intel_sub_group_block_read_us2(
+          const __local ushort* p )
+ushort4 intel_sub_group_block_read_us4(
+          const __local ushort* p )
+ushort8 intel_sub_group_block_read_us8(
+          const __local ushort* p )</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reads 1, 2, 4, or 8 ushorts of data for each work item in the subgroup from the specified pointer as a block operation&#8230;&#8203;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="opencl_c">void  intel_sub_group_block_write_us(
+        __global ushort* p, ushort data )
+void  intel_sub_group_block_write_us2(
+        __global ushort* p, ushort2 data )
+void  intel_sub_group_block_write_us4(
+        __global ushort* p, ushort4 data )
+void  intel_sub_group_block_write_us8(
+        __global ushort* p, ushort8 data )
+
+void  intel_sub_group_block_write_us(
+        __local ushort* p, ushort data )
+void  intel_sub_group_block_write_us2(
+        __local ushort* p, ushort2 data )
+void  intel_sub_group_block_write_us4(
+        __local ushort* p, ushort4 data )
+void  intel_sub_group_block_write_us8(
+        __local ushort* p, ushort8 data )</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Writes 1, 2, 4, or 8 ushorts of data for each work item in the subgroup to the specified pointer as a block operation&#8230;&#8203;</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>If <code>cl_intel_subgroups_long</code> is supported, add versions of the 64-bit block read and write functions that support loading from and storing to pointers to the <code>__local</code> address space:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 55.5555%;">
+<col style="width: 44.4445%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Function</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="opencl_c">ulong   intel_sub_group_block_read_ul(
+          const __global ulong* p )
+ulong2  intel_sub_group_block_read_ul2(
+          const __global ulong* p )
+ulong4  intel_sub_group_block_read_ul4(
+          const __global ulong* p )
+ulong8  intel_sub_group_block_read_ul8(
+          const __global ulong* p )
+
+ulong   intel_sub_group_block_read_ul(
+          const __local ulong* p )
+ulong2  intel_sub_group_block_read_ul2(
+          const __local ulong* p )
+ulong4  intel_sub_group_block_read_ul4(
+          const __local ulong* p )
+ulong8  intel_sub_group_block_read_ul8(
+          const __local ulong* p )</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reads 1, 2, 4, or 8 ulongs of data for each work item in the subgroup from the specified pointer as a block operation&#8230;&#8203;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="opencl_c">void  intel_sub_group_block_write_ul(
+        __global ulong* p, ulong data )
+void  intel_sub_group_block_write_ul2(
+        __global ulong* p, ulong2 data )
+void  intel_sub_group_block_write_ul4(
+        __global ulong* p, ulong4 data )
+void  intel_sub_group_block_write_ul8(
+        __global ulong* p, ulong8 data )
+
+void  intel_sub_group_block_write_ul(
+        __local ulong* p, ulong data )
+void  intel_sub_group_block_write_ul2(
+        __local ulong* p, ulong2 data )
+void  intel_sub_group_block_write_ul4(
+        __local ulong* p, ulong4 data )
+void  intel_sub_group_block_write_ul8(
+        __local ulong* p, ulong8 data )</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Writes 1, 2, 4, or 8 ulongs of data for each work item in the subgroup to the specified pointer as a block operation&#8230;&#8203;</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_modifications_to_section_6_13_x_1_restrictions"><a class="anchor" href="#_modifications_to_section_6_13_x_1_restrictions"></a>Modifications to Section 6.13.X.1 "Restrictions"</h3>
+<div class="paragraph">
+<p>This section was added by the <code>cl_intel_subgroups</code> extension.</p>
+</div>
+<div class="paragraph">
+<p>Change the description of the first section to: The following restrictions apply to the subgroup buffer block read and write functions that accept pointers to <code>__global</code> memory&#8230;&#8203;</p>
+</div>
+<div class="paragraph">
+<p>Insert a section between the restrictions on subgroup buffer block read and write functions that accept pointers to <code>__global</code> memory and the restrictions on subgroup image block read and write functions:</p>
+</div>
+<div class="paragraph">
+<p>The following restrictions apply to the subgroup buffer block read and write functions that accept pointers to <code>__local</code> memory:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The pointer <code>p</code> must be 128-bit (16-byte) aligned for both reads and writes.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_modifications_to_the_opencl_spir_v_environment_specification"><a class="anchor" href="#_modifications_to_the_opencl_spir_v_environment_specification"></a>Modifications to the OpenCL SPIR-V Environment Specification</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_modifications_to_section_7_1_x_2_block_io_instructions"><a class="anchor" href="#_modifications_to_section_7_1_x_2_block_io_instructions"></a>Modifications to Section 7.1.X.2 "Block IO Instructions"</h3>
+<div class="paragraph">
+<p>This section was added by the <code>cl_intel_spirv_subgroups</code> extension.</p>
+</div>
+<div class="paragraph">
+<p>Add to the validation rules for <em>Ptr</em>:</p>
+</div>
+<div class="paragraph">
+<p>Additionally, if the OpenCL environment supports the extension <code>cl_intel_subgroup_local_block_io</code>, for <em>Ptr</em> valid <em>Storage Classes</em> are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Workgroup</strong> (equivalent to the <code>local</code> address space)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_modifications_to_section_7_1_x_3_notes_and_restrictions"><a class="anchor" href="#_modifications_to_section_7_1_x_3_notes_and_restrictions"></a>Modifications to Section 7.1.X.3 "Notes and Restrictions"</h3>
+<div class="paragraph">
+<p>This section was added by the <code>cl_intel_spirv_subgroups</code> extension.</p>
+</div>
+<div class="paragraph">
+<p>Change the description of the restrictions on <strong>SubgroupBufferBlockIOINTEL</strong> instructions to: The following restrictions apply to the <strong>SubgroupBufferBlockIOINTEL</strong> instructions when the pointer operand <em>Ptr</em> is a pointer to the <strong>CrossWorkgroup</strong> <em>Storage Class</em>&#8230;&#8203;</p>
+</div>
+<div class="paragraph">
+<p>Insert a section between the restrictions on <strong>SubgroupBufferBlockIOINTEL</strong> instructions when the pointer operand <em>Ptr</em> is a pointer to the <strong>CrossWorkGroup</strong> <em>Storage Class</em> and restrictions on <strong>SubgroupImageBlockIOINTEL</strong> instructions:</p>
+</div>
+<div class="paragraph">
+<p>The following restrictions apply to the <strong>SubgroupBufferBlockIOINTEL</strong> instructions when the pointer operand <em>Ptr</em> is a pointer to the <strong>Workgroup</strong> <em>Storage Class</em>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The pointer <em>Ptr</em> must be 128-bit (16-byte) aligned for both reads and writes.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_issues"><a class="anchor" href="#_issues"></a>Issues</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>What should this extension be called?</p>
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
-<p><code><a href="#versions-3-0">OpenCL 3.0</a></code><br>
-and<br>
-<code><a href="#cl_khr_external_memory">[cl_khr_external_memory]</a></code><br></p>
+<p><strong>RESOLVED</strong>: <code>cl_intel_subgroup_local_block_io</code></p>
 </div>
 </div>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>This is a <em>provisional</em> extension and <strong class="purple">must</strong> be used with caution.
-See the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#boilerplate-provisional-header" target="_blank" rel="noopener">description</a> of provisional header files for enablement and stability details.</strong></p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_other_extension_metadata"><a class="anchor" href="#_other_extension_metadata"></a>Other Extension Metadata</h2>
-<div class="sectionbody">
-<div class="dlist">
-<dl>
-<dt class="hdlist1"><strong>Last Modified Date</strong></dt>
-<dd>
-<p>2023-08-29</p>
-</dd>
-<dt class="hdlist1"><strong>IP Status</strong></dt>
-<dd>
-<p>No known IP claims.</p>
-</dd>
-<dt class="hdlist1"><strong>Contributors</strong></dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p>Ajit Hakke-Patil, NVIDIA</p>
 </li>
 <li>
-<p>Amit Rao, NVIDIA</p>
-</li>
-<li>
-<p>Balaji Calidas, QUALCOMM</p>
-</li>
-<li>
-<p>Ben Ashbaugh, INTEL</p>
-</li>
-<li>
-<p>Carsten Rohde, NVIDIA</p>
-</li>
-<li>
-<p>Christoph Kubisch, NVIDIA</p>
-</li>
-<li>
-<p>Debalina Bhattacharjee, NVIDIA</p>
-</li>
-<li>
-<p>Faith Ekstrand, INTEL</p>
-</li>
-<li>
-<p>James Jones,  NVIDIA</p>
-</li>
-<li>
-<p>Jeremy Kemp, IMAGINATION</p>
-</li>
-<li>
-<p>Joshua Kelly, QUALCOMM</p>
-</li>
-<li>
-<p>Karthik Raghavan Ravi, NVIDIA</p>
-</li>
-<li>
-<p>Kedar Patil, NVIDIA</p>
-</li>
-<li>
-<p>Kevin Petit, ARM</p>
-</li>
-<li>
-<p>Nikhil Joshi, NVIDIA</p>
-</li>
-<li>
-<p>Sharan Ashwathnarayan, NVIDIA</p>
-</li>
-<li>
-<p>Vivek Kini,  NVIDIA</p>
-</li>
-</ul>
-</div>
-</dd>
-</dl>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
-<div class="sectionbody">
+<p>Do we need un-suffixed aliases of the 32-bit subgroup block read and write functions?</p>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
-<p><code>cl_khr_<wbr>external_<wbr>memory_<wbr>dx</code> extends
-<code>cl_external_<wbr>memory_<wbr>handle_<wbr>type_<wbr>khr</code> to support Windows handles
-referring to Direct 3D resources as external memory handle types that may be
-specified when creating a buffer or image memory object.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_new_enums"><a class="anchor" href="#_new_enums"></a>New Enums</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p><code>cl_external_<wbr>memory_<wbr>handle_<wbr>type_<wbr>khr</code></p>
-<div class="ulist">
-<ul>
-<li>
-<p><code>CL_EXTERNAL_<wbr>MEMORY_<wbr>HANDLE_<wbr>D3D11_<wbr>TEXTURE_<wbr>KHR</code></p>
-</li>
-<li>
-<p><code>CL_EXTERNAL_<wbr>MEMORY_<wbr>HANDLE_<wbr>D3D11_<wbr>TEXTURE_<wbr>KMT_<wbr>KHR</code></p>
-</li>
-<li>
-<p><code>CL_EXTERNAL_<wbr>MEMORY_<wbr>HANDLE_<wbr>D3D12_<wbr>HEAP_<wbr>KHR</code></p>
-</li>
-<li>
-<p><code>CL_EXTERNAL_<wbr>MEMORY_<wbr>HANDLE_<wbr>D3D12_<wbr>RESOURCE_<wbr>KHR</code></p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_version_history"><a class="anchor" href="#_version_history"></a>Version History</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>Revision 0.9.0, 2021-09-10</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Initial version (provisional).</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Revision 0.9.1, 2023-05-04</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Clarified device handle list enum cannot be specified without an
-external memory handle (provisional).</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Revision 0.9.2, 2023-08-01</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Changed device handle list enum to the memory-specific
-<code>CL_MEM_<wbr>DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>KHR</code> (provisional).</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Revision 0.9.3, 2023-08-29</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Added query for
-<code>CL_DEVICE_<wbr>EXTERNAL_<wbr>MEMORY_<wbr>IMPORT_<wbr>ASSUME_<wbr>LINEAR_<wbr>IMAGES_<wbr>HANDLE_<wbr>TYPES_<wbr>KHR</code>
-(provisional).</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_see_also"><a class="anchor" href="#_see_also"></a>See Also</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>No cross-references are available</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_document_notes"><a class="anchor" href="#_document_notes"></a>Document Notes</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#cl_khr_external_memory_dx" target="_blank" rel="noopener">OpenCL Specification</a></p>
+<p><strong>RESOLVED</strong>: Yes, this extension describes both suffixed functions and their un-suffixed aliases.</p>
 </div>
 <div class="paragraph">
-<p>This page is a generated document.
-Fixes and changes should be made to the generator scripts, not directly.</p>
+<p>As background:</p>
+</div>
+<div class="paragraph">
+<p>The 32-bit subgroup block read and write functions were originally un-suffixed in <code>cl_intel_subgroups</code>.</p>
+</div>
+<div class="paragraph">
+<p>When we extended the subgroup block read and write functions for other types in <code>cl_intel_subgroups_short</code> (and, eventually, <code>cl_intel_subgroups_char</code> and <code>cl_intel_subgroups_long</code>), we added suffixed aliases for consistency with the suffixed functions added to support the other types.</p>
+</div>
+<div class="paragraph">
+<p>For consistency with <code>cl_intel_subgroups</code> we should include both the un-suffixed and suffixed versions of the 32-bit functions.</p>
+</div>
+</div>
+</div>
+</li>
+</ol>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
+<h2 id="_revision_history"><a class="anchor" href="#_revision_history"></a>Revision History</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>Copyright 2014-2024 The Khronos Group Inc.</p>
+<table class="tableblock frame-all grid-rows stretch">
+<colgroup>
+<col style="width: 4.7619%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Rev</th>
+<th class="tableblock halign-left valign-top">Date</th>
+<th class="tableblock halign-left valign-top">Author</th>
+<th class="tableblock halign-left valign-top">Changes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2023-11-29</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ben Ashbaugh</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Initial revision for publication</strong></p></td>
+</tr>
+</tbody>
+</table>
 </div>
-<div class="paragraph">
-<p>SPDX-License-Identifier: CC-BY-4.0</p>
-</div>
-</div>
-</div>
-</div>
-<div id="footer">
-<div id="footer-text">
-Version v3.0.16<br>
-Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

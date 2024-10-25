@@ -51,6 +51,8 @@
 </li>
 <li><a href="extensions/ext/cl_ext_image_from_buffer.html">cl_ext_image_from_buffer</a>
 </li>
+<li><a href="extensions/ext/cl_ext_image_raw10_raw12.html">cl_ext_image_raw10_raw12</a>
+</li>
 <li><a href="extensions/ext/cl_ext_image_requirements_info.html">cl_ext_image_requirements_info</a>
 </li>
 <li><a href="extensions/ext/cl_ext_migrate_memobject.txt">cl_ext_migrate_memobject</a>
@@ -120,6 +122,8 @@
 <li><a href="extensions/intel/cl_intel_split_work_group_barrier.html">cl_intel_split_work_group_barrier</a>
 </li>
 <li><a href="extensions/intel/cl_intel_subgroup_buffer_prefetch.html">cl_intel_subgroup_buffer_prefetch</a>
+</li>
+<li><a href="extensions/intel/cl_intel_subgroup_local_block_io.html">cl_intel_subgroup_local_block_io</a>
 </li>
 <li><a href="extensions/intel/cl_intel_subgroup_matrix_multiply_accumulate.html">cl_intel_subgroup_matrix_multiply_accumulate</a>
 </li>

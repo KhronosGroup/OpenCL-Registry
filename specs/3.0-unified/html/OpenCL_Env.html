@@ -984,9 +984,9 @@ pre.rouge {
 <h1>The OpenCL<sup>&#8482;</sup> SPIR-V Environment Specification</h1>
 <div class="details">
 <span id="author" class="author">Khronos<sup>&#174;</sup> OpenCL Working Group</span><br>
-<span id="revnumber">version v3.0.16,</span>
-<span id="revdate">Thu, 04 Apr 2024 12:00:0 +0000</span>
-<br><span id="revremark">from git branch: main commit: 16880f9276828e66bb97017f10f34f97423d1bcf</span>
+<span id="revnumber">version v3.0.17,</span>
+<span id="revdate">Thu, 24 Oct 2024 12:00:0 +0000</span>
+<br><span id="revremark">from git branch: main commit: 503dbce015b12289e5454a26daa7bea7e8c56688</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -1004,6 +1004,7 @@ pre.rouge {
 <li><a href="#_kernels">2.8. Kernels</a></li>
 <li><a href="#_built_in_variables">2.9. Built-in Variables</a></li>
 <li><a href="#_alignment_of_types">2.10. Alignment of Types</a></li>
+<li><a href="#_printf_operands">2.11. Printf Operands</a></li>
 </ul>
 </li>
 <li><a href="#required-capabilities">3. Required Capabilities</a>
@@ -1039,8 +1040,9 @@ pre.rouge {
 <li><a href="#precision-of-addressing-and-filter-modes">7.3. Precision of Addressing and Filter Modes</a></li>
 <li><a href="#conversion-rules">7.4. Conversion Rules</a></li>
 <li><a href="#selecting-an-image-from-an-image-array">7.5. Selecting an Image from an Image Array</a></li>
-<li><a href="#_data_format_for_reading_and_writing_images">7.6. Data Format for Reading and Writing Images</a></li>
-<li><a href="#_sampled_and_sampler_less_reads">7.7. Sampled and Sampler-less Reads</a></li>
+<li><a href="#_coordinate_format_for_reading_and_writing_images">7.6. Coordinate Format for Reading and Writing Images</a></li>
+<li><a href="#_data_format_for_reading_and_writing_images">7.7. Data Format for Reading and Writing Images</a></li>
+<li><a href="#_sampled_and_sampler_less_reads">7.8. Sampled and Sampler-less Reads</a></li>
 </ul>
 </li>
 <li><a href="#references">8. Normative References</a></li>
@@ -1901,6 +1903,100 @@ points to.</p>
 <p>Behavior of an unaligned load or store is undefined.</p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_printf_operands"><a class="anchor" href="#_printf_operands"></a>2.11. Printf Operands</h3>
+<div class="paragraph">
+<p>For the <strong>printf</strong> instruction in the <strong>OpenCL.std</strong>
+<a href="#opencl-extended-instruction-set">extended instruction set for OpenCL</a>, the
+format specifiers in the <em>format</em> operand determine how to print the
+additional argument operands.</p>
+</div>
+<div class="paragraph">
+<p>Behavior is undefined unless the source operand type for an additional argument
+matches the supported operand types for the format specifier in the following
+table.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Vector Specifier</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Length Modifier</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Conversion Specifier</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Supported Operand Type</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">(none)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>hh</strong>, <strong>h</strong>, (none)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>d</strong>, <strong>i</strong>, <strong>o</strong>, <strong>u</strong>, <strong>x</strong>, <strong>X</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpTypeInt</strong> with <em>Width</em> equal to 32</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">(none)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>l</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>d</strong>, <strong>i</strong>, <strong>o</strong>, <strong>u</strong>, <strong>x</strong>, <strong>X</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpTypeInt</strong> with <em>Width</em> equal to 64</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">(none)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">(none)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>a</strong>, <strong>A</strong>, <strong>e</strong>, <strong>E</strong>, <strong>f</strong>, <strong>F</strong>, <strong>g</strong>, <strong>G</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpTypeFloat</strong> with <em>Width</em> equal to 32
+    <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup>,<br>
+    <strong>OpTypeFloat</strong> with <em>Width</em> equal to 64</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>v</strong><em>n</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>hh</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>d</strong>, <strong>i</strong>, <strong>o</strong>, <strong>u</strong>, <strong>x</strong>, <strong>X</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpTypeVector</strong> with <em>n</em> components of <strong>OpTypeInt</strong> with <em>Width</em> equal to 8</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>v</strong><em>n</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>h</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>d</strong>, <strong>i</strong>, <strong>o</strong>, <strong>u</strong>, <strong>x</strong>, <strong>X</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpTypeVector</strong> with <em>n</em> components of <strong>OpTypeInt</strong> with <em>Width</em> equal to 16</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>v</strong><em>n</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>hl</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>d</strong>, <strong>i</strong>, <strong>o</strong>, <strong>u</strong>, <strong>x</strong>, <strong>X</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpTypeVector</strong> with <em>n</em> components of <strong>OpTypeInt</strong> with <em>Width</em> equal to 32</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>v</strong><em>n</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>l</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>d</strong>, <strong>i</strong>, <strong>o</strong>, <strong>u</strong>, <strong>x</strong>, <strong>X</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpTypeVector</strong> with <em>n</em> components of <strong>OpTypeInt</strong> with <em>Width</em> equal to 64</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>v</strong><em>n</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>h</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>a</strong>, <strong>A</strong>, <strong>e</strong>, <strong>E</strong>, <strong>f</strong>, <strong>F</strong>, <strong>g</strong>, <strong>G</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpTypeVector</strong> with <em>n</em> components of <strong>OpTypeFloat</strong> with <em>Width</em> equal to 16</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>v</strong><em>n</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>hl</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>a</strong>, <strong>A</strong>, <strong>e</strong>, <strong>E</strong>, <strong>f</strong>, <strong>F</strong>, <strong>g</strong>, <strong>G</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpTypeVector</strong> with <em>n</em> components of <strong>OpTypeFloat</strong> with <em>Width</em> equal to 32</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>v</strong><em>n</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>l</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>a</strong>, <strong>A</strong>, <strong>e</strong>, <strong>E</strong>, <strong>f</strong>, <strong>F</strong>, <strong>g</strong>, <strong>G</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpTypeVector</strong> with <em>n</em> components of <strong>OpTypeFloat</strong> with <em>Width</em> equal to 64</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -2520,7 +2616,7 @@ in a SPIR-V module using <strong>OpExtension</strong>.</p>
 <div class="paragraph">
 <p>If the OpenCL environment supports the extension <code>cl_khr_<wbr>3d_<wbr>image_<wbr>writes</code>,
 then the environment must accept <em>Image</em> operands to <strong>OpImageWrite</strong> that
-are declared with with dimensionality <em>Dim</em> equal to <strong>3D</strong>.</p>
+are declared with dimensionality <em>Dim</em> equal to <strong>3D</strong>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -2548,7 +2644,7 @@ equal to  1, indicating a depth image.  2D depth images may optionally be
 <h4 id="_cl_khr_device_enqueue_local_arg_types"><a class="anchor" href="#_cl_khr_device_enqueue_local_arg_types"></a>5.2.3. <code>cl_khr_<wbr>device_<wbr>enqueue_<wbr>local_<wbr>arg_<wbr>types</code></h4>
 <div class="paragraph">
 <p>If the OpenCL environment supports the extension
-<code>cl_khr_<wbr>device_<wbr>enqueue_<wbr>local_<wbr>arg_<wbr>types</code>, then then environment will allow
+<code>cl_khr_<wbr>device_<wbr>enqueue_<wbr>local_<wbr>arg_<wbr>types</code>, then the environment will allow
 <em>Invoke</em> functions to be passed to <strong>OpEnqueueKernel</strong> with <strong>Workgroup</strong>
 memory pointer parameters of any type.</p>
 </div>
@@ -5076,7 +5172,8 @@ profile.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpExtInst</strong> <strong>atan2</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Derived implementations may implement as <strong>atan</strong>(<em>y</em> / <em>x</em>) for <em>x</em> &gt; 0,
       <strong>atan</strong>(<em>y</em> / <em>x</em>) + <code>M_PI_F</code> for <em>x</em> &lt; 0 and <em>y</em> &gt; 0, and
-      <strong>atan</strong>(<em>y</em> / <em>x</em>) - <code>M_PI_F</code> for <em>x</em> &lt; 0 and <em>y</em> &lt; 0.</p></td>
+      <strong>atan</strong>(<em>y</em> / <em>x</em>) - <code>M_PI_F</code> for <em>x</em> &lt; 0 and <em>y</em> &lt; 0.
+      For non-derived implementations, the error is ≤ 8192 ulp.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpExtInst</strong> <strong>atan2pi</strong></p></td>
@@ -5798,7 +5895,7 @@ representable numbers in the range 0 &lt; x &lt; TYPE_MIN and -TYPE_MIN &lt; x &
 They do not include ±0.
 A non-zero number is said to be sub-normal before rounding if, after
 normalization, its radix-2 exponent is less than (TYPE_MIN_EXP - 1).
-<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p>
+<sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup></p>
 </div>
 </div>
 </div>
@@ -7031,7 +7128,183 @@ Conversion to sRGB space is automatically done by the image write instruction if
 </div>
 </div>
 <div class="sect2">
-<h3 id="_data_format_for_reading_and_writing_images"><a class="anchor" href="#_data_format_for_reading_and_writing_images"></a>7.6. Data Format for Reading and Writing Images</h3>
+<h3 id="_coordinate_format_for_reading_and_writing_images"><a class="anchor" href="#_coordinate_format_for_reading_and_writing_images"></a>7.6. Coordinate Format for Reading and Writing Images</h3>
+<div class="paragraph">
+<p>This section describes valid types for the <em>Coordinate</em> operand used by image
+read instructions (such as <strong>OpImageRead</strong>) or image write instructions (such as
+<strong>OpImageWrite</strong>).
+The valid operand types are determined by the <strong>OpImageType</strong> for the image and
+whether the image is being read from or written to.</p>
+</div>
+<div class="paragraph">
+<p>The following table describes the valid types for the <em>Coordinate</em> operand when
+reading from the specified image type.
+The integer types for the <em>Coordinate</em> operand are only valid when the image is
+read without a sampler (such as <strong>OpImageRead</strong>), or with a sampler using
+non-normalized texel coordinates, <strong>Nearest</strong> filtering, and either the <strong>None</strong>,
+<strong>ClampToEdge</strong>, or <strong>Clamp</strong> addressing mode.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 9. <em>Mapping Image Types to Coordinate Types for Reading</em></caption>
+<colgroup>
+<col style="width: 11.1111%;">
+<col style="width: 11.1111%;">
+<col style="width: 11.1111%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><em>Dim</em></th>
+<th class="tableblock halign-left valign-top"><em>Depth</em></th>
+<th class="tableblock halign-left valign-top"><em>Arrayed</em></th>
+<th class="tableblock halign-left valign-top"><strong>Supported Coordinate Type</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>1D</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpTypeInt</strong> with <em>Width</em> equal to 32<br>
+  <strong>OpTypeFloat</strong> with <em>Width</em> equal to 32</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>1D</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpTypeVector</strong> with 2 components of <strong>OpTypeInt</strong> with <em>Width</em> equal to 32<br>
+  <strong>OpTypeVector</strong> with 2 components of <strong>OpTypeFloat</strong> with <em>Width</em> equal to 32</p>
+<p class="tableblock">  The array index is provided by the second component of the <em>Coordinate</em>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>2D</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpTypeVector</strong> with 2 components of <strong>OpTypeInt</strong> with <em>Width</em> equal to 32<br>
+  <strong>OpTypeVector</strong> with 2 components of <strong>OpTypeFloat</strong> with <em>Width</em> equal to 32</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>2D</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpTypeVector</strong> with 2 components of <strong>OpTypeInt</strong> with <em>Width</em> equal to 32<br>
+  <strong>OpTypeVector</strong> with 2 components of <strong>OpTypeFloat</strong> with <em>Width</em> equal to 32</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>2D</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpTypeVector</strong> with 4 components of <strong>OpTypeInt</strong> with <em>Width</em> equal to 32<br>
+  <strong>OpTypeVector</strong> with 4 components of <strong>OpTypeFloat</strong> with <em>Width</em> equal to 32</p>
+<p class="tableblock">  The array index is provided by the third component of the <em>Coordinate</em>.
+  The fourth component of the <em>Coordinate</em> is ignored.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>2D</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpTypeVector</strong> with 4 components of <strong>OpTypeInt</strong> with <em>Width</em> equal to 32<br>
+  <strong>OpTypeVector</strong> with 4 components of <strong>OpTypeFloat</strong> with <em>Width</em> equal to 32</p>
+<p class="tableblock">  The array index is provided by the third component of the <em>Coordinate</em>.
+  The fourth component of the <em>Coordinate</em> is ignored.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>3D</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpTypeVector</strong> with 4 components of <strong>OpTypeInt</strong> with <em>Width</em> equal to 32<br>
+  <strong>OpTypeVector</strong> with 4 components of <strong>OpTypeFloat</strong> with <em>Width</em> equal to 32</p>
+<p class="tableblock">  The fourth component of the <em>Coordinate</em> is ignored.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Buffer</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpTypeInt</strong> with <em>Width</em> equal to 32<br>
+  <strong>OpTypeFloat</strong> with <em>Width</em> equal to 32</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The following table describes the valid types for the <em>Coordinate</em> operand when
+writing to the specified image type.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 10. <em>Mapping Image Types to Coordinate Types for Writing</em></caption>
+<colgroup>
+<col style="width: 11.1111%;">
+<col style="width: 11.1111%;">
+<col style="width: 11.1111%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><em>Dim</em></th>
+<th class="tableblock halign-left valign-top"><em>Depth</em></th>
+<th class="tableblock halign-left valign-top"><em>Arrayed</em></th>
+<th class="tableblock halign-left valign-top"><strong>Supported Coordinate Type</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>1D</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpTypeInt</strong> with <em>Width</em> equal to 32</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>1D</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpTypeVector</strong> with 2 components of <strong>OpTypeInt</strong> with <em>Width</em> equal to 32</p>
+<p class="tableblock">  The array index is provided by the second component of the <em>Coordinate</em>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>2D</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpTypeVector</strong> with 2 components of <strong>OpTypeInt</strong> with <em>Width</em> equal to 32</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>2D</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpTypeVector</strong> with 2 components of <strong>OpTypeInt</strong> with <em>Width</em> equal to 32</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>2D</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpTypeVector</strong> with 4 components of <strong>OpTypeInt</strong> with <em>Width</em> equal to 32</p>
+<p class="tableblock">  The array index is provided by the third component of the <em>Coordinate</em>.
+  The fourth component of the <em>Coordinate</em> is ignored.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>2D</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpTypeVector</strong> with 4 components of <strong>OpTypeInt</strong> with <em>Width</em> equal to 32</p>
+<p class="tableblock">  The array index is provided by the third component of the <em>Coordinate</em>.
+  The fourth component of the <em>Coordinate</em> is ignored.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>3D</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpTypeVector</strong> with 4 components of <strong>OpTypeInt</strong> with <em>Width</em> equal to 32</p>
+<p class="tableblock">  The fourth component of the <em>Coordinate</em> is ignored.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Buffer</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpTypeInt</strong> with <em>Width</em> equal to 32</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_data_format_for_reading_and_writing_images"><a class="anchor" href="#_data_format_for_reading_and_writing_images"></a>7.7. Data Format for Reading and Writing Images</h3>
 <div class="paragraph">
 <p>This section describes how image element data is returned by an
 image read instruction or passed as the <em>Texel</em> data that is
@@ -7042,7 +7315,7 @@ written by an image write instruction:</p>
 component vector type:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 9. <em>Mapping Image Data to Vector Components</em></caption>
+<caption class="title">Table 11. <em>Mapping Image Data to Vector Components</em></caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -7088,7 +7361,7 @@ component vector type:</p>
 <p>For the following image channel orders, the data is a scalar type:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 10. <em>Scalar Image Data</em></caption>
+<caption class="title">Table 12. <em>Scalar Image Data</em></caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -7115,7 +7388,7 @@ component vector type:</p>
 to the data vector component type or scalar type:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 11. <em>Image Data Types</em></caption>
+<caption class="title">Table 13. <em>Image Data Types</em></caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -7138,7 +7411,8 @@ to the data vector component type or scalar type:</p>
 <code>UnormInt101010_2</code>,<br>
 <code>UnormInt24</code>,<br>
 <code>HalfFloat</code>,<br>
-<code>Float</code></p></td>
+<code>Float</code>
+<br></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpTypeFloat</strong>, with <em>Width</em> equal to 16 or 32.</p></td>
 </tr>
 <tr>
@@ -7154,7 +7428,7 @@ to the data vector component type or scalar type:</p>
 </table>
 </div>
 <div class="sect2">
-<h3 id="_sampled_and_sampler_less_reads"><a class="anchor" href="#_sampled_and_sampler_less_reads"></a>7.7. Sampled and Sampler-less Reads</h3>
+<h3 id="_sampled_and_sampler_less_reads"><a class="anchor" href="#_sampled_and_sampler_less_reads"></a>7.8. Sampled and Sampler-less Reads</h3>
 <div class="paragraph">
 <p>SPIR-V instructions that read from an image without a sampler (such as <strong>OpImageRead</strong>) behave exactly the same as the corresponding image read instruction with a sampler that has <em>Sampler Filter Mode</em> set to <strong>Nearest</strong>, <strong>Non-Normalized</strong> coordinates, and <em>Sampler Addressing Mode</em> set to <strong>None</strong>.</p>
 </div>
@@ -7201,7 +7475,7 @@ languages - C++&#8221;, <a href="https://www.iso.org/standard/64029.html" class=
 3.0, Unified&#8221;, <a href="https://www.khronos.org/registry/OpenCL/" class="bare">https://www.khronos.org/registry/OpenCL/</a> .</p>
 </li>
 <li>
-<p><a id="spirv-spec"></a> &#8220;SPIR-V Specification, Version 1.5, Unified&#8221;,
+<p><a id="spirv-spec"></a> &#8220;SPIR-V Specification, Version 1.6, Unified&#8221;,
 <a href="https://www.khronos.org/registry/spir-v/" class="bare">https://www.khronos.org/registry/spir-v/</a> .</p>
 </li>
 <li>
@@ -7352,6 +7626,22 @@ versions are summarized below.</p>
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p>Changes from <strong>v3.0.16</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Documented the error bounds for a non-derived <code>atan2</code> implementation with unsafe math optimizations, see <a href="https://github.com/KhronosGroup/OpenCL-Docs/pull/1073">#1073</a>.</p>
+</li>
+<li>
+<p>Documented supported <code>printf</code> operand types, see <a href="https://github.com/KhronosGroup/OpenCL-Docs/pull/1236">#1236</a>.</p>
+</li>
+<li>
+<p>Documented valid coordinate types when reading from or writing to images, see <a href="https://github.com/KhronosGroup/OpenCL-Docs/pull/1242">#1242</a>.</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 </div>
@@ -7359,13 +7649,10 @@ versions are summarized below.</p>
 <div id="footnotes" style="max-width: 100%;">
 <hr>
 <div class="footnote" id="_footnotedef_1">
-<a href="#_footnoteref_1">1</a>. Here <code>TYPE_MIN</code> and <code>TYPE_MIN_EXP</code> should be substituted by constants appropriate to the floating-point type under consideration, such as <code>FLT_MIN</code> and <code>FLT_MIN_EXP</code> for float.
+<a href="#_footnoteref_1">1</a>. This allows printing 16-bit <code>half</code> and 32-bit <code>float</code> values on     devices that both do and do not support the <strong>Float64</strong> capability for     double-precision floating-point.
 </div>
-</div>
-<div id="footer" style="max-width: 100%;">
-<div id="footer-text">
-Version v3.0.16<br>
-Last updated 2024-04-04 12:00:00 -0700
+<div class="footnote" id="_footnotedef_2">
+<a href="#_footnoteref_2">2</a>. Here <code>TYPE_MIN</code> and <code>TYPE_MIN_EXP</code> should be substituted by constants appropriate to the floating-point type under consideration, such as <code>FLT_MIN</code> and <code>FLT_MIN_EXP</code> for float.
 </div>
 </div>
 
