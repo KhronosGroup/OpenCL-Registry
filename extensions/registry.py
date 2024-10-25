@@ -301,6 +301,11 @@ registry = {
         'flags' : { 'public' },
         'url' : 'extensions/intel/cl_intel_split_work_group_barrier.html',
     },
+    'cl_intel_subgroup_buffer_prefetch' : {
+        'number' : 85,
+        'flags' : { 'public' },
+        'url' : 'extensions/intel/cl_intel_subgroup_buffer_prefetch.html',
+    },
     'cl_intel_subgroup_local_block_io' : {
         'number' : 84,
         'flags' : { 'public' },
