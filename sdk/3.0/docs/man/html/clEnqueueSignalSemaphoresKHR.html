@@ -876,6 +876,25 @@ events in <em>event_wait_list</em> when <strong>clEnqueueSignalSemaphoresKHR</st
 Signaling the same binary semaphore twice without an interleaving wait may
 lead to undefined behavior.</p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>When <em>command_queue</em> is an out-of-order command-queue there are no implicit
+dependencies between commands enqueued into the command-queue before the
+semaphore signal command and the semaphore signal command.
+If such dependencies are required, applications may enqueue a command-queue
+barrier before the semaphore signal command, to explicitly add dependencies between
+the preceding commands and the semaphore signal command.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p><strong>clEnqueueSignalSemaphoresKHR</strong> returns <code>CL_SUCCESS</code> if the function is
 executed successfully.
@@ -925,12 +944,12 @@ events in <em>event_wait_list</em> are not the same.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>if <em>event_wait_list</em> is <code>NULL</code> and <em>num_events_in_wait_list</em> is not
-0, or</p>
+<p>if <em>event_wait_list</em> is <code>NULL</code> and <em>num_events_in_wait_list</em> is not 0,
+or</p>
 </li>
 <li>
-<p>if <em>event_wait_list</em> is not <code>NULL</code> and <em>num_events_in_wait_list</em> is
-0, or</p>
+<p>if <em>event_wait_list</em> is not <code>NULL</code> and <em>num_events_in_wait_list</em> is 0,
+or</p>
 </li>
 <li>
 <p>if event objects in <em>event_wait_list</em> are not valid events.</p>
@@ -984,12 +1003,6 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
 </div>
 </div>
-</div>
-</div>
-<div id="footer">
-<div id="footer-text">
-Version v3.0.16<br>
-Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

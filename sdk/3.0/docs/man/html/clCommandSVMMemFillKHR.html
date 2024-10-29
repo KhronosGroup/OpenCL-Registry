@@ -784,6 +784,7 @@ pattern size, call the function</p>
 cl_int clCommandSVMMemFillKHR(
     cl_command_buffer_khr command_buffer,
     cl_command_queue command_queue,
+    const cl_command_properties_khr* properties,
     void* svm_ptr,
     const void* pattern,
     size_t pattern_size,
@@ -826,6 +827,13 @@ only a single command-queue is supported, and <em>command_queue</em> must be
 If the <code>cl_khr_<wbr>command_<wbr>buffer_<wbr>multi_<wbr>device</code> extension is supported and
 <em>command_queue</em> is <code>NULL</code>, then only one command-queue must have been set on
 <em>command_buffer</em> creation; otherwise, <em>command_queue</em> must not be <code>NULL</code>.</p>
+</li>
+<li>
+<p><em>properties</em> specifies a list of properties for the command and their
+corresponding values. Each property name is immediately followed by the
+corresponding desired value. The list is terminated with 0. The
+<code>cl_khr_<wbr>command_<wbr>buffer</code> extension does not define any properties, but
+supported properties may be defined by layered extensions in future.</p>
 </li>
 <li>
 <p><em>svm_ptr</em> is a pointer to a (if the device supports system SVM)
@@ -924,8 +932,8 @@ command-queue listed on <em>command_buffer</em> creation.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_INVALID_<wbr>CONTEXT</code> if the context associated with <em>command_queue</em>,
-<em>command_buffer</em>, and <em>kernel</em> are not the same.</p>
+<p><code>CL_INVALID_<wbr>CONTEXT</code> if <em>command_queue</em> is not <code>NULL</code>, and the context
+associated with <em>command_queue</em> and <em>command_buffer</em> is not the same.</p>
 </li>
 </ul>
 </div>
@@ -956,6 +964,9 @@ command-buffer.</p>
 <p><code>CL_INVALID_<wbr>OPERATION</code> if <em>command_buffer</em> has been finalized.</p>
 </li>
 <li>
+<p><code>CL_INVALID_<wbr>VALUE</code> if values specified in <em>properties</em> are not valid.</p>
+</li>
+<li>
 <p><code>CL_INVALID_<wbr>VALUE</code> if <em>mutable_handle</em> is not <code>NULL</code>.</p>
 </li>
 </ul>
@@ -966,7 +977,7 @@ command-buffer.</p>
 <h2 id="_see_also"><a class="anchor" href="#_see_also"></a>See Also</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="CL_VERSION_2_0.html">CL_VERSION_2_0</a>, <a href="cl_command_buffer_khr.html">cl_command_buffer_khr</a>, <a href="cl_command_queue.html">cl_command_queue</a>, <a href="cl_khr_command_buffer.html">cl_khr_command_buffer</a>, <a href="cl_mutable_command_khr.html">cl_mutable_command_khr</a>, <a href="cl_sync_point_khr.html">cl_sync_point_khr</a>, <a href="cl_uint.html">cl_uint</a></p>
+<p><a href="CL_VERSION_2_0.html">CL_VERSION_2_0</a>, <a href="cl_command_buffer_khr.html">cl_command_buffer_khr</a>, <a href="cl_command_properties_khr.html">cl_command_properties_khr</a>, <a href="cl_command_queue.html">cl_command_queue</a>, <a href="cl_khr_command_buffer.html">cl_khr_command_buffer</a>, <a href="cl_mutable_command_khr.html">cl_mutable_command_khr</a>, <a href="cl_sync_point_khr.html">cl_sync_point_khr</a>, <a href="cl_uint.html">cl_uint</a></p>
 </div>
 </div>
 </div>
@@ -992,12 +1003,6 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
 </div>
 </div>
-</div>
-</div>
-<div id="footer">
-<div id="footer-text">
-Version v3.0.16<br>
-Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

@@ -880,12 +880,12 @@ If <em>num_devices</em> is <code>NULL</code>, this argument is ignored.</p>
     <strong>clGetDeviceIDs</strong> or to create OpenCL contexts using
     <strong>clCreateContextFromType</strong>, and will never be returned in <code>CL_DEVICE_<wbr>TYPE</code>
     for any OpenCL device.
-    The default OpenCL device must not be a <code>CL_DEVICE_<wbr>TYPE_<wbr>CUSTOM</code> device.</p></td>
+    The default OpenCL device must not be a <code>CL_DEVICE_<wbr>TYPE_<wbr>CUSTOM</code> device
+    unless it is the only device in the platform.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>TYPE_<wbr>ALL</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">All OpenCL devices available in the platform, except for
-    <code>CL_DEVICE_<wbr>TYPE_<wbr>CUSTOM</code> devices.
+<td class="tableblock halign-left valign-top"><p class="tableblock">All OpenCL devices in the platform.
     <code>CL_DEVICE_<wbr>TYPE_<wbr>ALL</code> is only used to query OpenCL devices using
     <strong>clGetDeviceIDs</strong> or to create OpenCL contexts using
     <strong>clCreateContextFromType</strong>, and will never be returned in <code>CL_DEVICE_<wbr>TYPE</code>
@@ -967,12 +967,6 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <hr>
 <div class="footnote" id="_footnotedef_1">
 <a href="#_footnoteref_1">1</a>. <strong>clGetDeviceIDs</strong> may return all or a subset of the actual physical devices present in the platform and that match <em>device_type</em>.
-</div>
-</div>
-<div id="footer">
-<div id="footer-text">
-Version v3.0.16<br>
-Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

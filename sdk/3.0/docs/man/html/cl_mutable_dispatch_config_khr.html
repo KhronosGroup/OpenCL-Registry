@@ -783,8 +783,6 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <div class="content">
 <pre class="highlight"><code class="language-opencl" data-lang="opencl">// Provided by cl_khr_command_buffer_mutable_dispatch
 typedef struct cl_mutable_dispatch_config_khr {
-    cl_command_buffer_structure_type_khr        type;
-    const void*                                 next;
     cl_mutable_command_khr                      command;
     cl_uint                                     num_args;
     cl_uint                                     num_svm_args;
@@ -806,13 +804,6 @@ typedef struct cl_mutable_dispatch_config_khr {
 <div class="sectionbody">
 <div class="ulist">
 <ul>
-<li>
-<p><em>type</em> is the type of this structure, and must be
-<code>CL_STRUCTURE_<wbr>TYPE_<wbr>MUTABLE_<wbr>DISPATCH_<wbr>CONFIG_<wbr>KHR</code>.</p>
-</li>
-<li>
-<p><em>next</em> is <code>NULL</code> or a pointer to an extending structure.</p>
-</li>
 <li>
 <p><em>command</em> is a mutable-command object returned by
 <strong>clCommandNDRangeKernelKHR</strong> representing a kernel execution as part of a
@@ -897,7 +888,7 @@ the dispatch is not changed.</p>
 <h2 id="_see_also"><a class="anchor" href="#_see_also"></a>See Also</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="cl_command_buffer_structure_type_khr.html">cl_command_buffer_structure_type_khr</a>, <a href="cl_khr_command_buffer_mutable_dispatch.html">cl_khr_command_buffer_mutable_dispatch</a>, <a href="cl_mutable_base_config_khr.html">cl_mutable_base_config_khr</a>, <a href="cl_mutable_command_khr.html">cl_mutable_command_khr</a>, <a href="cl_mutable_dispatch_arg_khr.html">cl_mutable_dispatch_arg_khr</a>, <a href="cl_mutable_dispatch_exec_info_khr.html">cl_mutable_dispatch_exec_info_khr</a>, <a href="cl_uint.html">cl_uint</a></p>
+<p><a href="cl_khr_command_buffer_mutable_dispatch.html">cl_khr_command_buffer_mutable_dispatch</a>, <a href="cl_mutable_command_khr.html">cl_mutable_command_khr</a>, <a href="cl_mutable_dispatch_arg_khr.html">cl_mutable_dispatch_arg_khr</a>, <a href="cl_mutable_dispatch_exec_info_khr.html">cl_mutable_dispatch_exec_info_khr</a>, <a href="cl_uint.html">cl_uint</a></p>
 </div>
 </div>
 </div>
@@ -923,12 +914,6 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
 </div>
 </div>
-</div>
-</div>
-<div id="footer">
-<div id="footer-text">
-Version v3.0.16<br>
-Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

@@ -818,8 +818,9 @@ If <em>param_value</em> is <code>NULL</code>, it is ignored.</p>
 <li>
 <p><em>param_value_size</em> specifies the size in bytes of memory pointed to by
 <em>param_value</em>.
-This size in bytes must be ≥ size of return type specified in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#device-queries-table" target="_blank" rel="noopener">Device Queries</a> table.</p>
+This size must be greater than or equal to the size of the return type
+specified in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#device-queries-table" target="_blank" rel="noopener">Device Queries</a> table.
+If <em>param_value</em> is <code>NULL</code>, it is ignored.</p>
 </li>
 <li>
 <p><em>param_value_size_ret</em> returns the actual size in bytes of data being
@@ -861,9 +862,9 @@ device except for the following queries:</p>
 <table id="device-queries-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. List of supported param_names by <strong>clGetDeviceInfo</strong></caption>
 <colgroup>
-<col style="width: 33%;">
-<col style="width: 17%;">
-<col style="width: 50%;">
+<col style="width: 28%;">
+<col style="width: 15%;">
+<col style="width: 57%;">
 </colgroup>
 <thead>
 <tr>
@@ -1878,7 +1879,9 @@ if the <code>cl_khr_<wbr>image2d_<wbr>from_<wbr>buffer</code> extension is suppo
 <p class="tableblock">        Because atomic scopes are hierarchical, a device that supports a wide scope must also support all narrower scopes, except for the work-item scope, which is a special case.</p>
 <p class="tableblock">        The mandated minimum capability is:</p>
 <p class="tableblock">        <code>CL_DEVICE_<wbr>ATOMIC_<wbr>ORDER_<wbr>RELAXED</code> |<br>
-        <code>CL_DEVICE_<wbr>ATOMIC_<wbr>SCOPE_<wbr>WORK_<wbr>GROUP</code></p></td>
+        <code>CL_DEVICE_<wbr>ATOMIC_<wbr>SCOPE_<wbr>WORK_<wbr>GROUP</code></p>
+<p class="tableblock">        A device that does not support <code>CL_DEVICE_<wbr>SVM_<wbr>ATOMICS</code> (and hence does not support <code>CL_MEM_<wbr>SVM_<wbr>ATOMICS</code>) may still support <code>CL_DEVICE_<wbr>ATOMIC_<wbr>SCOPE_<wbr>ALL_<wbr>DEVICES</code>. On these devices, an atomic operation with
+        <strong>memory_scope_all_svm_devices</strong> will behave the same as if the scope were <strong>memory_scope_device</strong> - refer to the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#memory-consistency-model" target="_blank" rel="noopener">memory consistency model</a>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>ATOMIC_<wbr>FENCE_<wbr>CAPABILITIES</code></p>
@@ -2128,8 +2131,7 @@ if the <code>cl_khr_<wbr>image2d_<wbr>from_<wbr>buffer</code> extension is suppo
         <code>CL_FP_<wbr>SOFT_<wbr>FLOAT</code> - Basic floating-point operations (such as
         addition, subtraction, multiplication) are implemented in software</p>
 <p class="tableblock">        If half-precision is supported by the device, then the minimum
-        half-precision floating-point capability for OpenCL 2.0 or newer
-        devices is:</p>
+        half-precision floating-point capability is either:</p>
 <p class="tableblock">        <code>CL_FP_<wbr>ROUND_<wbr>TO_<wbr>ZERO</code></p>
 <p class="tableblock">        or</p>
 <p class="tableblock">        <code>CL_FP_<wbr>ROUND_<wbr>TO_<wbr>NEAREST</code> |<br>
@@ -2358,12 +2360,11 @@ Otherwise, it returns one of the following errors:</p>
 <p><code>CL_INVALID_<wbr>DEVICE</code> if <em>device</em> is not a valid device.</p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if <em>param_name</em> is not one of the supported values or
-if size in bytes specified by <em>param_value_size</em> is &lt; size of return
-type as specified in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#device-queries-table" target="_blank" rel="noopener">Device Queries</a> table
-and <em>param_value</em> is not a <code>NULL</code> value or if <em>param_name</em> is a value
-that is available as an extension and the corresponding extension is not
-supported by the device.</p>
+<p><code>CL_INVALID_<wbr>VALUE</code> if <em>param_name</em> is not one of the supported values, or
+if the size in bytes specified by <em>param_value_size</em> is less than size of
+the return type specified in the
+<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#device-queries-table" target="_blank" rel="noopener">Device Queries</a> table
+and <em>param_value</em> is not <code>NULL</code>.</p>
 </li>
 <li>
 <p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources required
@@ -2425,12 +2426,6 @@ Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 <div class="footnote" id="_footnotedef_5">
 <a href="#_footnoteref_5">5</a>. Note that this flag does not provide meaning for atomic memory operations, but only for atomic fence operations in certain circumstances, refer to the Memory Scope section of the OpenCL C specification.
-</div>
-</div>
-<div id="footer">
-<div id="footer-text">
-Version v3.0.16<br>
-Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

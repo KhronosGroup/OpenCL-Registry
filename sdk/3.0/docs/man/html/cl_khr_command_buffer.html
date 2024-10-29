@@ -818,7 +818,7 @@ See the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/
 <dl>
 <dt class="hdlist1"><strong>Last Modified Date</strong></dt>
 <dd>
-<p>2023-03-31</p>
+<p>2024-07-24</p>
 </dd>
 <dt class="hdlist1"><strong>IP Status</strong></dt>
 <dd>
@@ -1024,13 +1024,16 @@ released, as these may reveal modifications needed to the base specification to
 support their intended use cases.</p>
 </div>
 <div class="sect2">
-<h3 id="_nd_range_kernel_command_properties"><a class="anchor" href="#_nd_range_kernel_command_properties"></a>ND-range Kernel Command Properties</h3>
+<h3 id="_command_properties"><a class="anchor" href="#_command_properties"></a>Command Properties</h3>
 <div class="paragraph">
-<p>The <strong>clCommandNDRangeKernelKHR</strong> entry-point defines a <code>properties</code> parameter of
-new type <code>cl_ndrange_<wbr>kernel_<wbr>command_<wbr>properties_<wbr>khr</code>. No properties are defined
-in <code>cl_khr_<wbr>command_<wbr>buffer</code>, but the parameter enables layered extensions like
-<code>cl_khr_<wbr>command_<wbr>buffer_<wbr>mutable_<wbr>dispatch</code> to define properties that inform
-the characteristics of the kernel command.</p>
+<p>The command recording entry-points allow a <code>properties</code> parameter of
+new type <code>cl_command_<wbr>properties_<wbr>khr</code> to be passed. No properties are
+defined in <code>cl_khr_<wbr>command_<wbr>buffer</code>, but the parameter enables layered
+extensions to define characteristics of the individual commands.</p>
+</div>
+<div class="paragraph">
+<p>For example, <code>cl_khr_<wbr>command_<wbr>buffer_<wbr>mutable_<wbr>dispatch</code> defines properties
+that can be set when appending a kernel command with <strong>clCommandNDRangeKernelKHR</strong>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1179,7 +1182,7 @@ and starting from version 0.9.4 of this extension</p>
 <p><code>cl_command_<wbr>buffer_<wbr>flags_<wbr>khr</code></p>
 </li>
 <li>
-<p><code>cl_ndrange_<wbr>kernel_<wbr>command_<wbr>properties_<wbr>khr</code></p>
+<p><code>cl_command_<wbr>properties_<wbr>khr</code></p>
 </li>
 <li>
 <p><code>cl_mutable_<wbr>command_<wbr>khr</code></p>
@@ -1562,6 +1565,17 @@ duration of their execution.</p>
 </ul>
 </div>
 </li>
+<li>
+<p>0.9.5, 2024-07-24</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Add a properties parameter to all command recording entry-points
+(provisional).</p>
+</li>
+</ul>
+</div>
+</li>
 </ul>
 </div>
 </div>
@@ -1596,12 +1610,6 @@ Fixes and changes should be made to the generator scripts, not directly.</p>
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
 </div>
 </div>
-</div>
-</div>
-<div id="footer">
-<div id="footer-text">
-Version v3.0.16<br>
-Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

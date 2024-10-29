@@ -909,7 +909,7 @@ model.</p>
 <div class="paragraph">
 <p>If <code>CL_MEM_<wbr>DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>KHR</code> is not specified as part of <em>properties</em>,
 the memory object created by <strong>clCreateBufferWithProperties</strong> or
-<strong>clCreateImageWithProperties</strong> is by default accessible to all devices in the
+<strong>clCreateImageWithProperties</strong> is by default associated with all devices in the
 <em>context</em>.</p>
 </div>
 <div class="paragraph">
@@ -946,8 +946,9 @@ in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/O
 <li>
 <p><code>CL_INVALID_<wbr>BUFFER_<wbr>SIZE</code> if <em>size</em> is 0, or if <em>size</em> is greater than
 <code>CL_DEVICE_<wbr>MAX_<wbr>MEM_<wbr>ALLOC_<wbr>SIZE</code> for all devices in <em>context</em>, or if
-<code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code> is set in <em>flags</em> and <em>host_ptr</em> is a pointer returned by
-<strong>clSVMAlloc</strong> and <em>size</em> is greater than the size passed to <strong>clSVMAlloc</strong>.</p>
+<code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code> or <code>CL_MEM_<wbr>COPY_<wbr>HOST_<wbr>PTR</code> is set in <em>flags</em> and
+<em>host_ptr</em> is a pointer returned by <strong>clSVMAlloc</strong> and <em>size</em> is greater than
+the size passed to <strong>clSVMAlloc</strong>.</p>
 </li>
 <li>
 <p><code>CL_INVALID_<wbr>HOST_<wbr>PTR</code> if <em>host_ptr</em> is <code>NULL</code> and <code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code> or
@@ -1016,6 +1017,9 @@ includes <code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code>, <code>CL_MEM_<wbr>ALLO
 <li>
 <p>if <em>properties</em> does not include a supported external memory handle and
 <code>CL_MEM_<wbr>DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>KHR</code> is specified as part of <em>properties</em>.</p>
+</li>
+<li>
+<p>if <em>properties</em> includes more than one external memory handle.</p>
 </li>
 </ul>
 </div>
@@ -1164,12 +1168,6 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
 </div>
 </div>
-</div>
-</div>
-<div id="footer">
-<div id="footer-text">
-Version v3.0.16<br>
-Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

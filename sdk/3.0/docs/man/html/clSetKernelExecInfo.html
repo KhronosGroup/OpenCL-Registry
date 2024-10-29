@@ -767,7 +767,7 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <h1>clSetKernelExecInfo(3) Manual Page</h1>
 <h2 id="_name">Name</h2>
 <div class="sectionbody">
-<p>clSetKernelExecInfo - Pass additional information other than argument values to a kernel.</p>
+<p>clSetKernelExecInfo - Set additional execution information for a kernel.</p>
 </div>
 </div>
 <div id="content">
@@ -775,8 +775,7 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <h2 id="_c_specification"><a class="anchor" href="#_c_specification"></a>C Specification</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To pass additional information other than argument values to a kernel, call
-the function</p>
+<p>To set additional execution information for a kernel, call the function</p>
 </div>
 <div id="clSetKernelExecInfo" class="listingblock">
 <div class="content">
@@ -808,10 +807,10 @@ cl_int clSetKernelExecInfo(
 <div class="ulist">
 <ul>
 <li>
-<p><em>kernel</em> specifies the kernel object being queried.</p>
+<p><em>kernel</em> is a valid kernel object.</p>
 </li>
 <li>
-<p><em>param_name</em> specifies the information to be passed to kernel.
+<p><em>param_name</em> specifies the type of information to set.
 The list of supported <em>param_name</em> types and the corresponding values passed
 in <em>param_value</em> is described in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#kernel-exec-info-table" target="_blank" rel="noopener">Kernel
 Execution Properties</a> table.</p>
@@ -850,22 +849,41 @@ by <em>param_name</em> are specified.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_KERNEL_<wbr>EXEC_<wbr>INFO_<wbr>SVM_<wbr>PTRS</code></p>
 <p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.0.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>void</code>*[]</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">SVM pointers must reference locations contained entirely within
-        buffers that are passed to kernel as arguments, or that are passed
-        through the execution information.</p>
-<p class="tableblock">        Non-argument SVM buffers must be specified by passing pointers to
-        those buffers via <strong>clSetKernelExecInfo</strong> for coarse-grain and
-        fine-grain buffer SVM allocations but not for finegrain system SVM
-        allocations.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies a set of pointers to SVM allocations that may be accessed
+        by the kernel in addition to those set directly as kernel arguments.
+        Each of the pointers can be the pointer returned by <strong>clSVMAlloc</strong> or can
+        be a pointer to the middle of an SVM allocation.
+        It is sufficient to specify one pointer for each SVM allocation.</p>
+<p class="tableblock">        Behavior is undefined if the kernel accesses a coarse-grain or
+        fine-grain buffer SVM allocation that is not set as a kernel argument
+        and is not in the set specified by <code>CL_KERNEL_<wbr>EXEC_<wbr>INFO_<wbr>SVM_<wbr>PTRS</code>.</p>
+<p class="tableblock">        The complete set of pointers is specified by each call to
+        <strong>clSetKernelExecInfo</strong> and replaces any previously specified set of
+        pointers.
+        To specify that no SVM allocations will be accessed by a kernel other
+        than those set as kernel arguments, specify an empty set by passing
+        <em>param_value_size</em> equal to zero and <em>param_value</em> equal to <code>NULL</code>.</p>
+<p class="tableblock">        Non-argument pointers to SVM allocations must be specified for
+        coarse-grain and fine-grain buffer SVM allocations, but not for
+        fine-grain system SVM allocations.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_KERNEL_<wbr>EXEC_<wbr>INFO_<wbr>SVM_<wbr>FINE_<wbr>GRAIN_<wbr>SYSTEM</code></p>
 <p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.0.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_bool</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">This flag indicates whether the kernel uses pointers that are fine
-        grain system SVM allocations.
-        These fine grain system SVM pointers may be passed as arguments or
-        defined in SVM buffers that are passed as arguments to <em>kernel</em>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies whether the kernel may use pointers to system allocations
+        that are not set directly as kernel arguments on devices that support
+        fine-grain system SVM allocations.</p>
+<p class="tableblock">        When a device supports fine-grain system SVM allocations and
+        <code>CL_KERNEL_<wbr>EXEC_<wbr>INFO_<wbr>SVM_<wbr>FINE_<wbr>GRAIN_<wbr>SYSTEM</code> is <code>CL_TRUE</code>, the kernel may
+        access system allocations that are not set directly as kernel arguments.</p>
+<p class="tableblock">        Otherwise, if a device does not support fine-grain system SVM
+        allocations or when <code>CL_KERNEL_<wbr>EXEC_<wbr>INFO_<wbr>SVM_<wbr>FINE_<wbr>GRAIN_<wbr>SYSTEM</code> is
+        <code>CL_FALSE</code>, behavior is undefined if the kernel accesses a system
+        allocation that is not set as a kernel argument.</p>
+<p class="tableblock">        If <strong>clSetKernelExecInfo</strong> has not been called with a value for
+        <code>CL_KERNEL_<wbr>EXEC_<wbr>INFO_<wbr>SVM_<wbr>FINE_<wbr>GRAIN_<wbr>SYSTEM</code>, the default value is
+        <code>CL_TRUE</code>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -883,14 +901,15 @@ Otherwise, it returns one of the following errors:</p>
 <p><code>CL_INVALID_<wbr>OPERATION</code> if no devices in the context associated with <em>kernel</em> support SVM.</p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if <em>param_name</em> is not valid, if <em>param_value</em> is
-<code>NULL</code> or if the size specified by <em>param_value_size</em> is not valid.</p>
-</li>
-<li>
 <p><code>CL_INVALID_<wbr>OPERATION</code> if <em>param_name</em> is
 <code>CL_KERNEL_<wbr>EXEC_<wbr>INFO_<wbr>SVM_<wbr>FINE_<wbr>GRAIN_<wbr>SYSTEM</code> and <em>param_value</em> is <code>CL_TRUE</code>
-but no devices in context associated with <em>kernel</em> support fine-grain
+and no devices in the context associated with <em>kernel</em> support fine-grain
 system SVM allocations.</p>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>VALUE</code> if <em>param_name</em> is not valid, if <em>param_value</em> is
+<code>NULL</code> and <em>param_value_size</em> is greater than zero, or if the size specified
+by <em>param_value_size</em> is not valid.</p>
 </li>
 <li>
 <p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources required
@@ -934,12 +953,6 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
 </div>
 </div>
-</div>
-</div>
-<div id="footer">
-<div id="footer-text">
-Version v3.0.16<br>
-Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 

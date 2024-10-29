@@ -807,10 +807,10 @@ queried is returned.
 If <em>param_value</em> is <code>NULL</code>, it is ignored.</p>
 </li>
 <li>
-<p><em>param_value_size</em> is used to specify the size in bytes of memory pointed to
-by <em>param_value</em>.
-This size must be ≥ size of return type as described in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#command-queue-param-table" target="_blank" rel="noopener">Command-Queue Parameter</a> table.
+<p><em>param_value_size</em> specifies the size in bytes of memory pointed to by
+<em>param_value</em>.
+This size must be greater than or equal to the size of the return type
+specified in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#command-queue-info-table" target="_blank" rel="noopener">Command-Queue Queries</a> table.
 If <em>param_value</em> is <code>NULL</code>, it is ignored.</p>
 </li>
 <li>
@@ -828,9 +828,9 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <div class="paragraph">
 <p>The list of supported <em>param_name</em> values and the information returned in
 <em>param_value</em> by <strong>clGetCommandQueueInfo</strong> is described in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#command-queue-param-table" target="_blank" rel="noopener">Command-Queue Parameter</a> table.</p>
+<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#command-queue-info-table" target="_blank" rel="noopener">Command-Queue Queries</a> table.</p>
 </div>
-<table id="command-queue-param-table" class="tableblock frame-all grid-all stretch">
+<table id="command-queue-info-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. List of supported param_names by <strong>clGetCommandQueueInfo</strong></caption>
 <colgroup>
 <col style="width: 33%;">
@@ -914,10 +914,11 @@ command-queue, or if <em>command_queue</em> is not a valid command-queue
 for <em>param_name</em>.</p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if <em>param_name</em> is not one of the supported values or
-if size in bytes specified by <em>param_value_size</em> is &lt; size of return
-type as specified in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#command-queue-param-table" target="_blank" rel="noopener">Command-Queue
-Parameter</a> table, and <em>param_value</em> is not a <code>NULL</code> value.</p>
+<p><code>CL_INVALID_<wbr>VALUE</code> if <em>param_name</em> is not one of the supported values, or
+if the size in bytes specified by <em>param_value_size</em> is less than size of
+the return type specified in the
+<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#command-queue-info-table" target="_blank" rel="noopener">Command-Queue Queries</a> table
+and <em>param_value</em> is not <code>NULL</code>.</p>
 </li>
 <li>
 <p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources required
@@ -967,12 +968,6 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <hr>
 <div class="footnote" id="_footnotedef_1">
 <a href="#_footnoteref_1">1</a>. The reference count returned should be considered immediately stale. It is unsuitable for general use in applications. This feature is provided for identifying memory leaks.
-</div>
-</div>
-<div id="footer">
-<div id="footer-text">
-Version v3.0.16<br>
-Last updated 2024-04-04 13:33:43 -0700
 </div>
 </div>
 
