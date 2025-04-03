@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.16">
+<meta name="generator" content="Asciidoctor 2.0.23">
 <title>cl_image_desc(3)</title>
 <style>
 /*! normalize.css v2.1.2 | MIT License | git.io/normalize */
@@ -814,34 +814,41 @@ typedef struct cl_image_desc {
 </li>
 <li>
 <p><em>image_width</em> is the width of the image in pixels.
-For a 2D image and image array, the image width must be a value ≥ 1 and
-≤ <code>CL_DEVICE_<wbr>IMAGE2D_<wbr>MAX_<wbr>WIDTH</code>.
-For a 3D image, the image width must be a value ≥ 1 and ≤
-<code>CL_DEVICE_<wbr>IMAGE3D_<wbr>MAX_<wbr>WIDTH</code>.
-For a 1D image buffer, the image width must be a value ≥ 1 and ≤
-<code>CL_DEVICE_<wbr>IMAGE_<wbr>MAX_<wbr>BUFFER_<wbr>SIZE</code>.
-For a 1D image and 1D image array, the image width must be a value ≥ 1
-and ≤ <code>CL_DEVICE_<wbr>IMAGE2D_<wbr>MAX_<wbr>WIDTH</code>.</p>
+For a 1D image, 1D image array, 2D image, or 2D image array, the image width
+must be greater than or equal to one and less than or equal to the
+value returned for <code>CL_DEVICE_<wbr>IMAGE2D_<wbr>MAX_<wbr>WIDTH</code> for all devices in the
+context.
+For a 3D image, the image width must be greater than or equal to one and
+less than or equal to the value returned for <code>CL_DEVICE_<wbr>IMAGE3D_<wbr>MAX_<wbr>WIDTH</code>
+for all devices in the context.
+For a 1D image buffer, the image width must be greater than or equal
+to one and less than or equal to the value returned for
+<code>CL_DEVICE_<wbr>IMAGE_<wbr>MAX_<wbr>BUFFER_<wbr>SIZE</code> for all devices in the context.</p>
 </li>
 <li>
 <p><em>image_height</em> is the height of the image in pixels.
-This is only used if the image is a 2D or 3D image, or a 2D image array.
-For a 2D image or image array, the image height must be a value ≥ 1 and
-≤ <code>CL_DEVICE_<wbr>IMAGE2D_<wbr>MAX_<wbr>HEIGHT</code>.
-For a 3D image, the image height must be a value ≥ 1 and ≤
-<code>CL_DEVICE_<wbr>IMAGE3D_<wbr>MAX_<wbr>HEIGHT</code>.</p>
+It is only used if the image is a 2D image, 2D image array, or 3D image.
+For a 2D image or 2D image array, the image height must greater than or
+equal to one and less than or equal to the value returned for
+<code>CL_DEVICE_<wbr>IMAGE2D_<wbr>MAX_<wbr>HEIGHT</code> for all devices in the context.
+For a 3D image, the image height must be greater than or equal to one and
+less than or equal to the value returned for <code>CL_DEVICE_<wbr>IMAGE3D_<wbr>MAX_<wbr>HEIGHT</code>
+for all devices in the context.</p>
 </li>
 <li>
 <p><em>image_depth</em> is the depth of the image in pixels.
-This is only used if the image is a 3D image and must be a value ≥ 1 and
-≤ <code>CL_DEVICE_<wbr>IMAGE3D_<wbr>MAX_<wbr>DEPTH</code>.</p>
+It is only used if the image is a 3D image.
+For a 3D image, the image depth must be greater than or equal to one and
+less than or equal to the value returned for <code>CL_DEVICE_<wbr>IMAGE3D_<wbr>MAX_<wbr>DEPTH</code>
+for all devices in the context.</p>
 </li>
 <li>
 <p><em>image_array_size</em> <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup> is the number of
 images in the image array.
-This is only used if the image is a 1D or 2D image array.
-The values for <code>image_array_size</code>, if specified, must be a value ≥ 1 and
-≤ <code>CL_DEVICE_<wbr>IMAGE_<wbr>MAX_<wbr>ARRAY_<wbr>SIZE</code>.</p>
+It is only used if the image is a 1D image array or 2D image array.
+For a 1D image array or 2D image array, the image array size must be
+greater than or equal to one and less than or equal to the value returned
+for <code>CL_DEVICE_<wbr>IMAGE_<wbr>MAX_<wbr>ARRAY_<wbr>SIZE</code> for all devices in the context.</p>
 </li>
 <li>
 <p><em>image_row_pitch</em> is the scan-line pitch in bytes.
@@ -890,7 +897,8 @@ including the base level <sup class="footnote">[<a id="_footnoteref_2" class="fo
 <p><em>mem_object</em> may refer to a valid buffer or image memory object.
 <code>mem_object</code> can be a buffer memory object if <code>image_type</code> is
 <code>CL_MEM_<wbr>OBJECT_<wbr>IMAGE1D_<wbr>BUFFER</code> or
-<code>CL_MEM_<wbr>OBJECT_<wbr>IMAGE2D</code> <sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnotedef_3" title="View footnote.">3</a>]</sup>.
+<code>CL_MEM_<wbr>OBJECT_<wbr>IMAGE2D</code>
+<sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnotedef_3" title="View footnote.">3</a>]</sup>
 <code>mem_object</code> can be an image object if <code>image_type</code> is
 <code>CL_MEM_<wbr>OBJECT_<wbr>IMAGE2D</code> <sup class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnotedef_4" title="View footnote.">4</a>]</sup>.
 Otherwise it must be <code>NULL</code>.
@@ -1036,10 +1044,9 @@ stored in the image can be accessed as linear RGB or sRGB values.
 <td class="content">
 <div class="paragraph">
 <p>Concurrent reading from, writing to and copying between both a buffer object
-and 1D image buffer or 2D image object associated with the buffer object is
-undefined.
-Only reading from both a buffer object and 1D image buffer or 2D image
-object associated with the buffer object is defined.</p>
+and buffer or image object associated with the buffer object is undefined.
+Only reading from both a buffer object and buffer or image object associated
+with the buffer object is defined.</p>
 </div>
 <div class="paragraph">
 <p>Writing to an image created from a buffer and then reading from this buffer
@@ -1079,7 +1086,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2024 The Khronos Group Inc.</p>
+<p>Copyright 2014-2025 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -1096,7 +1103,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <a href="#_footnoteref_2">2</a>. Therefore, specifying <em>num_mip_levels</em> equal to either <code>0</code> or <code>1</code> creates an image with a single mipmap level.
 </div>
 <div class="footnote" id="_footnotedef_3">
-<a href="#_footnoteref_3">3</a>. To create a 2D image from a buffer object that share the data store between the image and buffer object.
+<a href="#_footnoteref_3">3</a>. To create an image from a buffer object that shares the data store between the image and buffer object.
 </div>
 <div class="footnote" id="_footnotedef_4">
 <a href="#_footnoteref_4">4</a>. To create an image object from another image object that share the data store between these image objects.

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.23">
-<title>addressSpaceQualifiers(3)</title>
+<title>clIcdSetPlatformDispatchDataKHR(3)</title>
 <style>
 /*! normalize.css v2.1.2 | MIT License | git.io/normalize */
 /* ========================================================================== HTML5 display definitions ========================================================================== */
@@ -764,102 +764,35 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 </script></head>
 <body class="manpage">
 <div id="header">
-<h1>addressSpaceQualifiers(3) Manual Page</h1>
+<h1>clIcdSetPlatformDispatchDataKHR(3) Manual Page</h1>
 <h2 id="_name">Name</h2>
 <div class="sectionbody">
-<p>addressSpaceQualifiers - Address Space Qualifiers</p>
+<p>clIcdSetPlatformDispatchDataKHR - Set the dispatch data for a platform</p>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
+<h2 id="_c_specification"><a class="anchor" href="#_c_specification"></a>C Specification</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>OpenCL C has a hierarchical memory architecture represented by address spaces, as
-defined in section 5 of <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#embedded-c-spec" target="_blank" rel="noopener">the Embedded C Specification</a>. It
-extends the C syntax to allow an address space name as a valid type qualifier
-(section 5.1.2 of <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#embedded-c-spec" target="_blank" rel="noopener">the Embedded C Specification</a>).
-OpenCL implements disjoint named address spaces with the spelling
-<code>__global</code>, <code>__local</code>, <code>__constant</code> and <code>__private</code>.
-The address space qualifier may be used in variable declarations to specify
-the region where objects are to be allocated. If the type of an
-object is qualified by an address space name, the object is allocated in the
-specified address space. Similarly, for pointers, the type pointed to can be qualified
-by an address space signaling the address space where the object pointed to is located.</p>
+<p>The <code>dispatch_data</code> field of a platform can be set using the following function:</p>
 </div>
-<div class="paragraph">
-<p>The address space name spelling without the <code>__</code> prefix, i.e. <code>global</code>,
-<code>local</code>, <code>constant</code> and <code>private</code>, are valid and may be substituted for the
-corresponding address space names with the <code>__</code> prefix.</p>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="listingblock">
+<div id="clIcdSetPlatformDispatchDataKHR" class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-opencl_c" data-lang="opencl_c">// declares a pointer p in the global address space that
-// points to an object in the global address space
-__global int *__global p;
-
-void foo (...)
-{
-    // declares an array of 4 floats in the private address space
-    __private float x[4];
-    ...
-}</code></pre>
+<pre class="highlight"><code class="language-opencl" data-lang="opencl">// Provided by cl_khr_icd
+cl_int clIcdSetPlatformDispatchDataKHR(
+    cl_platform_id platform,
+    void* dispatch_data);</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>For OpenCL C 2.0, or OpenCL C 3.0 with the <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code>
-feature macro, there is an additional unnamed generic address space.</p>
-</div>
-<div class="paragraph">
-<p>Most of the restrictions from section 5.1.2 and section 5.3 of the
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#embedded-c-spec" target="_blank" rel="noopener">Embedded C Specification</a> apply in OpenCL C, e.g. address
-spaces can not be used with a return type, a function parameter, or a function
-type, and multiple address space qualifiers are not allowed. However, in OpenCL
-C it is allowed to qualify local variables with an address space qualifier.</p>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-opencl_c" data-lang="opencl_c">// OK.
-int f() { ... }
-
-// Error. Address space qualifier cannot be used with a non-pointer return type.
-private int f() { ... }
-
-// OK. Address space qualifier can be used with a pointer return type.
-local int *f() { ... }
-
-// Error. Multiple address spaces specified for a type.
-private local int i;
-
-// OK. The first address space qualifies the object pointed to and the second
-// qualifies the pointer.
-private int *local ptr;</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The <code>__global</code>, <code>__constant</code>, <code>__local</code>, <code>__private</code>, <code>global</code>,
-<code>constant</code>, <code>local</code>, and <code>private</code> names are reserved for use as address
-space qualifiers and shall not be used otherwise.
-The <code>__generic</code> and <code>generic</code> names are reserved for future use.</p>
-</div>
-<div class="admonitionblock note">
+<div class="admonitionblock important">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="paragraph">
-<p>The size of pointers to different address spaces may differ.
-It is not correct to assume that, for example, <code>sizeof(__global int *)</code>
-always equals <code>sizeof(__local int *)</code>.</p>
-</div>
+<strong>clIcdSetPlatformDispatchDataKHR</strong> is provided by the <code>cl_khr_icd</code> extension.
 </td>
 </tr>
 </table>
@@ -867,10 +800,36 @@ always equals <code>sizeof(__local int *)</code>.</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_parameters"><a class="anchor" href="#_parameters"></a>Parameters</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><em>platform</em> refers to the platform ID returned by <strong>clIcdGetPlatformIDsKHR</strong></p>
+</li>
+<li>
+<p><em>dispatch_data</em> is the value to set the <code>dispatch_data</code> field of the
+structure to</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>clIcdSetPlatformDispatchDataKHR</strong> returns <code>CL_SUCCESS</code> if the function is
+executed successfully.
+It returns <code>CL_INVALID_<wbr>PLATFORM</code> if <em>platform</em> is not a valid platform.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_see_also"><a class="anchor" href="#_see_also"></a>See Also</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="constant.html">constant</a>, <a href="genericAddressSpace.html">genericAddressSpace</a>, <a href="global.html">global</a>, <a href="local.html">local</a>, <a href="private.html">private</a></p>
+<p><a href="cl_khr_icd.html">cl_khr_icd</a>, <a href="cl_platform_id.html">cl_platform_id</a></p>
 </div>
 </div>
 </div>
@@ -878,10 +837,10 @@ always equals <code>sizeof(__local int *)</code>.</p>
 <h2 id="_document_notes"><a class="anchor" href="#_document_notes"></a>Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#address-space-qualifiers" target="_blank" rel="noopener">OpenCL C Specification</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#clIcdSetPlatformDispatchDataKHR" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
-<p>This page is extracted from the OpenCL C Specification.
+<p>This page is extracted from the OpenCL Specification.
 Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 </div>

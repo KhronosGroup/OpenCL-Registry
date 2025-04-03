@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.16">
+<meta name="generator" content="Asciidoctor 2.0.23">
 <title>clCreateImage(3)</title>
 <style>
 /*! normalize.css v2.1.2 | MIT License | git.io/normalize */
@@ -855,8 +855,11 @@ the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/Open
 <li>
 <p><em>image_format</em> is a pointer to a structure that describes format properties
 of the image to be allocated.
-A 1D image buffer or 2D image can be created from a buffer by specifying a
-buffer object in the <em>image_desc</em>&#8594;<em>mem_object</em>.
+A 1D image buffer can be created from a buffer by specifying a buffer object
+in <em>image_desc</em>&#8594;<em>mem_object</em>.
+If the <code>cl_khr_<wbr>image2d_<wbr>from_<wbr>buffer</code> extension is supported, a 2D image
+can be created from a buffer by specifying a buffer object in
+<em>image_desc</em>&#8594;<em>mem_object</em>.
 A 2D image can be created from another 2D image object by specifying an
 image object in the <em>image_desc</em>&#8594;<em>mem_object</em>.
 Refer to the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#image-format-descriptor" target="_blank" rel="noopener">Image Format Descriptor</a> section
@@ -1054,8 +1057,8 @@ image object and the rules described above are not followed.</p>
 valid or if <em>image_desc</em> is <code>NULL</code>.</p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>IMAGE_<wbr>SIZE</code> if image dimensions specified in <em>image_desc</em>
-exceed the maximum image dimensions described in the
+<p><code>CL_INVALID_<wbr>IMAGE_<wbr>SIZE</code> if the image dimensions specified in <em>image_desc</em>
+are not valid or exceed the maximum image dimensions described in the
 <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#device-queries-table" target="_blank" rel="noopener">Device Queries</a> table for all devices
 in <em>context</em>.</p>
 </li>
@@ -1231,7 +1234,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2024 The Khronos Group Inc.</p>
+<p>Copyright 2014-2025 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
