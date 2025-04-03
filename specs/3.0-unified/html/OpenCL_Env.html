@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.16">
+<meta name="generator" content="Asciidoctor 2.0.23">
 <meta name="description" content="OpenCL(TM) is an open, royalty-free standard for cross-platform parallel programming of diverse accelerators. This document describes the OpenCL SPIR-V environment.">
 <meta name="author" content="Khronos&#174; OpenCL Working Group">
 <title>The OpenCL&#8482; SPIR-V Environment Specification</title>
@@ -747,212 +747,119 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <style>
 pre.rouge table td { padding: 5px; }
 pre.rouge table pre { margin: 0; }
-pre.rouge .cm {
-  color: #999988;
-  font-style: italic;
+pre.rouge, pre.rouge .w {
+  color: #24292f;
+  background-color: #f6f8fa;
 }
-pre.rouge .cp {
-  color: #999999;
-  font-weight: bold;
-}
-pre.rouge .c1 {
-  color: #999988;
-  font-style: italic;
-}
-pre.rouge .cs {
-  color: #999999;
-  font-weight: bold;
-  font-style: italic;
-}
-pre.rouge .c, pre.rouge .ch, pre.rouge .cd, pre.rouge .cpf {
-  color: #999988;
-  font-style: italic;
-}
-pre.rouge .err {
-  color: #a61717;
-  background-color: #e3d2d2;
-}
-pre.rouge .gd {
-  color: #000000;
-  background-color: #ffdddd;
-}
-pre.rouge .ge {
-  color: #000000;
-  font-style: italic;
+pre.rouge .k, pre.rouge .kd, pre.rouge .kn, pre.rouge .kp, pre.rouge .kr, pre.rouge .kt, pre.rouge .kv {
+  color: #cf222e;
 }
 pre.rouge .gr {
-  color: #aa0000;
+  color: #f6f8fa;
 }
-pre.rouge .gh {
-  color: #999999;
+pre.rouge .gd {
+  color: #82071e;
+  background-color: #ffebe9;
+}
+pre.rouge .nb {
+  color: #953800;
+}
+pre.rouge .nc {
+  color: #953800;
+}
+pre.rouge .no {
+  color: #953800;
+}
+pre.rouge .nn {
+  color: #953800;
+}
+pre.rouge .sr {
+  color: #116329;
+}
+pre.rouge .na {
+  color: #116329;
+}
+pre.rouge .nt {
+  color: #116329;
 }
 pre.rouge .gi {
-  color: #000000;
-  background-color: #ddffdd;
+  color: #116329;
+  background-color: #dafbe1;
 }
-pre.rouge .go {
-  color: #888888;
+pre.rouge .ges {
+  font-weight: bold;
+  font-style: italic;
 }
-pre.rouge .gp {
-  color: #555555;
+pre.rouge .kc {
+  color: #0550ae;
 }
-pre.rouge .gs {
+pre.rouge .l, pre.rouge .ld, pre.rouge .m, pre.rouge .mb, pre.rouge .mf, pre.rouge .mh, pre.rouge .mi, pre.rouge .il, pre.rouge .mo, pre.rouge .mx {
+  color: #0550ae;
+}
+pre.rouge .sb {
+  color: #0550ae;
+}
+pre.rouge .bp {
+  color: #0550ae;
+}
+pre.rouge .ne {
+  color: #0550ae;
+}
+pre.rouge .nl {
+  color: #0550ae;
+}
+pre.rouge .py {
+  color: #0550ae;
+}
+pre.rouge .nv, pre.rouge .vc, pre.rouge .vg, pre.rouge .vi, pre.rouge .vm {
+  color: #0550ae;
+}
+pre.rouge .o, pre.rouge .ow {
+  color: #0550ae;
+}
+pre.rouge .gh {
+  color: #0550ae;
   font-weight: bold;
 }
 pre.rouge .gu {
-  color: #aaaaaa;
-}
-pre.rouge .gt {
-  color: #aa0000;
-}
-pre.rouge .kc {
-  color: #000000;
+  color: #0550ae;
   font-weight: bold;
 }
-pre.rouge .kd {
-  color: #000000;
-  font-weight: bold;
-}
-pre.rouge .kn {
-  color: #000000;
-  font-weight: bold;
-}
-pre.rouge .kp {
-  color: #000000;
-  font-weight: bold;
-}
-pre.rouge .kr {
-  color: #000000;
-  font-weight: bold;
-}
-pre.rouge .kt {
-  color: #445588;
-  font-weight: bold;
-}
-pre.rouge .k, pre.rouge .kv {
-  color: #000000;
-  font-weight: bold;
-}
-pre.rouge .mf {
-  color: #009999;
-}
-pre.rouge .mh {
-  color: #009999;
-}
-pre.rouge .il {
-  color: #009999;
-}
-pre.rouge .mi {
-  color: #009999;
-}
-pre.rouge .mo {
-  color: #009999;
-}
-pre.rouge .m, pre.rouge .mb, pre.rouge .mx {
-  color: #009999;
-}
-pre.rouge .sb {
-  color: #d14;
-}
-pre.rouge .sc {
-  color: #d14;
-}
-pre.rouge .sd {
-  color: #d14;
-}
-pre.rouge .s2 {
-  color: #d14;
-}
-pre.rouge .se {
-  color: #d14;
-}
-pre.rouge .sh {
-  color: #d14;
-}
-pre.rouge .si {
-  color: #d14;
-}
-pre.rouge .sx {
-  color: #d14;
-}
-pre.rouge .sr {
-  color: #009926;
-}
-pre.rouge .s1 {
-  color: #d14;
-}
-pre.rouge .ss {
-  color: #990073;
-}
-pre.rouge .s, pre.rouge .sa, pre.rouge .dl {
-  color: #d14;
-}
-pre.rouge .na {
-  color: #008080;
-}
-pre.rouge .bp {
-  color: #999999;
-}
-pre.rouge .nb {
-  color: #0086B3;
-}
-pre.rouge .nc {
-  color: #445588;
-  font-weight: bold;
-}
-pre.rouge .no {
-  color: #008080;
+pre.rouge .s, pre.rouge .sa, pre.rouge .sc, pre.rouge .dl, pre.rouge .sd, pre.rouge .s2, pre.rouge .se, pre.rouge .sh, pre.rouge .sx, pre.rouge .s1, pre.rouge .ss {
+  color: #0a3069;
 }
 pre.rouge .nd {
-  color: #3c5d5d;
-  font-weight: bold;
-}
-pre.rouge .ni {
-  color: #800080;
-}
-pre.rouge .ne {
-  color: #990000;
-  font-weight: bold;
+  color: #8250df;
 }
 pre.rouge .nf, pre.rouge .fm {
-  color: #990000;
+  color: #8250df;
+}
+pre.rouge .err {
+  color: #f6f8fa;
+  background-color: #82071e;
+}
+pre.rouge .c, pre.rouge .ch, pre.rouge .cd, pre.rouge .cm, pre.rouge .cp, pre.rouge .cpf, pre.rouge .c1, pre.rouge .cs {
+  color: #6e7781;
+}
+pre.rouge .gl {
+  color: #6e7781;
+}
+pre.rouge .gt {
+  color: #6e7781;
+}
+pre.rouge .ni {
+  color: #24292f;
+}
+pre.rouge .si {
+  color: #24292f;
+}
+pre.rouge .ge {
+  color: #24292f;
+  font-style: italic;
+}
+pre.rouge .gs {
+  color: #24292f;
   font-weight: bold;
-}
-pre.rouge .nl {
-  color: #990000;
-  font-weight: bold;
-}
-pre.rouge .nn {
-  color: #555555;
-}
-pre.rouge .nt {
-  color: #000080;
-}
-pre.rouge .vc {
-  color: #008080;
-}
-pre.rouge .vg {
-  color: #008080;
-}
-pre.rouge .vi {
-  color: #008080;
-}
-pre.rouge .nv, pre.rouge .vm {
-  color: #008080;
-}
-pre.rouge .ow {
-  color: #000000;
-  font-weight: bold;
-}
-pre.rouge .o {
-  color: #000000;
-  font-weight: bold;
-}
-pre.rouge .w {
-  color: #bbbbbb;
-}
-pre.rouge {
-  background-color: #f8f8f8;
 }
 </style>
 <link rel="stylesheet" href="../katex/katex.min.css">
@@ -984,9 +891,9 @@ pre.rouge {
 <h1>The OpenCL<sup>&#8482;</sup> SPIR-V Environment Specification</h1>
 <div class="details">
 <span id="author" class="author">Khronos<sup>&#174;</sup> OpenCL Working Group</span><br>
-<span id="revnumber">version v3.0.17,</span>
-<span id="revdate">Thu, 24 Oct 2024 12:00:0 +0000</span>
-<br><span id="revremark">from git branch: main commit: 503dbce015b12289e5454a26daa7bea7e8c56688</span>
+<span id="revnumber">version v3.0.18,</span>
+<span id="revdate">Thu, 03 Apr 2025 12:00:0 +0000</span>
+<br><span id="revremark">from git branch: main commit: 2c2028732d7f84a6ec6a2fd54a02517ce98e9140</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -1012,6 +919,10 @@ pre.rouge {
 <li><a href="#required-capabilities-1.0">3.1. SPIR-V 1.0</a></li>
 <li><a href="#required-capabilities-1.1">3.2. SPIR-V 1.1</a></li>
 <li><a href="#required-capabilities-1.2">3.3. SPIR-V 1.2</a></li>
+<li><a href="#required-capabilities-1.3">3.4. SPIR-V 1.3</a></li>
+<li><a href="#required-capabilities-1.4">3.5. SPIR-V 1.4</a></li>
+<li><a href="#required-capabilities-1.5">3.6. SPIR-V 1.5</a></li>
+<li><a href="#required-capabilities-1.6">3.7. SPIR-V 1.6</a></li>
 </ul>
 </li>
 <li><a href="#validation-rules">4. Validation Rules</a></li>
@@ -1058,7 +969,7 @@ pre.rouge {
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2008-2024 The Khronos Group Inc.</p>
+<p>Copyright 2008-2025 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>This Specification is protected by copyright laws and contains material proprietary to Khronos.
@@ -2184,6 +2095,50 @@ above.</p>
 <p>SPIR-V 1.2 does not add any new required capabilities.</p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="required-capabilities-1.3"><a class="anchor" href="#required-capabilities-1.3"></a>3.4. SPIR-V 1.3</h3>
+<div class="paragraph">
+<p>An OpenCL environment supporting SPIR-V 1.3 must support SPIR-V 1.3
+modules that declare the capabilities required for SPIR-V 1.2 modules,
+above.</p>
+</div>
+<div class="paragraph">
+<p>SPIR-V 1.3 does not add any new required capabilities.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="required-capabilities-1.4"><a class="anchor" href="#required-capabilities-1.4"></a>3.5. SPIR-V 1.4</h3>
+<div class="paragraph">
+<p>An OpenCL environment supporting SPIR-V 1.4 must support SPIR-V 1.4
+modules that declare the capabilities required for SPIR-V 1.3 modules,
+above.</p>
+</div>
+<div class="paragraph">
+<p>SPIR-V 1.4 does not add any new required capabilities.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="required-capabilities-1.5"><a class="anchor" href="#required-capabilities-1.5"></a>3.6. SPIR-V 1.5</h3>
+<div class="paragraph">
+<p>An OpenCL environment supporting SPIR-V 1.5 must support SPIR-V 1.5
+modules that declare the capabilities required for SPIR-V 1.4 modules,
+above.</p>
+</div>
+<div class="paragraph">
+<p>SPIR-V 1.5 does not add any new required capabilities.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="required-capabilities-1.6"><a class="anchor" href="#required-capabilities-1.6"></a>3.7. SPIR-V 1.6</h3>
+<div class="paragraph">
+<p>An OpenCL environment supporting SPIR-V 1.6 must support SPIR-V 1.6
+modules that declare the capabilities required for SPIR-V 1.5 modules,
+above.</p>
+</div>
+<div class="paragraph">
+<p>SPIR-V 1.6 does not add any new required capabilities.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -3256,6 +3211,24 @@ declare the following SPIR-V capabilities:</p>
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p>If the OpenCL environment supports the extension <code>cl_khr_<wbr>integer_<wbr>dot_<wbr>product</code>
+and SPIR-V 1.6, then the environment must accept SPIR-V 1.6 modules that declare
+the following SPIR-V capabilities:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>DotProduct</strong></p>
+</li>
+<li>
+<p><strong>DotProductInput4x8Bit</strong> if <code>CL_DEVICE_<wbr>INTEGER_<wbr>DOT_<wbr>PRODUCT_<wbr>INPUT_<wbr>4x8BIT_<wbr>KHR</code> is supported</p>
+</li>
+<li>
+<p><strong>DotProductInput4x8BitPacked</strong></p>
+</li>
+</ul>
+</div>
 </div>
 <div class="sect3">
 <h4 id="_cl_khr_expect_assume"><a class="anchor" href="#_cl_khr_expect_assume"></a>5.2.25. <code>cl_khr_<wbr>expect_<wbr>assume</code></h4>
@@ -3672,7 +3645,7 @@ given as ULP values for the full profile.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpFDiv</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Correctly rounded</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 2.5 ulp</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 1.0 ulp</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpExtInst</strong> <strong>acos</strong></p></td>
@@ -5115,12 +5088,14 @@ profile.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpFDiv</strong> for 1.0 / <em>x</em></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">≤ 2.5 ulp for <em>x</em> in the domain of 2<sup>-126</sup> to 2<sup>126</sup> for the full
-      profile, and ≤ 3 ulp for the embedded profile.</p></td>
+      profile, and ≤ 3 ulp for <em>x</em> in the domain of 2<sup>-126</sup> to 2<sup>126</sup> for
+      the embedded profile.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpFDiv</strong> for <em>x</em> / <em>y</em></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">≤ 2.5 ulp for <em>x</em> in the domain of 2<sup>-62</sup> to 2<sup>62</sup> and <em>y</em> in the
-      domain of 2<sup>-62</sup> to 2<sup>62</sup> for the full profile, and ≤ 3 ulp for
+      domain of 2<sup>-62</sup> to 2<sup>62</sup> for the full profile, and ≤ 3 ulp for <em>x</em> in
+      the domain of 2<sup>-62</sup> to 2<sup>62</sup> and <em>y</em> in the domain of 2<sup>-62</sup> to 2<sup>62</sup> for
       the embedded profile.</p></td>
 </tr>
 <tr>
@@ -5204,12 +5179,12 @@ profile.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpExtInst</strong> <strong>exp</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">≤ 3 + <strong>floor</strong>(<strong>fabs</strong>(2 * <em>x</em>)) ulp for the full profile, and ≤
-      4 ulp for the embedded profile.</p></td>
+      4  + <strong>floor</strong>(<strong>fabs</strong>(2 * <em>x</em>)) ulp for the embedded profile.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpExtInst</strong> <strong>exp2</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">≤ 3 + <strong>floor</strong>(<strong>fabs</strong>(2 * <em>x</em>)) ulp for the full profile, and ≤
-      4 ulp for the embedded profile.</p></td>
+      4 + <strong>floor</strong>(<strong>fabs</strong>(2 * <em>x</em>)) ulp for the embedded profile.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpExtInst</strong> <strong>exp10</strong></p></td>
@@ -6750,7 +6725,7 @@ When approximate rounding is used instead of the preferred rounding, the result 
 When approximate rounding is used instead of the preferred rounding, the result of the conversion must satisfy the bound given below.</p>
 </div>
 <div class="paragraph">
-<p>The conversions from half precision floating-point values to normalized integer values are performed is as follows:</p>
+<p>The conversions from single precision floating-point values to normalized integer values are performed is as follows:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -6905,10 +6880,16 @@ A float INF must be converted to an appropriate INF in the half type.</p>
 <div class="sect3">
 <h4 id="conversion-rules-for-signed-and-unsigned-8-bit-16-bit-and-32-bit-integer-channel-data-types"><a class="anchor" href="#conversion-rules-for-signed-and-unsigned-8-bit-16-bit-and-32-bit-integer-channel-data-types"></a>7.4.4. Conversion Rules for Signed and Unsigned 8-bit, 16-bit and 32-bit Integer Channel Data Types</h4>
 <div class="paragraph">
-<p>For images created with image channel data type of <code>CL_SIGNED_<wbr>INT8</code>, <code>CL_SIGNED_<wbr>INT16</code> and <code>CL_SIGNED_<wbr>INT32</code>, image read instructions will return the unmodified integer values stored in the image at specified location.</p>
+<p>For images created with image channel data type of <code>CL_SIGNED_<wbr>INT8</code>,
+<code>CL_SIGNED_<wbr>INT16</code> and <code>CL_SIGNED_<wbr>INT32</code>, image read instructions will
+return the integer values stored in the image at specified location, after
+sign extension to 32 bits for integer values smaller than 32 bits.</p>
 </div>
 <div class="paragraph">
-<p>Likewise, for images created with image channel data type of <code>CL_UNSIGNED_<wbr>INT8</code>, <code>CL_UNSIGNED_<wbr>INT16</code> and <code>CL_UNSIGNED_<wbr>INT32</code>, image read instructions will return the unmodified unsigned integer values stored in the image at specified location.</p>
+<p>Likewise, for images created with image channel data type of <code>CL_UNSIGNED_<wbr>INT8</code>,
+<code>CL_UNSIGNED_<wbr>INT16</code> and <code>CL_UNSIGNED_<wbr>INT32</code>, image read instructions will return
+the integer values stored in the image at specified location, after
+zero extension to 32 bits for integer values smaller than 32 bits.</p>
 </div>
 <div class="paragraph">
 <p>Image write instructions will perform one of the following conversions:</p>
@@ -7639,6 +7620,22 @@ versions are summarized below.</p>
 </li>
 <li>
 <p>Documented valid coordinate types when reading from or writing to images, see <a href="https://github.com/KhronosGroup/OpenCL-Docs/pull/1242">#1242</a>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Changes from <strong>v3.0.17</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Updated the ULP requirements for the half-precision divide and reciprocal, see <a href="https://github.com/KhronosGroup/OpenCL-Docs/pull/1293">#1293</a>.</p>
+</li>
+<li>
+<p>Clarified the unsafe math accuracy requirements for the embedded profile, see <a href="https://github.com/KhronosGroup/OpenCL-Docs/pull/1318">#1318</a>.</p>
+</li>
+<li>
+<p>Updated the SPIR-V environment for SPIR-V 1.3, 1.4, 1.5, and 1.6, see <a href="https://github.com/KhronosGroup/OpenCL-Docs/pull/1331">#1331</a>.</p>
 </li>
 </ul>
 </div>
