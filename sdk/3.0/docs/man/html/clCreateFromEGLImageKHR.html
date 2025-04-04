@@ -852,6 +852,7 @@ If <em>errcode_ret</em> is <code>NULL</code>, no error code is returned.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Accepted for <em>flags</em> are <code>CL_MEM_<wbr>READ_<wbr>ONLY</code>, <code>CL_MEM_<wbr>WRITE_<wbr>ONLY</code>,
+<code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code>,
 and <code>CL_MEM_<wbr>READ_<wbr>WRITE</code>.
 If OpenCL 1.2 is supported, <em>flags</em> also accepts <code>CL_MEM_<wbr>HOST_<wbr>WRITE_<wbr>ONLY</code>,
 <code>CL_MEM_<wbr>HOST_<wbr>READ_<wbr>ONLY</code>, and <code>CL_MEM_<wbr>HOST_<wbr>NO_<wbr>ACCESS</code>.</p>
@@ -866,6 +867,11 @@ do not support host mapping.</p>
 <p>If the value passed in <em>flags</em> is not supported by the OpenCL
 implementation, it will return <code>CL_INVALID_<wbr>VALUE</code>.
 The accepted <em>flags</em> may be dependent upon the texture format used.</p>
+</div>
+<div class="paragraph">
+<p>If <code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code> is set in <em>flags</em>, the image created is
+an <em>immutable memory object</em> that cannot be modified by the implementation
+after creation.</p>
 </div>
 <div class="paragraph">
 <p><strong>clCreateFromEGLImageKHR</strong> returns a valid non-zero OpenCL image object and
@@ -906,6 +912,11 @@ required by the OpenCL implementation on the device.</p>
 images (i.e. <code>CL_DEVICE_<wbr>IMAGE_<wbr>SUPPORT</code> specified in table 4.3 is
 <code>CL_FALSE</code>) or if the flags passed are not supported for that image
 type.</p>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>VALUE</code> if <code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code> is set in <em>flags</em> and
+<code>CL_MEM_<wbr>READ_<wbr>WRITE</code>, <code>CL_MEM_<wbr>WRITE_<wbr>ONLY</code>, or <code>CL_MEM_<wbr>HOST_<wbr>WRITE_<wbr>ONLY</code>
+is set in <em>flags</em>.</p>
 </li>
 </ul>
 </div>

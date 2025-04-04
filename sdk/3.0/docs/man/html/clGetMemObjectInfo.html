@@ -992,6 +992,16 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
       <strong>clCreateFromD3D11Texture2DKHR</strong>, or <strong>clCreateFromD3D11Texture3DKHR</strong>,
       returns the <em>resource</em> argument specified when <em>memobj</em> was created.</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_MEM_<wbr>DEVICE_<wbr>ADDRESS_<wbr>EXT</code></p>
+<p class="tableblock">provided by the <code>cl_ext_buffer_device_address</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_mem_<wbr>device_<wbr>address_<wbr>ext</code>[]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If <em>memobj</em> was created using <strong>clCreateBufferWithProperties</strong> with
+      the <code>CL_MEM_<wbr>DEVICE_<wbr>PRIVATE_<wbr>ADDRESS_<wbr>EXT</code> property set to <code>CL_TRUE</code>,
+      returns a list of device addresses for the buffer, one for each
+      device in the context in the same order as the list of devices
+      passed to <strong>clCreateContext</strong>.</p></td>
+</tr>
 </tbody>
 </table>
 <div class="paragraph">
@@ -1003,6 +1013,11 @@ Otherwise, it returns one of the following errors:</p>
 <ul>
 <li>
 <p><code>CL_INVALID_<wbr>MEM_<wbr>OBJECT</code> if <em>memobj</em> is a not a valid memory object.</p>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>OPERATION</code> is returned for the <code>CL_MEM_<wbr>DEVICE_<wbr>ADDRESS_<wbr>EXT</code> query if
+the <code>cl_ext_<wbr>buffer_<wbr>device_<wbr>address</code> is not supported or if the
+buffer was not allocated with <code>CL_MEM_<wbr>DEVICE_<wbr>PRIVATE_<wbr>ADDRESS_<wbr>EXT</code>.</p>
 </li>
 <li>
 <p><code>CL_INVALID_<wbr>VALUE</code> if <em>param_name</em> is not one of the supported values, or

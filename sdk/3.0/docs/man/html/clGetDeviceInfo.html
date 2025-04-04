@@ -1137,7 +1137,13 @@ the <code>cl_khr_<wbr>image2d_<wbr>from_<wbr>buffer</code> extension is supporte
         The value returned must be a power of 2.</p>
 <p class="tableblock">        Support for 2D images created from a buffer is required for an OpenCL 2.0, 2.1,
         or 2.2 device if <code>CL_DEVICE_<wbr>IMAGE_<wbr>SUPPORT</code> is <code>CL_TRUE</code>.</p>
-<p class="tableblock">        This value must be 0 for devices that do not support 2D images created from a buffer.</p></td>
+<p class="tableblock">        This value must be 0 for devices that do not support 2D images created from a buffer.</p>
+<p class="tableblock">        If the <code>cl_khr_<wbr>image2d_<wbr>from_<wbr>buffer</code> and <code>cl_ext_<wbr>image_<wbr>requirements_<wbr>info</code>
+        extensions are supported, the value returned by <code>CL_DEVICE_<wbr>IMAGE_<wbr>PITCH_<wbr>ALIGNMENT</code>
+        after converting in bytes for the supported format with the biggest element size
+        (channel data type size × number of channels) must be greater than or equal to
+        the value returned by <code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>ROW_<wbr>PITCH_<wbr>ALIGNMENT_<wbr>EXT</code> for any
+        supported format.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>IMAGE_<wbr>BASE_<wbr>ADDRESS_<wbr>ALIGNMENT</code></p>
@@ -1151,7 +1157,14 @@ if the <code>cl_khr_<wbr>image2d_<wbr>from_<wbr>buffer</code> extension is suppo
         The value returned must be a power of 2.</p>
 <p class="tableblock">        Support for 2D images created from a buffer is required for an OpenCL 2.0, 2.1,
         or 2.2 device if <code>CL_DEVICE_<wbr>IMAGE_<wbr>SUPPORT</code> is <code>CL_TRUE</code>.</p>
-<p class="tableblock">        This value must be 0 for devices that do not support 2D images created from a buffer.</p></td>
+<p class="tableblock">        This value must be 0 for devices that do not support 2D images created from a buffer.</p>
+<p class="tableblock">        If the <code>cl_khr_<wbr>image2d_<wbr>from_<wbr>buffer</code> and <code>cl_ext_<wbr>image_<wbr>requirements_<wbr>info</code>
+        extensions are supported, the value returned by
+        <code>CL_DEVICE_<wbr>IMAGE_<wbr>BASE_<wbr>ADDRESS_<wbr>ALIGNMENT</code> after converting in bytes for the
+        supported format with the biggest element size
+        (channel data type size × number of channels) must be greater than or equal to
+        the value returned by <code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>BASE_<wbr>ADDRESS_<wbr>ALIGNMENT_<wbr>EXT</code> for any
+        supported format.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>MAX_<wbr>PIPE_<wbr>ARGS</code></p>
@@ -2262,6 +2275,13 @@ if the <code>cl_khr_<wbr>image2d_<wbr>from_<wbr>buffer</code> extension is suppo
       supported:</p>
 <p class="tableblock">      <code>CL_DEVICE_<wbr>TERMINATE_<wbr>CAPABILITY_<wbr>CONTEXT_<wbr>KHR</code> - Indicates that
       context termination is supported.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>CXX_<wbr>FOR_<wbr>OPENCL_<wbr>NUMERIC_<wbr>VERSION_<wbr>EXT</code></p>
+<p class="tableblock">provided by the <code>cl_ext_cxx_for_opencl</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_version</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the version of the C++ for OpenCL language supported by the
+      device compiler.</p></td>
 </tr>
 </tbody>
 </table>

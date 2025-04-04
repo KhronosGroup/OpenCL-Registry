@@ -816,6 +816,7 @@ cl_mem clCreateSubBuffer(
 information about the sub-buffer memory object being created and is
 described in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#memory-flags-table" target="_blank" rel="noopener">Memory Flags</a> table.
 If the <code>CL_MEM_<wbr>READ_<wbr>WRITE</code>, <code>CL_MEM_<wbr>READ_<wbr>ONLY</code>,
+<code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code>,
 or <code>CL_MEM_<wbr>WRITE_<wbr>ONLY</code> values are
 not specified in <em>flags</em>, they are inherited from the corresponding memory
 access qualifiers associated with <em>buffer</em>.
@@ -930,6 +931,11 @@ structure passed in <em>buffer_create_info</em> is 0.</p>
 associated with <em>buffer</em> for which the <em>origin</em> field of the
 <code>cl_buffer_<wbr>region</code> structure passed in <em>buffer_create_info</em> is
 aligned to the <code>CL_DEVICE_<wbr>MEM_<wbr>BASE_<wbr>ADDR_<wbr>ALIGN</code> value.</p>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>VALUE</code> if <em>buffer</em> was created with <code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code>
+and <em>flags</em> specifies <code>CL_MEM_<wbr>READ_<wbr>WRITE</code>, <code>CL_MEM_<wbr>WRITE_<wbr>ONLY</code>, or
+<code>CL_MEM_<wbr>HOST_<wbr>WRITE_<wbr>ONLY</code>.</p>
 </li>
 </ul>
 </div>

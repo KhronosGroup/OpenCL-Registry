@@ -863,9 +863,20 @@ memory handle, then the image row pitch is implementation-defined.
 The image row pitch must be ≥ <em>image_width</em> × the size of an
 image element in bytes, and must be a multiple of the size of an image
 element in bytes.
-For a 2D image created from a buffer the image row pitch must also be a
-multiple of the maximum of the <code>CL_DEVICE_<wbr>IMAGE_<wbr>PITCH_<wbr>ALIGNMENT</code> value
-for all devices in the context that support images.</p>
+For an image created from a buffer, the image row pitch must also</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Be a multiple of the <code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>ROW_<wbr>PITCH_<wbr>ALIGNMENT_<wbr>EXT</code> value
+for the <em>image_format</em>, <em>image_type</em> and <em>flags</em> used to create the image, if
+the <code>cl_ext_<wbr>image_<wbr>requirements_<wbr>info</code> extension is supported, or</p>
+</li>
+<li>
+<p>Be a multiple of the maximum of the <code>CL_DEVICE_<wbr>IMAGE_<wbr>PITCH_<wbr>ALIGNMENT</code> value
+for all devices in the context that support images, otherwise.</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p><em>image_slice_pitch</em> is the size in bytes of each 2D slice in a 3D image,
@@ -881,7 +892,11 @@ memory handle, then the image slice pitch is implementation-defined.
 The image slice pitch must be ≥ the image row pitch ×
 <em>image_height</em> for a 2D image array or a 3D image, must be ≥ the
 image row pitch for a 1D image array, and must be a multiple of the
-image row pitch.</p>
+image row pitch.
+For an image created from a buffer, the image slice pitch must be a multiple
+of the <code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>SLICE_<wbr>PITCH_<wbr>ALIGNMENT_<wbr>EXT</code> value for the
+<em>image_format</em>, <em>image_type</em> and <em>flags</em> used to create the image, if the
+<code>cl_ext_<wbr>image_<wbr>from_<wbr>buffer</code> extension is supported.</p>
 </li>
 <li>
 <p><em>num_mip_levels</em> must be <code>0</code>, indicating that the image has a single
@@ -898,6 +913,8 @@ including the base level <sup class="footnote">[<a id="_footnoteref_2" class="fo
 <code>mem_object</code> can be a buffer memory object if <code>image_type</code> is
 <code>CL_MEM_<wbr>OBJECT_<wbr>IMAGE1D_<wbr>BUFFER</code> or
 <code>CL_MEM_<wbr>OBJECT_<wbr>IMAGE2D</code>
+, or any other <code>image_type</code> if the <code>cl_ext_<wbr>image_<wbr>from_<wbr>buffer</code> extension
+is supported.
 <sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnotedef_3" title="View footnote.">3</a>]</sup>
 <code>mem_object</code> can be an image object if <code>image_type</code> is
 <code>CL_MEM_<wbr>OBJECT_<wbr>IMAGE2D</code> <sup class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnotedef_4" title="View footnote.">4</a>]</sup>.
@@ -921,12 +938,41 @@ The image data in the buffer object is stored as a single scanline which is
 a linear sequence of adjacent elements.</p>
 </div>
 <div class="paragraph">
+<p>For a 1D image created from a buffer object, the <code>image_width</code> × size of
+element in bytes must be ≤ size of the buffer object. The image data in the
+buffer object is stored as a single scanline which is a linear sequence of
+adjacent elements.</p>
+</div>
+<div class="paragraph">
+<p>For a 1D image array created from a buffer object, the <code>image_slice_pitch</code> ×
+<code>image_array_size</code> must be ≤ size of the buffer object specified by <code>mem_object</code>.
+The image data in the buffer object is stored as a linear sequence of adjacent 1D
+slices. Each slice is a single scanline padded to <code>image_slice_pitch</code> bytes.
+Each scanline is a linear sequence of image elements.</p>
+</div>
+<div class="paragraph">
 <p>For a 2D image created from a buffer object, the <code>image_row_pitch</code> ×
 <code>image_height</code> must be ≤ size of the buffer object specified by
 <code>mem_object</code>.
 The image data in the buffer object is stored as a linear sequence of
 adjacent scanlines.
 Each scanline is a linear sequence of image elements padded to
+<code>image_row_pitch</code> bytes.</p>
+</div>
+<div class="paragraph">
+<p>For a 2D image array created from a buffer object, the <code>image_slice_pitch</code> ×
+<code>image_array_size</code> must be ≤ size of the buffer object specified by <code>mem_object</code>.
+The image data in the buffer object is stored as a linear sequence of adjacent 2D
+slices. Each slice is a linear sequence of adjacent scanlines padded to
+<code>image_slice_pitch</code> bytes. Each scanline is a linear sequence of image elements padded
+to <code>image_row_pitch</code> bytes.</p>
+</div>
+<div class="paragraph">
+<p>For a 3D image created from a buffer object, the <code>image_slice_pitch</code> ×
+<code>image_depth</code> must be ≤ size of the buffer object specified by <code>mem_object</code>.
+The image data in the buffer object is stored as a linear sequence of adjacent 2D
+slices padded to <code>image_slice_pitch</code> bytes. Each slice is a linear sequence of adjacent
+scanlines. Each scanline is a linear sequence of image elements padded to
 <code>image_row_pitch</code> bytes.</p>
 </div>
 <div class="paragraph">
@@ -941,10 +987,21 @@ descriptor information associated with <code>mem_object</code>.</p>
 <div class="paragraph">
 <p>If the buffer object specified by <code>mem_object</code> was created with
 <code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code>, the <em>host_ptr</em> specified to <strong>clCreateBuffer</strong> or
-<strong>clCreateBufferWithProperties</strong> must be aligned to the maximum of the
-<code>CL_DEVICE_<wbr>IMAGE_<wbr>BASE_<wbr>ADDRESS_<wbr>ALIGNMENT</code> value for all devices in the
-context associated with the buffer specified by <code>mem_object</code> that
-support images.</p>
+<strong>clCreateBufferWithProperties</strong> must</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Be aligned to the <code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>BASE_<wbr>ADDRESS_<wbr>ALIGNMENT_<wbr>EXT</code> value
+for the returned for parameters compatible with those used to create the
+image, if the <code>cl_ext_<wbr>image_<wbr>requirements_<wbr>info</code> extension is supported, or</p>
+</li>
+<li>
+<p>Be aligned to the maximum of the <code>CL_DEVICE_<wbr>IMAGE_<wbr>BASE_<wbr>ADDRESS_<wbr>ALIGNMENT</code>
+value for all devices in the context associated with the buffer specified by
+<code>mem_object</code> that support images, otherwise.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>Creating a 2D image object from another 2D image object creates a new
@@ -1066,7 +1123,7 @@ undefined.</p>
 <h2 id="_see_also"><a class="anchor" href="#_see_also"></a>See Also</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="CL_VERSION_1_2.html">CL_VERSION_1_2</a>, <a href="clCreateImage.html">clCreateImage</a>, <a href="clCreateImageWithProperties.html">clCreateImageWithProperties</a>, <a href="cl_mem_object_type.html">cl_mem_object_type</a>, <a href="cl_uint.html">cl_uint</a></p>
+<p><a href="CL_VERSION_1_2.html">CL_VERSION_1_2</a>, <a href="clCreateImage.html">clCreateImage</a>, <a href="clCreateImageWithProperties.html">clCreateImageWithProperties</a>, <a href="clGetImageRequirementsInfoEXT.html">clGetImageRequirementsInfoEXT</a>, <a href="cl_mem_object_type.html">cl_mem_object_type</a>, <a href="cl_uint.html">cl_uint</a></p>
 </div>
 </div>
 </div>

@@ -904,6 +904,26 @@ model.</p>
         <code>CL_MEM_<wbr>DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>END_<wbr>KHR</code>) to associate with the
         external memory handle.</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_MEM_<wbr>DEVICE_<wbr>PRIVATE_<wbr>ADDRESS_<wbr>EXT</code></p>
+<p class="tableblock">provided by the <code>cl_ext_buffer_device_address</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_bool</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When set to <code>CL_TRUE</code>, specifies that the buffer must have a single fixed
+      device-side address for its lifetime, and the address can be queried via <strong>clGetMemObjectInfo</strong>.</p>
+<p class="tableblock">   Each device in the context can have their own (fixed) device-side address and
+   a copy of the created buffer which are synchronized
+   implicitly by the runtime.</p>
+<p class="tableblock">   The flag might imply that the buffer will be "pinned" permanently to
+   a device&#8217;s memory, but might not be necessarily so, as long as the address
+   range of the buffer remains constant.</p>
+<p class="tableblock">   The device addresses of sub-buffers derived from <code>CL_MEM_<wbr>DEVICE_<wbr>PRIVATE_<wbr>ADDRESS_<wbr>EXT</code>
+   allocated buffers can be computed by adding the sub-buffer origin to the
+   device-specific start address.</p>
+<p class="tableblock">   If the device supports SVM and <strong>clCreateBufferWithProperties</strong> is called with a pointer
+   returned by <strong>clSVMAlloc</strong> as its <em>host_ptr</em> argument, and <code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code> is
+   set in its <em>flags</em> argument, the device-side address is guaranteed to match
+   the <em>host_ptr</em>.</p></td>
+</tr>
 </tbody>
 </table>
 <div class="paragraph">
@@ -920,6 +940,21 @@ When a buffer is created from an external memory handle, the
 <em>flags</em> used to specify usage information for the buffer must not
 include <code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code>, <code>CL_MEM_<wbr>ALLOC_<wbr>HOST_<wbr>PTR</code>, or
 <code>CL_MEM_<wbr>COPY_<wbr>HOST_<wbr>PTR</code>, and the <em>host_ptr</em> argument must be <code>NULL</code>.</p>
+</div>
+<div class="paragraph">
+<p>If <code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code> is set in <em>flags</em>, the buffer created is
+an <em>immutable memory object</em> that cannot be modified by the implementation
+after creation, and one and only one of the following conditions must be met:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Either <code>CL_MEM_<wbr>COPY_<wbr>HOST_<wbr>PTR</code> or <code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code> must be set in <em>flags</em>.</p>
+</li>
+<li>
+<p>An external memory handle must be included in <em>properties</em>.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p><strong>clCreateBuffer</strong> and <strong>clCreateBufferWithProperties</strong> returns a valid non-zero
@@ -1020,6 +1055,37 @@ includes <code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code>, <code>CL_MEM_<wbr>ALLO
 </li>
 <li>
 <p>if <em>properties</em> includes more than one external memory handle.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>OPERATION</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>If <em>properties</em> includes <code>CL_MEM_<wbr>DEVICE_<wbr>PRIVATE_<wbr>ADDRESS_<wbr>EXT</code> and there
+are no devices in the context that support the <code>cl_ext_<wbr>buffer_<wbr>device_<wbr>address</code>
+extension.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>VALUE</code> if <code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code> is set in <em>flags</em> and
+<code>CL_MEM_<wbr>READ_<wbr>WRITE</code>, <code>CL_MEM_<wbr>WRITE_<wbr>ONLY</code>, or <code>CL_MEM_<wbr>HOST_<wbr>WRITE_<wbr>ONLY</code>
+is set in <em>flags</em>.</p>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>VALUE</code> if <code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code> is set in <em>flags</em> and none
+of the following conditions are met</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_MEM_<wbr>COPY_<wbr>HOST_<wbr>PTR</code> or <code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code> is set in <em>flags</em>.</p>
+</li>
+<li>
+<p><em>properties</em> includes an external memory handle.</p>
 </li>
 </ul>
 </div>
@@ -1133,6 +1199,12 @@ includes <code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code>, <code>CL_MEM_<wbr>ALLO
     instance.
     To create a memory object that may be read from and written to use
     <code>CL_MEM_<wbr>READ_<wbr>WRITE</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code></p>
+<p class="tableblock">provided by the <code>cl_ext_immutable_memory_objects</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This flag specifies that the contents of the memory object cannot be altered
+    by the implementation after creation.</p></td>
 </tr>
 </tbody>
 </table>

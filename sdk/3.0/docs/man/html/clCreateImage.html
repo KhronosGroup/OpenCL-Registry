@@ -860,6 +860,9 @@ in <em>image_desc</em>&#8594;<em>mem_object</em>.
 If the <code>cl_khr_<wbr>image2d_<wbr>from_<wbr>buffer</code> extension is supported, a 2D image
 can be created from a buffer by specifying a buffer object in
 <em>image_desc</em>&#8594;<em>mem_object</em>.
+If the <code>cl_ext_<wbr>image_<wbr>from_<wbr>buffer</code> extension is supported, an image of
+any type can be created from a buffer by specifying a buffer object in
+<em>image_desc</em>&#8594;<em>mem_object</em>.
 A 2D image can be created from another 2D image object by specifying an
 image object in the <em>image_desc</em>&#8594;<em>mem_object</em>.
 Refer to the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#image-format-descriptor" target="_blank" rel="noopener">Image Format Descriptor</a> section
@@ -1019,6 +1022,26 @@ When such information is acquired at image creation time, it is used for the
 lifetime of the image object.</p>
 </div>
 <div class="paragraph">
+<p>If <code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code> is set in <em>flags</em>, the image created is
+an <em>immutable memory object</em> that cannot be modified by the implementation
+after creation, and one and only one of the following conditions must be met:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Either <code>CL_MEM_<wbr>COPY_<wbr>HOST_<wbr>PTR</code> or <code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code> must be set in <em>flags</em>.</p>
+</li>
+<li>
+<p>An external memory handle must be included in <em>properties</em>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If the image being created is created from another memory object and that memory
+object is an <em>immutable memory object</em>, then <code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code> must be set
+in <em>flags</em>.</p>
+</div>
+<div class="paragraph">
 <p><strong>clCreateImage</strong> and <strong>clCreateImageWithProperties</strong> returns a valid non-zero
 image object and <em>errcode_ret</em> is set to <code>CL_SUCCESS</code> if the image object
 is created successfully.
@@ -1044,9 +1067,18 @@ once.</p>
 are not valid or if <em>image_format</em> is <code>NULL</code>.</p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>IMAGE_<wbr>FORMAT_<wbr>DESCRIPTOR</code> if a 2D image is created from a
-buffer and the row pitch and base address alignment does not follow the
-rules described for creating a 2D image from a buffer.</p>
+<p><code>CL_INVALID_<wbr>IMAGE_<wbr>FORMAT_<wbr>DESCRIPTOR</code> if an image is created from a
+buffer and the row pitch, or slice pitch, if the
+<code>cl_ext_<wbr>image_<wbr>from_<wbr>buffer</code> extension is supported, or base address
+alignment do not follow the rules described for creating an image from a
+buffer.</p>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>IMAGE_<wbr>SIZE</code> if the <code>cl_ext_<wbr>image_<wbr>from_<wbr>buffer</code> extension is
+supported and an image is created from a buffer and the buffer passed in
+<em>image_desc</em>&#8594;<em>mem_object</em> is too small to be used as a data store for the
+image, e.g. if its size is smaller than the value returned for
+<code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>SIZE_<wbr>EXT</code> for the parameters used to create the image.</p>
 </li>
 <li>
 <p><code>CL_INVALID_<wbr>IMAGE_<wbr>FORMAT_<wbr>DESCRIPTOR</code> if a 2D image is created from a 2D
@@ -1159,6 +1191,29 @@ includes <code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code>, <code>CL_MEM_<wbr>ALLO
 </li>
 <li>
 <p>if <em>properties</em> includes more than one external memory handle.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>VALUE</code> if <code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code> is set in <em>flags</em> and
+<code>CL_MEM_<wbr>READ_<wbr>WRITE</code>, <code>CL_MEM_<wbr>WRITE_<wbr>ONLY</code>, or <code>CL_MEM_<wbr>HOST_<wbr>WRITE_<wbr>ONLY</code>
+is set in <em>flags</em>.</p>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>VALUE</code> if <code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code> is not set in <em>flags</em> and
+<em>mem_object</em> was created with <code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code>.</p>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>VALUE</code> if <code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code> is set in <em>flags</em> and none
+of the following conditions are met</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_MEM_<wbr>COPY_<wbr>HOST_<wbr>PTR</code> or <code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code> is set in <em>flags</em>.</p>
+</li>
+<li>
+<p><em>properties</em> includes an external memory handle.</p>
 </li>
 </ul>
 </div>

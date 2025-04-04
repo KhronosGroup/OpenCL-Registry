@@ -885,6 +885,16 @@ by <em>param_name</em> are specified.</p>
         <code>CL_KERNEL_<wbr>EXEC_<wbr>INFO_<wbr>SVM_<wbr>FINE_<wbr>GRAIN_<wbr>SYSTEM</code>, the default value is
         <code>CL_TRUE</code>.</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_KERNEL_<wbr>EXEC_<wbr>INFO_<wbr>DEVICE_<wbr>PTRS_<wbr>EXT</code></p>
+<p class="tableblock">provided by the <code>cl_ext_buffer_device_address</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_mem_<wbr>device_<wbr>address_<wbr>ext</code>[]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Device pointers must reference locations contained entirely within
+        buffers that are passed to kernel as arguments, or that are passed
+        through the execution information. Non-argument device pointers accessed
+        by the kernel must be specified by passing pointers to those buffers
+        via this <strong>clSetKernelExecInfo</strong> option.</p></td>
+</tr>
 </tbody>
 </table>
 <div class="paragraph">
@@ -901,6 +911,11 @@ Otherwise, it returns one of the following errors:</p>
 <p><code>CL_INVALID_<wbr>OPERATION</code> for <code>CL_KERNEL_<wbr>EXEC_<wbr>INFO_<wbr>SVM_<wbr>PTRS</code> and
 <code>CL_KERNEL_<wbr>EXEC_<wbr>INFO_<wbr>SVM_<wbr>FINE_<wbr>GRAIN_<wbr>SYSTEM</code> if no devices in
 the context associated with <em>kernel</em> support SVM.</p>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>OPERATION</code> for <code>CL_KERNEL_<wbr>EXEC_<wbr>INFO_<wbr>DEVICE_<wbr>PTRS_<wbr>EXT</code> if no
+device in the context associated with <em>kernel</em> support the <code>cl_ext_<wbr>buffer_<wbr>device_<wbr>address</code>
+extension.</p>
 </li>
 <li>
 <p><code>CL_INVALID_<wbr>VALUE</code> if <em>param_name</em> is not valid, if <em>param_value</em> is

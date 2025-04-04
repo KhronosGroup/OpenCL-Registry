@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.23">
-<title>clEnqueueCopyImage(3)</title>
+<title>cl_ext_float_atomics(3)</title>
 <style>
 /*! normalize.css v2.1.2 | MIT License | git.io/normalize */
 /* ========================================================================== HTML5 display definitions ========================================================================== */
@@ -764,123 +764,49 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 </script></head>
 <body class="manpage">
 <div id="header">
-<h1>clEnqueueCopyImage(3) Manual Page</h1>
+<h1>cl_ext_float_atomics(3) Manual Page</h1>
 <h2 id="_name">Name</h2>
 <div class="sectionbody">
-<p>clEnqueueCopyImage - Enqueues a command to copy image objects.</p>
+<p>cl_ext_float_atomics - OpenCL extension</p>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_c_specification"><a class="anchor" href="#_c_specification"></a>C Specification</h2>
+<h2 id="_ratification_status"><a class="anchor" href="#_ratification_status"></a>Ratification Status</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To enqueue a command to copy image objects, call the function</p>
+<p>Not ratified</p>
 </div>
-<div id="clEnqueueCopyImage" class="listingblock">
+</div>
+</div>
+<div class="sect1">
+<h2 id="_extension_and_version_dependencies"><a class="anchor" href="#_extension_and_version_dependencies"></a>Extension and Version Dependencies</h2>
+<div class="sectionbody">
+<div class="openblock">
 <div class="content">
-<pre class="highlight"><code class="language-opencl" data-lang="opencl">// Provided by CL_VERSION_1_0
-cl_int clEnqueueCopyImage(
-    cl_command_queue command_queue,
-    cl_mem src_image,
-    cl_mem dst_image,
-    const size_t* src_origin,
-    const size_t* dst_origin,
-    const size_t* region,
-    cl_uint num_events_in_wait_list,
-    const cl_event* event_wait_list,
-    cl_event* event);</code></pre>
+<div class="paragraph">
+<p><code><a href="#versions-2-0">OpenCL 2.0</a></code><br>
+or<br>
+<code><a href="#versions-3-0">OpenCL 3.0</a></code><br></p>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_parameters"><a class="anchor" href="#_parameters"></a>Parameters</h2>
+<h2 id="_other_extension_metadata"><a class="anchor" href="#_other_extension_metadata"></a>Other Extension Metadata</h2>
 <div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p><em>src_image</em> and <em>dst_image</em> can be 1D, 2D, 3D image or a 1D, 2D image array
-objects.
-It is possible to copy subregions between any combinations of source and
-destination types, provided that the dimensions of the subregions are the
-same e.g., one can copy a rectangular region from a 2D image to a slice of a
-3D image.</p>
-</li>
-<li>
-<p><em>command_queue</em> refers to the host command-queue in which the copy command
-will be queued.
-The OpenCL context associated with <em>command_queue</em>, <em>src_image</em> and
-<em>dst_image</em> must be the same.</p>
-</li>
-<li>
-<p><em>src_origin</em> defines the (<em>x</em>, <em>y</em>, <em>z</em>) offset in pixels in the 1D, 2D or
-3D image, the (<em>x</em>, <em>y</em>) offset and the image index in the 2D image array or
-the (<em>x</em>) offset and the image index in the 1D image array.
-If <em>image</em> is a 2D image object, <em>src_origin</em>[2] must be 0.
-If <em>src_image</em> is a 1D image object, <em>src_origin</em>[1] and <em>src_origin</em>[2]
-must be 0.
-If <em>src_image</em> is a 1D image array object, <em>src_origin</em>[2] must be 0.
-If <em>src_image</em> is a 1D image array object, <em>src_origin</em>[1] describes the
-image index in the 1D image array.
-If <em>src_image</em> is a 2D image array object, <em>src_origin</em>[2] describes the
-image index in the 2D image array.
-If <em>src_image</em> is a mipmapped image, the mip level to read is determined
-from <em>src_origin</em> as described in <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#image-mipmap-access" target="_blank" rel="noopener">Specifying
-Mipmap Levels to Image Operations</a></p>
-</li>
-<li>
-<p><em>dst_origin</em> defines the (<em>x</em>, <em>y</em>, <em>z</em>) offset in pixels in the 1D, 2D or
-3D image, the (<em>x</em>, <em>y</em>) offset and the image index in the 2D image array or
-the (<em>x</em>) offset and the image index in the 1D image array.
-If <em>dst_image</em> is a 2D image object, <em>dst_origin</em>[2] must be 0.
-If <em>dst_image</em> is a 1D image or 1D image buffer object, <em>dst_origin</em>[1] and
-<em>dst_origin</em>[2] must be 0.
-If <em>dst_image</em> is a 1D image array object, <em>dst_origin</em>[2] must be 0.
-If <em>dst_image</em> is a 1D image array object, <em>dst_origin</em>[1] describes the
-image index in the 1D image array.
-If <em>dst_image</em> is a 2D image array object, <em>dst_origin</em>[2] describes the
-image index in the 2D image array.
-If <em>dst_image</em> is a mipmapped image, the mip level to write is
-determined from <em>dst_origin</em> as described in <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#image-mipmap-access" target="_blank" rel="noopener">Specifying Mipmap Levels to Image Operations</a></p>
-</li>
-<li>
-<p><em>region</em> defines the (<em>width</em>, <em>height</em>, <em>depth</em>) in pixels of the 1D, 2D or
-3D rectangle, the (<em>width</em>, <em>height</em>) in pixels of the 2D rectangle and the
-number of images of a 2D image array or the (<em>width</em>) in pixels of the 1D
-rectangle and the number of images of a 1D image array.
-If <em>src_image</em> or <em>dst_image</em> is a 2D image object, <em>region</em>[2] must be 1.
-If <em>src_image</em> or <em>dst_image</em> is a 1D image or 1D image buffer object,
-<em>region</em>[1] and <em>region</em>[2] must be 1.
-If <em>src_image</em> or <em>dst_image</em> is a 1D image array object, <em>region</em>[2] must
-be 1.
-The values in <em>region</em> cannot be 0.</p>
-</li>
-<li>
-<p><em>event_wait_list</em> and <em>num_events_in_wait_list</em> specify events that need to
-complete before this particular command can be executed.
-If <em>event_wait_list</em> is <code>NULL</code>, then this particular command does not wait
-on any event to complete.
-If <em>event_wait_list</em> is <code>NULL</code>, <em>num_events_in_wait_list</em> must be 0.
-If <em>event_wait_list</em> is not <code>NULL</code>, the list of events pointed to by
-<em>event_wait_list</em> must be valid and <em>num_events_in_wait_list</em> must be
-greater than 0.
-The events specified in <em>event_wait_list</em> act as synchronization points.
-The context associated with events in <em>event_wait_list</em> and <em>command_queue</em>
-must be the same.
-The memory associated with <em>event_wait_list</em> can be reused or freed after
-the function returns.</p>
-</li>
-<li>
-<p><em>event</em> returns an event object that identifies this copy command
-and can be used to query or queue a wait for this command to complete.
-If <em>event</em> is <code>NULL</code> or the enqueue is unsuccessful, no event will be
-created and therefore it will not be possible to query the status of this
-command or to wait for this command to complete.
-If <em>event_wait_list</em> and <em>event</em> are not <code>NULL</code>, <em>event</em> must not refer
-to an element of the <em>event_wait_list</em> array.</p>
-</li>
-</ul>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Last Modified Date</strong></dt>
+<dd>
+<p>2020-08-12</p>
+</dd>
+<dt class="hdlist1"><strong>IP Status</strong></dt>
+<dd>
+<p>No known IP claims.</p>
+</dd>
+</dl>
 </div>
 </div>
 </div>
@@ -888,101 +814,25 @@ to an element of the <em>event_wait_list</em> array.</p>
 <h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>It is currently a requirement that the <em>src_image</em> and <em>dst_image</em> image
-memory objects for <strong>clEnqueueCopyImage</strong> must have the exact same image
-format (i.e. the <code>cl_image_<wbr>format</code> descriptor specified when <em>src_image</em> and
-<em>dst_image</em> are created must match).</p>
+<p>The latest published specification for this extension is available on
+the <a href="https://registry.khronos.org/OpenCL/extensions/ext/cl_ext_float_atomics.html">OpenCL registry</a>.</p>
 </div>
-<div class="paragraph">
-<p>The usage information which indicates whether the memory object can be read
-or written by a kernel and/or the host and is given by the <code>cl_mem_<wbr>flags</code>
-argument value specified when <em>src_image</em> or <em>dst_image</em> is created is ignored by
-<strong>clEnqueueCopyImage</strong>.</p>
 </div>
-<div class="paragraph">
-<p><strong>clEnqueueCopyImage</strong> returns <code>CL_SUCCESS</code> if the function is executed
-successfully.
-Otherwise, it returns one of the following errors:</p>
 </div>
+<div class="sect1">
+<h2 id="_version_history"><a class="anchor" href="#_version_history"></a>Version History</h2>
+<div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_INVALID_<wbr>COMMAND_<wbr>QUEUE</code> if <em>command_queue</em> is not a valid host
-command-queue.</p>
-</li>
+<p>Revision 1.0.0, 2020-08-12</p>
+<div class="ulist">
+<ul>
 <li>
-<p><code>CL_INVALID_<wbr>CONTEXT</code> if the context associated with <em>command_queue</em>,
-<em>src_image</em> and <em>dst_image</em> are not the same or if the context
-associated with <em>command_queue</em> and events in <em>event_wait_list</em> are not
-the same.</p>
+<p>First version.</p>
 </li>
-<li>
-<p><code>CL_INVALID_<wbr>MEM_<wbr>OBJECT</code> if <em>src_image</em> and <em>dst_image</em> are not valid image
-objects.</p>
-</li>
-<li>
-<p><code>CL_IMAGE_<wbr>FORMAT_<wbr>MISMATCH</code> if <em>src_image</em> and <em>dst_image</em> do not use the
-same image format.</p>
-</li>
-<li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if <em>src_origin</em>, <em>dst_origin</em>, or <em>region</em> is <code>NULL</code>.</p>
-</li>
-<li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if the 2D or 3D rectangular region specified by
-<em>src_origin</em> and <em>src_origin</em> +  <em>region</em> refers to a region outside
-<em>src_image</em>, or if the 2D or 3D rectangular region specified by
-<em>dst_origin</em> and <em>dst_origin</em> +  <em>region</em> refers to a region outside
-<em>dst_image</em>.</p>
-</li>
-<li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if values in <em>src_origin</em>, <em>dst_origin</em> and <em>region</em> do
-not follow rules described in the argument description for <em>src_origin</em>,
-<em>dst_origin</em> and <em>region</em>.</p>
-</li>
-<li>
-<p><code>CL_INVALID_<wbr>EVENT_<wbr>WAIT_<wbr>LIST</code> if <em>event_wait_list</em> is <code>NULL</code> and
-<em>num_events_in_wait_list</em> &gt; 0, or <em>event_wait_list</em> is not <code>NULL</code> and
-<em>num_events_in_wait_list</em> is 0, or if event objects in <em>event_wait_list</em>
-are not valid events.</p>
-</li>
-<li>
-<p><code>CL_INVALID_<wbr>IMAGE_<wbr>SIZE</code> if image dimensions (image width, height,
-specified or compute row and/or slice pitch) for <em>src_image</em> or
-<em>dst_image</em> are not supported by device associated with <em>queue</em>.</p>
-</li>
-<li>
-<p><code>CL_IMAGE_<wbr>FORMAT_<wbr>NOT_<wbr>SUPPORTED</code> if image format (image channel order and
-data type) for <em>src_image</em> or <em>dst_image</em> are not supported by device
-associated with <em>queue</em>.</p>
-</li>
-<li>
-<p><code>CL_MEM_<wbr>OBJECT_<wbr>ALLOCATION_<wbr>FAILURE</code> if there is a failure to allocate
-memory for data store associated with <em>src_image</em> or <em>dst_image</em>.</p>
-</li>
-<li>
-<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources required
-by the OpenCL implementation on the device.</p>
-</li>
-<li>
-<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code> if there is a failure to allocate resources
-required by the OpenCL implementation on the host.</p>
-</li>
-<li>
-<p><code>CL_INVALID_<wbr>OPERATION</code> if the device associated with <em>command_queue</em> does
-not support images (i.e. <code>CL_DEVICE_<wbr>IMAGE_<wbr>SUPPORT</code> specified in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#device-queries-table" target="_blank" rel="noopener">Device Queries</a> table is <code>CL_FALSE</code>).</p>
-</li>
-<li>
-<p><code>CL_MEM_<wbr>COPY_<wbr>OVERLAP</code> if <em>src_image</em> and <em>dst_image</em> are the same image
-object and the source and destination regions overlap.</p>
-</li>
-<li>
-<p><code>CL_INVALID_<wbr>MIP_<wbr>LEVEL</code> if the <code>cl_khr_<wbr>mipmap_<wbr>image</code> extension is
-supported, and the mip level specified in <em>src_origin</em> or <em>dst_origin</em>
-is not a valid level for the corresponding <em>src_image</em> or <em>dst_image</em>,</p>
-</li>
-<li>
-<p><code>CL_INVALID_<wbr>OPERATION</code> if <em>dst_image</em> was created with <code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code>.</p>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -992,7 +842,7 @@ is not a valid level for the corresponding <em>src_image</em> or <em>dst_image</
 <h2 id="_see_also"><a class="anchor" href="#_see_also"></a>See Also</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="CL_VERSION_1_0.html">CL_VERSION_1_0</a>, <a href="cl_command_queue.html">cl_command_queue</a>, <a href="cl_event.html">cl_event</a>, <a href="cl_mem.html">cl_mem</a>, <a href="cl_uint.html">cl_uint</a></p>
+<p>No cross-references are available</p>
 </div>
 </div>
 </div>
@@ -1000,11 +850,11 @@ is not a valid level for the corresponding <em>src_image</em> or <em>dst_image</
 <h2 id="_document_notes"><a class="anchor" href="#_document_notes"></a>Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#clEnqueueCopyImage" target="_blank" rel="noopener">OpenCL Specification</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#cl_ext_float_atomics" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
-<p>This page is extracted from the OpenCL Specification.
-Fixes and changes should be made to the Specification, not directly.</p>
+<p>This page is a generated document.
+Fixes and changes should be made to the generator scripts, not directly.</p>
 </div>
 </div>
 </div>

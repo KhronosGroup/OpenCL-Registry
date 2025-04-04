@@ -964,6 +964,12 @@ and <code>image_channel_order</code> must be a power of two.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Each channel component is an unnormalized signed 8-bit integer value</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_UNORM_<wbr>INT_<wbr>2_<wbr>101010_<wbr>EXT</code></p>
+<p class="tableblock">provided by the <code>cl_ext_image_unorm_int_2_101010</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Represents a normalized 2-10-10-10 four-channel ABGR image.
+    The channel order must be <code>CL_ABGR</code>.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_SIGNED_<wbr>INT16</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Each channel component is an unnormalized signed 16-bit integer value</p></td>
 </tr>
@@ -1102,7 +1108,9 @@ For <code>CL_UNORM_<wbr>SHORT_<wbr>555</code>, bit 15 is undefined, R is in bits
 For <code>CL_UNORM_<wbr>INT_<wbr>101010</code>, bits 31:30 are undefined, R is in bits 29:20, G in
 bits 19:10 and B in bits 9:0.
 For <code>CL_UNORM_<wbr>INT_<wbr>101010_<wbr>2</code>, R is in bits 31:22, G in bits 21:12, B in bits
-11:2 and A in bits 1:0.</p>
+11:2 and A in bits 1:0.
+For <code>CL_UNORM_<wbr>INT_<wbr>2_<wbr>101010_<wbr>EXT</code>, A is in bits 31:30, B in bits 29:20, G in bits
+19:10 and R in bits 9:0.</p>
 </div>
 <div class="paragraph">
 <p>OpenCL implementations must maintain the minimum precision specified by the
@@ -1118,7 +1126,7 @@ then the call to <strong>clCreateImage</strong>, <strong>clCreateImageWithProper
 <h2 id="_see_also"><a class="anchor" href="#_see_also"></a>See Also</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="CL_VERSION_1_0.html">CL_VERSION_1_0</a>, <a href="clCreateImage.html">clCreateImage</a>, <a href="clCreateImage2D.html">clCreateImage2D</a>, <a href="clCreateImage3D.html">clCreateImage3D</a>, <a href="clCreateImageWithProperties.html">clCreateImageWithProperties</a>, <a href="clGetSupportedImageFormats.html">clGetSupportedImageFormats</a>, <a href="cl_channel_order.html">cl_channel_order</a>, <a href="cl_channel_type.html">cl_channel_type</a></p>
+<p><a href="CL_VERSION_1_0.html">CL_VERSION_1_0</a>, <a href="clCreateImage.html">clCreateImage</a>, <a href="clCreateImage2D.html">clCreateImage2D</a>, <a href="clCreateImage3D.html">clCreateImage3D</a>, <a href="clCreateImageWithProperties.html">clCreateImageWithProperties</a>, <a href="clGetImageRequirementsInfoEXT.html">clGetImageRequirementsInfoEXT</a>, <a href="clGetSupportedImageFormats.html">clGetSupportedImageFormats</a>, <a href="cl_channel_order.html">cl_channel_order</a>, <a href="cl_channel_type.html">cl_channel_type</a></p>
 </div>
 </div>
 </div>
