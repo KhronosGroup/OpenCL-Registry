@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.16">
+<meta name="generator" content="Asciidoctor 2.0.23">
 <title>clReleaseContext(3)</title>
 <style>
 /*! normalize.css v2.1.2 | MIT License | git.io/normalize */
@@ -806,6 +806,8 @@ cl_int clReleaseContext(
 After the reference count becomes zero and all the objects attached to
 <em>context</em> (such as memory objects, command-queues) are released, the
 <em>context</em> is deleted.
+When the <em>context</em> is deleted, any commands associated with the context that
+have not completed may be abnormally terminated.
 Using this function to release a reference that was not obtained by creating
 the object or by calling <strong>clRetainContext</strong> causes undefined behavior.</p>
 </div>
@@ -855,7 +857,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2024 The Khronos Group Inc.</p>
+<p>Copyright 2014-2025 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>

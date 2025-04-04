@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.16">
+<meta name="generator" content="Asciidoctor 2.0.23">
 <title>clSetKernelArg(3)</title>
 <style>
 /*! normalize.css v2.1.2 | MIT License | git.io/normalize */
@@ -983,11 +983,24 @@ when the specified <em>arg_value</em> is not a valid device queue object.
 This error code is <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.0.</p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>ARG_<wbr>SIZE</code> if <em>arg_size</em> does not match the size of the data
-type for an argument that is not a memory object or if the argument is a
-memory object and <em>arg_size</em> != <code>sizeof(<code>cl_mem</code>)</code> or if <em>arg_size</em> is
-zero and the argument is declared with the local qualifier or if the
-argument is a sampler and <em>arg_size</em> != <code>sizeof(<code>cl_sampler</code>)</code>.</p>
+<p><code>CL_INVALID_<wbr>ARG_<wbr>SIZE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>arg_size</em> does not match the size of the data type for an argument
+that is not a memory object, or</p>
+</li>
+<li>
+<p>if the argument is a memory object and <em>arg_size</em> != <code>sizeof(<code>cl_mem</code>)</code>, or</p>
+</li>
+<li>
+<p>if <em>arg_size</em> is zero and the argument is declared with the <code>local</code> qualifier, or</p>
+</li>
+<li>
+<p>if the argument is a sampler and <em>arg_size</em> != <code>sizeof(<code>cl_sampler</code>)</code>.</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p><code>CL_MAX_<wbr>SIZE_<wbr>RESTRICTION_<wbr>EXCEEDED</code> if the size in bytes of the memory
@@ -998,11 +1011,21 @@ specified maximum size restriction for this argument, such as the
 This error code is <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.2.</p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>ARG_<wbr>VALUE</code> if the argument is an image declared with the
-<code>read_only</code> qualifier and <em>arg_value</em> refers to an image object created
-with <em>cl_mem_flags</em> of <code>CL_MEM_<wbr>WRITE_<wbr>ONLY</code> or if the image argument is
-declared with the <code>write_only</code> qualifier and <em>arg_value</em> refers to an
-image object created with <em>cl_mem_flags</em> of <code>CL_MEM_<wbr>READ_<wbr>ONLY</code>.</p>
+<p><code>CL_INVALID_<wbr>ARG_<wbr>VALUE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if the argument is an image declared with the <code>read_only</code> qualifier and
+<em>arg_value</em> refers to an image object created with <em>cl_mem_flags</em> of
+<code>CL_MEM_<wbr>WRITE_<wbr>ONLY</code>, or</p>
+</li>
+<li>
+<p>if the image argument is declared with the <code>write_only</code> qualifier and
+<em>arg_value</em> refers to an image object created with <em>cl_mem_flags</em> of
+<code>CL_MEM_<wbr>READ_<wbr>ONLY</code>.</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources required
@@ -1058,7 +1081,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2024 The Khronos Group Inc.</p>
+<p>Copyright 2014-2025 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
