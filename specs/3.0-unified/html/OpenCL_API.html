@@ -927,7 +927,7 @@ pre.rouge .gs {
 <div class="details">
 <span id="author" class="author">Khronos<sup>&#174;</sup> OpenCL Working Group</span><br>
 <span id="revnumber">version v3.0.18,</span>
-<span id="revdate">Thu, 03 Apr 2025 12:00:0 +0000</span>
+<span id="revdate">Thu, 03 Apr 2025 12:00:00 +0000</span>
 <br><span id="revremark">from git branch: main commit: 2c2028732d7f84a6ec6a2fd54a02517ce98e9140</span>
 </div>
 <div id="toc" class="toc2">
@@ -1024,6 +1024,7 @@ pre.rouge .gs {
 <li><a href="#_creating_image_objects_from_direct3d_textures_and_resources">5.3.11. Creating Image Objects From Direct3D Textures and Resources</a></li>
 <li><a href="#_creating_image_objects_from_egl_images">5.3.12. Creating Image Objects From EGL Images</a></li>
 <li><a href="#_creating_image_objects_from_opengl_textures_and_renderbuffers">5.3.13. Creating Image Objects From OpenGL Textures and Renderbuffers</a></li>
+<li><a href="#_querying_image_requirements">5.3.14. Querying Image Requirements</a></li>
 </ul>
 </li>
 <li><a href="#_pipes">5.4. Pipes</a>
@@ -1260,6 +1261,16 @@ pre.rouge .gs {
 <li><a href="#cl_khr_terminate_context">cl_khr_terminate_context</a></li>
 <li><a href="#cl_khr_throttle_hints">cl_khr_throttle_hints</a></li>
 <li><a href="#cl_khr_work_group_uniform_arithmetic">cl_khr_work_group_uniform_arithmetic</a></li>
+<li><a href="#cl_ext_buffer_device_address">cl_ext_buffer_device_address</a></li>
+<li><a href="#cl_ext_cxx_for_opencl">cl_ext_cxx_for_opencl</a></li>
+<li><a href="#cl_ext_device_fission">cl_ext_device_fission</a></li>
+<li><a href="#cl_ext_float_atomics">cl_ext_float_atomics</a></li>
+<li><a href="#cl_ext_image_from_buffer">cl_ext_image_from_buffer</a></li>
+<li><a href="#cl_ext_image_raw10_raw12">cl_ext_image_raw10_raw12</a></li>
+<li><a href="#cl_ext_image_requirements_info">cl_ext_image_requirements_info</a></li>
+<li><a href="#cl_ext_image_unorm_int_2_101010">cl_ext_image_unorm_int_2_101010</a></li>
+<li><a href="#cl_ext_immutable_memory_objects">cl_ext_immutable_memory_objects</a></li>
+<li><a href="#cl_ext_migrate_memobject">cl_ext_migrate_memobject</a></li>
 </ul>
 </li>
 <li><a href="#provisional-extension-appendices-list">List of Provisional Extensions</a>
@@ -2010,6 +2021,13 @@ formats.</p>
 </div>
 </div>
 </div>
+</dd>
+<dt class="hdlist1">Immutable Memory Object </dt>
+<dd>
+<p>A <em>memory object</em> whose contents cannot be altered by the implementation
+after creation.
+External entities may change the contents of
+<em>immutable memory objects</em> created from external handles.</p>
 </dd>
 <dt class="hdlist1">Implementation-Defined </dt>
 <dd>
@@ -6876,7 +6894,13 @@ the <a href="#cl_khr_image2d_from_buffer"><code>cl_khr_<wbr>image2d_<wbr>from_<w
         The value returned must be a power of 2.</p>
 <p class="tableblock">        Support for 2D images created from a buffer is required for an OpenCL 2.0, 2.1,
         or 2.2 device if <a href="#CL_DEVICE_IMAGE_SUPPORT"><code>CL_DEVICE_<wbr>IMAGE_<wbr>SUPPORT</code></a> is <a href="#CL_TRUE"><code>CL_TRUE</code></a>.</p>
-<p class="tableblock">        This value must be 0 for devices that do not support 2D images created from a buffer.</p></td>
+<p class="tableblock">        This value must be 0 for devices that do not support 2D images created from a buffer.</p>
+<p class="tableblock">        If the <a href="#cl_khr_image2d_from_buffer"><code>cl_khr_<wbr>image2d_<wbr>from_<wbr>buffer</code></a> and <a href="#cl_ext_image_requirements_info"><code>cl_ext_<wbr>image_<wbr>requirements_<wbr>info</code></a>
+        extensions are supported, the value returned by <a href="#CL_DEVICE_IMAGE_PITCH_ALIGNMENT"><code>CL_DEVICE_<wbr>IMAGE_<wbr>PITCH_<wbr>ALIGNMENT</code></a>
+        after converting in bytes for the supported format with the biggest element size
+        (channel data type size × number of channels) must be greater than or equal to
+        the value returned by <a href="#CL_IMAGE_REQUIREMENTS_ROW_PITCH_ALIGNMENT_EXT"><code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>ROW_<wbr>PITCH_<wbr>ALIGNMENT_<wbr>EXT</code></a> for any
+        supported format.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="CL_DEVICE_IMAGE_BASE_ADDRESS_ALIGNMENT"></a><a href="#CL_DEVICE_IMAGE_BASE_ADDRESS_ALIGNMENT"><code>CL_DEVICE_<wbr>IMAGE_<wbr>BASE_<wbr>ADDRESS_<wbr>ALIGNMENT</code></a></p>
@@ -6890,7 +6914,14 @@ if the <a href="#cl_khr_image2d_from_buffer"><code>cl_khr_<wbr>image2d_<wbr>from
         The value returned must be a power of 2.</p>
 <p class="tableblock">        Support for 2D images created from a buffer is required for an OpenCL 2.0, 2.1,
         or 2.2 device if <a href="#CL_DEVICE_IMAGE_SUPPORT"><code>CL_DEVICE_<wbr>IMAGE_<wbr>SUPPORT</code></a> is <a href="#CL_TRUE"><code>CL_TRUE</code></a>.</p>
-<p class="tableblock">        This value must be 0 for devices that do not support 2D images created from a buffer.</p></td>
+<p class="tableblock">        This value must be 0 for devices that do not support 2D images created from a buffer.</p>
+<p class="tableblock">        If the <a href="#cl_khr_image2d_from_buffer"><code>cl_khr_<wbr>image2d_<wbr>from_<wbr>buffer</code></a> and <a href="#cl_ext_image_requirements_info"><code>cl_ext_<wbr>image_<wbr>requirements_<wbr>info</code></a>
+        extensions are supported, the value returned by
+        <a href="#CL_DEVICE_IMAGE_BASE_ADDRESS_ALIGNMENT"><code>CL_DEVICE_<wbr>IMAGE_<wbr>BASE_<wbr>ADDRESS_<wbr>ALIGNMENT</code></a> after converting in bytes for the
+        supported format with the biggest element size
+        (channel data type size × number of channels) must be greater than or equal to
+        the value returned by <a href="#CL_IMAGE_REQUIREMENTS_BASE_ADDRESS_ALIGNMENT_EXT"><code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>BASE_<wbr>ADDRESS_<wbr>ALIGNMENT_<wbr>EXT</code></a> for any
+        supported format.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="CL_DEVICE_MAX_PIPE_ARGS"></a><a href="#CL_DEVICE_MAX_PIPE_ARGS"><code>CL_DEVICE_<wbr>MAX_<wbr>PIPE_<wbr>ARGS</code></a></p>
@@ -8001,6 +8032,13 @@ if the <a href="#cl_khr_image2d_from_buffer"><code>cl_khr_<wbr>image2d_<wbr>from
       supported:</p>
 <p class="tableblock">      <a id="CL_DEVICE_TERMINATE_CAPABILITY_CONTEXT_KHR"></a><a href="#CL_DEVICE_TERMINATE_CAPABILITY_CONTEXT_KHR"><code>CL_DEVICE_<wbr>TERMINATE_<wbr>CAPABILITY_<wbr>CONTEXT_<wbr>KHR</code></a> - Indicates that
       context termination is supported.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="CL_DEVICE_CXX_FOR_OPENCL_NUMERIC_VERSION_EXT"></a><a href="#CL_DEVICE_CXX_FOR_OPENCL_NUMERIC_VERSION_EXT"><code>CL_DEVICE_<wbr>CXX_<wbr>FOR_<wbr>OPENCL_<wbr>NUMERIC_<wbr>VERSION_<wbr>EXT</code></a></p>
+<p class="tableblock">provided by the <code>cl_ext_cxx_for_opencl</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_version</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the version of the C++ for OpenCL language supported by the
+      device compiler.</p></td>
 </tr>
 </tbody>
 </table>
@@ -11408,6 +11446,26 @@ model.</p>
         <a id="CL_MEM_DEVICE_HANDLE_LIST_END_KHR"></a><a href="#CL_MEM_DEVICE_HANDLE_LIST_END_KHR"><code>CL_MEM_<wbr>DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>END_<wbr>KHR</code></a>) to associate with the
         external memory handle.</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="CL_MEM_DEVICE_PRIVATE_ADDRESS_EXT"></a><a href="#CL_MEM_DEVICE_PRIVATE_ADDRESS_EXT"><code>CL_MEM_<wbr>DEVICE_<wbr>PRIVATE_<wbr>ADDRESS_<wbr>EXT</code></a></p>
+<p class="tableblock">provided by the <code>cl_ext_buffer_device_address</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_bool</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When set to <a href="#CL_TRUE"><code>CL_TRUE</code></a>, specifies that the buffer must have a single fixed
+      device-side address for its lifetime, and the address can be queried via <a href="#clGetMemObjectInfo"><strong>clGetMemObjectInfo</strong></a>.</p>
+<p class="tableblock">   Each device in the context can have their own (fixed) device-side address and
+   a copy of the created buffer which are synchronized
+   implicitly by the runtime.</p>
+<p class="tableblock">   The flag might imply that the buffer will be "pinned" permanently to
+   a device&#8217;s memory, but might not be necessarily so, as long as the address
+   range of the buffer remains constant.</p>
+<p class="tableblock">   The device addresses of sub-buffers derived from <a href="#CL_MEM_DEVICE_PRIVATE_ADDRESS_EXT"><code>CL_MEM_<wbr>DEVICE_<wbr>PRIVATE_<wbr>ADDRESS_<wbr>EXT</code></a>
+   allocated buffers can be computed by adding the sub-buffer origin to the
+   device-specific start address.</p>
+<p class="tableblock">   If the device supports SVM and <a href="#clCreateBufferWithProperties"><strong>clCreateBufferWithProperties</strong></a> is called with a pointer
+   returned by <a href="#clSVMAlloc"><strong>clSVMAlloc</strong></a> as its <em>host_ptr</em> argument, and <a href="#CL_MEM_USE_HOST_PTR"><code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code></a> is
+   set in its <em>flags</em> argument, the device-side address is guaranteed to match
+   the <em>host_ptr</em>.</p></td>
+</tr>
 </tbody>
 </table>
 <div class="paragraph">
@@ -11424,6 +11482,21 @@ When a buffer is created from an external memory handle, the
 <em>flags</em> used to specify usage information for the buffer must not
 include <a href="#CL_MEM_USE_HOST_PTR"><code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code></a>, <a href="#CL_MEM_ALLOC_HOST_PTR"><code>CL_MEM_<wbr>ALLOC_<wbr>HOST_<wbr>PTR</code></a>, or
 <a href="#CL_MEM_COPY_HOST_PTR"><code>CL_MEM_<wbr>COPY_<wbr>HOST_<wbr>PTR</code></a>, and the <em>host_ptr</em> argument must be <code>NULL</code>.</p>
+</div>
+<div class="paragraph">
+<p>If <a href="#CL_MEM_IMMUTABLE_EXT"><code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code></a> is set in <em>flags</em>, the buffer created is
+an <em>immutable memory object</em> that cannot be modified by the implementation
+after creation, and one and only one of the following conditions must be met:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Either <a href="#CL_MEM_COPY_HOST_PTR"><code>CL_MEM_<wbr>COPY_<wbr>HOST_<wbr>PTR</code></a> or <a href="#CL_MEM_USE_HOST_PTR"><code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code></a> must be set in <em>flags</em>.</p>
+</li>
+<li>
+<p>An external memory handle must be included in <em>properties</em>.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p><a href="#clCreateBuffer"><strong>clCreateBuffer</strong></a> and <a href="#clCreateBufferWithProperties"><strong>clCreateBufferWithProperties</strong></a> returns a valid non-zero
@@ -11524,6 +11597,37 @@ includes <a href="#CL_MEM_USE_HOST_PTR"><code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR
 </li>
 <li>
 <p>if <em>properties</em> includes more than one external memory handle.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><a href="#CL_INVALID_OPERATION"><code>CL_INVALID_<wbr>OPERATION</code></a></p>
+<div class="ulist">
+<ul>
+<li>
+<p>If <em>properties</em> includes <a href="#CL_MEM_DEVICE_PRIVATE_ADDRESS_EXT"><code>CL_MEM_<wbr>DEVICE_<wbr>PRIVATE_<wbr>ADDRESS_<wbr>EXT</code></a> and there
+are no devices in the context that support the <a href="#cl_ext_buffer_device_address"><code>cl_ext_<wbr>buffer_<wbr>device_<wbr>address</code></a>
+extension.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> if <a href="#CL_MEM_IMMUTABLE_EXT"><code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code></a> is set in <em>flags</em> and
+<a href="#CL_MEM_READ_WRITE"><code>CL_MEM_<wbr>READ_<wbr>WRITE</code></a>, <a href="#CL_MEM_WRITE_ONLY"><code>CL_MEM_<wbr>WRITE_<wbr>ONLY</code></a>, or <a href="#CL_MEM_HOST_WRITE_ONLY"><code>CL_MEM_<wbr>HOST_<wbr>WRITE_<wbr>ONLY</code></a>
+is set in <em>flags</em>.</p>
+</li>
+<li>
+<p><a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> if <a href="#CL_MEM_IMMUTABLE_EXT"><code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code></a> is set in <em>flags</em> and none
+of the following conditions are met</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#CL_MEM_COPY_HOST_PTR"><code>CL_MEM_<wbr>COPY_<wbr>HOST_<wbr>PTR</code></a> or <a href="#CL_MEM_USE_HOST_PTR"><code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code></a> is set in <em>flags</em>.</p>
+</li>
+<li>
+<p><em>properties</em> includes an external memory handle.</p>
 </li>
 </ul>
 </div>
@@ -11638,6 +11742,12 @@ includes <a href="#CL_MEM_USE_HOST_PTR"><code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR
     To create a memory object that may be read from and written to use
     <a href="#CL_MEM_READ_WRITE"><code>CL_MEM_<wbr>READ_<wbr>WRITE</code></a>.</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="CL_MEM_IMMUTABLE_EXT"></a><a href="#CL_MEM_IMMUTABLE_EXT"><code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code></a></p>
+<p class="tableblock">provided by the <code>cl_ext_immutable_memory_objects</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This flag specifies that the contents of the memory object cannot be altered
+    by the implementation after creation.</p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -11681,6 +11791,7 @@ existing buffer object, call the function</p>
 information about the sub-buffer memory object being created and is
 described in the <a href="#memory-flags-table">Memory Flags</a> table.
 If the <a href="#CL_MEM_READ_WRITE"><code>CL_MEM_<wbr>READ_<wbr>WRITE</code></a>, <a href="#CL_MEM_READ_ONLY"><code>CL_MEM_<wbr>READ_<wbr>ONLY</code></a>,
+<a href="#CL_MEM_IMMUTABLE_EXT"><code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code></a>,
 or <a href="#CL_MEM_WRITE_ONLY"><code>CL_MEM_<wbr>WRITE_<wbr>ONLY</code></a> values are
 not specified in <em>flags</em>, they are inherited from the corresponding memory
 access qualifiers associated with <em>buffer</em>.
@@ -11790,6 +11901,11 @@ structure passed in <em>buffer_create_info</em> is 0.</p>
 associated with <em>buffer</em> for which the <em>origin</em> field of the
 <a href="#cl_buffer_region"><code>cl_buffer_<wbr>region</code></a> structure passed in <em>buffer_create_info</em> is
 aligned to the <a href="#CL_DEVICE_MEM_BASE_ADDR_ALIGN"><code>CL_DEVICE_<wbr>MEM_<wbr>BASE_<wbr>ADDR_<wbr>ALIGN</code></a> value.</p>
+</li>
+<li>
+<p><a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> if <em>buffer</em> was created with <a href="#CL_MEM_IMMUTABLE_EXT"><code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code></a>
+and <em>flags</em> specifies <a href="#CL_MEM_READ_WRITE"><code>CL_MEM_<wbr>READ_<wbr>WRITE</code></a>, <a href="#CL_MEM_WRITE_ONLY"><code>CL_MEM_<wbr>WRITE_<wbr>ONLY</code></a>, or
+<a href="#CL_MEM_HOST_WRITE_ONLY"><code>CL_MEM_<wbr>HOST_<wbr>WRITE_<wbr>ONLY</code></a>.</p>
 </li>
 </ul>
 </div>
@@ -12033,6 +12149,10 @@ by the OpenCL implementation on the device.</p>
 <li>
 <p><a href="#CL_OUT_OF_HOST_MEMORY"><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code></a> if there is a failure to allocate resources
 required by the OpenCL implementation on the host.</p>
+</li>
+<li>
+<p><a href="#CL_INVALID_OPERATION"><code>CL_INVALID_<wbr>OPERATION</code></a> if <a href="#clEnqueueWriteBuffer"><strong>clEnqueueWriteBuffer</strong></a> is called on <em>buffer</em>
+which has been created with <a href="#CL_MEM_IMMUTABLE_EXT"><code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code></a>.</p>
 </li>
 </ul>
 </div>
@@ -12323,6 +12443,10 @@ by the OpenCL implementation on the device.</p>
 <p><a href="#CL_OUT_OF_HOST_MEMORY"><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code></a> if there is a failure to allocate resources
 required by the OpenCL implementation on the host.</p>
 </li>
+<li>
+<p><a href="#CL_INVALID_OPERATION"><code>CL_INVALID_<wbr>OPERATION</code></a> if <a href="#clEnqueueWriteBufferRect"><strong>clEnqueueWriteBufferRect</strong></a> is called on <em>buffer</em>
+which has been created with <a href="#CL_MEM_IMMUTABLE_EXT"><code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code></a>.</p>
+</li>
 </ul>
 </div>
 <div class="admonitionblock note">
@@ -12558,6 +12682,10 @@ by the OpenCL implementation on the device.</p>
 <li>
 <p><a href="#CL_OUT_OF_HOST_MEMORY"><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code></a> if there is a failure to allocate resources
 required by the OpenCL implementation on the host.</p>
+</li>
+<li>
+<p><a href="#CL_INVALID_OPERATION"><code>CL_INVALID_<wbr>OPERATION</code></a> if <em>dst_buffer</em> was created with
+<a href="#CL_MEM_IMMUTABLE_EXT"><code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code></a>.</p>
 </li>
 </ul>
 </div>
@@ -12808,6 +12936,10 @@ by the OpenCL implementation on the device.</p>
 <p><a href="#CL_OUT_OF_HOST_MEMORY"><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code></a> if there is a failure to allocate resources
 required by the OpenCL implementation on the host.</p>
 </li>
+<li>
+<p><a href="#CL_INVALID_OPERATION"><code>CL_INVALID_<wbr>OPERATION</code></a> if <em>dst_buffer</em> was created with
+<a href="#CL_MEM_IMMUTABLE_EXT"><code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code></a>.</p>
+</li>
 </ul>
 </div>
 </div>
@@ -12981,6 +13113,9 @@ by the OpenCL implementation on the device.</p>
 <li>
 <p><a href="#CL_OUT_OF_HOST_MEMORY"><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code></a> if there is a failure to allocate resources
 required by the OpenCL implementation on the host.</p>
+</li>
+<li>
+<p><a href="#CL_INVALID_OPERATION"><code>CL_INVALID_<wbr>OPERATION</code></a> if <em>buffer</em> was created with <a href="#CL_MEM_IMMUTABLE_EXT"><code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code></a>.</p>
 </li>
 </ul>
 </div>
@@ -13157,6 +13292,11 @@ required by the OpenCL implementation on the host.</p>
 <li>
 <p><a href="#CL_INVALID_OPERATION"><code>CL_INVALID_<wbr>OPERATION</code></a> if mapping would lead to overlapping regions being
 mapped for writing.</p>
+</li>
+<li>
+<p><a href="#CL_INVALID_OPERATION"><code>CL_INVALID_<wbr>OPERATION</code></a> if <em>buffer</em> was created with <a href="#CL_MEM_IMMUTABLE_EXT"><code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code></a>
+in <em>flags</em> and <a href="#CL_MAP_WRITE"><code>CL_MAP_<wbr>WRITE</code></a> or <a href="#CL_MAP_WRITE_INVALIDATE_REGION"><code>CL_MAP_<wbr>WRITE_<wbr>INVALIDATE_<wbr>REGION</code></a> is set
+in <em>map_flags</em>.</p>
 </li>
 </ul>
 </div>
@@ -13664,6 +13804,9 @@ in <em>image_desc</em>&#8594;<em>mem_object</em>.
 If the <a href="#cl_khr_image2d_from_buffer"><code>cl_khr_<wbr>image2d_<wbr>from_<wbr>buffer</code></a> extension is supported, a 2D image
 can be created from a buffer by specifying a buffer object in
 <em>image_desc</em>&#8594;<em>mem_object</em>.
+If the <a href="#cl_ext_image_from_buffer"><code>cl_ext_<wbr>image_<wbr>from_<wbr>buffer</code></a> extension is supported, an image of
+any type can be created from a buffer by specifying a buffer object in
+<em>image_desc</em>&#8594;<em>mem_object</em>.
 A 2D image can be created from another 2D image object by specifying an
 image object in the <em>image_desc</em>&#8594;<em>mem_object</em>.
 Refer to the <a href="#image-format-descriptor">Image Format Descriptor</a> section
@@ -13818,6 +13961,26 @@ When such information is acquired at image creation time, it is used for the
 lifetime of the image object.</p>
 </div>
 <div class="paragraph">
+<p>If <a href="#CL_MEM_IMMUTABLE_EXT"><code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code></a> is set in <em>flags</em>, the image created is
+an <em>immutable memory object</em> that cannot be modified by the implementation
+after creation, and one and only one of the following conditions must be met:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Either <a href="#CL_MEM_COPY_HOST_PTR"><code>CL_MEM_<wbr>COPY_<wbr>HOST_<wbr>PTR</code></a> or <a href="#CL_MEM_USE_HOST_PTR"><code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code></a> must be set in <em>flags</em>.</p>
+</li>
+<li>
+<p>An external memory handle must be included in <em>properties</em>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If the image being created is created from another memory object and that memory
+object is an <em>immutable memory object</em>, then <a href="#CL_MEM_IMMUTABLE_EXT"><code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code></a> must be set
+in <em>flags</em>.</p>
+</div>
+<div class="paragraph">
 <p><a href="#clCreateImage"><strong>clCreateImage</strong></a> and <a href="#clCreateImageWithProperties"><strong>clCreateImageWithProperties</strong></a> returns a valid non-zero
 image object and <em>errcode_ret</em> is set to <a href="#CL_SUCCESS"><code>CL_SUCCESS</code></a> if the image object
 is created successfully.
@@ -13843,9 +14006,18 @@ once.</p>
 are not valid or if <em>image_format</em> is <code>NULL</code>.</p>
 </li>
 <li>
-<p><a href="#CL_INVALID_IMAGE_FORMAT_DESCRIPTOR"><code>CL_INVALID_<wbr>IMAGE_<wbr>FORMAT_<wbr>DESCRIPTOR</code></a> if a 2D image is created from a
-buffer and the row pitch and base address alignment does not follow the
-rules described for creating a 2D image from a buffer.</p>
+<p><a href="#CL_INVALID_IMAGE_FORMAT_DESCRIPTOR"><code>CL_INVALID_<wbr>IMAGE_<wbr>FORMAT_<wbr>DESCRIPTOR</code></a> if an image is created from a
+buffer and the row pitch, or slice pitch, if the
+<a href="#cl_ext_image_from_buffer"><code>cl_ext_<wbr>image_<wbr>from_<wbr>buffer</code></a> extension is supported, or base address
+alignment do not follow the rules described for creating an image from a
+buffer.</p>
+</li>
+<li>
+<p><a href="#CL_INVALID_IMAGE_SIZE"><code>CL_INVALID_<wbr>IMAGE_<wbr>SIZE</code></a> if the <a href="#cl_ext_image_from_buffer"><code>cl_ext_<wbr>image_<wbr>from_<wbr>buffer</code></a> extension is
+supported and an image is created from a buffer and the buffer passed in
+<em>image_desc</em>&#8594;<em>mem_object</em> is too small to be used as a data store for the
+image, e.g. if its size is smaller than the value returned for
+<a href="#CL_IMAGE_REQUIREMENTS_SIZE_EXT"><code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>SIZE_<wbr>EXT</code></a> for the parameters used to create the image.</p>
 </li>
 <li>
 <p><a href="#CL_INVALID_IMAGE_FORMAT_DESCRIPTOR"><code>CL_INVALID_<wbr>IMAGE_<wbr>FORMAT_<wbr>DESCRIPTOR</code></a> if a 2D image is created from a 2D
@@ -13958,6 +14130,29 @@ includes <a href="#CL_MEM_USE_HOST_PTR"><code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR
 </li>
 <li>
 <p>if <em>properties</em> includes more than one external memory handle.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> if <a href="#CL_MEM_IMMUTABLE_EXT"><code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code></a> is set in <em>flags</em> and
+<a href="#CL_MEM_READ_WRITE"><code>CL_MEM_<wbr>READ_<wbr>WRITE</code></a>, <a href="#CL_MEM_WRITE_ONLY"><code>CL_MEM_<wbr>WRITE_<wbr>ONLY</code></a>, or <a href="#CL_MEM_HOST_WRITE_ONLY"><code>CL_MEM_<wbr>HOST_<wbr>WRITE_<wbr>ONLY</code></a>
+is set in <em>flags</em>.</p>
+</li>
+<li>
+<p><a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> if <a href="#CL_MEM_IMMUTABLE_EXT"><code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code></a> is not set in <em>flags</em> and
+<em>mem_object</em> was created with <a href="#CL_MEM_IMMUTABLE_EXT"><code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code></a>.</p>
+</li>
+<li>
+<p><a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> if <a href="#CL_MEM_IMMUTABLE_EXT"><code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code></a> is set in <em>flags</em> and none
+of the following conditions are met</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#CL_MEM_COPY_HOST_PTR"><code>CL_MEM_<wbr>COPY_<wbr>HOST_<wbr>PTR</code></a> or <a href="#CL_MEM_USE_HOST_PTR"><code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code></a> is set in <em>flags</em>.</p>
+</li>
+<li>
+<p><em>properties</em> includes an external memory handle.</p>
 </li>
 </ul>
 </div>
@@ -14092,6 +14287,12 @@ If <em>errcode_ret</em> is <code>NULL</code>, no error code is returned.</p>
 </ul>
 </div>
 <div class="paragraph">
+<p>If <a href="#CL_MEM_IMMUTABLE_EXT"><code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code></a> is set in <em>flags</em>, the image created is
+an <em>immutable memory object</em> that cannot be modified by the implementation
+after creation, and <a href="#CL_MEM_COPY_HOST_PTR"><code>CL_MEM_<wbr>COPY_<wbr>HOST_<wbr>PTR</code></a> or <a href="#CL_MEM_USE_HOST_PTR"><code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code></a> must be set
+in <em>flags</em>.</p>
+</div>
+<div class="paragraph">
 <p><a href="#clCreateImage2D"><strong>clCreateImage2D</strong></a> returns a valid non-zero image object created and the
 <em>errcode_ret</em> is set to <a href="#CL_SUCCESS"><code>CL_SUCCESS</code></a> if the image object is created
 successfully.
@@ -14142,6 +14343,10 @@ by the OpenCL implementation on the device.</p>
 <li>
 <p><a href="#CL_OUT_OF_HOST_MEMORY"><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code></a> if there is a failure to allocate resources
 required by the OpenCL implementation on the host.</p>
+</li>
+<li>
+<p><a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> if <a href="#CL_MEM_IMMUTABLE_EXT"><code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code></a> is set in <em>flags</em> and neither
+<a href="#CL_MEM_COPY_HOST_PTR"><code>CL_MEM_<wbr>COPY_<wbr>HOST_<wbr>PTR</code></a> nor <a href="#CL_MEM_USE_HOST_PTR"><code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code></a> is set in <em>flags</em>.</p>
 </li>
 </ul>
 </div>
@@ -14246,6 +14451,12 @@ If <em>errcode_ret</em> is <code>NULL</code>, no error code is returned.</p>
 </ul>
 </div>
 <div class="paragraph">
+<p>If <a href="#CL_MEM_IMMUTABLE_EXT"><code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code></a> is set in <em>flags</em>, the image created is
+an <em>immutable memory object</em> that cannot be modified by the implementation
+after creation, and <a href="#CL_MEM_COPY_HOST_PTR"><code>CL_MEM_<wbr>COPY_<wbr>HOST_<wbr>PTR</code></a> or <a href="#CL_MEM_USE_HOST_PTR"><code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code></a> must be set
+in <em>flags</em>.</p>
+</div>
+<div class="paragraph">
 <p><a href="#clCreateImage3D"><strong>clCreateImage3D</strong></a> returns a valid non-zero image object created and the
 <em>errcode_ret</em> is set to <a href="#CL_SUCCESS"><code>CL_SUCCESS</code></a> if the image object is created
 successfully.
@@ -14297,6 +14508,10 @@ by the OpenCL implementation on the device.</p>
 <li>
 <p><a href="#CL_OUT_OF_HOST_MEMORY"><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code></a> if there is a failure to allocate resources
 required by the OpenCL implementation on the host.</p>
+</li>
+<li>
+<p><a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> if <a href="#CL_MEM_IMMUTABLE_EXT"><code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code></a> is set in <em>flags</em> and neither
+<a href="#CL_MEM_COPY_HOST_PTR"><code>CL_MEM_<wbr>COPY_<wbr>HOST_<wbr>PTR</code></a> nor <a href="#CL_MEM_USE_HOST_PTR"><code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code></a> is set in <em>flags</em>.</p>
 </li>
 </ul>
 </div>
@@ -14486,6 +14701,12 @@ and <code>image_channel_order</code> must be a power of two.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Each channel component is an unnormalized signed 8-bit integer value</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="CL_UNORM_INT_2_101010_EXT"></a><a href="#CL_UNORM_INT_2_101010_EXT"><code>CL_UNORM_<wbr>INT_<wbr>2_<wbr>101010_<wbr>EXT</code></a></p>
+<p class="tableblock">provided by the <code>cl_ext_image_unorm_int_2_101010</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Represents a normalized 2-10-10-10 four-channel ABGR image.
+    The channel order must be <a href="#CL_ABGR"><code>CL_ABGR</code></a>.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="CL_SIGNED_INT16"></a><a href="#CL_SIGNED_INT16"><code>CL_SIGNED_<wbr>INT16</code></a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Each channel component is an unnormalized signed 16-bit integer value</p></td>
 </tr>
@@ -14624,7 +14845,9 @@ For <a href="#CL_UNORM_SHORT_555"><code>CL_UNORM_<wbr>SHORT_<wbr>555</code></a>,
 For <a href="#CL_UNORM_INT_101010"><code>CL_UNORM_<wbr>INT_<wbr>101010</code></a>, bits 31:30 are undefined, R is in bits 29:20, G in
 bits 19:10 and B in bits 9:0.
 For <a href="#CL_UNORM_INT_101010_2"><code>CL_UNORM_<wbr>INT_<wbr>101010_<wbr>2</code></a>, R is in bits 31:22, G in bits 21:12, B in bits
-11:2 and A in bits 1:0.</p>
+11:2 and A in bits 1:0.
+For <a href="#CL_UNORM_INT_2_101010_EXT"><code>CL_UNORM_<wbr>INT_<wbr>2_<wbr>101010_<wbr>EXT</code></a>, A is in bits 31:30, B in bits 29:20, G in bits
+19:10 and R in bits 9:0.</p>
 </div>
 <div class="paragraph">
 <p>OpenCL implementations must maintain the minimum precision specified by the
@@ -14725,9 +14948,20 @@ memory handle, then the image row pitch is implementation-defined.
 The image row pitch must be ≥ <em>image_width</em> × the size of an
 image element in bytes, and must be a multiple of the size of an image
 element in bytes.
-For a 2D image created from a buffer the image row pitch must also be a
-multiple of the maximum of the <a href="#CL_DEVICE_IMAGE_PITCH_ALIGNMENT"><code>CL_DEVICE_<wbr>IMAGE_<wbr>PITCH_<wbr>ALIGNMENT</code></a> value
-for all devices in the context that support images.</p>
+For an image created from a buffer, the image row pitch must also</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Be a multiple of the <a href="#CL_IMAGE_REQUIREMENTS_ROW_PITCH_ALIGNMENT_EXT"><code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>ROW_<wbr>PITCH_<wbr>ALIGNMENT_<wbr>EXT</code></a> value
+for the <em>image_format</em>, <em>image_type</em> and <em>flags</em> used to create the image, if
+the <a href="#cl_ext_image_requirements_info"><code>cl_ext_<wbr>image_<wbr>requirements_<wbr>info</code></a> extension is supported, or</p>
+</li>
+<li>
+<p>Be a multiple of the maximum of the <a href="#CL_DEVICE_IMAGE_PITCH_ALIGNMENT"><code>CL_DEVICE_<wbr>IMAGE_<wbr>PITCH_<wbr>ALIGNMENT</code></a> value
+for all devices in the context that support images, otherwise.</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p><em>image_slice_pitch</em> is the size in bytes of each 2D slice in a 3D image,
@@ -14743,7 +14977,11 @@ memory handle, then the image slice pitch is implementation-defined.
 The image slice pitch must be ≥ the image row pitch ×
 <em>image_height</em> for a 2D image array or a 3D image, must be ≥ the
 image row pitch for a 1D image array, and must be a multiple of the
-image row pitch.</p>
+image row pitch.
+For an image created from a buffer, the image slice pitch must be a multiple
+of the <a href="#CL_IMAGE_REQUIREMENTS_SLICE_PITCH_ALIGNMENT_EXT"><code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>SLICE_<wbr>PITCH_<wbr>ALIGNMENT_<wbr>EXT</code></a> value for the
+<em>image_format</em>, <em>image_type</em> and <em>flags</em> used to create the image, if the
+<a href="#cl_ext_image_from_buffer"><code>cl_ext_<wbr>image_<wbr>from_<wbr>buffer</code></a> extension is supported.</p>
 </li>
 <li>
 <p><em>num_mip_levels</em> must be <code>0</code>, indicating that the image has a single
@@ -14760,6 +14998,8 @@ including the base level <sup class="footnote">[<a id="_footnoteref_18" class="f
 <code>mem_object</code> can be a buffer memory object if <code>image_type</code> is
 <a href="#CL_MEM_OBJECT_IMAGE1D_BUFFER"><code>CL_MEM_<wbr>OBJECT_<wbr>IMAGE1D_<wbr>BUFFER</code></a> or
 <a href="#CL_MEM_OBJECT_IMAGE2D"><code>CL_MEM_<wbr>OBJECT_<wbr>IMAGE2D</code></a>
+, or any other <code>image_type</code> if the <a href="#cl_ext_image_from_buffer"><code>cl_ext_<wbr>image_<wbr>from_<wbr>buffer</code></a> extension
+is supported.
 <sup class="footnote">[<a id="_footnoteref_19" class="footnote" href="#_footnotedef_19" title="View footnote.">19</a>]</sup>
 <code>mem_object</code> can be an image object if <code>image_type</code> is
 <a href="#CL_MEM_OBJECT_IMAGE2D"><code>CL_MEM_<wbr>OBJECT_<wbr>IMAGE2D</code></a> <sup class="footnote">[<a id="_footnoteref_20" class="footnote" href="#_footnotedef_20" title="View footnote.">20</a>]</sup>.
@@ -14778,12 +15018,41 @@ The image data in the buffer object is stored as a single scanline which is
 a linear sequence of adjacent elements.</p>
 </div>
 <div class="paragraph">
+<p>For a 1D image created from a buffer object, the <code>image_width</code> × size of
+element in bytes must be ≤ size of the buffer object. The image data in the
+buffer object is stored as a single scanline which is a linear sequence of
+adjacent elements.</p>
+</div>
+<div class="paragraph">
+<p>For a 1D image array created from a buffer object, the <code>image_slice_pitch</code> ×
+<code>image_array_size</code> must be ≤ size of the buffer object specified by <code>mem_object</code>.
+The image data in the buffer object is stored as a linear sequence of adjacent 1D
+slices. Each slice is a single scanline padded to <code>image_slice_pitch</code> bytes.
+Each scanline is a linear sequence of image elements.</p>
+</div>
+<div class="paragraph">
 <p>For a 2D image created from a buffer object, the <code>image_row_pitch</code> ×
 <code>image_height</code> must be ≤ size of the buffer object specified by
 <code>mem_object</code>.
 The image data in the buffer object is stored as a linear sequence of
 adjacent scanlines.
 Each scanline is a linear sequence of image elements padded to
+<code>image_row_pitch</code> bytes.</p>
+</div>
+<div class="paragraph">
+<p>For a 2D image array created from a buffer object, the <code>image_slice_pitch</code> ×
+<code>image_array_size</code> must be ≤ size of the buffer object specified by <code>mem_object</code>.
+The image data in the buffer object is stored as a linear sequence of adjacent 2D
+slices. Each slice is a linear sequence of adjacent scanlines padded to
+<code>image_slice_pitch</code> bytes. Each scanline is a linear sequence of image elements padded
+to <code>image_row_pitch</code> bytes.</p>
+</div>
+<div class="paragraph">
+<p>For a 3D image created from a buffer object, the <code>image_slice_pitch</code> ×
+<code>image_depth</code> must be ≤ size of the buffer object specified by <code>mem_object</code>.
+The image data in the buffer object is stored as a linear sequence of adjacent 2D
+slices padded to <code>image_slice_pitch</code> bytes. Each slice is a linear sequence of adjacent
+scanlines. Each scanline is a linear sequence of image elements padded to
 <code>image_row_pitch</code> bytes.</p>
 </div>
 <div class="paragraph">
@@ -14798,10 +15067,21 @@ descriptor information associated with <code>mem_object</code>.</p>
 <div class="paragraph">
 <p>If the buffer object specified by <code>mem_object</code> was created with
 <a href="#CL_MEM_USE_HOST_PTR"><code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code></a>, the <em>host_ptr</em> specified to <a href="#clCreateBuffer"><strong>clCreateBuffer</strong></a> or
-<a href="#clCreateBufferWithProperties"><strong>clCreateBufferWithProperties</strong></a> must be aligned to the maximum of the
-<a href="#CL_DEVICE_IMAGE_BASE_ADDRESS_ALIGNMENT"><code>CL_DEVICE_<wbr>IMAGE_<wbr>BASE_<wbr>ADDRESS_<wbr>ALIGNMENT</code></a> value for all devices in the
-context associated with the buffer specified by <code>mem_object</code> that
-support images.</p>
+<a href="#clCreateBufferWithProperties"><strong>clCreateBufferWithProperties</strong></a> must</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Be aligned to the <a href="#CL_IMAGE_REQUIREMENTS_BASE_ADDRESS_ALIGNMENT_EXT"><code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>BASE_<wbr>ADDRESS_<wbr>ALIGNMENT_<wbr>EXT</code></a> value
+for the returned for parameters compatible with those used to create the
+image, if the <a href="#cl_ext_image_requirements_info"><code>cl_ext_<wbr>image_<wbr>requirements_<wbr>info</code></a> extension is supported, or</p>
+</li>
+<li>
+<p>Be aligned to the maximum of the <a href="#CL_DEVICE_IMAGE_BASE_ADDRESS_ALIGNMENT"><code>CL_DEVICE_<wbr>IMAGE_<wbr>BASE_<wbr>ADDRESS_<wbr>ALIGNMENT</code></a>
+value for all devices in the context associated with the buffer specified by
+<code>mem_object</code> that support images, otherwise.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>Creating a 2D image object from another 2D image object creates a new
@@ -14958,6 +15238,8 @@ be read from by a kernel, or <a href="#CL_MEM_WRITE_ONLY"><code>CL_MEM_<wbr>WRIT
 may be written to by a kernel, or <a href="#CL_MEM_KERNEL_READ_AND_WRITE"><code>CL_MEM_<wbr>KERNEL_<wbr>READ_<wbr>AND_<wbr>WRITE</code></a> to query
 image formats that may be both read from and written to by the same kernel
 instance.
+<em>flags</em> may also be <a href="#CL_MEM_IMMUTABLE_EXT"><code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code></a> to query image formats that
+may be used to create immutable images.
 Please see <a href="#image-format-mapping">Image Format Mapping</a> for clarification.</p>
 </li>
 <li>
@@ -15253,7 +15535,9 @@ parameter and any other image parameter.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>read_only</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#CL_MEM_READ_ONLY"><code>CL_MEM_<wbr>READ_<wbr>ONLY</code></a>,<br>
     <a href="#CL_MEM_READ_WRITE"><code>CL_MEM_<wbr>READ_<wbr>WRITE</code></a>,<br>
-    <a href="#CL_MEM_KERNEL_READ_AND_WRITE"><code>CL_MEM_<wbr>KERNEL_<wbr>READ_<wbr>AND_<wbr>WRITE</code></a></p></td>
+    <a href="#CL_MEM_KERNEL_READ_AND_WRITE"><code>CL_MEM_<wbr>KERNEL_<wbr>READ_<wbr>AND_<wbr>WRITE</code></a>
+    Additionally, if the <a href="#cl_ext_immutable_memory_objects"><code>cl_ext_<wbr>immutable_<wbr>memory_<wbr>objects</code></a> extension is supported:
+    <a href="#CL_MEM_IMMUTABLE_EXT"><code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>write_only</code></p></td>
@@ -16144,6 +16428,10 @@ required by the OpenCL implementation on the host.</p>
 supported, and the mip level specified in <em>origin</em> is not a valid level
 for <em>image</em>,</p>
 </li>
+<li>
+<p><a href="#CL_INVALID_OPERATION"><code>CL_INVALID_<wbr>OPERATION</code></a> if <a href="#clEnqueueWriteImage"><strong>clEnqueueWriteImage</strong></a> is called on <em>image</em> which
+has been created with <a href="#CL_MEM_IMMUTABLE_EXT"><code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code></a>.</p>
+</li>
 </ul>
 </div>
 <div class="admonitionblock note">
@@ -16414,6 +16702,9 @@ object and the source and destination regions overlap.</p>
 supported, and the mip level specified in <em>src_origin</em> or <em>dst_origin</em>
 is not a valid level for the corresponding <em>src_image</em> or <em>dst_image</em>,</p>
 </li>
+<li>
+<p><a href="#CL_INVALID_OPERATION"><code>CL_INVALID_<wbr>OPERATION</code></a> if <em>dst_image</em> was created with <a href="#CL_MEM_IMMUTABLE_EXT"><code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code></a>.</p>
+</li>
 </ul>
 </div>
 </div>
@@ -16614,6 +16905,9 @@ required by the OpenCL implementation on the host.</p>
 supported, and the mip level specified in <em>origin</em> is not a valid level
 for <em>image</em>,</p>
 </li>
+<li>
+<p><a href="#CL_INVALID_OPERATION"><code>CL_INVALID_<wbr>OPERATION</code></a> if <em>image</em> was created with <a href="#CL_MEM_IMMUTABLE_EXT"><code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code></a>.</p>
+</li>
 </ul>
 </div>
 </div>
@@ -16808,6 +17102,9 @@ required by the OpenCL implementation on the host.</p>
 supported, and the mip level specified in <em>src_origin</em> is not a valid
 level for <em>src_image</em>,</p>
 </li>
+<li>
+<p><a href="#CL_INVALID_OPERATION"><code>CL_INVALID_<wbr>OPERATION</code></a> if <em>dst_buffer</em> was created with <a href="#CL_MEM_IMMUTABLE_EXT"><code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code></a>.</p>
+</li>
 </ul>
 </div>
 </div>
@@ -17000,6 +17297,9 @@ required by the OpenCL implementation on the host.</p>
 <p><a href="#CL_INVALID_MIP_LEVEL"><code>CL_INVALID_<wbr>MIP_<wbr>LEVEL</code></a> if the <a href="#cl_khr_mipmap_image"><code>cl_khr_<wbr>mipmap_<wbr>image</code></a> extension is
 supported, and the mip level specified in <em>dst_origin</em> is not a valid
 level for <em>dst_image</em>,</p>
+</li>
+<li>
+<p><a href="#CL_INVALID_OPERATION"><code>CL_INVALID_<wbr>OPERATION</code></a> if <em>dst_image</em> was created with <a href="#CL_MEM_IMMUTABLE_EXT"><code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code></a>.</p>
 </li>
 </ul>
 </div>
@@ -17229,6 +17529,11 @@ required by the OpenCL implementation on the host.</p>
 <li>
 <p><a href="#CL_INVALID_OPERATION"><code>CL_INVALID_<wbr>OPERATION</code></a> if mapping would lead to overlapping regions being
 mapped for writing.</p>
+</li>
+<li>
+<p><a href="#CL_INVALID_OPERATION"><code>CL_INVALID_<wbr>OPERATION</code></a> if <em>image</em> was created with <a href="#CL_MEM_IMMUTABLE_EXT"><code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code></a>
+in <em>flags</em> and <a href="#CL_MAP_WRITE"><code>CL_MAP_<wbr>WRITE</code></a> or <a href="#CL_MAP_WRITE_INVALIDATE_REGION"><code>CL_MAP_<wbr>WRITE_<wbr>INVALIDATE_<wbr>REGION</code></a> is set
+in <em>map_flags</em>.</p>
 </li>
 </ul>
 </div>
@@ -18281,6 +18586,7 @@ If <em>errcode_ret</em> is <code>NULL</code>, no error code is returned.</p>
 </div>
 <div class="paragraph">
 <p>Accepted for <em>flags</em> are <a href="#CL_MEM_READ_ONLY"><code>CL_MEM_<wbr>READ_<wbr>ONLY</code></a>, <a href="#CL_MEM_WRITE_ONLY"><code>CL_MEM_<wbr>WRITE_<wbr>ONLY</code></a>,
+<a href="#CL_MEM_IMMUTABLE_EXT"><code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code></a>,
 and <a href="#CL_MEM_READ_WRITE"><code>CL_MEM_<wbr>READ_<wbr>WRITE</code></a>.
 If OpenCL 1.2 is supported, <em>flags</em> also accepts <a href="#CL_MEM_HOST_WRITE_ONLY"><code>CL_MEM_<wbr>HOST_<wbr>WRITE_<wbr>ONLY</code></a>,
 <a href="#CL_MEM_HOST_READ_ONLY"><code>CL_MEM_<wbr>HOST_<wbr>READ_<wbr>ONLY</code></a>, and <a href="#CL_MEM_HOST_NO_ACCESS"><code>CL_MEM_<wbr>HOST_<wbr>NO_<wbr>ACCESS</code></a>.</p>
@@ -18295,6 +18601,11 @@ do not support host mapping.</p>
 <p>If the value passed in <em>flags</em> is not supported by the OpenCL
 implementation, it will return <a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a>.
 The accepted <em>flags</em> may be dependent upon the texture format used.</p>
+</div>
+<div class="paragraph">
+<p>If <a href="#CL_MEM_IMMUTABLE_EXT"><code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code></a> is set in <em>flags</em>, the image created is
+an <em>immutable memory object</em> that cannot be modified by the implementation
+after creation.</p>
 </div>
 <div class="paragraph">
 <p><a href="#clCreateFromEGLImageKHR"><strong>clCreateFromEGLImageKHR</strong></a> returns a valid non-zero OpenCL image object and
@@ -18335,6 +18646,11 @@ required by the OpenCL implementation on the device.</p>
 images (i.e. <a href="#CL_DEVICE_IMAGE_SUPPORT"><code>CL_DEVICE_<wbr>IMAGE_<wbr>SUPPORT</code></a> specified in table 4.3 is
 <a href="#CL_FALSE"><code>CL_FALSE</code></a>) or if the flags passed are not supported for that image
 type.</p>
+</li>
+<li>
+<p><a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> if <a href="#CL_MEM_IMMUTABLE_EXT"><code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code></a> is set in <em>flags</em> and
+<a href="#CL_MEM_READ_WRITE"><code>CL_MEM_<wbr>READ_<wbr>WRITE</code></a>, <a href="#CL_MEM_WRITE_ONLY"><code>CL_MEM_<wbr>WRITE_<wbr>ONLY</code></a>, or <a href="#CL_MEM_HOST_WRITE_ONLY"><code>CL_MEM_<wbr>HOST_<wbr>WRITE_<wbr>ONLY</code></a>
+is set in <em>flags</em>.</p>
 </li>
 </ul>
 </div>
@@ -18765,6 +19081,267 @@ required by the OpenCL implementation on the host.</p>
 </div>
 </div>
 </div>
+<div class="sect3">
+<h4 id="_querying_image_requirements"><a class="anchor" href="#_querying_image_requirements"></a>5.3.14. Querying Image Requirements</h4>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>To get information specific to the requirements of an image before creating it call the function</p>
+</div>
+<div id="clGetImageRequirementsInfoEXT" class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="opencl"><span class="c1">// Provided by cl_ext_image_requirements_info</span>
+<span class="kt">cl_int</span> <span class="nf">clGetImageRequirementsInfoEXT</span><span class="p">(</span>
+    <span class="kt">cl_context</span> <span class="n">context</span><span class="p">,</span>
+    <span class="k">const</span> <span class="kt">cl_mem_properties</span><span class="o">*</span> <span class="n">properties</span><span class="p">,</span>
+    <span class="kt">cl_mem_flags</span> <span class="n">flags</span><span class="p">,</span>
+    <span class="k">const</span> <span class="kt">cl_image_format</span><span class="o">*</span> <span class="n">image_format</span><span class="p">,</span>
+    <span class="k">const</span> <span class="kt">cl_image_desc</span><span class="o">*</span> <span class="n">image_desc</span><span class="p">,</span>
+    <span class="kt">cl_image_requirements_info_ext</span> <span class="n">param_name</span><span class="p">,</span>
+    <span class="kt">size_t</span> <span class="n">param_value_size</span><span class="p">,</span>
+    <span class="kt">void</span><span class="o">*</span> <span class="n">param_value</span><span class="p">,</span>
+    <span class="kt">size_t</span><span class="o">*</span> <span class="n">param_value_size_ret</span><span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<a href="#clGetImageRequirementsInfoEXT"><strong>clGetImageRequirementsInfoEXT</strong></a> is provided by the <code>cl_ext_image_requirements_info</code> extension.
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><em>context</em> is the OpenCL context in which the query will be performed.</p>
+</li>
+<li>
+<p><em>properties</em> is an optional list of properties for the image object and their
+corresponding values. The list is terminated with the special property 0. If
+no properties are required, properties may be <code>NULL</code>.</p>
+</li>
+<li>
+<p><em>flags</em> is a bit-field that is used to specify allocation and usage information
+about the image format being queried and is described in the
+<a href="#memory-flags-table">Memory Flags</a> table. <em>flags</em> may be <a href="#CL_MEM_READ_WRITE"><code>CL_MEM_<wbr>READ_<wbr>WRITE</code></a> to
+specialize the query for images that may be read from and written to by different
+kernel instances when correctly ordered by event dependencies, or <a href="#CL_MEM_READ_ONLY"><code>CL_MEM_<wbr>READ_<wbr>ONLY</code></a>
+to specialize the query for images that may be read from by a kernel, or
+<a href="#CL_MEM_WRITE_ONLY"><code>CL_MEM_<wbr>WRITE_<wbr>ONLY</code></a> to specialiaze the query for images that may be written to by
+a kernel, or <a href="#CL_MEM_KERNEL_READ_AND_WRITE"><code>CL_MEM_<wbr>KERNEL_<wbr>READ_<wbr>AND_<wbr>WRITE</code></a> to specialize the query for images that
+may be both read from and written to by the same kernel instance. When <em>flags</em> is
+<code>0</code> the value returned for the query must be correct for all possible values of <em>flags</em>.</p>
+</li>
+<li>
+<p><em>image_format</em> is a pointer to a structure describing the format of the image
+for which requirements are being queried. Refer to the
+<a href="#image-format-descriptor">Image Format Descriptor</a> section for a detailed
+description.</p>
+</li>
+<li>
+<p><em>image_desc</em> is a pointer to a structure that describes type and dimensions of
+the image for which requirements are being queried. Refer to the
+<a href="#image-descriptor">Image Descriptor</a> section for a detailed description of
+the image descriptor.</p>
+</li>
+<li>
+<p><em>param_name</em> specifies the information to query.
+The list of supported <em>param_name</em> types and the information returned in
+<em>param_value</em> by <a href="#clGetImageRequirementsInfoEXT"><strong>clGetImageRequirementsInfoEXT</strong></a> is described in the
+<a href="#image-requirements-info-table">Image Requirements Queries</a> table.</p>
+</li>
+<li>
+<p><em>param_value</em> is a pointer to memory where the appropriate result being
+queried is returned.
+If <em>param_value</em> is <code>NULL</code>, it is ignored.</p>
+</li>
+<li>
+<p><em>param_value_size</em> is used to specify the size in bytes of memory pointed to
+by <em>param_value</em>.
+This size must be ≥ size of return type as described in the
+<a href="#image-requirements-info-table">Image Requirements Queries</a> table.</p>
+</li>
+<li>
+<p><em>param_value_size_ret</em> returns the actual size in bytes of data being
+queried by <em>param_name</em>.
+If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
+</li>
+</ul>
+</div>
+<table id="image-requirements-info-table" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 36. List of supported param_names by <a href="#clGetImageRequirementsInfoEXT"><strong>clGetImageRequirementsInfoEXT</strong></a></caption>
+<colgroup>
+<col style="width: 44.4444%;">
+<col style="width: 11.1111%;">
+<col style="width: 44.4445%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Image Format Info</th>
+<th class="tableblock halign-left valign-top">Return type</th>
+<th class="tableblock halign-left valign-top">Info. returned in <em>param_value</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="CL_IMAGE_REQUIREMENTS_BASE_ADDRESS_ALIGNMENT_EXT"></a><a href="#CL_IMAGE_REQUIREMENTS_BASE_ADDRESS_ALIGNMENT_EXT"><code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>BASE_<wbr>ADDRESS_<wbr>ALIGNMENT_<wbr>EXT</code></a></p>
+<p class="tableblock">provided by the <code>cl_ext_image_requirements_info</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>size_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the minimum alignment in bytes required for the data store backing
+  an image created using the parameters passed to <a href="#clGetImageRequirementsInfoEXT"><strong>clGetImageRequirementsInfoEXT</strong></a>.
+  <em>image_format</em> or <em>image_desc</em> are allowed to be <code>NULL</code>. When either or both is
+  <code>NULL</code> the implementation will return an alignment that would be sufficient for
+  all possible values of the missing argument.<br>
+  The value returned is a power of two.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="CL_IMAGE_REQUIREMENTS_ROW_PITCH_ALIGNMENT_EXT"></a><a href="#CL_IMAGE_REQUIREMENTS_ROW_PITCH_ALIGNMENT_EXT"><code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>ROW_<wbr>PITCH_<wbr>ALIGNMENT_<wbr>EXT</code></a></p>
+<p class="tableblock">provided by the <code>cl_ext_image_requirements_info</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>size_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the row pitch alignment required in bytes for images created from
+  a buffer with the parameters passed to <a href="#clGetImageRequirementsInfoEXT"><strong>clGetImageRequirementsInfoEXT</strong></a>.
+  The value returned is a power of two. <em>image_format</em> or <em>image_desc</em>
+  are allowed to be <code>NULL</code>. When either or both is <code>NULL</code> the value returned is
+  the minimum row pitch alignment that works for all possible values of the missing
+  argument(s).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="CL_IMAGE_REQUIREMENTS_SIZE_EXT"></a><a href="#CL_IMAGE_REQUIREMENTS_SIZE_EXT"><code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>SIZE_<wbr>EXT</code></a></p>
+<p class="tableblock">provided by the <code>cl_ext_image_requirements_info</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>size_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the minimal size in bytes that a buffer would need to be to back an
+  image created using the parameters passed to <a href="#clGetImageRequirementsInfoEXT"><strong>clGetImageRequirementsInfoEXT</strong></a>.
+ <br>
+  Both <em>image_format</em> and <em>image_desc</em> must be non-<code>NULL</code>, otherwise
+  <a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> is returned.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="CL_IMAGE_REQUIREMENTS_MAX_WIDTH_EXT"></a><a href="#CL_IMAGE_REQUIREMENTS_MAX_WIDTH_EXT"><code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>MAX_<wbr>WIDTH_<wbr>EXT</code></a></p>
+<p class="tableblock">provided by the <code>cl_ext_image_requirements_info</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_uint</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the max width supported for creating images with the parameters passed
+  to <a href="#clGetImageRequirementsInfoEXT"><strong>clGetImageRequirementsInfoEXT</strong></a>.
+  <em>image_format</em> or <em>image_desc</em> are allowed to be <code>NULL</code>. When either or both is
+  <code>NULL</code> the implementation will return a max width that would be supported for
+  all possible values of the missing argument(s).<br>
+  When <em>image_desc</em> is not <code>NULL</code>, the value of its <em>image_width</em> member is
+  ignored and has no effect on the value returned. The value of all other members,
+  except <code>mem_object</code> may be <code>0</code> to require that the value returned be supported
+  for all possible values of the members that are set to <code>0</code>.<br></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="CL_IMAGE_REQUIREMENTS_MAX_HEIGHT_EXT"></a><a href="#CL_IMAGE_REQUIREMENTS_MAX_HEIGHT_EXT"><code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>MAX_<wbr>HEIGHT_<wbr>EXT</code></a></p>
+<p class="tableblock">provided by the <code>cl_ext_image_requirements_info</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_uint</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the max height supported for creating images with the parameters passed
+  to <a href="#clGetImageRequirementsInfoEXT"><strong>clGetImageRequirementsInfoEXT</strong></a>.
+  <em>image_format</em> or <em>image_desc</em> are allowed to be <code>NULL</code>. When either or both is
+  <code>NULL</code> the implementation will return a max height that would be supported for
+  all possible values of the missing argument(s).<br>
+  When <em>image_desc</em> is not <code>NULL</code>, the value of its <em>image_height</em> member is
+  ignored and has no effect on the value returned. The value of all other members,
+  except <code>mem_object</code> may be <code>0</code> to require that the value returned be supported
+  for all possible values of the members that are set to <code>0</code>.<br>
+  If <em>image_desc</em> is not <code>NULL</code>, then <em>image_type</em> must be either <code>0</code>,
+  <a href="#CL_MEM_OBJECT_IMAGE2D"><code>CL_MEM_<wbr>OBJECT_<wbr>IMAGE2D</code></a>, <a href="#CL_MEM_OBJECT_IMAGE2D_ARRAY"><code>CL_MEM_<wbr>OBJECT_<wbr>IMAGE2D_<wbr>ARRAY</code></a>, or <a href="#CL_MEM_OBJECT_IMAGE3D"><code>CL_MEM_<wbr>OBJECT_<wbr>IMAGE3D</code></a>,
+  otherwise <a href="#CL_INVALID_IMAGE_DESCRIPTOR"><code>CL_INVALID_<wbr>IMAGE_<wbr>DESCRIPTOR</code></a> is returned.<br></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="CL_IMAGE_REQUIREMENTS_MAX_DEPTH_EXT"></a><a href="#CL_IMAGE_REQUIREMENTS_MAX_DEPTH_EXT"><code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>MAX_<wbr>DEPTH_<wbr>EXT</code></a></p>
+<p class="tableblock">provided by the <code>cl_ext_image_requirements_info</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_uint</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the max depth supported for creating images with the parameters passed
+  to <a href="#clGetImageRequirementsInfoEXT"><strong>clGetImageRequirementsInfoEXT</strong></a>.
+  <em>image_format</em> or <em>image_desc</em> are allowed to be <code>NULL</code>. When either or both is
+  <code>NULL</code> the implementation will return a max depth that would be supported for
+  all possible values of the missing argument(s).<br>
+  When <em>image_desc</em> is not <code>NULL</code>, the value of its <em>image_depth</em> member is
+  ignored and has no effect on the value returned. The value of all other members,
+  except <code>mem_object</code> may be <code>0</code> to require that the value returned be supported
+  for all possible values of the members that are set to <code>0</code>.<br>
+  If <em>image_desc</em> is not <code>NULL</code>, then <em>image_type</em> must be either <code>0</code> or
+  <a href="#CL_MEM_OBJECT_IMAGE3D"><code>CL_MEM_<wbr>OBJECT_<wbr>IMAGE3D</code></a>, otherwise <a href="#CL_INVALID_IMAGE_DESCRIPTOR"><code>CL_INVALID_<wbr>IMAGE_<wbr>DESCRIPTOR</code></a> is returned.<br></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="CL_IMAGE_REQUIREMENTS_MAX_ARRAY_SIZE_EXT"></a><a href="#CL_IMAGE_REQUIREMENTS_MAX_ARRAY_SIZE_EXT"><code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>MAX_<wbr>ARRAY_<wbr>SIZE_<wbr>EXT</code></a></p>
+<p class="tableblock">provided by the <code>cl_ext_image_requirements_info</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_uint</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the max array size supported for creating images with the parameters passed
+  to <a href="#clGetImageRequirementsInfoEXT"><strong>clGetImageRequirementsInfoEXT</strong></a>.
+  <em>image_format</em> or <em>image_desc</em> are allowed to be <code>NULL</code>. When either or both is
+  <code>NULL</code> the implementation will return a max array size that would be supported for
+  all possible values of the missing argument(s).<br>
+  When <em>image_desc</em> is not <code>NULL</code>, the value of its <em>image_array_size</em> member is
+  ignored and has no effect on the value returned. The value of all other members,
+  except <code>mem_object</code> may be <code>0</code> to require that the value returned be supported
+  for all possible values of the members that are set to <code>0</code>.<br>
+  If <em>image_desc</em> is not <code>NULL</code>, then <em>image_type</em> must be either <code>0</code>,
+  <a href="#CL_MEM_OBJECT_IMAGE1D_ARRAY"><code>CL_MEM_<wbr>OBJECT_<wbr>IMAGE1D_<wbr>ARRAY</code></a> or <a href="#CL_MEM_OBJECT_IMAGE2D_ARRAY"><code>CL_MEM_<wbr>OBJECT_<wbr>IMAGE2D_<wbr>ARRAY</code></a>, otherwise
+  <a href="#CL_INVALID_IMAGE_DESCRIPTOR"><code>CL_INVALID_<wbr>IMAGE_<wbr>DESCRIPTOR</code></a> is returned.<br></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="CL_IMAGE_REQUIREMENTS_SLICE_PITCH_ALIGNMENT_EXT"></a><a href="#CL_IMAGE_REQUIREMENTS_SLICE_PITCH_ALIGNMENT_EXT"><code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>SLICE_<wbr>PITCH_<wbr>ALIGNMENT_<wbr>EXT</code></a></p>
+<p class="tableblock">provided by the <code>cl_ext_image_from_buffer</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>size_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the slice pitch alignment required in bytes for images created from
+  a buffer with the parameters passed to <a href="#clGetImageRequirementsInfoEXT"><strong>clGetImageRequirementsInfoEXT</strong></a>.
+  The value returned is a power of two. <em>image_format</em> and <em>image_desc</em> are
+  allowed to be <code>NULL</code>. When either or both is <code>NULL</code> the value returned is
+  the minimum slice pitch alignment that is supported for all possible values
+  of the missing argument(s).</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><a href="#clGetImageRequirementsInfoEXT"><strong>clGetImageRequirementsInfoEXT</strong></a> returns <a href="#CL_SUCCESS"><code>CL_SUCCESS</code></a> if the function is executed
+successfully.
+Otherwise, it returns one of the following errors:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#CL_INVALID_CONTEXT"><code>CL_INVALID_<wbr>CONTEXT</code></a> if <em>context</em> if not a valid context.</p>
+</li>
+<li>
+<p><a href="#CL_INVALID_PROPERTY"><code>CL_INVALID_<wbr>PROPERTY</code></a> if a property name in properties is not a supported
+property name, if the value specified for a supported property name is not
+valid, or if the same property name is specified more than once.</p>
+</li>
+<li>
+<p><a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> if values specified in <em>flags</em> are not valid.</p>
+</li>
+<li>
+<p><a href="#CL_INVALID_IMAGE_FORMAT_DESCRIPTOR"><code>CL_INVALID_<wbr>IMAGE_<wbr>FORMAT_<wbr>DESCRIPTOR</code></a> if values specified in <em>image_format</em>
+are not valid.</p>
+</li>
+<li>
+<p><a href="#CL_INVALID_IMAGE_DESCRIPTOR"><code>CL_INVALID_<wbr>IMAGE_<wbr>DESCRIPTOR</code></a> if values specified in <em>image_desc</em>
+are not valid.</p>
+</li>
+<li>
+<p><a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> if <em>param_name</em> is not valid, or if size in bytes
+specified by <em>param_value_size</em> is &lt; size of return type as described in
+the <a href="#image-requirements-info-table">Image Requirements Queries</a> table and
+<em>param_value</em> is not <code>NULL</code>.</p>
+</li>
+<li>
+<p><a href="#CL_OUT_OF_RESOURCES"><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code></a> if there is a failure to allocate resources required
+by the OpenCL implementation on the device.</p>
+</li>
+<li>
+<p><a href="#CL_OUT_OF_HOST_MEMORY"><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code></a> if there is a failure to allocate resources
+required by the OpenCL implementation on the host.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_pipes"><a class="anchor" href="#_pipes"></a>5.4. Pipes</h3>
@@ -18910,6 +19487,9 @@ by the OpenCL implementation on the device.</p>
 <p><a href="#CL_OUT_OF_HOST_MEMORY"><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code></a> if there is a failure to allocate resources
 required by the OpenCL implementation on the host.</p>
 </li>
+<li>
+<p><a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> if <a href="#CL_MEM_IMMUTABLE_EXT"><code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code></a> is set in <em>flags</em>.</p>
+</li>
 </ul>
 </div>
 <div class="paragraph">
@@ -18988,7 +19568,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </ul>
 </div>
 <table id="pipe-info-table" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 36. List of supported param_names by <a href="#clGetPipeInfo"><strong>clGetPipeInfo</strong></a></caption>
+<caption class="title">Table 37. List of supported param_names by <a href="#clGetPipeInfo"><strong>clGetPipeInfo</strong></a></caption>
 <colgroup>
 <col style="width: 33%;">
 <col style="width: 17%;">
@@ -20110,7 +20690,7 @@ to an element of the <em>event_wait_list</em> array.</p>
 </ul>
 </div>
 <table id="migration-flags-table" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 37. List of supported migration flags by <a href="#clEnqueueMigrateMemObjects"><strong>clEnqueueMigrateMemObjects</strong></a></caption>
+<caption class="title">Table 38. List of supported migration flags by <a href="#clEnqueueMigrateMemObjects"><strong>clEnqueueMigrateMemObjects</strong></a></caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -20270,7 +20850,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </ul>
 </div>
 <table id="mem-info-table" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 38. List of supported param_names by <a href="#clGetMemObjectInfo"><strong>clGetMemObjectInfo</strong></a></caption>
+<caption class="title">Table 39. List of supported param_names by <a href="#clGetMemObjectInfo"><strong>clGetMemObjectInfo</strong></a></caption>
 <colgroup>
 <col style="width: 33%;">
 <col style="width: 17%;">
@@ -20432,6 +21012,16 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
       <a href="#clCreateFromD3D11Texture2DKHR"><strong>clCreateFromD3D11Texture2DKHR</strong></a>, or <a href="#clCreateFromD3D11Texture3DKHR"><strong>clCreateFromD3D11Texture3DKHR</strong></a>,
       returns the <em>resource</em> argument specified when <em>memobj</em> was created.</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="CL_MEM_DEVICE_ADDRESS_EXT"></a><a href="#CL_MEM_DEVICE_ADDRESS_EXT"><code>CL_MEM_<wbr>DEVICE_<wbr>ADDRESS_<wbr>EXT</code></a></p>
+<p class="tableblock">provided by the <code>cl_ext_buffer_device_address</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_mem_<wbr>device_<wbr>address_<wbr>ext</code>[]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If <em>memobj</em> was created using <a href="#clCreateBufferWithProperties"><strong>clCreateBufferWithProperties</strong></a> with
+      the <a href="#CL_MEM_DEVICE_PRIVATE_ADDRESS_EXT"><code>CL_MEM_<wbr>DEVICE_<wbr>PRIVATE_<wbr>ADDRESS_<wbr>EXT</code></a> property set to <a href="#CL_TRUE"><code>CL_TRUE</code></a>,
+      returns a list of device addresses for the buffer, one for each
+      device in the context in the same order as the list of devices
+      passed to <a href="#clCreateContext"><strong>clCreateContext</strong></a>.</p></td>
+</tr>
 </tbody>
 </table>
 <div class="paragraph">
@@ -20443,6 +21033,11 @@ Otherwise, it returns one of the following errors:</p>
 <ul>
 <li>
 <p><a href="#CL_INVALID_MEM_OBJECT"><code>CL_INVALID_<wbr>MEM_<wbr>OBJECT</code></a> if <em>memobj</em> is a not a valid memory object.</p>
+</li>
+<li>
+<p><a href="#CL_INVALID_OPERATION"><code>CL_INVALID_<wbr>OPERATION</code></a> is returned for the <a href="#CL_MEM_DEVICE_ADDRESS_EXT"><code>CL_MEM_<wbr>DEVICE_<wbr>ADDRESS_<wbr>EXT</code></a> query if
+the <a href="#cl_ext_buffer_device_address"><code>cl_ext_<wbr>buffer_<wbr>device_<wbr>address</code></a> is not supported or if the
+buffer was not allocated with <a href="#CL_MEM_DEVICE_PRIVATE_ADDRESS_EXT"><code>CL_MEM_<wbr>DEVICE_<wbr>PRIVATE_<wbr>ADDRESS_<wbr>EXT</code></a>.</p>
 </li>
 <li>
 <p><a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> if <em>param_name</em> is not one of the supported values, or
@@ -20660,7 +21255,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </ul>
 </div>
 <table id="gl-texture-info-table" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 39. OpenGL texture info that may be queried with <a href="#clGetGLTextureInfo"><strong>clGetGLTextureInfo</strong></a></caption>
+<caption class="title">Table 40. OpenGL texture info that may be queried with <a href="#clGetGLTextureInfo"><strong>clGetGLTextureInfo</strong></a></caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -22405,7 +23000,7 @@ size of largest data type supported by the OpenCL implementation.</p>
 </ul>
 </div>
 <table id="svm-flags-table" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 40. List of supported SVM memory flag values</caption>
+<caption class="title">Table 41. List of supported SVM memory flag values</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -22501,6 +23096,9 @@ Otherwise, like <strong>malloc</strong>, it returns a <code>NULL</code> pointer 
 <li>
 <p><em>flags</em> does not contain <a href="#CL_MEM_SVM_FINE_GRAIN_BUFFER"><code>CL_MEM_<wbr>SVM_<wbr>FINE_<wbr>GRAIN_<wbr>BUFFER</code></a> but does contain
 <a href="#CL_MEM_SVM_ATOMICS"><code>CL_MEM_<wbr>SVM_<wbr>ATOMICS</code></a>.</p>
+</li>
+<li>
+<p><em>flags</em> contains <a href="#CL_MEM_IMMUTABLE_EXT"><code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code></a>.</p>
 </li>
 <li>
 <p>Values specified in <em>flags</em> do not follow rules described for supported
@@ -23552,7 +24150,7 @@ If <em>errcode_ret</em> is <code>NULL</code>, no error code is returned.</p>
 </ul>
 </div>
 <table id="sampler-properties-table" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 41. List of supported sampler creation properties by <a href="#clCreateSamplerWithProperties"><strong>clCreateSamplerWithProperties</strong></a></caption>
+<caption class="title">Table 42. List of supported sampler creation properties by <a href="#clCreateSamplerWithProperties"><strong>clCreateSamplerWithProperties</strong></a></caption>
 <colgroup>
 <col style="width: 33%;">
 <col style="width: 17%;">
@@ -23924,7 +24522,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </ul>
 </div>
 <table id="sampler-info-table" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 42. List of supported param_names by <a href="#clGetSamplerInfo"><strong>clGetSamplerInfo</strong></a></caption>
+<caption class="title">Table 43. List of supported param_names by <a href="#clGetSamplerInfo"><strong>clGetSamplerInfo</strong></a></caption>
 <colgroup>
 <col style="width: 33%;">
 <col style="width: 17%;">
@@ -24097,7 +24695,9 @@ The source code specified by <em>strings</em> is either an OpenCL C program sour
 header or implementation-defined source for custom devices that support an
 online compiler.
 OpenCL C++ is not supported as an online-compiled kernel language through
-this interface.</p>
+this interface.
+If the <a href="#cl_ext_cxx_for_opencl"><code>cl_ext_<wbr>cxx_<wbr>for_<wbr>opencl</code></a> extension is supported, the source code
+specified by <em>strings</em> may also be a C++ for OpenCL program source or header.</p>
 </div>
 <div class="paragraph">
 <p><a href="#clCreateProgramWithSource"><strong>clCreateProgramWithSource</strong></a> returns a valid non-zero program object and
@@ -25899,6 +26499,14 @@ to OpenCL kernel languages specifications).</p>
 </dl>
 </div>
 </div>
+<div class="sect4">
+<h5 id="_c_for_opencl"><a class="anchor" href="#_c_for_opencl"></a>5.8.6.8. C++ for OpenCL</h5>
+<div class="paragraph">
+<p>Applications may pass <code>-cl-std=CLC++</code> to <a href="#clCompileProgram"><strong>clCompileProgram</strong></a> or <a href="#clBuildProgram"><strong>clBuildProgram</strong></a>
+for programs created using <a href="#clCreateProgramWithSource"><strong>clCreateProgramWithSource</strong></a> to request the program
+be built as C++ for OpenCL.</p>
+</div>
+</div>
 </div>
 <div class="sect3">
 <h4 id="linker-options"><a class="anchor" href="#linker-options"></a>5.8.7. Linker Options</h4>
@@ -26157,7 +26765,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </ul>
 </div>
 <table id="program-info-table" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 43. List of supported param_names by <a href="#clGetProgramInfo"><strong>clGetProgramInfo</strong></a></caption>
+<caption class="title">Table 44. List of supported param_names by <a href="#clGetProgramInfo"><strong>clGetProgramInfo</strong></a></caption>
 <colgroup>
 <col style="width: 33%;">
 <col style="width: 17%;">
@@ -26416,7 +27024,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </ul>
 </div>
 <table id="program-build-info-table" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 44. List of supported param_names by <a href="#clGetProgramBuildInfo"><strong>clGetProgramBuildInfo</strong></a></caption>
+<caption class="title">Table 45. List of supported param_names by <a href="#clGetProgramBuildInfo"><strong>clGetProgramBuildInfo</strong></a></caption>
 <colgroup>
 <col style="width: 33%;">
 <col style="width: 17%;">
@@ -27207,6 +27815,89 @@ required by the OpenCL implementation on the host.</p>
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
+<p>To set a device pointer as the argument value for a specific argument of a
+kernel, call the function</p>
+</div>
+<div id="clSetKernelArgDevicePointerEXT" class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="opencl"><span class="c1">// Provided by cl_ext_buffer_device_address</span>
+<span class="kt">cl_int</span> <span class="nf">clSetKernelArgDevicePointerEXT</span><span class="p">(</span>
+    <span class="kt">cl_kernel</span> <span class="n">kernel</span><span class="p">,</span>
+    <span class="kt">cl_uint</span> <span class="n">arg_index</span><span class="p">,</span>
+    <span class="n">cl_mem_device_address_ext</span> <span class="n">arg_value</span><span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<a href="#clSetKernelArgDevicePointerEXT"><strong>clSetKernelArgDevicePointerEXT</strong></a> is provided by the <code>cl_ext_buffer_device_address</code> extension.
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><em>kernel</em> is a valid kernel object.</p>
+</li>
+<li>
+<p><em>arg_index</em> is the argument index.
+Arguments to the kernel are referred by indices that go from 0 for the
+leftmost argument to <em>n</em> - 1, where <em>n</em> is the total number of arguments
+declared by a kernel.</p>
+</li>
+<li>
+<p><em>arg_value</em> is the device pointer that should be used as the argument value for
+argument specified by <em>arg_index</em>.
+The device pointer specified is the value used by all API calls that enqueue
+<em>kernel</em> (<a href="#clEnqueueNDRangeKernel"><strong>clEnqueueNDRangeKernel</strong></a> and <a href="#clEnqueueTask"><strong>clEnqueueTask</strong></a>) until the argument
+value is changed by a call to <a href="#clSetKernelArgDevicePointerEXT"><strong>clSetKernelArgDevicePointerEXT</strong></a> for <em>kernel</em>.
+The device pointer can only be used for arguments that are declared to be a
+pointer to <code>global</code> memory allocated with <a href="#clCreateBufferWithProperties"><strong>clCreateBufferWithProperties</strong></a> with
+the <a href="#CL_MEM_DEVICE_PRIVATE_ADDRESS_EXT"><code>CL_MEM_<wbr>DEVICE_<wbr>PRIVATE_<wbr>ADDRESS_<wbr>EXT</code></a> property. The pointer value specified as
+the argument value can be the pointer to the beginning of the buffer or any offset into
+the buffer region. The device pointer value must be naturally aligned according to
+the argument&#8217;s type. It should be noted that it&#8217;s legal to pass invalid
+pointers as the value (similarly to C/C++ function calls with pointer arguments) as
+long as the kernel doesn&#8217;t dereference the pointer.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><a href="#clSetKernelArgDevicePointerEXT"><strong>clSetKernelArgDevicePointerEXT</strong></a> returns <a href="#CL_SUCCESS"><code>CL_SUCCESS</code></a> if the argument was set
+successfully. Otherwise, it returns one of the following errors:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#CL_INVALID_KERNEL"><code>CL_INVALID_<wbr>KERNEL</code></a> if <em>kernel</em> is not a valid kernel object.</p>
+</li>
+<li>
+<p><a href="#CL_INVALID_OPERATION"><code>CL_INVALID_<wbr>OPERATION</code></a> if no devices in the context associated with <em>kernel</em> support
+the <a href="#cl_ext_buffer_device_address"><code>cl_ext_<wbr>buffer_<wbr>device_<wbr>address</code></a> extension.</p>
+</li>
+<li>
+<p><a href="#CL_INVALID_ARG_INDEX"><code>CL_INVALID_<wbr>ARG_<wbr>INDEX</code></a> if <em>arg_index</em> is not a valid argument index.</p>
+</li>
+<li>
+<p><a href="#CL_OUT_OF_RESOURCES"><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code></a> if there is a failure to allocate resources required
+by the OpenCL implementation on the device.</p>
+</li>
+<li>
+<p><a href="#CL_OUT_OF_HOST_MEMORY"><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code></a> if there is a failure to allocate resources
+required by the OpenCL implementation on the host.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
 <p>To set additional execution information for a kernel, call the function</p>
 </div>
 <div id="clSetKernelExecInfo" class="listingblock">
@@ -27253,7 +27944,7 @@ by <em>param_name</em> are specified.</p>
 </ul>
 </div>
 <table id="kernel-exec-info-table" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 45. List of supported param_names by <a href="#clSetKernelExecInfo"><strong>clSetKernelExecInfo</strong></a></caption>
+<caption class="title">Table 46. List of supported param_names by <a href="#clSetKernelExecInfo"><strong>clSetKernelExecInfo</strong></a></caption>
 <colgroup>
 <col style="width: 33%;">
 <col style="width: 17%;">
@@ -27307,6 +27998,16 @@ by <em>param_name</em> are specified.</p>
         <a href="#CL_KERNEL_EXEC_INFO_SVM_FINE_GRAIN_SYSTEM"><code>CL_KERNEL_<wbr>EXEC_<wbr>INFO_<wbr>SVM_<wbr>FINE_<wbr>GRAIN_<wbr>SYSTEM</code></a>, the default value is
         <a href="#CL_TRUE"><code>CL_TRUE</code></a>.</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="CL_KERNEL_EXEC_INFO_DEVICE_PTRS_EXT"></a><a href="#CL_KERNEL_EXEC_INFO_DEVICE_PTRS_EXT"><code>CL_KERNEL_<wbr>EXEC_<wbr>INFO_<wbr>DEVICE_<wbr>PTRS_<wbr>EXT</code></a></p>
+<p class="tableblock">provided by the <code>cl_ext_buffer_device_address</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_mem_<wbr>device_<wbr>address_<wbr>ext</code>[]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Device pointers must reference locations contained entirely within
+        buffers that are passed to kernel as arguments, or that are passed
+        through the execution information. Non-argument device pointers accessed
+        by the kernel must be specified by passing pointers to those buffers
+        via this <a href="#clSetKernelExecInfo"><strong>clSetKernelExecInfo</strong></a> option.</p></td>
+</tr>
 </tbody>
 </table>
 <div class="paragraph">
@@ -27323,6 +28024,11 @@ Otherwise, it returns one of the following errors:</p>
 <p><a href="#CL_INVALID_OPERATION"><code>CL_INVALID_<wbr>OPERATION</code></a> for <a href="#CL_KERNEL_EXEC_INFO_SVM_PTRS"><code>CL_KERNEL_<wbr>EXEC_<wbr>INFO_<wbr>SVM_<wbr>PTRS</code></a> and
 <a href="#CL_KERNEL_EXEC_INFO_SVM_FINE_GRAIN_SYSTEM"><code>CL_KERNEL_<wbr>EXEC_<wbr>INFO_<wbr>SVM_<wbr>FINE_<wbr>GRAIN_<wbr>SYSTEM</code></a> if no devices in
 the context associated with <em>kernel</em> support SVM.</p>
+</li>
+<li>
+<p><a href="#CL_INVALID_OPERATION"><code>CL_INVALID_<wbr>OPERATION</code></a> for <a href="#CL_KERNEL_EXEC_INFO_DEVICE_PTRS_EXT"><code>CL_KERNEL_<wbr>EXEC_<wbr>INFO_<wbr>DEVICE_<wbr>PTRS_<wbr>EXT</code></a> if no
+device in the context associated with <em>kernel</em> support the <a href="#cl_ext_buffer_device_address"><code>cl_ext_<wbr>buffer_<wbr>device_<wbr>address</code></a>
+extension.</p>
 </li>
 <li>
 <p><a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> if <em>param_name</em> is not valid, if <em>param_value</em> is
@@ -27509,7 +28215,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </ul>
 </div>
 <table id="kernel-info-table" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 46. List of supported param_names by <a href="#clGetKernelInfo"><strong>clGetKernelInfo</strong></a></caption>
+<caption class="title">Table 47. List of supported param_names by <a href="#clGetKernelInfo"><strong>clGetKernelInfo</strong></a></caption>
 <colgroup>
 <col style="width: 33%;">
 <col style="width: 17%;">
@@ -27655,7 +28361,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </ul>
 </div>
 <table id="kernel-workgroup-info-table" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 47. List of supported param_names by <a href="#clGetKernelWorkGroupInfo"><strong>clGetKernelWorkGroupInfo</strong></a></caption>
+<caption class="title">Table 48. List of supported param_names by <a href="#clGetKernelWorkGroupInfo"><strong>clGetKernelWorkGroupInfo</strong></a></caption>
 <colgroup>
 <col style="width: 33%;">
 <col style="width: 17%;">
@@ -27860,7 +28566,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </ul>
 </div>
 <table id="kernel-sub-group-info-table" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 48. List of supported param_names by <a href="#clGetKernelSubGroupInfo"><strong>clGetKernelSubGroupInfo</strong></a></caption>
+<caption class="title">Table 49. List of supported param_names by <a href="#clGetKernelSubGroupInfo"><strong>clGetKernelSubGroupInfo</strong></a></caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 25%;">
@@ -28088,7 +28794,7 @@ is built with the <code>-cl-kernel-arg-info option</code> specified in the
 </ul>
 </div>
 <table id="kernel-argument-info-table" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 49. List of supported param_names by <a href="#clGetKernelArgInfo"><strong>clGetKernelArgInfo</strong></a></caption>
+<caption class="title">Table 50. List of supported param_names by <a href="#clGetKernelArgInfo"><strong>clGetKernelArgInfo</strong></a></caption>
 <colgroup>
 <col style="width: 33%;">
 <col style="width: 17%;">
@@ -29398,7 +30104,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </ul>
 </div>
 <table id="event-info-table" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 50. List of supported param_names by <a href="#clGetEventInfo"><strong>clGetEventInfo</strong></a></caption>
+<caption class="title">Table 51. List of supported param_names by <a href="#clGetEventInfo"><strong>clGetEventInfo</strong></a></caption>
 <colgroup>
 <col style="width: 33%;">
 <col style="width: 17%;">
@@ -29470,7 +30176,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </tbody>
 </table>
 <table id="event-command-type-table" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 51. List of supported event command types</caption>
+<caption class="title">Table 52. List of supported event command types</caption>
 <colgroup>
 <col style="width: 40%;">
 <col style="width: 60%;">
@@ -30837,7 +31543,7 @@ properties by <code>cl_semaphore_<wbr>properties_<wbr>khr</code> that can be pas
 <a href="#clCreateSemaphoreWithPropertiesKHR"><strong>clCreateSemaphoreWithPropertiesKHR</strong></a>:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 52. List of supported semaphore creation properties by <a href="#clCreateSemaphoreWithPropertiesKHR"><strong>clCreateSemaphoreWithPropertiesKHR</strong></a></caption>
+<caption class="title">Table 53. List of supported semaphore creation properties by <a href="#clCreateSemaphoreWithPropertiesKHR"><strong>clCreateSemaphoreWithPropertiesKHR</strong></a></caption>
 <colgroup>
 <col style="width: 33%;">
 <col style="width: 17%;">
@@ -31175,7 +31881,7 @@ descriptor when exporting a <a href="#CL_SEMAPHORE_HANDLE_SYNC_FD_KHR"><code>CL_
 <code>cl_semaphore_<wbr>khr</code> which is signaled.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 53. Transference Properties for File Descriptor Handles</caption>
+<caption class="title">Table 54. Transference Properties for File Descriptor Handles</caption>
 <colgroup>
 <col style="width: 60%;">
 <col style="width: 40%;">
@@ -31323,7 +32029,7 @@ represented by its semaphore object.</p>
 </ul>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 54. Transference Properties for NT Handle Types</caption>
+<caption class="title">Table 55. Transference Properties for NT Handle Types</caption>
 <colgroup>
 <col style="width: 60%;">
 <col style="width: 40%;">
@@ -31929,7 +32635,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </ul>
 </div>
 <table id="semaphore-info-table" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 55. List of parameter names supported by <a href="#clGetSemaphoreInfoKHR"><strong>clGetSemaphoreInfoKHR</strong></a></caption>
+<caption class="title">Table 56. List of parameter names supported by <a href="#clGetSemaphoreInfoKHR"><strong>clGetSemaphoreInfoKHR</strong></a></caption>
 <colgroup>
 <col style="width: 33%;">
 <col style="width: 17%;">
@@ -32150,7 +32856,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </ul>
 </div>
 <table id="event-profiling-info-table" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 56. List of supported param_names by <a href="#clGetEventProfilingInfo"><strong>clGetEventProfilingInfo</strong></a></caption>
+<caption class="title">Table 57. List of supported param_names by <a href="#clGetEventProfilingInfo"><strong>clGetEventProfilingInfo</strong></a></caption>
 <colgroup>
 <col style="width: 33%;">
 <col style="width: 17%;">
@@ -32655,7 +33361,7 @@ its default value will be used.
 <em>properties</em> can be <code>NULL</code> in which case the default values for
 supported command-buffer properties will be used.</p>
 <table id="commandbuffer-properties" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 57. <a href="#clCreateCommandBufferKHR"><strong>clCreateCommandBufferKHR</strong></a> properties</caption>
+<caption class="title">Table 58. <a href="#clCreateCommandBufferKHR"><strong>clCreateCommandBufferKHR</strong></a> properties</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 16.6666%;">
@@ -32719,7 +33425,7 @@ If <em>errcode_ret</em> is <code>NULL</code>, no error code is returned.</p>
 </ul>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 58. Summary of multi-device command-buffer creation configurations</caption>
+<caption class="title">Table 59. Summary of multi-device command-buffer creation configurations</caption>
 <colgroup>
 <col style="width: 12.5%;">
 <col style="width: 12.5%;">
@@ -34893,7 +35599,7 @@ that freeing the command-buffer will also free this handle.</p>
 </ul>
 </div>
 <table id="ndrange-kernel-properties-table" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 59. List of supported properties by <a href="#clCommandNDRangeKernelKHR"><strong>clCommandNDRangeKernelKHR</strong></a></caption>
+<caption class="title">Table 60. List of supported properties by <a href="#clCommandNDRangeKernelKHR"><strong>clCommandNDRangeKernelKHR</strong></a></caption>
 <colgroup>
 <col style="width: 20%;">
 <col style="width: 13.3333%;">
@@ -36179,7 +36885,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <em>param_value</em> by <a href="#clGetCommandBufferInfoKHR"><strong>clGetCommandBufferInfoKHR</strong></a> is described in the table below.</p>
 </div>
 <table id="command-buffer-info-table" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 60. <a href="#clGetCommandBufferInfoKHR"><strong>clGetCommandBufferInfoKHR</strong></a> values</caption>
+<caption class="title">Table 61. <a href="#clGetCommandBufferInfoKHR"><strong>clGetCommandBufferInfoKHR</strong></a> values</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -36343,7 +37049,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </ul>
 </div>
 <table id="mutable-command-info-table" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 61. <em>Mutable Command Object Queries</em></caption>
+<caption class="title">Table 62. <em>Mutable Command Object Queries</em></caption>
 <colgroup>
 <col style="width: 33%;">
 <col style="width: 17%;">
@@ -36560,7 +37266,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </ul>
 </div>
 <table id="gl-context-info-table" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 62. Supported Device Types for <a href="#clGetGLContextInfoKHR"><strong>clGetGLContextInfoKHR</strong></a></caption>
+<caption class="title">Table 63. Supported Device Types for <a href="#clGetGLContextInfoKHR"><strong>clGetGLContextInfoKHR</strong></a></caption>
 <colgroup>
 <col style="width: 40%;">
 <col style="width: 20%;">
@@ -36973,7 +37679,7 @@ profile are listed in the <a href="#embedded-device-queries-table">OpenCL Embedd
 Device Queries</a> table.</p>
 </div>
 <table id="embedded-device-queries-table" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 63. List of supported param_names by <a href="#clGetDeviceInfo"><strong>clGetDeviceInfo</strong></a> for embedded profile</caption>
+<caption class="title">Table 64. List of supported param_names by <a href="#clGetDeviceInfo"><strong>clGetDeviceInfo</strong></a> for embedded profile</caption>
 <colgroup>
 <col style="width: 33%;">
 <col style="width: 17%;">
@@ -37168,7 +37874,7 @@ image formats for either reading or writing in a kernel for embedded
 profile devices is:</p>
 </div>
 <table id="min-supported-image-formats-embedded-profile" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 64. Minimum list of supported image formats for reading or writing (embedded profile)</caption>
+<caption class="title">Table 65. Minimum list of supported image formats for reading or writing (embedded profile)</caption>
 <colgroup>
 <col style="width: 34%;">
 <col style="width: 33%;">
@@ -41407,6 +42113,36 @@ extensions will list such dependencies.</p>
 </li>
 <li>
 <p><code><a href="#cl_khr_work_group_uniform_arithmetic">cl_khr_work_group_uniform_arithmetic</a></code></p>
+</li>
+<li>
+<p><code><a href="#cl_ext_buffer_device_address">cl_ext_buffer_device_address</a></code></p>
+</li>
+<li>
+<p><code><a href="#cl_ext_cxx_for_opencl">cl_ext_cxx_for_opencl</a></code></p>
+</li>
+<li>
+<p><code><a href="#cl_ext_device_fission">cl_ext_device_fission</a></code></p>
+</li>
+<li>
+<p><code><a href="#cl_ext_float_atomics">cl_ext_float_atomics</a></code></p>
+</li>
+<li>
+<p><code><a href="#cl_ext_image_from_buffer">cl_ext_image_from_buffer</a></code></p>
+</li>
+<li>
+<p><code><a href="#cl_ext_image_raw10_raw12">cl_ext_image_raw10_raw12</a></code></p>
+</li>
+<li>
+<p><code><a href="#cl_ext_image_requirements_info">cl_ext_image_requirements_info</a></code></p>
+</li>
+<li>
+<p><code><a href="#cl_ext_image_unorm_int_2_101010">cl_ext_image_unorm_int_2_101010</a></code></p>
+</li>
+<li>
+<p><code><a href="#cl_ext_immutable_memory_objects">cl_ext_immutable_memory_objects</a></code></p>
+</li>
+<li>
+<p><code><a href="#cl_ext_migrate_memobject">cl_ext_migrate_memobject</a></code></p>
 </li>
 </ul>
 </div>
@@ -50615,6 +51351,1420 @@ Note that <code>half</code> is already supported, if half-precision is supported
 </div>
 </div>
 </div>
+<div class="sect3">
+<h4 id="cl_ext_buffer_device_address"><a class="anchor" href="#cl_ext_buffer_device_address"></a>cl_ext_buffer_device_address</h4>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Name String</strong></dt>
+<dd>
+<p><code>cl_ext_buffer_device_address</code></p>
+</dd>
+<dt class="hdlist1"><strong>Ratification Status</strong></dt>
+<dd>
+<p>Not ratified</p>
+</dd>
+<dt class="hdlist1"><strong>Extension and Version Dependencies</strong></dt>
+<dd>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><code><a href="#versions-3-0">OpenCL 3.0</a></code><br></p>
+</div>
+</div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="sect4">
+<h5 id="_other_extension_metadata_65"><a class="anchor" href="#_other_extension_metadata_65"></a>Other Extension Metadata</h5>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Last Modified Date</strong></dt>
+<dd>
+<p>2025-02-04</p>
+</dd>
+<dt class="hdlist1"><strong>IP Status</strong></dt>
+<dd>
+<p>No known IP claims.</p>
+</dd>
+<dt class="hdlist1"><strong>Contributors</strong></dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>Pekka Jääskeläinen, Intel<br></p>
+</li>
+<li>
+<p>Karol Herbst, Red Hat<br></p>
+</li>
+<li>
+<p>Ben Ashbaugh, Intel<br></p>
+</li>
+<li>
+<p>Kevin Petit, Arm<br></p>
+</li>
+<li>
+<p>Henry Linjamäki, Intel<br></p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_description_65"><a class="anchor" href="#_description_65"></a>Description</h5>
+<div class="paragraph">
+<p>This extension provides access to raw device pointers for cl_mem buffers
+without requiring a shared virtual address space between the host and
+the device.</p>
+</div>
+<div class="sect5">
+<h6 id="_background"><a class="anchor" href="#_background"></a>Background</h6>
+<div class="paragraph">
+<p>Shared Virtual Memory (SVM) introduced in OpenCL 2.0 is the first feature
+that enables raw pointers in the OpenCL standard. Its coarse-grain
+variant is relatively simple to implement on various platforms in terms of
+coherency requirements, but it requires mapping the buffer&#8217;s address range
+to the host virtual address space.
+However, various higher-level heterogeneous APIs present a memory allocation
+routine which can allocate device-only memory and provide raw addresses to
+it without guarentees of system-wide uniqueness. For example, minimal
+implementations of OpenMP&#8217;s omp_target_alloc() and CUDA/HIP&#8217;s
+cudaMalloc()/hipMalloc() do not require a shared address space between the host and the device.</p>
+</div>
+<div class="paragraph">
+<p>Host-device unified addressing might not be a major implementation issue in
+systems which can provide virtual memory across the platform, but might
+bring challenges in cases where the device presents a global memory with
+a disjoint address space (that can also be a physical memory address space) or,
+for example, when a barebone embedded system lacks virtual memory support altogether.
+This extension is targeted to complement the OpenCL SVM extension by providing
+an additional lower-end step in the spectrum of type of pointers/buffers OpenCL
+can allocate.</p>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_new_command"><a class="anchor" href="#_new_command"></a>New Command</h5>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#clSetKernelArgDevicePointerEXT"><strong>clSetKernelArgDevicePointerEXT</strong></a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_new_types_17"><a class="anchor" href="#_new_types_17"></a>New Types</h5>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#CL_MEM_DEVICE_ADDRESS_EXT"><code>CL_MEM_<wbr>DEVICE_<wbr>ADDRESS_<wbr>EXT</code></a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_new_enums_33"><a class="anchor" href="#_new_enums_33"></a>New Enums</h5>
+<div class="ulist">
+<ul>
+<li>
+<p><code>cl_mem_<wbr>properties</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#CL_MEM_DEVICE_PRIVATE_ADDRESS_EXT"><code>CL_MEM_<wbr>DEVICE_<wbr>PRIVATE_<wbr>ADDRESS_<wbr>EXT</code></a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>cl_mem_<wbr>info</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#CL_MEM_DEVICE_ADDRESS_EXT"><code>CL_MEM_<wbr>DEVICE_<wbr>ADDRESS_<wbr>EXT</code></a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>cl_kernel_<wbr>exec_<wbr>info</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#CL_KERNEL_EXEC_INFO_DEVICE_PTRS_EXT"><code>CL_KERNEL_<wbr>EXEC_<wbr>INFO_<wbr>DEVICE_<wbr>PTRS_<wbr>EXT</code></a></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_version_history_65"><a class="anchor" href="#_version_history_65"></a>Version History</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Revision 1.0.0, 2025-01-15</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Initial version for detailed review.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Revision 1.0.1, 2025-01-28</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Made it explicit that passing illegal pointers is legal as long as they are
+not referenced. Removed CL_INVALID_ARG_VALUE as a possible error in
+clSetKernelArgDevicePointerEXT() as there are no illegal pointer
+cases when calling this function. Return CL_INVALID_OPERATION for
+clGetMemObjectInfo() if the pointer is not a buffer device pointer.
+clSetKernelExecInfo() and clSetKernelArgDevicePointerEXT() now only
+error out if no devices in the context associated with kernel support
+device pointers.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Revision 1.0.2, 2025-02-04</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Converted the clSetKernelArgDevicePointerEXT() address parameter to
+a value instead of a pointer to the value.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="cl_ext_cxx_for_opencl"><a class="anchor" href="#cl_ext_cxx_for_opencl"></a>cl_ext_cxx_for_opencl</h4>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Name String</strong></dt>
+<dd>
+<p><code>cl_ext_cxx_for_opencl</code></p>
+</dd>
+<dt class="hdlist1"><strong>Ratification Status</strong></dt>
+<dd>
+<p>Not ratified</p>
+</dd>
+<dt class="hdlist1"><strong>Extension and Version Dependencies</strong></dt>
+<dd>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><code><a href="#versions-3-0">OpenCL 3.0</a></code><br>
+or<br>
+<code><a href="#versions-2-0">OpenCL 2.0</a></code><br>
+and<br>
+<code><a href="#cl_khr_extended_versioning">cl_khr_extended_versioning</a></code><br></p>
+</div>
+</div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="sect4">
+<h5 id="_other_extension_metadata_66"><a class="anchor" href="#_other_extension_metadata_66"></a>Other Extension Metadata</h5>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Last Modified Date</strong></dt>
+<dd>
+<p>2020-08-25</p>
+</dd>
+<dt class="hdlist1"><strong>IP Status</strong></dt>
+<dd>
+<p>No known IP claims.</p>
+</dd>
+<dt class="hdlist1"><strong>Contributors</strong></dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>Kevin Petit, Arm Ltd.<br></p>
+</li>
+<li>
+<p>Sven Van Haastregt, Arm Ltd.<br></p>
+</li>
+<li>
+<p>Anastasia Stulova, Arm Ltd.<br></p>
+</li>
+<li>
+<p>Marco Antognini, Arm Ltd.<br></p>
+</li>
+<li>
+<p>Neil Hickey, Arm Ltd.<br></p>
+</li>
+<li>
+<p>Alastair Murray, Codeplay<br></p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_description_66"><a class="anchor" href="#_description_66"></a>Description</h5>
+<div class="paragraph">
+<p>This extension adds support for building programs written using the C++ for
+OpenCL kernel language documented in the <strong>OpenCL-Docs</strong> repository
+(<a href="https://github.com/KhronosGroup/OpenCL-Docs" class="bare">https://github.com/KhronosGroup/OpenCL-Docs</a>)
+with stable versions published in releases of the repository.</p>
+</div>
+<div class="paragraph">
+<p>This extension also enables applications to query the version of the language
+supported by the device compiler.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_new_enums_34"><a class="anchor" href="#_new_enums_34"></a>New Enums</h5>
+<div class="ulist">
+<ul>
+<li>
+<p><code>cl_device_<wbr>info</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#CL_DEVICE_CXX_FOR_OPENCL_NUMERIC_VERSION_EXT"><code>CL_DEVICE_<wbr>CXX_<wbr>FOR_<wbr>OPENCL_<wbr>NUMERIC_<wbr>VERSION_<wbr>EXT</code></a></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_new_build_option"><a class="anchor" href="#_new_build_option"></a>New build option</h5>
+<div class="paragraph">
+<p>This extension adds support for a new <code>CLC++</code> value to be passed to the
+<code>-cl-std</code> build option accepted by <a href="#clBuildProgram"><strong>clBuildProgram</strong></a> and <a href="#clCompileProgram"><strong>clCompileProgram</strong></a>.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_preprocessor_macros"><a class="anchor" href="#_preprocessor_macros"></a>Preprocessor Macros</h5>
+<div class="paragraph">
+<p>This extension defines a new language, instead of extending an existing
+language. As such, there will be no preprocessor <code>#define</code> matching the
+extension name string. Instead, dedicated preprocessor macros conveying
+language version information are available as described in the C++ for
+OpenCL Programming Language Documentation, section 2.2.2.2 "Predefined
+macros".</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_conformance_tests_2"><a class="anchor" href="#_conformance_tests_2"></a>Conformance tests</h5>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Test that a program can successfully be compiled with <code>-cl-std=CLC++</code>.</p>
+</li>
+<li>
+<p>Test with a program compiled with <code>-cl-std=CLC++</code> that the value of the
+<code>__OPENCL_CPP_VERSION__</code> macro agrees with the version returned by
+<code>CL_DEVICE_CXX_FOR_OPENCL_NUMERIC_VERSION_EXT</code>.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_version_history_66"><a class="anchor" href="#_version_history_66"></a>Version History</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Revision 1.0.0, 2020-08-24</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Initial version.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="cl_ext_device_fission"><a class="anchor" href="#cl_ext_device_fission"></a>cl_ext_device_fission</h4>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Name String</strong></dt>
+<dd>
+<p><code>cl_ext_device_fission</code></p>
+</dd>
+<dt class="hdlist1"><strong>Ratification Status</strong></dt>
+<dd>
+<p>Not ratified</p>
+</dd>
+<dt class="hdlist1"><strong>Extension and Version Dependencies</strong></dt>
+<dd>
+<p>None</p>
+</dd>
+</dl>
+</div>
+<div class="sect4">
+<h5 id="_other_extension_metadata_67"><a class="anchor" href="#_other_extension_metadata_67"></a>Other Extension Metadata</h5>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Last Modified Date</strong></dt>
+<dd>
+<p>2024-07-17</p>
+</dd>
+<dt class="hdlist1"><strong>IP Status</strong></dt>
+<dd>
+<p>No known IP claims.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_description_67"><a class="anchor" href="#_description_67"></a>Description</h5>
+<div class="paragraph">
+<p>Precursor to the functionality described in <a href="#platform-device-partitioning">Partitioning a Device</a>.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_version_history_67"><a class="anchor" href="#_version_history_67"></a>Version History</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Revision 1.0.0, 2024-07-17</p>
+<div class="ulist">
+<ul>
+<li>
+<p>First version.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="cl_ext_float_atomics"><a class="anchor" href="#cl_ext_float_atomics"></a>cl_ext_float_atomics</h4>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Name String</strong></dt>
+<dd>
+<p><code>cl_ext_float_atomics</code></p>
+</dd>
+<dt class="hdlist1"><strong>Ratification Status</strong></dt>
+<dd>
+<p>Not ratified</p>
+</dd>
+<dt class="hdlist1"><strong>Extension and Version Dependencies</strong></dt>
+<dd>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><code><a href="#versions-2-0">OpenCL 2.0</a></code><br>
+or<br>
+<code><a href="#versions-3-0">OpenCL 3.0</a></code><br></p>
+</div>
+</div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="sect4">
+<h5 id="_other_extension_metadata_68"><a class="anchor" href="#_other_extension_metadata_68"></a>Other Extension Metadata</h5>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Last Modified Date</strong></dt>
+<dd>
+<p>2020-08-12</p>
+</dd>
+<dt class="hdlist1"><strong>IP Status</strong></dt>
+<dd>
+<p>No known IP claims.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_description_68"><a class="anchor" href="#_description_68"></a>Description</h5>
+<div class="paragraph">
+<p>The latest published specification for this extension is available on
+the <a href="https://registry.khronos.org/OpenCL/extensions/ext/cl_ext_float_atomics.html">OpenCL registry</a>.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_version_history_68"><a class="anchor" href="#_version_history_68"></a>Version History</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Revision 1.0.0, 2020-08-12</p>
+<div class="ulist">
+<ul>
+<li>
+<p>First version.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="cl_ext_image_from_buffer"><a class="anchor" href="#cl_ext_image_from_buffer"></a>cl_ext_image_from_buffer</h4>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Name String</strong></dt>
+<dd>
+<p><code>cl_ext_image_from_buffer</code></p>
+</dd>
+<dt class="hdlist1"><strong>Ratification Status</strong></dt>
+<dd>
+<p>Not ratified</p>
+</dd>
+<dt class="hdlist1"><strong>Extension and Version Dependencies</strong></dt>
+<dd>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><code><a href="#versions-3-0">OpenCL 3.0</a></code><br>
+and<br>
+<code><a href="#cl_ext_image_requirements_info">cl_ext_image_requirements_info</a></code><br></p>
+</div>
+</div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="sect4">
+<h5 id="_other_extension_metadata_69"><a class="anchor" href="#_other_extension_metadata_69"></a>Other Extension Metadata</h5>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Last Modified Date</strong></dt>
+<dd>
+<p>2025-01-15</p>
+</dd>
+<dt class="hdlist1"><strong>IP Status</strong></dt>
+<dd>
+<p>No known IP claims.</p>
+</dd>
+<dt class="hdlist1"><strong>Contributors</strong></dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>Kevin Petit, Arm Ltd.</p>
+</li>
+<li>
+<p>Jeremy Kemp, Imagination Technologies</p>
+</li>
+<li>
+<p>Alastair Murray, Codeplay Software Ltd.</p>
+</li>
+<li>
+<p>Balaji Calidas, Qualcomm</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_description_69"><a class="anchor" href="#_description_69"></a>Description</h5>
+<div class="paragraph">
+<p>This extension enables all types of images to be created from an existing buffer
+object.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_new_enums_35"><a class="anchor" href="#_new_enums_35"></a>New Enums</h5>
+<div class="ulist">
+<ul>
+<li>
+<p><code>cl_image_<wbr>requirements_<wbr>info_<wbr>ext</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#CL_IMAGE_REQUIREMENTS_SLICE_PITCH_ALIGNMENT_EXT"><code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>SLICE_<wbr>PITCH_<wbr>ALIGNMENT_<wbr>EXT</code></a></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_conformance_tests_3"><a class="anchor" href="#_conformance_tests_3"></a>Conformance tests</h5>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Test access from kernel</p>
+<div class="ulist">
+<ul>
+<li>
+<p>For all image types</p>
+</li>
+<li>
+<p>For a few/all image formats</p>
+</li>
+<li>
+<p>For several values of row/slice pitch</p>
+</li>
+<li>
+<p>With or without a host_ptr</p>
+</li>
+<li>
+<p>Create buffer and fill with data</p>
+</li>
+<li>
+<p>Optionally create a sub-buffer with a randomly selected offset?</p>
+</li>
+<li>
+<p>Create an image from the buffer</p>
+</li>
+<li>
+<p>Read the image from a kernel and compare with values read using the buffer and direct addressing. They must match.</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Test clGetImageInfo</p>
+<div class="ulist">
+<ul>
+<li>
+<p>For all image types (one format per element size)</p>
+</li>
+<li>
+<p>For a few different row/pitch sizes (image dimensions being equal or not)</p>
+</li>
+<li>
+<p>Create an image from a buffer</p>
+</li>
+<li>
+<p>Check that the returned values for <a href="#CL_IMAGE_ROW_PITCH"><code>CL_IMAGE_<wbr>ROW_<wbr>PITCH</code></a> and <a href="#CL_IMAGE_SLICE_PITCH"><code>CL_IMAGE_<wbr>SLICE_<wbr>PITCH</code></a> are correct.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Test clGetMemObjectInfo</p>
+<div class="ulist">
+<ul>
+<li>
+<p>For all image types (1 format only)</p>
+</li>
+<li>
+<p>Create an image from a buffer</p>
+</li>
+<li>
+<p>Check that <a href="#CL_MEM_ASSOCIATED_MEMOBJECT"><code>CL_MEM_<wbr>ASSOCIATED_<wbr>MEMOBJECT</code></a> correctly returns the buffer that was used.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Negative testing for <a href="#clCreateImage"><strong>clCreateImage</strong></a> (alignment)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>For a few/all image formats</p>
+</li>
+<li>
+<p>For all image types</p>
+</li>
+<li>
+<p>Query row pitch, slice pitch and base image address alignment for the format</p>
+</li>
+<li>
+<p>Create an image from a buffer with invalid row pitch (not a multiple of required alignment) and check that <a href="#CL_INVALID_IMAGE_FORMAT_DESCRIPTOR"><code>CL_INVALID_<wbr>IMAGE_<wbr>FORMAT_<wbr>DESCRIPTOR</code></a> is returned.</p>
+</li>
+<li>
+<p>Create an image from a buffer with invalid slice pitch (not a multiple of required alignment) and check that <a href="#CL_INVALID_IMAGE_FORMAT_DESCRIPTOR"><code>CL_INVALID_<wbr>IMAGE_<wbr>FORMAT_<wbr>DESCRIPTOR</code></a> is returned.</p>
+</li>
+<li>
+<p>Create an image from a buffer with invalid base address alignment (not a multiple of required alignment) and check that <a href="#CL_INVALID_IMAGE_FORMAT_DESCRIPTOR"><code>CL_INVALID_<wbr>IMAGE_<wbr>FORMAT_<wbr>DESCRIPTOR</code></a> is returned.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Negative testing for <a href="#clCreateImage"><strong>clCreateImage</strong></a> (buffer size)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>For a few image formats (at least smallest and biggest element types)</p>
+</li>
+<li>
+<p>For all image types</p>
+</li>
+<li>
+<p>Create a buffer too small</p>
+</li>
+<li>
+<p>Check that image creation from that buffer is rejected with <a href="#CL_INVALID_IMAGE_SIZE"><code>CL_INVALID_<wbr>IMAGE_<wbr>SIZE</code></a></p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_issues_10"><a class="anchor" href="#_issues_10"></a>Issues</h5>
+<div class="paragraph">
+<p>None.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_version_history_69"><a class="anchor" href="#_version_history_69"></a>Version History</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Revision 1.0.0, 2022-01-25</p>
+<div class="ulist">
+<ul>
+<li>
+<p>First version.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="cl_ext_image_raw10_raw12"><a class="anchor" href="#cl_ext_image_raw10_raw12"></a>cl_ext_image_raw10_raw12</h4>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Name String</strong></dt>
+<dd>
+<p><code>cl_ext_image_raw10_raw12</code></p>
+</dd>
+<dt class="hdlist1"><strong>Ratification Status</strong></dt>
+<dd>
+<p>Not ratified</p>
+</dd>
+<dt class="hdlist1"><strong>Extension and Version Dependencies</strong></dt>
+<dd>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><code><a href="#versions-1-2">OpenCL 1.2</a></code><br></p>
+</div>
+</div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="sect4">
+<h5 id="_other_extension_metadata_70"><a class="anchor" href="#_other_extension_metadata_70"></a>Other Extension Metadata</h5>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Last Modified Date</strong></dt>
+<dd>
+<p>2023-05-03</p>
+</dd>
+<dt class="hdlist1"><strong>IP Status</strong></dt>
+<dd>
+<p>No known IP claims.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_description_70"><a class="anchor" href="#_description_70"></a>Description</h5>
+<div class="paragraph">
+<p>The latest published specification for this extension is available on
+the <a href="https://registry.khronos.org/OpenCL/extensions/ext/cl_ext_image_raw10_raw12.html">OpenCL registry</a>.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_version_history_70"><a class="anchor" href="#_version_history_70"></a>Version History</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Revision 1.0.0, 2023-05-03</p>
+<div class="ulist">
+<ul>
+<li>
+<p>First version.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="cl_ext_image_requirements_info"><a class="anchor" href="#cl_ext_image_requirements_info"></a>cl_ext_image_requirements_info</h4>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Name String</strong></dt>
+<dd>
+<p><code>cl_ext_image_requirements_info</code></p>
+</dd>
+<dt class="hdlist1"><strong>Ratification Status</strong></dt>
+<dd>
+<p>Not ratified</p>
+</dd>
+<dt class="hdlist1"><strong>Extension and Version Dependencies</strong></dt>
+<dd>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><code><a href="#versions-3-0">OpenCL 3.0</a></code><br></p>
+</div>
+</div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="sect4">
+<h5 id="_other_extension_metadata_71"><a class="anchor" href="#_other_extension_metadata_71"></a>Other Extension Metadata</h5>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Last Modified Date</strong></dt>
+<dd>
+<p>2025-01-06</p>
+</dd>
+<dt class="hdlist1"><strong>IP Status</strong></dt>
+<dd>
+<p>No known IP claims.</p>
+</dd>
+<dt class="hdlist1"><strong>Interactions and External Dependencies</strong></dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>This extension interacts with <a href="#cl_khr_image2d_from_buffer"><code>cl_khr_<wbr>image2d_<wbr>from_<wbr>buffer</code></a></p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1"><strong>Contributors</strong></dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>Kevin Petit, Arm Ltd.</p>
+</li>
+<li>
+<p>Jeremy Kemp, Imagination Technologies</p>
+</li>
+<li>
+<p>Alastair Murray, Codeplay Software Ltd.</p>
+</li>
+<li>
+<p>Balaji Calidas, Qualcomm</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_description_71"><a class="anchor" href="#_description_71"></a>Description</h5>
+<div class="paragraph">
+<p>This extension enables applications to query requirements for an image without
+having to create the image.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_new_commands_18"><a class="anchor" href="#_new_commands_18"></a>New Commands</h5>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#clGetImageRequirementsInfoEXT"><strong>clGetImageRequirementsInfoEXT</strong></a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_new_types_18"><a class="anchor" href="#_new_types_18"></a>New Types</h5>
+<div class="ulist">
+<ul>
+<li>
+<p><code>cl_image_<wbr>requirements_<wbr>info_<wbr>ext</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_new_enums_36"><a class="anchor" href="#_new_enums_36"></a>New Enums</h5>
+<div class="ulist">
+<ul>
+<li>
+<p><code>cl_image_<wbr>requirements_<wbr>info_<wbr>ext</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#CL_IMAGE_REQUIREMENTS_ROW_PITCH_ALIGNMENT_EXT"><code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>ROW_<wbr>PITCH_<wbr>ALIGNMENT_<wbr>EXT</code></a></p>
+</li>
+<li>
+<p><a href="#CL_IMAGE_REQUIREMENTS_BASE_ADDRESS_ALIGNMENT_EXT"><code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>BASE_<wbr>ADDRESS_<wbr>ALIGNMENT_<wbr>EXT</code></a></p>
+</li>
+<li>
+<p><a href="#CL_IMAGE_REQUIREMENTS_SIZE_EXT"><code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>SIZE_<wbr>EXT</code></a></p>
+</li>
+<li>
+<p><a href="#CL_IMAGE_REQUIREMENTS_MAX_WIDTH_EXT"><code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>MAX_<wbr>WIDTH_<wbr>EXT</code></a></p>
+</li>
+<li>
+<p><a href="#CL_IMAGE_REQUIREMENTS_MAX_HEIGHT_EXT"><code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>MAX_<wbr>HEIGHT_<wbr>EXT</code></a></p>
+</li>
+<li>
+<p><a href="#CL_IMAGE_REQUIREMENTS_MAX_DEPTH_EXT"><code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>MAX_<wbr>DEPTH_<wbr>EXT</code></a></p>
+</li>
+<li>
+<p><a href="#CL_IMAGE_REQUIREMENTS_MAX_ARRAY_SIZE_EXT"><code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>MAX_<wbr>ARRAY_<wbr>SIZE_<wbr>EXT</code></a></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_conformance_tests_4"><a class="anchor" href="#_conformance_tests_4"></a>Conformance tests</h5>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Basic checks for <a href="#CL_IMAGE_REQUIREMENTS_BASE_ADDRESS_ALIGNMENT_EXT"><code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>BASE_<wbr>ADDRESS_<wbr>ALIGNMENT_<wbr>EXT</code></a> and <a href="#CL_IMAGE_REQUIREMENTS_ROW_PITCH_ALIGNMENT_EXT"><code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>ROW_<wbr>PITCH_<wbr>ALIGNMENT_<wbr>EXT</code></a></p>
+<div class="ulist">
+<ul>
+<li>
+<p>For all image formats and types</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Check that the <a href="#CL_IMAGE_REQUIREMENTS_BASE_ADDRESS_ALIGNMENT_EXT"><code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>BASE_<wbr>ADDRESS_<wbr>ALIGNMENT_<wbr>EXT</code></a> and <a href="#CL_IMAGE_REQUIREMENTS_ROW_PITCH_ALIGNMENT_EXT"><code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>ROW_<wbr>PITCH_<wbr>ALIGNMENT_<wbr>EXT</code></a> queries can be performed successfully and that the values returned are a power of two.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Check consistency with <code>cl_khr_image2d_from_buffer</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>When <code>cl_khr_image2d_from_buffer</code> is supported, check that the value returned by <a href="#CL_DEVICE_IMAGE_PITCH_ALIGNMENT"><code>CL_DEVICE_<wbr>IMAGE_<wbr>PITCH_<wbr>ALIGNMENT</code></a> after converting in bytes for the supported format with the biggest element size (channel data type size * number of channels) is greater than or equal to the value returned by <a href="#CL_IMAGE_REQUIREMENTS_ROW_PITCH_ALIGNMENT_EXT"><code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>ROW_<wbr>PITCH_<wbr>ALIGNMENT_<wbr>EXT</code></a> for all supported formats.</p>
+</li>
+<li>
+<p>When <code>cl_khr_image2d_from_buffer</code> is supported, check that the value returned by <a href="#CL_DEVICE_IMAGE_BASE_ADDRESS_ALIGNMENT"><code>CL_DEVICE_<wbr>IMAGE_<wbr>BASE_<wbr>ADDRESS_<wbr>ALIGNMENT</code></a> after converting in bytes for the supported format with the biggest element size (channel data type size * number of channels) is greater than or equal to the value returned by <a href="#CL_IMAGE_REQUIREMENTS_BASE_ADDRESS_ALIGNMENT_EXT"><code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>BASE_<wbr>ADDRESS_<wbr>ALIGNMENT_<wbr>EXT</code></a> for all supported formats.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Negative tests for <a href="#CL_IMAGE_REQUIREMENTS_SIZE_EXT"><code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>SIZE_<wbr>EXT</code></a></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Check that attempting to perform the <a href="#CL_IMAGE_REQUIREMENTS_SIZE_EXT"><code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>SIZE_<wbr>EXT</code></a> query without specifying the <em>image_format</em> results in <a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> being returned.</p>
+</li>
+<li>
+<p>Check that attempting to perform the <a href="#CL_IMAGE_REQUIREMENTS_SIZE_EXT"><code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>SIZE_<wbr>EXT</code></a> query without specifying the <em>image_desc</em> results in <a href="#CL_INVALID_VALUE"><code>CL_INVALID_<wbr>VALUE</code></a> being returned.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Consistency checks for <a href="#CL_IMAGE_REQUIREMENTS_SIZE_EXT"><code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>SIZE_<wbr>EXT</code></a></p>
+<div class="ulist">
+<ul>
+<li>
+<p>When creating 2D images from a buffer is supported, for all formats and a selection of image dimensions</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Check that the <a href="#CL_IMAGE_REQUIREMENTS_SIZE_EXT"><code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>SIZE_<wbr>EXT</code></a> query can be performed successfully.</p>
+</li>
+<li>
+<p>Create a buffer with the size returned and check that an image can successfully be created from the buffer.</p>
+</li>
+<li>
+<p>Check that the value returned for <a href="#CL_MEM_SIZE"><code>CL_MEM_<wbr>SIZE</code></a> for the image is the same as the value returned for <a href="#CL_IMAGE_REQUIREMENTS_SIZE_EXT"><code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>SIZE_<wbr>EXT</code></a>.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Consistency checks for <a href="#CL_IMAGE_REQUIREMENTS_MAX_WIDTH_EXT"><code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>MAX_<wbr>WIDTH_<wbr>EXT</code></a></p>
+<div class="ulist">
+<ul>
+<li>
+<p>For all image formats, image types and a selection of values for other members in <em>image_desc</em> (that MUST include <code>0</code>)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Check that the <a href="#CL_IMAGE_REQUIREMENTS_MAX_WIDTH_EXT"><code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>MAX_<wbr>WIDTH_<wbr>EXT</code></a> query can be performed successfully</p>
+</li>
+<li>
+<p>Check that the value is smaller than or equal to the value returned for <a href="#CL_DEVICE_IMAGE_MAX_BUFFER_SIZE"><code>CL_DEVICE_<wbr>IMAGE_<wbr>MAX_<wbr>BUFFER_<wbr>SIZE</code></a> for images of <a href="#CL_MEM_OBJECT_IMAGE1D_BUFFER"><code>CL_MEM_<wbr>OBJECT_<wbr>IMAGE1D_<wbr>BUFFER</code></a> type or smaller than or equal to the value returned for <a href="#CL_DEVICE_IMAGE3D_MAX_WIDTH"><code>CL_DEVICE_<wbr>IMAGE3D_<wbr>MAX_<wbr>WIDTH</code></a> for images of <a href="#CL_MEM_OBJECT_IMAGE3D"><code>CL_MEM_<wbr>OBJECT_<wbr>IMAGE3D</code></a> type or smaller than or equal to the value returned for <a href="#CL_DEVICE_IMAGE2D_MAX_WIDTH"><code>CL_DEVICE_<wbr>IMAGE2D_<wbr>MAX_<wbr>WIDTH</code></a> for all other image types.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Negative tests for <a href="#CL_IMAGE_REQUIREMENTS_MAX_HEIGHT_EXT"><code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>MAX_<wbr>HEIGHT_<wbr>EXT</code></a></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Attempt to perform the <a href="#CL_IMAGE_REQUIREMENTS_MAX_HEIGHT_EXT"><code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>MAX_<wbr>HEIGHT_<wbr>EXT</code></a> query on all image types for which it is not valid</p>
+</li>
+<li>
+<p>Check that <a href="#CL_INVALID_IMAGE_DESCRIPTOR"><code>CL_INVALID_<wbr>IMAGE_<wbr>DESCRIPTOR</code></a> is returned in all cases.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Consistency checks for <a href="#CL_IMAGE_REQUIREMENTS_MAX_HEIGHT_EXT"><code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>MAX_<wbr>HEIGHT_<wbr>EXT</code></a></p>
+<div class="ulist">
+<ul>
+<li>
+<p>For all image formats, valid image types and a selection of values for other members in <em>image_desc</em> (that MUST include <code>0</code>)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Check that the <a href="#CL_IMAGE_REQUIREMENTS_MAX_HEIGHT_EXT"><code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>MAX_<wbr>HEIGHT_<wbr>EXT</code></a> query can be performed successfully</p>
+</li>
+<li>
+<p>Check that the value is smaller than or equal to the value returned for <a href="#CL_DEVICE_IMAGE2D_MAX_HEIGHT"><code>CL_DEVICE_<wbr>IMAGE2D_<wbr>MAX_<wbr>HEIGHT</code></a> for 2D or 2D array images or <a href="#CL_DEVICE_IMAGE3D_MAX_HEIGHT"><code>CL_DEVICE_<wbr>IMAGE3D_<wbr>MAX_<wbr>HEIGHT</code></a> for 3D images.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Negative testing for <a href="#CL_IMAGE_REQUIREMENTS_MAX_DEPTH_EXT"><code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>MAX_<wbr>DEPTH_<wbr>EXT</code></a></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Attempt to perform the <a href="#CL_IMAGE_REQUIREMENTS_MAX_DEPTH_EXT"><code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>MAX_<wbr>DEPTH_<wbr>EXT</code></a> query on all image types for which it is not valid</p>
+</li>
+<li>
+<p>Check that <a href="#CL_INVALID_IMAGE_DESCRIPTOR"><code>CL_INVALID_<wbr>IMAGE_<wbr>DESCRIPTOR</code></a> is returned in all cases.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Consistency checks for <a href="#CL_IMAGE_REQUIREMENTS_MAX_DEPTH_EXT"><code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>MAX_<wbr>DEPTH_<wbr>EXT</code></a></p>
+<div class="ulist">
+<ul>
+<li>
+<p>For all image formats, valid image types and a selection of values for other members in <em>image_desc</em> (that MUST include <code>0</code>)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Check that the <a href="#CL_IMAGE_REQUIREMENTS_MAX_DEPTH_EXT"><code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>MAX_<wbr>DEPTH_<wbr>EXT</code></a> query can be performed successfully</p>
+</li>
+<li>
+<p>Check that the value is smaller than or equal to the value returned for <a href="#CL_DEVICE_IMAGE3D_MAX_DEPTH"><code>CL_DEVICE_<wbr>IMAGE3D_<wbr>MAX_<wbr>DEPTH</code></a>.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Negative testing for <a href="#CL_IMAGE_REQUIREMENTS_MAX_ARRAY_SIZE_EXT"><code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>MAX_<wbr>ARRAY_<wbr>SIZE_<wbr>EXT</code></a></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Attempt to perform the <a href="#CL_IMAGE_REQUIREMENTS_MAX_ARRAY_SIZE_EXT"><code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>MAX_<wbr>ARRAY_<wbr>SIZE_<wbr>EXT</code></a> query on all image types for which it is not valid</p>
+</li>
+<li>
+<p>Check that <a href="#CL_INVALID_IMAGE_DESCRIPTOR"><code>CL_INVALID_<wbr>IMAGE_<wbr>DESCRIPTOR</code></a> is returned in all cases.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Consistency checks for <a href="#CL_IMAGE_REQUIREMENTS_MAX_ARRAY_SIZE_EXT"><code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>MAX_<wbr>ARRAY_<wbr>SIZE_<wbr>EXT</code></a></p>
+<div class="ulist">
+<ul>
+<li>
+<p>For all image formats, valid image types and a selection of values for other members in <em>image_desc</em> (that MUST include <code>0</code>)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Check that the <a href="#CL_IMAGE_REQUIREMENTS_MAX_ARRAY_SIZE_EXT"><code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>MAX_<wbr>ARRAY_<wbr>SIZE_<wbr>EXT</code></a> query can be performed successfully</p>
+</li>
+<li>
+<p>Check that the value is smaller than or equal to the value returned for <a href="#CL_DEVICE_IMAGE_MAX_ARRAY_SIZE"><code>CL_DEVICE_<wbr>IMAGE_<wbr>MAX_<wbr>ARRAY_<wbr>SIZE</code></a>.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>General negative testing for <a href="#clGetImageRequirementsInfoEXT"><strong>clGetImageRequirementsInfoEXT</strong></a></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Write tests for all possible testable generic error codes.</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_issues_11"><a class="anchor" href="#_issues_11"></a>Issues</h5>
+<div class="paragraph">
+<p>None.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_version_history_71"><a class="anchor" href="#_version_history_71"></a>Version History</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Revision 0.5.0, 2022-01-18</p>
+<div class="ulist">
+<ul>
+<li>
+<p>First version.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="cl_ext_image_unorm_int_2_101010"><a class="anchor" href="#cl_ext_image_unorm_int_2_101010"></a>cl_ext_image_unorm_int_2_101010</h4>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Name String</strong></dt>
+<dd>
+<p><code>cl_ext_image_unorm_int_2_101010</code></p>
+</dd>
+<dt class="hdlist1"><strong>Ratification Status</strong></dt>
+<dd>
+<p>Not ratified</p>
+</dd>
+<dt class="hdlist1"><strong>Extension and Version Dependencies</strong></dt>
+<dd>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><code><a href="#versions-1-2">OpenCL 1.2</a></code><br></p>
+</div>
+</div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="sect4">
+<h5 id="_other_extension_metadata_72"><a class="anchor" href="#_other_extension_metadata_72"></a>Other Extension Metadata</h5>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Last Modified Date</strong></dt>
+<dd>
+<p>2024-05-10</p>
+</dd>
+<dt class="hdlist1"><strong>IP Status</strong></dt>
+<dd>
+<p>No known IP claims.</p>
+</dd>
+<dt class="hdlist1"><strong>Contributors</strong></dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>Kévin Petit, Arm Ltd.</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_description_72"><a class="anchor" href="#_description_72"></a>Description</h5>
+<div class="paragraph">
+<p><a href="#cl_ext_image_unorm_int_2_101010"><code>cl_ext_<wbr>image_<wbr>unorm_<wbr>int_<wbr>2_<wbr>101010</code></a> adds support for the <a href="#CL_UNORM_INT_2_101010_EXT"><code>CL_UNORM_<wbr>INT_<wbr>2_<wbr>101010_<wbr>EXT</code></a>
+image format.</p>
+</div>
+<div class="paragraph">
+<p>OpenCL C compilers supporting this extension will define the
+<code>__opencl_c_<wbr>ext_<wbr>image_<wbr>unorm_<wbr>int_<wbr>2_<wbr>101010</code> feature macro.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_new_feature_macro"><a class="anchor" href="#_new_feature_macro"></a>New feature macro</h5>
+<div class="ulist">
+<ul>
+<li>
+<p><code>__opencl_c_<wbr>ext_<wbr>image_<wbr>unorm_<wbr>int_<wbr>2_<wbr>101010</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_new_enums_37"><a class="anchor" href="#_new_enums_37"></a>New Enums</h5>
+<div class="ulist">
+<ul>
+<li>
+<p><code>cl_channel_<wbr>type</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#CL_UNORM_INT_2_101010_EXT"><code>CL_UNORM_<wbr>INT_<wbr>2_<wbr>101010_<wbr>EXT</code></a></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_new_opencl_c_channel_data_type"><a class="anchor" href="#_new_opencl_c_channel_data_type"></a>New OpenCL C channel data type</h5>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CLK_UNORM_INT_2_101010_EXT</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_version_history_72"><a class="anchor" href="#_version_history_72"></a>Version History</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Revision 1.0.0, 2024-05-10</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Initial version</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="cl_ext_immutable_memory_objects"><a class="anchor" href="#cl_ext_immutable_memory_objects"></a>cl_ext_immutable_memory_objects</h4>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Name String</strong></dt>
+<dd>
+<p><code>cl_ext_immutable_memory_objects</code></p>
+</dd>
+<dt class="hdlist1"><strong>Ratification Status</strong></dt>
+<dd>
+<p>Not ratified</p>
+</dd>
+<dt class="hdlist1"><strong>Extension and Version Dependencies</strong></dt>
+<dd>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><code><a href="#versions-1-2">OpenCL 1.2</a></code><br></p>
+</div>
+</div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="sect4">
+<h5 id="_other_extension_metadata_73"><a class="anchor" href="#_other_extension_metadata_73"></a>Other Extension Metadata</h5>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Last Modified Date</strong></dt>
+<dd>
+<p>2024-11-06</p>
+</dd>
+<dt class="hdlist1"><strong>IP Status</strong></dt>
+<dd>
+<p>No known IP claims.</p>
+</dd>
+<dt class="hdlist1"><strong>Contributors</strong></dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>Kevin Petit, Arm Ltd.</p>
+</li>
+<li>
+<p>Ahmed Hesham, Arm Ltd.</p>
+</li>
+<li>
+<p>Michael Rizkalla, Arm Ltd.</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1"><strong>Interactions</strong></dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>This extension interacts with <a href="#cl_khr_egl_image"><code>cl_khr_<wbr>egl_<wbr>image</code></a>.</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_description_73"><a class="anchor" href="#_description_73"></a>Description</h5>
+<div class="paragraph">
+<p><a href="#cl_ext_immutable_memory_objects"><code>cl_ext_<wbr>immutable_<wbr>memory_<wbr>objects</code></a> provides a mechanism to create memory
+objects that cannot be modified by the implementation after creation. This,
+for example, enables implementation to support image formats for which no write
+operations can be supported.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_new_enums_38"><a class="anchor" href="#_new_enums_38"></a>New Enums</h5>
+<div class="ulist">
+<ul>
+<li>
+<p><code>cl_mem_<wbr>flags</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#CL_MEM_IMMUTABLE_EXT"><code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code></a></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_issues_12"><a class="anchor" href="#_issues_12"></a>Issues</h5>
+<div class="paragraph">
+<p>1) Can <a href="#CL_MEM_READ_ONLY"><code>CL_MEM_<wbr>READ_<wbr>ONLY</code></a> be used instead of <a href="#CL_MEM_IMMUTABLE_EXT"><code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code></a>?</p>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>RESOLVED</strong>: No. Memory objects created with <a href="#CL_MEM_READ_ONLY"><code>CL_MEM_<wbr>READ_<wbr>ONLY</code></a> can be modified
+by copy or fill commands and this behaviour cannot be changed without breaking
+backwards compatibility.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_version_history_73"><a class="anchor" href="#_version_history_73"></a>Version History</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Revision 1.0.0, 2024-11-06</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Initial version</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="cl_ext_migrate_memobject"><a class="anchor" href="#cl_ext_migrate_memobject"></a>cl_ext_migrate_memobject</h4>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Name String</strong></dt>
+<dd>
+<p><code>cl_ext_migrate_memobject</code></p>
+</dd>
+<dt class="hdlist1"><strong>Ratification Status</strong></dt>
+<dd>
+<p>Not ratified</p>
+</dd>
+<dt class="hdlist1"><strong>Extension and Version Dependencies</strong></dt>
+<dd>
+<p>None</p>
+</dd>
+</dl>
+</div>
+<div class="sect4">
+<h5 id="_other_extension_metadata_74"><a class="anchor" href="#_other_extension_metadata_74"></a>Other Extension Metadata</h5>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Last Modified Date</strong></dt>
+<dd>
+<p>2024-07-17</p>
+</dd>
+<dt class="hdlist1"><strong>IP Status</strong></dt>
+<dd>
+<p>No known IP claims.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_description_74"><a class="anchor" href="#_description_74"></a>Description</h5>
+<div class="paragraph">
+<p>Precursor to <a href="#clEnqueueMigrateMemObjects"><strong>clEnqueueMigrateMemObjects</strong></a>.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_version_history_74"><a class="anchor" href="#_version_history_74"></a>Version History</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Revision 1.0.0, 2024-07-17</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Initial version.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="provisional-extension-appendices-list"><a class="anchor" href="#provisional-extension-appendices-list"></a>List of Provisional Extensions</h3>
@@ -50681,7 +52831,7 @@ See the <a href="#boilerplate-provisional-header">description</a> of provisional
 </dl>
 </div>
 <div class="sect4">
-<h5 id="_other_extension_metadata_65"><a class="anchor" href="#_other_extension_metadata_65"></a>Other Extension Metadata</h5>
+<h5 id="_other_extension_metadata_75"><a class="anchor" href="#_other_extension_metadata_75"></a>Other Extension Metadata</h5>
 <div class="dlist">
 <dl>
 <dt class="hdlist1"><strong>Last Modified Date</strong></dt>
@@ -50754,7 +52904,7 @@ See the <a href="#boilerplate-provisional-header">description</a> of provisional
 </div>
 </div>
 <div class="sect4">
-<h5 id="_description_65"><a class="anchor" href="#_description_65"></a>Description</h5>
+<h5 id="_description_75"><a class="anchor" href="#_description_75"></a>Description</h5>
 <div class="paragraph">
 <p><a href="#cl_khr_command_buffer"><code>cl_khr_<wbr>command_<wbr>buffer</code></a> adds the ability to record and replay buffers of
 OpenCL commands.</p>
@@ -50765,7 +52915,7 @@ workload multiple times. By separating the command-queue setup from dispatch,
 the ability to replay a set of previously created commands is introduced.</p>
 </div>
 <div class="sect5">
-<h6 id="_background"><a class="anchor" href="#_background"></a>Background</h6>
+<h6 id="_background_2"><a class="anchor" href="#_background_2"></a>Background</h6>
 <div class="paragraph">
 <p>On embedded devices where building a command stream accounts for a significant
 expenditure of resources and where workloads are often required to be pipelined,
@@ -50977,7 +53127,7 @@ correspond to those set on creation. Only a single queue is permitted in
 </div>
 </div>
 <div class="sect4">
-<h5 id="_new_commands_18"><a class="anchor" href="#_new_commands_18"></a>New Commands</h5>
+<h5 id="_new_commands_19"><a class="anchor" href="#_new_commands_19"></a>New Commands</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -51043,7 +53193,7 @@ and starting from version 0.9.4 of this extension</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_new_types_17"><a class="anchor" href="#_new_types_17"></a>New Types</h5>
+<h5 id="_new_types_19"><a class="anchor" href="#_new_types_19"></a>New Types</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -51077,7 +53227,7 @@ and starting from version 0.9.4 of this extension</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_new_enums_33"><a class="anchor" href="#_new_enums_33"></a>New Enums</h5>
+<h5 id="_new_enums_39"><a class="anchor" href="#_new_enums_39"></a>New Enums</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -51358,7 +53508,7 @@ and starting from version 0.9.4 of this extension</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_issues_10"><a class="anchor" href="#_issues_10"></a>Issues</h5>
+<h5 id="_issues_13"><a class="anchor" href="#_issues_13"></a>Issues</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -51414,7 +53564,7 @@ command-buffer creation.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_version_history_65"><a class="anchor" href="#_version_history_65"></a>Version History</h5>
+<h5 id="_version_history_75"><a class="anchor" href="#_version_history_75"></a>Version History</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -51538,7 +53688,7 @@ See the <a href="#boilerplate-provisional-header">description</a> of provisional
 </dl>
 </div>
 <div class="sect4">
-<h5 id="_other_extension_metadata_66"><a class="anchor" href="#_other_extension_metadata_66"></a>Other Extension Metadata</h5>
+<h5 id="_other_extension_metadata_76"><a class="anchor" href="#_other_extension_metadata_76"></a>Other Extension Metadata</h5>
 <div class="dlist">
 <dl>
 <dt class="hdlist1"><strong>Last Modified Date</strong></dt>
@@ -51605,7 +53755,7 @@ See the <a href="#boilerplate-provisional-header">description</a> of provisional
 </div>
 </div>
 <div class="sect4">
-<h5 id="_description_66"><a class="anchor" href="#_description_66"></a>Description</h5>
+<h5 id="_description_76"><a class="anchor" href="#_description_76"></a>Description</h5>
 <div class="paragraph">
 <p>The <a href="#cl_khr_command_buffer"><code>cl_khr_<wbr>command_<wbr>buffer</code></a> extension separates command construction from
 enqueue by providing a mechanism to record a set of commands which can then
@@ -51629,7 +53779,7 @@ OpenCL runtime.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_new_commands_19"><a class="anchor" href="#_new_commands_19"></a>New Commands</h5>
+<h5 id="_new_commands_20"><a class="anchor" href="#_new_commands_20"></a>New Commands</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -51639,7 +53789,7 @@ OpenCL runtime.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_new_types_18"><a class="anchor" href="#_new_types_18"></a>New Types</h5>
+<h5 id="_new_types_20"><a class="anchor" href="#_new_types_20"></a>New Types</h5>
 <div class="paragraph">
 <p>Bitfield for querying command-buffer capabilities of an OpenCL Platform with
 <a href="#clGetPlatformInfo"><strong>clGetPlatformInfo</strong></a>, see the <a href="#multi-device-platform-queries">platform
@@ -51654,7 +53804,7 @@ queries table</a>:</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_new_enums_34"><a class="anchor" href="#_new_enums_34"></a>New Enums</h5>
+<h5 id="_new_enums_40"><a class="anchor" href="#_new_enums_40"></a>New Enums</h5>
 <div class="paragraph">
 <p>Enums for querying device command-buffer capabilities with
 <a href="#clGetDeviceInfo"><strong>clGetDeviceInfo</strong></a>, see the <a href="#multi-device-queries">device queries table</a>:</p>
@@ -51923,7 +54073,7 @@ queries table</a>:</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_issues_11"><a class="anchor" href="#_issues_11"></a>Issues</h5>
+<h5 id="_issues_14"><a class="anchor" href="#_issues_14"></a>Issues</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -51972,7 +54122,7 @@ case?</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_version_history_66"><a class="anchor" href="#_version_history_66"></a>Version History</h5>
+<h5 id="_version_history_76"><a class="anchor" href="#_version_history_76"></a>Version History</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -52044,7 +54194,7 @@ See the <a href="#boilerplate-provisional-header">description</a> of provisional
 </dl>
 </div>
 <div class="sect4">
-<h5 id="_other_extension_metadata_67"><a class="anchor" href="#_other_extension_metadata_67"></a>Other Extension Metadata</h5>
+<h5 id="_other_extension_metadata_77"><a class="anchor" href="#_other_extension_metadata_77"></a>Other Extension Metadata</h5>
 <div class="dlist">
 <dl>
 <dt class="hdlist1"><strong>Last Modified Date</strong></dt>
@@ -52111,7 +54261,7 @@ See the <a href="#boilerplate-provisional-header">description</a> of provisional
 </div>
 </div>
 <div class="sect4">
-<h5 id="_description_67"><a class="anchor" href="#_description_67"></a>Description</h5>
+<h5 id="_description_77"><a class="anchor" href="#_description_77"></a>Description</h5>
 <div class="paragraph">
 <p>The <a href="#cl_khr_command_buffer"><code>cl_khr_<wbr>command_<wbr>buffer</code></a> extension separates command construction
 from enqueue by providing a mechanism to record a set of commands which can
@@ -52144,7 +54294,7 @@ void pointer using <code>cl_command_<wbr>buffer_<wbr>update_<wbr>type_<wbr>khr</
 </div>
 </div>
 <div class="sect4">
-<h5 id="_new_commands_20"><a class="anchor" href="#_new_commands_20"></a>New Commands</h5>
+<h5 id="_new_commands_21"><a class="anchor" href="#_new_commands_21"></a>New Commands</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -52157,7 +54307,7 @@ void pointer using <code>cl_command_<wbr>buffer_<wbr>update_<wbr>type_<wbr>khr</
 </div>
 </div>
 <div class="sect4">
-<h5 id="_new_types_19"><a class="anchor" href="#_new_types_19"></a>New Types</h5>
+<h5 id="_new_types_21"><a class="anchor" href="#_new_types_21"></a>New Types</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -52185,7 +54335,7 @@ void pointer using <code>cl_command_<wbr>buffer_<wbr>update_<wbr>type_<wbr>khr</
 </div>
 </div>
 <div class="sect4">
-<h5 id="_new_enums_35"><a class="anchor" href="#_new_enums_35"></a>New Enums</h5>
+<h5 id="_new_enums_41"><a class="anchor" href="#_new_enums_41"></a>New Enums</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -52545,7 +54695,7 @@ kernel void vector_addition(global int* tile1, global int* tile2,
 </div>
 </div>
 <div class="sect4">
-<h5 id="_issues_12"><a class="anchor" href="#_issues_12"></a>Issues</h5>
+<h5 id="_issues_15"><a class="anchor" href="#_issues_15"></a>Issues</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -52584,7 +54734,7 @@ may be a introduced as a stand alone extension.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_version_history_67"><a class="anchor" href="#_version_history_67"></a>Version History</h5>
+<h5 id="_version_history_77"><a class="anchor" href="#_version_history_77"></a>Version History</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -52671,7 +54821,7 @@ See the <a href="#boilerplate-provisional-header">description</a> of provisional
 </dl>
 </div>
 <div class="sect4">
-<h5 id="_other_extension_metadata_68"><a class="anchor" href="#_other_extension_metadata_68"></a>Other Extension Metadata</h5>
+<h5 id="_other_extension_metadata_78"><a class="anchor" href="#_other_extension_metadata_78"></a>Other Extension Metadata</h5>
 <div class="dlist">
 <dl>
 <dt class="hdlist1"><strong>Last Modified Date</strong></dt>
@@ -52744,7 +54894,7 @@ See the <a href="#boilerplate-provisional-header">description</a> of provisional
 </div>
 </div>
 <div class="sect4">
-<h5 id="_description_68"><a class="anchor" href="#_description_68"></a>Description</h5>
+<h5 id="_description_78"><a class="anchor" href="#_description_78"></a>Description</h5>
 <div class="paragraph">
 <p><a href="#cl_khr_external_semaphore_win32"><code>cl_khr_<wbr>external_<wbr>semaphore_<wbr>win32</code></a> supports importing and exporting an NT
 handle or global share handle as an external semaphore using the APIs
@@ -52752,7 +54902,7 @@ introduced by <a href="#cl_khr_external_semaphore"><code>cl_khr_<wbr>external_<w
 </div>
 </div>
 <div class="sect4">
-<h5 id="_new_enums_36"><a class="anchor" href="#_new_enums_36"></a>New Enums</h5>
+<h5 id="_new_enums_42"><a class="anchor" href="#_new_enums_42"></a>New Enums</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -52775,7 +54925,7 @@ introduced by <a href="#cl_khr_external_semaphore"><code>cl_khr_<wbr>external_<w
 </div>
 </div>
 <div class="sect4">
-<h5 id="_version_history_68"><a class="anchor" href="#_version_history_68"></a>Version History</h5>
+<h5 id="_version_history_78"><a class="anchor" href="#_version_history_78"></a>Version History</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -52829,7 +54979,7 @@ See the <a href="#boilerplate-provisional-header">description</a> of provisional
 </dl>
 </div>
 <div class="sect4">
-<h5 id="_other_extension_metadata_69"><a class="anchor" href="#_other_extension_metadata_69"></a>Other Extension Metadata</h5>
+<h5 id="_other_extension_metadata_79"><a class="anchor" href="#_other_extension_metadata_79"></a>Other Extension Metadata</h5>
 <div class="dlist">
 <dl>
 <dt class="hdlist1"><strong>Last Modified Date</strong></dt>
@@ -52869,7 +55019,7 @@ See the <a href="#boilerplate-provisional-header">description</a> of provisional
 </div>
 </div>
 <div class="sect4">
-<h5 id="_description_69"><a class="anchor" href="#_description_69"></a>Description</h5>
+<h5 id="_description_79"><a class="anchor" href="#_description_79"></a>Description</h5>
 <div class="paragraph">
 <p><code>cl_khr_kernel_clock</code> adds the ability for a kernel to sample the value from one
 of three clocks provided by compute units.</p>
@@ -52900,7 +55050,7 @@ is required for the <code>clock_read_device</code>, <code>clock_read_work_group<
 </div>
 </div>
 <div class="sect4">
-<h5 id="_new_types_20"><a class="anchor" href="#_new_types_20"></a>New Types</h5>
+<h5 id="_new_types_22"><a class="anchor" href="#_new_types_22"></a>New Types</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -52910,7 +55060,7 @@ is required for the <code>clock_read_device</code>, <code>clock_read_work_group<
 </div>
 </div>
 <div class="sect4">
-<h5 id="_new_enums_37"><a class="anchor" href="#_new_enums_37"></a>New Enums</h5>
+<h5 id="_new_enums_43"><a class="anchor" href="#_new_enums_43"></a>New Enums</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -52943,7 +55093,7 @@ is required for the <code>clock_read_device</code>, <code>clock_read_work_group<
 </div>
 </div>
 <div class="sect4">
-<h5 id="_version_history_69"><a class="anchor" href="#_version_history_69"></a>Version History</h5>
+<h5 id="_version_history_79"><a class="anchor" href="#_version_history_79"></a>Version History</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -53010,7 +55160,7 @@ OpenCL 2.1</p>
 </dl>
 </div>
 <div class="sect4">
-<h5 id="_other_extension_metadata_70"><a class="anchor" href="#_other_extension_metadata_70"></a>Other Extension Metadata</h5>
+<h5 id="_other_extension_metadata_80"><a class="anchor" href="#_other_extension_metadata_80"></a>Other Extension Metadata</h5>
 <div class="dlist">
 <dl>
 <dt class="hdlist1"><strong>Last Modified Date</strong></dt>
@@ -53025,7 +55175,7 @@ OpenCL 2.1</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_description_70"><a class="anchor" href="#_description_70"></a>Description</h5>
+<h5 id="_description_80"><a class="anchor" href="#_description_80"></a>Description</h5>
 <div class="paragraph">
 <p><a href="#cl_khr_spir"><code>cl_khr_<wbr>spir</code></a> adds the ability to create an OpenCL program object from a
 Standard Portable Intermediate Representation (SPIR) instance.
@@ -53043,7 +55193,7 @@ feature in OpenCL 2.1.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_new_enums_38"><a class="anchor" href="#_new_enums_38"></a>New Enums</h5>
+<h5 id="_new_enums_44"><a class="anchor" href="#_new_enums_44"></a>New Enums</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -53070,7 +55220,7 @@ feature in OpenCL 2.1.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_version_history_70"><a class="anchor" href="#_version_history_70"></a>Version History</h5>
+<h5 id="_version_history_80"><a class="anchor" href="#_version_history_80"></a>Version History</h5>
 <div class="ulist">
 <ul>
 <li>

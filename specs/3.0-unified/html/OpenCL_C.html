@@ -927,7 +927,7 @@ pre.rouge .gs {
 <div class="details">
 <span id="author" class="author">Khronos<sup>&#174;</sup> OpenCL Working Group</span><br>
 <span id="revnumber">version v3.0.18,</span>
-<span id="revdate">Thu, 03 Apr 2025 12:00:0 +0000</span>
+<span id="revdate">Thu, 03 Apr 2025 12:00:00 +0000</span>
 <br><span id="revremark">from git branch: main commit: 2c2028732d7f84a6ec6a2fd54a02517ce98e9140</span>
 </div>
 <div id="toc" class="toc2">
@@ -1406,6 +1406,11 @@ clock shared by all work-items executing in the same work-group.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>__opencl_c_<wbr>kernel_<wbr>clock_<wbr>scope_<wbr>sub_<wbr>group</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The OpenCL C compiler supports built-in functions that sample the value from a
 clock shared by all work-items executing in the same sub-group.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>__opencl_c_<wbr>ext_<wbr>image_<wbr>unorm_<wbr>int_<wbr>2_<wbr>101010</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The OpenCL C compiler supports <code>CLK_UNORM_INT_2_101010_EXT</code> and returning it
+from <code>get_image_channel_data_type</code>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -16143,7 +16148,10 @@ For query functions this may be <code>read_only</code>, <code>write_only</code> 
       <code>CLK_HALF_FLOAT</code><br>
       <code>CLK_FLOAT</code><br></p>
 <p class="tableblock">      Additionally, for OpenCL C 3.0 or newer:</p>
-<p class="tableblock">      <code>CLK_UNORM_INT_101010_2</code> <sup class="footnote">[<a id="_footnoteref_84" class="footnote" href="#_footnotedef_84" title="View footnote.">84</a>]</sup></p></td>
+<p class="tableblock">      <code>CLK_UNORM_INT_101010_2</code> <sup class="footnote">[<a id="_footnoteref_84" class="footnote" href="#_footnotedef_84" title="View footnote.">84</a>]</sup></p>
+<p class="tableblock">      Additionally, if the <code>__opencl_c_<wbr>ext_<wbr>image_<wbr>unorm_<wbr>int_<wbr>2_<wbr>101010</code> feature is
+      supported:</p>
+<p class="tableblock">      <code>CLK_UNORM_INT_2_101010_EXT</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">int <strong>get_image_channel_order</strong>(<em>aQual</em> image2d_t <em>image</em>)<br>
