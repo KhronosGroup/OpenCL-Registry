@@ -165,4 +165,6 @@
 </li>
 <li><a href="extensions/qcom/cl_qcom_ion_host_ptr.txt">cl_qcom_ion_host_ptr</a>
 </li>
+<li><a href="extensions/qcom/cl_qcom_perf_hint.html">cl_qcom_perf_hint</a>
+</li>
 </ul>

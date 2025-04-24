@@ -736,6 +736,11 @@ registry = {
         'flags' : { 'public' },
         'url' : 'extensions/qcom/cl_qcom_ext_host_ptr_iocoherent.txt',
     },
+    'cl_qcom_perf_hint' : {
+        'number' : 86,
+        'flags' : { 'public' },
+        'url' : 'extensions/qcom/cl_qcom_perf_hint.html',
+    },
     'cl_amd_planar_yuv' : {
         'number' : 54,
         'flags' : { 'public' },
