@@ -43,6 +43,8 @@
 </li>
 <li><a href="extensions/ext/cl_ext_atomic_counters_64.txt">cl_ext_atomic_counters_64</a>
 </li>
+<li><a href="specs/3.0-unified/html/OpenCL_API.html#cl_ext_buffer_device_address">cl_ext_buffer_device_address</a>
+</li>
 <li><a href="extensions/ext/cl_ext_cxx_for_opencl.html">cl_ext_cxx_for_opencl</a>
 </li>
 <li><a href="extensions/ext/cl_ext_device_fission.txt">cl_ext_device_fission</a>
@@ -54,6 +56,8 @@
 <li><a href="extensions/ext/cl_ext_image_raw10_raw12.html">cl_ext_image_raw10_raw12</a>
 </li>
 <li><a href="extensions/ext/cl_ext_image_requirements_info.html">cl_ext_image_requirements_info</a>
+</li>
+<li><a href="specs/3.0-unified/html/OpenCL_API.html#cl_ext_immutable_memory_objects">cl_ext_immutable_memory_objects</a>
 </li>
 <li><a href="extensions/ext/cl_ext_migrate_memobject.txt">cl_ext_migrate_memobject</a>
 </li>
