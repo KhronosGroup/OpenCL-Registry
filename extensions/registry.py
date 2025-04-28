@@ -106,6 +106,11 @@ registry = {
         'flags' : { 'public' },
         'url' : 'extensions/ext/cl_ext_atomic_counters_64.txt',
     },
+    'cl_ext_buffer_device_address' : {
+        'number' : 87,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_API.html#cl_ext_buffer_device_address',
+    },
     'cl_ext_cxx_for_opencl' : {
         'number' : 64,
         'flags' : { 'public' },
@@ -135,6 +140,11 @@ registry = {
         'number' : 83,
         'flags' : { 'public' },
         'url' : 'extensions/ext/cl_ext_image_requirements_info.html',
+    },
+    'cl_ext_immutable_memory_objects' : {
+        'number' : 88,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_API.html#cl_ext_immutable_memory_objects',
     },
     'cl_ext_migrate_memobject' : {
         'number' : 10,
