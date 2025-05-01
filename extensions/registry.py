@@ -311,6 +311,11 @@ registry = {
         'flags' : { 'public' },
         'url' : 'extensions/intel/cl_intel_split_work_group_barrier.html',
     },
+    'cl_intel_subgroup_2d_block_io' : {
+        'number' : 89,
+        'flags' : { 'public' },
+        'url' : 'extensions/intel/cl_intel_subgroup_2d_block_io.html',
+    },
     'cl_intel_subgroup_buffer_prefetch' : {
         'number' : 85,
         'flags' : { 'public' },
