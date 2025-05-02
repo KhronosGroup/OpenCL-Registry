@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.16">
+<meta name="generator" content="Asciidoctor 2.0.23">
 <title>cl_khr_icd(3)</title>
 <style>
 /*! normalize.css v2.1.2 | MIT License | git.io/normalize */
@@ -794,7 +794,7 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <dl>
 <dt class="hdlist1"><strong>Last Modified Date</strong></dt>
 <dd>
-<p>2020-04-21</p>
+<p>2025-04-01</p>
 </dd>
 <dt class="hdlist1"><strong>IP Status</strong></dt>
 <dd>
@@ -851,6 +851,8 @@ An object is said to be ICD compatible if it is of the following structure:</p>
 <pre class="highlight"><code class="language-c" data-lang="c">struct _cl_&lt;object&gt;
 {
     struct _cl_icd_dispatch *dispatch;
+    // Since version 2.0.0
+    void *dispatch_data;
     // ... remainder of internal data
 };</code></pre>
 </div>
@@ -873,6 +875,15 @@ can be appended.</p>
 <div class="paragraph">
 <p>Functions which do not have an argument from which the vendor implementation
 may be inferred have been deprecated and may be ignored.</p>
+</div>
+<div class="paragraph">
+<p>New in version 2.0.0, object that are ICD 2 compatible should also contain
+a <code>dispatch_data</code> field of type <code>void *</code> that the loader is free to modify
+for a platform through the <strong>clIcdSetPlatformDispatchDataKHR</strong> new API entry
+point. In order to distinguish ICD 1 and ICD 2 objects, the pointers to
+<code>clGetPlatformIDs</code> and <code>clUnloadCompiler</code> in the dispatch structure must be
+set to <code>CL_ICD2_TAG_KHR</code>. The vendor driver is responsible for propagating
+the <code>dispatch_data</code> value when returning objects to users.</p>
 </div>
 </div>
 </div>
@@ -1075,6 +1086,24 @@ value <code>CL_PLATFORM_<wbr>ICD_<wbr>SUFFIX_<wbr>KHR</code>.</p>
 <p>If any of these steps fail, the ICD Loader will ignore the Vendor ICD and
 continue on to the next.</p>
 </div>
+<div class="paragraph">
+<p>New in version 2.0.0, the ICD Loader will also query the following functions
+from the library: <strong>clIcdGetFunctionAddressForPlatformKHR</strong> and
+<strong>clIcdSetPlatformDispatchDataKHR</strong>. If these two functions are present and the
+pointers to <code>clGetPlatformIDs</code> and <code>clUnloadCompiler</code> in the dispatch
+structure of a platform is set to <code>CL_ICD2_TAG_KHR</code> the platform will be
+deemed ICD 2 compatible and dispatch will be managed by the ICD Loader. If the
+<code>CL_ICD2_TAG_KHR</code> tag is present but one of the two functions above is
+missing or it the tag is present in only one of the pointers, the ICD Loader
+will ignore the Vendor ICD and continue on to the next.</p>
+</div>
+<div class="paragraph">
+<p>During initialization, after calling <strong>clIcdGetPlatformIDsKHR</strong> to query the
+available platforms, the ICD Loader will, for each ICD 2 compatible platform,
+query dispatchable entry points using <strong>clIcdGetFunctionAddressForPlatformKHR</strong>
+and then set the platform dispatch data using
+<strong>clIcdSetPlatformDispatchDataKHR</strong>.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1084,6 +1113,19 @@ continue on to the next.</p>
 <ul>
 <li>
 <p><strong>clIcdGetPlatformIDsKHR</strong></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>New in version 2.0.0:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>clIcdGetFunctionAddressForPlatformKHR</strong></p>
+</li>
+<li>
+<p><strong>clIcdSetPlatformDispatchDataKHR</strong></p>
 </li>
 </ul>
 </div>
@@ -1109,6 +1151,17 @@ continue on to the next.</p>
 <ul>
 <li>
 <p><code>CL_PLATFORM_<wbr>NOT_<wbr>FOUND_<wbr>KHR</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>New in version 2.0.0, used as a value in the pointers to <code>clGetPlatformIDs</code>
+and <code>clUnloadCompiler</code> in the dispatch structure:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_ICD2_TAG_KHR</code></p>
 </li>
 </ul>
 </div>
@@ -1181,6 +1234,34 @@ question.</p>
 </div>
 </div>
 </li>
+<li>
+<p>How will the ICD loader avoid calling entry points outside of the dispatch
+table of old implementations, potentially causing segfaults?</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>RESOLVED</strong>: From versions 2.0.0 and above, the loader will be responsible for
+managing dispatch data information per platform. The content of the dispatch
+table is obtained through a dedicated entry point, and missing entry points are
+replaced by stubs that return <code>CL_INVALID_<wbr>OPERATION</code>.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>How will the ICD loader set the loader managed dispatch information in new
+objects? Some of these objects may be created by extension functions that
+the loader is unaware of.</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>RESOLVED</strong>: During initialization, the loader will set the platform dispatch
+information through a new entry point. The implementation will be responsible
+for propagating this information to new objects.</p>
+</div>
+</div>
+</div>
+</li>
 </ol>
 </div>
 </div>
@@ -1196,6 +1277,16 @@ question.</p>
 <ul>
 <li>
 <p>First assigned version.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Revision 2.0.0, 2025-04-01</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Loader managed dispatch.</p>
 </li>
 </ul>
 </div>
@@ -1228,7 +1319,7 @@ Fixes and changes should be made to the generator scripts, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2024 The Khronos Group Inc.</p>
+<p>Copyright 2014-2025 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
