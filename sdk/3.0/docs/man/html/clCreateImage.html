@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.16">
+<meta name="generator" content="Asciidoctor 2.0.23">
 <title>clCreateImage(3)</title>
 <style>
 /*! normalize.css v2.1.2 | MIT License | git.io/normalize */
@@ -855,8 +855,14 @@ the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/Open
 <li>
 <p><em>image_format</em> is a pointer to a structure that describes format properties
 of the image to be allocated.
-A 1D image buffer or 2D image can be created from a buffer by specifying a
-buffer object in the <em>image_desc</em>&#8594;<em>mem_object</em>.
+A 1D image buffer can be created from a buffer by specifying a buffer object
+in <em>image_desc</em>&#8594;<em>mem_object</em>.
+If the <code>cl_khr_<wbr>image2d_<wbr>from_<wbr>buffer</code> extension is supported, a 2D image
+can be created from a buffer by specifying a buffer object in
+<em>image_desc</em>&#8594;<em>mem_object</em>.
+If the <code>cl_ext_<wbr>image_<wbr>from_<wbr>buffer</code> extension is supported, an image of
+any type can be created from a buffer by specifying a buffer object in
+<em>image_desc</em>&#8594;<em>mem_object</em>.
 A 2D image can be created from another 2D image object by specifying an
 image object in the <em>image_desc</em>&#8594;<em>mem_object</em>.
 Refer to the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#image-format-descriptor" target="_blank" rel="noopener">Image Format Descriptor</a> section
@@ -1016,6 +1022,26 @@ When such information is acquired at image creation time, it is used for the
 lifetime of the image object.</p>
 </div>
 <div class="paragraph">
+<p>If <code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code> is set in <em>flags</em>, the image created is
+an <em>immutable memory object</em> that cannot be modified by the implementation
+after creation, and one and only one of the following conditions must be met:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Either <code>CL_MEM_<wbr>COPY_<wbr>HOST_<wbr>PTR</code> or <code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code> must be set in <em>flags</em>.</p>
+</li>
+<li>
+<p>An external memory handle must be included in <em>properties</em>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If the image being created is created from another memory object and that memory
+object is an <em>immutable memory object</em>, then <code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code> must be set
+in <em>flags</em>.</p>
+</div>
+<div class="paragraph">
 <p><strong>clCreateImage</strong> and <strong>clCreateImageWithProperties</strong> returns a valid non-zero
 image object and <em>errcode_ret</em> is set to <code>CL_SUCCESS</code> if the image object
 is created successfully.
@@ -1025,123 +1051,23 @@ returned in <em>errcode_ret</em>:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_INVALID_<wbr>CONTEXT</code> if <em>context</em> is not a valid context.</p>
-</li>
-<li>
-<p><code>CL_INVALID_<wbr>PROPERTY</code> if a property name in <em>properties</em> is not a
-supported property name, if the value specified for a supported property
-name is not valid, or if the same property name is specified more than
-once.</p>
-</li>
-<li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if values specified in <em>flags</em> are not valid.</p>
-</li>
-<li>
-<p><code>CL_INVALID_<wbr>IMAGE_<wbr>FORMAT_<wbr>DESCRIPTOR</code> if values specified in <em>image_format</em>
-are not valid or if <em>image_format</em> is <code>NULL</code>.</p>
-</li>
-<li>
-<p><code>CL_INVALID_<wbr>IMAGE_<wbr>FORMAT_<wbr>DESCRIPTOR</code> if a 2D image is created from a
-buffer and the row pitch and base address alignment does not follow the
-rules described for creating a 2D image from a buffer.</p>
-</li>
-<li>
-<p><code>CL_INVALID_<wbr>IMAGE_<wbr>FORMAT_<wbr>DESCRIPTOR</code> if a 2D image is created from a 2D
-image object and the rules described above are not followed.</p>
-</li>
-<li>
-<p><code>CL_INVALID_<wbr>IMAGE_<wbr>DESCRIPTOR</code> if values specified in <em>image_desc</em> are not
-valid or if <em>image_desc</em> is <code>NULL</code>.</p>
-</li>
-<li>
-<p><code>CL_INVALID_<wbr>IMAGE_<wbr>SIZE</code> if image dimensions specified in <em>image_desc</em>
-exceed the maximum image dimensions described in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#device-queries-table" target="_blank" rel="noopener">Device Queries</a> table for all devices
-in <em>context</em>.</p>
-</li>
-<li>
-<p><code>CL_INVALID_<wbr>HOST_<wbr>PTR</code> if <em>host_ptr</em> is <code>NULL</code> and <code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code> or
-<code>CL_MEM_<wbr>COPY_<wbr>HOST_<wbr>PTR</code> are set in <em>flags</em> or if <em>host_ptr</em> is not <code>NULL</code>
-but <code>CL_MEM_<wbr>COPY_<wbr>HOST_<wbr>PTR</code> or <code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code> are not set in <em>flags</em>.</p>
-</li>
-<li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if an image is being created from another memory object
-(buffer or image) under one of the following circumstances: 1)
-<em>mem_object</em> was created with <code>CL_MEM_<wbr>WRITE_<wbr>ONLY</code> and <em>flags</em> specifies
-<code>CL_MEM_<wbr>READ_<wbr>WRITE</code> or <code>CL_MEM_<wbr>READ_<wbr>ONLY</code>, 2) <em>mem_object</em> was created with
-<code>CL_MEM_<wbr>READ_<wbr>ONLY</code> and <em>flags</em> specifies <code>CL_MEM_<wbr>READ_<wbr>WRITE</code> or
-<code>CL_MEM_<wbr>WRITE_<wbr>ONLY</code>, 3) <em>flags</em> specifies <code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code> or
-<code>CL_MEM_<wbr>ALLOC_<wbr>HOST_<wbr>PTR</code> or <code>CL_MEM_<wbr>COPY_<wbr>HOST_<wbr>PTR</code>.</p>
-</li>
-<li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if an image is being created from another memory object
-(buffer or image) and <em>mem_object</em> was created with
-<code>CL_MEM_<wbr>HOST_<wbr>WRITE_<wbr>ONLY</code> and <em>flags</em> specifies <code>CL_MEM_<wbr>HOST_<wbr>READ_<wbr>ONLY</code>, or
-if <em>mem_object</em> was created with <code>CL_MEM_<wbr>HOST_<wbr>READ_<wbr>ONLY</code> and <em>flags</em>
-specifies <code>CL_MEM_<wbr>HOST_<wbr>WRITE_<wbr>ONLY</code>, or if <em>mem_object</em> was created with
-<code>CL_MEM_<wbr>HOST_<wbr>NO_<wbr>ACCESS</code> and_flags_ specifies <code>CL_MEM_<wbr>HOST_<wbr>READ_<wbr>ONLY</code> or
-<code>CL_MEM_<wbr>HOST_<wbr>WRITE_<wbr>ONLY</code>.</p>
-</li>
-<li>
-<p><code>CL_IMAGE_<wbr>FORMAT_<wbr>NOT_<wbr>SUPPORTED</code> if there are no devices in <em>context</em> that
-support <em>image_format</em>.</p>
-</li>
-<li>
-<p><code>CL_MEM_<wbr>OBJECT_<wbr>ALLOCATION_<wbr>FAILURE</code> if there is a failure to allocate
-memory for image object.</p>
-</li>
-<li>
-<p><code>CL_INVALID_<wbr>OPERATION</code> if there are no devices in <em>context</em> that support
-images (i.e. <code>CL_DEVICE_<wbr>IMAGE_<wbr>SUPPORT</code> specified in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#device-queries-table" target="_blank" rel="noopener">Device Queries</a> table is <code>CL_FALSE</code>).</p>
-</li>
-<li>
-<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources required
-by the OpenCL implementation on the device.</p>
-</li>
-<li>
-<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code> if there is a failure to allocate resources
-required by the OpenCL implementation on the host.</p>
-</li>
-<li>
-<p><code>CL_INVALID_<wbr>DEVICE</code></p>
+<p><code>CL_INVALID_<wbr>CONTEXT</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p>if a device identified by the property <code>CL_MEM_<wbr>DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>KHR</code>
-is not a valid device or is not associated with <em>context</em>, or</p>
-</li>
-<li>
-<p>if a device identified by property <code>CL_MEM_<wbr>DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>KHR</code>
-cannot import the requested external memory object type, or</p>
-</li>
-<li>
-<p>if <code>CL_MEM_<wbr>DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>KHR</code> is not specified as part of
-<em>properties</em> and one or more devices in <em>context</em> cannot import the
-requested external memory object type.</p>
+<p>if <em>context</em> is not a valid context</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>VALUE</code></p>
+<p><code>CL_INVALID_<wbr>OPERATION</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p>if <em>properties</em> includes a supported external memory handle and <em>flags</em>
-includes <code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code>, <code>CL_MEM_<wbr>ALLOC_<wbr>HOST_<wbr>PTR</code>, or
-<code>CL_MEM_<wbr>COPY_<wbr>HOST_<wbr>PTR</code>.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><code>CL_INVALID_<wbr>HOST_<wbr>PTR</code></p>
-<div class="ulist">
-<ul>
-<li>
-<p>if <em>properties</em> includes a supported external memory handle and
-<em>host_ptr</em> is not <code>NULL</code>.</p>
+<p>if there are no devices in <em>context</em> that support images (i.e.
+<code>CL_DEVICE_<wbr>IMAGE_<wbr>SUPPORT</code> specified in the
+<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#device-queries-table" target="_blank" rel="noopener">Device Queries</a> table is <code>CL_FALSE</code>)</p>
 </li>
 </ul>
 </div>
@@ -1151,11 +1077,223 @@ includes <code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code>, <code>CL_MEM_<wbr>ALLO
 <div class="ulist">
 <ul>
 <li>
-<p>if <em>properties</em> does not include a supported external memory handle and
-<code>CL_MEM_<wbr>DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>KHR</code> is specified as part of <em>properties</em>.</p>
+<p>if a property name in <em>properties</em> is not a supported property name</p>
 </li>
 <li>
-<p>if <em>properties</em> includes more than one external memory handle.</p>
+<p>if the value specified for a supported property name is not valid</p>
+</li>
+<li>
+<p>if the same property name is specified more than once</p>
+</li>
+<li>
+<p>if <em>properties</em> does not include a supported external memory handle and
+<code>CL_MEM_<wbr>DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>KHR</code> is specified as part of <em>properties</em></p>
+</li>
+<li>
+<p>if <em>properties</em> includes more than one external memory handle</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>DEVICE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if a device identified by the property <code>CL_MEM_<wbr>DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>KHR</code>
+is not a valid device or is not associated with <em>context</em></p>
+</li>
+<li>
+<p>if a device identified by property <code>CL_MEM_<wbr>DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>KHR</code>
+cannot import the requested external memory object type</p>
+</li>
+<li>
+<p>if <code>CL_MEM_<wbr>DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>KHR</code> is not specified as part of
+<em>properties</em> and one or more devices in <em>context</em> cannot import the
+requested external memory object type</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>VALUE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if values specified in <em>flags</em> are not valid as defined in the
+<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#memory-flags-table" target="_blank" rel="noopener">Memory Flags</a> table</p>
+</li>
+<li>
+<p>if an image is being created from another memory object (buffer or image) under one of the following circumstances:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><em>mem_object</em> was created with <code>CL_MEM_<wbr>WRITE_<wbr>ONLY</code> and <em>flags</em> specifies
+<code>CL_MEM_<wbr>READ_<wbr>WRITE</code> or <code>CL_MEM_<wbr>READ_<wbr>ONLY</code></p>
+</li>
+<li>
+<p><em>mem_object</em> was created with <code>CL_MEM_<wbr>READ_<wbr>ONLY</code> and <em>flags</em> specifies
+<code>CL_MEM_<wbr>READ_<wbr>WRITE</code> or <code>CL_MEM_<wbr>WRITE_<wbr>ONLY</code></p>
+</li>
+<li>
+<p><em>flags</em> specifies <code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code> or <code>CL_MEM_<wbr>ALLOC_<wbr>HOST_<wbr>PTR</code> or <code>CL_MEM_<wbr>COPY_<wbr>HOST_<wbr>PTR</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>if an image is being created from another memory object (buffer or image)
+and <em>mem_object</em> was created with <code>CL_MEM_<wbr>HOST_<wbr>WRITE_<wbr>ONLY</code> and <em>flags</em>
+specifies <code>CL_MEM_<wbr>HOST_<wbr>READ_<wbr>ONLY</code></p>
+</li>
+<li>
+<p>if <em>mem_object</em> was created with <code>CL_MEM_<wbr>HOST_<wbr>READ_<wbr>ONLY</code> and <em>flags</em>
+specifies <code>CL_MEM_<wbr>HOST_<wbr>WRITE_<wbr>ONLY</code></p>
+</li>
+<li>
+<p>if <em>mem_object</em> was created with <code>CL_MEM_<wbr>HOST_<wbr>NO_<wbr>ACCESS</code> and_flags_
+specifies <code>CL_MEM_<wbr>HOST_<wbr>READ_<wbr>ONLY</code> or <code>CL_MEM_<wbr>HOST_<wbr>WRITE_<wbr>ONLY</code></p>
+</li>
+<li>
+<p>if <em>properties</em> includes a supported external memory handle and <em>flags</em>
+includes <code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code>, <code>CL_MEM_<wbr>ALLOC_<wbr>HOST_<wbr>PTR</code>, or <code>CL_MEM_<wbr>COPY_<wbr>HOST_<wbr>PTR</code></p>
+</li>
+<li>
+<p>if <code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code> is set in <em>flags</em> and <code>CL_MEM_<wbr>READ_<wbr>WRITE</code>,
+<code>CL_MEM_<wbr>WRITE_<wbr>ONLY</code>, or <code>CL_MEM_<wbr>HOST_<wbr>WRITE_<wbr>ONLY</code> is set in <em>flags</em></p>
+</li>
+<li>
+<p>if <code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code> is not set in <em>flags</em> and <em>mem_object</em> was
+created with <code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code></p>
+</li>
+<li>
+<p>if <code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code> is set in <em>flags</em> and none of the following conditions are met:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_MEM_<wbr>COPY_<wbr>HOST_<wbr>PTR</code> or <code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code> is set in <em>flags</em></p>
+</li>
+<li>
+<p>the image is being created from another memory object (buffer or image)</p>
+</li>
+<li>
+<p><em>properties</em> includes an external memory handle</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>IMAGE_<wbr>FORMAT_<wbr>DESCRIPTOR</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>image_format</em> is <code>NULL</code></p>
+</li>
+<li>
+<p>if values specified in <em>image_format</em> are not valid</p>
+</li>
+<li>
+<p>if <em>properties</em> includes an AHardwareBuffer external memory handle and
+<em>image_format</em> is not <code>NULL</code></p>
+</li>
+<li>
+<p>if an image is created from a buffer and the row pitch, or slice pitch, if the <code>cl_ext_<wbr>image_<wbr>from_<wbr>buffer</code> extension is supported, or base address alignment do not follow the rules described for creating an image from a buffer</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>IMAGE_<wbr>DESCRIPTOR</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>properties</em> includes an AHardwareBuffer external memory handle and
+<em>image_desc</em> is not <code>NULL</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>IMAGE_<wbr>SIZE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if the image dimensions specified in <em>image_desc</em> are not valid or exceed
+the maximum image dimensions described in the
+<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#device-queries-table" target="_blank" rel="noopener">Device Queries</a> table for all devices in <em>context</em></p>
+</li>
+<li>
+<p>if the <code>cl_ext_<wbr>image_<wbr>from_<wbr>buffer</code> extension is supported and an image
+is created from a buffer and the buffer passed in
+<em>mem_object</em> is too small to be used as a data store for the
+image, e.g. if its size is smaller than the value returned for
+<code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>SIZE_<wbr>EXT</code> for the parameters used to create the image</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>HOST_<wbr>PTR</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>host_ptr</em> is <code>NULL</code> and <code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code> or <code>CL_MEM_<wbr>COPY_<wbr>HOST_<wbr>PTR</code> are set in <em>flags</em></p>
+</li>
+<li>
+<p>if <em>host_ptr</em> is not <code>NULL</code> but <code>CL_MEM_<wbr>COPY_<wbr>HOST_<wbr>PTR</code> or <code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code> are not set in <em>flags</em></p>
+</li>
+<li>
+<p>if <em>properties</em> includes a supported external memory handle and
+<em>host_ptr</em> is not <code>NULL</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_IMAGE_<wbr>FORMAT_<wbr>NOT_<wbr>SUPPORTED</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if there are no devices in <em>context</em> that support <em>image_format</em></p>
+</li>
+<li>
+<p>if <em>properties</em> includes an AHardwareBuffer external memory handle and
+the AHardwareBuffer format is not supported</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_MEM_<wbr>OBJECT_<wbr>ALLOCATION_<wbr>FAILURE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if there is a failure to allocate memory for the image object</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if there is a failure to allocate resources required by the OpenCL
+implementation on the device</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if there is a failure to allocate resources required by the OpenCL
+implementation on the host</p>
 </li>
 </ul>
 </div>
@@ -1231,7 +1369,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2024 The Khronos Group Inc.</p>
+<p>Copyright 2014-2025 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>

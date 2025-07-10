@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.16">
+<meta name="generator" content="Asciidoctor 2.0.23">
 <title>clEnqueueNDRangeKernel(3)</title>
 <style>
 /*! normalize.css v2.1.2 | MIT License | git.io/normalize */
@@ -813,13 +813,7 @@ same.</p>
 <p><em>work_dim</em> is the number of dimensions used to specify the global work-items
 and work-items in the work-group.
 <em>work_dim</em> must be greater than zero and less than or equal to
-<code>CL_DEVICE_<wbr>MAX_<wbr>WORK_<wbr>ITEM_<wbr>DIMENSIONS</code>.
-If <em>global_work_size</em> is <code>NULL</code>, or the value in any passed dimension is 0
-then the kernel command will trivially succeed after its event dependencies
-are satisfied and subsequently update its completion event.
-The behavior in this situation is similar to that of an enqueued marker,
-except that unlike a marker, an enqueued kernel with no events passed to
-<em>event_wait_list</em> may run at any time.</p>
+<code>CL_DEVICE_<wbr>MAX_<wbr>WORK_<wbr>ITEM_<wbr>DIMENSIONS</code>.</p>
 </li>
 <li>
 <p><em>global_work_offset</em> can be used to specify an array of <em>work_dim</em> unsigned
@@ -833,7 +827,15 @@ If <em>global_work_offset</em> is <code>NULL</code>, the global IDs start at off
 describe the number of global work-items in <em>work_dim</em> dimensions that will
 execute the kernel function.
 The total number of global work-items is computed as <em>global_work_size</em>[0]
-× &#8230;&#8203; × <em>global_work_size</em>[<em>work_dim</em> - 1].</p>
+× &#8230;&#8203; × <em>global_work_size</em>[<em>work_dim</em> - 1].
+If the device associated with <em>command_queue</em> is an OpenCL 2.1 or newer
+device, and <em>global_work_size</em> is <code>NULL</code> or the value in any passed
+dimension is zero,
+then the kernel command will trivially succeed after its event dependencies
+are satisfied and subsequently update its completion event.
+The behavior in this situation is similar to that of an enqueued marker,
+except that unlike a marker, an enqueued kernel with no events passed to
+<em>event_wait_list</em> may run at any time.</p>
 </li>
 <li>
 <p><em>local_work_size</em> points to an array of <em>work_dim</em> unsigned values that
@@ -964,7 +966,7 @@ Otherwise, it returns one of the following errors:</p>
 <ul>
 <li>
 <p><code>CL_INVALID_<wbr>PROGRAM_<wbr>EXECUTABLE</code> if there is no successfully built program
-executable available for device associated with <em>command_queue</em>.</p>
+executable available for the device associated with <em>command_queue</em>.</p>
 </li>
 <li>
 <p><code>CL_INVALID_<wbr>COMMAND_<wbr>QUEUE</code> if <em>command_queue</em> is not a valid host
@@ -989,8 +991,9 @@ value between 1 and <code>CL_DEVICE_<wbr>MAX_<wbr>WORK_<wbr>ITEM_<wbr>DIMENSIONS
 <li>
 <p><code>CL_INVALID_<wbr>GLOBAL_<wbr>WORK_<wbr>SIZE</code> if <em>global_work_size</em> is NULL or if any of
 the values specified in <em>global_work_size</em>[0], &#8230;&#8203;
-<em>global_work_size</em>[<em>work_dim</em> - 1] are 0.
-Returning this error code under these circumstances is  <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">deprecated by</a> version 2.1.</p>
+<em>global_work_size</em>[<em>work_dim</em> - 1] are zero.
+This error condition does not apply when the device associated with
+<em>command_queue</em> supports OpenCL 2.1 or newer.</p>
 </li>
 <li>
 <p><code>CL_INVALID_<wbr>GLOBAL_<wbr>WORK_<wbr>SIZE</code> if any of the values specified in
@@ -1119,7 +1122,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2024 The Khronos Group Inc.</p>
+<p>Copyright 2014-2025 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
