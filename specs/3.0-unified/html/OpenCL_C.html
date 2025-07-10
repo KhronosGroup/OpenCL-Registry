@@ -926,9 +926,9 @@ pre.rouge .gs {
 <h1>The OpenCL<sup>&#8482;</sup> C Specification</h1>
 <div class="details">
 <span id="author" class="author">Khronos<sup>&#174;</sup> OpenCL Working Group</span><br>
-<span id="revnumber">version v3.0.18,</span>
-<span id="revdate">Thu, 03 Apr 2025 12:00:00 +0000</span>
-<br><span id="revremark">from git branch: main commit: 2c2028732d7f84a6ec6a2fd54a02517ce98e9140</span>
+<span id="revnumber">version v3.0.19,</span>
+<span id="revdate">Thu, 10 Jul 2025 11:00:00 +0000</span>
+<br><span id="revremark">from git branch: main commit: 85da0d12c298ffa9eefd2adb1864f2c8193cbe3e</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -1078,7 +1078,7 @@ pre.rouge .gs {
 <li><a href="#conversion-rules-for-normalized-integer-channel-data-types">8.3.1. Conversion Rules for Normalized Integer Channel Data Types</a></li>
 <li><a href="#conversion-rules-for-half-precision-floating-point-channel-data-type">8.3.2. Conversion Rules for Half-Precision Floating-Point Channel Data Type</a></li>
 <li><a href="#conversion-rules-for-floating-point-channel-data-type">8.3.3. Conversion Rules for Floating-Point Channel Data Type</a></li>
-<li><a href="#conversion-rules-for-signed-and-unsigned-8-bit-16-bit-and-32-bit-integer-channel-data-types">8.3.4. Conversion Rules for Signed and Unsigned 8-Bit, 16-Bit and 32-Bit Integer Channel Data Types</a></li>
+<li><a href="#conversion-rules-for-signed-and-unsigned-integer-channel-data-types">8.3.4. Conversion Rules for Signed and Unsigned Integer Channel Data Types</a></li>
 <li><a href="#conversion-rules-for-srgba-and-sbgra-images">8.3.5. Conversion Rules for sRGBA and sBGRA Images</a></li>
 </ul>
 </li>
@@ -1411,6 +1411,12 @@ clock shared by all work-items executing in the same sub-group.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>__opencl_c_<wbr>ext_<wbr>image_<wbr>unorm_<wbr>int_<wbr>2_<wbr>101010</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The OpenCL C compiler supports <code>CLK_UNORM_INT_2_101010_EXT</code> and returning it
 from <code>get_image_channel_data_type</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>__opencl_c_<wbr>ext_<wbr>image_<wbr>unsigned_<wbr>10x6_<wbr>12x4_<wbr>14x2</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The OpenCL C compiler supports returning <code>CLK_UNSIGNED_INT10X6_EXT</code>,
+<code>CLK_UNSIGNED_INT12X4_EXT</code>, <code>CLK_UNSIGNED_INT14X2_EXT</code>, <code>CLK_UNORM_10X6_EXT</code>,
+<code>CLK_UNORM_12X4_EXT</code>, or <code>CLK_UNORM_14X2_EXT</code> from <code>get_image_channel_data_type</code>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -3412,7 +3418,7 @@ implementation-defined.</p>
 </div>
 <div class="paragraph">
 <p>Conversions to integer type may opt to convert using the optional saturated
-mode by appending the _sat modifier to the conversion function name.
+mode by appending the <code>_sat</code> modifier to the conversion function name.
 When in saturated mode, values that are outside the representable range
 shall clamp to the nearest representable value in the destination format.
 (NaN should be converted to 0).</p>
@@ -9627,7 +9633,7 @@ explicitly specified as an actual type.</p>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">float <strong>fast_distance</strong>(float <em>p0</em>, float<em>n</em> <em>p1</em>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">float <strong>fast_distance</strong>(float<em>n</em> <em>p0</em>, float<em>n</em> <em>p1</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns <strong>fast_length</strong>(<em>p0</em> - <em>p1</em>).</p></td>
 </tr>
 <tr>
@@ -15314,16 +15320,16 @@ For sampler-less read functions this may be <code>read_only</code> or <code>read
       Each channel will be stored in a 32-bit integer.</p>
 <p class="tableblock">      <strong>read_imagei</strong> can only be used with image objects created with
       <em>image_channel_data_type</em> set to one of the following values:</p>
-<p class="tableblock">        * <code>CL_SIGNED_<wbr>INT8</code>,
-        * <code>CL_SIGNED_<wbr>INT16</code>, and
-        * <code>CL_SIGNED_<wbr>INT32</code>.</p>
+<p class="tableblock">      <code>CL_SIGNED_<wbr>INT8</code>,<br>
+      <code>CL_SIGNED_<wbr>INT16</code> and<br>
+      <code>CL_SIGNED_<wbr>INT32</code>.</p>
 <p class="tableblock">      If the <em>image_channel_data_type</em> is not one of the above values, the
       values returned by <strong>read_imagei</strong> are undefined.</p>
 <p class="tableblock">      <strong>read_imageui</strong> can only be used with image objects created with
       <em>image_channel_data_type</em> set to one of the following values:</p>
-<p class="tableblock">        * <code>CL_UNSIGNED_<wbr>INT8</code>,
-        * <code>CL_UNSIGNED_<wbr>INT16</code>, and
-        * <code>CL_UNSIGNED_<wbr>INT32</code>.</p>
+<p class="tableblock">      <code>CL_UNSIGNED_<wbr>INT8</code>,<br>
+      <code>CL_UNSIGNED_<wbr>INT16</code> and<br>
+      <code>CL_UNSIGNED_<wbr>INT32</code>.</p>
 <p class="tableblock">      If the <em>image_channel_data_type</em> is not one of the above values, the
       values returned by <strong>read_imageui</strong> are undefined.</p>
 <p class="tableblock">      <a href="#unified-spec">Requires</a> support for the
@@ -15333,7 +15339,7 @@ For sampler-less read functions this may be <code>read_only</code> or <code>read
 <td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="opencl_c"><span class="kt">float4</span> <span class="fm">read_imagef</span><span class="p">(</span>
-  <span class="n">image2d_array_msaa_t</span> <span class="n">image</span><span class="p">,</span>
+  <span class="kt">image2d_array_msaa_t</span> <span class="n">image</span><span class="p">,</span>
   <span class="kt">int4</span> <span class="n">coord</span><span class="p">,</span>
   <span class="kt">int</span> <span class="n">sample</span><span class="p">)</span></code></pre>
 </div>
@@ -15359,12 +15365,12 @@ For sampler-less read functions this may be <code>read_only</code> or <code>read
 <td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="opencl_c"><span class="kt">int4</span> <span class="fm">read_imagei</span><span class="p">(</span>
-  <span class="n">image2d_array_msaa_t</span> <span class="n">image</span><span class="p">,</span>
+  <span class="kt">image2d_array_msaa_t</span> <span class="n">image</span><span class="p">,</span>
   <span class="kt">int4</span> <span class="n">coord</span><span class="p">,</span>
   <span class="kt">int</span> <span class="n">sample</span><span class="p">)</span>
 
 <span class="kt">uint4</span> <span class="fm">read_imageui</span><span class="p">(</span>
-  <span class="n">image2d_array_msaa_t</span> <span class="n">image</span><span class="p">,</span>
+  <span class="kt">image2d_array_msaa_t</span> <span class="n">image</span><span class="p">,</span>
   <span class="kt">int4</span> <span class="n">coord</span><span class="p">,</span>
   <span class="kt">int</span> <span class="n">sample</span><span class="p">)</span></code></pre>
 </div>
@@ -15376,16 +15382,16 @@ For sampler-less read functions this may be <code>read_only</code> or <code>read
       Each channel will be stored in a 32-bit integer.</p>
 <p class="tableblock">      <strong>read_imagei</strong> can only be used with image objects created with
       <em>image_channel_data_type</em> set to one of the following values:</p>
-<p class="tableblock">        * <code>CL_SIGNED_<wbr>INT8</code>,
-        * <code>CL_SIGNED_<wbr>INT16</code>, and
-        * <code>CL_SIGNED_<wbr>INT32</code>.</p>
+<p class="tableblock">      <code>CL_SIGNED_<wbr>INT8</code>,<br>
+      <code>CL_SIGNED_<wbr>INT16</code> and<br>
+      <code>CL_SIGNED_<wbr>INT32</code>.</p>
 <p class="tableblock">      If the <em>image_channel_data_type</em> is not one of the above values, the
       values returned by <strong>read_imagei</strong> are undefined.</p>
 <p class="tableblock">      <strong>read_imageui</strong> can only be used with image objects created with
       <em>image_channel_data_type</em> set to one of the following values:</p>
-<p class="tableblock">        * <code>CL_UNSIGNED_<wbr>INT8</code>,
-        * <code>CL_UNSIGNED_<wbr>INT16</code>, and
-        * <code>CL_UNSIGNED_<wbr>INT32</code>.</p>
+<p class="tableblock">      <code>CL_UNSIGNED_<wbr>INT8</code>,<br>
+      <code>CL_UNSIGNED_<wbr>INT16</code> and<br>
+      <code>CL_UNSIGNED_<wbr>INT32</code>.</p>
 <p class="tableblock">      If the <em>image_channel_data_type</em> is not one of the above values, the
       values returned by <strong>read_imageui</strong> are undefined.</p>
 <p class="tableblock">      <a href="#unified-spec">Requires</a> support for the
@@ -15395,7 +15401,7 @@ For sampler-less read functions this may be <code>read_only</code> or <code>read
 <td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="opencl_c"><span class="kt">float</span> <span class="fm">read_imagef</span><span class="p">(</span>
-  <span class="n">image2d_msaa_depth_t</span> <span class="n">image</span><span class="p">,</span>
+  <span class="kt">image2d_msaa_depth_t</span> <span class="n">image</span><span class="p">,</span>
   <span class="kt">int2</span> <span class="n">coord</span><span class="p">,</span>
   <span class="kt">int</span> <span class="n">sample</span><span class="p">)</span></code></pre>
 </div>
@@ -15416,9 +15422,10 @@ For sampler-less read functions this may be <code>read_only</code> or <code>read
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="c"><span class="kt">float</span> <span class="n">read_imagef</span><span class="p">(</span><span class="n">image2d_array_msaaa_depth_t</span> <span class="n">image</span><span class="p">,</span>
-                  <span class="n">int4</span> <span class="n">coord</span><span class="p">,</span>
-                  <span class="kt">int</span> <span class="n">sample</span><span class="p">)</span></code></pre>
+<pre class="rouge highlight"><code data-lang="opencl_c"><span class="kt">float</span> <span class="fm">read_imagef</span><span class="p">(</span>
+  <span class="kt">image2d_array_msaa_depth_t</span> <span class="n">image</span><span class="p">,</span>
+  <span class="kt">int4</span> <span class="n">coord</span><span class="p">,</span>
+  <span class="kt">int</span> <span class="n">sample</span><span class="p">)</span></code></pre>
 </div>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Use <em>coord.xy</em> and <em>sample</em> to do an element lookup in the 2D image
@@ -15833,12 +15840,12 @@ and <strong>write_imageh</strong>
 <p class="tableblock">      <strong>write_imagei</strong> can only be used with image objects created with
       <em>image_channel_data_type</em> set to one of the following values:</p>
 <p class="tableblock">      <code>CL_SIGNED_<wbr>INT8</code>,<br>
-      <code>CL_SIGNED_<wbr>INT16</code>, or<br>
+      <code>CL_SIGNED_<wbr>INT16</code> and<br>
       <code>CL_SIGNED_<wbr>INT32</code>.</p>
 <p class="tableblock">      <strong>write_imageui</strong> can only be used with image objects created with
       <em>image_channel_data_type</em> set to one of the following values:</p>
 <p class="tableblock">      <code>CL_UNSIGNED_<wbr>INT8</code>,<br>
-      <code>CL_UNSIGNED_<wbr>INT16</code>, or<br>
+      <code>CL_UNSIGNED_<wbr>INT16</code> and<br>
       <code>CL_UNSIGNED_<wbr>INT32</code>.</p>
 <p class="tableblock">      The behavior of <strong>write_imagef</strong>,
 <strong>write_imageh</strong>,
@@ -16151,7 +16158,15 @@ For query functions this may be <code>read_only</code>, <code>write_only</code> 
 <p class="tableblock">      <code>CLK_UNORM_INT_101010_2</code> <sup class="footnote">[<a id="_footnoteref_84" class="footnote" href="#_footnotedef_84" title="View footnote.">84</a>]</sup></p>
 <p class="tableblock">      Additionally, if the <code>__opencl_c_<wbr>ext_<wbr>image_<wbr>unorm_<wbr>int_<wbr>2_<wbr>101010</code> feature is
       supported:</p>
-<p class="tableblock">      <code>CLK_UNORM_INT_2_101010_EXT</code></p></td>
+<p class="tableblock">      <code>CLK_UNORM_INT_2_101010_EXT</code></p>
+<p class="tableblock">      Additionally, if the <code>__opencl_c_<wbr>ext_<wbr>image_<wbr>unsigned_<wbr>10x6_<wbr>12x4_<wbr>14x2</code> feature
+      macro is supported:</p>
+<p class="tableblock">      <code>CLK_UNSIGNED_INT10X6_EXT</code><br>
+      <code>CLK_UNSIGNED_INT12X4_EXT</code><br>
+      <code>CLK_UNSIGNED_INT14X2_EXT</code><br>
+      <code>CLK_UNORM_INT10X6_EXT</code><br>
+      <code>CLK_UNORM_INT12X4_EXT</code><br>
+      <code>CLK_UNORM_INT14X2_EXT</code><br></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">int <strong>get_image_channel_order</strong>(<em>aQual</em> image2d_t <em>image</em>)<br>
@@ -21799,7 +21814,7 @@ is the infinitely precise result.
 <td class="tableblock halign-left valign-top"><p class="tableblock">0 ulp</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>fsqrt</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>sqrt</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Correctly rounded</p></td>
 </tr>
 <tr>
@@ -22244,8 +22259,8 @@ is the infinitely precise result.
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>sqrt</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Correctly rounded</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 1 ulp</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 1.5 ulp</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 1.5 ulp</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>step</strong></p></td>
@@ -22254,7 +22269,7 @@ is the infinitely precise result.
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>tan</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 2 ulp</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 2.5 ulp</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 3 ulp</p></td>
 </tr>
 <tr>
@@ -22685,8 +22700,8 @@ normalization, its radix-2 exponent is less than (<code>TYPE_MIN_EXP</code> - 1)
 <p>Let w<sub>t</sub>, h<sub>t</sub> and d<sub>t</sub> be the width, height (or image array size for a 1D
 image array) and depth (or image array size for a 2D image array) of the
 image in pixels.
-Let <em>coord.xy</em> (also referred to as (<em>s</em>,<em>t</em>)) or <em>coord.xyz</em> (also referred
-to as (<em>s</em>,<em>t</em>,<em>r</em>)) be the coordinates specified to <strong>read_image{f|i|ui}</strong>.
+Let <em>coord.xy</em> (also referred to as (<em>s</em>, <em>t</em>)) or <em>coord.xyz</em> (also referred
+to as (<em>s</em>, <em>t</em>, <em>r</em>)) be the coordinates specified to <strong>read_image{f|i|ui}</strong>.
 The sampler specified in <strong>read_image{f|i|ui}</strong> is used to determine how to
 sample the image and return an appropriate color.</p>
 </div>
@@ -22703,7 +22718,7 @@ array or <em>r</em> if it is a 2D image array) specified to <strong>read_image{f
 must always be the un-normalized image coordinate value.</p>
 </div>
 <div class="paragraph">
-<p>Let (<em>u</em>,<em>v</em>,<em>w</em>) represent the unnormalized image coordinate values.</p>
+<p>Let (<em>u</em>, <em>v</em>, <em>w</em>) represent the unnormalized image coordinate values.</p>
 </div>
 </div>
 <div class="sect2">
@@ -22715,12 +22730,12 @@ addressing mode is not <code>CLK_ADDRESS_REPEAT</code> nor
 <code>CLK_ADDRESS_MIRRORED_REPEAT</code>.</p>
 </div>
 <div class="paragraph">
-<p>After generating the image coordinate (<em>u</em>,<em>v</em>,<em>w</em>) we apply the appropriate
+<p>After generating the image coordinate (<em>u</em>, <em>v</em>, <em>w</em>) we apply the appropriate
 addressing and filter mode to generate the appropriate sample locations to
 read from the image.</p>
 </div>
 <div class="paragraph">
-<p>If values in (<em>u</em>,<em>v</em>,<em>w</em>) are <code>INF</code> or NaN, the behavior of
+<p>If values in (<em>u</em>, <em>v</em>, <em>w</em>) are <code>INF</code> or NaN, the behavior of
 <strong>read_image{f|i|ui}</strong> is undefined.</p>
 </div>
 <div class="paragraph">
@@ -22728,9 +22743,9 @@ read from the image.</p>
 </div>
 <div class="paragraph">
 <p>When filter mode is <code>CLK_FILTER_NEAREST</code>, the image element in the image
-that is nearest (in Manhattan distance) to that specified by (<em>u</em>,<em>v</em>,<em>w</em>)
+that is nearest (in Manhattan distance) to that specified by (<em>u</em>, <em>v</em>, <em>w</em>)
 is obtained.
-This means the image element at location (<em>i</em>,<em>j</em>,<em>k</em>) becomes the image
+This means the image element at location (<em>i</em>, <em>j</em>, <em>k</em>) becomes the image
 element value, where</p>
 </div>
 <div class="listingblock">
@@ -22741,9 +22756,9 @@ element value, where</p>
 </div>
 </div>
 <div class="paragraph">
-<p>For a 3D image, the image element at location (<em>i</em>,<em>j</em>,<em>k</em>) becomes the
+<p>For a 3D image, the image element at location (<em>i</em>, <em>j</em>, <em>k</em>) becomes the
 color value.
-For a 2D image, the image element at location (<em>i</em>,<em>j</em>) becomes the color
+For a 2D image, the image element at location (<em>i</em>, <em>j</em>) becomes the color
 value.</p>
 </div>
 <div class="paragraph">
@@ -22789,7 +22804,7 @@ value.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>If the selected texel location (<em>i</em>,<em>j</em>,<em>k</em>) refers to a location outside
+<p>If the selected texel location (<em>i</em>, <em>j</em>, <em>k</em>) refers to a location outside
 the image, the border color is used as the color value for this texel.</p>
 </div>
 <div class="paragraph">
@@ -22837,7 +22852,7 @@ floor(x)</code>.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>where <code>T_ijk</code> is the image element at location (<em>i</em>,<em>j</em>,<em>k</em>) in the 3D image.</p>
+<p>where <code>T_ijk</code> is the image element at location (<em>i</em>, <em>j</em>, <em>k</em>) in the 3D image.</p>
 </div>
 <div class="paragraph">
 <p>For a 2D image, the image element value is found as</p>
@@ -22851,7 +22866,7 @@ floor(x)</code>.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>where <code>T_ij</code> is the image element at location (<em>i</em>,<em>j</em>) in the 2D image.</p>
+<p>where <code>T_ij</code> is the image element at location (<em>i</em>, <em>j</em>) in the 2D image.</p>
 </div>
 <div class="paragraph">
 <p>If any of the selected <code>T_ijk</code> or <code>T_ij</code> in the above equations refers to a
@@ -22869,7 +22884,7 @@ the appropriate sample locations to read from the image if the addressing
 mode is <code>CLK_ADDRESS_REPEAT</code>.</p>
 </div>
 <div class="paragraph">
-<p>If values in (<em>s</em>,<em>t</em>,<em>r</em>) are <code>INF</code> or NaN, the behavior of the built-in
+<p>If values in (<em>s</em>, <em>t</em>, <em>r</em>) are <code>INF</code> or NaN, the behavior of the built-in
 image read functions is undefined.</p>
 </div>
 <div class="paragraph">
@@ -22877,7 +22892,7 @@ image read functions is undefined.</p>
 </div>
 <div class="paragraph">
 <p>When filter mode is <code>CLK_FILTER_NEAREST</code>, the image element at location
-(<em>i</em>,<em>j</em>,<em>k</em>) becomes the image element value, with <em>i</em>, <em>j</em>, and <em>k</em>
+(<em>i</em>, <em>j</em>, <em>k</em>) becomes the image element value, with <em>i</em>, <em>j</em>, and <em>k</em>
 computed as</p>
 </div>
 <div class="listingblock">
@@ -22899,9 +22914,9 @@ computed as</p>
 </div>
 </div>
 <div class="paragraph">
-<p>For a 3D image, the image element at location (<em>i</em>,<em>j</em>,<em>k</em>) becomes the
+<p>For a 3D image, the image element at location (<em>i</em>, <em>j</em>, <em>k</em>) becomes the
 color value.
-For a 2D image, the image element at location (<em>i</em>,<em>j</em>) becomes the color
+For a 2D image, the image element at location (<em>i</em>, <em>j</em>) becomes the color
 value.</p>
 </div>
 <div class="paragraph">
@@ -22967,7 +22982,7 @@ floor(x)</code>.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>where <code>T_ijk</code> is the image element at location (<em>i</em>,<em>j</em>,<em>k</em>) in the 3D image.</p>
+<p>where <code>T_ijk</code> is the image element at location (<em>i</em>, <em>j</em>, <em>k</em>) in the 3D image.</p>
 </div>
 <div class="paragraph">
 <p>For a 2D image, the image element value is found as</p>
@@ -22981,7 +22996,7 @@ floor(x)</code>.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>where <code>T_ij</code> is the image element at location (<em>i</em>,<em>j</em>) in the 2D image.</p>
+<p>where <code>T_ij</code> is the image element at location (<em>i</em>, <em>j</em>) in the 2D image.</p>
 </div>
 <div class="paragraph">
 <p>If the image channel type is <code>CL_FLOAT</code> or <code>CL_HALF_<wbr>FLOAT</code> and any of the
@@ -22995,9 +23010,9 @@ mode is <code>CLK_ADDRESS_MIRRORED_REPEAT</code>.
 The <code>CLK_ADDRESS_MIRRORED_REPEAT</code> addressing mode causes the image to be
 read as if it is tiled at every integer seam with the interpretation of the
 image data flipped at each integer crossing.
-For example, the (<em>s</em>,<em>t</em>,<em>r</em>) coordinates between 2 and 3 are addressed
+For example, the (<em>s</em>, <em>t</em>, <em>r</em>) coordinates between 2 and 3 are addressed
 into the image as coordinates from 1 down to 0.
-If values in (<em>s</em>,<em>t</em>,<em>r</em>) are <code>INF</code> or NaN, the behavior of the built-in
+If values in (<em>s</em>, <em>t</em>, <em>r</em>) are <code>INF</code> or NaN, the behavior of the built-in
 image read functions is undefined.</p>
 </div>
 <div class="paragraph">
@@ -23005,34 +23020,34 @@ image read functions is undefined.</p>
 </div>
 <div class="paragraph">
 <p>When filter mode is <code>CLK_FILTER_NEAREST</code>, the image element at location
-(<em>i</em>,<em>j</em>,<em>k</em>) becomes the image element value, with <em>i</em>,<em>j</em> and k computed
+(<em>i</em>, <em>j</em>, <em>k</em>) becomes the image element value, with <em>i</em>, <em>j</em> and k computed
 as</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="opencl_c"><span class="n">s</span><span class="err">'</span> <span class="o">=</span> <span class="mf">2.0</span><span class="n">f</span> <span class="o">*</span> <span class="n">rint</span><span class="p">(</span><span class="mf">0.5</span><span class="n">f</span> <span class="o">*</span> <span class="n">s</span><span class="p">)</span>
-<span class="n">s</span><span class="err">'</span> <span class="o">=</span> <span class="n">fabs</span><span class="p">(</span><span class="n">s</span> <span class="o">-</span> <span class="n">s</span><span class="err">'</span><span class="p">)</span>
-<span class="n">u</span> <span class="o">=</span> <span class="n">s</span><span class="err">'</span> <span class="o">*</span> <span class="n">w_t</span>
+<pre class="rouge highlight"><code data-lang="opencl_c"><span class="n">s_prime</span> <span class="o">=</span> <span class="mf">2.0</span><span class="n">f</span> <span class="o">*</span> <span class="n">rint</span><span class="p">(</span><span class="mf">0.5</span><span class="n">f</span> <span class="o">*</span> <span class="n">s</span><span class="p">)</span>
+<span class="n">s_prime</span> <span class="o">=</span> <span class="n">fabs</span><span class="p">(</span><span class="n">s</span> <span class="o">-</span> <span class="n">s_prime</span><span class="p">)</span>
+<span class="n">u</span> <span class="o">=</span> <span class="n">s_prime</span> <span class="o">*</span> <span class="n">w_t</span>
 <span class="n">i</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">floor</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
 <span class="n">i</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">w_t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
 
-<span class="n">t</span><span class="err">'</span> <span class="o">=</span> <span class="mf">2.0</span><span class="n">f</span> <span class="o">*</span> <span class="n">rint</span><span class="p">(</span><span class="mf">0.5</span><span class="n">f</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>
-<span class="n">t</span><span class="err">'</span> <span class="o">=</span> <span class="n">fabs</span><span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="n">t</span><span class="err">'</span><span class="p">)</span>
-<span class="n">v</span> <span class="o">=</span> <span class="n">t</span><span class="err">'</span> <span class="o">*</span> <span class="n">h_t</span>
+<span class="n">t_prime</span> <span class="o">=</span> <span class="mf">2.0</span><span class="n">f</span> <span class="o">*</span> <span class="n">rint</span><span class="p">(</span><span class="mf">0.5</span><span class="n">f</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>
+<span class="n">t_prime</span> <span class="o">=</span> <span class="n">fabs</span><span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="n">t_prime</span><span class="p">)</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">t_prime</span> <span class="o">*</span> <span class="n">h_t</span>
 <span class="n">j</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">floor</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
 <span class="n">j</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">h_t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
 
-<span class="n">r</span><span class="err">'</span> <span class="o">=</span> <span class="mf">2.0</span><span class="n">f</span> <span class="o">*</span> <span class="n">rint</span><span class="p">(</span><span class="mf">0.5</span><span class="n">f</span> <span class="o">*</span> <span class="n">r</span><span class="p">)</span>
-<span class="n">r</span><span class="err">'</span> <span class="o">=</span> <span class="n">fabs</span><span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="n">r</span><span class="err">'</span><span class="p">)</span>
-<span class="n">w</span> <span class="o">=</span> <span class="n">r</span><span class="err">'</span> <span class="o">*</span> <span class="n">d_t</span>
+<span class="n">r_prime</span> <span class="o">=</span> <span class="mf">2.0</span><span class="n">f</span> <span class="o">*</span> <span class="n">rint</span><span class="p">(</span><span class="mf">0.5</span><span class="n">f</span> <span class="o">*</span> <span class="n">r</span><span class="p">)</span>
+<span class="n">r_prime</span> <span class="o">=</span> <span class="n">fabs</span><span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="n">r_prime</span><span class="p">)</span>
+<span class="n">w</span> <span class="o">=</span> <span class="n">r_prime</span> <span class="o">*</span> <span class="n">d_t</span>
 <span class="n">k</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">floor</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
 <span class="n">k</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">d_t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>For a 3D image, the image element at location (<em>i</em>,<em>j</em>,<em>k</em>) becomes the
+<p>For a 3D image, the image element at location (<em>i</em>, <em>j</em>, <em>k</em>) becomes the
 color value.
-For a 2D image, the image element at location (<em>i</em>,<em>j</em>) becomes the color
+For a 2D image, the image element at location (<em>i</em>, <em>j</em>) becomes the color
 value.</p>
 </div>
 <div class="paragraph">
@@ -23049,25 +23064,25 @@ This 2×2 square or 2×2×2 cube is obtained as follows.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="opencl_c"><span class="n">s</span><span class="err">'</span> <span class="o">=</span> <span class="mf">2.0</span><span class="n">f</span> <span class="o">*</span> <span class="n">rint</span><span class="p">(</span><span class="mf">0.5</span><span class="n">f</span> <span class="o">*</span> <span class="n">s</span><span class="p">)</span>
-<span class="n">s</span><span class="err">'</span> <span class="o">=</span> <span class="n">fabs</span><span class="p">(</span><span class="n">s</span> <span class="o">-</span> <span class="n">s</span><span class="err">'</span><span class="p">)</span>
-<span class="n">u</span> <span class="o">=</span> <span class="n">s</span><span class="err">'</span> <span class="o">*</span> <span class="n">w_t</span>
+<pre class="rouge highlight"><code data-lang="opencl_c"><span class="n">s_prime</span> <span class="o">=</span> <span class="mf">2.0</span><span class="n">f</span> <span class="o">*</span> <span class="n">rint</span><span class="p">(</span><span class="mf">0.5</span><span class="n">f</span> <span class="o">*</span> <span class="n">s</span><span class="p">)</span>
+<span class="n">s_prime</span> <span class="o">=</span> <span class="n">fabs</span><span class="p">(</span><span class="n">s</span> <span class="o">-</span> <span class="n">s_prime</span><span class="p">)</span>
+<span class="n">u</span> <span class="o">=</span> <span class="n">s_prime</span> <span class="o">*</span> <span class="n">w_t</span>
 <span class="n">i0</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">floor</span><span class="p">(</span><span class="n">u</span> <span class="o">-</span> <span class="mf">0.5</span><span class="n">f</span><span class="p">)</span>
 <span class="n">i1</span> <span class="o">=</span> <span class="n">i0</span> <span class="o">+</span> <span class="mi">1</span>
 <span class="n">i0</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">i0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 <span class="n">i1</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">w_t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
 
-<span class="n">t</span><span class="err">'</span> <span class="o">=</span> <span class="mf">2.0</span><span class="n">f</span> <span class="o">*</span> <span class="n">rint</span><span class="p">(</span><span class="mf">0.5</span><span class="n">f</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>
-<span class="n">t</span><span class="err">'</span> <span class="o">=</span> <span class="n">fabs</span><span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="n">t</span><span class="err">'</span><span class="p">)</span>
-<span class="n">v</span> <span class="o">=</span> <span class="n">t</span><span class="err">'</span> <span class="o">*</span> <span class="n">h_t</span>
+<span class="n">t_prime</span> <span class="o">=</span> <span class="mf">2.0</span><span class="n">f</span> <span class="o">*</span> <span class="n">rint</span><span class="p">(</span><span class="mf">0.5</span><span class="n">f</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>
+<span class="n">t_prime</span> <span class="o">=</span> <span class="n">fabs</span><span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="n">t_prime</span><span class="p">)</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">t_prime</span> <span class="o">*</span> <span class="n">h_t</span>
 <span class="n">j0</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">floor</span><span class="p">(</span><span class="n">v</span> <span class="o">-</span> <span class="mf">0.5</span><span class="n">f</span><span class="p">)</span>
 <span class="n">j1</span> <span class="o">=</span> <span class="n">j0</span> <span class="o">+</span> <span class="mi">1</span>
 <span class="n">j0</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">j0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 <span class="n">j1</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">j1</span><span class="p">,</span> <span class="n">h_t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
 
-<span class="n">r</span><span class="err">'</span> <span class="o">=</span> <span class="mf">2.0</span><span class="n">f</span> <span class="o">*</span> <span class="n">rint</span><span class="p">(</span><span class="mf">0.5</span><span class="n">f</span> <span class="o">*</span> <span class="n">r</span><span class="p">)</span>
-<span class="n">r</span><span class="err">'</span> <span class="o">=</span> <span class="n">fabs</span><span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="n">r</span><span class="err">'</span><span class="p">)</span>
-<span class="n">w</span> <span class="o">=</span> <span class="n">r</span><span class="err">'</span> <span class="o">*</span> <span class="n">d_t</span>
+<span class="n">r_prime</span> <span class="o">=</span> <span class="mf">2.0</span><span class="n">f</span> <span class="o">*</span> <span class="n">rint</span><span class="p">(</span><span class="mf">0.5</span><span class="n">f</span> <span class="o">*</span> <span class="n">r</span><span class="p">)</span>
+<span class="n">r_prime</span> <span class="o">=</span> <span class="n">fabs</span><span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="n">r_prime</span><span class="p">)</span>
+<span class="n">w</span> <span class="o">=</span> <span class="n">r_prime</span> <span class="o">*</span> <span class="n">d_t</span>
 <span class="n">k0</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">floor</span><span class="p">(</span><span class="n">w</span> <span class="o">-</span> <span class="mf">0.5</span><span class="n">f</span><span class="p">)</span>
 <span class="n">k1</span> <span class="o">=</span> <span class="n">k0</span> <span class="o">+</span> <span class="mi">1</span>
 <span class="n">k0</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">k0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
@@ -23098,7 +23113,7 @@ floor(x)</code>.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>where <code>T_ijk</code> is the image element at location (<em>i</em>,<em>j</em>,<em>k</em>) in the 3D image.</p>
+<p>where <code>T_ijk</code> is the image element at location (<em>i</em>, <em>j</em>, <em>k</em>) in the 3D image.</p>
 </div>
 <div class="paragraph">
 <p>For a 2D image, the image element value is found as</p>
@@ -23112,7 +23127,7 @@ floor(x)</code>.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>where <code>T_ij</code> is the image element at location (<em>i</em>,<em>j</em>) in the 2D image.</p>
+<p>where <code>T_ij</code> is the image element at location (<em>i</em>, <em>j</em>) in the 2D image.</p>
 </div>
 <div class="paragraph">
 <p>For a 1D image, the image element value is found as</p>
@@ -23144,7 +23159,7 @@ image read function is undefined.</p>
 <code>CLK_FILTER_NEAREST</code> and addressing mode set to one of the following modes -
 <code>CLK_ADDRESS_NONE</code>, <code>CLK_ADDRESS_CLAMP_TO_EDGE</code> or <code>CLK_ADDRESS_CLAMP</code>, the
 <a href="#addressing-and-filter-modes">location of the image element in the image</a>
-given by (<em>i</em>,<em>j</em>,<em>k</em>) will be computed without any loss of precision.</p>
+given by (<em>i</em>, <em>j</em>, <em>k</em>) will be computed without any loss of precision.</p>
 </div>
 <div class="paragraph">
 <p>For all other sampler combinations of normalized or unnormalized
@@ -23181,16 +23196,43 @@ to floating-point values and vice-versa.</p>
 <div class="sect4">
 <h5 id="converting-normalized-integer-channel-data-types-to-floating-point-values"><a class="anchor" href="#converting-normalized-integer-channel-data-types-to-floating-point-values"></a>8.3.1.1. Converting Normalized Integer Channel Data Types to Floating-point Values</h5>
 <div class="paragraph">
-<p>For images created with image channel data type of <code>CL_UNORM_<wbr>INT8</code> and
-<code>CL_UNORM_<wbr>INT16</code>, <strong>read_imagef</strong> will convert the channel values from an
-8-bit or 16-bit unsigned integer to normalized floating-point values in the
-range [<code>0.0f</code>, <code>1.0f</code>].</p>
+<p>For images created with any of the following image channel data types,
+<strong>read_imagef</strong> will convert the channel values from an unsigned integer to
+normalized floating-point values in the range [<code>0.0f</code>, <code>1.0f</code>].</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_UNORM_<wbr>INT8</code></p>
+</li>
+<li>
+<p><code>CL_UNORM_<wbr>INT16</code></p>
+</li>
+<li>
+<p><code>CL_UNORM_<wbr>INT10X6_<wbr>EXT</code></p>
+</li>
+<li>
+<p><code>CL_UNORM_<wbr>INT12X4_<wbr>EXT</code></p>
+</li>
+<li>
+<p><code>CL_UNORM_<wbr>INT14X2_<wbr>EXT</code></p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>For images created with image channel data type of <code>CL_SNORM_<wbr>INT8</code> and
-<code>CL_SNORM_<wbr>INT16</code>, <strong>read_imagef</strong> will convert the channel values from an
-8-bit or 16-bit signed integer to normalized floating-point values in the
-range [<code>-1.0f</code>, <code>1.0f</code>].</p>
+<p>For images created with any of the following image channel data types,
+<strong>read_imagef</strong> will convert the channel values from a signed integer to
+normalized floating-point values in the range [<code>-1.0f</code>, <code>1.0f</code>].</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_SNORM_<wbr>INT8</code></p>
+</li>
+<li>
+<p><code>CL_SNORM_<wbr>INT16</code></p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>These conversions are performed as follows:</p>
@@ -23222,6 +23264,36 @@ range [<code>-1.0f</code>, <code>1.0f</code>].</p>
 <ul class="none">
 <li>
 <p>normalized <code>float</code> value = <code>(float)c / 65535.0f</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><code>CL_UNORM_<wbr>INT10X6_<wbr>EXT</code> (10-bit unsigned integer) → <code>float</code></p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>normalized <code>float</code> value = <code>(float)c / 1023.0f</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><code>CL_UNORM_<wbr>INT12X4_<wbr>EXT</code> (12-bit unsigned integer) → <code>float</code></p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>normalized <code>float</code> value = <code>(float)c / 4095.0f</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><code>CL_UNORM_<wbr>INT14X2_<wbr>EXT</code> (14-bit unsigned integer) → <code>float</code></p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>normalized <code>float</code> value = <code>(float)c / 16383.0f</code></p>
 </li>
 </ul>
 </div>
@@ -23289,6 +23361,45 @@ following cases:</p>
 </ul>
 </div>
 <div class="paragraph">
+<p>For <code>CL_UNORM_<wbr>INT10X6_<wbr>EXT</code>:</p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>0 must convert to <code>0.0f</code>, and</p>
+</li>
+<li>
+<p>1023 must convert to <code>1.0f</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For <code>CL_UNORM_<wbr>INT12X4_<wbr>EXT</code>:</p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>0 must convert to <code>0.0f</code>, and</p>
+</li>
+<li>
+<p>4095 must convert to <code>1.0f</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For <code>CL_UNORM_<wbr>INT14X2_<wbr>EXT</code>:</p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>0 must convert to <code>0.0f</code>, and</p>
+</li>
+<li>
+<p>16383 must convert to <code>1.0f</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
 <p>For <code>CL_SNORM_<wbr>INT8</code></p>
 </div>
 <div class="ulist none">
@@ -23323,18 +23434,57 @@ following cases:</p>
 </div>
 <div class="sect4">
 <h5 id="converting-normalized-integer-channel-data-types-to-half-precision-floating-point-values"><a class="anchor" href="#converting-normalized-integer-channel-data-types-to-half-precision-floating-point-values"></a>8.3.1.2. Converting Normalized Integer Channel Data Types to Half-Precision Floating-Point Values</h5>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The conversions described in this section require the <code>cl_khr_<wbr>fp16</code> extension.
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
-<p>If the <code>cl_khr_<wbr>fp16</code> extension is supported, then
-for images created with image channel data type of <code>CL_UNORM_<wbr>INT8</code> and
-<code>CL_UNORM_<wbr>INT16</code>, <strong>read_imageh</strong> will convert the channel values from an
+<p>For images created with any of the following image channel data types,
+<strong>read_imageh</strong> will convert the channel values from an
 8-bit or 16-bit unsigned integer to normalized half-precision floating-point
 values in the range [<code>0.0h</code>, <code>1.0h</code>].</p>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_UNORM_<wbr>INT8</code></p>
+</li>
+<li>
+<p><code>CL_UNORM_<wbr>INT16</code></p>
+</li>
+<li>
+<p><code>CL_UNORM_<wbr>INT10X6_<wbr>EXT</code></p>
+</li>
+<li>
+<p><code>CL_UNORM_<wbr>INT12X4_<wbr>EXT</code></p>
+</li>
+<li>
+<p><code>CL_UNORM_<wbr>INT14X2_<wbr>EXT</code></p>
+</li>
+</ul>
+</div>
 <div class="paragraph">
-<p>For images created with image channel data type of <code>CL_SNORM_<wbr>INT8</code> and
-<code>CL_SNORM_<wbr>INT16</code>, <strong>read_imageh</strong> will convert the channel values from an
-8-bit or 16-bit signed integer to normalized half-precision floating-point
-values in the range [<code>-1.0h</code>, <code>1.0h</code>].</p>
+<p>For images created with any of the following image channel data types,
+<strong>read_imageh</strong> will convert the channel values from a signed integer to
+normalized half-precision floating-point values in the range [<code>-1.0h</code>, <code>1.0h</code>].</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_SNORM_<wbr>INT8</code></p>
+</li>
+<li>
+<p><code>CL_SNORM_<wbr>INT16</code></p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>These conversions are performed as follows:</p>
@@ -23366,6 +23516,36 @@ values in the range [<code>-1.0h</code>, <code>1.0h</code>].</p>
 <ul class="none">
 <li>
 <p>normalized <code>half</code> value = <code>round_to_half(c / 65535)</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><code>CL_UNORM_<wbr>INT10X6_<wbr>EXT</code> (10-bit unsigned integer) → <code>half</code></p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>normalized <code>half</code> value = <code>round_to_half(c / 1023)</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><code>CL_UNORM_<wbr>INT12X4_<wbr>EXT</code> (12-bit unsigned integer) → <code>half</code></p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>normalized <code>half</code> value = <code>round_to_half(c / 4095)</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><code>CL_UNORM_<wbr>INT14X2_<wbr>EXT</code> (14-bit unsigned integer) → <code>half</code></p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>normalized <code>half</code> value = <code>round_to_half(c / 16383)</code></p>
 </li>
 </ul>
 </div>
@@ -23433,6 +23613,45 @@ following cases:</p>
 </ul>
 </div>
 <div class="paragraph">
+<p>For <code>CL_UNORM_<wbr>INT10X6_<wbr>EXT</code>:</p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>0 must convert to <code>0.0h</code>, and</p>
+</li>
+<li>
+<p>1023 must convert to <code>1.0h</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For <code>CL_UNORM_<wbr>INT12X4_<wbr>EXT</code>:</p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>0 must convert to <code>0.0h</code>, and</p>
+</li>
+<li>
+<p>4095 must convert to <code>1.0h</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For <code>CL_UNORM_<wbr>INT14X2_<wbr>EXT</code>:</p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>0 must convert to <code>0.0h</code>, and</p>
+</li>
+<li>
+<p>16383 must convert to <code>1.0h</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
 <p>For <code>CL_SNORM_<wbr>INT8</code></p>
 </div>
 <div class="ulist none">
@@ -23468,14 +23687,43 @@ following cases:</p>
 <div class="sect4">
 <h5 id="converting-floating-point-values-to-normalized-integer-channel-data-types"><a class="anchor" href="#converting-floating-point-values-to-normalized-integer-channel-data-types"></a>8.3.1.3. Converting Floating-Point Values to Normalized Integer Channel Data Types</h5>
 <div class="paragraph">
-<p>For images created with image channel data type of <code>CL_UNORM_<wbr>INT8</code> and
-<code>CL_UNORM_<wbr>INT16</code>, <strong>write_imagef</strong> will convert the floating-point color value
-to an 8-bit or 16-bit unsigned integer.</p>
+<p>For images created with any of the following image channel data types,
+<strong>write_imagef</strong> will convert the floating-point color value to an unsigned
+integer.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_UNORM_<wbr>INT8</code></p>
+</li>
+<li>
+<p><code>CL_UNORM_<wbr>INT16</code></p>
+</li>
+<li>
+<p><code>CL_UNORM_<wbr>INT10X6_<wbr>EXT</code></p>
+</li>
+<li>
+<p><code>CL_UNORM_<wbr>INT12X4_<wbr>EXT</code></p>
+</li>
+<li>
+<p><code>CL_UNORM_<wbr>INT14X2_<wbr>EXT</code></p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>For images created with image channel data type of <code>CL_SNORM_<wbr>INT8</code> and
-<code>CL_SNORM_<wbr>INT16</code>, <strong>write_imagef</strong> will convert the floating-point color value
-to an 8-bit or 16-bit signed integer.</p>
+<p>For images created with any of the following image channel data types,
+<strong>write_imagef</strong> will convert the floating-point color value to a signed
+integer.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_SNORM_<wbr>INT8</code></p>
+</li>
+<li>
+<p><code>CL_SNORM_<wbr>INT16</code></p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>The preferred method for how conversions from floating-point values to
@@ -23508,6 +23756,36 @@ normalized integer values are performed is as follows:</p>
 <ul class="none">
 <li>
 <p><strong>convert_ushort_sat_rte</strong>(<code>f * 65535.0f</code>)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><code>float</code> → <code>CL_UNORM_<wbr>INT10X6_<wbr>EXT</code> (10-bit unsigned integer)</p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p><strong>min</strong>(<strong>convert_ushort_sat_rte</strong>(<code>f * 1023.0f</code>), <code>1023</code>)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><code>float</code> → <code>CL_UNORM_<wbr>INT12X4_<wbr>EXT</code> (12-bit unsigned integer)</p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p><strong>min</strong>(<strong>convert_ushort_sat_rte</strong>(<code>f * 4095.0f</code>), <code>4095</code>)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><code>float</code> → <code>CL_UNORM_<wbr>INT14X2_<wbr>EXT</code> (14-bit unsigned integer)</p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p><strong>min</strong>(<strong>convert_ushort_sat_rte</strong>(<code>f * 16383.0f</code>), <code>16383</code>)</p>
 </li>
 </ul>
 </div>
@@ -23594,6 +23872,57 @@ the result produced by the round to nearest even rounding mode must be ≤
 </ul>
 </div>
 <div class="paragraph">
+<p><code>float</code> → <code>CL_UNORM_<wbr>INT10X6_<wbr>EXT</code> (10-bit unsigned integer)</p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>Let f<sub>preferred</sub> = <strong>convert_ushort_sat_rte</strong>(f * <code>1023.0f</code>)</p>
+</li>
+<li>
+<p>Let f<sub>approx</sub> = <strong>convert_ushort_sat_&lt;impl-rounding-mode&gt;</strong>(f *
+<code>1023.0f</code>)</p>
+</li>
+<li>
+<p><strong>fabs</strong>(f<sub>preferred</sub> - f<sub>approx</sub>) must be &lt;= 0.6</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><code>float</code> → <code>CL_UNORM_<wbr>INT12X4_<wbr>EXT</code> (12-bit unsigned integer)</p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>Let f<sub>preferred</sub> = <strong>convert_ushort_sat_rte</strong>(f * <code>4095.0f</code>)</p>
+</li>
+<li>
+<p>Let f<sub>approx</sub> = <strong>convert_ushort_sat_&lt;impl-rounding-mode&gt;</strong>(f *
+<code>4095.0f</code>)</p>
+</li>
+<li>
+<p><strong>fabs</strong>(f<sub>preferred</sub> - f<sub>approx</sub>) must be &lt;= 0.6</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><code>float</code> → <code>CL_UNORM_<wbr>INT14X2_<wbr>EXT</code> (14-bit unsigned integer)</p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>Let f<sub>preferred</sub> = <strong>convert_ushort_sat_rte</strong>(f * <code>16383.0f</code>)</p>
+</li>
+<li>
+<p>Let f<sub>approx</sub> = <strong>convert_ushort_sat_&lt;impl-rounding-mode&gt;</strong>(f *
+<code>16383.0f</code>)</p>
+</li>
+<li>
+<p><strong>fabs</strong>(f<sub>preferred</sub> - f<sub>approx</sub>) must be &lt;= 0.6</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
 <p><code>float</code> → <code>CL_SNORM_<wbr>INT8</code> (8-bit signed integer)</p>
 </div>
 <div class="ulist none">
@@ -23629,16 +23958,55 @@ the result produced by the round to nearest even rounding mode must be ≤
 </div>
 <div class="sect4">
 <h5 id="converting-half-precision-floating-point-values-to-normalized-integer-channel-data-types"><a class="anchor" href="#converting-half-precision-floating-point-values-to-normalized-integer-channel-data-types"></a>8.3.1.4. Converting Half-Precision Floating-point Values to Normalized Integer Channel Data Types</h5>
-<div class="paragraph">
-<p>If the <code>cl_khr_<wbr>fp16</code> extension is supported, then
-for images created with image channel data type of <code>CL_UNORM_<wbr>INT8</code> and
-<code>CL_UNORM_<wbr>INT16</code>, <strong>write_imageh</strong> will convert the floating-point color value
-to an 8-bit or 16-bit unsigned integer.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The conversions described in this section require the <code>cl_khr_<wbr>fp16</code> extension.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
-<p>For images created with image channel data type of <code>CL_SNORM_<wbr>INT8</code> and
-<code>CL_SNORM_<wbr>INT16</code>, <strong>write_imageh</strong> will convert the floating-point color value
-to an 8-bit or 16-bit signed integer.</p>
+<p>For images created with any of the following image channel data types,
+<strong>write_imageh</strong> will convert the floating-point color value to an unsigned
+integer.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_UNORM_<wbr>INT8</code></p>
+</li>
+<li>
+<p><code>CL_UNORM_<wbr>INT16</code></p>
+</li>
+<li>
+<p><code>CL_UNORM_<wbr>INT10X6_<wbr>EXT</code></p>
+</li>
+<li>
+<p><code>CL_UNORM_<wbr>INT12X4_<wbr>EXT</code></p>
+</li>
+<li>
+<p><code>CL_UNORM_<wbr>INT14X2_<wbr>EXT</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For images created with any of the following image channel data types,
+<strong>write_imageh</strong> will convert the floating-point color value to a signed integer.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_SNORM_<wbr>INT8</code></p>
+</li>
+<li>
+<p><code>CL_SNORM_<wbr>INT16</code></p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>The preferred conversion uses the round to nearest even (<code>_rte</code>) rounding
@@ -23700,6 +24068,66 @@ result of the conversion must satisfy the bound given below.</p>
 <li>
 <p>Let f<sub>approx</sub> = <strong>convert_ushort_sat_&lt;impl-rounding-mode&gt;</strong>(<code>f *
 65535.0f</code>)</p>
+</li>
+<li>
+<p><strong>fabs</strong>(f<sub>exact</sub> - f<sub>approx</sub>) must be &lt;= 0.6</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><code>half</code> → <code>CL_UNORM_<wbr>INT10X6_<wbr>EXT</code> (10-bit unsigned integer)</p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>Let f<sub>exact</sub> = <strong>max</strong>(<code>0</code>, <strong>min</strong>(<code>f * 1023</code>, <code>1023</code>))</p>
+</li>
+<li>
+<p>Let f<sub>preferred</sub> = <strong>convert_ushort_sat_rte</strong>(<code>f * 1023.0f</code>)</p>
+</li>
+<li>
+<p>Let f<sub>approx</sub> = <strong>convert_ushort_sat_&lt;impl-rounding-mode&gt;</strong>(<code>f *
+1023.0f</code>)</p>
+</li>
+<li>
+<p><strong>fabs</strong>(f<sub>exact</sub> - f<sub>approx</sub>) must be &lt;= 0.6</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><code>half</code> → <code>CL_UNORM_<wbr>INT12X4_<wbr>EXT</code> (12-bit unsigned integer)</p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>Let f<sub>exact</sub> = <strong>max</strong>(<code>0</code>, <strong>min</strong>(<code>f * 4095</code>, <code>4095</code>))</p>
+</li>
+<li>
+<p>Let f<sub>preferred</sub> = <strong>convert_ushort_sat_rte</strong>(<code>f * 4095.0f</code>)</p>
+</li>
+<li>
+<p>Let f<sub>approx</sub> = <strong>convert_ushort_sat_&lt;impl-rounding-mode&gt;</strong>(<code>f *
+4095.0f</code>)</p>
+</li>
+<li>
+<p><strong>fabs</strong>(f<sub>exact</sub> - f<sub>approx</sub>) must be &lt;= 0.6</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><code>half</code> → <code>CL_UNORM_<wbr>INT14X2_<wbr>EXT</code> (14-bit unsigned integer)</p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>Let f<sub>exact</sub> = <strong>max</strong>(<code>0</code>, <strong>min</strong>(<code>f * 16383</code>, <code>16383</code>))</p>
+</li>
+<li>
+<p>Let f<sub>preferred</sub> = <strong>convert_ushort_sat_rte</strong>(<code>f * 16383.0f</code>)</p>
+</li>
+<li>
+<p>Let f<sub>approx</sub> = <strong>convert_ushort_sat_&lt;impl-rounding-mode&gt;</strong>(<code>f *
+16383.0f</code>)</p>
 </li>
 <li>
 <p><strong>fabs</strong>(f<sub>exact</sub> - f<sub>approx</sub>) must be &lt;= 0.6</p>
@@ -23782,24 +24210,57 @@ channel data type of <code>CL_FLOAT</code>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="conversion-rules-for-signed-and-unsigned-8-bit-16-bit-and-32-bit-integer-channel-data-types"><a class="anchor" href="#conversion-rules-for-signed-and-unsigned-8-bit-16-bit-and-32-bit-integer-channel-data-types"></a>8.3.4. Conversion Rules for Signed and Unsigned 8-Bit, 16-Bit and 32-Bit Integer Channel Data Types</h4>
+<h4 id="conversion-rules-for-signed-and-unsigned-integer-channel-data-types"><a class="anchor" href="#conversion-rules-for-signed-and-unsigned-integer-channel-data-types"></a>8.3.4. Conversion Rules for Signed and Unsigned Integer Channel Data Types</h4>
 <div class="paragraph">
-<p>Calls to <strong>read_imagei</strong> with channel data type values of <code>CL_SIGNED_<wbr>INT8</code>,
-<code>CL_SIGNED_<wbr>INT16</code> and <code>CL_SIGNED_<wbr>INT32</code> return the integer values
-stored in the image at specified location, after sign extension to 32 bits for
-integer values smaller than 32 bits.</p>
+<p>Calls to <strong>read_imagei</strong> with any of the following channel data type values return
+the integer values stored in the image at specified location, after sign
+extension to 32 bits for integer values smaller than 32 bits.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_SIGNED_<wbr>INT8</code></p>
+</li>
+<li>
+<p><code>CL_SIGNED_<wbr>INT16</code></p>
+</li>
+<li>
+<p><code>CL_SIGNED_<wbr>INT32</code></p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>Calls to <strong>read_imageui</strong> with channel data type values of <code>CL_UNSIGNED_<wbr>INT8</code>,
-<code>CL_UNSIGNED_<wbr>INT16</code> and <code>CL_UNSIGNED_<wbr>INT32</code> return the integer values stored in
-the image at specified location, after zero extension to 32 bits for integer
-values smaller than 32 bits.</p>
+<p>Calls to <strong>read_imageui</strong> with any of the following channel data type values
+return the integer values stored in the image at specified location, after zero
+extension to 32 bits for integer values smaller than 32 bits.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_UNSIGNED_<wbr>INT8</code></p>
+</li>
+<li>
+<p><code>CL_UNSIGNED_<wbr>INT16</code></p>
+</li>
+<li>
+<p><code>CL_UNSIGNED_<wbr>INT32</code></p>
+</li>
+<li>
+<p><code>CL_UNSIGNED_<wbr>INT10X6_<wbr>EXT</code></p>
+</li>
+<li>
+<p><code>CL_UNSIGNED_<wbr>INT12X4_<wbr>EXT</code></p>
+</li>
+<li>
+<p><code>CL_UNSIGNED_<wbr>INT14X2_<wbr>EXT</code></p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>Calls to <strong>write_imagei</strong> will perform one of the following conversions:</p>
 </div>
 <div class="paragraph">
-<p>32 bit signed integer → 8-bit signed integer</p>
+<p>32 bit signed integer → <code>CL_SIGNED_<wbr>INT8</code> (8-bit signed integer)</p>
 </div>
 <div class="ulist none">
 <ul class="none">
@@ -23809,7 +24270,7 @@ values smaller than 32 bits.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>32 bit signed integer → 16-bit signed integer</p>
+<p>32 bit signed integer → <code>CL_SIGNED_<wbr>INT16</code> (16-bit signed integer)</p>
 </div>
 <div class="ulist none">
 <ul class="none">
@@ -23819,7 +24280,7 @@ values smaller than 32 bits.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>32 bit signed integer → 32-bit signed integer</p>
+<p>32 bit signed integer → <code>CL_SIGNED_<wbr>INT32</code> (32-bit signed integer)</p>
 </div>
 <div class="ulist none">
 <ul class="none">
@@ -23832,7 +24293,7 @@ values smaller than 32 bits.</p>
 <p>Calls to <strong>write_imageui</strong> will perform one of the following conversions:</p>
 </div>
 <div class="paragraph">
-<p>32 bit unsigned integer → 8-bit unsigned integer</p>
+<p>32 bit unsigned integer → <code>CL_UNSIGNED_<wbr>INT8</code> (8-bit unsigned integer)</p>
 </div>
 <div class="ulist none">
 <ul class="none">
@@ -23842,7 +24303,7 @@ values smaller than 32 bits.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>32 bit unsigned integer → 16-bit unsigned integer</p>
+<p>32 bit unsigned integer → <code>CL_UNSIGNED_<wbr>INT16</code> (16-bit unsigned integer)</p>
 </div>
 <div class="ulist none">
 <ul class="none">
@@ -23852,12 +24313,42 @@ values smaller than 32 bits.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>32 bit unsigned integer → 32-bit unsigned integer</p>
+<p>32 bit unsigned integer → <code>CL_UNSIGNED_<wbr>INT32</code> (32-bit unsigned integer)</p>
 </div>
 <div class="ulist none">
 <ul class="none">
 <li>
 <p>no conversion is performed</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>32 bit unsigned integer → <code>CL_UNSIGNED_<wbr>INT10X6_<wbr>EXT</code> (10-bit unsigned integer)</p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p><strong>clamp</strong>(<strong>convert_ushort_sat</strong>(i), 0, 1023)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>32 bit unsigned integer → <code>CL_UNSIGNED_<wbr>INT12X4_<wbr>EXT</code> (12-bit unsigned integer)</p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p><strong>clamp</strong>(<strong>convert_ushort_sat</strong>(i), 0, 4095)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>32 bit unsigned integer → <code>CL_UNSIGNED_<wbr>INT14X2_<wbr>EXT</code> (14-bit unsigned integer)</p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p><strong>clamp</strong>(<strong>convert_ushort_sat</strong>(i), 0, 16383)</p>
 </li>
 </ul>
 </div>
@@ -23957,7 +24448,7 @@ implementation produces and being checked for conformance.</p>
 <div class="sect2">
 <h3 id="selecting-an-image-from-an-image-array"><a class="anchor" href="#selecting-an-image-from-an-image-array"></a>8.4. Selecting an Image From an Image Array</h3>
 <div class="paragraph">
-<p>Let (<em>u</em>,<em>v</em>,<em>w</em>) represent the unnormalized image coordinate values for
+<p>Let (<em>u</em>, <em>v</em>, <em>w</em>) represent the unnormalized image coordinate values for
 reading from and/or writing to a 2D image in a 2D image array.</p>
 </div>
 <div class="paragraph">
@@ -23985,7 +24476,7 @@ reading from and/or writing to a 2D image in a 2D image array.</p>
 one of the integers 0, 1, &#8230;&#8203; d<sub>t</sub> - 1.</p>
 </div>
 <div class="paragraph">
-<p>Let (<em>u</em>,<em>v</em>) represent the unnormalized image coordinate values for reading
+<p>Let (<em>u</em>, <em>v</em>) represent the unnormalized image coordinate values for reading
 from and/or writing to a 1D image in a 1D image array.</p>
 </div>
 <div class="paragraph">
@@ -24092,7 +24583,7 @@ summarized below.</p>
 <div class="sect2">
 <h3 id="_summary_of_changes_from_opencl_3_0"><a class="anchor" href="#_summary_of_changes_from_opencl_3_0"></a>Summary of changes from OpenCL 3.0</h3>
 <div class="paragraph">
-<p>The first non-provisional version of the OpenCL 3.0 specifications was <strong>v3.0.5</strong>.</p>
+<p>The first non-experimental version of the OpenCL 3.0 specifications was <strong>v3.0.5</strong>.</p>
 </div>
 <div class="paragraph">
 <p>Changes from <strong>v3.0.5</strong>:</p>
@@ -24199,7 +24690,7 @@ The OpenCL Extension specification will be removed in a subsequent revision.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>cl_khr_<wbr>kernel_<wbr>clock</code> (provisional)</p>
+<p><code>cl_khr_<wbr>kernel_<wbr>clock</code> (experimental)</p>
 </li>
 </ul>
 </div>
@@ -24241,6 +24732,22 @@ The OpenCL Extension specification will be removed in a subsequent revision.</p>
 </li>
 <li>
 <p>Clarified image conversion rules for signed and unsigned image channel data types, see <a href="https://github.com/KhronosGroup/OpenCL-Docs/pull/1348">#1348</a>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Changes from <strong>v3.0.18</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Fixed an incorrect argument type for the <strong>fast_distance</strong> function, see <a href="https://github.com/KhronosGroup/OpenCL-Docs/pull/1374">#1374</a>.</p>
+</li>
+<li>
+<p>Updated the ULP requirements for the half-precision square root, see <a href="https://github.com/KhronosGroup/OpenCL-Docs/pull/1386">#1386</a>.</p>
+</li>
+<li>
+<p>Updated the ULP requirements for the half-precision tangent, see <a href="https://github.com/KhronosGroup/OpenCL-Docs/pull/1387">#1387</a>.</p>
 </li>
 </ul>
 </div>
@@ -24434,7 +24941,7 @@ The OpenCL Extension specification will be removed in a subsequent revision.</p>
 <a href="#_footnoteref_61">61</a>. Only if the <code>cl_khr_<wbr>fp16</code> extension is supported and has been enabled.
 </div>
 <div class="footnote" id="_footnotedef_62">
-<a href="#_footnoteref_62">62</a>. <strong>vload3</strong> and <strong>vload_half3</strong> read (<em>x</em>,<em>y</em>,<em>z</em>) components from address <code>(<em>p</em> + (<em>offset</em> * 3))</code> into a 3-component vector. <strong>vstore3</strong> and <strong>vstore_half3</strong> write (<em>x</em>,<em>y</em>,<em>z</em>) components from a 3-component vector to address <code>(<em>p</em> + (<em>offset</em> * 3))</code>. In addition, <strong>vloada_half3</strong> reads (<em>x</em>,<em>y</em>,<em>z</em>) components from address <code>(<em>p</em> + (<em>offset</em> * 4))</code> into a 3-component vector and <strong>vstorea_half3</strong> writes (<em>x</em>,<em>y</em>,<em>z</em>) components from a 3-component vector to address <code>(<em>p</em> +  (<em>offset</em> * 4))</code>. Whether <strong>vloada_half3</strong> and <strong>vstorea_half3</strong> read/write padding data between the third vector element and the next alignment boundary is implementation-defined. The <strong>vloada_</strong> and <strong>vstorea_</strong> variants are provided to access data that is aligned to the size of the vector, and are intended to enable performance on hardware that can take advantage of the increased alignment.
+<a href="#_footnoteref_62">62</a>. <strong>vload3</strong> and <strong>vload_half3</strong> read (<em>x</em>, <em>y</em>, <em>z</em>) components from address <code>(<em>p</em> + (<em>offset</em> * 3))</code> into a 3-component vector. <strong>vstore3</strong> and <strong>vstore_half3</strong> write (<em>x</em>, <em>y</em>, <em>z</em>) components from a 3-component vector to address <code>(<em>p</em> + (<em>offset</em> * 3))</code>. In addition, <strong>vloada_half3</strong> reads (<em>x</em>, <em>y</em>, <em>z</em>) components from address <code>(<em>p</em> + (<em>offset</em> * 4))</code> into a 3-component vector and <strong>vstorea_half3</strong> writes (<em>x</em>, <em>y</em>, <em>z</em>) components from a 3-component vector to address <code>(<em>p</em> +  (<em>offset</em> * 4))</code>. Whether <strong>vloada_half3</strong> and <strong>vstorea_half3</strong> read/write padding data between the third vector element and the next alignment boundary is implementation-defined. The <strong>vloada_</strong> and <strong>vstorea_</strong> variants are provided to access data that is aligned to the size of the vector, and are intended to enable performance on hardware that can take advantage of the increased alignment.
 </div>
 <div class="footnote" id="_footnotedef_63">
 <a href="#_footnoteref_63">63</a>. Refer to the description and restrictions for <a href="#memory-scope"><code>memory_scope</code></a>.
