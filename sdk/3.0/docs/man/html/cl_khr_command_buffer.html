@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.16">
+<meta name="generator" content="Asciidoctor 2.0.23">
 <title>cl_khr_command_buffer(3)</title>
 <style>
 /*! normalize.css v2.1.2 | MIT License | git.io/normalize */
@@ -792,8 +792,8 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <div class="ulist">
 <ul>
 <li>
-<p><strong>This is a <em>provisional</em> extension and <strong class="purple">must</strong> be used with caution.
-See the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#boilerplate-provisional-header" target="_blank" rel="noopener">description</a> of provisional header files for enablement and stability details.</strong></p>
+<p><strong>This is a <em>experimental</em> extension and <strong class="purple">must</strong> be used with caution.
+See the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#boilerplate-experimental-header" target="_blank" rel="noopener">description</a> of experimental header files for enablement and stability details.</strong></p>
 </li>
 </ul>
 </div>
@@ -818,7 +818,7 @@ See the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/
 <dl>
 <dt class="hdlist1"><strong>Last Modified Date</strong></dt>
 <dd>
-<p>2024-07-24</p>
+<p>2024-12-13</p>
 </dd>
 <dt class="hdlist1"><strong>IP Status</strong></dt>
 <dd>
@@ -898,23 +898,6 @@ OpenCL commands.</p>
 workload multiple times. By separating the command-queue setup from dispatch,
 the ability to replay a set of previously created commands is introduced.</p>
 </div>
-<div class="paragraph">
-<p>Device-side <em>cl_sync_point_khr</em> synchronization-points can be used within
-command-buffers to define command dependencies. This allows the commands of a
-command-buffer to execute out-of-order on a single <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#compatible" target="_blank" rel="noopener">compatible</a>
-command-queue. The command-buffer itself has no inherent in-order/out-of-order
-property, this ordering is inferred from the command-queue used on command
-recording. Out-of-order enqueues without event dependencies of both regular
-commands, such as <strong>clEnqueueFillBuffer</strong>, and command-buffers are allowed to
-execute concurrently, and it is up to the user to express any dependencies using
-events.</p>
-</div>
-<div class="paragraph">
-<p>The command-queues a command-buffer will be executed on can be set on replay via
-parameters to <strong>clEnqueueCommandBufferKHR</strong>, provided they are
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#compatible" target="_blank" rel="noopener">compatible</a> with the command-queues used on command-buffer
-recording.</p>
-</div>
 <div class="sect2">
 <h3 id="_background"><a class="anchor" href="#_background"></a>Background</h3>
 <div class="paragraph">
@@ -946,7 +929,7 @@ or writes memory objects; or enqueues a native kernel, is not available for
 command-buffer recording. Finally commands recorded into a command buffer do
 not wait for or return event objects, these are instead replaced with
 device-side synchronization-point identifiers which enable out-of-order
-execution when enqueued on <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#compatible" target="_blank" rel="noopener">compatible</a> command-queues.</p>
+execution of the command-buffer commands.</p>
 </div>
 <div class="paragraph">
 <p>Adding new entry-points for individual commands, rather than recording existing
@@ -980,6 +963,49 @@ other extensions layered on top to take advantage of them to provide additional
 mutable functionality.</p>
 </li>
 </ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_command_synchronization"><a class="anchor" href="#_command_synchronization"></a>Command Synchronization</h3>
+<div class="paragraph">
+<p>The command-buffer object has no in-order/out-of-order property set on creation,
+it is out-of-order, and command ordering is defined by the dependencies set when
+commands are created. Command dependencies can be defined in 3 ways:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Device-side <code>cl_sync_<wbr>point_<wbr>khr</code> synchronization-points, providing an
+explicit list of the commands to depend on.</p>
+</li>
+<li>
+<p>Appending a <strong>clCommandBarrierWithWaitListKHR</strong> barrier command.</p>
+</li>
+<li>
+<p>Passing an in-order queue when creating the command, creating an implicit
+dependency on the previous command created in the command-buffer using
+the same queue.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>clEnqueueCommandBufferKHR</strong> submissions to an out-of-order queue have the same
+execution semantics as other operations enqueued to an out-of-order queue,
+such as <strong>clEnqueueFillBuffer</strong>, where execution between enqueued operations may
+happen concurrently unless dependencies between the operations are expressed
+with events.</p>
+</div>
+<div class="paragraph">
+<p>The <code>cl_sync_<wbr>point_<wbr>khr</code> type is defined as a <code>cl_uint</code>, giving a hard
+upper limit on the number of commands a command-buffer can hold as
+<code>CL_UINT_<wbr>MAX</code>, at which point <code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> will be returned. However,
+it is likely an implementation will reach capacity before this threshold is
+hit.</p>
+</div>
+<div class="paragraph">
+<p>There are no gurantees made around the values of sync-points returned from
+adding commands to a command-buffer. Any semantics that a could be inferred
+from the sync-point values returned is implementation defined.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1019,7 +1045,7 @@ functionality expanding on this is provided as layered extensions on top of
 <p>Having <code>cl_khr_<wbr>command_<wbr>buffer</code> as a minimal base specification means that the
 API defines mechanisms for functionality that is not enabled by this extension,
 these are described in the following sub-sections. <code>cl_khr_<wbr>command_<wbr>buffer</code> will
-retain its provisional extension status until other layered extensions are
+retain its experimental extension status until other layered extensions are
 released, as these may reveal modifications needed to the base specification to
 support their intended use cases.</p>
 </div>
@@ -1206,6 +1232,9 @@ and starting from version 0.9.4 of this extension</p>
 <li>
 <p><code>CL_DEVICE_<wbr>COMMAND_<wbr>BUFFER_<wbr>REQUIRED_<wbr>QUEUE_<wbr>PROPERTIES_<wbr>KHR</code></p>
 </li>
+<li>
+<p><code>CL_DEVICE_<wbr>COMMAND_<wbr>BUFFER_<wbr>SUPPORTED_<wbr>QUEUE_<wbr>PROPERTIES_<wbr>KHR</code></p>
+</li>
 </ul>
 </div>
 </li>
@@ -1221,9 +1250,6 @@ and starting from version 0.9.4 of this extension</p>
 </li>
 <li>
 <p><code>CL_COMMAND_<wbr>BUFFER_<wbr>CAPABILITY_<wbr>SIMULTANEOUS_<wbr>USE_<wbr>KHR</code></p>
-</li>
-<li>
-<p><code>CL_COMMAND_<wbr>BUFFER_<wbr>CAPABILITY_<wbr>OUT_<wbr>OF_<wbr>ORDER_<wbr>KHR</code></p>
 </li>
 </ul>
 </div>
@@ -1504,6 +1530,32 @@ duration of their execution.</p>
 </div>
 </div>
 </li>
+<li>
+<p>Give users more control over command-buffer command capacity via some or all
+of the following mechanisms.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Provide a way for a user to query a command-buffer for the maximum number
+of commands it can hold.</p>
+</li>
+<li>
+<p>Guarantee a minimum command capacity that an implementation must support.</p>
+</li>
+<li>
+<p>Provide a mechanism for users to reserve command-buffer capacity on
+command-buffer creation.</p>
+</li>
+</ul>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>RESOLVED</strong> - Mechanisms to achieve this could be provided as a layered extension.</p>
+</div>
+</div>
+</div>
+</li>
 </ol>
 </div>
 </div>
@@ -1518,7 +1570,7 @@ duration of their execution.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>First assigned version (provisional).</p>
+<p>First assigned version (experimental).</p>
 </li>
 </ul>
 </div>
@@ -1529,7 +1581,7 @@ duration of their execution.</p>
 <ul>
 <li>
 <p>Specify an error if a command-buffer is finalized multiple times
-(provisional).</p>
+(experimental).</p>
 </li>
 </ul>
 </div>
@@ -1539,7 +1591,7 @@ duration of their execution.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Introduce context query <code>CL_COMMAND_<wbr>BUFFER_<wbr>CONTEXT_<wbr>KHR</code> (provisional).</p>
+<p>Introduce context query <code>CL_COMMAND_<wbr>BUFFER_<wbr>CONTEXT_<wbr>KHR</code> (experimental).</p>
 </li>
 </ul>
 </div>
@@ -1549,7 +1601,7 @@ duration of their execution.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Remove Invalid command-buffer state (provisional).</p>
+<p>Remove Invalid command-buffer state (experimental).</p>
 </li>
 </ul>
 </div>
@@ -1560,7 +1612,7 @@ duration of their execution.</p>
 <ul>
 <li>
 <p>Add clCommandSVMMemcpyKHR and clCommandSVMMemFillKHR command entries
-(provisional).</p>
+(experimental).</p>
 </li>
 </ul>
 </div>
@@ -1571,7 +1623,28 @@ duration of their execution.</p>
 <ul>
 <li>
 <p>Add a properties parameter to all command recording entry-points
-(provisional).</p>
+(experimental).</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>0.9.6, 2024-10-02</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Add device query for supported queue properties (experimental).</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>0.9.7, 2024-12-13</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Refactor queue compatability between command-buffer creation and enqueue
+(experimental).</p>
 </li>
 </ul>
 </div>
@@ -1604,7 +1677,7 @@ Fixes and changes should be made to the generator scripts, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2024 The Khronos Group Inc.</p>
+<p>Copyright 2014-2025 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>

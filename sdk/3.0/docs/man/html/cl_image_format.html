@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.16">
+<meta name="generator" content="Asciidoctor 2.0.23">
 <title>cl_image_format(3)</title>
 <style>
 /*! normalize.css v2.1.2 | MIT License | git.io/normalize */
@@ -964,6 +964,12 @@ and <code>image_channel_order</code> must be a power of two.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Each channel component is an unnormalized signed 8-bit integer value</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_UNORM_<wbr>INT_<wbr>2_<wbr>101010_<wbr>EXT</code></p>
+<p class="tableblock">provided by the <code>cl_ext_image_unorm_int_2_101010</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Represents a normalized 2-10-10-10 four-channel ABGR image.
+    The channel order must be <code>CL_ABGR</code>.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_SIGNED_<wbr>INT16</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Each channel component is an unnormalized signed 16-bit integer value</p></td>
 </tr>
@@ -996,6 +1002,48 @@ and <code>image_channel_order</code> must be a power of two.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_FLOAT</code></p>
 <p class="tableblock">Also supported if the <code>cl_khr_<wbr>depth_<wbr>images</code> extension is supported.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Each channel component is a single precision floating-point value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_UNSIGNED_<wbr>INT10X6_<wbr>EXT</code></p>
+<p class="tableblock">provided by the <code>cl_ext_image_unsigned_10x6_12x4_14x2</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Each channel component is an unnormalized unsigned 10-bit integer value
+    stored in bits 15:6 of a 16-bit location.
+    The channel order must be <code>CL_R</code>, <code>CL_RG</code>, or <code>CL_RGBA</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_UNSIGNED_<wbr>INT12X4_<wbr>EXT</code></p>
+<p class="tableblock">provided by the <code>cl_ext_image_unsigned_10x6_12x4_14x2</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Each channel component is an unnormalized unsigned 12-bit integer value
+    stored in bits 15:4 of a 16-bit location.
+    The channel order must be <code>CL_R</code>, <code>CL_RG</code>, or <code>CL_RGBA</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_UNSIGNED_<wbr>INT14X2_<wbr>EXT</code></p>
+<p class="tableblock">provided by the <code>cl_ext_image_unsigned_10x6_12x4_14x2</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Each channel component is an unnormalized unsigned 14-bit integer value
+    stored in bits 15:2 of a 16-bit location.
+    The channel order must be <code>CL_R</code>, <code>CL_RG</code>, or <code>CL_RGBA</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_UNORM_<wbr>INT10X6_<wbr>EXT</code></p>
+<p class="tableblock">provided by the <code>cl_ext_image_unsigned_10x6_12x4_14x2</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Each channel component is a normalized unsigned 10-bit integer value
+    stored in bits 15:6 of a 16-bit location.
+    The channel order must be <code>CL_R</code>, <code>CL_RG</code>, or <code>CL_RGBA</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_UNORM_<wbr>INT12X4_<wbr>EXT</code></p>
+<p class="tableblock">provided by the <code>cl_ext_image_unsigned_10x6_12x4_14x2</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Each channel component is a normalized unsigned 12-bit integer value
+    stored in bits 15:4 of a 16-bit location.
+    The channel order must be <code>CL_R</code>, <code>CL_RG</code>, or <code>CL_RGBA</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_UNORM_<wbr>INT14X2_<wbr>EXT</code></p>
+<p class="tableblock">provided by the <code>cl_ext_image_unsigned_10x6_12x4_14x2</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Each channel component is a normalized unsigned 14-bit integer value
+    stored in bits 15:2 of a 16-bit location.
+    The channel order must be <code>CL_R</code>, <code>CL_RG</code>, or <code>CL_RGBA</code>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1102,7 +1150,9 @@ For <code>CL_UNORM_<wbr>SHORT_<wbr>555</code>, bit 15 is undefined, R is in bits
 For <code>CL_UNORM_<wbr>INT_<wbr>101010</code>, bits 31:30 are undefined, R is in bits 29:20, G in
 bits 19:10 and B in bits 9:0.
 For <code>CL_UNORM_<wbr>INT_<wbr>101010_<wbr>2</code>, R is in bits 31:22, G in bits 21:12, B in bits
-11:2 and A in bits 1:0.</p>
+11:2 and A in bits 1:0.
+For <code>CL_UNORM_<wbr>INT_<wbr>2_<wbr>101010_<wbr>EXT</code>, A is in bits 31:30, B in bits 29:20, G in bits
+19:10 and R in bits 9:0.</p>
 </div>
 <div class="paragraph">
 <p>OpenCL implementations must maintain the minimum precision specified by the
@@ -1118,7 +1168,7 @@ then the call to <strong>clCreateImage</strong>, <strong>clCreateImageWithProper
 <h2 id="_see_also"><a class="anchor" href="#_see_also"></a>See Also</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="CL_VERSION_1_0.html">CL_VERSION_1_0</a>, <a href="clCreateImage.html">clCreateImage</a>, <a href="clCreateImage2D.html">clCreateImage2D</a>, <a href="clCreateImage3D.html">clCreateImage3D</a>, <a href="clCreateImageWithProperties.html">clCreateImageWithProperties</a>, <a href="clGetSupportedImageFormats.html">clGetSupportedImageFormats</a>, <a href="cl_channel_order.html">cl_channel_order</a>, <a href="cl_channel_type.html">cl_channel_type</a></p>
+<p><a href="CL_VERSION_1_0.html">CL_VERSION_1_0</a>, <a href="clCreateImage.html">clCreateImage</a>, <a href="clCreateImage2D.html">clCreateImage2D</a>, <a href="clCreateImage3D.html">clCreateImage3D</a>, <a href="clCreateImageWithProperties.html">clCreateImageWithProperties</a>, <a href="clGetImageRequirementsInfoEXT.html">clGetImageRequirementsInfoEXT</a>, <a href="clGetSupportedImageFormats.html">clGetSupportedImageFormats</a>, <a href="cl_channel_order.html">cl_channel_order</a>, <a href="cl_channel_type.html">cl_channel_type</a></p>
 </div>
 </div>
 </div>
@@ -1138,7 +1188,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2024 The Khronos Group Inc.</p>
+<p>Copyright 2014-2025 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>

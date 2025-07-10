@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.16">
+<meta name="generator" content="Asciidoctor 2.0.23">
 <title>clCreateBuffer(3)</title>
 <style>
 /*! normalize.css v2.1.2 | MIT License | git.io/normalize */
@@ -904,6 +904,26 @@ model.</p>
         <code>CL_MEM_<wbr>DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>END_<wbr>KHR</code>) to associate with the
         external memory handle.</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_MEM_<wbr>DEVICE_<wbr>PRIVATE_<wbr>ADDRESS_<wbr>EXT</code></p>
+<p class="tableblock">provided by the <code>cl_ext_buffer_device_address</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_bool</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When set to <code>CL_TRUE</code>, specifies that the buffer must have a single fixed
+      device-side address for its lifetime, and the address can be queried via <strong>clGetMemObjectInfo</strong>.</p>
+<p class="tableblock">   Each device in the context can have their own (fixed) device-side address and
+   a copy of the created buffer which are synchronized
+   implicitly by the runtime.</p>
+<p class="tableblock">   The flag might imply that the buffer will be "pinned" permanently to
+   a device&#8217;s memory, but might not be necessarily so, as long as the address
+   range of the buffer remains constant.</p>
+<p class="tableblock">   The device addresses of sub-buffers derived from <code>CL_MEM_<wbr>DEVICE_<wbr>PRIVATE_<wbr>ADDRESS_<wbr>EXT</code>
+   allocated buffers can be computed by adding the sub-buffer origin to the
+   device-specific start address.</p>
+<p class="tableblock">   If the device supports SVM and <strong>clCreateBufferWithProperties</strong> is called with a pointer
+   returned by <strong>clSVMAlloc</strong> as its <em>host_ptr</em> argument, and <code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code> is
+   set in its <em>flags</em> argument, the device-side address is guaranteed to match
+   the <em>host_ptr</em>.</p></td>
+</tr>
 </tbody>
 </table>
 <div class="paragraph">
@@ -922,6 +942,21 @@ include <code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code>, <code>CL_MEM_<wbr>ALLOC
 <code>CL_MEM_<wbr>COPY_<wbr>HOST_<wbr>PTR</code>, and the <em>host_ptr</em> argument must be <code>NULL</code>.</p>
 </div>
 <div class="paragraph">
+<p>If <code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code> is set in <em>flags</em>, the buffer created is
+an <em>immutable memory object</em> that cannot be modified by the implementation
+after creation, and one and only one of the following conditions must be met:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Either <code>CL_MEM_<wbr>COPY_<wbr>HOST_<wbr>PTR</code> or <code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code> must be set in <em>flags</em>.</p>
+</li>
+<li>
+<p>An external memory handle must be included in <em>properties</em>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
 <p><strong>clCreateBuffer</strong> and <strong>clCreateBufferWithProperties</strong> returns a valid non-zero
 buffer object and <em>errcode_ret</em> is set to <code>CL_SUCCESS</code> if the buffer object
 is created successfully.
@@ -931,81 +966,11 @@ returned in <em>errcode_ret</em>:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_INVALID_<wbr>CONTEXT</code> if <em>context</em> is not a valid context.</p>
-</li>
-<li>
-<p><code>CL_INVALID_<wbr>PROPERTY</code> if a property name in <em>properties</em> is not a
-supported property name, if the value specified for a supported property
-name is not valid, or if the same property name is specified more than
-once.</p>
-</li>
-<li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if values specified in <em>flags</em> are not valid as defined
-in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#memory-flags-table" target="_blank" rel="noopener">Memory Flags</a> table.</p>
-</li>
-<li>
-<p><code>CL_INVALID_<wbr>BUFFER_<wbr>SIZE</code> if <em>size</em> is 0, or if <em>size</em> is greater than
-<code>CL_DEVICE_<wbr>MAX_<wbr>MEM_<wbr>ALLOC_<wbr>SIZE</code> for all devices in <em>context</em>, or if
-<code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code> or <code>CL_MEM_<wbr>COPY_<wbr>HOST_<wbr>PTR</code> is set in <em>flags</em> and
-<em>host_ptr</em> is a pointer returned by <strong>clSVMAlloc</strong> and <em>size</em> is greater than
-the size passed to <strong>clSVMAlloc</strong>.</p>
-</li>
-<li>
-<p><code>CL_INVALID_<wbr>HOST_<wbr>PTR</code> if <em>host_ptr</em> is <code>NULL</code> and <code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code> or
-<code>CL_MEM_<wbr>COPY_<wbr>HOST_<wbr>PTR</code> are set in <em>flags</em> or if <em>host_ptr</em> is not <code>NULL</code>
-but <code>CL_MEM_<wbr>COPY_<wbr>HOST_<wbr>PTR</code> or <code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code> are not set in <em>flags</em>.</p>
-</li>
-<li>
-<p><code>CL_MEM_<wbr>OBJECT_<wbr>ALLOCATION_<wbr>FAILURE</code> if there is a failure to allocate
-memory for buffer object.</p>
-</li>
-<li>
-<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources required
-by the OpenCL implementation on the device.</p>
-</li>
-<li>
-<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code> if there is a failure to allocate resources
-required by the OpenCL implementation on the host.</p>
-</li>
-<li>
-<p><code>CL_INVALID_<wbr>DEVICE</code></p>
+<p><code>CL_INVALID_<wbr>CONTEXT</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p>if a device identified by the property <code>CL_MEM_<wbr>DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>KHR</code>
-is not a valid device or is not associated with <em>context</em>, or</p>
-</li>
-<li>
-<p>if a device identified by property <code>CL_MEM_<wbr>DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>KHR</code>
-cannot import the requested external memory object type, or</p>
-</li>
-<li>
-<p>if <code>CL_MEM_<wbr>DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>KHR</code> is not specified as part of
-<em>properties</em> and one or more devices in <em>context</em> cannot import the
-requested external memory object type.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><code>CL_INVALID_<wbr>VALUE</code></p>
-<div class="ulist">
-<ul>
-<li>
-<p>if <em>properties</em> includes a supported external memory handle and <em>flags</em>
-includes <code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code>, <code>CL_MEM_<wbr>ALLOC_<wbr>HOST_<wbr>PTR</code>, or
-<code>CL_MEM_<wbr>COPY_<wbr>HOST_<wbr>PTR</code>.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><code>CL_INVALID_<wbr>HOST_<wbr>PTR</code></p>
-<div class="ulist">
-<ul>
-<li>
-<p>if <em>properties</em> includes a supported external memory handle and
-<em>host_ptr</em> is not <code>NULL</code>.</p>
+<p>if <em>context</em> is not a valid context</p>
 </li>
 </ul>
 </div>
@@ -1015,11 +980,158 @@ includes <code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code>, <code>CL_MEM_<wbr>ALLO
 <div class="ulist">
 <ul>
 <li>
-<p>if <em>properties</em> does not include a supported external memory handle and
-<code>CL_MEM_<wbr>DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>KHR</code> is specified as part of <em>properties</em>.</p>
+<p>if a property name in <em>properties</em> is not a supported property name</p>
 </li>
 <li>
-<p>if <em>properties</em> includes more than one external memory handle.</p>
+<p>if the value specified for a supported property name is not valid</p>
+</li>
+<li>
+<p>if the same property name is specified more than once</p>
+</li>
+<li>
+<p>if <em>properties</em> does not include a supported external memory handle and
+<code>CL_MEM_<wbr>DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>KHR</code> is specified as part of <em>properties</em></p>
+</li>
+<li>
+<p>if <em>properties</em> includes more than one external memory handle</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>DEVICE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if a device identified by the property <code>CL_MEM_<wbr>DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>KHR</code>
+is not a valid device or is not associated with <em>context</em></p>
+</li>
+<li>
+<p>if a device identified by property <code>CL_MEM_<wbr>DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>KHR</code>
+cannot import the requested external memory object type</p>
+</li>
+<li>
+<p>if <code>CL_MEM_<wbr>DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>KHR</code> is not specified as part of
+<em>properties</em> and one or more devices in <em>context</em> cannot import the
+requested external memory object type</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>VALUE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if values specified in <em>flags</em> are not valid as defined in the
+<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#memory-flags-table" target="_blank" rel="noopener">Memory Flags</a> table</p>
+</li>
+<li>
+<p>if <em>properties</em> includes a supported external memory handle and <em>flags</em>
+includes <code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code>, <code>CL_MEM_<wbr>ALLOC_<wbr>HOST_<wbr>PTR</code>, or <code>CL_MEM_<wbr>COPY_<wbr>HOST_<wbr>PTR</code></p>
+</li>
+<li>
+<p>if <code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code> is set in <em>flags</em> and <code>CL_MEM_<wbr>READ_<wbr>WRITE</code>,
+<code>CL_MEM_<wbr>WRITE_<wbr>ONLY</code>, or <code>CL_MEM_<wbr>HOST_<wbr>WRITE_<wbr>ONLY</code> is set in <em>flags</em></p>
+</li>
+<li>
+<p>if <code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code> is set in <em>flags</em> and none of the following conditions are met:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_MEM_<wbr>COPY_<wbr>HOST_<wbr>PTR</code> or <code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code> is set in <em>flags</em></p>
+</li>
+<li>
+<p><em>properties</em> includes an external memory handle</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>BUFFER_<wbr>SIZE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>size</em> is zero and <em>properties</em> does not include an AHardwareBuffer external memory handle</p>
+</li>
+<li>
+<p>if <em>size</em> is non-zero and <em>properties</em> includes an AHardwareBuffer external memory handle</p>
+</li>
+<li>
+<p>if <em>size</em> is greater than <code>CL_DEVICE_<wbr>MAX_<wbr>MEM_<wbr>ALLOC_<wbr>SIZE</code> for all devices in <em>context</em></p>
+</li>
+<li>
+<p>if <code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code> or <code>CL_MEM_<wbr>COPY_<wbr>HOST_<wbr>PTR</code> is set in <em>flags</em>, and
+<em>host_ptr</em> is a pointer returned by <strong>clSVMAlloc</strong>, and <em>size</em> is greater than
+the size passed to <strong>clSVMAlloc</strong></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>HOST_<wbr>PTR</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>host_ptr</em> is <code>NULL</code>, and <code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code> or <code>CL_MEM_<wbr>COPY_<wbr>HOST_<wbr>PTR</code> are set in <em>flags</em></p>
+</li>
+<li>
+<p>if <em>host_ptr</em> is not <code>NULL</code> but <code>CL_MEM_<wbr>COPY_<wbr>HOST_<wbr>PTR</code> or <code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code> are not set in <em>flags</em></p>
+</li>
+<li>
+<p>if <em>properties</em> includes a supported external memory handle and
+<em>host_ptr</em> is not <code>NULL</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>OPERATION</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>properties</em> includes an AHardwareBuffer external memory handle and
+the AHardwareBuffer format is not <code>AHARDWAREBUFFER_FORMAT_BLOB</code></p>
+</li>
+<li>
+<p>if <em>properties</em> includes <code>CL_MEM_<wbr>DEVICE_<wbr>PRIVATE_<wbr>ADDRESS_<wbr>EXT</code> and there
+are no devices in the context that support the
+<code>cl_ext_<wbr>buffer_<wbr>device_<wbr>address</code> extension</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_MEM_<wbr>OBJECT_<wbr>ALLOCATION_<wbr>FAILURE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if there is a failure to allocate memory for the buffer object</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if there is a failure to allocate resources required by the OpenCL
+implementation on the device</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if there is a failure to allocate resources required by the OpenCL
+implementation on the host</p>
 </li>
 </ul>
 </div>
@@ -1134,6 +1246,12 @@ includes <code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code>, <code>CL_MEM_<wbr>ALLO
     To create a memory object that may be read from and written to use
     <code>CL_MEM_<wbr>READ_<wbr>WRITE</code>.</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code></p>
+<p class="tableblock">provided by the <code>cl_ext_immutable_memory_objects</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This flag specifies that the contents of the memory object cannot be altered
+    by the implementation after creation.</p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -1162,7 +1280,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2024 The Khronos Group Inc.</p>
+<p>Copyright 2014-2025 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
