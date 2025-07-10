@@ -891,9 +891,9 @@ pre.rouge .gs {
 <h1>The OpenCL<sup>&#8482;</sup> SPIR-V Environment Specification</h1>
 <div class="details">
 <span id="author" class="author">Khronos<sup>&#174;</sup> OpenCL Working Group</span><br>
-<span id="revnumber">version v3.0.18,</span>
-<span id="revdate">Thu, 03 Apr 2025 12:00:00 +0000</span>
-<br><span id="revremark">from git branch: main commit: 2c2028732d7f84a6ec6a2fd54a02517ce98e9140</span>
+<span id="revnumber">version v3.0.19,</span>
+<span id="revdate">Thu, 10 Jul 2025 11:00:00 +0000</span>
+<br><span id="revremark">from git branch: main commit: 85da0d12c298ffa9eefd2adb1864f2c8193cbe3e</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -1542,9 +1542,39 @@ channel data types.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_UNORM_<wbr>INT_<wbr>101010_<wbr>2</code></p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>UnormInt10X6EXT</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_UNORM_<wbr>INT10X6_<wbr>EXT</code></p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">21</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>UnormInt2_101010EXT</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_UNORM_<wbr>INT_<wbr>2_<wbr>101010_<wbr>EXT</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">22</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>UnsignedInt10X6EXT</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_UNSIGNED_<wbr>INT10X6_<wbr>EXT</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">23</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>UnsignedInt12X4EXT</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_UNSIGNED_<wbr>INT12X4_<wbr>EXT</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">24</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>UnsignedInt14X2EXT</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_UNSIGNED_<wbr>INT14X2_<wbr>EXT</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">25</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>UnormInt12X4EXT</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_UNORM_<wbr>INT12X4_<wbr>EXT</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">26</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>UnormInt14X2EXT</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_UNORM_<wbr>INT14X2_<wbr>EXT</code></p></td>
 </tr>
 </tbody>
 </table>
@@ -3360,6 +3390,26 @@ declare the following SPIR-V capabilities:</p>
 <p>For unsupported <em>Scope</em> values, the behavior of <strong>OpReadClockKHR</strong> is undefined.</p>
 </div>
 </div>
+<div class="sect3">
+<h4 id="_cl_khr_spirv_queries"><a class="anchor" href="#_cl_khr_spirv_queries"></a>5.2.29. <code>cl_khr_spirv_queries</code></h4>
+<div class="paragraph">
+<p>If the OpenCL environment supports the extension <code>cl_khr_spirv_queries</code>, then:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>For each of the strings returned by the query <code>CL_DEVICE_SPIRV_EXTENDED_INSTRUCTION_SETS_KHR</code>, it is valid to import the SPIR-V extended instruction set in a SPIR-V module using <strong>OpExtInstImport</strong>.</p>
+</li>
+<li>
+<p>For each of the strings returned by the query <code>CL_DEVICE_SPIRV_EXTENSIONS_KHR</code>, it is valid to declare use of the SPIR-V extension in a SPIR-V module using <strong>OpExtension</strong>.</p>
+</li>
+<li>
+<p>For each of the capabilities returned by the query <code>CL_DEVICE_SPIRV_CAPABILITIES_KHR</code>, it is valid to declare the SPIR-V capability in a SPIR-V module using <strong>OpCapability</strong>.
+Some capabilities may additionally require a specific SPIR-V version, or a SPIR-V extension to be declared via <strong>OpExtension</strong>.</p>
+</li>
+</ul>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_embedded_profile_extensions"><a class="anchor" href="#_embedded_profile_extensions"></a>5.3. Embedded Profile Extensions</h3>
@@ -3650,7 +3700,7 @@ given as ULP values for the full profile.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpFDiv</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Correctly rounded</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 2.5 ulp</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 1.0 ulp</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 1 ulp</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpExtInst</strong> <strong>acos</strong></p></td>
@@ -4103,7 +4153,7 @@ given as ULP values for the full profile.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpExtInst</strong> <strong>sqrt</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Correctly rounded</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 3 ulp</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Correctly rounded</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 1.5 ulp</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpExtInst</strong> <strong>step</strong></p></td>
@@ -4115,7 +4165,7 @@ given as ULP values for the full profile.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpExtInst</strong> <strong>tan</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 5 ulp</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 5 ulp</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 2 ulp</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 2.5 ulp</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpExtInst</strong> <strong>tanh</strong></p></td>
@@ -4826,7 +4876,7 @@ given as ULP values for the embedded profile.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpExtInst</strong> <strong>sqrt</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 4 ulp</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 4 ulp</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 1 ulp</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;= 1.5 ulp</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpExtInst</strong> <strong>step</strong></p></td>
@@ -6348,10 +6398,43 @@ To ensure precision of image addressing and filter calculations across any OpenC
 <div class="sect4">
 <h5 id="converting-normalized-integer-channel-data-types-to-half-precision-floating-point-values"><a class="anchor" href="#converting-normalized-integer-channel-data-types-to-half-precision-floating-point-values"></a>7.4.1.1. Converting Normalized Integer Channel Data Types to Half Precision Floating-point Values</h5>
 <div class="paragraph">
-<p>For images created with image channel data type of <code>CL_UNORM_<wbr>INT8</code> and <code>CL_UNORM_<wbr>INT16</code>, image read instructions will convert the channel values from an 8-bit or 16-bit unsigned integer to normalized half precision floating-point values in the range [0.0h &#8230;&#8203; 1.0h].</p>
+<p>For images created with any of the following image channel data types, image read
+instructions will convert the channel values from an unsigned integer to
+normalized half precision floating-point values in the range [0.0h &#8230;&#8203; 1.0h].</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_UNORM_<wbr>INT8</code></p>
+</li>
+<li>
+<p><code>CL_UNORM_<wbr>INT16</code></p>
+</li>
+<li>
+<p><code>CL_UNORM_<wbr>INT10X6_<wbr>EXT</code></p>
+</li>
+<li>
+<p><code>CL_UNORM_<wbr>INT12X4_<wbr>EXT</code></p>
+</li>
+<li>
+<p><code>CL_UNORM_<wbr>INT14X2_<wbr>EXT</code></p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>For images created with image channel data type of <code>CL_SNORM_<wbr>INT8</code> and <code>CL_SNORM_<wbr>INT16</code>, image read instructions will convert the channel values from an 8-bit or 16-bit signed integer to normalized half precision floating-point values in the range [-1.0h &#8230;&#8203; 1.0h].</p>
+<p>For images created with any of the following image channel data types, image read
+instructions will convert the channel values from a signed integer to normalized
+half precision floating-point values in the range [-1.0h &#8230;&#8203; 1.0h].</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_SNORM_<wbr>INT8</code></p>
+</li>
+<li>
+<p><code>CL_SNORM_<wbr>INT16</code></p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>These conversions are performed as follows:</p>
@@ -6379,6 +6462,30 @@ To ensure precision of image addressing and filter calculations across any OpenC
 <div class="stemblock">
 <div class="content">
 \[normalized\_half\_value(x)=round\_to\_half(\frac{x}{65535})\]
+</div>
+</div>
+</li>
+<li>
+<p><code>CL_UNORM_<wbr>INT10X6_<wbr>EXT</code> (10-bit unsigned integer) &#8594; <code>half</code></p>
+<div class="stemblock">
+<div class="content">
+\[normalized\_half\_value(x)=round\_to\_half(\frac{x}{1023})\]
+</div>
+</div>
+</li>
+<li>
+<p><code>CL_UNORM_<wbr>INT12X4_<wbr>EXT</code> (12-bit unsigned integer) &#8594; <code>half</code></p>
+<div class="stemblock">
+<div class="content">
+\[normalized\_half\_value(x)=round\_to\_half(\frac{x}{4095})\]
+</div>
+</div>
+</li>
+<li>
+<p><code>CL_UNORM_<wbr>INT14X2_<wbr>EXT</code> (14-bit unsigned integer) &#8594; <code>half</code></p>
+<div class="stemblock">
+<div class="content">
+\[normalized\_half\_value(x)=round\_to\_half(\frac{x}{16383})\]
 </div>
 </div>
 </li>
@@ -6443,6 +6550,45 @@ To ensure precision of image addressing and filter calculations across any OpenC
 </ul>
 </div>
 <div class="paragraph">
+<p>For <code>CL_UNORM_<wbr>INT10X6_<wbr>EXT</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>0 must convert to 0.0h, and</p>
+</li>
+<li>
+<p>1023 must convert to 1.0h</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For <code>CL_UNORM_<wbr>INT12X4_<wbr>EXT</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>0 must convert to 0.0h, and</p>
+</li>
+<li>
+<p>4095 must convert to 1.0h</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For <code>CL_UNORM_<wbr>INT14X2_<wbr>EXT</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>0 must convert to 0.0h, and</p>
+</li>
+<li>
+<p>16383 must convert to 1.0h</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
 <p>For <code>CL_SNORM_<wbr>INT8</code>:</p>
 </div>
 <div class="ulist">
@@ -6478,10 +6624,43 @@ To ensure precision of image addressing and filter calculations across any OpenC
 <div class="sect4">
 <h5 id="converting-half-precision-floating-point-values-to-normalized-integer-channel-data-types"><a class="anchor" href="#converting-half-precision-floating-point-values-to-normalized-integer-channel-data-types"></a>7.4.1.2. Converting Half Precision Floating-point Values to Normalized Integer Channel Data Types</h5>
 <div class="paragraph">
-<p>For images created with image channel data type of <code>CL_UNORM_<wbr>INT8</code> and <code>CL_UNORM_<wbr>INT16</code>, image write instructions will convert the half precision floating-point color value to an 8-bit or 16-bit unsigned integer.</p>
+<p>For images created with any of the following image channel data types, image
+write instructions will convert the half precision floating-point color value to
+an unsigned integer.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_UNORM_<wbr>INT8</code></p>
+</li>
+<li>
+<p><code>CL_UNORM_<wbr>INT16</code></p>
+</li>
+<li>
+<p><code>CL_UNORM_<wbr>INT10X6_<wbr>EXT</code></p>
+</li>
+<li>
+<p><code>CL_UNORM_<wbr>INT12X4_<wbr>EXT</code></p>
+</li>
+<li>
+<p><code>CL_UNORM_<wbr>INT14X2_<wbr>EXT</code></p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>For images created with image channel data type of <code>CL_SNORM_<wbr>INT8</code> and <code>CL_SNORM_<wbr>INT16</code>, image write instructions will convert the half precision floating-point color value to an 8-bit or 16-bit signed integer.</p>
+<p>For images created with any of the follozing image channel data types, image
+write instructions will convert the half precision floating-point color value to
+a signed integer.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_SNORM_<wbr>INT8</code></p>
+</li>
+<li>
+<p><code>CL_SNORM_<wbr>INT16</code></p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>OpenCL implementations may choose to approximate the rounding mode used in the conversions described below.
@@ -6531,6 +6710,75 @@ When approximate rounding is used instead of the preferred rounding, the result 
 \begin{cases}
  round\_to\_impl\_uint16(f(x)) &amp; \quad x \neq \infty \text{ and } x \neq NaN\\
  \text{implementation-defined} &amp; \quad x = \infty \text{ or } x = NaN
+\end{cases}\\
+\\
+&amp; |f(x) - f_{approx}(x)|\leq 0.6, x \neq \infty \text{ and } x \neq NaN
+\end{aligned}\]
+</div>
+</div>
+</li>
+<li>
+<p><code>half</code> &#8594; <code>CL_UNORM_<wbr>INT10X6_<wbr>EXT</code> (10-bit unsigned integer)</p>
+<div class="stemblock">
+<div class="content">
+\[\begin{aligned}
+&amp; f(x)=max(0,min(1023,1023 \times x))\\
+\\
+&amp; f_{preferred}(x) =
+\begin{cases}
+ round\_to\_nearest\_even\_uint10(f(x)) &amp; x \neq \infty \text{ and } x \neq NaN\\
+ \text{implementation-defined} &amp; x = \infty \text{ or } x = NaN
+\end{cases}\\
+&amp; f_{approx}(x) =
+\begin{cases}
+ round\_to\_impl\_uint10(f(x)) &amp; x \neq \infty \text{ and } x \neq NaN\\
+ \text{implementation-defined} &amp; x = \infty \text{ or } x = NaN
+\end{cases}\\
+\\
+&amp; |f(x) - f_{approx}(x)|\leq 0.6, x \neq \infty \text{ and } x \neq NaN
+\end{aligned}\]
+</div>
+</div>
+</li>
+<li>
+<p><code>half</code> &#8594; <code>CL_UNORM_<wbr>INT12X4_<wbr>EXT</code> (12-bit unsigned integer)</p>
+<div class="stemblock">
+<div class="content">
+\[\begin{aligned}
+&amp; f(x)=max(0,min(4095,4095 \times x))\\
+\\
+&amp; f_{preferred}(x) =
+\begin{cases}
+ round\_to\_nearest\_even\_uint12(f(x)) &amp; x \neq \infty \text{ and } x \neq NaN\\
+ \text{implementation-defined} &amp; x = \infty \text{ or } x = NaN
+\end{cases}\\
+&amp; f_{approx}(x) =
+\begin{cases}
+ round\_to\_impl\_uint12(f(x)) &amp; x \neq \infty \text{ and } x \neq NaN\\
+ \text{implementation-defined} &amp; x = \infty \text{ or } x = NaN
+\end{cases}\\
+\\
+&amp; |f(x) - f_{approx}(x)|\leq 0.6, x \neq \infty \text{ and } x \neq NaN
+\end{aligned}\]
+</div>
+</div>
+</li>
+<li>
+<p><code>half</code> &#8594; <code>CL_UNORM_<wbr>INT14X2_<wbr>EXT</code> (14-bit unsigned integer)</p>
+<div class="stemblock">
+<div class="content">
+\[\begin{aligned}
+&amp; f(x)=max(0,min(16383,16383 \times x))\\
+\\
+&amp; f_{preferred}(x) =
+\begin{cases}
+ round\_to\_nearest\_even\_uint14(f(x)) &amp; x \neq \infty \text{ and } x \neq NaN\\
+ \text{implementation-defined} &amp; x = \infty \text{ or } x = NaN
+\end{cases}\\
+&amp; f_{approx}(x) =
+\begin{cases}
+ round\_to\_impl\_uint14(f(x)) &amp; x \neq \infty \text{ and } x \neq NaN\\
+ \text{implementation-defined} &amp; x = \infty \text{ or } x = NaN
 \end{cases}\\
 \\
 &amp; |f(x) - f_{approx}(x)|\leq 0.6, x \neq \infty \text{ and } x \neq NaN
@@ -6590,10 +6838,43 @@ When approximate rounding is used instead of the preferred rounding, the result 
 <div class="sect4">
 <h5 id="converting-normalized-integer-channel-data-types-to-floating-point-values"><a class="anchor" href="#converting-normalized-integer-channel-data-types-to-floating-point-values"></a>7.4.1.3. Converting Normalized Integer Channel Data Types to Floating-point Values</h5>
 <div class="paragraph">
-<p>For images created with image channel data type of <code>CL_UNORM_<wbr>INT8</code> and <code>CL_UNORM_<wbr>INT16</code>, image read instructions will convert the channel values from an 8-bit or 16-bit unsigned integer to normalized floating-point values in the range [0.0f &#8230;&#8203; 1.0f].</p>
+<p>For images created with any of the following image channel data types, image read
+instructions will convert the channel values from an unsigned integer to
+normalized floating-point values in the range [0.0f &#8230;&#8203; 1.0f].</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_UNORM_<wbr>INT8</code></p>
+</li>
+<li>
+<p><code>CL_UNORM_<wbr>INT16</code></p>
+</li>
+<li>
+<p><code>CL_UNORM_<wbr>INT10X6_<wbr>EXT</code></p>
+</li>
+<li>
+<p><code>CL_UNORM_<wbr>INT12X4_<wbr>EXT</code></p>
+</li>
+<li>
+<p><code>CL_UNORM_<wbr>INT14X2_<wbr>EXT</code></p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>For images created with image channel data type of <code>CL_SNORM_<wbr>INT8</code> and <code>CL_SNORM_<wbr>INT16</code>, image read instructions will convert the channel values from an 8-bit or 16-bit signed integer to normalized floating-point values in the range [-1.0f &#8230;&#8203; 1.0f].</p>
+<p>For images created with any of the following image channel data types, image read
+instructions will convert the channel values from a signed integer to normalized
+floating-point values in the range [-1.0f &#8230;&#8203; 1.0f].</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_SNORM_<wbr>INT8</code></p>
+</li>
+<li>
+<p><code>CL_SNORM_<wbr>INT16</code></p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>These conversions are performed as follows:</p>
@@ -6621,6 +6902,30 @@ When approximate rounding is used instead of the preferred rounding, the result 
 <div class="stemblock">
 <div class="content">
 \[normalized\_float\_value(x)=round\_to\_float(\frac{x}{65535})\]
+</div>
+</div>
+</li>
+<li>
+<p><code>CL_UNORM_<wbr>INT10X6_<wbr>EXT</code> (10-bit unsigned integer) &#8594; <code>float</code></p>
+<div class="stemblock">
+<div class="content">
+\[normalized\_float\_value(x)=round\_to\_float(\frac{x}{1023})\]
+</div>
+</div>
+</li>
+<li>
+<p><code>CL_UNORM_<wbr>INT12X4_<wbr>EXT</code> (12-bit unsigned integer) &#8594; <code>float</code></p>
+<div class="stemblock">
+<div class="content">
+\[normalized\_float\_value(x)=round\_to\_float(\frac{x}{4095})\]
+</div>
+</div>
+</li>
+<li>
+<p><code>CL_UNORM_<wbr>INT14X2_<wbr>EXT</code> (14-bit unsigned integer) &#8594; <code>float</code></p>
+<div class="stemblock">
+<div class="content">
+\[normalized\_float\_value(x)=round\_to\_float(\frac{x}{16383})\]
 </div>
 </div>
 </li>
@@ -6685,6 +6990,45 @@ When approximate rounding is used instead of the preferred rounding, the result 
 </ul>
 </div>
 <div class="paragraph">
+<p>For <code>CL_UNORM_<wbr>INT10X6_<wbr>EXT</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>0 must convert to 0.0f, and</p>
+</li>
+<li>
+<p>1023 must convert to 1.0f</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For <code>CL_UNORM_<wbr>INT12X4_<wbr>EXT</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>0 must convert to 0.0f, and</p>
+</li>
+<li>
+<p>4095 must convert to 1.0f</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For <code>CL_UNORM_<wbr>INT14X2_<wbr>EXT</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>0 must convert to 0.0f, and</p>
+</li>
+<li>
+<p>16383 must convert to 1.0f</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
 <p>For <code>CL_SNORM_<wbr>INT8</code>:</p>
 </div>
 <div class="ulist">
@@ -6720,10 +7064,43 @@ When approximate rounding is used instead of the preferred rounding, the result 
 <div class="sect4">
 <h5 id="converting-floating-point-values-to-normalized-integer-channel-data-types"><a class="anchor" href="#converting-floating-point-values-to-normalized-integer-channel-data-types"></a>7.4.1.4. Converting Floating-point Values to Normalized Integer Channel Data Types</h5>
 <div class="paragraph">
-<p>For images created with image channel data type of <code>CL_UNORM_<wbr>INT8</code> and <code>CL_UNORM_<wbr>INT16</code>, image write instructions will convert the floating-point color value to an 8-bit or 16-bit unsigned integer.</p>
+<p>For images created with any of the following image channel data types, image
+write instructions will convert the floating-point color value to an unsigned
+integer.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_UNORM_<wbr>INT8</code></p>
+</li>
+<li>
+<p><code>CL_UNORM_<wbr>INT16</code></p>
+</li>
+<li>
+<p><code>CL_UNORM_<wbr>INT10X6_<wbr>EXT</code></p>
+</li>
+<li>
+<p><code>CL_UNORM_<wbr>INT12X4_<wbr>EXT</code></p>
+</li>
+<li>
+<p><code>CL_UNORM_<wbr>INT14X2_<wbr>EXT</code></p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>For images created with image channel data type of <code>CL_SNORM_<wbr>INT8</code> and <code>CL_SNORM_<wbr>INT16</code>, image write instructions will convert the floating-point color value to an 8-bit or 16-bit signed integer.</p>
+<p>For images created with any of the following image channel data types, image
+write instructions will convert the floating-point color value to a signed
+integer.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_SNORM_<wbr>INT8</code></p>
+</li>
+<li>
+<p><code>CL_SNORM_<wbr>INT16</code></p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>OpenCL implementations may choose to approximate the rounding mode used in the conversions described below.
@@ -6796,6 +7173,75 @@ When approximate rounding is used instead of the preferred rounding, the result 
 \begin{cases}
  round\_to\_impl\_uint16(f(x)) &amp; \quad x \neq \infty \text{ and } x \neq NaN\\
  \text{implementation-defined} &amp; \quad x = \infty \text{ or } x = NaN
+\end{cases}\\
+\\
+&amp; |f(x) - f_{approx}(x)|\leq 0.6, x \neq \infty \text{ and } x \neq NaN
+\end{aligned}\]
+</div>
+</div>
+</li>
+<li>
+<p><code>float</code> &#8594; <code>CL_UNORM_<wbr>INT10X6_<wbr>EXT</code> (10-bit unsigned integer)</p>
+<div class="stemblock">
+<div class="content">
+\[\begin{aligned}
+&amp; f(x)=max(0,min(1023,1023 \times x))\\
+\\
+&amp; f_{preferred}(x) =
+\begin{cases}
+ round\_to\_nearest\_even\_uint10(f(x)) &amp; x \neq \infty \text{ and } x \neq NaN\\
+ \text{implementation-defined} &amp; x = \infty \text{ or } x = NaN
+\end{cases}\\
+&amp; f_{approx}(x) =
+\begin{cases}
+ round\_to\_impl\_uint10(f(x)) &amp; x \neq \infty \text{ and } x \neq NaN\\
+ \text{implementation-defined} &amp; x = \infty \text{ or } x = NaN
+\end{cases}\\
+\\
+&amp; |f(x) - f_{approx}(x)|\leq 0.6, x \neq \infty \text{ and } x \neq NaN
+\end{aligned}\]
+</div>
+</div>
+</li>
+<li>
+<p><code>float</code> &#8594; <code>CL_UNORM_<wbr>INT12X4_<wbr>EXT</code> (12-bit unsigned integer)</p>
+<div class="stemblock">
+<div class="content">
+\[\begin{aligned}
+&amp; f(x)=max(0,min(4095,4095 \times x))\\
+\\
+&amp; f_{preferred}(x) =
+\begin{cases}
+ round\_to\_nearest\_even\_uint12(f(x)) &amp; x \neq \infty \text{ and } x \neq NaN\\
+ \text{implementation-defined} &amp; x = \infty \text{ or } x = NaN
+\end{cases}\\
+&amp; f_{approx}(x) =
+\begin{cases}
+ round\_to\_impl\_uint12(f(x)) &amp; x \neq \infty \text{ and } x \neq NaN\\
+ \text{implementation-defined} &amp; x = \infty \text{ or } x = NaN
+\end{cases}\\
+\\
+&amp; |f(x) - f_{approx}(x)|\leq 0.6, x \neq \infty \text{ and } x \neq NaN
+\end{aligned}\]
+</div>
+</div>
+</li>
+<li>
+<p><code>float</code> &#8594; <code>CL_UNORM_<wbr>INT14X2_<wbr>EXT</code> (14-bit unsigned integer)</p>
+<div class="stemblock">
+<div class="content">
+\[\begin{aligned}
+&amp; f(x)=max(0,min(16383,16383 \times x))\\
+\\
+&amp; f_{preferred}(x) =
+\begin{cases}
+ round\_to\_nearest\_even\_uint14(f(x)) &amp; x \neq \infty \text{ and } x \neq NaN\\
+ \text{implementation-defined} &amp; x = \infty \text{ or } x = NaN
+\end{cases}\\
+&amp; f_{approx}(x) =
+\begin{cases}
+ round\_to\_impl\_uint14(f(x)) &amp; x \neq \infty \text{ and } x \neq NaN\\
+ \text{implementation-defined} &amp; x = \infty \text{ or } x = NaN
 \end{cases}\\
 \\
 &amp; |f(x) - f_{approx}(x)|\leq 0.6, x \neq \infty \text{ and } x \neq NaN
@@ -6883,18 +7329,53 @@ A float INF must be converted to an appropriate INF in the half type.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="conversion-rules-for-signed-and-unsigned-8-bit-16-bit-and-32-bit-integer-channel-data-types"><a class="anchor" href="#conversion-rules-for-signed-and-unsigned-8-bit-16-bit-and-32-bit-integer-channel-data-types"></a>7.4.4. Conversion Rules for Signed and Unsigned 8-bit, 16-bit and 32-bit Integer Channel Data Types</h4>
+<h4 id="conversion-rules-for-signed-and-unsigned-integer-channel-data-types"><a class="anchor" href="#conversion-rules-for-signed-and-unsigned-integer-channel-data-types"></a>7.4.4. Conversion Rules for Signed and Unsigned Integer Channel Data Types</h4>
 <div class="paragraph">
-<p>For images created with image channel data type of <code>CL_SIGNED_<wbr>INT8</code>,
-<code>CL_SIGNED_<wbr>INT16</code> and <code>CL_SIGNED_<wbr>INT32</code>, image read instructions will
-return the integer values stored in the image at specified location, after
-sign extension to 32 bits for integer values smaller than 32 bits.</p>
+<p>For images created with any of the following image channel data types, image
+read instructions will return the integer values stored in the
+image at specified location, after sign extension to 32 bits for integer
+values smaller than 32 bits.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_SIGNED_<wbr>INT8</code></p>
+</li>
+<li>
+<p><code>CL_SIGNED_<wbr>INT16</code></p>
+</li>
+<li>
+<p><code>CL_SIGNED_<wbr>INT32</code></p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>Likewise, for images created with image channel data type of <code>CL_UNSIGNED_<wbr>INT8</code>,
-<code>CL_UNSIGNED_<wbr>INT16</code> and <code>CL_UNSIGNED_<wbr>INT32</code>, image read instructions will return
-the integer values stored in the image at specified location, after
-zero extension to 32 bits for integer values smaller than 32 bits.</p>
+<p>Likewise, for images created with any of the following image channel data types,
+image read instructions will return the integer values stored in the image at
+specified location, after zero extension to 32 bits for integer values smaller
+than 32 bits.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_UNSIGNED_<wbr>INT8</code></p>
+</li>
+<li>
+<p><code>CL_UNSIGNED_<wbr>INT16</code></p>
+</li>
+<li>
+<p><code>CL_UNSIGNED_<wbr>INT32</code></p>
+</li>
+<li>
+<p><code>CL_UNSIGNED_<wbr>INT10X6_<wbr>EXT</code></p>
+</li>
+<li>
+<p><code>CL_UNSIGNED_<wbr>INT12X4_<wbr>EXT</code></p>
+</li>
+<li>
+<p><code>CL_UNSIGNED_<wbr>INT14X2_<wbr>EXT</code></p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>Image write instructions will perform one of the following conversions:</p>
@@ -6946,6 +7427,30 @@ zero extension to 32 bits for integer values smaller than 32 bits.</p>
 <div class="stemblock">
 <div class="content">
 \[uint32\_value(x) = x \quad \text{(no conversion)}\]
+</div>
+</div>
+</li>
+<li>
+<p>32 bit unsigned integer &#8594; <code>CL_UNSIGNED_<wbr>INT10X6_<wbr>EXT</code> (10-bit unsigned integer):</p>
+<div class="stemblock">
+<div class="content">
+\[uint10\_value(x) = clamp(x, 0, 1023)\]
+</div>
+</div>
+</li>
+<li>
+<p>32 bit unsigned integer &#8594; <code>CL_UNSIGNED_<wbr>INT12X4_<wbr>EXT</code> (12-bit unsigned integer):</p>
+<div class="stemblock">
+<div class="content">
+\[uint12\_value(x) = clamp(x, 0, 4095)\]
+</div>
+</div>
+</li>
+<li>
+<p>32 bit unsigned integer &#8594; <code>CL_UNSIGNED_<wbr>INT14X2_<wbr>EXT</code> (14-bit unsigned integer):</p>
+<div class="stemblock">
+<div class="content">
+\[uint14\_value(x) = clamp(x, 0, 16383)\]
 </div>
 </div>
 </li>
@@ -7400,7 +7905,9 @@ to the data vector component type or scalar type:</p>
 <code>Float</code>
 <br>
 Additionally if the <code>cl_ext_<wbr>image_<wbr>unorm_<wbr>int_<wbr>2_<wbr>101010</code> extension is
-supported: <code>UnormInt2_101010EXT</code></p></td>
+supported: <code>UnormInt2_101010EXT</code></p>
+<p class="tableblock">Additionally if the <code>cl_ext_<wbr>image_<wbr>unsigned_<wbr>10x6_<wbr>12x4_<wbr>14x2</code> extension is
+supported: <code>UnormInt10X6EXT</code>,<code>UnormInt12X4EXT</code>,<code>UnormInt14X2EXT</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpTypeFloat</strong>, with <em>Width</em> equal to 16 or 32.</p></td>
 </tr>
 <tr>
@@ -7409,7 +7916,10 @@ supported: <code>UnormInt2_101010EXT</code></p></td>
 <code>SignedInt32</code>,<br>
 <code>UnsignedInt8</code>,
 <code>UnsignedInt16</code>,
-<code>UnsignedInt32</code></p></td>
+<code>UnsignedInt32</code>
+<br>
+Additionally if the <code>cl_ext_<wbr>image_<wbr>unsigned_<wbr>10x6_<wbr>12x4_<wbr>14x2</code> extension is
+supported: <code>UnsignedInt10X6EXT</code>,<code>UnsignedInt12X4EXT</code>, <code>UnsignedInt14X2EXT</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpTypeInt</strong>, with <em>Width</em> equal to 32.</p></td>
 </tr>
 </tbody>
@@ -7496,7 +8006,7 @@ versions are summarized below.</p>
 <div class="sect2">
 <h3 id="_summary_of_changes_from_opencl_3_0"><a class="anchor" href="#_summary_of_changes_from_opencl_3_0"></a>Summary of changes from OpenCL 3.0</h3>
 <div class="paragraph">
-<p>The first non-provisional version of the OpenCL 3.0 specifications was <strong>v3.0.5</strong>.</p>
+<p>The first non-experimental version of the OpenCL 3.0 specifications was <strong>v3.0.5</strong>.</p>
 </div>
 <div class="paragraph">
 <p>Changes from <strong>v3.0.5</strong>:</p>
@@ -7607,7 +8117,7 @@ versions are summarized below.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>cl_khr_<wbr>kernel_<wbr>clock</code> (provisional)</p>
+<p><code>cl_khr_<wbr>kernel_<wbr>clock</code> (experimental)</p>
 </li>
 </ul>
 </div>
@@ -7643,6 +8153,39 @@ versions are summarized below.</p>
 </li>
 <li>
 <p>Updated the SPIR-V environment for SPIR-V 1.3, 1.4, 1.5, and 1.6, see <a href="https://github.com/KhronosGroup/OpenCL-Docs/pull/1331">#1331</a>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Changes from <strong>v3.0.18</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Updated the ULP requirements for the half-precision square root, see <a href="https://github.com/KhronosGroup/OpenCL-Docs/pull/1386">#1386</a>.</p>
+</li>
+<li>
+<p>Updated the ULP requirements for the half-precision tangent, see <a href="https://github.com/KhronosGroup/OpenCL-Docs/pull/1387">#1387</a>.</p>
+</li>
+<li>
+<p>The following extension has been finalized and is no longer experimental:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>cl_khr_<wbr>kernel_<wbr>clock</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Added new extension:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>cl_khr_<wbr>spirv_<wbr>queries</code></p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>

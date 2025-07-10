@@ -39,6 +39,8 @@
 </li>
 <li><a href="specs/3.0-unified/html/OpenCL_API.html#cl_khr_external_memory">cl_khr_external_memory</a>
 </li>
+<li><a href="specs/3.0-unified/html/OpenCL_API.html#cl_khr_external_memory">cl_khr_external_memory_android_hardware_buffer</a>
+</li>
 <li><a href="specs/3.0-unified/html/OpenCL_API.html#cl_khr_external_memory">cl_khr_external_memory_dma_buf</a>
 </li>
 <li><a href="specs/3.0-unified/html/OpenCL_API.html#cl_khr_external_memory">cl_khr_external_memory_opaque_fd</a>
@@ -46,6 +48,8 @@
 <li><a href="specs/3.0-unified/html/OpenCL_API.html#cl_khr_external_semaphore">cl_khr_external_memory_win32</a>
 </li>
 <li><a href="specs/3.0-unified/html/OpenCL_API.html#cl_khr_external_semaphore">cl_khr_external_semaphore</a>
+</li>
+<li><a href="specs/3.0-unified/html/OpenCL_API.html#cl_khr_external_semaphore">cl_khr_external_semaphore_dx_fence</a>
 </li>
 <li><a href="specs/3.0-unified/html/OpenCL_API.html#cl_khr_external_semaphore">cl_khr_external_semaphore_opaque_fd</a>
 </li>
@@ -100,6 +104,8 @@
 <li><a href="specs/3.0-unified/html/OpenCL_API.html#cl_khr_semaphore">cl_khr_semaphore</a>
 </li>
 <li><a href="specs/3.0-unified/html/OpenCL_API.html#cl_khr_spir">cl_khr_spir</a>
+</li>
+<li><a href="specs/3.0-unified/html/OpenCL_API.html#cl_khr_spirv_queries">cl_khr_spirv_queries</a>
 </li>
 <li><a href="specs/3.0-unified/html/OpenCL_API.html#cl_khr_srgb_image_writes">cl_khr_srgb_image_writes</a>
 </li>

@@ -466,6 +466,11 @@ registry = {
         'flags' : { 'public' },
         'url' : 'specs/3.0-unified/html/OpenCL_API.html#cl_khr_external_memory',
     },
+    'cl_khr_external_memory_android_hardware_buffer' : {
+        'khrnumber' : 72,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_API.html#cl_khr_external_memory',
+    },
     'cl_khr_external_memory_dma_buf' : {
         'khrnumber' : 54,
         'flags' : { 'public' },
@@ -483,6 +488,11 @@ registry = {
     },
     'cl_khr_external_semaphore' : {
         'khrnumber' : 58,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_API.html#cl_khr_external_semaphore',
+    },
+    'cl_khr_external_semaphore_dx_fence' : {
+        'khrnumber' : 59,
         'flags' : { 'public' },
         'url' : 'specs/3.0-unified/html/OpenCL_API.html#cl_khr_external_semaphore',
     },
@@ -625,6 +635,11 @@ registry = {
         'khrnumber' : 38,
         'flags' : { 'public' },
         'url' : 'specs/3.0-unified/html/OpenCL_API.html#cl_khr_spir',
+    },
+    'cl_khr_spirv_queries' : {
+        'khrnumber' : 71,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_API.html#cl_khr_spirv_queries',
     },
     'cl_khr_srgb_image_writes' : {
         'khrnumber' : 39,
