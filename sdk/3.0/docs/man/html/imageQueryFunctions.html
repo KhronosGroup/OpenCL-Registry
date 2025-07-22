@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.16">
+<meta name="generator" content="Asciidoctor 2.0.23">
 <title>imageQueryFunctions(3)</title>
 <style>
 /*! normalize.css v2.1.2 | MIT License | git.io/normalize */
@@ -874,7 +874,18 @@ For query functions this may be <code>read_only</code>, <code>write_only</code> 
       <code>CLK_HALF_FLOAT</code><br>
       <code>CLK_FLOAT</code><br></p>
 <p class="tableblock">      Additionally, for OpenCL C 3.0 or newer:</p>
-<p class="tableblock">      <code>CLK_UNORM_INT_101010_2</code> <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p></td>
+<p class="tableblock">      <code>CLK_UNORM_INT_101010_2</code> <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p>
+<p class="tableblock">      Additionally, if the <code>__opencl_c_<wbr>ext_<wbr>image_<wbr>unorm_<wbr>int_<wbr>2_<wbr>101010</code> feature is
+      supported:</p>
+<p class="tableblock">      <code>CLK_UNORM_INT_2_101010_EXT</code></p>
+<p class="tableblock">      Additionally, if the <code>__opencl_c_<wbr>ext_<wbr>image_<wbr>unsigned_<wbr>10x6_<wbr>12x4_<wbr>14x2</code> feature
+      macro is supported:</p>
+<p class="tableblock">      <code>CLK_UNSIGNED_INT10X6_EXT</code><br>
+      <code>CLK_UNSIGNED_INT12X4_EXT</code><br>
+      <code>CLK_UNSIGNED_INT14X2_EXT</code><br>
+      <code>CLK_UNORM_INT10X6_EXT</code><br>
+      <code>CLK_UNORM_INT12X4_EXT</code><br>
+      <code>CLK_UNORM_INT14X2_EXT</code><br></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">int <strong>get_image_channel_order</strong>(<em>aQual</em> image2d_t <em>image</em>)<br>
@@ -1019,7 +1030,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2024 The Khronos Group Inc.</p>
+<p>Copyright 2014-2025 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>

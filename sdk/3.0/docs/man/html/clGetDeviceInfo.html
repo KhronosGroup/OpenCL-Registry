@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.16">
+<meta name="generator" content="Asciidoctor 2.0.23">
 <title>clGetDeviceInfo(3)</title>
 <style>
 /*! normalize.css v2.1.2 | MIT License | git.io/normalize */
@@ -907,8 +907,7 @@ device except for the following queries:</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Maximum dimensions that specify the global and local work-item IDs
         used by the data parallel execution model. (Refer to
         <strong>clEnqueueNDRangeKernel</strong>).
-        The minimum value is 3 for devices that are not of type
-        <code>CL_DEVICE_<wbr>TYPE_<wbr>CUSTOM</code>.</p></td>
+        The minimum value is 3.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>MAX_<wbr>WORK_<wbr>ITEM_<wbr>SIZES</code></p></td>
@@ -917,8 +916,7 @@ device except for the following queries:</p>
         of the work-group to <strong>clEnqueueNDRangeKernel</strong>.</p>
 <p class="tableblock">        Returns <em>n</em> <code>size_t</code> entries, where <em>n</em> is the value returned by the
         query for <code>CL_DEVICE_<wbr>MAX_<wbr>WORK_<wbr>ITEM_<wbr>DIMENSIONS</code>.</p>
-<p class="tableblock">        The minimum value is (1, 1, 1) for devices that are not of type
-        <code>CL_DEVICE_<wbr>TYPE_<wbr>CUSTOM</code>.</p></td>
+<p class="tableblock">        The minimum value is (1, 1, 1).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>MAX_<wbr>WORK_<wbr>GROUP_<wbr>SIZE</code></p></td>
@@ -996,8 +994,7 @@ device except for the following queries:</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_ulong</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Max size of memory object allocation in bytes.
         The minimum value is max(min(1024 × 1024 × 1024, 1/4<sup>th</sup>
-        of <code>CL_DEVICE_<wbr>GLOBAL_<wbr>MEM_<wbr>SIZE</code>), 32 × 1024 × 1024) for
-        devices that are not of type <code>CL_DEVICE_<wbr>TYPE_<wbr>CUSTOM</code>.</p></td>
+        of <code>CL_DEVICE_<wbr>GLOBAL_<wbr>MEM_<wbr>SIZE</code>), 32 × 1024 × 1024).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>IMAGE_<wbr>SUPPORT</code></p></td>
@@ -1066,6 +1063,27 @@ device except for the following queries:</p>
         reported via <code>CL_DEVICE_<wbr>IL_<wbr>VERSION</code>.</p>
 <p class="tableblock">        For an OpenCL 2.1 or 2.2 device, at least one version of SPIR-V must
         be reported.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>SPIRV_<wbr>EXTENDED_<wbr>INSTRUCTION_<wbr>SETS_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_spirv_queries</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">const <code>char</code>*[]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns an array of null-terminated strings, where each string describes
+        a SPIR-V extended instruction set that is supported by the device.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>SPIRV_<wbr>EXTENSIONS_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_spirv_queries</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">const <code>char</code>*[]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns an array of null-terminated strings, where each string describes
+        a SPIR-V extension that is supported by the device.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>SPIRV_<wbr>CAPABILITIES_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_spirv_queries</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_uint</code>[]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns an array of SPIR-V token values, where each value describes a
+        SPIR-V capability that is supported by the device.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>IMAGE2D_<wbr>MAX_<wbr>WIDTH</code></p></td>
@@ -1137,7 +1155,13 @@ the <code>cl_khr_<wbr>image2d_<wbr>from_<wbr>buffer</code> extension is supporte
         The value returned must be a power of 2.</p>
 <p class="tableblock">        Support for 2D images created from a buffer is required for an OpenCL 2.0, 2.1,
         or 2.2 device if <code>CL_DEVICE_<wbr>IMAGE_<wbr>SUPPORT</code> is <code>CL_TRUE</code>.</p>
-<p class="tableblock">        This value must be 0 for devices that do not support 2D images created from a buffer.</p></td>
+<p class="tableblock">        This value must be 0 for devices that do not support 2D images created from a buffer.</p>
+<p class="tableblock">        If the <code>cl_khr_<wbr>image2d_<wbr>from_<wbr>buffer</code> and <code>cl_ext_<wbr>image_<wbr>requirements_<wbr>info</code>
+        extensions are supported, the value returned by <code>CL_DEVICE_<wbr>IMAGE_<wbr>PITCH_<wbr>ALIGNMENT</code>
+        after converting in bytes for the supported format with the biggest element size
+        (channel data type size × number of channels) must be greater than or equal to
+        the value returned by <code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>ROW_<wbr>PITCH_<wbr>ALIGNMENT_<wbr>EXT</code> for any
+        supported format.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>IMAGE_<wbr>BASE_<wbr>ADDRESS_<wbr>ALIGNMENT</code></p>
@@ -1151,7 +1175,14 @@ if the <code>cl_khr_<wbr>image2d_<wbr>from_<wbr>buffer</code> extension is suppo
         The value returned must be a power of 2.</p>
 <p class="tableblock">        Support for 2D images created from a buffer is required for an OpenCL 2.0, 2.1,
         or 2.2 device if <code>CL_DEVICE_<wbr>IMAGE_<wbr>SUPPORT</code> is <code>CL_TRUE</code>.</p>
-<p class="tableblock">        This value must be 0 for devices that do not support 2D images created from a buffer.</p></td>
+<p class="tableblock">        This value must be 0 for devices that do not support 2D images created from a buffer.</p>
+<p class="tableblock">        If the <code>cl_khr_<wbr>image2d_<wbr>from_<wbr>buffer</code> and <code>cl_ext_<wbr>image_<wbr>requirements_<wbr>info</code>
+        extensions are supported, the value returned by
+        <code>CL_DEVICE_<wbr>IMAGE_<wbr>BASE_<wbr>ADDRESS_<wbr>ALIGNMENT</code> after converting in bytes for the
+        supported format with the biggest element size
+        (channel data type size × number of channels) must be greater than or equal to
+        the value returned by <code>CL_IMAGE_<wbr>REQUIREMENTS_<wbr>BASE_<wbr>ADDRESS_<wbr>ALIGNMENT_<wbr>EXT</code> for any
+        supported format.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>MAX_<wbr>PIPE_<wbr>ARGS</code></p>
@@ -1186,8 +1217,7 @@ if the <code>cl_khr_<wbr>image2d_<wbr>from_<wbr>buffer</code> extension is suppo
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>MAX_<wbr>PARAMETER_<wbr>SIZE</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>size_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Max size in bytes of all arguments that can be passed to a kernel.</p>
-<p class="tableblock">        The minimum value is 1024 for devices that are not of type
-        <code>CL_DEVICE_<wbr>TYPE_<wbr>CUSTOM</code>.
+<p class="tableblock">        The minimum value is 1024.
         For this minimum value, only a maximum of 128 arguments can be
         passed to a kernel.
         For all other values, a maximum of 255 arguments can be passed
@@ -1199,8 +1229,7 @@ if the <code>cl_khr_<wbr>image2d_<wbr>from_<wbr>buffer</code> extension is suppo
 <td class="tableblock halign-left valign-top"><p class="tableblock">Alignment requirement (in bits) for sub-buffer offsets.
         The minimum value is the size (in bits) of the largest OpenCL
         built-in data type supported by the device (long16 in FULL profile,
-        long16 or int16 in EMBEDDED profile) for devices that are not of
-        type <code>CL_DEVICE_<wbr>TYPE_<wbr>CUSTOM</code>.</p></td>
+        long16 or int16 in EMBEDDED profile).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>MIN_<wbr>DATA_<wbr>TYPE_<wbr>ALIGN_<wbr>SIZE</code></p>
@@ -1223,13 +1252,14 @@ if the <code>cl_khr_<wbr>image2d_<wbr>from_<wbr>buffer</code> extension is suppo
         <code>CL_FP_<wbr>ROUND_<wbr>TO_<wbr>ZERO</code> - round to zero rounding mode supported<br>
         <code>CL_FP_<wbr>ROUND_<wbr>TO_<wbr>INF</code> - round to positive and negative infinity
         rounding modes supported<br>
-        <code>CL_FP_<wbr>FMA</code> - IEEE754-2008 fused multiply-add is supported<br>
+        <code>CL_FP_<wbr>FMA</code> - the fma kernel builtin is implemented using
+        hardware-accelerated fused multiply-add as defined in IEEE754-2008.<br>
         <code>CL_FP_<wbr>CORRECTLY_<wbr>ROUNDED_<wbr>DIVIDE_<wbr>SQRT</code> - divide and sqrt are correctly
         rounded as defined by the IEEE754 specification<br>
         <code>CL_FP_<wbr>SOFT_<wbr>FLOAT</code> - Basic floating-point operations (such as
         addition, subtraction, multiplication) are implemented in software</p>
 <p class="tableblock">        For the full profile, the mandated minimum floating-point capability
-        for devices that are not of type <code>CL_DEVICE_<wbr>TYPE_<wbr>CUSTOM</code> is:</p>
+        is:</p>
 <p class="tableblock">        <code>CL_FP_<wbr>ROUND_<wbr>TO_<wbr>NEAREST</code> |<br>
         <code>CL_FP_<wbr>INF_<wbr>NAN</code>.</p>
 <p class="tableblock">        For the embedded profile, see the
@@ -1251,7 +1281,8 @@ if the <code>cl_khr_<wbr>image2d_<wbr>from_<wbr>buffer</code> extension is suppo
         <code>CL_FP_<wbr>ROUND_<wbr>TO_<wbr>ZERO</code> - round to zero rounding mode supported<br>
         <code>CL_FP_<wbr>ROUND_<wbr>TO_<wbr>INF</code> - round to positive and negative infinity
         rounding modes supported<br>
-        <code>CL_FP_<wbr>FMA</code> - IEEE754-2008 fused multiply-add is supported<br>
+        <code>CL_FP_<wbr>FMA</code> - the fma kernel builtin is implemented using
+        hardware-accelerated fused multiply-add as defined in IEEE754-2008.<br>
         <code>CL_FP_<wbr>SOFT_<wbr>FLOAT</code> - Basic floating-point operations (such as
         addition, subtraction, multiplication) are implemented in software</p>
 <p class="tableblock">        Double precision is an optional feature so the mandated minimum
@@ -1297,16 +1328,14 @@ if the <code>cl_khr_<wbr>image2d_<wbr>from_<wbr>buffer</code> extension is suppo
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>MAX_<wbr>CONSTANT_<wbr>BUFFER_<wbr>SIZE</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_ulong</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Max size in bytes of a constant buffer allocation.
-        The minimum value is 64 KB for devices that are not of type
-        <code>CL_DEVICE_<wbr>TYPE_<wbr>CUSTOM</code>.</p></td>
+        The minimum value is 64 KB.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>MAX_<wbr>CONSTANT_<wbr>ARGS</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_uint</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Max number of arguments declared with the <code>__constant</code> qualifier
         in a kernel.
-        The minimum value is 8 for devices that are not of type
-        <code>CL_DEVICE_<wbr>TYPE_<wbr>CUSTOM</code>.</p></td>
+        The minimum value is 8.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>MAX_<wbr>GLOBAL_<wbr>VARIABLE_<wbr>SIZE</code></p>
@@ -1338,7 +1367,7 @@ if the <code>cl_khr_<wbr>image2d_<wbr>from_<wbr>buffer</code> extension is suppo
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_device_<wbr>local_<wbr>mem_<wbr>type</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Type of local memory supported.
         This can be set to <code>CL_LOCAL</code> implying dedicated local memory storage
-        such as SRAM , or <code>CL_GLOBAL</code>.</p>
+        such as SRAM, or <code>CL_GLOBAL</code>.</p>
 <p class="tableblock">        For custom devices, <code>CL_NONE</code> can also be returned indicating no local
         memory support.</p></td>
 </tr>
@@ -1346,8 +1375,7 @@ if the <code>cl_khr_<wbr>image2d_<wbr>from_<wbr>buffer</code> extension is suppo
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>LOCAL_<wbr>MEM_<wbr>SIZE</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_ulong</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Size of local memory region in bytes.
-        The minimum value is 32 KB for devices that are not of type
-        <code>CL_DEVICE_<wbr>TYPE_<wbr>CUSTOM</code>.</p></td>
+        The minimum value is 32 KB.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>ERROR_<wbr>CORRECTION_<wbr>SUPPORT</code></p></td>
@@ -1965,10 +1993,6 @@ if the <code>cl_khr_<wbr>image2d_<wbr>from_<wbr>buffer</code> extension is suppo
         supports the command-buffers having a <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#pending_count" target="_blank" rel="noopener">Pending
         Count</a> that exceeds 1.</p>
 <p class="tableblock">provided by the <code>cl_khr_command_buffer</code> extension.</p>
-<p class="tableblock">        <code>CL_COMMAND_<wbr>BUFFER_<wbr>CAPABILITY_<wbr>OUT_<wbr>OF_<wbr>ORDER_<wbr>KHR</code> Device
-        supports the ability to record command-buffers to out-of-order
-        command-queues.</p>
-<p class="tableblock">provided by the <code>cl_khr_command_buffer</code> extension.</p>
 <p class="tableblock">        <code>CL_COMMAND_<wbr>BUFFER_<wbr>CAPABILITY_<wbr>MULTIPLE_<wbr>QUEUE_<wbr>KHR</code> Device
         supports the ability to record commands to more than one
         command-queue associated with <em>device</em> in a single command-buffer.</p>
@@ -1983,6 +2007,16 @@ if the <code>cl_khr_<wbr>image2d_<wbr>from_<wbr>buffer</code> extension is suppo
         It is valid for a command-queue to be created with extra properties
         in addition to this base requirement and still be compatible with
         command-buffer execution.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>COMMAND_<wbr>BUFFER_<wbr>SUPPORTED_<wbr>QUEUE_<wbr>PROPERTIES_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_command_buffer</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_command_<wbr>queue_<wbr>properties</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bitmask of the supported properties with which a command-queue may be
+        created to allow a command-buffer to be executed on it. It is invalid
+        for a command-queue to be created with a property not reported and
+        still be compatible with command-buffer execution.</p>
+<p class="tableblock">        The mandated minimum capability is: <code>CL_QUEUE_<wbr>PROFILING_<wbr>ENABLE</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>COMMAND_<wbr>BUFFER_<wbr>NUM_<wbr>SYNC_<wbr>DEVICES_<wbr>KHR</code></p>
@@ -2127,7 +2161,8 @@ if the <code>cl_khr_<wbr>image2d_<wbr>from_<wbr>buffer</code> extension is suppo
         <code>CL_FP_<wbr>ROUND_<wbr>TO_<wbr>ZERO</code> - round to zero rounding mode supported<br>
         <code>CL_FP_<wbr>ROUND_<wbr>TO_<wbr>INF</code> - round to positive and negative infinity
         rounding modes supported<br>
-        <code>CL_FP_<wbr>FMA</code> - IEEE754-2008 fused multiply-add is supported<br>
+        <code>CL_FP_<wbr>FMA</code> - the fma kernel builtin is implemented using
+        hardware-accelerated fused multiply-add as defined in IEEE754-2008.<br>
         <code>CL_FP_<wbr>SOFT_<wbr>FLOAT</code> - Basic floating-point operations (such as
         addition, subtraction, multiplication) are implemented in software</p>
 <p class="tableblock">        If half-precision is supported by the device, then the minimum
@@ -2256,6 +2291,13 @@ if the <code>cl_khr_<wbr>image2d_<wbr>from_<wbr>buffer</code> extension is suppo
       supported:</p>
 <p class="tableblock">      <code>CL_DEVICE_<wbr>TERMINATE_<wbr>CAPABILITY_<wbr>CONTEXT_<wbr>KHR</code> - Indicates that
       context termination is supported.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>CXX_<wbr>FOR_<wbr>OPENCL_<wbr>NUMERIC_<wbr>VERSION_<wbr>EXT</code></p>
+<p class="tableblock">provided by the <code>cl_ext_cxx_for_opencl</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_version</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the version of the C++ for OpenCL language supported by the
+      device compiler.</p></td>
 </tr>
 </tbody>
 </table>
@@ -2402,7 +2444,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2024 The Khronos Group Inc.</p>
+<p>Copyright 2014-2025 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
