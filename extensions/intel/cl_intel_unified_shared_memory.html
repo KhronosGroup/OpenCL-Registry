@@ -765,9 +765,9 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <div id="header">
 <h1>cl_intel_unified_shared_memory</h1>
 <div class="details">
-<span id="revnumber">version v3.0.18-21-g4ae5ab5e,</span>
-<span id="revdate">Wed, 18 Jun 2025 18:58:41 +0000</span>
-<br><span id="revremark">from git branch: main commit: 4ae5ab5ed7660196765703d992d23126c4348735</span>
+<span id="revnumber">version v3.0.19-43-gb00754be,</span>
+<span id="revdate">Fri, 09 Jan 2026 18:53:22 +0000</span>
+<br><span id="revremark">from git branch: main commit: b00754be2360e1dc64c1914e5e7b9d71a37f3b90</span>
 </div>
 </div>
 <div id="content">
@@ -807,7 +807,7 @@ Lukasz Towarek, Intel</p>
 <h2 id="_notice"><a class="anchor" href="#_notice"></a>Notice</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright (c) 2021-2025 Intel Corporation.  All rights reserved.</p>
+<p>Copyright (c) 2021-2026 Intel Corporation.  All rights reserved.</p>
 </div>
 </div>
 </div>
@@ -823,7 +823,7 @@ Lukasz Towarek, Intel</p>
 <h2 id="_version"><a class="anchor" href="#_version"></a>Version</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Built On: 2025-06-18<br>
+<p>Built On: 2026-01-06<br>
 Revision: 1.1.0</p>
 </div>
 </div>
@@ -2187,7 +2187,8 @@ The memory migration command will be queued for execution on the device associat
 <p><em>size</em> describes the size of the memory region to migrate.</p>
 </div>
 <div class="paragraph">
-<p><em>flags</em> is a bit-field that is used to specify memory migration options.</p>
+<p><em>flags</em> is a bit-field that is used to specify memory migration options.
+The set of supported memory migration flags is described in the <a href="https://registry.khronos.org/OpenCL/specs/3.0-unified/html/OpenCL_API.html#migration-flags-table">Memory Migration Flags</a> table.</p>
 </div>
 <div class="paragraph">
 <p><em>event_wait_list</em> and <em>num_events_in_wait_list</em> specify events that need to complete before this command can be executed.
@@ -2203,6 +2204,21 @@ The memory associated with <em>event_wait_list</em> can be reused or freed after
 If <em>event</em> is <code>NULL</code>, no event will be created and therefore it will not be possible to query or wait for this command.
 If the <em>event_wait_list</em> and the <em>event</em> arguments are not <code>NULL</code>, the <em>event</em> argument must not refer to an element of the <em>event_wait_list</em> array.</p>
 </div>
+<div id="valid-migration-flags-definition" class="paragraph">
+<p>The definition of valid <em>flags</em> was changed in extension version 1.2.0:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>For extension versions prior to version 1.2.0:
+<em>flags</em> equal to zero was considered invalid.</p>
+</li>
+<li>
+<p>For extension versions 1.2.0 and newer:
+<em>flags</em> equal to zero is valid and indicates that the memory should be migrated to the device associated with <em>command_queue</em>, similar to <strong>clEnqueueMigrateMemObjects</strong> and <strong>clEnqueueSVMMigrateMem</strong>.</p>
+</li>
+</ul>
+</div>
 <div class="paragraph">
 <p><strong>clEnqueueMigrateMemINTEL</strong> returns CL_SUCCESS if the command is queued successfully.
 Otherwise, it will return one of the following errors:</p>
@@ -2216,10 +2232,7 @@ Otherwise, it will return one of the following errors:</p>
 <p><code>CL_INVALID_CONTEXT</code> if the context associated with <em>command_queue</em> and events in <em>event_wait_list</em> are not the same.</p>
 </li>
 <li>
-<p><code>CL_INVALID_VALUE</code> <strong>TODO</strong>, are any values of <em>ptr</em> and <em>size</em> considered invalid?</p>
-</li>
-<li>
-<p><code>CL_INVALID_VALUE</code> if <em>flags</em> is zero or is not a supported combination of memory migration flags.</p>
+<p><code>CL_INVALID_VALUE</code> if <em>flags</em> is not a supported combination of memory migration flags.</p>
 </li>
 <li>
 <p><code>CL_INVALID_EVENT_WAIT_LIST</code> if <em>event_wait_list</em> is <code>NULL</code> and <em>num_events_in_wait_list</em> is greater than zero, or if <em>event_wait_list</em> is not <code>NULL</code> and <em>num_events_in_wait_list</em> is zero, or if event objects in <em>event_wait_list</em> are not valid events.</p>
@@ -2858,6 +2871,12 @@ We could document this expectation explicitly in this extension if it is not alr
 <td class="tableblock halign-left valign-top"><p class="tableblock">2024-07-30</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Ben Ashbaugh</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Modified error behavior for clSetKernelArgMemPointerINTEL and clSetKernelExecInfo.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.2.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2025-07-07</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ben Ashbaugh</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Modified error behavior for clEnqueueMigrateMemINTEL when the migration flags are zero.</p></td>
 </tr>
 </tbody>
 </table>

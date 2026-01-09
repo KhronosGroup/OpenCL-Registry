@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.16">
+<meta name="generator" content="Asciidoctor 2.0.23">
 <title>cl_intel_subgroup_local_block_io</title>
 <style>
 /*! normalize.css v2.1.2 | MIT License | git.io/normalize */
@@ -743,18 +743,18 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
-/* Stylesheet for CodeRay to match GitHub theme | MIT License | http://foundation.zurb.com */
+/*! Stylesheet for CodeRay to loosely match GitHub themes | MIT License */
 pre.CodeRay{background:#f7f7f8}
-.CodeRay .line-numbers{border-right:1px solid currentColor;opacity:.35;padding:0 .5em 0 0}
+.CodeRay .line-numbers{border-right:1px solid;opacity:.35;padding:0 .5em 0 0;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
 .CodeRay span.line-numbers{display:inline-block;margin-right:.75em}
 .CodeRay .line-numbers strong{color:#000}
 table.CodeRay{border-collapse:separate;border:0;margin-bottom:0;background:none}
 table.CodeRay td{vertical-align:top;line-height:inherit}
 table.CodeRay td.line-numbers{text-align:right}
 table.CodeRay td.code{padding:0 0 0 .75em}
-.CodeRay .debug{color:#fff !important;background:#000080 !important}
+.CodeRay .debug{color:#fff!important;background:navy!important}
 .CodeRay .annotation{color:#007}
-.CodeRay .attribute-name{color:#000080}
+.CodeRay .attribute-name{color:navy}
 .CodeRay .attribute-value{color:#700}
 .CodeRay .binary{color:#509}
 .CodeRay .comment{color:#998;font-style:italic}
@@ -763,7 +763,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 .CodeRay .char .delimiter{color:#039}
 .CodeRay .class{color:#458;font-weight:bold}
 .CodeRay .complex{color:#a08}
-.CodeRay .constant,.CodeRay .predefined-constant{color:#008080}
+.CodeRay .constant,.CodeRay .predefined-constant{color:teal}
 .CodeRay .color{color:#099}
 .CodeRay .class-variable{color:#369}
 .CodeRay .decorator{color:#b0b}
@@ -778,7 +778,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 .CodeRay .exception{color:inherit}
 .CodeRay .filename{color:#099}
 .CodeRay .function{color:#900;font-weight:bold}
-.CodeRay .global-variable{color:#008080}
+.CodeRay .global-variable{color:teal}
 .CodeRay .hex{color:#058}
 .CodeRay .integer,.CodeRay .float{color:#099}
 .CodeRay .include{color:#555}
@@ -789,7 +789,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 .CodeRay .inline-delimiter{color:#d14}
 .CodeRay .important{color:#555;font-weight:bold}
 .CodeRay .interpreted{color:#b2b}
-.CodeRay .instance-variable{color:#008080}
+.CodeRay .instance-variable{color:teal}
 .CodeRay .label{color:#970}
 .CodeRay .local-variable{color:#963}
 .CodeRay .octal{color:#40e}
@@ -799,7 +799,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 .CodeRay .directive{font-weight:bold}
 .CodeRay .type{font-weight:bold}
 .CodeRay .predefined-type{color:inherit}
-.CodeRay .reserved,.CodeRay .keyword {color:#000;font-weight:bold}
+.CodeRay .reserved,.CodeRay .keyword{color:#000;font-weight:bold}
 .CodeRay .key{color:#808}
 .CodeRay .key .delimiter{color:#606}
 .CodeRay .key .char{color:#80f}
@@ -819,7 +819,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 .CodeRay .symbol{color:#990073}
 .CodeRay .symbol .content{color:#a60}
 .CodeRay .symbol .delimiter{color:#630}
-.CodeRay .tag{color:#008080}
+.CodeRay .tag{color:teal}
 .CodeRay .tag-special{color:#d70}
 .CodeRay .variable{color:#036}
 .CodeRay .insert{background:#afa}
@@ -855,9 +855,9 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <div id="header">
 <h1>cl_intel_subgroup_local_block_io</h1>
 <div class="details">
-<span id="revnumber">version v3.0.16-44-g866bc960,</span>
-<span id="revdate">Wed Sep  4 02:00:00 PM PDT 2024</span>
-<br><span id="revremark">from git branch: main commit: 866bc9603bbff5dad1ed188c37574421f6139cf3</span>
+<span id="revnumber">version v3.0.19-43-gb00754be,</span>
+<span id="revdate">Fri, 09 Jan 2026 18:53:22 +0000</span>
+<br><span id="revremark">from git branch: main commit: b00754be2360e1dc64c1914e5e7b9d71a37f3b90</span>
 </div>
 </div>
 <div id="content">
@@ -889,7 +889,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <h2 id="_notice"><a class="anchor" href="#_notice"></a>Notice</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright (c) 2023 Intel Corporation.  All rights reserved.</p>
+<p>Copyright (c) 2025-2026 Intel Corporation.  All rights reserved.</p>
 </div>
 </div>
 </div>
@@ -905,8 +905,8 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <h2 id="_version"><a class="anchor" href="#_version"></a>Version</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Built On: 2024-09-04<br>
-Version: 1.0.0</p>
+<p>Built On: 2026-01-09<br>
+Version: 1.0.1</p>
 </div>
 </div>
 </div>
@@ -914,9 +914,13 @@ Version: 1.0.0</p>
 <h2 id="_dependencies"><a class="anchor" href="#_dependencies"></a>Dependencies</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>OpenCL 1.2 and support for <code>cl_intel_subgroups</code> is required.
-This extension is written against version 8 of the <code>cl_intel_subgroups</code> specification.
-This extension interacts with the <code>cl_intel_subgroups_char</code>, <code>cl_intel_subgroups_short</code>, <code>cl_intel_subgroups_long</code>, and <code>cl_intel_spirv_subgroups</code> extensions.</p>
+<p>Support for <code>cl_intel_subgroups</code> is required.</p>
+</div>
+<div class="paragraph">
+<p>This extension is written against version 8 of the <code>cl_intel_subgroups</code> specification.</p>
+</div>
+<div class="paragraph">
+<p>This extension interacts with the <code>cl_intel_subgroups_char</code>, <code>cl_intel_subgroups_short</code>, <code>cl_intel_subgroups_long</code>, and <code>cl_intel_spirv_subgroups</code> extensions.</p>
 </div>
 <div class="paragraph">
 <p>This extension requires OpenCL support for SPIR-V, either via OpenCL 2.1 or newer, or via the <code>cl_khr_il_program</code> extension.</p>
@@ -1013,7 +1017,13 @@ ushort8 intel_sub_group_block_read_us8( const __local ushort* p )
 void  intel_sub_group_block_write_us( __local ushort* p, ushort data )
 void  intel_sub_group_block_write_us2( __local ushort* p, ushort2 data )
 void  intel_sub_group_block_write_us4( __local ushort* p, ushort4 data )
-void  intel_sub_group_block_write_us8( __local ushort* p, ushort8 data )</code></pre>
+void  intel_sub_group_block_write_us8( __local ushort* p, ushort8 data )
+
+/* If cl_intel_subgroups_short version 1.1 or greater is supported: */
+
+ushort16 intel_sub_group_block_read_us16( const __local ushort* p )
+
+void intel_sub_group_block_write_us16( __local ushort* p, ushort16 data )</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1250,10 +1260,18 @@ ushort2 intel_sub_group_block_read_us2(
 ushort4 intel_sub_group_block_read_us4(
           const __local ushort* p )
 ushort8 intel_sub_group_block_read_us8(
+          const __local ushort* p )
+
+/* If cl_intel_subgroups_short version 1.1 or greater is supported: */
+
+ushort16 intel_sub_group_block_read_us16(
+          const __global ushort* p )
+
+ushort16 intel_sub_group_block_read_us16(
           const __local ushort* p )</code></pre>
 </div>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Reads 1, 2, 4, or 8 ushorts of data for each work item in the subgroup from the specified pointer as a block operation&#8230;&#8203;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reads 1, 2, 4, or 8 (or 16, if <code>cl_intel_subgroups_short</code> version 1.1 or greater is supported) ushorts of data for each work item in the subgroup from the specified pointer as a block operation&#8230;&#8203;</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
@@ -1274,10 +1292,18 @@ void  intel_sub_group_block_write_us2(
 void  intel_sub_group_block_write_us4(
         __local ushort* p, ushort4 data )
 void  intel_sub_group_block_write_us8(
-        __local ushort* p, ushort8 data )</code></pre>
+        __local ushort* p, ushort8 data )
+
+/* If cl_intel_subgroups_short version 1.1 or greater is supported: */
+
+void  intel_sub_group_block_write_us16(
+        __global ushort* p, ushort16 data )
+
+void  intel_sub_group_block_write_us16(
+        __local ushort* p, ushort16 data )</code></pre>
 </div>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Writes 1, 2, 4, or 8 ushorts of data for each work item in the subgroup to the specified pointer as a block operation&#8230;&#8203;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Writes 1, 2, 4, or 8 (or 16, if <code>cl_intel_subgroups_short</code> version 1.1 or greater is supported) ushorts of data for each work item in the subgroup to the specified pointer as a block operation&#8230;&#8203;</p></td>
 </tr>
 </tbody>
 </table>
@@ -1482,6 +1508,12 @@ void  intel_sub_group_block_write_ul8(
 <td class="tableblock halign-left valign-top"><p class="tableblock">2023-11-29</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Ben Ashbaugh</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Initial revision for publication</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0.1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2025-07-01</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Gergely Meszaros</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Clarify vec16 type support for cl_intel_subgroups_short version 1.1</p></td>
 </tr>
 </tbody>
 </table>
