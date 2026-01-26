@@ -49,7 +49,7 @@ registry = {
     'cl_arm_core_id' : {
         'number' : 26,
         'flags' : { 'public' },
-        'url' : 'extensions/arm/cl_arm_get_core_id.txt',
+        'url' : 'extensions/arm/cl_arm_core_id.txt',
     },
     'cl_arm_import_memory' : {
         'number' : 38,
