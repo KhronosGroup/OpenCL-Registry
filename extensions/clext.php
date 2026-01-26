@@ -19,7 +19,7 @@
 </li>
 <li><a href="extensions/arm/cl_arm_controlled_kernel_termination.html">cl_arm_controlled_kernel_termination</a>
 </li>
-<li><a href="extensions/arm/cl_arm_get_core_id.txt">cl_arm_core_id</a>
+<li><a href="extensions/arm/cl_arm_core_id.txt">cl_arm_core_id</a>
 </li>
 <li><a href="extensions/arm/cl_arm_import_memory.txt">cl_arm_import_memory</a>
 </li>
