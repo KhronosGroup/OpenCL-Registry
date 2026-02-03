@@ -133,6 +133,8 @@
 </li>
 <li><a href="extensions/intel/cl_intel_subgroup_matrix_multiply_accumulate.html">cl_intel_subgroup_matrix_multiply_accumulate</a>
 </li>
+<li><a href="extensions/intel/cl_intel_subgroup_matrix_multiply_accumulate_tf32.html">cl_intel_subgroup_matrix_multiply_accumulate_tf32</a>
+</li>
 <li><a href="extensions/intel/cl_intel_subgroup_split_matrix_multiply_accumulate.html">cl_intel_subgroup_split_matrix_multiply_accumulate</a>
 </li>
 <li><a href="extensions/intel/cl_intel_subgroups.html">cl_intel_subgroups</a>

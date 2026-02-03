@@ -331,6 +331,11 @@ registry = {
         'flags' : { 'public' },
         'url' : 'extensions/intel/cl_intel_subgroup_matrix_multiply_accumulate.html',
     },
+    'cl_intel_subgroup_matrix_multiply_accumulate_tf32' : {
+        'number' : 90,
+        'flags' : { 'public' },
+        'url' : 'extensions/intel/cl_intel_subgroup_matrix_multiply_accumulate_tf32.html',
+    },
     'cl_intel_subgroup_split_matrix_multiply_accumulate' : {
         'number' : 79,
         'flags' : { 'public' },
