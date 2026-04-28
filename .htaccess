@@ -1,0 +1,18 @@
+# .htaccess to rewrite OpenCL 3.0 spec and refpages to the new "unified"
+# (ala "latest") naming scheme, per
+# https://github.com/KhronosGroup/OpenCL-Registry/issues/178
+
+# So specs/1.3-extensions/man/html/ lists all the refpages
+Options +Indexes
+
+RewriteEngine on
+
+# Avoid redirect loops
+RewriteCond %{ENV:REDIRECT_STATUS} 200
+RewriteRule ^ - [L]
+RewriteBase /vulkan/
+
+# Unified specs and refpages are all under specs/unified/ now, and the
+# current API version is no longer in the URL.
+RewriteRule ^specs/3.0-unified/(.*)$    specs/unified/$1 [L,R=301]
+RewriteRule ^sdk/3.0/docs/(.*)$         specs/unified/refpages/$1 [L,R=301]

@@ -30,22 +30,22 @@ include_once("../../assets/static_pages/khr_page_top.php");
 
 <ul>
 <li> OpenCL API Specification
-     (<a href="specs/3.0-unified/html/OpenCL_API.html">HTML</a>)
-     (<a href="specs/3.0-unified/pdf/OpenCL_API.pdf">PDF</a>)
+     (<a href="specs/unified/html/OpenCL_API.html">HTML</a>)
+     (<a href="specs/unified/pdf/OpenCL_API.pdf">PDF</a>)
      (July 10, 2025). </li>
 <li> OpenCL C Language Specification
-     (<a href="specs/3.0-unified/html/OpenCL_C.html">HTML</a>)
-     (<a href="specs/3.0-unified/pdf/OpenCL_C.pdf">PDF</a>)
+     (<a href="specs/unified/html/OpenCL_C.html">HTML</a>)
+     (<a href="specs/unified/pdf/OpenCL_C.pdf">PDF</a>)
      (July 10, 2025). </li>
 <li> OpenCL Extension Specification
-     (<a href="specs/3.0-unified/html/OpenCL_Ext.html">HTML</a>)
-     (<a href="specs/3.0-unified/pdf/OpenCL_Ext.pdf">PDF</a>)
+     (<a href="specs/unified/html/OpenCL_Ext.html">HTML</a>)
+     (<a href="specs/unified/pdf/OpenCL_Ext.pdf">PDF</a>)
      (July 10, 2025). </li>
 <li> OpenCL SPIR-V Environment Specification
-     (<a href="specs/3.0-unified/html/OpenCL_Env.html">HTML</a>)
-     (<a href="specs/3.0-unified/pdf/OpenCL_Env.pdf">PDF</a>)
+     (<a href="specs/unified/html/OpenCL_Env.html">HTML</a>)
+     (<a href="specs/unified/pdf/OpenCL_Env.pdf">PDF</a>)
      (July 10, 2025). </li>
-<li> <a href="sdk/3.0/docs/man/html/">
+<li> <a href="specs/unified/refpages/man/html/">
      OpenCL 3.0 Reference Pages.</a> </li>
 <li> <a href="https://www.khronos.org/files/opencl30-reference-guide.pdf" rel="external">
      OpenCL 3.0 Reference Guide.</a> </li>
@@ -65,11 +65,11 @@ include_once("../../assets/static_pages/khr_page_top.php");
      <li> <a href="https://khronosgroup.github.io/OpenCL-CLHPP/">
           Doxygen documentation</a> for the C++ bindings is also available. </li>
      </ul> </li>
-<li> An OpenCL Installable Client Driver (ICD) Loader can be obtained
+<li> An OpenCL 2.2 Installable Client Driver (ICD) Loader can be obtained
      from the <a href="https://github.com/KhronosGroup/OpenCL-ICD-Loader">
      OpenCL-ICD-Loader </a> GitHub repository.
      <ul>
-     <li> OpenCL ICD Installation Guide Specification
+     <li> OpenCL 2.2 ICD Installation Guide Specification
           (<a href="specs/2.2/html/OpenCL_ICD_Installation.html">HTML</a>)
           (<a href="specs/2.2/pdf/OpenCL_ICD_Installation.pdf">PDF</a>) </li>
      </ul> </li>
