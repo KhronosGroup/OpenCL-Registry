@@ -65,7 +65,7 @@ include_once("../../assets/static_pages/khr_page_top.php");
      <li> <a href="https://khronosgroup.github.io/OpenCL-CLHPP/">
           Doxygen documentation</a> for the C++ bindings is also available. </li>
      </ul> </li>
-<li> An OpenCL 2.2 Installable Client Driver (ICD) Loader can be obtained
+<li> An OpenCL Installable Client Driver (ICD) Loader can be obtained
      from the <a href="https://github.com/KhronosGroup/OpenCL-ICD-Loader">
      OpenCL-ICD-Loader </a> GitHub repository.
      <ul>
