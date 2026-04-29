@@ -10,9 +10,9 @@ RewriteEngine on
 # Avoid redirect loops
 RewriteCond %{ENV:REDIRECT_STATUS} 200
 RewriteRule ^ - [L]
-RewriteBase /OpenCL/
+# RewriteBase /OpenCL/
 
 # Unified specs and refpages are all under specs/unified/ now, and the
 # current API version is no longer in the URL.
-RewriteRule ^specs/3.0-unified/(.*)$    specs/unified/$1 [L,R=301]
-RewriteRule ^sdk/3.0/docs/(.*)$         specs/unified/refpages/$1 [L,R=301]
+RewriteRule ^specs/3.0-unified/(.*)$    https://registry.khronos.org/testcl/specs/unified/$1 [L,R=301]
+RewriteRule ^sdk/3.0/docs/(.*)$         https://registry.khronos.org/testcl/specs/unified/refpages/$1 [L,R=301]
