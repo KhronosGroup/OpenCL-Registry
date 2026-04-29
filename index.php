@@ -69,7 +69,7 @@ include_once("../../assets/static_pages/khr_page_top.php");
      from the <a href="https://github.com/KhronosGroup/OpenCL-ICD-Loader">
      OpenCL-ICD-Loader </a> GitHub repository.
      <ul>
-     <li> OpenCL 2.2 ICD Installation Guide Specification
+     <li> OpenCL ICD Installation Guide Specification
           (<a href="specs/2.2/html/OpenCL_ICD_Installation.html">HTML</a>)
           (<a href="specs/2.2/pdf/OpenCL_ICD_Installation.pdf">PDF</a>) </li>
      </ul> </li>
