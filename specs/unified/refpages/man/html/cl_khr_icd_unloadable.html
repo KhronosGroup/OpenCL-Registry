@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.23">
-<title>clGetKernelSuggestedLocalWorkSizeKHR(3)</title>
+<title>cl_khr_icd_unloadable(3)</title>
 <style>
 /*! normalize.css v2.1.2 | MIT License | git.io/normalize */
 /* ========================================================================== HTML5 display definitions ========================================================================== */
@@ -764,78 +764,43 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 </script></head>
 <body class="manpage">
 <div id="header">
-<h1>clGetKernelSuggestedLocalWorkSizeKHR(3) Manual Page</h1>
+<h1>cl_khr_icd_unloadable(3) Manual Page</h1>
 <h2 id="_name">Name</h2>
 <div class="sectionbody">
-<p>clGetKernelSuggestedLocalWorkSizeKHR - Query suggested local work size for a kernel object</p>
+<p>cl_khr_icd_unloadable - OpenCL extension</p>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_c_specification"><a class="anchor" href="#_c_specification"></a>C Specification</h2>
+<h2 id="_ratification_status"><a class="anchor" href="#_ratification_status"></a>Ratification Status</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To query a suggested local work size for a kernel object, call the function</p>
-</div>
-<div id="clGetKernelSuggestedLocalWorkSizeKHR" class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-opencl" data-lang="opencl">// Provided by cl_khr_suggested_local_work_size
-cl_int clGetKernelSuggestedLocalWorkSizeKHR(
-    cl_command_queue command_queue,
-    cl_kernel kernel,
-    cl_uint work_dim,
-    const size_t* global_work_offset,
-    const size_t* global_work_size,
-    size_t* suggested_local_work_size);</code></pre>
-</div>
-</div>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-important" title="Important"></i>
-</td>
-<td class="content">
-<strong>clGetKernelSuggestedLocalWorkSizeKHR</strong> is provided by the <code>cl_khr_suggested_local_work_size</code> extension.
-</td>
-</tr>
-</table>
+<p>Not ratified</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_parameters"><a class="anchor" href="#_parameters"></a>Parameters</h2>
+<h2 id="_extension_and_version_dependencies"><a class="anchor" href="#_extension_and_version_dependencies"></a>Extension and Version Dependencies</h2>
 <div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p><em>command_queue</em> specifies the command-queue and device for the query.</p>
-</li>
-<li>
-<p><em>kernel</em> specifies the kernel object and kernel arguments for the query.
-The OpenCL context associated with <em>kernel</em> and <em>command_queue</em> must the
-same.</p>
-</li>
-<li>
-<p><em>work_dim</em> specifies the number of work dimensions in the input global
-work offset and global work size, and the output suggested local work
-size.</p>
-</li>
-<li>
-<p><em>global_work_offset</em> can be used to specify an array of at least
-<em>work_dim</em> global ID offset values for the query.
-This is optional and may be <code>NULL</code> to indicate there is no global ID
-offset.</p>
-</li>
-<li>
-<p><em>global_work_size</em> is an array of at least <em>work_dim</em> values describing
-the global work size for the query.</p>
-</li>
-<li>
-<p><em>suggested_local_work_size</em> is an output array of at least <em>work_dim</em>
-values that will contain the result of the query.</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>None</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_other_extension_metadata"><a class="anchor" href="#_other_extension_metadata"></a>Other Extension Metadata</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Last Modified Date</strong></dt>
+<dd>
+<p>2025-11-25</p>
+</dd>
+<dt class="hdlist1"><strong>IP Status</strong></dt>
+<dd>
+<p>No known IP claims.</p>
+</dd>
+</dl>
 </div>
 </div>
 </div>
@@ -843,104 +808,50 @@ values that will contain the result of the query.</p>
 <h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The returned suggested local work size is expected to match the local work
-size that would be chosen if the specified kernel object, with the same
-kernel arguments, were enqueued into the specified command-queue with the
-specified global work size, specified global work offset, and with a <code>NULL</code>
-local work size.</p>
+<p><code>cl_khr_<wbr>icd_<wbr>unloadable</code> describes a platform extension which defines
+a simple mechanism through which a Khronos OpenCL installable client driver
+(ICD), as defined by the <code>cl_khr_<wbr>icd</code>, can advertise being unloaded by
+the ICD Loader.</p>
 </div>
 <div class="paragraph">
-<p><strong>clGetKernelSuggestedLocalWorkSizeKHR</strong> returns <code>CL_SUCCESS</code> if the query
-executed successfully.
-Otherwise, it returns one of the following errors:</p>
+<p>This is a platform extension, so if this extension is supported by an
+implementation, the string <code>"cl_khr_icd_unloadable"</code> will be present in the
+<code>CL_PLATFORM_<wbr>EXTENSIONS</code> string.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_new_enums"><a class="anchor" href="#_new_enums"></a>New Enums</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Used as a parameter name to query if a platform can be unloaded by the ICD
+Loader:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_INVALID_<wbr>COMMAND_<wbr>QUEUE</code> if <em>command_queue</em> is not a valid host
-command-queue.</p>
-</li>
-<li>
-<p><code>CL_INVALID_<wbr>KERNEL</code> if <em>kernel</em> is not a valid kernel object.</p>
-</li>
-<li>
-<p><code>CL_INVALID_<wbr>CONTEXT</code> if the context associated with <em>kernel</em> is not the
-same as the context associated with <em>command_queue</em>.</p>
-</li>
-<li>
-<p><code>CL_INVALID_<wbr>PROGRAM_<wbr>EXECUTABLE</code> if there is no successfully built
-program executable available for <em>kernel</em> for the device associated with
-<em>command_queue</em>.</p>
-</li>
-<li>
-<p><code>CL_INVALID_<wbr>KERNEL_<wbr>ARGS</code> if all argument values for <em>kernel</em> have not
-been set.</p>
-</li>
-<li>
-<p><code>CL_MISALIGNED_<wbr>SUB_<wbr>BUFFER_<wbr>OFFSET</code> if a sub-buffer object is set as an
-argument to <em>kernel</em> and the offset specified when the sub-buffer object
-was created is not aligned to <code>CL_DEVICE_<wbr>MEM_<wbr>BASE_<wbr>ADDR_<wbr>ALIGN</code> for the
-device associated with <em>command_queue</em>.</p>
-</li>
-<li>
-<p><code>CL_INVALID_<wbr>IMAGE_<wbr>SIZE</code> if an image object is set as an argument to
-<em>kernel</em> and the image dimensions are not supported by device associated
-with <em>command_queue</em>.</p>
-</li>
-<li>
-<p><code>CL_IMAGE_<wbr>FORMAT_<wbr>NOT_<wbr>SUPPORTED</code> if an image object is set as an argument
-to <em>kernel</em> and the image format is not supported by the device
-associated with <em>command_queue</em>.</p>
-</li>
-<li>
-<p><code>CL_INVALID_<wbr>OPERATION</code> if an SVM pointer is set as an argument to
-<em>kernel</em> and the device associated with <em>command_queue</em> does not support
-SVM or the required SVM capabilities for the SVM pointer.</p>
-</li>
-<li>
-<p><code>CL_INVALID_<wbr>WORK_<wbr>DIMENSION</code> if <em>work_dim</em> is not a valid value (i.e. a
-value between 1 and <code>CL_DEVICE_<wbr>MAX_<wbr>WORK_<wbr>ITEM_<wbr>DIMENSIONS</code>).</p>
-</li>
-<li>
-<p><code>CL_INVALID_<wbr>GLOBAL_<wbr>WORK_<wbr>SIZE</code> if <em>global_work_size</em> is NULL or if any of
-the values specified in <em>global_work_size</em> are 0.</p>
-</li>
-<li>
-<p><code>CL_INVALID_<wbr>GLOBAL_<wbr>WORK_<wbr>SIZE</code> if any of the values specified in
-<em>global_work_size</em> exceed the maximum value representable by <code>size_t</code> on
-the device associated with <em>command_queue</em>.</p>
-</li>
-<li>
-<p><code>CL_INVALID_<wbr>GLOBAL_<wbr>OFFSET</code> if the value specified in <em>global_work_size</em>
-plus the corresponding value in <em>global_work_offset</em> for dimension
-exceeds the maximum value representable by <code>size_t</code> on the device
-associated with <em>command_queue</em>.</p>
-</li>
-<li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if <em>suggested_local_work_size</em> is NULL.</p>
-</li>
-<li>
-<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources
-required by the OpenCL implementation on the device.</p>
-</li>
-<li>
-<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code> if there is a failure to allocate resources
-required by the OpenCL implementation on the host.</p>
+<p><code>CL_PLATFORM_<wbr>UNLOADABLE_<wbr>KHR</code></p>
 </li>
 </ul>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-These error conditions are consistent with error conditions for
-<strong>clEnqueueNDRangeKernel</strong>.
-</td>
-</tr>
-</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_version_history"><a class="anchor" href="#_version_history"></a>Version History</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Revision 1.0.0, 2025-12-15</p>
+<div class="ulist">
+<ul>
+<li>
+<p>First assigned version.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -948,7 +859,7 @@ These error conditions are consistent with error conditions for
 <h2 id="_see_also"><a class="anchor" href="#_see_also"></a>See Also</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="cl_command_queue.html">cl_command_queue</a>, <a href="cl_kernel.html">cl_kernel</a>, <a href="cl_khr_suggested_local_work_size.html">cl_khr_suggested_local_work_size</a>, <a href="cl_uint.html">cl_uint</a></p>
+<p>No cross-references are available</p>
 </div>
 </div>
 </div>
@@ -956,11 +867,11 @@ These error conditions are consistent with error conditions for
 <h2 id="_document_notes"><a class="anchor" href="#_document_notes"></a>Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#clGetKernelSuggestedLocalWorkSizeKHR" target="_blank" rel="noopener">OpenCL Specification</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#cl_khr_icd_unloadable" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
-<p>This page is extracted from the OpenCL Specification.
-Fixes and changes should be made to the Specification, not directly.</p>
+<p>This page is a generated document.
+Fixes and changes should be made to the generator scripts, not directly.</p>
 </div>
 </div>
 </div>
@@ -968,7 +879,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2025 The Khronos Group Inc.</p>
+<p>Copyright 2014-2026 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>

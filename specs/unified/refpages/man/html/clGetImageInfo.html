@@ -959,63 +959,88 @@ Otherwise, it returns one of the following errors:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_INVALID_<wbr>MEM_<wbr>OBJECT</code> if <em>image</em> is a not a valid image object.</p>
+<p><code>CL_INVALID_<wbr>MEM_<wbr>OBJECT</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>image</em> is a not a valid image object</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if <em>param_name</em> is not one of the supported values, or
-if the size in bytes specified by <em>param_value_size</em> is less than size of
+<p><code>CL_INVALID_<wbr>VALUE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>param_name</em> is not one of the supported values</p>
+</li>
+<li>
+<p>if the size in bytes specified by <em>param_value_size</em> is less than the size of
 the return type specified in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#image-info-table" target="_blank" rel="noopener">Image Object Queries</a> table
-and <em>param_value</em> is not <code>NULL</code>.</p>
-</li>
-<li>
-<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources required
-by the OpenCL implementation on the device.</p>
-</li>
-<li>
-<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code> if there is a failure to allocate resources
-required by the OpenCL implementation on the host.</p>
+<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#image-info-table" target="_blank" rel="noopener">Image Object Queries</a>
+table and <em>param_value</em> is not <code>NULL</code></p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>The following errors may be returned if the <code>cl_khr_<wbr>dx9_<wbr>media_<wbr>sharing</code>
-extension is supported:</p>
-</div>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>DX9_<wbr>MEDIA_<wbr>SURFACE_<wbr>KHR</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_INVALID_<wbr>DX9_<wbr>MEDIA_<wbr>SURFACE_<wbr>KHR</code> if <em>param_name</em> is
-<code>CL_IMAGE_<wbr>DX9_<wbr>MEDIA_<wbr>PLANE_<wbr>KHR</code> and <em>image</em> was not created by calling
-<strong>clCreateFromDX9MediaSurfaceKHR</strong>.</p>
+<p>if the <code>cl_khr_<wbr>dx9_<wbr>media_<wbr>sharing</code> extension is supported,
+if <em>param_name</em> is <code>CL_IMAGE_<wbr>DX9_<wbr>MEDIA_<wbr>PLANE_<wbr>KHR</code>,
+and if <em>image</em> was not created by calling <strong>clCreateFromDX9MediaSurfaceKHR</strong></p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>The following errors may be returned if the <code>cl_khr_<wbr>d3d10_<wbr>sharing</code>
-extension is supported:</p>
-</div>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>D3D10_<wbr>RESOURCE_<wbr>KHR</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_INVALID_<wbr>D3D10_<wbr>RESOURCE_<wbr>KHR</code> if <em>param_name</em> is
-<code>CL_IMAGE_<wbr>D3D10_<wbr>SUBRESOURCE_<wbr>KHR</code> and <em>image</em> was not created by the
-function <strong>clCreateFromD3D10Texture2DKHR</strong>, or
-<strong>clCreateFromD3D10Texture3DKHR</strong>.</p>
+<p>if the <code>cl_khr_<wbr>d3d10_<wbr>sharing</code> extension is supported,
+if <em>param_name</em> is <code>CL_IMAGE_<wbr>D3D10_<wbr>SUBRESOURCE_<wbr>KHR</code>,
+and if <em>image</em> was not created by the function <strong>clCreateFromD3D10Texture2DKHR</strong> or <strong>clCreateFromD3D10Texture3DKHR</strong></p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>The following errors may be returned if the <code>cl_khr_<wbr>d3d11_<wbr>sharing</code>
-extension is supported:</p>
-</div>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>D3D11_<wbr>RESOURCE_<wbr>KHR</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_INVALID_<wbr>D3D11_<wbr>RESOURCE_<wbr>KHR</code> if <em>param_name</em> is
-<code>CL_IMAGE_<wbr>D3D11_<wbr>SUBRESOURCE_<wbr>KHR</code> and <em>image</em> was not created by the
-function <strong>clCreateFromD3D11Texture2DKHR</strong>, or
-<strong>clCreateFromD3D11Texture3DKHR</strong>.</p>
+<p>if the <code>cl_khr_<wbr>d3d11_<wbr>sharing</code> extension is supported,
+if <em>param_name</em> is <code>CL_IMAGE_<wbr>D3D11_<wbr>SUBRESOURCE_<wbr>KHR</code>,
+and if <em>image</em> was not created by the function <strong>clCreateFromD3D11Texture2DKHR</strong> or <strong>clCreateFromD3D11Texture3DKHR</strong></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if there is a failure to allocate resources required by the OpenCL
+implementation on the device</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if there is a failure to allocate resources required by the OpenCL
+implementation on the host</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -1045,7 +1070,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2025 The Khronos Group Inc.</p>
+<p>Copyright 2014-2026 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>

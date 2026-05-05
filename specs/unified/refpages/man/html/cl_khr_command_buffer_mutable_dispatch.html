@@ -806,7 +806,7 @@ See the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/
 <dl>
 <dt class="hdlist1"><strong>Last Modified Date</strong></dt>
 <dd>
-<p>2024-09-05</p>
+<p>2025-08-08</p>
 </dd>
 <dt class="hdlist1"><strong>IP Status</strong></dt>
 <dd>
@@ -886,6 +886,17 @@ This allows inputs and outputs to the kernel, as well as work-item sizes and
 offsets, to change without having to re-record the entire command sequence
 in a new command-buffer.</p>
 </div>
+<div class="sect2">
+<h3 id="_simultaneous_use"><a class="anchor" href="#_simultaneous_use"></a>Simultaneous Use</h3>
+<div class="paragraph">
+<p>The optional <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#simultaneous-use" target="_blank" rel="noopener">simultaneous use</a> capability was added to the
+extension so that vendors could support concurrent execution of the same
+command-buffer object which has been updated between submissions. However,
+simultaneous use may result in command-buffers having a larger overhead to
+implement, so the capability is optional to enable optimizations when this
+usage isn&#8217;t required by a user.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -961,6 +972,16 @@ void pointer using <code>cl_command_<wbr>buffer_<wbr>update_<wbr>type_<wbr>khr</
 <ul>
 <li>
 <p><code>CL_DEVICE_<wbr>MUTABLE_<wbr>DISPATCH_<wbr>CAPABILITIES_<wbr>KHR</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>cl_device_<wbr>command_<wbr>buffer_<wbr>capabilities_<wbr>khr</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_COMMAND_<wbr>BUFFER_<wbr>CAPABILITY_<wbr>SIMULTANEOUS_<wbr>USE_<wbr>KHR</code></p>
 </li>
 </ul>
 </div>
@@ -1051,6 +1072,9 @@ void pointer using <code>cl_command_<wbr>buffer_<wbr>update_<wbr>type_<wbr>khr</
 <li>
 <p><code>CL_COMMAND_<wbr>BUFFER_<wbr>MUTABLE_<wbr>KHR</code></p>
 </li>
+<li>
+<p><code>CL_COMMAND_<wbr>BUFFER_<wbr>SIMULTANEOUS_<wbr>USE_<wbr>KHR</code></p>
+</li>
 </ul>
 </div>
 </li>
@@ -1070,6 +1094,16 @@ void pointer using <code>cl_command_<wbr>buffer_<wbr>update_<wbr>type_<wbr>khr</
 <ul>
 <li>
 <p><code>CL_STRUCTURE_<wbr>TYPE_<wbr>MUTABLE_<wbr>DISPATCH_<wbr>CONFIG_<wbr>KHR</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>cl_command_<wbr>buffer_<wbr>state_<wbr>khr</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_COMMAND_<wbr>BUFFER_<wbr>STATE_<wbr>FINALIZED_<wbr>KHR</code></p>
 </li>
 </ul>
 </div>
@@ -1403,6 +1437,29 @@ than linked list (experimental).</p>
 </ul>
 </div>
 </li>
+<li>
+<p>Revision 0.9.4, 2025-08-08</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Move <code>CL_COMMAND_BUFFER_SIMULTANEOUS_USE_KHR</code> and
+<code>CL_COMMAND_BUFFER_CAPABILITY_SIMULTANEOUS_USE_KHR</code> in this
+extension from the base extension (experimental).</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Revision 0.9.5 2025-08-28</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Permitting recording ND-range kernel commands without having set all of
+their arguments (experimental).</p>
+</li>
+</ul>
+</div>
+</li>
 </ul>
 </div>
 </div>
@@ -1431,7 +1488,7 @@ Fixes and changes should be made to the generator scripts, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2025 The Khronos Group Inc.</p>
+<p>Copyright 2014-2026 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>

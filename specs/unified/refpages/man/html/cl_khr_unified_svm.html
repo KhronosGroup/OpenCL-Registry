@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.23">
-<title>Dead Links(3)</title>
+<title>cl_khr_unified_svm(3)</title>
 <style>
 /*! normalize.css v2.1.2 | MIT License | git.io/normalize */
 /* ========================================================================== HTML5 display definitions ========================================================================== */
@@ -764,68 +764,373 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 </script></head>
 <body class="manpage">
 <div id="header">
-<h1>Dead Links(3) Manual Page</h1>
+<h1>cl_khr_unified_svm(3) Manual Page</h1>
 <h2 id="_name">Name</h2>
 <div class="sectionbody">
-<p>deadLinks - Dead Links From The OpenCL Reference Pages</p>
+<p>cl_khr_unified_svm - OpenCL extension</p>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
+<h2 id="_ratification_status"><a class="anchor" href="#_ratification_status"></a>Ratification Status</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Not ratified</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_extension_and_version_dependencies"><a class="anchor" href="#_extension_and_version_dependencies"></a>Extension and Version Dependencies</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>None</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>This is a <em>experimental</em> extension and <strong class="purple">must</strong> be used with caution.
+See the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#boilerplate-experimental-header" target="_blank" rel="noopener">description</a> of experimental header files for enablement and stability details.</strong></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_other_extension_metadata"><a class="anchor" href="#_other_extension_metadata"></a>Other Extension Metadata</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Last Modified Date</strong></dt>
+<dd>
+<p>2025-08-30</p>
+</dd>
+<dt class="hdlist1"><strong>IP Status</strong></dt>
+<dd>
+<p>No known IP claims.</p>
+</dd>
+<dt class="hdlist1"><strong>Contributors</strong></dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>Brice Videau, Argonne National Laboratory</p>
+</li>
+<li>
+<p>Kévin Petit, Arm Ltd.</p>
+</li>
+<li>
+<p>Ewan Crawford, Codeplay Software Ltd.</p>
+</li>
+<li>
+<p>Paul Fradgley, Imagination Technologies</p>
+</li>
+<li>
+<p>Ben Ashbaugh, Intel</p>
+</li>
+<li>
+<p>Pekka Jääskeläinen, Intel</p>
+</li>
+<li>
+<p>Nikhil Joshi, NVIDIA</p>
+</li>
+<li>
+<p>Balaji Calidas, Qualcomm Technologies Inc.</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>If you&#8217;ve arrived at this page by following a link in the OpenCL 3.0
-Reference Pages, the reason is that an automatically generated
-cross-reference was created, even though the cross-reference target is not
-part of the OpenCL 3.0 specifications. Details are explained individually
-below for each such link.</p>
+<p>This extension adds additional types of Shared Virtual Memory (SVM) to OpenCL.</p>
 </div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Cross-Reference</th>
-<th class="tableblock halign-left valign-top">Why It Resolves Here</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>cles_khr_int64</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>See the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_Env.html#_cles_khr_int64">OpenCL Environment specification</a></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>get_image_num_mip_levels</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>See the
-                                  <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_Ext.html#cl_khr_mipmap_image">OpenCL
-                                  Extensions Specification</a></p>
-</div></div></td>
-</tr>
-</tbody>
-</table>
+<div class="paragraph">
+<p>The extension is still under development.
+To learn more about the APIs proposed for this extension, or to provide feedback, please visit:</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/KhronosGroup/OpenCL-Docs/pull/1282" class="bare">https://github.com/KhronosGroup/OpenCL-Docs/pull/1282</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_new_commands"><a class="anchor" href="#_new_commands"></a>New Commands</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>clSVMAllocWithPropertiesKHR</strong><a id="clSVMAllocWithPropertiesKHR"></a></p>
+</li>
+<li>
+<p><strong>clSVMFreeWithPropertiesKHR</strong><a id="clSVMFreeWithPropertiesKHR"></a></p>
+</li>
+<li>
+<p><strong>clGetSVMPointerInfoKHR</strong><a id="clGetSVMPointerInfoKHR"></a></p>
+</li>
+<li>
+<p><strong>clGetSVMSuggestedTypeIndexKHR</strong><a id="clGetSVMSuggestedTypeIndexKHR"></a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_new_types"><a class="anchor" href="#_new_types"></a>New Types</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><code>cl_svm_<wbr>capabilities_<wbr>khr</code></p>
+</li>
+<li>
+<p><code>cl_svm_<wbr>alloc_<wbr>properties_<wbr>khr</code></p>
+</li>
+<li>
+<p><code>cl_svm_<wbr>alloc_<wbr>access_<wbr>flags_<wbr>khr</code></p>
+</li>
+<li>
+<p><code>cl_svm_<wbr>free_<wbr>properties_<wbr>khr</code></p>
+</li>
+<li>
+<p><code>cl_svm_<wbr>free_<wbr>flags_<wbr>khr</code></p>
+</li>
+<li>
+<p><code>cl_svm_<wbr>pointer_<wbr>info_<wbr>khr</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_new_enums"><a class="anchor" href="#_new_enums"></a>New Enums</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><code>cl_platform_<wbr>info</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_PLATFORM_<wbr>SVM_<wbr>TYPE_<wbr>CAPABILITIES_<wbr>KHR</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>cl_device_<wbr>info</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_DEVICE_<wbr>SVM_<wbr>TYPE_<wbr>CAPABILITIES_<wbr>KHR</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>cl_svm_<wbr>capabilities_<wbr>khr</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_SVM_<wbr>CAPABILITY_<wbr>SINGLE_<wbr>ADDRESS_<wbr>SPACE_<wbr>KHR</code></p>
+</li>
+<li>
+<p><code>CL_SVM_<wbr>CAPABILITY_<wbr>SYSTEM_<wbr>ALLOCATED_<wbr>KHR</code></p>
+</li>
+<li>
+<p><code>CL_SVM_<wbr>CAPABILITY_<wbr>DEVICE_<wbr>OWNED_<wbr>KHR</code></p>
+</li>
+<li>
+<p><code>CL_SVM_<wbr>CAPABILITY_<wbr>DEVICE_<wbr>UNASSOCIATED_<wbr>KHR</code></p>
+</li>
+<li>
+<p><code>CL_SVM_<wbr>CAPABILITY_<wbr>CONTEXT_<wbr>ACCESS_<wbr>KHR</code></p>
+</li>
+<li>
+<p><code>CL_SVM_<wbr>CAPABILITY_<wbr>HOST_<wbr>OWNED_<wbr>KHR</code></p>
+</li>
+<li>
+<p><code>CL_SVM_<wbr>CAPABILITY_<wbr>HOST_<wbr>READ_<wbr>KHR</code></p>
+</li>
+<li>
+<p><code>CL_SVM_<wbr>CAPABILITY_<wbr>HOST_<wbr>WRITE_<wbr>KHR</code></p>
+</li>
+<li>
+<p><code>CL_SVM_<wbr>CAPABILITY_<wbr>HOST_<wbr>MAP_<wbr>KHR</code></p>
+</li>
+<li>
+<p><code>CL_SVM_<wbr>CAPABILITY_<wbr>DEVICE_<wbr>READ_<wbr>KHR</code></p>
+</li>
+<li>
+<p><code>CL_SVM_<wbr>CAPABILITY_<wbr>DEVICE_<wbr>WRITE_<wbr>KHR</code></p>
+</li>
+<li>
+<p><code>CL_SVM_<wbr>CAPABILITY_<wbr>DEVICE_<wbr>ATOMIC_<wbr>ACCESS_<wbr>KHR</code></p>
+</li>
+<li>
+<p><code>CL_SVM_<wbr>CAPABILITY_<wbr>CONCURRENT_<wbr>ACCESS_<wbr>KHR</code></p>
+</li>
+<li>
+<p><code>CL_SVM_<wbr>CAPABILITY_<wbr>CONCURRENT_<wbr>ATOMIC_<wbr>ACCESS_<wbr>KHR</code></p>
+</li>
+<li>
+<p><code>CL_SVM_<wbr>CAPABILITY_<wbr>INDIRECT_<wbr>ACCESS_<wbr>KHR</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>cl_svm_<wbr>alloc_<wbr>properties_<wbr>khr</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_SVM_<wbr>ALLOC_<wbr>ASSOCIATED_<wbr>DEVICE_<wbr>HANDLE_<wbr>KHR</code></p>
+</li>
+<li>
+<p><code>CL_SVM_<wbr>ALLOC_<wbr>ACCESS_<wbr>FLAGS_<wbr>KHR</code></p>
+</li>
+<li>
+<p><code>CL_SVM_<wbr>ALLOC_<wbr>ALIGNMENT_<wbr>KHR</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>cl_svm_<wbr>alloc_<wbr>access_<wbr>flags_<wbr>khr</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_SVM_<wbr>ALLOC_<wbr>ACCESS_<wbr>HOST_<wbr>NOREAD_<wbr>KHR</code></p>
+</li>
+<li>
+<p><code>CL_SVM_<wbr>ALLOC_<wbr>ACCESS_<wbr>HOST_<wbr>NOWRITE_<wbr>KHR</code></p>
+</li>
+<li>
+<p><code>CL_SVM_<wbr>ALLOC_<wbr>ACCESS_<wbr>DEVICE_<wbr>NOREAD_<wbr>KHR</code></p>
+</li>
+<li>
+<p><code>CL_SVM_<wbr>ALLOC_<wbr>ACCESS_<wbr>DEVICE_<wbr>NOWRITE_<wbr>KHR</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>cl_svm_<wbr>pointer_<wbr>info_<wbr>khr</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_SVM_<wbr>INFO_<wbr>TYPE_<wbr>INDEX_<wbr>KHR</code></p>
+</li>
+<li>
+<p><code>CL_SVM_<wbr>INFO_<wbr>CAPABILITIES_<wbr>KHR</code></p>
+</li>
+<li>
+<p><code>CL_SVM_<wbr>INFO_<wbr>PROPERTIES_<wbr>KHR</code></p>
+</li>
+<li>
+<p><code>CL_SVM_<wbr>INFO_<wbr>ACCESS_<wbr>FLAGS_<wbr>KHR</code></p>
+</li>
+<li>
+<p><code>CL_SVM_<wbr>INFO_<wbr>BASE_<wbr>PTR_<wbr>KHR</code></p>
+</li>
+<li>
+<p><code>CL_SVM_<wbr>INFO_<wbr>SIZE_<wbr>KHR</code></p>
+</li>
+<li>
+<p><code>CL_SVM_<wbr>INFO_<wbr>ASSOCIATED_<wbr>DEVICE_<wbr>HANDLE_<wbr>KHR</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>cl_kernel_<wbr>exec_<wbr>info</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_KERNEL_<wbr>EXEC_<wbr>INFO_<wbr>SVM_<wbr>INDIRECT_<wbr>ACCESS_<wbr>KHR</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_svm_type_convenience_macros"><a class="anchor" href="#_svm_type_convenience_macros"></a>SVM Type Convenience Macros</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_SVM_<wbr>TYPE_<wbr>MACRO_<wbr>COARSE_<wbr>GRAIN_<wbr>BUFFER_<wbr>KHR</code></p>
+</li>
+<li>
+<p><code>CL_SVM_<wbr>TYPE_<wbr>MACRO_<wbr>FINE_<wbr>GRAIN_<wbr>BUFFER_<wbr>KHR</code></p>
+</li>
+<li>
+<p><code>CL_SVM_<wbr>TYPE_<wbr>MACRO_<wbr>DEVICE_<wbr>KHR</code></p>
+</li>
+<li>
+<p><code>CL_SVM_<wbr>TYPE_<wbr>MACRO_<wbr>HOST_<wbr>KHR</code></p>
+</li>
+<li>
+<p><code>CL_SVM_<wbr>TYPE_<wbr>MACRO_<wbr>SINGLE_<wbr>DEVICE_<wbr>SHARED_<wbr>KHR</code></p>
+</li>
+<li>
+<p><code>CL_SVM_<wbr>TYPE_<wbr>MACRO_<wbr>SYSTEM_<wbr>KHR</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_version_history"><a class="anchor" href="#_version_history"></a>Version History</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Revision 0.9.0, 2025-08-30</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Initial revision incorporated into the main specification (experimental).</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_see_also"><a class="anchor" href="#_see_also"></a>See Also</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>No cross-references are available</p>
+</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_document_notes"><a class="anchor" href="#_document_notes"></a>Document Notes</h2>
 <div class="sectionbody">
-
+<div class="paragraph">
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#cl_khr_unified_svm" target="_blank" rel="noopener">OpenCL Specification</a></p>
+</div>
+<div class="paragraph">
+<p>This page is a generated document.
+Fixes and changes should be made to the generator scripts, not directly.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2025 The Khronos Group Inc.</p>
+<p>Copyright 2014-2026 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>

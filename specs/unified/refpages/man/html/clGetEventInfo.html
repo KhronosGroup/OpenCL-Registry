@@ -1134,11 +1134,13 @@ event command type for <strong>clEnqueueSVMMigrateMem</strong>.</p></td>
 </tbody>
 </table>
 <div class="paragraph">
-<p>Using <strong>clGetEventInfo</strong> to determine if a command identified by <em>event</em> has
-finished execution (i.e. <code>CL_EVENT_<wbr>COMMAND_<wbr>EXECUTION_<wbr>STATUS</code> returns
-<code>CL_COMPLETE</code>) is not a synchronization point.
-There are no guarantees that the memory objects being modified by command
-associated with <em>event</em> will be visible to other enqueued commands.</p>
+<p>Prior to OpenCL 3.1, using <strong>clGetEventInfo</strong> to determine if a command identified
+by <em>event</em> has finished execution (i.e. whether
+<code>CL_EVENT_<wbr>COMMAND_<wbr>EXECUTION_<wbr>STATUS</code> returns <code>CL_COMPLETE</code>) is not a
+synchronization point.
+For OpenCL 3.1 and newer, if a call to <strong>clGetEventInfo</strong> to determine the
+execution status of a command identified by <em>event</em> returns <code>CL_COMPLETE</code>, then
+the call to <strong>clGetEventInfo</strong> is a synchronization point.</p>
 </div>
 <div class="paragraph">
 <p><strong>clGetEventInfo</strong> returns <code>CL_SUCCESS</code> if the function is executed
@@ -1197,7 +1199,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2025 The Khronos Group Inc.</p>
+<p>Copyright 2014-2026 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>

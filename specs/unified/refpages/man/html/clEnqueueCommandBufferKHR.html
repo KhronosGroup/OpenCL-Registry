@@ -850,21 +850,6 @@ information.</p>
 <div class="sect1">
 <h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
 <div class="sectionbody">
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>To enqueue a command-buffer it must be in a <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#executable" target="_blank" rel="noopener">Executable</a> state,
-see <strong>clFinalizeCommandBufferKHR</strong>.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
 <div class="paragraph">
 <p><strong>clEnqueueCommandBufferKHR</strong> returns <code>CL_SUCCESS</code> if the command-buffer
 execution was successfully queued, or one of the errors below:</p>
@@ -876,11 +861,8 @@ execution was successfully queued, or one of the errors below:</p>
 command-buffer.</p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>OPERATION</code> if <em>command_buffer</em> has not been finalized.</p>
-</li>
-<li>
-<p><code>CL_INVALID_<wbr>OPERATION</code> if <em>command_buffer</em> was not created with the
-<code>CL_COMMAND_<wbr>BUFFER_<wbr>SIMULTANEOUS_<wbr>USE_<wbr>KHR</code> flag and is in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#pending" target="_blank" rel="noopener">Pending</a> state.</p>
+<p><code>CL_INVALID_<wbr>OPERATION</code> if <em>command_buffer</em> is not in the
+<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#executable" target="_blank" rel="noopener">Executable</a> state.</p>
 </li>
 <li>
 <p><code>CL_INVALID_<wbr>VALUE</code> if <em>queues</em> is <code>NULL</code> and <em>num_queues</em> is &gt; 0, or
@@ -965,7 +947,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2025 The Khronos Group Inc.</p>
+<p>Copyright 2014-2026 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>

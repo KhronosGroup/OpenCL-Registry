@@ -824,11 +824,11 @@ no properties are required, properties may be <code>NULL</code>.</p>
 about the image format being queried and is described in the
 <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#memory-flags-table" target="_blank" rel="noopener">Memory Flags</a> table. <em>flags</em> may be <code>CL_MEM_<wbr>READ_<wbr>WRITE</code> to
 specialize the query for images that may be read from and written to by different
-kernel instances when correctly ordered by event dependencies, or <code>CL_MEM_<wbr>READ_<wbr>ONLY</code>
+kernel-instances when correctly ordered by event dependencies, or <code>CL_MEM_<wbr>READ_<wbr>ONLY</code>
 to specialize the query for images that may be read from by a kernel, or
 <code>CL_MEM_<wbr>WRITE_<wbr>ONLY</code> to specialiaze the query for images that may be written to by
 a kernel, or <code>CL_MEM_<wbr>KERNEL_<wbr>READ_<wbr>AND_<wbr>WRITE</code> to specialize the query for images that
-may be both read from and written to by the same kernel instance. When <em>flags</em> is
+may be both read from and written to by the same kernel-instance. When <em>flags</em> is
 <code>0</code> the value returned for the query must be correct for all possible values of <em>flags</em>.</p>
 </li>
 <li>
@@ -1004,37 +1004,98 @@ Otherwise, it returns one of the following errors:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_INVALID_<wbr>CONTEXT</code> if <em>context</em> if not a valid context.</p>
+<p><code>CL_INVALID_<wbr>CONTEXT</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>context</em> if not a valid context</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>PROPERTY</code> if a property name in properties is not a supported
-property name, if the value specified for a supported property name is not
-valid, or if the same property name is specified more than once.</p>
+<p><code>CL_INVALID_<wbr>PROPERTY</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if a property name in <em>properties</em> is not a supported property name</p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if values specified in <em>flags</em> are not valid.</p>
+<p>if the value specified for a supported property name is not valid</p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>IMAGE_<wbr>FORMAT_<wbr>DESCRIPTOR</code> if values specified in <em>image_format</em>
-are not valid.</p>
+<p>if the same property name is specified more than once</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>IMAGE_<wbr>DESCRIPTOR</code> if values specified in <em>image_desc</em>
-are not valid.</p>
+<p><code>CL_INVALID_<wbr>VALUE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if values specified in <em>flags</em> are not valid</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if <em>param_name</em> is not valid, or if size in bytes
-specified by <em>param_value_size</em> is &lt; size of return type as described in
-the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#image-requirements-info-table" target="_blank" rel="noopener">Image Requirements Queries</a> table and
-<em>param_value</em> is not <code>NULL</code>.</p>
+<p><code>CL_INVALID_<wbr>IMAGE_<wbr>FORMAT_<wbr>DESCRIPTOR</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if values specified in <em>image_format</em> are not valid</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources required
-by the OpenCL implementation on the device.</p>
+<p><code>CL_INVALID_<wbr>IMAGE_<wbr>DESCRIPTOR</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if values specified in <em>image_desc</em> are not valid</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code> if there is a failure to allocate resources
-required by the OpenCL implementation on the host.</p>
+<p><code>CL_INVALID_<wbr>VALUE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>param_name</em> is not valid</p>
+</li>
+<li>
+<p>if size in bytes specified by <em>param_value_size</em> is less than the size of
+the return type specified in the
+<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#image-requirements-info-table" target="_blank" rel="noopener">Image Requirements Queries</a>
+table and <em>param_value</em> is not <code>NULL</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if there is a failure to allocate resources required by the OpenCL
+implementation on the device</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if there is a failure to allocate resources required by the OpenCL
+implementation on the host</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -1064,7 +1125,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2025 The Khronos Group Inc.</p>
+<p>Copyright 2014-2026 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>

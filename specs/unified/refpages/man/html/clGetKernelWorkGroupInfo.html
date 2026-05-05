@@ -857,21 +857,18 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_KERNEL_<wbr>GLOBAL_<wbr>WORK_<wbr>SIZE</code></p>
 <p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.2.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>size_t</code>[3]</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">This provides a mechanism for the application to query the maximum
-        global size that can be used to execute a kernel (i.e. the
-        <em>global_work_size</em> argument to <strong>clEnqueueNDRangeKernel</strong>) on a custom
-        device given by <em>device</em> or a built-in kernel on an OpenCL device
-        given by <em>device</em>.</p>
-<p class="tableblock">        If <em>device</em> is not a custom device and <em>kernel</em> is not a built-in
-        kernel, <strong>clGetKernelWorkGroupInfo</strong> returns the error
-        <code>CL_INVALID_<wbr>VALUE</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Provides a mechanism for the application to query the maximum
+        global size that can be used to execute a built-in kernel on a
+        specific device given by <em>device</em>.</p>
+<p class="tableblock">        If <em>kernel</em> is not a built-in kernel, querying
+        <code>CL_KERNEL_<wbr>GLOBAL_<wbr>WORK_<wbr>SIZE</code> returns the error <code>CL_INVALID_<wbr>VALUE</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_KERNEL_<wbr>WORK_<wbr>GROUP_<wbr>SIZE</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>size_t</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">This provides a mechanism for the application to query the maximum
+<td class="tableblock halign-left valign-top"><p class="tableblock">Provides a mechanism for the application to query the maximum
         work-group size that can be used to execute the kernel on a specific
-        device given by device.
+        device given by <em>device</em>.
         The OpenCL implementation uses the resource requirements of the
         kernel (register usage etc.) to determine what this work-group size
         should be.</p>
@@ -947,7 +944,7 @@ and <em>param_value</em> is not <code>NULL</code>.</p>
 </li>
 <li>
 <p><code>CL_INVALID_<wbr>VALUE</code> if <em>param_name</em> is <code>CL_KERNEL_<wbr>GLOBAL_<wbr>WORK_<wbr>SIZE</code> and
-<em>device</em> is not a custom device and <em>kernel</em> is not a built-in kernel.</p>
+<em>kernel</em> is not a built-in kernel.</p>
 </li>
 <li>
 <p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources required
@@ -985,7 +982,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2025 The Khronos Group Inc.</p>
+<p>Copyright 2014-2026 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>

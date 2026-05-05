@@ -936,38 +936,89 @@ returned in <em>errcode_ret</em>:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_INVALID_<wbr>DEVICE</code> if <em>in_device</em> is not a valid device.</p>
+<p><code>CL_INVALID_<wbr>DEVICE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>in_device</em> is not a valid device</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if values specified in <em>properties</em> are not valid or if
-values specified in <em>properties</em> are valid but not supported by the
-device.</p>
+<p><code>CL_INVALID_<wbr>VALUE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if values specified in <em>properties</em> are not valid</p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if <em>out_devices</em> is not <code>NULL</code> and <em>num_devices</em> is
-less than the number of sub-devices created by the partition scheme.</p>
+<p>if values specified in <em>properties</em> are valid but not are supported by
+<em>in_device</em></p>
 </li>
 <li>
-<p><code>CL_DEVICE_<wbr>PARTITION_<wbr>FAILED</code> if the partition name is supported by the
-implementation but in_device could not be further partitioned.</p>
+<p>if <em>out_devices</em> is not <code>NULL</code> and <em>num_devices</em> is less than the number
+of sub-devices created by the partition scheme</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>DEVICE_<wbr>PARTITION_<wbr>COUNT</code> if the partition name specified in
-<em>properties</em> is <code>CL_DEVICE_<wbr>PARTITION_<wbr>BY_<wbr>COUNTS</code> and the number of
-sub-devices requested exceeds <code>CL_DEVICE_<wbr>PARTITION_<wbr>MAX_<wbr>SUB_<wbr>DEVICES</code> or the
-total number of compute units requested exceeds
-<code>CL_DEVICE_<wbr>MAX_<wbr>COMPUTE_<wbr>UNITS</code> for <em>in_device</em>, or the number of
-compute units requested for one or more sub-devices is less than zero or
-the number of sub-devices requested exceeds
-<code>CL_DEVICE_<wbr>MAX_<wbr>COMPUTE_<wbr>UNITS</code> for <em>in_device</em>.</p>
+<p><code>CL_DEVICE_<wbr>PARTITION_<wbr>FAILED</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if the partition name is supported by the implementation but in_device
+could not be further partitioned</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources required
-by the OpenCL implementation on the device.</p>
+<p><code>CL_INVALID_<wbr>DEVICE_<wbr>PARTITION_<wbr>COUNT</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if the partition name specified in <em>properties</em> is
+<code>CL_DEVICE_<wbr>PARTITION_<wbr>BY_<wbr>COUNTS</code> and the number of sub-devices requested
+exceeds <code>CL_DEVICE_<wbr>PARTITION_<wbr>MAX_<wbr>SUB_<wbr>DEVICES</code></p>
 </li>
 <li>
-<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code> if there is a failure to allocate resources
-required by the OpenCL implementation on the host.</p>
+<p>if the total number of compute units requested exceeds
+<code>CL_DEVICE_<wbr>MAX_<wbr>COMPUTE_<wbr>UNITS</code> for <em>in_device</em></p>
+</li>
+<li>
+<p>if the number of compute units requested for one or more sub-devices is
+less than zero</p>
+</li>
+<li>
+<p>if the number of sub-devices requested for one or more sub-devices
+exceeds <code>CL_DEVICE_<wbr>MAX_<wbr>COMPUTE_<wbr>UNITS</code> for <em>in_device</em></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if there is a failure to allocate resources required by the OpenCL
+implementation on the device</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if there is a failure to allocate resources required by the OpenCL
+implementation on the host</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -1034,7 +1085,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2025 The Khronos Group Inc.</p>
+<p>Copyright 2014-2026 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>

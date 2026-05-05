@@ -818,7 +818,7 @@ See the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/
 <dl>
 <dt class="hdlist1"><strong>Last Modified Date</strong></dt>
 <dd>
-<p>2024-12-13</p>
+<p>2025-07-10</p>
 </dd>
 <dt class="hdlist1"><strong>IP Status</strong></dt>
 <dd>
@@ -1006,16 +1006,6 @@ hit.</p>
 <p>There are no gurantees made around the values of sync-points returned from
 adding commands to a command-buffer. Any semantics that a could be inferred
 from the sync-point values returned is implementation defined.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_simultaneous_use"><a class="anchor" href="#_simultaneous_use"></a>Simultaneous Use</h3>
-<div class="paragraph">
-<p>The optional simultaneous use capability was added to the extension so that
-vendors can support pipelined workflows, where command-buffers are repeatedly
-enqueued without blocking in user code. However, simultaneous use may result in
-command-buffers being more expensive to enqueue than in a sequential model, so
-the capability is optional to enable optimizations on command-buffer recording.</p>
 </div>
 </div>
 </div>
@@ -1248,9 +1238,6 @@ and starting from version 0.9.4 of this extension</p>
 <li>
 <p><code>CL_COMMAND_<wbr>BUFFER_<wbr>CAPABILITY_<wbr>DEVICE_<wbr>SIDE_<wbr>ENQUEUE_<wbr>KHR</code></p>
 </li>
-<li>
-<p><code>CL_COMMAND_<wbr>BUFFER_<wbr>CAPABILITY_<wbr>SIMULTANEOUS_<wbr>USE_<wbr>KHR</code></p>
-</li>
 </ul>
 </div>
 </li>
@@ -1260,16 +1247,6 @@ and starting from version 0.9.4 of this extension</p>
 <ul>
 <li>
 <p><code>CL_COMMAND_<wbr>BUFFER_<wbr>FLAGS_<wbr>KHR</code></p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><code>cl_command_<wbr>buffer_<wbr>flags_<wbr>khr</code></p>
-<div class="ulist">
-<ul>
-<li>
-<p><code>CL_COMMAND_<wbr>BUFFER_<wbr>SIMULTANEOUS_<wbr>USE_<wbr>KHR</code></p>
 </li>
 </ul>
 </div>
@@ -1308,9 +1285,6 @@ and starting from version 0.9.4 of this extension</p>
 </li>
 <li>
 <p><code>CL_COMMAND_<wbr>BUFFER_<wbr>STATE_<wbr>EXECUTABLE_<wbr>KHR</code></p>
-</li>
-<li>
-<p><code>CL_COMMAND_<wbr>BUFFER_<wbr>STATE_<wbr>PENDING_<wbr>KHR</code></p>
 </li>
 </ul>
 </div>
@@ -1649,6 +1623,17 @@ command-buffer creation.</p>
 </ul>
 </div>
 </li>
+<li>
+<p>0.9.8, 2025-07-10</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Rework simultaneous use definition and remove pending state
+(experimental).</p>
+</li>
+</ul>
+</div>
+</li>
 </ul>
 </div>
 </div>
@@ -1677,7 +1662,7 @@ Fixes and changes should be made to the generator scripts, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2025 The Khronos Group Inc.</p>
+<p>Copyright 2014-2026 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>

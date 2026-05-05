@@ -849,8 +849,8 @@ to the <code>CL_KERNEL_<wbr>WORK_<wbr>GROUP_<wbr>SIZE</code> value specified in 
 <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#kernel-workgroup-info-table" target="_blank" rel="noopener">Kernel Object Device Queries</a> table, and the
 number of work-items specified in <em>local_work_size</em>[0], &#8230;&#8203;,
 <em>local_work_size</em>[<em>work_dim</em> - 1] must be less than or equal to the
-corresponding values specified by <code>CL_DEVICE_<wbr>MAX_<wbr>WORK_<wbr>ITEM_<wbr>SIZES</code>[0], &#8230;&#8203;,
-<code>CL_DEVICE_<wbr>MAX_<wbr>WORK_<wbr>ITEM_<wbr>SIZES</code>[<em>work_dim</em> - 1].
+corresponding values specified by <code>CL_DEVICE_<wbr>MAX_<wbr>WORK_<wbr>GROUP_<wbr>SIZES</code>[0], &#8230;&#8203;,
+<code>CL_DEVICE_<wbr>MAX_<wbr>WORK_<wbr>GROUP_<wbr>SIZES</code>[<em>work_dim</em> - 1].
 The explicitly specified <em>local_work_size</em> will be used to determine how to
 break the global work-items specified by <em>global_work_size</em> into appropriate
 work-group instances.</p>
@@ -901,13 +901,13 @@ Specifically, this means:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>If the program was created with <strong>clCreateProgramWithSource</strong>, the program must be compiled or built using the <code>-cl-std=CL2.0</code> or <code>-cl-std=CL3.0</code> build option and without the <code>-cl-uniform-work-group-size</code> build option.</p>
+<p>If the program was created with <strong>clCreateProgramWithSource</strong>, then the program must be compiled for OpenCL C 2.0 or newer (e.g. by using the <code>-cl-std=CL2.0</code> or newer build option), and without the <code>-cl-uniform-work-group-size</code> build option.</p>
 </li>
 <li>
-<p>If the program was created with <strong>clCreateProgramWithIL</strong> or <strong>clCreateProgramWithBinary</strong>, the program must be compiled or built without the <code>-cl-uniform-work-group-size</code> build options.</p>
+<p>If the program was created with <strong>clCreateProgramWithIL</strong> or <strong>clCreateProgramWithBinary</strong>, then the program must be compiled or built without the <code>-cl-uniform-work-group-size</code> build options.</p>
 </li>
 <li>
-<p>If the program was created using <strong>clLinkProgram</strong>, all input programs must support non-uniform work-groups.</p>
+<p>If the program was created using <strong>clLinkProgram</strong>, then all input programs must support non-uniform work-groups.</p>
 </li>
 </ol>
 </div>
@@ -965,134 +965,238 @@ Otherwise, it returns one of the following errors:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_INVALID_<wbr>PROGRAM_<wbr>EXECUTABLE</code> if there is no successfully built program
-executable available for the device associated with <em>command_queue</em>.</p>
+<p><code>CL_INVALID_<wbr>COMMAND_<wbr>QUEUE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>command_queue</em> is not a valid host command-queue</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>COMMAND_<wbr>QUEUE</code> if <em>command_queue</em> is not a valid host
-command-queue.</p>
+<p><code>CL_INVALID_<wbr>KERNEL</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>kernel</em> is not a valid kernel</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>KERNEL</code> if <em>kernel</em> is not a valid kernel object.</p>
+<p><code>CL_INVALID_<wbr>PROGRAM_<wbr>EXECUTABLE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if there is no successfully built program executable available for the device associated with <em>command_queue</em></p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>CONTEXT</code> if context associated with <em>command_queue</em> and
-<em>kernel</em> are not the same or if the context associated with
-<em>command_queue</em> and events in <em>event_wait_list</em> are not the same.</p>
+<p><code>CL_INVALID_<wbr>CONTEXT</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if the context associated with <em>command_queue</em> and <em>kernel</em> are not the same</p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>KERNEL_<wbr>ARGS</code> if the kernel argument values have not been
-specified.</p>
+<p>if the context associated with <em>command_queue</em> and events in <em>event_wait_list</em> are not the same</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>WORK_<wbr>DIMENSION</code> if <em>work_dim</em> is not a valid value (i.e. a
-value between 1 and <code>CL_DEVICE_<wbr>MAX_<wbr>WORK_<wbr>ITEM_<wbr>DIMENSIONS</code>).</p>
+<p><code>CL_INVALID_<wbr>KERNEL_<wbr>ARGS</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if any kernel arguments for <em>kernel</em> have not been set</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>GLOBAL_<wbr>WORK_<wbr>SIZE</code> if <em>global_work_size</em> is NULL or if any of
-the values specified in <em>global_work_size</em>[0], &#8230;&#8203;
+<p><code>CL_INVALID_<wbr>WORK_<wbr>DIMENSION</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>work_dim</em> is not valid for the device associated with <em>command_queue</em> (is greater than the value returned for <code>CL_DEVICE_<wbr>MAX_<wbr>WORK_<wbr>ITEM_<wbr>DIMENSIONS</code>)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>GLOBAL_<wbr>OFFSET</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>global_work_offset</em> is not <code>NULL</code>.
+This error condition does not apply when the device associated with
+<em>command_queue</em> supports OpenCL 1.1 or newer.</p>
+</li>
+<li>
+<p>if the value specified in <em>global_work_size</em> plus the corresponding value
+in <em>global_work_offset</em> for any dimensions is greater than the maximum value
+representable by <code>size_t</code> on the device associated with <em>command_queue</em></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>GLOBAL_<wbr>WORK_<wbr>SIZE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>global_work_size</em> is <code>NULL</code>.
+This error condition does not apply when the device associated with
+<em>command_queue</em> supports OpenCL 2.1 or newer.</p>
+</li>
+<li>
+<p>if any of the values specified in <em>global_work_size</em>[0], &#8230;&#8203;
 <em>global_work_size</em>[<em>work_dim</em> - 1] are zero.
 This error condition does not apply when the device associated with
 <em>command_queue</em> supports OpenCL 2.1 or newer.</p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>GLOBAL_<wbr>WORK_<wbr>SIZE</code> if any of the values specified in
-<em>global_work_size</em>[0], &#8230;&#8203; <em>global_work_size</em>[<em>work_dim</em> - 1] exceed the
-maximum value representable by <code>size_t</code> on the device on which the
-kernel-instance will be enqueued.</p>
+<p>if any of the values specified in <em>global_work_size</em>[0], &#8230;&#8203;
+<em>global_work_size</em>[<em>work_dim</em> - 1] exceed the maximum value representable by
+<code>size_t</code> on the device associated with <em>command_queue</em></p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>GLOBAL_<wbr>OFFSET</code> if the value specified in <em>global_work_size</em>
-+  the corresponding values in <em>global_work_offset</em> for any
-dimensions is greater than the maximum value representable by size t on
-the device on which the kernel-instance will be enqueued, or if
-<em>global_work_offset</em> is non-<code>NULL</code> <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">before</a> version 1.1.</p>
+<p><code>CL_INVALID_<wbr>WORK_<wbr>GROUP_<wbr>SIZE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>local_work_size</em> is not <code>NULL</code>, if the work-group size must be uniform, and if the <em>global_work_size</em> is not evenly divisible by the <em>local_work_size</em></p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>WORK_<wbr>GROUP_<wbr>SIZE</code> if <em>local_work_size</em> is specified and does
-not match the required work-group size for <em>kernel</em> in the program
-source.</p>
+<p>if <em>local_work_size</em> is not <code>NULL</code> and if the total number of work-items in the work-group is zero</p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>WORK_<wbr>GROUP_<wbr>SIZE</code> if <em>local_work_size</em> is specified and is not
-consistent with the required number of sub-groups for <em>kernel</em> in the
-program source.</p>
+<p>if <em>local_work_size</em> is not <code>NULL</code> and if the total number of work-items in the work-group is greater than the maximum work-group size supported for <em>kernel</em> on the device associated with <em>command_queue</em> (is greater than the value returned for <code>CL_KERNEL_<wbr>WORK_<wbr>GROUP_<wbr>SIZE</code>)</p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>WORK_<wbr>GROUP_<wbr>SIZE</code> if <em>local_work_size</em> is specified and the
-total number of work-items in the work-group computed as
-<em>local_work_size</em>[0] × &#8230;&#8203; <em>local_work_size</em>[<em>work_dim</em> - 1] is
-greater than the value specified by <code>CL_KERNEL_<wbr>WORK_<wbr>GROUP_<wbr>SIZE</code> in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#kernel-workgroup-info-table" target="_blank" rel="noopener">Kernel Object Device Queries</a> table.</p>
+<p>if <em>local_work_size</em> is not <code>NULL</code> and if the <em>local_work_size</em> does not match the required work-group size for <em>kernel</em></p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>WORK_<wbr>GROUP_<wbr>SIZE</code> if the work-group size must be uniform and
-the <em>local_work_size</em> is not <code>NULL</code>, is not equal to the required
-work-group size specified in the kernel source, or the
-<em>global_work_size</em> is not evenly divisible by the <em>local_work_size</em>.</p>
+<p>if <em>local_work_size</em> is not <code>NULL</code> and if the <em>local_work_size</em> is not consistent with the required number of sub-groups for <em>kernel</em></p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>WORK_<wbr>ITEM_<wbr>SIZE</code> if the number of work-items specified in any
-of <em>local_work_size</em>[0], &#8230;&#8203; <em>local_work_size</em>[<em>work_dim</em> - 1] is
-greater than the corresponding values specified by
-<code>CL_DEVICE_<wbr>MAX_<wbr>WORK_<wbr>ITEM_<wbr>SIZES</code>[0], &#8230;&#8203;,
-<code>CL_DEVICE_<wbr>MAX_<wbr>WORK_<wbr>ITEM_<wbr>SIZES</code>[<em>work_dim</em> - 1].</p>
+<p><code>CL_INVALID_<wbr>WORK_<wbr>ITEM_<wbr>SIZE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if the number of work-items specified in any dimension of <em>local_work_size</em> is not valid for the device associated with <em>command_queue</em> (is greater than the corresponding value returned for <code>CL_DEVICE_<wbr>MAX_<wbr>WORK_<wbr>GROUP_<wbr>SIZES</code>)</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_MISALIGNED_<wbr>SUB_<wbr>BUFFER_<wbr>OFFSET</code> if a sub-buffer object is specified as
-the value for an argument that is a buffer object and the <em>offset</em>
+<p><code>CL_MISALIGNED_<wbr>SUB_<wbr>BUFFER_<wbr>OFFSET</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if a kernel argument for <em>kernel</em> is a sub-buffer object and the offset
 specified when the sub-buffer object is created is not aligned to
-<code>CL_DEVICE_<wbr>MEM_<wbr>BASE_<wbr>ADDR_<wbr>ALIGN</code> value for device associated with <em>queue</em>.
+<code>CL_DEVICE_<wbr>MEM_<wbr>BASE_<wbr>ADDR_<wbr>ALIGN</code> for the device associated with
+<em>command_queue</em>.
 This error code is <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.1.</p>
 </li>
-<li>
-<p><code>CL_INVALID_<wbr>IMAGE_<wbr>SIZE</code> if an image object is specified as an argument
-value and the image dimensions (image width, height, specified or
-compute row and/or slice pitch) are not supported by device associated
-with <em>queue</em>.</p>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_IMAGE_<wbr>FORMAT_<wbr>NOT_<wbr>SUPPORTED</code> if an image object is specified as an
-argument value and the image format (image channel order and data type)
-is not supported by device associated with <em>queue</em>.</p>
+<p><code>CL_INVALID_<wbr>IMAGE_<wbr>SIZE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if a kernel argument for <em>kernel</em> is an image and the dimensions of the
+image, such as the image width or image height, are not supported by the
+device associated with <em>command_queue</em></p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to queue the execution
-instance of <em>kernel</em> on the command-queue because of insufficient
-resources needed to execute the kernel.
-For example, the explicitly specified <em>local_work_size</em> causes a failure
-to execute the kernel because of insufficient resources such as
-registers or local memory.
-Another example would be the number of read-only image args used in
-<em>kernel</em> exceed the <code>CL_DEVICE_<wbr>MAX_<wbr>READ_<wbr>IMAGE_<wbr>ARGS</code> value for device or
-the number of write-only and read-write image args used in <em>kernel</em>
-exceed the <code>CL_DEVICE_<wbr>MAX_<wbr>READ_<wbr>WRITE_<wbr>IMAGE_<wbr>ARGS</code> value for device or the
-number of samplers used in <em>kernel</em> exceed <code>CL_DEVICE_<wbr>MAX_<wbr>SAMPLERS</code> for
-device.</p>
+<p><code>CL_IMAGE_<wbr>FORMAT_<wbr>NOT_<wbr>SUPPORTED</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if a kernel argument for <em>kernel</em> is an image and the format of the
+image, such as the image channel order or image channel data type, are not
+supported by the device associated with <em>command_queue</em></p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_MEM_<wbr>OBJECT_<wbr>ALLOCATION_<wbr>FAILURE</code> if there is a failure to allocate
-memory for data store associated with image or buffer objects specified
-as arguments to <em>kernel</em>.</p>
+<p><code>CL_MEM_<wbr>OBJECT_<wbr>ALLOCATION_<wbr>FAILURE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if there is a failure to allocate memory for the data store associated with any buffer or image object kernel arguments for <em>kernel</em></p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>EVENT_<wbr>WAIT_<wbr>LIST</code> if <em>event_wait_list</em> is <code>NULL</code> and
-<em>num_events_in_wait_list</em> &gt; 0, or <em>event_wait_list</em> is not <code>NULL</code> and
-<em>num_events_in_wait_list</em> is 0, or if event objects in <em>event_wait_list</em>
-are not valid events.</p>
+<p><code>CL_INVALID_<wbr>EVENT_<wbr>WAIT_<wbr>LIST</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>event_wait_list</em> is <code>NULL</code> and <em>num_events_in_wait_list</em> is greater than zero</p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>OPERATION</code> if SVM pointers are passed as arguments to a kernel
-and the device does not support SVM, or if system pointers are passed as
-arguments to a kernel and the device does not support fine-grain system SVM.</p>
+<p>if <em>event_wait_list</em> is not <code>NULL</code> and <em>num_events_in_wait_list</em> is zero</p>
 </li>
 <li>
-<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources required
-by the OpenCL implementation on the device.</p>
+<p>if event objects in <em>event_wait_list</em> are not valid events</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code> if there is a failure to allocate resources
-required by the OpenCL implementation on the host.</p>
+<p><code>CL_INVALID_<wbr>OPERATION</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if SVM pointers are set as arguments for <em>kernel</em> and the device associated with <em>command_queue</em> does not support SVM</p>
+</li>
+<li>
+<p>if system pointers are set as arguments for <em>kernel</em> and the device associated with <em>command_queue</em> does not support fine-grain system SVM</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if there is a failure to allocate resources required by the OpenCL
+implementation on the device</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if there is a failure to allocate resources required by the OpenCL
+implementation on the host</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -1122,7 +1226,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2025 The Khronos Group Inc.</p>
+<p>Copyright 2014-2026 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>

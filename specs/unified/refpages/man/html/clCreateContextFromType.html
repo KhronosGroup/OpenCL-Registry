@@ -839,39 +839,98 @@ returned in <em>errcode_ret</em>:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_INVALID_<wbr>PLATFORM</code> if no platform is specified in <em>properties</em> and no
-platform could be selected, or if the platform specified in <em>properties</em> is
-not a valid platform.</p>
+<p><code>CL_INVALID_<wbr>PLATFORM</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if no platform is specified in <em>properties</em> and no platform could be
+selected</p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>PROPERTY</code> if a context property name in <em>properties</em> is not a
-supported property name, if the value specified for a supported property
-name is not valid, or if the same property name is specified more than
-once.
-This error code is <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.1.</p>
+<p>if the platform specified in <em>properties</em> is not a valid platform</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if <em>pfn_notify</em> is <code>NULL</code> but <em>user_data</em> is not
-<code>NULL</code>.</p>
+<p><code>CL_INVALID_<wbr>PROPERTY</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if a context property name in <em>properties</em> is not a supported property name</p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>DEVICE_<wbr>TYPE</code> if <em>device_type</em> is not a valid value.</p>
+<p>if the value specified for a supported property name is not valid</p>
 </li>
 <li>
-<p><code>CL_DEVICE_<wbr>NOT_<wbr>AVAILABLE</code> if no devices that match <em>device_type</em> and
-property values specified in <em>properties</em> are currently available.</p>
+<p>if the same property name is specified more than once</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_DEVICE_<wbr>NOT_<wbr>FOUND</code> if no devices that match <em>device_type</em> and property
-values specified in <em>properties</em> were found.</p>
+<p><code>CL_INVALID_<wbr>VALUE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>pfn_notify</em> is <code>NULL</code> and <em>user_data</em> is not <code>NULL</code></p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources required
-by the OpenCL implementation on the device.</p>
+<p><code>CL_INVALID_<wbr>DEVICE_<wbr>TYPE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>device_type</em> is not a valid value</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code> if there is a failure to allocate resources
-required by the OpenCL implementation on the host.</p>
+<p><code>CL_DEVICE_<wbr>NOT_<wbr>AVAILABLE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if no devices that match <em>device_type</em> and property values specified in
+<em>properties</em> are currently available</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_DEVICE_<wbr>NOT_<wbr>FOUND</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if no devices that match <em>device_type</em> and property values specified in
+<em>properties</em> were found</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if there is a failure to allocate resources required by the OpenCL
+implementation on the device</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if there is a failure to allocate resources required by the OpenCL
+implementation on the host</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -882,12 +941,18 @@ extension is supported:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_INVALID_<wbr>DX9_<wbr>MEDIA_<wbr>ADAPTER_<wbr>KHR</code> if any of the values of the
-properties <code>CL_CONTEXT_<wbr>ADAPTER_<wbr>D3D9_<wbr>KHR</code>,
+<p><code>CL_INVALID_<wbr>DX9_<wbr>MEDIA_<wbr>ADAPTER_<wbr>KHR</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if any of the values of the properties <code>CL_CONTEXT_<wbr>ADAPTER_<wbr>D3D9_<wbr>KHR</code>,
 <code>CL_CONTEXT_<wbr>ADAPTER_<wbr>D3D9EX_<wbr>KHR</code> or <code>CL_CONTEXT_<wbr>ADAPTER_<wbr>DXVA_<wbr>KHR</code> is
 non-<code>NULL</code> and does not specify a valid media adapter with which the
 <em>cl_device_ids</em> against which this context is to be created may
-interoperate.</p>
+interoperate</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -898,15 +963,29 @@ extension is supported:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_INVALID_<wbr>D3D10_<wbr>DEVICE_<wbr>KHR</code> if the value of the property
-<code>CL_CONTEXT_<wbr>D3D10_<wbr>DEVICE_<wbr>KHR</code> is non-<code>NULL</code> and does not specify a valid
-Direct3D 10 device with which the <em>cl_device_ids</em> against which this
-context is to be created may interoperate.</p>
+<p><code>CL_INVALID_<wbr>D3D10_<wbr>DEVICE_<wbr>KHR</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if the value of the property <code>CL_CONTEXT_<wbr>D3D10_<wbr>DEVICE_<wbr>KHR</code> is non-<code>NULL</code>
+and does not specify a valid Direct3D 10 device with which the
+<em>cl_device_ids</em> against which this context is to be created may
+interoperate</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>OPERATION</code> if Direct3D 10 interoperability is specified by
-setting <code>CL_INVALID_<wbr>D3D10_<wbr>DEVICE_<wbr>KHR</code> to a non-<code>NULL</code> value, and
-interoperability with another graphics API is also specified.</p>
+<p><code>CL_INVALID_<wbr>OPERATION</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if Direct3D 10 interoperability is specified by setting
+<code>CL_INVALID_<wbr>D3D10_<wbr>DEVICE_<wbr>KHR</code> to a non-<code>NULL</code> value and interoperability
+with another graphics API is also specified</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -917,15 +996,29 @@ extension is supported:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_INVALID_<wbr>D3D11_<wbr>DEVICE_<wbr>KHR</code> if the value of the property
-<code>CL_CONTEXT_<wbr>D3D11_<wbr>DEVICE_<wbr>KHR</code> is non-<code>NULL</code> and does not specify a valid
-Direct3D 11 device with which the <em>cl_device_ids</em> against which this
-context is to be created may interoperate.</p>
+<p><code>CL_INVALID_<wbr>D3D11_<wbr>DEVICE_<wbr>KHR</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if the value of the property <code>CL_CONTEXT_<wbr>D3D11_<wbr>DEVICE_<wbr>KHR</code> is non-<code>NULL</code>
+and does not specify a valid Direct3D 11 device with which the
+<em>cl_device_ids</em> against which this context is to be created may
+interoperate</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>OPERATION</code> if Direct3D 11 interoperability is specified by
-setting <code>CL_INVALID_<wbr>D3D11_<wbr>DEVICE_<wbr>KHR</code> to a non-<code>NULL</code> value, and
-interoperability with another graphics API is also specified.</p>
+<p><code>CL_INVALID_<wbr>OPERATION</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if Direct3D 11 interoperability is specified by setting
+<code>CL_INVALID_<wbr>D3D11_<wbr>DEVICE_<wbr>KHR</code> to a non-<code>NULL</code> value and interoperability
+with another graphics API is also specified</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -936,10 +1029,12 @@ extension is supported:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_INVALID_<wbr>GL_<wbr>SHAREGROUP_<wbr>REFERENCE_<wbr>KHR</code> if a context was specified for
-an OpenGL or OpenGL ES implementation using the EGL, GLX, or WGL binding
-APIs, as <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#specifying-gl-context" target="_blank" rel="noopener">described for <code>clCreateContext</code></a>; and
-any of the following conditions hold:</p>
+<p><code>CL_INVALID_<wbr>GL_<wbr>SHAREGROUP_<wbr>REFERENCE_<wbr>KHR</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if a context was specified for an OpenGL or OpenGL ES implementation
+using the EGL, GLX, or WGL binding APIs, as <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#specifying-gl-context" target="_blank" rel="noopener">described for <code>clCreateContext</code></a>; and any of the following conditions hold:</p>
 <div class="ulist">
 <ul>
 <li>
@@ -952,32 +1047,45 @@ OpenGL or OpenGL ES context.</p>
 <li>
 <p>The specified context is not compatible with the OpenCL context being
 created (for example, it exists in a physically distinct address space,
-such as another hardware device; or it does not support sharing data
-with OpenCL due to implementation restrictions).</p>
+such as another hardware device; or it does not support sharing data with
+OpenCL due to implementation restrictions).</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>GL_<wbr>SHAREGROUP_<wbr>REFERENCE_<wbr>KHR</code> if a share group was specified
-for a CGL-based OpenGL implementation by setting the property
-<code>CL_CGL_<wbr>SHAREGROUP_<wbr>KHR</code>, and the specified share group does not identify
-a valid CGL share group object.</p>
+<p><code>CL_INVALID_<wbr>GL_<wbr>SHAREGROUP_<wbr>REFERENCE_<wbr>KHR</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if a share group was specified for a CGL-based OpenGL implementation by
+setting the property <code>CL_CGL_<wbr>SHAREGROUP_<wbr>KHR</code>, and the specified share group
+does not identify a valid CGL share group object</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>OPERATION</code> if a context was specified as described above and
-any of the following conditions hold:</p>
+<p><code>CL_INVALID_<wbr>OPERATION</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if a context was specified as described above and any of the following
+conditions hold:</p>
 <div class="ulist">
 <ul>
 <li>
 <p>A context or share group object was specified for one of CGL, EGL, GLX,
-or WGL and the OpenGL implementation does not support that
-window-system binding API.</p>
+or WGL and the OpenGL implementation does not support that window-system
+binding API.</p>
 </li>
 <li>
 <p>More than one of the properties <code>CL_CGL_<wbr>SHAREGROUP_<wbr>KHR</code>,
-<code>CL_EGL_<wbr>DISPLAY_<wbr>KHR</code>, <code>CL_GLX_<wbr>DISPLAY_<wbr>KHR</code>, and <code>CL_WGL_<wbr>HDC_<wbr>KHR</code> is set
-to a non-default value.</p>
+<code>CL_EGL_<wbr>DISPLAY_<wbr>KHR</code>, <code>CL_GLX_<wbr>DISPLAY_<wbr>KHR</code>, and <code>CL_WGL_<wbr>HDC_<wbr>KHR</code> is set to
+a non-default value.</p>
 </li>
 <li>
 <p>Both of the properties <code>CL_CGL_<wbr>SHAREGROUP_<wbr>KHR</code> and <code>CL_GL_<wbr>CONTEXT_<wbr>KHR</code>
@@ -990,10 +1098,19 @@ OpenCL objects which share the data store of an OpenGL object.</p>
 </ul>
 </div>
 </li>
+</ul>
+</div>
+</li>
 <li>
-<p><code>CL_INVALID_<wbr>PROPERTY</code> if both <code>CL_CONTEXT_<wbr>INTEROP_<wbr>USER_<wbr>SYNC</code>, and any of
-the properties defined by the <code>cl_khr_<wbr>gl_<wbr>sharing</code> extension are
-defined in <em>properties</em>.</p>
+<p><code>CL_INVALID_<wbr>PROPERTY</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if both <code>CL_CONTEXT_<wbr>INTEROP_<wbr>USER_<wbr>SYNC</code>, and any of the properties defined
+by the <code>cl_khr_<wbr>gl_<wbr>sharing</code> extension are defined in <em>properties</em></p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -1023,7 +1140,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2025 The Khronos Group Inc.</p>
+<p>Copyright 2014-2026 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>

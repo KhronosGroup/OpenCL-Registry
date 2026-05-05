@@ -799,33 +799,20 @@ cl_int clSetKernelArg(
 <p><em>kernel</em> is a valid kernel object.</p>
 </li>
 <li>
-<p><em>arg_index</em> is the argument index.
-Arguments to the kernel are referred by indices that go from 0 for the
-leftmost argument to <em>n</em> - 1, where <em>n</em> is the total number of arguments
-declared by a kernel (see below).</p>
+<p><em>arg_index</em> is the kernel argument index.
+Kernel arguments are referred to by indices that go from zero to
+<em>n - 1</em>, where <em>n</em> is the total number of arguments declared by the kernel.</p>
 </li>
 <li>
-<p><em>arg_size</em> specifies the size of the argument value.
-If the argument is a memory object, the <em>arg_size</em> value must be equal to
-<code>sizeof(<code>cl_mem</code>)</code>.
-For arguments declared with the <code>local</code> qualifier, the size specified will
-be the size in bytes of the buffer that must be allocated for the <code>local</code>
-argument.
-If the argument is of type <em>sampler_t</em>, the <em>arg_size</em> value must be equal
-to <code>sizeof(<code>cl_sampler</code>)</code>.
-If the argument is of type <em>queue_t</em>, the <em>arg_size</em> value must be equal to
-<code>sizeof(<code>cl_command_<wbr>queue</code>)</code>.
-For all other arguments, the size will be the size of argument type.</p>
+<p><em>arg_size</em> specifies the size of the kernel argument value.</p>
 </li>
 <li>
-<p><em>arg_value</em> is a pointer to data that should be used as the argument value
-for argument specified by <em>arg_index</em>.
+<p><em>arg_value</em> is a pointer to the data for the kernel argument.
 The argument data pointed to by <em>arg_value</em> is copied and the <em>arg_value</em>
 pointer can therefore be reused by the application after <strong>clSetKernelArg</strong>
 returns.
-The argument value specified is the value used by all API calls that enqueue
-<em>kernel</em> (<strong>clEnqueueNDRangeKernel</strong> and <strong>clEnqueueTask</strong>) until the argument
-value is changed by a call to <strong>clSetKernelArg</strong> for <em>kernel</em>.</p>
+The argument data is used by all API calls that enqueue the kernel until the
+argument is changed by another call to <strong>clSetKernelArg</strong> for the kernel.</p>
 </li>
 </ul>
 </div>
@@ -835,94 +822,104 @@ value is changed by a call to <strong>clSetKernelArg</strong> for <em>kernel</em
 <h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For example, consider the following kernel:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-opencl_c" data-lang="opencl_c">kernel void image_filter (int n,
-                          int m,
-                          constant float *filter_weights,
-                          read_only image2d_t src_image,
-                          write_only image2d_t dst_image)
-{
-...
-}</code></pre>
-</div>
+<p>If the kernel argument being set is a pointer to the <code>global</code> or <code>constant</code>
+address space, then <em>arg_value</em> must point to a buffer memory object or <code>NULL</code>,
+or <em>arg_value</em> must be <code>NULL</code>.
+If <em>arg_value</em> is <code>NULL</code> or points to <code>NULL</code>, then the kernel argument will be
+set to <code>NULL</code>.</p>
 </div>
 <div class="paragraph">
-<p>Argument index values for <code>image_filter</code> will be 0 for <code>n</code>, 1 for <code>m</code>, 2 for
-<code>filter_weights</code>, 3 for <code>src_image</code> and 4 for <code>dst_image</code>.</p>
+<p>If the kernel argument being set is a pointer to the <code>local</code> address space, then
+<em>arg_value</em> must be <code>NULL</code>, and <em>arg_size</em> specifies the amount of local memory
+in bytes that are allocated for the kernel argument.
+Prior to OpenCL 3.1, <em>arg_size</em> must be greater than zero.
+For OpenCL 3.1 and newer, <em>arg_size</em> may be zero, indicating that no local
+memory is required for the kernel argument. <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p>
 </div>
 <div class="paragraph">
-<p>If the argument is a memory object (buffer, pipe, image or image array), the
-<em>arg_value</em> entry will be a pointer to the appropriate buffer, pipe, image
-or image array object.
-The memory object must be created with the context associated with the
-kernel object.
-If the argument is a buffer object, the <em>arg_value</em> pointer can be <code>NULL</code> or
-point to a <code>NULL</code> value in which case a <code>NULL</code> value will be used as the
-value for the argument declared as a pointer to <code>global</code> or <code>constant</code>
-memory in the kernel.
-If the argument is declared with the <code>local</code> qualifier, the <em>arg_value</em>
-entry must be <code>NULL</code>.
-If the argument is of type <em>sampler_t</em>, the <em>arg_value</em> entry must be a
-pointer to the sampler object.
-If the argument is of type <em>queue_t</em>, the <em>arg_value</em> entry must be a
-pointer to the device queue object.</p>
+<p>If the kernel argument being set is an image object, then <em>arg_value</em> must point
+to an image memory object.
+Additionally:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If the kernel argument is a 1D image, then the image memory object must be of
+image type <code>CL_MEM_<wbr>OBJECT_<wbr>IMAGE1D</code>.</p>
+</li>
+<li>
+<p>If the kernel argument is a 2D image, then the image memory object must be of
+image type <code>CL_MEM_<wbr>OBJECT_<wbr>IMAGE2D</code>.</p>
+</li>
+<li>
+<p>If the kernel argument is a 3D image, then the image memory object must be of
+image type <code>CL_MEM_<wbr>OBJECT_<wbr>IMAGE3D</code>.</p>
+</li>
+<li>
+<p>If the kernel argument is a 1D image buffer, then the image memory object must
+be of image type <code>CL_MEM_<wbr>OBJECT_<wbr>IMAGE1D_<wbr>BUFFER</code>.</p>
+</li>
+<li>
+<p>If the kernel argument is a 1D image array, then the image memory object must
+be of image type <code>CL_MEM_<wbr>OBJECT_<wbr>IMAGE1D_<wbr>ARRAY</code>.</p>
+</li>
+<li>
+<p>If the kernel argument is a 2D image array, then the image memory object must
+be of image type <code>CL_MEM_<wbr>OBJECT_<wbr>IMAGE2D_<wbr>ARRAY</code>.</p>
+</li>
+<li>
+<p>If the kernel argument is a 2D depth image, then the image memory object must
+be of image type <code>CL_MEM_<wbr>OBJECT_<wbr>IMAGE2D</code> and image channel order <code>CL_DEPTH</code>.</p>
+</li>
+<li>
+<p>If the kernel argument is a 2D depth image array, then the image memory object
+must be of image type <code>CL_MEM_<wbr>OBJECT_<wbr>IMAGE2D_<wbr>ARRAY</code> and image channel order
+<code>CL_DEPTH</code>.</p>
+</li>
+<li>
+<p>If the kernel argument is a 2D MSAA image, then the image memory object must
+be of image type <code>CL_MEM_<wbr>OBJECT_<wbr>IMAGE2D</code>.</p>
+</li>
+<li>
+<p>If the kernel argument is a 2D MSAA image array, then the image memory object
+must be of image type <code>CL_MEM_<wbr>OBJECT_<wbr>IMAGE2D_<wbr>ARRAY</code>.</p>
+</li>
+<li>
+<p>If the kernel argument is a 2D MSAA depth image, then the image memory object
+must be of image type <code>CL_MEM_<wbr>OBJECT_<wbr>IMAGE2D</code> and image channel order
+<code>CL_DEPTH</code>.</p>
+</li>
+<li>
+<p>If the kernel argument is a 2D MSAA depth image array, then the image memory
+object must be of image type <code>CL_MEM_<wbr>OBJECT_<wbr>IMAGE2D_<wbr>ARRAY</code> and image channel
+order <code>CL_DEPTH</code>.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>If the <code>cl_khr_<wbr>gl_<wbr>msaa_<wbr>sharing</code> extension is supported, then:
-If the argument is a multi-sample 2D image, the <em>arg_value</em> entry must be a
-pointer to a multi-sample image object.
-If the argument is a multi-sample 2D depth image, the <em>arg_value</em> entry must
-be a pointer to a multisample depth image object.
-If the argument is a multi-sample 2D image array, the <em>arg_value</em> entry must
-be a pointer to a multi-sample image array object.
-If the argument is a multi-sample 2D depth image array, the <em>arg_value</em>
-entry must be a pointer to a multi-sample depth image array object.</p>
+<p>Behavior is undefined if the same image memory object is passed as both a
+<code>read_only</code> image and a <code>write_only</code> image, or as a <code>read_write</code> image and
+either a <code>read_only</code> image or a <code>write_only</code> image.</p>
 </div>
 <div class="paragraph">
-<p>If the argument is declared to be a pointer of a built-in scalar or vector
-type, or a user defined structure type in the global or constant address
-space, the memory object specified as argument value must be a buffer object
-(or <code>NULL</code>).
-If the argument is declared with the <code>constant</code> qualifier, the size in bytes
-of the memory object cannot exceed <code>CL_DEVICE_<wbr>MAX_<wbr>CONSTANT_<wbr>BUFFER_<wbr>SIZE</code> and
-the number of arguments declared as pointers to <code>constant</code> memory cannot
-exceed <code>CL_DEVICE_<wbr>MAX_<wbr>CONSTANT_<wbr>ARGS</code>.</p>
+<p>If the kernel argument being set is a sampler, then <em>arg_value</em> must point to a
+sampler object.</p>
 </div>
 <div class="paragraph">
-<p>The memory object specified as argument value must be a pipe object if the
-argument is declared with the <em>pipe</em> qualifier.</p>
+<p>If the kernel argument being set is a device queue, then <em>arg_value</em> must point
+to a device queue object.</p>
 </div>
 <div class="paragraph">
-<p>The memory object specified as argument value must be a 2D image object if
-the argument is declared to be of type <em>image2d_t</em>.
-The memory object specified as argument value must be a 2D image object with
-image channel order = <code>CL_DEPTH</code> if the argument is declared to be of type
-<em>image2d_depth_t</em>.
-The memory object specified as argument value must be a 3D image object if
-argument is declared to be of type <em>image3d_t</em>.
-The memory object specified as argument value must be a 1D image object if
-the argument is declared to be of type <em>image1d_t</em>.
-The memory object specified as argument value must be a 1D image buffer
-object if the argument is declared to be of type <em>image1d_buffer_t</em>.
-The memory object specified as argument value must be a 1D image array
-object if argument is declared to be of type <em>image1d_array_t</em>.
-The memory object specified as argument value must be a 2D image array
-object if argument is declared to be of type <em>image2d_array_t</em>.
-The memory object specified as argument value must be a 2D image array
-object with image channel order = <code>CL_DEPTH</code> if argument is declared to be of
-type <em>image2d_array_depth_t</em>.</p>
+<p>If the kernel argument being set is a pipe, then <em>arg_value</em> must point to a
+pipe memory object.</p>
 </div>
 <div class="paragraph">
-<p>Behavior is undefined if the same memory object is passed as both a <code>read_only</code>
-image and a <code>write_only</code> image, or as a <code>read_write</code> image and either a
-<code>read_only</code> image or a <code>write_only</code> image.</p>
+<p>For all other kernel arguments, <em>arg_value</em> points to the data that is used as
+the kernel argument value.</p>
 </div>
 <div class="paragraph">
-<p>For all other kernel arguments, the <em>arg_value</em> entry must be a pointer to
-the actual data to be used as argument value.</p>
+<p>All OpenCL objects set as kernel arguments must be created from the same context
+as the kernel object.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -951,69 +948,114 @@ the <code>cl_mem</code> backing store used with <code>CL_MEM_<wbr>USE_<wbr>HOST_
 </table>
 </div>
 <div class="paragraph">
-<p><strong>clSetKernelArg</strong> returns <code>CL_SUCCESS</code> if the function was executed
-successfully.
+<p><strong>clSetKernelArg</strong> returns <code>CL_SUCCESS</code> if the function is executed successfully.
 Otherwise, it returns one of the following errors:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_INVALID_<wbr>KERNEL</code> if <em>kernel</em> is not a valid kernel object.</p>
+<p><code>CL_INVALID_<wbr>KERNEL</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>kernel</em> is not a valid kernel</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>ARG_<wbr>INDEX</code> if <em>arg_index</em> is not a valid argument index.</p>
+<p><code>CL_INVALID_<wbr>ARG_<wbr>INDEX</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>arg_index</em> is not a valid argument index</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>ARG_<wbr>VALUE</code> if <em>arg_value</em> specified is not a valid value.</p>
+<p><code>CL_INVALID_<wbr>CONTEXT</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if the context associated with <em>kernel</em> and an OpenCL object pointed to
+by <em>arg_value</em> are not the same</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>MEM_<wbr>OBJECT</code> for an argument declared to be a memory object
-when the specified <em>arg_value</em> is not a valid memory object.</p>
+<p><code>CL_INVALID_<wbr>MEM_<wbr>OBJECT</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>arg_value</em> is <code>NULL</code> and it must point to a valid memory object</p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>MEM_<wbr>OBJECT</code> for an argument declared to be a
-depth image, depth image array,
-multi-sample image, multi-sample image array, multi-sample depth image,
-or a multi-sample depth image array
-when the specified <em>arg_value</em> does not follow the rules described above
-for a depth memory object or memory array object argument.</p>
+<p>if <em>arg_value</em> points to <code>NULL</code> and it must point to a valid memory object</p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>SAMPLER</code> for an argument declared to be of type <em>sampler_t</em>
-when the specified <em>arg_value</em> is not a valid sampler object.</p>
+<p>if <em>arg_value</em> is not <code>NULL</code>, and does not point to <code>NULL</code>, and does not
+point to a valid memory object</p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>DEVICE_<wbr>QUEUE</code> for an argument declared to be of type <em>queue_t</em>
-when the specified <em>arg_value</em> is not a valid device queue object.
+<p>if <em>arg_value</em> points to a valid memory object, but the memory object is
+not valid for the kernel argument specified by <em>arg_index</em></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>SAMPLER</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if the kernel argument is a sampler, but <em>arg_value</em> does not point to a
+valid sampler object</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>DEVICE_<wbr>QUEUE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if the kernel argument is a device queue, but <em>arg_value</em> does not point
+to a valid device queue object.
 This error code is <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.0.</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p><code>CL_INVALID_<wbr>ARG_<wbr>SIZE</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p>if <em>arg_size</em> does not match the size of the data type for an argument
-that is not a memory object, or</p>
+<p>if <em>arg_value</em> points to a memory object and <em>arg_size</em> is not equal to
+<code>sizeof(<code>cl_mem</code>)</code></p>
 </li>
 <li>
-<p>if the argument is a memory object and <em>arg_size</em> != <code>sizeof(<code>cl_mem</code>)</code>, or</p>
+<p>if <em>arg_value</em> points to a sampler object and <em>arg_size</em> is not equal to
+<code>sizeof(<code>cl_sampler</code>)</code></p>
 </li>
 <li>
-<p>if <em>arg_size</em> is zero and the argument is declared with the <code>local</code> qualifier, or</p>
+<p>if <em>arg_value</em> points to a device queue object and <em>arg_size</em> is not
+equal to <code>sizeof(<code>cl_command_<wbr>queue</code>)</code></p>
 </li>
 <li>
-<p>if the argument is a sampler and <em>arg_size</em> != <code>sizeof(<code>cl_sampler</code>)</code>.</p>
+<p>if the kernel argument is a pointer to the <code>local</code> address space and
+<em>arg_size</em> is zero.
+This error condition does not apply if the platform associated with <em>kernel</em>
+is OpenCL 3.1 or newer.</p>
+</li>
+<li>
+<p>if <em>arg_value</em> points to the data to be used as the kernel argument value
+and <em>arg_size</em> does not match the size of the data type for the argument</p>
 </li>
 </ul>
 </div>
-</li>
-<li>
-<p><code>CL_MAX_<wbr>SIZE_<wbr>RESTRICTION_<wbr>EXCEEDED</code> if the size in bytes of the memory
-object (if the argument is a memory object) or <em>arg_size</em> (if the
-argument is declared with <code>local</code> qualifier) exceeds a language-
-specified maximum size restriction for this argument, such as the
-<strong>MaxByteOffset</strong> SPIR-V decoration.
-This error code is <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.2.</p>
 </li>
 <li>
 <p><code>CL_INVALID_<wbr>ARG_<wbr>VALUE</code></p>
@@ -1021,24 +1063,53 @@ This error code is <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-un
 <ul>
 <li>
 <p>if the argument is an image declared with the <code>read_only</code> qualifier and
-<em>arg_value</em> refers to an image object created with <em>cl_mem_flags</em> of
-<code>CL_MEM_<wbr>WRITE_<wbr>ONLY</code>, or</p>
+<em>arg_value</em> points to an image object created with the memory flag
+<code>CL_MEM_<wbr>WRITE_<wbr>ONLY</code></p>
 </li>
 <li>
-<p>if the image argument is declared with the <code>write_only</code> qualifier and
-<em>arg_value</em> refers to an image object created with <em>cl_mem_flags</em> of
-<code>CL_MEM_<wbr>READ_<wbr>ONLY</code>.</p>
+<p>if the argument is an image declared with the <code>write_only</code> qualifier and
+<em>arg_value</em> points to an image object created with the memory flag
+<code>CL_MEM_<wbr>READ_<wbr>ONLY</code>
+or <code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code></p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources required
-by the OpenCL implementation on the device.</p>
+<p><code>CL_MAX_<wbr>SIZE_<wbr>RESTRICTION_<wbr>EXCEEDED</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if the size in bytes of the memory object (if the argument is a memory
+object) or <em>arg_size</em> (if the argument is declared with <code>local</code> qualifier)
+exceeds a language-specified maximum size restriction for this argument,
+such as the <strong>MaxByteOffset</strong> SPIR-V decoration.
+This error code is <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.2.</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code> if there is a failure to allocate resources
-required by the OpenCL implementation on the host.</p>
+<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if there is a failure to allocate resources required by the OpenCL
+implementation on the device</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if there is a failure to allocate resources required by the OpenCL
+implementation on the host</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -1056,7 +1127,7 @@ further kernel enqueues.</p>
 </li>
 <li>
 <p>The argument value is unset such that a subsequent kernel enqueue fails with
-<code>CL_INVALID_<wbr>KERNEL_<wbr>ARGS</code>. <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p>
+<code>CL_INVALID_<wbr>KERNEL_<wbr>ARGS</code>. <sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup></p>
 </li>
 </ul>
 </div>
@@ -1086,7 +1157,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2025 The Khronos Group Inc.</p>
+<p>Copyright 2014-2026 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -1097,7 +1168,10 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <div id="footnotes">
 <hr>
 <div class="footnote" id="_footnotedef_1">
-<a href="#_footnoteref_1">1</a>. Implementations are encouraged to favor this option as it makes it more likely that errors will be managed by applications.
+<a href="#_footnoteref_1">1</a>. When the size of a <code>local</code> argument is set to zero, the value of the pointer within the kernel is implementation-defined.
+</div>
+<div class="footnote" id="_footnotedef_2">
+<a href="#_footnoteref_2">2</a>. Implementations are encouraged to favor this option as it makes it more likely that errors will be managed by applications.
 </div>
 </div>
 

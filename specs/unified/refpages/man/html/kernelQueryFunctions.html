@@ -789,16 +789,21 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">uint <strong>get_kernel_work_group_size</strong>(void (^block)(void))<br>
-  uint <strong>get_kernel_work_group_size</strong>(void (^block)(local {localArgType} *, &#8230;&#8203;))</p></td>
+  uint <strong>get_kernel_work_group_size</strong>(void (^block)(local void <strong>, &#8230;&#8203;))</p>
+<p class="tableblock">  If the <code>cl_khr_<wbr>device_<wbr>enqueue_<wbr>local_<wbr>arg_<wbr>types</code> extension macro is supported:</p>
+<p class="tableblock">  uint *get_kernel_work_group_size</strong>(void (^block)(local gentype *, &#8230;&#8203;))</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This provides a mechanism to query the maximum work-group size that
       can be used to execute a block on a specific device given by <em>device</em>.</p>
 <p class="tableblock">      <em>block</em> specifies the block to be enqueued.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">uint <strong>{get_kernel_preferred_work_group_size_multiple}</strong>(
+<td class="tableblock halign-left valign-top"><p class="tableblock">uint <strong>get_kernel_<wbr>preferred_<wbr>work_<wbr>group_<wbr>size_<wbr>multiple</strong>(
   void (^block)(void))<br>
-  uint <strong>{get_kernel_preferred_work_group_size_multiple}</strong>(
-  void (^block)(local {localArgType} *, &#8230;&#8203;))</p></td>
+  uint <strong>get_kernel_<wbr>preferred_<wbr>work_<wbr>group_<wbr>size_<wbr>multiple</strong>(
+  void (^block)(local void <strong>, &#8230;&#8203;))</p>
+<p class="tableblock">  If the <code>cl_khr_<wbr>device_<wbr>enqueue_<wbr>local_<wbr>arg_<wbr>types</code> extension macro is supported:</p>
+<p class="tableblock">  uint *get_kernel_<wbr>preferred_<wbr>work_<wbr>group_<wbr>size_<wbr>multiple</strong>(
+  void (^block)(local gentype *, &#8230;&#8203;))</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the preferred multiple of work-group size for launch.
       This is a performance hint.
       Specifying a work-group size that is not a multiple of the value
@@ -834,7 +839,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2025 The Khronos Group Inc.</p>
+<p>Copyright 2014-2026 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>

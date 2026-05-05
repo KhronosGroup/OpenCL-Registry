@@ -767,39 +767,16 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <h1>enqueue_kernel(3) Manual Page</h1>
 <h2 id="_name">Name</h2>
 <div class="sectionbody">
-<p>enqueue_kernel - Enqueuing Kernels</p>
+<p>enqueue_kernel - Built-in Functions - Enqueuing Kernels</p>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
 <h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
 <div class="sectionbody">
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The functionality described in this section <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">requires</a>
-support for OpenCL C 2.0, or OpenCL C 3.0 or newer and the
-<code>__opencl_c_<wbr>device_<wbr>enqueue</code> feature.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>This section describes built-in functions that allow a kernel to
-enqueue additional work to the same device, without host interaction.
-A kernel may enqueue code represented by Block syntax, and control execution
-order with event dependencies including user events and markers.
-There are several advantages to using the Block syntax: it is more compact;
-it does not require a cl_kernel object; and enqueuing can be done as a
-single semantic step.</p>
-</div>
 <div class="paragraph">
 <p>The following table describes the list of built-in functions that can be
-used to enqueue a kernel(s).</p>
+used to enqueue a kernel.</p>
 </div>
 <div class="paragraph">
 <p>When the <code>cl_khr_<wbr>device_<wbr>enqueue_<wbr>local_<wbr>arg_<wbr>types</code> extension macro is
@@ -816,9 +793,93 @@ signatures.</p>
 <p>When the  <code>cl_khr_<wbr>device_<wbr>enqueue_<wbr>local_<wbr>arg_<wbr>types</code> extension macro is
 not supported, the pointee type of these functions must be <code>void</code>.</p>
 </div>
+<table id="table-builtin-kernel-enqueue" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Built-in Kernel Enqueue Functions</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Built-in Function</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int <strong>enqueue_kernel</strong>(queue_t <em>queue</em>, kernel_enqueue_flags_t <em>flags</em>,
+    const ndrange_t <em>ndrange</em>, void (^<em>block</em>)(void))<br>
+  int <strong>enqueue_kernel</strong>(queue_t <em>queue</em>, kernel_enqueue_flags_t <em>flags</em>,
+    const ndrange_t <em>ndrange</em>, uint <em>num_events_in_wait_list</em>,
+    const clk_event_t *<em>event_wait_list</em>, clk_event_t *<em>event_ret</em>,
+    void (^<em>block</em>)(void))<br>
+  int <strong>enqueue_kernel</strong>(queue_t <em>queue</em>, kernel_enqueue_flags_t <em>flags</em>,
+    const ndrange_t <em>ndrange</em>, void (^<em>block</em>)(local void *, &#8230;&#8203;),
+    uint size0, &#8230;&#8203;)<br>
+  int <strong>enqueue_kernel</strong>(queue_t <em>queue</em>, kernel_enqueue_flags_t <em>flags</em>,
+    const ndrange_t <em>ndrange</em>, uint <em>num_events_in_wait_list</em>,
+    const clk_event_t *<em>event_wait_list</em>, clk_event_t *<em>event_ret</em>,
+    void (^<em>block</em>)(local void *, &#8230;&#8203;), uint size0, &#8230;&#8203;)</p>
+<p class="tableblock">  If the <code>cl_khr_<wbr>device_<wbr>enqueue_<wbr>local_<wbr>arg_<wbr>types</code> extension macro is supported:</p>
+<p class="tableblock">  int <strong>enqueue_kernel</strong>(queue_t <em>queue</em>, kernel_enqueue_flags_t <em>flags</em>,
+    const ndrange_t <em>ndrange</em>, void (^<em>block</em>)(local gentype *, &#8230;&#8203;),
+    uint size0, &#8230;&#8203;)<br>
+  int <strong>enqueue_kernel</strong>(queue_t <em>queue</em>, kernel_enqueue_flags_t <em>flags</em>,
+    const ndrange_t <em>ndrange</em>, uint <em>num_events_in_wait_list</em>,
+    const clk_event_t *<em>event_wait_list</em>, clk_event_t *<em>event_ret</em>,
+    void (^<em>block</em>)(local gentype *, &#8230;&#8203;), uint size0, &#8230;&#8203;)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enqueue the block for execution to <em>queue</em>.</p>
+<p class="tableblock">      If an event is returned, <strong>enqueue_kernel</strong> performs an implicit retain
+      on the returned event.</p></td>
+</tr>
+</tbody>
+</table>
 <div class="paragraph">
-<p>The macro <code>CLK_NULL_EVENT</code> refers to an invalid device event.
-The macro <code>CLK_NULL_QUEUE</code> refers to an invalid device queue.</p>
+<p>The <strong>enqueue_kernel</strong> built-in function allows a work-item to enqueue a
+block.
+Work-items can enqueue multiple blocks to device queues.</p>
+</div>
+<div class="paragraph">
+<p>The <strong>enqueue_kernel</strong> built-in function returns <code>CLK_SUCCESS</code> if the block is
+enqueued successfully and returns <code>CLK_ENQUEUE_FAILURE</code> otherwise.
+If the -g compile option is specified in compiler options passed to
+<strong>clCompileProgram</strong> or <strong>clBuildProgram</strong> when compiling or building the parent
+program, the following errors may be returned instead of
+<code>CLK_ENQUEUE_FAILURE</code> to indicate why <strong>enqueue_kernel</strong> failed to enqueue the
+block:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CLK_INVALID_QUEUE</code> if <em>queue</em> is not a valid device queue.</p>
+</li>
+<li>
+<p><code>CLK_INVALID_NDRANGE</code> if <em>ndrange</em> is not a valid ND-range descriptor or
+if the program was compiled with <code>-cl-uniform-work-group-size</code> and the
+<em>local_work_size</em> is specified in <em>ndrange</em> but the <em>global_work_size</em>
+specified in <em>ndrange</em> is not a multiple of the <em>local_work_size</em>.</p>
+</li>
+<li>
+<p><code>CLK_INVALID_EVENT_WAIT_LIST</code> if <em>event_wait_list</em> is <code>NULL</code> and
+<em>num_events_in_wait_list</em> &gt; 0, or if <em>event_wait_list</em> is not <code>NULL</code> and
+<em>num_events_in_wait_list</em> is 0, or if event objects in <em>event_wait_list</em>
+are not valid events.</p>
+</li>
+<li>
+<p><code>CLK_DEVICE_QUEUE_FULL</code> if <em>queue</em> is full.</p>
+</li>
+<li>
+<p><code>CLK_INVALID_ARG_SIZE</code> if size of local memory arguments is 0.</p>
+</li>
+<li>
+<p><code>CLK_EVENT_ALLOCATION_FAILURE</code> if <em>event_ret</em> is not <code>NULL</code> and an event
+could not be allocated.</p>
+</li>
+<li>
+<p><code>CLK_OUT_OF_RESOURCES</code> if there is a failure to queue the block in
+<em>queue</em> because of insufficient resources needed to execute the kernel.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -846,7 +907,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2025 The Khronos Group Inc.</p>
+<p>Copyright 2014-2026 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
