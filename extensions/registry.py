@@ -559,7 +559,12 @@ registry = {
     'cl_khr_icd' : {
         'khrnumber' : 24,
         'flags' : { 'public' },
-        'url' : 'specs/3.0-unified/html/OpenCL_API.html#cl_khr_icd-opencl',
+        'url' : 'specs/3.0-unified/html/OpenCL_API.html#cl_khr_icd',
+    },
+    'cl_khr_icd_unloadable' : {
+        'khrnumber' : 73,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_API.html#cl_khr_icd_unloadable',
     },
     'cl_khr_il_program' : {
         'khrnumber' : 25,
@@ -715,6 +720,11 @@ registry = {
         'khrnumber' : 51,
         'flags' : { 'public' },
         'url' : 'specs/3.0-unified/html/OpenCL_API.html#cl_khr_throttle_hints',
+    },
+    'cl_khr_unified_svm' : {
+        'khrnumber' : 74,
+        'flags' : { 'public' },
+        'url' : 'specs/3.0-unified/html/OpenCL_API.html#cl_khr_unified_svm',
     },
     'cl_khr_work_group_uniform_arithmetic' : {
         'khrnumber' : 67,

@@ -71,7 +71,9 @@
 </li>
 <li><a href="specs/3.0-unified/html/OpenCL_API.html#cl_khr_int32_atomics">cl_khr_global_int32_extended_atomics</a>
 </li>
-<li><a href="specs/3.0-unified/html/OpenCL_API.html#cl_khr_icd-opencl">cl_khr_icd</a>
+<li><a href="specs/3.0-unified/html/OpenCL_API.html#cl_khr_icd">cl_khr_icd</a>
+</li>
+<li><a href="specs/3.0-unified/html/OpenCL_API.html#cl_khr_icd_unloadable">cl_khr_icd_unloadable</a>
 </li>
 <li><a href="specs/3.0-unified/html/OpenCL_API.html#cl_khr_il_program">cl_khr_il_program</a>
 </li>
@@ -134,6 +136,8 @@
 <li><a href="specs/3.0-unified/html/OpenCL_API.html#cl_khr_terminate_context">cl_khr_terminate_context</a>
 </li>
 <li><a href="specs/3.0-unified/html/OpenCL_API.html#cl_khr_throttle_hints">cl_khr_throttle_hints</a>
+</li>
+<li><a href="specs/3.0-unified/html/OpenCL_API.html#cl_khr_unified_svm">cl_khr_unified_svm</a>
 </li>
 <li><a href="specs/3.0-unified/html/OpenCL_API.html#cl_khr_work_group_uniform_arithmetic">cl_khr_work_group_uniform_arithmetic</a>
 </li>

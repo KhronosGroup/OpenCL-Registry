@@ -926,9 +926,9 @@ pre.rouge .gs {
 <h1>The OpenCL<sup>&#8482;</sup> C Specification</h1>
 <div class="details">
 <span id="author" class="author">Khronos<sup>&#174;</sup> OpenCL Working Group</span><br>
-<span id="revnumber">version v3.0.19,</span>
-<span id="revdate">Thu, 10 Jul 2025 11:00:00 +0000</span>
-<br><span id="revremark">from git branch: main commit: 85da0d12c298ffa9eefd2adb1864f2c8193cbe3e</span>
+<span id="revnumber">version v3.1.0,</span>
+<span id="revdate">Tue, 05 May 2026 04:00:00 +0000</span>
+<br><span id="revremark">from git branch: main commit: 9fff1a87a975972517f5d878b50f6063dc1b731b</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -1007,7 +1007,11 @@ pre.rouge .gs {
 </li>
 <li><a href="#storage-class-specifiers">6.10. Storage-Class Specifiers</a></li>
 <li><a href="#restrictions">6.11. Restrictions</a></li>
-<li><a href="#preprocessor-directives-and-macros">6.12. Preprocessor Directives and Macros</a></li>
+<li><a href="#preprocessor-directives-and-macros">6.12. Preprocessor Directives and Macros</a>
+<ul class="sectlevel3">
+<li><a href="#preprocessor-directives-for-optional-extensions">6.12.1. Preprocessor Directives for Optional Extensions</a></li>
+</ul>
+</li>
 <li><a href="#attribute-qualifiers">6.13. Attribute Qualifiers</a>
 <ul class="sectlevel3">
 <li><a href="#specifying-attributes-of-types">6.13.1. Specifying Attributes of Types</a></li>
@@ -1015,7 +1019,6 @@ pre.rouge .gs {
 <li><a href="#specifying-attributes-of-variables">6.13.3. Specifying Attributes of Variables</a></li>
 <li><a href="#specifying-attributes-of-blocks-and-control-flow-statements">6.13.4. Specifying Attributes of Blocks and Control-Flow-Statements</a></li>
 <li><a href="#specifying-attribute-for-unrolling-loops">6.13.5. Specifying Attribute for Unrolling Loops</a></li>
-<li><a href="#extending-attribute-qualifiers">6.13.6. Extending Attribute Qualifiers</a></li>
 </ul>
 </li>
 <li><a href="#blocks">6.14. Blocks</a>
@@ -1088,7 +1091,8 @@ pre.rouge .gs {
 <li><a href="#references">9. Normative References</a></li>
 <li><a href="#changes_to_opencl">Appendix A: Changes to OpenCL</a>
 <ul class="sectlevel2">
-<li><a href="#_summary_of_changes_from_opencl_3_0">Summary of changes from OpenCL 3.0</a></li>
+<li><a href="#_summary_of_changes_to_opencl_3_0">Summary of Changes to OpenCL 3.0</a></li>
+<li><a href="#_summary_of_changes_from_opencl_3_0_to_opencl_3_1">Summary of Changes from OpenCL 3.0 to OpenCL 3.1</a></li>
 </ul>
 </li>
 </ul>
@@ -1099,7 +1103,7 @@ pre.rouge .gs {
 <div class="sectionbody">
 <div style="page-break-after: always;"></div>
 <div class="paragraph">
-<p>Copyright 2008-2025 The Khronos Group Inc.</p>
+<p>Copyright 2008-2026 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>This Specification is protected by copyright laws and contains material proprietary to Khronos.
@@ -1220,8 +1224,8 @@ is used, it has the identical meaning.</p>
 <li>
 <p>Requires support for OpenCL C 2.0, or OpenCL C 3.0 or newer and the
 <code>__opencl_c_<wbr>&lt;feature_<wbr>name&gt;</code> feature:
-Features that were introduced in OpenCL C 2.0 as mandatory, but made
-<a href="#optional-functionality">optional</a> in OpenCL C 3.0.
+Features that were introduced in OpenCL C 2.0 as mandatory, but are
+<a href="#optional-functionality">optional</a> in OpenCL C 3.0 or newer.
 Compilers for versions of OpenCL C 1.2 or below will not provide these
 features, compilers for OpenCL C 2.0 will provide these features,
 compilers for OpenCL C 3.0 or newer may provide these features.</p>
@@ -1270,8 +1274,9 @@ Feature test macros <a href="#unified-spec">require</a> support for OpenCL C
 <div class="paragraph">
 <p>Optional core language features are described in this document. They are
 optional from OpenCL C 3.0 onwards and therefore are not supported by all
-implementations. When an OpenCL C 3.0 optional feature is supported, an
-associated <em>feature test macro</em> will be predefined.</p>
+implementations.
+When an optional OpenCL C 3.0 or newer feature is supported, an associated
+<em>feature test macro</em> will be predefined.</p>
 </div>
 <div class="paragraph">
 <p>The following table describes OpenCL C 3.0 or newer features and their
@@ -1381,14 +1386,12 @@ of work-items.</p></td>
 operations across a work-group.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>__opencl_c_<wbr>integer_<wbr>dot_<wbr>product_<wbr>input_<wbr>4x8bit_<wbr>packed</code><br>
-  (when the <code>cl_khr_<wbr>integer_<wbr>dot_<wbr>product</code> extension macro is defined)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>__opencl_c_<wbr>integer_<wbr>dot_<wbr>product_<wbr>input_<wbr>4x8bit_<wbr>packed</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The OpenCL C compiler supports built-in functions that perform dot
 products on 4x8 bit packed integer vectors.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>__opencl_c_<wbr>integer_<wbr>dot_<wbr>product_<wbr>input_<wbr>4x8bit</code><br>
-  (when the <code>cl_khr_<wbr>integer_<wbr>dot_<wbr>product</code> extension macro is defined)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>__opencl_c_<wbr>integer_<wbr>dot_<wbr>product_<wbr>input_<wbr>4x8bit</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The OpenCL C compiler supports built-in functions that perform dot
 products on 4x8 bit integer vectors.</p></td>
 </tr>
@@ -1443,14 +1446,14 @@ corresponding optional functionality.</p>
 <h4 id="extensions"><a class="anchor" href="#extensions"></a>6.2.2. Extensions</h4>
 <div class="paragraph">
 <p>Other optional functionality may be described by language extensions to OpenCL
-C. Extensions are described in the <a href="#opencl-extension-spec">OpenCL Extension
-Specification</a>.  When an OpenCL C extension is supported an associated
-<em>extension macro</em> will be predefined.  Please refer to the OpenCL Extension
-Specification for more information about predefined extension macros.</p>
-</div>
-<div class="paragraph">
-<p>Prior to OpenCL C 3.0, support for some optional core language features was
-indicated using predefined extension macros.</p>
+C.
+Extensions to OpenCL C are described in the OpenCL C specification or in
+vendor-provided documentation.
+When an OpenCL C extension is supported an associated extension macro will be
+predefined.
+Please refer to <a href="#preprocessor-directives-for-optional-extensions">Preprocessor
+Directives for Optional Extensions</a> for more information about predefined
+extension macros.</p>
 </div>
 <div class="paragraph">
 <p>When an optional core language feature began as an extension it may have both an
@@ -1463,8 +1466,8 @@ preferred whenever possible.</p>
 <div class="sect4">
 <h5 id="cl_khr_3d_image_writes"><a class="anchor" href="#cl_khr_3d_image_writes"></a>6.2.2.1. 3D Image Writes</h5>
 <div class="paragraph">
-<p>The <code>cl_khr_<wbr>3d_<wbr>image_<wbr>writes</code> extension was promoted to OpenCL 2.0, and to
-OpenCL 3.0 as the <code>__opencl_c_<wbr>3d_<wbr>image_<wbr>writes</code> feature.
+<p>The <code>cl_khr_<wbr>3d_<wbr>image_<wbr>writes</code> extension was promoted to OpenCL C 2.0, and to
+OpenCL C 3.0 and newer as the <code>__opencl_c_<wbr>3d_<wbr>image_<wbr>writes</code> feature.
 The extension adds <a href="#built-in-image-write-functions">Built-in Image Write
 Functions</a> that allow a kernel to write to 3D image objects in addition to
 2D image objects.</p>
@@ -1522,9 +1525,9 @@ source and destination as 2D or 3D images.</p>
 <div class="sect4">
 <h5 id="cl_khr_extended_bit_ops"><a class="anchor" href="#cl_khr_extended_bit_ops"></a>6.2.2.7. Extended Bit Operations</h5>
 <div class="paragraph">
-<p>The <code>cl_khr_<wbr>extended_<wbr>bit_<wbr>ops</code> extension provides additional
-<a href="#extended-bit-operations">Extended Bit Operations</a> including bitfield
-insert, bitfield extract, and bit reverse.</p>
+<p>The <code>cl_khr_<wbr>extended_<wbr>bit_<wbr>ops</code> extension was promoted to OpenCL C 3.1.
+The extension provides additional <a href="#extended-bit-operations">Extended Bit
+Operations</a> including bitfield insert, bitfield extract, and bit reverse.</p>
 </div>
 </div>
 <div class="sect4">
@@ -1586,7 +1589,7 @@ of kernel execution.</p>
 <div class="paragraph">
 <p>There is one <a href="#restrictions-initialize-memory">restriction</a> on the timing
 of this initialization discussed in this document, although most of the
-extension is defined by the OpenCL 3.0 API Specification.</p>
+extension is defined by the OpenCL API Specification.</p>
 </div>
 </div>
 <div class="sect4">
@@ -1610,19 +1613,17 @@ Functions</a> table.</p>
 <div class="sect4">
 <h5 id="cl_khr_integer_dot_product"><a class="anchor" href="#cl_khr_integer_dot_product"></a>6.2.2.16. Integer Dot Product</h5>
 <div class="paragraph">
-<p>The <code>cl_khr_<wbr>integer_<wbr>dot_<wbr>product</code> extension adds support for SPIR-V
-instructions and OpenCL C built-in functions to compute the dot product of
-vectors of integers.
-The extension provides new <a href="#table-builtin-functions">built-in vector
-integer argument functions</a> operating on these types.</p>
+<p>The <code>cl_khr_<wbr>integer_<wbr>dot_<wbr>product</code> extension was promoted to OpenCL C 3.1.
+The extension adds support for OpenCL C built-in functions to compute the dot
+product of vectors of integers, as described in the <a href="#table-builtin-functions">built-in vector integer argument functions</a> table.</p>
 </div>
 </div>
 <div class="sect4">
 <h5 id="cl_khr_kernel_clock"><a class="anchor" href="#cl_khr_kernel_clock"></a>6.2.2.17. Kernel Clock</h5>
 <div class="paragraph">
-<p>The <code>cl_khr_kernel_clock</code> extension adds support for SPIR-V instructions and
-OpenCL C built-in functions to sample the value from one of three clocks
-provided by compute units.  The extension provides the following functions:</p>
+<p>The <code>cl_khr_<wbr>kernel_<wbr>clock</code> extension adds OpenCL C built-in functions to sample
+the value from one of three clocks provided by compute units.
+The extension provides the following functions:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1768,9 +1769,10 @@ for Sub-Groups</a></p>
 <div class="sect4">
 <h5 id="cl_khr_subgroup_extended_types"><a class="anchor" href="#cl_khr_subgroup_extended_types"></a>6.2.2.27. Sub-Group Extended Types</h5>
 <div class="paragraph">
-<p>The <code>cl_khr_<wbr>subgroup_<wbr>extended_<wbr>types</code> extension adds <a href="#sub-group-functions">additional supported data types</a> to the existing
-<a href="#table-collective-functions">sub-group broadcast, scan, and reduction
-functions</a>.</p>
+<p>The <code>cl_khr_<wbr>subgroup_<wbr>extended_<wbr>types</code> extension was promoted to OpenCL C 3.1.
+The extension adds <a href="#sub-group-functions">additional supported data types</a> to
+the existing <a href="#table-collective-functions">sub-group broadcast, scan, and
+reduction functions</a>.</p>
 </div>
 </div>
 <div class="sect4">
@@ -1822,9 +1824,9 @@ for Sub-Groups</a></p>
 <div class="sect4">
 <h5 id="cl_khr_subgroup_rotate"><a class="anchor" href="#cl_khr_subgroup_rotate"></a>6.2.2.30. Sub-Group Rotation</h5>
 <div class="paragraph">
-<p>The <code>cl_khr_<wbr>subgroup_<wbr>rotate</code> extension adds support for a new sub-group data
-exchange operation that makes it possible to rotate values through the work
-items in a sub-group.</p>
+<p>The <code>cl_khr_<wbr>subgroup_<wbr>rotate</code> extension was promoted to OpenCL C 3.1.
+The extension adds support for a new sub-group data exchange operation that
+makes it possible to rotate values through the work items in a sub-group.</p>
 </div>
 <div class="paragraph">
 <p>The extension provides the following functions:</p>
@@ -1840,8 +1842,9 @@ items in a sub-group.</p>
 <div class="sect4">
 <h5 id="cl_khr_subgroup_shuffle"><a class="anchor" href="#cl_khr_subgroup_shuffle"></a>6.2.2.31. Sub-Group General Purpose Shuffles</h5>
 <div class="paragraph">
-<p>The <code>cl_khr_<wbr>subgroup_<wbr>shuffle</code> extension adds additional ways to exchange
-data among work items in a sub-group.</p>
+<p>The <code>cl_khr_<wbr>subgroup_<wbr>shuffle</code> extension was promoted to OpenCL C 3.1.
+The extension adds support for flexibly exchanging data among work items in a
+sub-group.</p>
 </div>
 <div class="paragraph">
 <p>The extension provides the following functions:</p>
@@ -1857,9 +1860,9 @@ data among work items in a sub-group.</p>
 <div class="sect4">
 <h5 id="cl_khr_subgroup_shuffle_relative"><a class="anchor" href="#cl_khr_subgroup_shuffle_relative"></a>6.2.2.32. Sub-Group Relative Shuffles</h5>
 <div class="paragraph">
-<p>The <code>cl_khr_<wbr>subgroup_<wbr>shuffle_<wbr>relative</code> extension adds specialized ways to
-exchange data among work items in a sub-group that may perform better on
-some implementations.</p>
+<p>The <code>cl_khr_<wbr>subgroup_<wbr>shuffle_<wbr>relative</code> was promoted to OpenCL C 3.1.
+The extension adds specialized ways to exchange data among work items
+in a sub-group that may perform better on some implementations.</p>
 </div>
 <div class="paragraph">
 <p>The extension provides the following functions:</p>
@@ -2124,9 +2127,8 @@ application:</p>
 <h5 id="double-precision-support"><a class="anchor" href="#double-precision-support"></a>6.3.1.1. Double-Precision Floating-Point Support</h5>
 <div class="paragraph">
 <p>Double-precision floating-point is supported if
-the <code>cl_khr_<wbr>fp64</code> extension macro is supported, or if
-OpenCL 1.2 or newer is supported.
-In OpenCL 3.0, it also requires support for the <code>__opencl_c_<wbr>fp64</code> feature,</p>
+the <code>cl_khr_<wbr>fp64</code> extension is supported, or if
+OpenCL 3.0 or newer and the <code>__opencl_c_<wbr>fp64</code> feature is supported.</p>
 </div>
 <div class="paragraph">
 <p>If double-precision is not supported, implementations may
@@ -2811,11 +2813,11 @@ replicated across all lanes of the vector.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="opencl_c"><span class="kt">float4</span> <span class="n">f</span> <span class="o">=</span> <span class="p">(</span><span class="kt">float4</span><span class="p">)(</span><span class="mf">1.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">2.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">3.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">4.0</span><span class="n">f</span><span class="p">);</span>
+<pre class="rouge highlight"><code data-lang="opencl_c"><span class="kt">float4</span> <span class="n">f</span> <span class="o">=</span> <span class="p">(</span><span class="kt">float4</span><span class="p">)(</span><span class="mf">1.0f</span><span class="p">,</span> <span class="mf">2.0f</span><span class="p">,</span> <span class="mf">3.0f</span><span class="p">,</span> <span class="mf">4.0f</span><span class="p">);</span>
 <span class="kt">uint4</span> <span class="n">u</span> <span class="o">=</span> <span class="p">(</span><span class="kt">uint4</span><span class="p">)(</span><span class="mi">1</span><span class="p">);</span> <span class="c1">//  u will be (1, 1, 1, 1).</span>
-<span class="kt">float4</span> <span class="n">f</span> <span class="o">=</span> <span class="p">(</span><span class="kt">float4</span><span class="p">)((</span><span class="kt">float2</span><span class="p">)(</span><span class="mf">1.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">2.0</span><span class="n">f</span><span class="p">),</span> <span class="p">(</span><span class="kt">float2</span><span class="p">)(</span><span class="mf">3.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">4.0</span><span class="n">f</span><span class="p">));</span>
-<span class="kt">float4</span> <span class="n">f</span> <span class="o">=</span> <span class="p">(</span><span class="kt">float4</span><span class="p">)(</span><span class="mf">1.0</span><span class="n">f</span><span class="p">,</span> <span class="p">(</span><span class="kt">float2</span><span class="p">)(</span><span class="mf">2.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">3.0</span><span class="n">f</span><span class="p">),</span> <span class="mf">4.0</span><span class="n">f</span><span class="p">);</span>
-<span class="kt">float4</span> <span class="n">f</span> <span class="o">=</span> <span class="p">(</span><span class="kt">float4</span><span class="p">)(</span><span class="mf">1.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">2.0</span><span class="n">f</span><span class="p">);</span> <span class="c1">//  error</span></code></pre>
+<span class="kt">float4</span> <span class="n">f</span> <span class="o">=</span> <span class="p">(</span><span class="kt">float4</span><span class="p">)((</span><span class="kt">float2</span><span class="p">)(</span><span class="mf">1.0f</span><span class="p">,</span> <span class="mf">2.0f</span><span class="p">),</span> <span class="p">(</span><span class="kt">float2</span><span class="p">)(</span><span class="mf">3.0f</span><span class="p">,</span> <span class="mf">4.0f</span><span class="p">));</span>
+<span class="kt">float4</span> <span class="n">f</span> <span class="o">=</span> <span class="p">(</span><span class="kt">float4</span><span class="p">)(</span><span class="mf">1.0f</span><span class="p">,</span> <span class="p">(</span><span class="kt">float2</span><span class="p">)(</span><span class="mf">2.0f</span><span class="p">,</span> <span class="mf">3.0f</span><span class="p">),</span> <span class="mf">4.0f</span><span class="p">);</span>
+<span class="kt">float4</span> <span class="n">f</span> <span class="o">=</span> <span class="p">(</span><span class="kt">float4</span><span class="p">)(</span><span class="mf">1.0f</span><span class="p">,</span> <span class="mf">2.0f</span><span class="p">);</span> <span class="c1">//  error</span></code></pre>
 </div>
 </div>
 </div>
@@ -2829,8 +2831,8 @@ Vector data types with three or more components, such as <code>uint3</code>, can
 Vector data types with four or more components, such as <code>ulong4</code> or <code>float8</code>, can access <code>.xyzw</code> elements.</p>
 </div>
 <div class="paragraph">
-<p>In OpenCL C 3.0, the components of vector data types can also be addressed as
-<code>&lt;vector_data_type&gt;.rgba</code>.
+<p>In OpenCL C 3.0 or newer, the components of vector data types can also be
+addressed as <code>&lt;vector_data_type&gt;.rgba</code>.
 Vector data types with two or more components can access <code>.rg</code> elements.
 Vector data types with three or more components can access <code>.rgb</code> elements.
 Vector data types with four or more components can access <code>.rgba</code> elements.</p>
@@ -2842,14 +2844,14 @@ so, for example:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="opencl_c"><span class="kt">float2</span> <span class="n">coord</span><span class="p">;</span>
-<span class="n">coord</span><span class="p">.</span><span class="n">x</span> <span class="o">=</span> <span class="mf">1.0</span><span class="n">f</span><span class="p">;</span> <span class="c1">// is legal</span>
-<span class="n">coord</span><span class="p">.</span><span class="n">r</span> <span class="o">=</span> <span class="mf">1.0</span><span class="n">f</span><span class="p">;</span> <span class="c1">// is legal in OpenCL C 3.0</span>
-<span class="n">coord</span><span class="p">.</span><span class="n">z</span> <span class="o">=</span> <span class="mf">1.0</span><span class="n">f</span><span class="p">;</span> <span class="c1">// is illegal, since coord only has two components</span>
+<span class="n">coord</span><span class="p">.</span><span class="n">x</span> <span class="o">=</span> <span class="mf">1.0f</span><span class="p">;</span> <span class="c1">// is legal</span>
+<span class="n">coord</span><span class="p">.</span><span class="n">r</span> <span class="o">=</span> <span class="mf">1.0f</span><span class="p">;</span> <span class="c1">// is legal in OpenCL C 3.0 or newer</span>
+<span class="n">coord</span><span class="p">.</span><span class="n">z</span> <span class="o">=</span> <span class="mf">1.0f</span><span class="p">;</span> <span class="c1">// is illegal, since coord only has two components</span>
 
 <span class="kt">float3</span> <span class="n">pos</span><span class="p">;</span>
-<span class="n">pos</span><span class="p">.</span><span class="n">z</span> <span class="o">=</span> <span class="mf">1.0</span><span class="n">f</span><span class="p">;</span> <span class="c1">// is legal</span>
-<span class="n">pos</span><span class="p">.</span><span class="n">b</span> <span class="o">=</span> <span class="mf">1.0</span><span class="n">f</span><span class="p">;</span> <span class="c1">// is legal in OpenCL C 3.0</span>
-<span class="n">pos</span><span class="p">.</span><span class="n">w</span> <span class="o">=</span> <span class="mf">1.0</span><span class="n">f</span><span class="p">;</span> <span class="c1">// is illegal, since pos only has three components</span></code></pre>
+<span class="n">pos</span><span class="p">.</span><span class="n">z</span> <span class="o">=</span> <span class="mf">1.0f</span><span class="p">;</span> <span class="c1">// is legal</span>
+<span class="n">pos</span><span class="p">.</span><span class="n">b</span> <span class="o">=</span> <span class="mf">1.0f</span><span class="p">;</span> <span class="c1">// is legal in OpenCL C 3.0 or newer</span>
+<span class="n">pos</span><span class="p">.</span><span class="n">w</span> <span class="o">=</span> <span class="mf">1.0f</span><span class="p">;</span> <span class="c1">// is illegal, since pos only has three components</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2860,10 +2862,10 @@ appending their names after the period (<strong>.</strong>).</p>
 <div class="content">
 <pre class="rouge highlight"><code data-lang="opencl_c"><span class="kt">float4</span> <span class="n">c</span><span class="p">;</span>
 
-<span class="n">c</span><span class="p">.</span><span class="n">xyzw</span> <span class="o">=</span> <span class="p">(</span><span class="kt">float4</span><span class="p">)(</span><span class="mf">1.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">2.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">3.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">4.0</span><span class="n">f</span><span class="p">);</span>
-<span class="n">c</span><span class="p">.</span><span class="n">z</span> <span class="o">=</span> <span class="mf">1.0</span><span class="n">f</span><span class="p">;</span>
-<span class="n">c</span><span class="p">.</span><span class="n">xy</span> <span class="o">=</span> <span class="p">(</span><span class="kt">float2</span><span class="p">)(</span><span class="mf">3.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">4.0</span><span class="n">f</span><span class="p">);</span>
-<span class="n">c</span><span class="p">.</span><span class="n">xyz</span> <span class="o">=</span> <span class="p">(</span><span class="kt">float3</span><span class="p">)(</span><span class="mf">3.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">4.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">5.0</span><span class="n">f</span><span class="p">);</span></code></pre>
+<span class="n">c</span><span class="p">.</span><span class="n">xyzw</span> <span class="o">=</span> <span class="p">(</span><span class="kt">float4</span><span class="p">)(</span><span class="mf">1.0f</span><span class="p">,</span> <span class="mf">2.0f</span><span class="p">,</span> <span class="mf">3.0f</span><span class="p">,</span> <span class="mf">4.0f</span><span class="p">);</span>
+<span class="n">c</span><span class="p">.</span><span class="n">z</span> <span class="o">=</span> <span class="mf">1.0f</span><span class="p">;</span>
+<span class="n">c</span><span class="p">.</span><span class="n">xy</span> <span class="o">=</span> <span class="p">(</span><span class="kt">float2</span><span class="p">)(</span><span class="mf">3.0f</span><span class="p">,</span> <span class="mf">4.0f</span><span class="p">);</span>
+<span class="n">c</span><span class="p">.</span><span class="n">xyz</span> <span class="o">=</span> <span class="p">(</span><span class="kt">float3</span><span class="p">)(</span><span class="mf">3.0f</span><span class="p">,</span> <span class="mf">4.0f</span><span class="p">,</span> <span class="mf">5.0f</span><span class="p">);</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2872,7 +2874,7 @@ replicated.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="opencl_c"><span class="kt">float4</span> <span class="n">pos</span> <span class="o">=</span> <span class="p">(</span><span class="kt">float4</span><span class="p">)(</span><span class="mf">1.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">2.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">3.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">4.0</span><span class="n">f</span><span class="p">);</span>
+<pre class="rouge highlight"><code data-lang="opencl_c"><span class="kt">float4</span> <span class="n">pos</span> <span class="o">=</span> <span class="p">(</span><span class="kt">float4</span><span class="p">)(</span><span class="mf">1.0f</span><span class="p">,</span> <span class="mf">2.0f</span><span class="p">,</span> <span class="mf">3.0f</span><span class="p">,</span> <span class="mf">4.0f</span><span class="p">);</span>
 
 <span class="kt">float4</span> <span class="n">swiz</span><span class="o">=</span> <span class="n">pos</span><span class="p">.</span><span class="n">wzyx</span><span class="p">;</span> <span class="c1">// swiz = (4.0f, 3.0f, 2.0f, 1.0f)</span>
 
@@ -2889,15 +2891,15 @@ Each component must be a supported scalar or vector type.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="opencl_c"><span class="kt">float4</span> <span class="n">pos</span> <span class="o">=</span> <span class="p">(</span><span class="kt">float4</span><span class="p">)(</span><span class="mf">1.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">2.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">3.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">4.0</span><span class="n">f</span><span class="p">);</span>
+<pre class="rouge highlight"><code data-lang="opencl_c"><span class="kt">float4</span> <span class="n">pos</span> <span class="o">=</span> <span class="p">(</span><span class="kt">float4</span><span class="p">)(</span><span class="mf">1.0f</span><span class="p">,</span> <span class="mf">2.0f</span><span class="p">,</span> <span class="mf">3.0f</span><span class="p">,</span> <span class="mf">4.0f</span><span class="p">);</span>
 
-<span class="n">pos</span><span class="p">.</span><span class="n">xw</span> <span class="o">=</span> <span class="p">(</span><span class="kt">float2</span><span class="p">)(</span><span class="mf">5.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">6.0</span><span class="n">f</span><span class="p">);</span><span class="c1">// pos = (5.0f, 2.0f, 3.0f, 6.0f)</span>
-<span class="n">pos</span><span class="p">.</span><span class="n">wx</span> <span class="o">=</span> <span class="p">(</span><span class="kt">float2</span><span class="p">)(</span><span class="mf">7.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">8.0</span><span class="n">f</span><span class="p">);</span><span class="c1">// pos = (8.0f, 2.0f, 3.0f, 7.0f)</span>
-<span class="n">pos</span><span class="p">.</span><span class="n">xyz</span> <span class="o">=</span> <span class="p">(</span><span class="kt">float3</span><span class="p">)(</span><span class="mf">3.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">5.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">9.0</span><span class="n">f</span><span class="p">);</span> <span class="c1">// pos = (3.0f, 5.0f, 9.0f, 4.0f)</span>
-<span class="n">pos</span><span class="p">.</span><span class="n">xx</span> <span class="o">=</span> <span class="p">(</span><span class="kt">float2</span><span class="p">)(</span><span class="mf">3.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">4.0</span><span class="n">f</span><span class="p">);</span><span class="c1">// illegal - 'x' used twice</span>
+<span class="n">pos</span><span class="p">.</span><span class="n">xw</span> <span class="o">=</span> <span class="p">(</span><span class="kt">float2</span><span class="p">)(</span><span class="mf">5.0f</span><span class="p">,</span> <span class="mf">6.0f</span><span class="p">);</span><span class="c1">// pos = (5.0f, 2.0f, 3.0f, 6.0f)</span>
+<span class="n">pos</span><span class="p">.</span><span class="n">wx</span> <span class="o">=</span> <span class="p">(</span><span class="kt">float2</span><span class="p">)(</span><span class="mf">7.0f</span><span class="p">,</span> <span class="mf">8.0f</span><span class="p">);</span><span class="c1">// pos = (8.0f, 2.0f, 3.0f, 7.0f)</span>
+<span class="n">pos</span><span class="p">.</span><span class="n">xyz</span> <span class="o">=</span> <span class="p">(</span><span class="kt">float3</span><span class="p">)(</span><span class="mf">3.0f</span><span class="p">,</span> <span class="mf">5.0f</span><span class="p">,</span> <span class="mf">9.0f</span><span class="p">);</span> <span class="c1">// pos = (3.0f, 5.0f, 9.0f, 4.0f)</span>
+<span class="n">pos</span><span class="p">.</span><span class="n">xx</span> <span class="o">=</span> <span class="p">(</span><span class="kt">float2</span><span class="p">)(</span><span class="mf">3.0f</span><span class="p">,</span> <span class="mf">4.0f</span><span class="p">);</span><span class="c1">// illegal - 'x' used twice</span>
 
 <span class="c1">// illegal - mismatch between float2 and float4</span>
-<span class="n">pos</span><span class="p">.</span><span class="n">xy</span> <span class="o">=</span> <span class="p">(</span><span class="kt">float4</span><span class="p">)(</span><span class="mf">1.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">2.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">3.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">4.0</span><span class="n">f</span><span class="p">);</span>
+<span class="n">pos</span><span class="p">.</span><span class="n">xy</span> <span class="o">=</span> <span class="p">(</span><span class="kt">float4</span><span class="p">)(</span><span class="mf">1.0f</span><span class="p">,</span> <span class="mf">2.0f</span><span class="p">,</span> <span class="mf">3.0f</span><span class="p">,</span> <span class="mf">4.0f</span><span class="p">);</span>
 
 <span class="kt">float4</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">;</span>
 <span class="kt">float16</span> <span class="n">x</span><span class="p">;</span>
@@ -3070,7 +3072,7 @@ vector type with the value in the <code>w</code> component undefined.</p>
     <span class="n">m</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span><span class="p">.</span><span class="n">hi</span><span class="p">.</span><span class="n">hi</span><span class="p">;</span> <span class="c1">// { m[0][3], m[1][3], m[2][3], m[3][3] }</span>
 <span class="p">}</span>
 
-<span class="kt">float3</span> <span class="n">vf</span> <span class="o">=</span> <span class="p">(</span><span class="kt">float3</span><span class="p">)(</span><span class="mf">1.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">2.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">3.0</span><span class="n">f</span><span class="p">);</span>
+<span class="kt">float3</span> <span class="n">vf</span> <span class="o">=</span> <span class="p">(</span><span class="kt">float3</span><span class="p">)(</span><span class="mf">1.0f</span><span class="p">,</span> <span class="mf">2.0f</span><span class="p">,</span> <span class="mf">3.0f</span><span class="p">);</span>
 <span class="kt">float2</span> <span class="n">low</span> <span class="o">=</span> <span class="n">vf</span><span class="p">.</span><span class="n">lo</span><span class="p">;</span> <span class="c1">// (1.0f, 2.0f);</span>
 <span class="kt">float2</span> <span class="n">high</span> <span class="o">=</span> <span class="n">vf</span><span class="p">.</span><span class="n">hi</span><span class="p">;</span> <span class="c1">// (3.0f, _undefined_);</span></code></pre>
 </div>
@@ -3178,7 +3180,7 @@ In the example below:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="opencl_c"><span class="kt">float</span> <span class="n">f</span> <span class="o">=</span> <span class="mf">1.0</span><span class="n">f</span><span class="p">;</span>
+<pre class="rouge highlight"><code data-lang="opencl_c"><span class="kt">float</span> <span class="n">f</span> <span class="o">=</span> <span class="mf">1.0f</span><span class="p">;</span>
 <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">f</span><span class="p">;</span></code></pre>
 </div>
 </div>
@@ -3219,7 +3221,7 @@ otherwise.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="opencl_c"><span class="kt">float</span> <span class="n">f</span> <span class="o">=</span> <span class="mf">1.0</span><span class="n">f</span><span class="p">;</span>
+<pre class="rouge highlight"><code data-lang="opencl_c"><span class="kt">float</span> <span class="n">f</span> <span class="o">=</span> <span class="mf">1.0f</span><span class="p">;</span>
 <span class="kt">float4</span> <span class="n">va</span> <span class="o">=</span> <span class="p">(</span><span class="kt">float4</span><span class="p">)</span><span class="n">f</span><span class="p">;</span>
 
 <span class="c1">// va is a float4 vector with elements (f, f, f, f).</span>
@@ -3230,7 +3232,7 @@ otherwise.</p>
 <span class="c1">// vb is a float4 vector with elements</span>
 <span class="c1">// ((float)u, (float)u, (float)u, (float)u).</span>
 
-<span class="kt">float</span> <span class="n">f</span> <span class="o">=</span> <span class="mf">2.0</span><span class="n">f</span><span class="p">;</span>
+<span class="kt">float</span> <span class="n">f</span> <span class="o">=</span> <span class="mf">2.0f</span><span class="p">;</span>
 <span class="kt">int2</span> <span class="n">vc</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int2</span><span class="p">)</span><span class="n">f</span><span class="p">;</span>
 
 <span class="c1">// vc is an int2 vector with elements ((int)f, (int)f).</span>
@@ -3417,14 +3419,14 @@ When converting from a floating-point type to integer type, the behavior is
 implementation-defined.</p>
 </div>
 <div class="paragraph">
-<p>Conversions to integer type may opt to convert using the optional saturated
+<p>Conversions to integer types may opt to convert using the optional saturated
 mode by appending the <code>_sat</code> modifier to the conversion function name.
 When in saturated mode, values that are outside the representable range
-shall clamp to the nearest representable value in the destination format.
-(NaN should be converted to 0).</p>
+are clamped to the nearest representable value in the destination format,
+and NaN is converted to zero.</p>
 </div>
 <div class="paragraph">
-<p>Conversions to floating-point type shall conform to IEEE-754 rounding rules.
+<p>Conversions to floating-point types conform to IEEE-754 rounding rules.
 The <code>_sat</code> modifier may not be used for conversions to floating-point
 formats.</p>
 </div>
@@ -3438,7 +3440,7 @@ formats.</p>
 <div class="content">
 <pre class="rouge highlight"><code data-lang="opencl_c"><span class="kt">short4</span> <span class="n">s</span><span class="p">;</span>
 
-<span class="c1">// negative values clamped to 0</span>
+<span class="c1">// negative values clamped to zero</span>
 <span class="kt">ushort4</span> <span class="n">u</span> <span class="o">=</span> <span class="fm">convert_ushort4_sat</span><span class="p">(</span> <span class="n">s</span> <span class="p">);</span>
 
 <span class="c1">// values &gt; CHAR_MAX converted to CHAR_MAX</span>
@@ -3458,7 +3460,7 @@ formats.</p>
 <span class="kt">int4</span> <span class="n">i</span> <span class="o">=</span> <span class="fm">convert_int4</span><span class="p">(</span> <span class="n">f</span> <span class="p">);</span>
 
 <span class="c1">// values &gt; INT_MAX clamp to INT_MAX, values &lt; INT_MIN clamp</span>
-<span class="c1">// to INT_MIN. NaN should produce 0.</span>
+<span class="c1">// to INT_MIN, and NaN is converted to zero</span>
 <span class="c1">// The _rtz_ rounding mode is used to produce the integer values.</span>
 <span class="kt">int4</span> <span class="n">i2</span> <span class="o">=</span> <span class="fm">convert_int4_sat</span><span class="p">(</span> <span class="n">f</span> <span class="p">);</span>
 
@@ -3525,7 +3527,7 @@ then the value of the additional bytes is undefined.</p>
             <span class="c1">// depending on endianness the low or high half</span>
             <span class="c1">// of d is unknown</span>
 
-<span class="n">u</span><span class="p">.</span><span class="n">f</span> <span class="o">=</span> <span class="mf">1.0</span><span class="n">f</span><span class="p">;</span> <span class="c1">// u.u contains 0x3f800000, u.d contains an</span>
+<span class="n">u</span><span class="p">.</span><span class="n">f</span> <span class="o">=</span> <span class="mf">1.0f</span><span class="p">;</span> <span class="c1">// u.u contains 0x3f800000, u.d contains an</span>
             <span class="c1">// undefined value -- depending on endianness</span>
             <span class="c1">// the low or high half of d is unknown</span>
 
@@ -3575,10 +3577,10 @@ reinterpret data to a type of a different number of bytes.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="opencl_c"><span class="kt">float</span> <span class="n">f</span> <span class="o">=</span> <span class="mf">1.0</span><span class="n">f</span><span class="p">;</span>
+<pre class="rouge highlight"><code data-lang="opencl_c"><span class="kt">float</span> <span class="n">f</span> <span class="o">=</span> <span class="mf">1.0f</span><span class="p">;</span>
 <span class="kt">uint</span> <span class="n">u</span> <span class="o">=</span> <span class="fm">as_uint</span><span class="p">(</span><span class="n">f</span><span class="p">);</span> <span class="c1">// Legal. Contains:  0x3f800000</span>
 
-<span class="kt">float4</span> <span class="n">f</span> <span class="o">=</span> <span class="p">(</span><span class="kt">float4</span><span class="p">)(</span><span class="mf">1.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">2.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">3.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">4.0</span><span class="n">f</span><span class="p">);</span>
+<span class="kt">float4</span> <span class="n">f</span> <span class="o">=</span> <span class="p">(</span><span class="kt">float4</span><span class="p">)(</span><span class="mf">1.0f</span><span class="p">,</span> <span class="mf">2.0f</span><span class="p">,</span> <span class="mf">3.0f</span><span class="p">,</span> <span class="mf">4.0f</span><span class="p">);</span>
 <span class="c1">// Legal. Contains:</span>
 <span class="c1">// (int4)(0x3f800000, 0x40000000, 0x40400000, 0x40800000)</span>
 <span class="kt">int4</span> <span class="n">i</span> <span class="o">=</span> <span class="fm">as_int4</span><span class="p">(</span><span class="n">f</span><span class="p">);</span>
@@ -4366,8 +4368,9 @@ corresponding address space names with the <code>__</code> prefix.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>For OpenCL C 2.0, or OpenCL C 3.0 with the <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code>
-feature macro, there is an additional unnamed generic address space.</p>
+<p>For OpenCL C 2.0, or OpenCL C 3.0 or newer with the
+<code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code> feature macro, there is an additional unnamed
+generic address space.</p>
 </div>
 <div class="paragraph">
 <p>Most of the restrictions from section 5.1.2 and section 5.3 of the
@@ -4602,12 +4605,12 @@ variables, in particular variables with automatic storage duration.</p>
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
-<p>The generic address space requires support for OpenCL C 2.0 or OpenCL C 3.0 with
-the <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code> feature. It can be used with pointer
-types and it represents a placeholder for any of the named address spaces
-- <code>global</code>, <code>local</code> or <code>private</code>. It signals that a pointer points to an object
-in one of these concrete named address spaces. The exact address space
-resolution can occur dynamically during the kernel execution.</p>
+<p>The generic address space requires support for either OpenCL C 2.0, or OpenCL C
+3.0 or newer with the <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code> feature.
+It can be used with pointer types and it represents a placeholder for any of the
+named address spaces - <code>global</code>, <code>local</code> or <code>private</code>. It signals that a pointer
+points to an object in one of these concrete named address spaces. The exact
+address space resolution can occur dynamically during the kernel execution.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -4664,12 +4667,13 @@ specifier:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Must be qualified by <code>__constant</code> in OpenCL C prior to 2.0 or OpenCL C 3.0
-without <code>__opencl_c_<wbr>program_<wbr>scope_<wbr>global_<wbr>variables</code> feature.</p>
+<p>Must be qualified by <code>__constant</code> prior to OpenCL C 2.0, or for OpenCL C 3.0
+or newer without <code>__opencl_c_<wbr>program_<wbr>scope_<wbr>global_<wbr>variables</code> feature.</p>
 </li>
 <li>
-<p>Can be qualified by either <code>__constant</code> or <code>__global</code> for OpenCL C 2.0 or
-OpenCL C 3.0 with <code>__opencl_c_<wbr>program_<wbr>scope_<wbr>global_<wbr>variables</code> feature.</p>
+<p>Can be qualified by either <code>__constant</code> or <code>__global</code> for OpenCL C 2.0, or
+OpenCL C 3.0 or newer with <code>__opencl_c_<wbr>program_<wbr>scope_<wbr>global_<wbr>variables</code>
+feature.</p>
 </li>
 </ul>
 </div>
@@ -4782,14 +4786,14 @@ on the declaration scope and the object type.</p>
 therefore only the default address space is applicable.</p>
 </div>
 <div class="paragraph">
-<p>For OpenCL C 2.0 or with the <code>__opencl_c_<wbr>program_<wbr>scope_<wbr>global_<wbr>variables</code>
-feature, the address space for a variable at program scope or a <code>static</code>
-or <code>extern</code> variable inside a function are inferred to be <code>__global</code>.</p>
+<p>For OpenCL C 2.0, or OpenCL C 3.0 or newer with the
+<code>__opencl_c_<wbr>program_<wbr>scope_<wbr>global_<wbr>variables</code> feature, the address space for a
+variable at program scope or a <code>static</code> or <code>extern</code> variable inside a function
+are inferred to be <code>__global</code>.</p>
 </div>
 <div class="paragraph">
-<p>If the generic address space is supported i.e. for OpenCL C 2.0 or OpenCL C 3.0
-with <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code> feature, pointers that are declared
-without pointing to a named address space point to the generic address space.</p>
+<p>If the generic address space is supported, pointers that are declared without
+pointing to a named address space point to the generic address space.</p>
 </div>
 <div class="paragraph">
 <p>All string literal storage shall be in the <code>__constant</code> address space.</p>
@@ -4829,14 +4833,14 @@ are inferred to be in the private address space.</p>
 
 <span class="kt">int</span> <span class="o">*</span><span class="n">ptr</span><span class="p">;</span>               <span class="c1">// ptr is inferred to be in the global address space.</span>
                         <span class="c1">// ptr points to a location in (1) the generic address</span>
-                        <span class="c1">// space for OpenCL C 2.0 or OpenCL C 3.0 with</span>
-                        <span class="c1">// __opencl_c_generic_address_space feature or</span>
+                        <span class="c1">// space for OpenCL C 2.0, or OpenCL C 3.0 or newer with</span>
+                        <span class="c1">// the __opencl_c_generic_address_space feature, or</span>
                         <span class="c1">// in (2) the private address space otherwise.</span>
 
 <span class="kt">int</span> <span class="o">*</span><span class="nx">global</span> <span class="n">ptr</span><span class="p">;</span>        <span class="c1">// ptr is declared to be in the global address space.</span>
-                        <span class="c1">// ptr points to an location in (1) the generic address</span>
-                        <span class="c1">// space for OpenCL C 2.0 or OpenCL C 3.0 with</span>
-                        <span class="c1">// __opencl_c_generic_address_space feature or</span>
+                        <span class="c1">// ptr points to a location in (1) the generic address</span>
+                        <span class="c1">// space for OpenCL C 2.0, or OpenCL C 3.0 or newer with</span>
+                        <span class="c1">// __opencl_c_generic_address_space feature, or</span>
                         <span class="c1">// in (2) the private address space otherwise.</span>
 
 <span class="nx">constant</span> <span class="kt">int</span> <span class="o">*</span><span class="n">ptr</span> <span class="o">=</span>
@@ -4848,8 +4852,8 @@ are inferred to be in the private address space.</p>
     <span class="k">static</span> <span class="kt">int</span> <span class="n">foo</span><span class="p">;</span>     <span class="c1">// foo is allocated in the global address space.</span>
     <span class="kt">int</span> <span class="o">*</span><span class="n">ptr</span><span class="p">;</span>           <span class="c1">// ptr is allocated in the private address space.</span>
                         <span class="c1">// ptr points to a location in (1) the generic address</span>
-                        <span class="c1">// space for OpenCL C 2.0 or OpenCL C 3.0 with</span>
-                        <span class="c1">// __opencl_c_generic_address_space feature or</span>
+                        <span class="c1">// space for OpenCL C 2.0, or OpenCL C 3.0 or newer with</span>
+                        <span class="c1">// __opencl_c_generic_address_space feature, or</span>
                         <span class="c1">// in (2) the private address space otherwise.</span>
     <span class="p">...</span>
 <span class="p">}</span></code></pre>
@@ -4868,9 +4872,9 @@ are inferred to be in the private address space.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Program scope variables or variables inside functions with
-a <code>static</code> or <code>extern</code> type specifier for OpenCL C prior to version 2.0 or
-OpenCL C 3.0 without <code>__opencl_c_<wbr>program_<wbr>scope_<wbr>global_<wbr>variables</code> feature,</p>
+<p>Program scope variables or variables inside functions with a <code>static</code> or
+<code>extern</code> type specifier prior to OpenCL C 2.0, or for OpenCL C 3.0 or newer
+without <code>__opencl_c_<wbr>program_<wbr>scope_<wbr>global_<wbr>variables</code> feature.</p>
 </li>
 <li>
 <p>Pointers used as arguments to kernel functions (the address space pointed
@@ -4901,16 +4905,16 @@ to must be specified explicitly).</p>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>__global</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Program scope variables, for OpenCL C 2.0 or
-    OpenCL C 3.0 with the <code>__opencl_c_<wbr>program_<wbr>scope_<wbr>global_<wbr>variables</code> feature,</p>
-<p class="tableblock">    <code>static</code> or <code>extern</code> local variables, for OpenCL C 2.0 or
-    OpenCL C 3.0 with the <code>__opencl_c_<wbr>program_<wbr>scope_<wbr>global_<wbr>variables</code> feature,</p>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Program scope variables, for OpenCL C 2.0, or
+    OpenCL C 3.0 or newer with the <code>__opencl_c_<wbr>program_<wbr>scope_<wbr>global_<wbr>variables</code> feature,</p>
+<p class="tableblock">    <code>static</code> or <code>extern</code> local variables, for OpenCL C 2.0, or
+    OpenCL C 3.0 or newer with the <code>__opencl_c_<wbr>program_<wbr>scope_<wbr>global_<wbr>variables</code> feature,</p>
 <p class="tableblock">    Pointers.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Optional constant initializers, 0-initialized by default.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Program scope variables, for OpenCL C 2.0 or
-    OpenCL C 3.0 with the <code>__opencl_c_<wbr>program_<wbr>scope_<wbr>global_<wbr>variables</code> feature.</p>
-<p class="tableblock">    <code>static</code> or <code>extern</code> local variables, for OpenCL C 2.0 or
-    OpenCL C 3.0 with the <code>__opencl_c_<wbr>program_<wbr>scope_<wbr>global_<wbr>variables</code> feature.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Program scope variables, for OpenCL C 2.0, or
+    OpenCL C 3.0 or newer with the <code>__opencl_c_<wbr>program_<wbr>scope_<wbr>global_<wbr>variables</code> feature.</p>
+<p class="tableblock">    <code>static</code> or <code>extern</code> local variables, for OpenCL C 2.0, or
+    OpenCL C 3.0 or newer with the <code>__opencl_c_<wbr>program_<wbr>scope_<wbr>global_<wbr>variables</code> feature.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>__private</code></p></td>
@@ -4921,7 +4925,7 @@ to must be specified explicitly).</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Local scope variables,</p>
 <p class="tableblock">    Function arguments and return types,</p>
 <p class="tableblock">    Pointers in which the address space they point to is not given explicitly,
-    for OpenCL C prior to version 2.0 or OpenCL C 3.0 without the
+    prior to OpenCL C 2.0, or for OpenCL C 3.0 or newer without the
     <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code> feature.</p></td>
 </tr>
 <tr>
@@ -4942,12 +4946,12 @@ to must be specified explicitly).</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Generic</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Pointers, for OpenCL C 2.0 or OpenCL C 3.0 with the
+<td class="tableblock halign-left valign-top"><p class="tableblock">Pointers, for OpenCL C 2.0, or OpenCL C 3.0 or newer with the
     <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code> feature</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Not applicable.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Pointers in which the address space they point to is not given explicitly,
-    for OpenCL C 2.0 or OpenCL C 3.0 with the <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code>
-    feature.</p></td>
+    prior to OpenCL C 2.0, or for OpenCL C 3.0 or newer with the
+    <code>__opencl_c_<wbr>generic_<wbr>address_<wbr>space</code> feature.</p></td>
 </tr>
 </tbody>
 </table>
@@ -5715,7 +5719,7 @@ a function declared in the <code>global</code> or <code>constant</code> address 
 <span class="nx">kernel</span> <span class="kt">void</span> <span class="nf">my_func</span><span class="p">(</span><span class="kt">image2d_t</span> <span class="n">img</span><span class="p">,</span> <span class="nx">global</span> <span class="kt">float</span> <span class="o">*</span><span class="n">a</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="k">extern</span> <span class="nx">constant</span> <span class="kt">float4</span> <span class="n">a</span><span class="p">;</span>
-    <span class="k">static</span> <span class="nx">constant</span> <span class="kt">float4</span> <span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="kt">float4</span><span class="p">)(</span><span class="mf">1.0</span><span class="n">f</span><span class="p">);</span> <span class="c1">// OK.</span>
+    <span class="k">static</span> <span class="nx">constant</span> <span class="kt">float4</span> <span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="kt">float4</span><span class="p">)(</span><span class="mf">1.0f</span><span class="p">);</span> <span class="c1">// OK.</span>
     <span class="k">static</span> <span class="kt">float</span> <span class="n">c</span><span class="p">;</span>  <span class="c1">// Error: No implicit address space</span>
     <span class="nx">global</span> <span class="kt">int</span> <span class="n">hurl</span><span class="p">;</span> <span class="c1">// Error: Must be static</span>
     <span class="p">...</span>
@@ -5995,11 +5999,7 @@ following forms whose meanings are described elsewhere:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="opencl_c"><span class="c1">// on-off-switch is one of ON, OFF, or DEFAULT</span>
-<span class="cp">#pragma OPENCL FP_CONTRACT on-off-switch
-</span>
-<span class="cp">#pragma OPENCL EXTENSION extensionname : behavior
-</span>
-<span class="cp">#pragma OPENCL EXTENSION all : behavior</span></code></pre>
+<span class="cp">#pragma OPENCL FP_CONTRACT on-off-switch</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -6051,6 +6051,11 @@ than 200, reflecting OpenCL 2.0. <sup class="footnote">[<a id="_footnoteref_38" 
 <dd>
 <p>Substitutes the integer 300 reflecting the OpenCL 3.0 version.
 <a href="#unified-spec">Requires</a> support for OpenCL C 3.0 or newer.</p>
+</dd>
+<dt class="hdlist1"><code>CL_VERSION_3_1</code> </dt>
+<dd>
+<p>Substitutes the integer 301 reflecting the OpenCL 3.1 version.
+<a href="#unified-spec">Requires</a> support for OpenCL C 3.1 or newer.</p>
 </dd>
 <dt class="hdlist1"><code>__OPENCL_C_VERSION__</code> </dt>
 <dd>
@@ -6125,7 +6130,101 @@ by OpenCL are reserved for future use.</p>
 <div class="paragraph">
 <p>In OpenCL C 3.0 or newer there are a number of optional predefined macros
 indicating optional language features. Such macros are listed in the
-<a href="#table-optional-lang-features">optional features in OpenCL C 3.0 table</a>.</p>
+<a href="#table-optional-lang-features">optional features in OpenCL C 3.0 or newer table</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="preprocessor-directives-for-optional-extensions"><a class="anchor" href="#preprocessor-directives-for-optional-extensions"></a>6.12.1. Preprocessor Directives for Optional Extensions</h4>
+<div class="paragraph">
+<p>The <strong>#pragma OPENCL EXTENSION</strong> directive controls the behavior of the OpenCL
+compiler with respect to extensions.
+The <strong>#pragma OPENCL EXTENSION</strong> directive is defined as:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="opencl_c"><span class="cp">#pragma OPENCL EXTENSION &lt;extension_name&gt; : &lt;behavior&gt;
+#pragma OPENCL EXTENSION all : &lt;behavior&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>where <em>extension_name</em> is the name of the extension.
+The token <strong>all</strong> means that the behavior applies to all extensions supported
+by the compiler.
+The <em>behavior</em> can be set to one of the following values given by the table
+below.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>behavior</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>enable</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Behave as specified by the extension <em>extension_name</em>.</p>
+<p class="tableblock">  Report an error on the <strong><code>#pragma OPENCL EXTENSION</code></strong> if the
+  <em>extension_name</em> is not supported, or if <strong>all</strong> is specified.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>disable</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Behave (including issuing errors and warnings) as if the extension
+  <em>extension_name</em> is not part of the language definition.</p>
+<p class="tableblock">  If <strong>all</strong> is specified, then behavior must revert back to that of the
+  non-extended core version of the language being compiled to.</p>
+<p class="tableblock">  Warn on the <strong><code>#pragma OPENCL EXTENSION</code></strong> if the extension <em>extension_name</em>
+  is not supported.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The <strong><code>#pragma OPENCL EXTENSION</code></strong> directive is a simple, low-level mechanism
+to set the behavior for each extension.
+It does not define policies such as which combinations are appropriate;
+those must be defined elsewhere.
+The order of directives matter in setting the behavior for each extension.
+Directives that occur later override those seen earlier.
+The <strong>all</strong> variant sets the behavior for all extensions, overriding all
+previously issued extension directives, but only if the <em>behavior</em> is set to
+<strong>disable</strong>.</p>
+</div>
+<div class="paragraph">
+<p>The initial state of the compiler is as if the directive</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="opencl_c"><span class="cp">#pragma OPENCL EXTENSION all : disable</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>was issued, telling the compiler that all error and warning reporting must
+be done according to this specification, ignoring any extensions.</p>
+</div>
+<div class="paragraph">
+<p>Every extension which affects the OpenCL language semantics, syntax or adds
+built-in functions to the language must create a preprocessor <code>#define</code> that
+matches the extension name string.
+This <code>#define</code> would be available in the language if and only if the
+extension is supported on a given implementation.</p>
+</div>
+<div class="paragraph">
+<p>For example, compilers that support the <code>cl_khr_<wbr>3d_<wbr>image_<wbr>writes</code> extension
+will add a preprocessor <code>#define</code> called <code>cl_khr_<wbr>3d_<wbr>image_<wbr>writes</code>.
+A kernel can now use this preprocessor <code>#define</code> to do something like:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="opencl_c"><span class="cp">#ifdef cl_khr_3d_image_writes
+</span>    <span class="c1">// do something using the extension</span>
+<span class="cp">#else
+</span>    <span class="c1">// do something else or #error!</span>
+<span class="cp">#endif</span></code></pre>
 </div>
 </div>
 </div>
@@ -6699,27 +6798,6 @@ on a non-loop construct</p>
 compile-time constant expression.</p>
 </div>
 </div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="extending-attribute-qualifiers"><a class="anchor" href="#extending-attribute-qualifiers"></a>6.13.6. Extending Attribute Qualifiers</h4>
-<div class="paragraph">
-<p>The attribute syntax can be extended for standard language extensions and
-vendor specific extensions.
-Any extensions should follow the naming conventions outlined in the
-introduction to <a href="#opencl-extension-spec">section 9 in the OpenCL 2.0
-Extension Specification</a>.</p>
-</div>
-<div class="paragraph">
-<p>Attributes are intended as useful hints to the compiler.
-It is our intention that a particular implementation of OpenCL be free to
-ignore all attributes and the resulting executable binary will produce the
-same result.
-This does not preclude an implementation from making use of the additional
-information provided by attributes and performing optimizations or other
-transformations as it sees fit.
-In this case it is the programmer&#8217;s responsibility to guarantee that the
-information provided is in some sense correct.</p>
 </div>
 </div>
 </div>
@@ -7302,7 +7380,7 @@ identifier of each work-item when this kernel is being executed on a device.</p>
 </td>
 <td class="content">
 The functionality described in the following table <a href="#unified-spec">requires</a> support for
-the <code>cl_khr_<wbr>subgroups</code> extension macro; or for
+the <code>cl_khr_<wbr>subgroups</code> extension, or
 OpenCL C 3.0 or newer and the <code>__opencl_c_<wbr>subgroups</code> feature.
 </td>
 </tr>
@@ -7642,7 +7720,7 @@ explicitly specified as an actual type.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>fmin</strong>(gentype <em>x</em>, gentype <em>y</em>)<br>
   gentypef <strong>fmin</strong>(gentypef <em>x</em>, float <em>y</em>)<br>
   gentyped <strong>fmin</strong>(gentyped <em>x</em>, double <em>y</em>)</p>
-<p class="tableblock">gentypeh <strong>fmax</strong>(gentypeh <em>x</em>, half <em>y</em>)</p></td>
+<p class="tableblock">gentypeh <strong>fmin</strong>(gentypeh <em>x</em>, half <em>y</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns <em>y</em> if <em>y</em> &lt; <em>x</em>, otherwise it returns <em>x</em>.
       If one argument is a NaN, <strong>fmin</strong>() returns the other argument.
       If both arguments are NaNs, <strong>fmin</strong>() returns a NaN.
@@ -7800,7 +7878,6 @@ explicitly specified as an actual type.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>mad</strong> computes <em>a</em> * <em>b</em> + <em>c</em>.
       The function may compute <em>a</em> * <em>b</em> + <em>c</em> with reduced accuracy in the
       embedded profile.
-      See the OpenCL SPIR-V Environment Specification for details.
       On some hardware the mad instruction may provide better performance
       than expanded computation of <em>a</em> * <em>b</em> + <em>c</em>.
       <sup class="footnote">[<a id="_footnoteref_48" class="footnote" href="#_footnotedef_48" title="View footnote.">48</a>]</sup></p></td>
@@ -8014,7 +8091,7 @@ explicitly specified as an actual type.</p>
 <ul>
 <li>
 <p>A subset of functions from <a href="#table-builtin-math">Built-in Scalar and Vector
-Argument Math Functions</a> that are defined with the half_ prefix .
+Argument Math Functions</a> that are defined with the half_ prefix.
 These functions are implemented with a minimum of 10-bits of accuracy,
 i.e. the maximum error value &lt;= 8192 ulp.</p>
 </li>
@@ -8902,8 +8979,8 @@ explicitly specified as an actual type.</p>
       multiplied component-wise.
       All the components of the resulting vectors are added together to form
       the final result.</p>
-<p class="tableblock">      <a href="#unified-spec">Requires</a> that the
-      <code>__opencl_c_<wbr>integer_<wbr>dot_<wbr>product_<wbr>input_<wbr>4x8bit</code> feature macro is defined,</p></td>
+<p class="tableblock">      <a href="#unified-spec">Requires</a> support for the
+      <code>__opencl_c_<wbr>integer_<wbr>dot_<wbr>product_<wbr>input_<wbr>4x8bit</code> feature.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">uint <strong>dot_acc_sat</strong>(uchar4 a, uchar4 b, uint acc)<br>
@@ -8921,8 +8998,8 @@ explicitly specified as an actual type.</p>
 </div>
 </div>
 <div class="paragraph">
-<p><a href="#unified-spec">Requires</a> that the
-<code>__opencl_c_<wbr>integer_<wbr>dot_<wbr>product_<wbr>input_<wbr>4x8bit</code> feature macro is defined,</p>
+<p><a href="#unified-spec">Requires</a> support for the
+<code>__opencl_c_<wbr>integer_<wbr>dot_<wbr>product_<wbr>input_<wbr>4x8bit</code> feature.</p>
 </div></div></td>
 </tr>
 <tr>
@@ -8931,9 +9008,8 @@ explicitly specified as an actual type.</p>
   int <strong>dot_4x8packed_us_int</strong>(uint a, uint b)<br>
   int <strong>dot_4x8packed_su_int</strong>(uint a, uint b)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns <strong>dot</strong> for 4x8 bit input vectors packed into a 32-bit word.</p>
-<p class="tableblock">      <a href="#unified-spec">Requires</a> that the
-      <code>__opencl_c_<wbr>integer_<wbr>dot_<wbr>product_<wbr>input_<wbr>4x8bit_<wbr>packed</code> feature macro is
-      defined,</p></td>
+<p class="tableblock">      <a href="#unified-spec">Requires</a> support for the
+      <code>__opencl_c_<wbr>integer_<wbr>dot_<wbr>product_<wbr>input_<wbr>4x8bit_<wbr>packed</code> feature.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">uint <strong>dot_acc_sat_4x8packed_uu_uint</strong>(uint a, uint b, uint acc)<br>
@@ -8942,9 +9018,8 @@ explicitly specified as an actual type.</p>
   int <strong>dot_acc_sat_4x8packed_su_int</strong>(uint a, uint b, int acc)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns <strong>dot_acc_set</strong> for 4x8 bit input vectors packed into a 32-bit
       word.</p>
-<p class="tableblock">      <a href="#unified-spec">Requires</a> that the
-      <code>__opencl_c_<wbr>integer_<wbr>dot_<wbr>product_<wbr>input_<wbr>4x8bit_<wbr>packed</code> feature macro is
-      defined,</p></td>
+<p class="tableblock">      <a href="#unified-spec">Requires</a> support for the
+      <code>__opencl_c_<wbr>integer_<wbr>dot_<wbr>product_<wbr>input_<wbr>4x8bit_<wbr>packed</code> feature.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>mad_hi</strong>(gentype <em>a</em>, gentype <em>b</em>, gentype <em>c</em>)</p></td>
@@ -9061,10 +9136,12 @@ take <code>int</code>, <code>int2</code>, <code>int3</code>, <code>int4</code>, 
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
-<p>If the <code>cl_khr_<wbr>extended_<wbr>bit_<wbr>ops</code> extension macro is supported, the
-functions described in the <a href="#table-builtin-extended-bit-operations">Built-in
-Scalar and Vector Extended Bit Operations</a> table can be used with built-in
-scalar or vector integer types to perform extended bit operations.
+<p>If
+the <code>cl_khr_<wbr>extended_<wbr>bit_<wbr>ops</code> extension macro or
+OpenCL C 3.1 or newer is supported, the functions described in the
+<a href="#table-builtin-extended-bit-operations">Built-in Scalar and Vector Extended Bit
+Operations</a> table can be used with built-in scalar or vector integer types to
+perform extended bit operations.
 The functions that operate on vector types operate component-wise.
 The description is per-component.</p>
 </div>
@@ -9080,6 +9157,20 @@ The generic type name <code>ugentype</code> refers to the built-in unsigned inte
 types <code>uchar</code>, <code>uchar<em>n</em></code>, <code>ushort</code>, <code>ushort<em>n</em></code>, <code>uint</code>, <code>uint<em>n</em></code>,
 <code>ulong</code>, and <code>ulong<em>n</em></code>.
 <em>n</em> is 2, 3, 4, 8, or 16.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The functionality described in the following table <a href="#unified-spec">requires</a> support for
+the <code>cl_khr_<wbr>extended_<wbr>bit_<wbr>ops</code> extension macro or
+OpenCL C 3.1 or newer.
+</td>
+</tr>
+</table>
 </div>
 <table id="table-builtin-extended-bit-operations" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 15. Built-in Scalar and Vector Extended Bit Operations</caption>
@@ -9114,9 +9205,7 @@ types <code>uchar</code>, <code>uchar<em>n</em></code>, <code>ushort</code>, <co
       If <em>count</em> equals 0, the return value will be equal to <em>base</em>.</p>
 <p class="tableblock">      If <em>count</em> or <em>offset</em> or <em>offset</em> + <em>count</em> is greater than number of
       bits in <code>gentype</code> (for scalar types) or components of <code>gentype</code> (for
-      vector types), the result is undefined.</p>
-<p class="tableblock">      <a href="#unified-spec">Requires</a> support for the
-      <code>cl_khr_<wbr>extended_<wbr>bit_<wbr>ops</code> extension macro.</p></td>
+      vector types), the result is undefined.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
@@ -9137,9 +9226,7 @@ types <code>uchar</code>, <code>uchar<em>n</em></code>, <code>ushort</code>, <co
       If <em>count</em> equals 0, the result is 0.</p>
 <p class="tableblock">      If the <em>count</em> or <em>offset</em> or <em>offset</em> + <em>count</em> is greater than
       number of bits in <code>gentype</code> (for scalar types) or components of
-      <code>gentype</code> (for vector types), the result is undefined.</p>
-<p class="tableblock">      <a href="#unified-spec">Requires</a> support for the
-      <code>cl_khr_<wbr>extended_<wbr>bit_<wbr>ops</code> extension macro.</p></td>
+      <code>gentype</code> (for vector types), the result is undefined.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
@@ -9159,9 +9246,7 @@ types <code>uchar</code>, <code>uchar<em>n</em></code>, <code>ushort</code>, <co
       If <em>count</em> equals 0, the result is 0.</p>
 <p class="tableblock">      If the <em>count</em> or <em>offset</em> or <em>offset</em> + <em>count</em> is greater than
       number of bits in <code>gentype</code> (for scalar types) or components of
-      <code>gentype</code> (for vector types), the result is undefined.</p>
-<p class="tableblock">      <a href="#unified-spec">Requires</a> support for the
-      <code>cl_khr_<wbr>extended_<wbr>bit_<wbr>ops</code> extension macro.</p></td>
+      <code>gentype</code> (for vector types), the result is undefined.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
@@ -9175,9 +9260,7 @@ types <code>uchar</code>, <code>uchar<em>n</em></code>, <code>ushort</code>, <co
       the bit numbered <em>width</em> - <em>n</em> - 1 of <em>base</em> (for scalar types) or a
       component of <em>base</em> (for vector types), where <em>width</em> is number of
       bits of <code>gentype</code> (for scalar types) or components of <code>gentype</code> (for
-      vector types).</p>
-<p class="tableblock">      <a href="#unified-spec">Requires</a> support for the
-      <code>cl_khr_<wbr>extended_<wbr>bit_<wbr>ops</code> extension macro.</p></td>
+      vector types).</p></td>
 </tr>
 </tbody>
 </table>
@@ -9656,7 +9739,7 @@ result of</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="opencl_c"><span class="k">if</span> <span class="p">(</span><span class="n">all</span><span class="p">(</span><span class="n">p</span> <span class="o">==</span> <span class="mf">0.0</span><span class="n">f</span><span class="p">))</span>
+<pre class="rouge highlight"><code data-lang="opencl_c"><span class="k">if</span> <span class="p">(</span><span class="n">all</span><span class="p">(</span><span class="n">p</span> <span class="o">==</span> <span class="mf">0.0f</span><span class="p">))</span>
   <span class="n">result</span> <span class="o">=</span> <span class="n">p</span><span class="p">;</span>
 <span class="k">else</span>
   <span class="n">result</span> <span class="o">=</span> <span class="n">p</span> <span class="o">/</span>
@@ -9810,7 +9893,7 @@ not a number (NaN) and the argument type is a vector.</p>
   long<em>n</em> <strong>islessgreater</strong>(double<em>n</em> <em>x</em>, double<em>n</em> <em>y</em>)</p>
 <p class="tableblock">  int <strong>islessgreater</strong>(half <em>x</em>, half <em>y</em>)<br>
   short<em>n</em> <strong>islessgreater</strong>(half<em>n</em> <em>x</em>, half<em>n</em> <em>y</em>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the component-wise compare of (<em>x</em> &lt; <em>y</em>) || (<em>x</em> &gt; <em>y</em>) .</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the component-wise compare of (<em>x</em> &lt; <em>y</em>) || (<em>x</em> &gt; <em>y</em>).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"></td>
@@ -10379,7 +10462,7 @@ in a work-group.</p>
 </td>
 <td class="content">
 The functionality described in the following table <a href="#unified-spec">requires</a> support for
-the <code>cl_khr_<wbr>subgroups</code> extension macro; or for
+the <code>cl_khr_<wbr>subgroups</code> extension, or
 OpenCL 3.0 or newer and the <code>__opencl_c_<wbr>subgroups</code> feature.
 </td>
 </tr>
@@ -11296,7 +11379,7 @@ The following table lists the enumeration constants:</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>memory_scope_sub_group</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#unified-spec">Requires</a> support for
-the <code>cl_khr_<wbr>subgroups</code> extension macro; or for
+the <code>cl_khr_<wbr>subgroups</code> extension, or
       OpenCL C 3.0 or newer and the <code>__opencl_c_<wbr>subgroups</code> feature.</p></td>
 </tr>
 <tr>
@@ -11488,7 +11571,7 @@ This section specifies each general kind.</p>
                            <span class="n">C</span> <span class="n">desired</span><span class="p">,</span>
                            <span class="n">memory_order</span> <span class="n">order</span><span class="p">)</span>
 
-<span class="c1">// Requires OpenCL C 2.0 or OpenCL C 3.0 or newer and both the</span>
+<span class="c1">// Requires OpenCL C 2.0, or OpenCL C 3.0 or newer and both the</span>
 <span class="c1">// __opencl_c_generic_address_space and __opencl_c_atomic_scope_device</span>
 <span class="c1">// features.</span>
 <span class="kt">void</span> <span class="fm">atomic_store_explicit</span><span class="p">(</span><span class="k">volatile</span> <span class="n">A</span> <span class="o">*</span><span class="n">object</span><span class="p">,</span>
@@ -11613,7 +11696,7 @@ Atomically returns the value pointed to by <em>object</em>.</p>
 </td>
 <td class="content">
 The non-explicit <code>atomic_load</code> function <a href="#unified-spec">requires</a>
-support for OpenCL C 2.0 or OpenCL C 3.0 or newer and both the
+support for OpenCL C 2.0, or OpenCL C 3.0 or newer and both the
 <code>__opencl_c_<wbr>atomic_<wbr>order_<wbr>seq_<wbr>cst</code> and <code>__opencl_c_<wbr>atomic_<wbr>scope_<wbr>device</code>
 features.
 For the explicit variants, memory order and scope enumerations must respect the
@@ -11665,7 +11748,7 @@ feature.
                            <span class="n">C</span> <span class="n">desired</span><span class="p">,</span>
                            <span class="n">memory_order</span> <span class="n">order</span><span class="p">)</span>
 
-<span class="c1">// Requires OpenCL C 2.0 or OpenCL C 3.0 or newer and both the</span>
+<span class="c1">// Requires OpenCL C 2.0, or OpenCL C 3.0 or newer and both the</span>
 <span class="c1">// __opencl_c_generic_address_space and __opencl_c_atomic_scope_device</span>
 <span class="c1">// feature.</span>
 <span class="n">C</span> <span class="fm">atomic_exchange_explicit</span><span class="p">(</span><span class="k">volatile</span> <span class="n">A</span> <span class="o">*</span><span class="n">object</span><span class="p">,</span>
@@ -11706,7 +11789,7 @@ effects.</p>
 </td>
 <td class="content">
 The non-explicit <code>atomic_exchange</code> function <a href="#unified-spec">requires</a>
-support for OpenCL C 2.0 or OpenCL C 3.0 or newer and both the
+support for OpenCL C 2.0, or OpenCL C 3.0 or newer and both the
 <code>__opencl_c_<wbr>atomic_<wbr>order_<wbr>seq_<wbr>cst</code> and <code>__opencl_c_<wbr>atomic_<wbr>scope_<wbr>device</code>
 features.
 For the explicit variants, memory order and scope enumerations must respect the
@@ -12184,7 +12267,7 @@ and on atomic type <code>atomic_uintptr_t</code>, <code>M</code> is <code>uintpt
                             <span class="n">M</span> <span class="n">operand</span><span class="p">,</span>
                             <span class="n">memory_order</span> <span class="n">order</span><span class="p">)</span>
 
-<span class="c1">// Requires OpenCL C 2.0 or OpenCL C 3.0 or newer and both the</span>
+<span class="c1">// Requires OpenCL C 2.0, or OpenCL C 3.0 or newer and both the</span>
 <span class="c1">// __opencl_c_generic_address_space and __opencl_c_atomic_scope_device</span>
 <span class="c1">// features.</span>
 <span class="n">C</span> <span class="n">atomic_fetch_key_explicit</span><span class="p">(</span><span class="k">volatile</span> <span class="n">A</span> <span class="o">*</span><span class="n">object</span><span class="p">,</span>
@@ -12320,7 +12403,7 @@ scope in the <code>global</code> address space with the <code>atomic_flag</code>
     <span class="k">volatile</span> <span class="nx">__local</span> <span class="n">atomic_flag</span> <span class="o">*</span><span class="n">object</span><span class="p">,</span>
     <span class="n">memory_order</span> <span class="n">order</span><span class="p">)</span>
 
-<span class="c1">// Requires OpenCL C 2.0 or OpenCL C 3.0 or newer and both the</span>
+<span class="c1">// Requires OpenCL C 2.0, or OpenCL C 3.0 or newer and both the</span>
 <span class="c1">// __opencl_c_generic_address_space and __opencl_c_atomic_scope_device</span>
 <span class="c1">// features.</span>
 <span class="kt">bool</span> <span class="fm">atomic_flag_test_and_set_explicit</span><span class="p">(</span>
@@ -12966,7 +13049,7 @@ newer and the <code>__opencl_c_<wbr>atomic_<wbr>order_<wbr>seq_<wbr>cst</code> f
 <li>
 <p>Using <code>memory_scope_sub_group</code> with any built-in atomic function
     <a href="#unified-spec">requires</a> support for
-the <code>cl_khr_<wbr>subgroups</code> extension macro; or for
+the <code>cl_khr_<wbr>subgroups</code> extension, or
     OpenCL C 3.0 or newer and the <code>__opencl_c_<wbr>subgroups</code> feature.</p>
 </li>
 <li>
@@ -13332,6 +13415,18 @@ For the embedded profile, the <strong>l</strong> modifier is supported only if 6
 integers are supported by the device.</p>
 </div>
 <div class="paragraph">
+<p><strong>z</strong> Specifies that a following <strong>d</strong>, <strong>i</strong>, <strong>o</strong>, <strong>u</strong>, <strong>x</strong>, or <strong>X</strong> conversion
+specifier applies to a <code>size_t</code> argument.
+The <strong>z</strong> length modifier <a href="#unified-spec">requires</a> support for OpenCL C 3.1 or
+newer.</p>
+</div>
+<div class="paragraph">
+<p><strong>t</strong> Specifies that a following <strong>d</strong>, <strong>i</strong>, <strong>o</strong>, <strong>u</strong>, <strong>x</strong>, or <strong>X</strong> conversion
+specifier applies to a <code>ptrdiff_t</code> argument.
+The <strong>t</strong> length modifier <a href="#unified-spec">requires</a> support for OpenCL C 3.1 or
+newer.</p>
+</div>
+<div class="paragraph">
 <p>If the vector specifier is used, the length modifiers and their meanings
 are:</p>
 </div>
@@ -13542,7 +13637,7 @@ floating number with the given precision.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="opencl_c"><span class="kt">float4</span>  <span class="n">f</span> <span class="o">=</span> <span class="p">(</span><span class="kt">float4</span><span class="p">)(</span><span class="mf">1.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">2.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">3.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">4.0</span><span class="n">f</span><span class="p">);</span>
+<pre class="rouge highlight"><code data-lang="opencl_c"><span class="kt">float4</span>  <span class="n">f</span> <span class="o">=</span> <span class="p">(</span><span class="kt">float4</span><span class="p">)(</span><span class="mf">1.0f</span><span class="p">,</span> <span class="mf">2.0f</span><span class="p">,</span> <span class="mf">3.0f</span><span class="p">,</span> <span class="mf">4.0f</span><span class="p">);</span>
 <span class="kt">uchar4</span> <span class="n">uc</span> <span class="o">=</span> <span class="p">(</span><span class="kt">uchar4</span><span class="p">)(</span><span class="mh">0xFA</span><span class="p">,</span> <span class="mh">0xFB</span><span class="p">,</span> <span class="mh">0xFC</span><span class="p">,</span> <span class="mh">0xFD</span><span class="p">);</span>
 
 <span class="fm">printf</span><span class="p">(</span><span class="s">"f4 = %2.2v4hlf</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">f</span><span class="p">);</span>
@@ -13608,19 +13703,24 @@ given below:</p>
 <div class="ulist">
 <ul>
 <li>
+<p>The asterisk <strong>*</strong> field width specifier is not supported by OpenCL C.</p>
+</li>
+<li>
 <p>The <strong>l</strong> modifier followed by a <strong>c</strong> conversion specifier or <strong>s</strong>
 conversion specifier is not supported by OpenCL C.</p>
 </li>
 <li>
-<p>The <strong>ll</strong>, <strong>j</strong>, <strong>z</strong>, <strong>t</strong>, and <strong>L</strong> length modifiers are not supported by
-OpenCL C but are reserved.</p>
+<p>The <strong>ll</strong>, <strong>j</strong>, and <strong>L</strong> length modifiers are not supported by OpenCL C but
+are reserved.
+Prior to OpenCL C 3.1, the <strong>z</strong> and <strong>t</strong> length modifiers additionally are not
+supported by OpenCL C but are reserved.</p>
 </li>
 <li>
 <p>The <strong>n</strong> conversion specifier is not supported by OpenCL C but is
 reserved.</p>
 </li>
 <li>
-<p>OpenCL C adds the optional *v*<em>n</em> vector specifier to support printing
+<p>OpenCL C adds the optional <strong>v</strong><em>n</em> vector specifier to support printing
 of vector types.</p>
 </li>
 <li>
@@ -17179,8 +17279,6 @@ kernels.</p>
 </div>
 <div class="sect3">
 <h4 id="enqueuing-kernels"><a class="anchor" href="#enqueuing-kernels"></a>6.15.19. Enqueuing Kernels</h4>
-<div class="openblock">
-<div class="content">
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -17201,12 +17299,20 @@ enqueue additional work to the same device, without host interaction.
 A kernel may enqueue code represented by Block syntax, and control execution
 order with event dependencies including user events and markers.
 There are several advantages to using the Block syntax: it is more compact;
-it does not require a cl_kernel object; and enqueuing can be done as a
+it does not require a <code>cl_kernel</code> object; and enqueuing can be done as a
 single semantic step.</p>
 </div>
 <div class="paragraph">
+<p>The macro <code>CLK_NULL_EVENT</code> refers to an invalid device event.
+The macro <code>CLK_NULL_QUEUE</code> refers to an invalid device queue.</p>
+</div>
+<div class="sect4">
+<h5 id="built-in-functions-enqueuing-a-kernel"><a class="anchor" href="#built-in-functions-enqueuing-a-kernel"></a>6.15.19.1. Built-in Functions - Enqueuing a Kernel</h5>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
 <p>The following table describes the list of built-in functions that can be
-used to enqueue a kernel(s).</p>
+used to enqueue a kernel.</p>
 </div>
 <div class="paragraph">
 <p>When the <code>cl_khr_<wbr>device_<wbr>enqueue_<wbr>local_<wbr>arg_<wbr>types</code> extension macro is
@@ -17223,14 +17329,6 @@ signatures.</p>
 <p>When the  <code>cl_khr_<wbr>device_<wbr>enqueue_<wbr>local_<wbr>arg_<wbr>types</code> extension macro is
 not supported, the pointee type of these functions must be <code>void</code>.</p>
 </div>
-<div class="paragraph">
-<p>The macro <code>CLK_NULL_EVENT</code> refers to an invalid device event.
-The macro <code>CLK_NULL_QUEUE</code> refers to an invalid device queue.</p>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="built-in-functions-enqueuing-a-kernel"><a class="anchor" href="#built-in-functions-enqueuing-a-kernel"></a>6.15.19.1. Built-in Functions - Enqueuing a Kernel</h5>
 <table id="table-builtin-kernel-enqueue" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 44. Built-in Kernel Enqueue Functions</caption>
 <colgroup>
@@ -17252,6 +17350,14 @@ The macro <code>CLK_NULL_QUEUE</code> refers to an invalid device queue.</p>
     const clk_event_t *<em>event_wait_list</em>, clk_event_t *<em>event_ret</em>,
     void (^<em>block</em>)(void))<br>
   int <strong>enqueue_kernel</strong>(queue_t <em>queue</em>, kernel_enqueue_flags_t <em>flags</em>,
+    const ndrange_t <em>ndrange</em>, void (^<em>block</em>)(local void *, &#8230;&#8203;),
+    uint size0, &#8230;&#8203;)<br>
+  int <strong>enqueue_kernel</strong>(queue_t <em>queue</em>, kernel_enqueue_flags_t <em>flags</em>,
+    const ndrange_t <em>ndrange</em>, uint <em>num_events_in_wait_list</em>,
+    const clk_event_t *<em>event_wait_list</em>, clk_event_t *<em>event_ret</em>,
+    void (^<em>block</em>)(local void *, &#8230;&#8203;), uint size0, &#8230;&#8203;)</p>
+<p class="tableblock">  If the <code>cl_khr_<wbr>device_<wbr>enqueue_<wbr>local_<wbr>arg_<wbr>types</code> extension macro is supported:</p>
+<p class="tableblock">  int <strong>enqueue_kernel</strong>(queue_t <em>queue</em>, kernel_enqueue_flags_t <em>flags</em>,
     const ndrange_t <em>ndrange</em>, void (^<em>block</em>)(local gentype *, &#8230;&#8203;),
     uint size0, &#8230;&#8203;)<br>
   int <strong>enqueue_kernel</strong>(queue_t <em>queue</em>, kernel_enqueue_flags_t <em>flags</em>,
@@ -17267,7 +17373,7 @@ The macro <code>CLK_NULL_QUEUE</code> refers to an invalid device queue.</p>
 <div class="paragraph">
 <p>The <strong>enqueue_kernel</strong> built-in function allows a work-item to enqueue a
 block.
-Work-items can enqueue multiple blocks to a device queue(s).</p>
+Work-items can enqueue multiple blocks to device queues.</p>
 </div>
 <div class="paragraph">
 <p>The <strong>enqueue_kernel</strong> built-in function returns <code>CLK_SUCCESS</code> if the block is
@@ -17310,6 +17416,8 @@ could not be allocated.</p>
 <em>queue</em> because of insufficient resources needed to execute the kernel.</p>
 </li>
 </ul>
+</div>
+</div>
 </div>
 <div class="paragraph">
 <p>Below are some examples of how to enqueue a block.</p>
@@ -17510,7 +17618,7 @@ host enqueues the first instance of the nd-range kernel (dp_func_A).
 The kernel dp_func_A will launch a kernel (evaluate_dp_work_A) that will
 determine if new nd-range work needs to be performed.
 If new nd-range work does need to be performed, then evaluate_dp_work_A will
-enqueue a new instance of dp_func_A .
+enqueue a new instance of dp_func_A.
 This process is repeated until all the work is completed.</p>
 </div>
 <div class="listingblock">
@@ -17598,7 +17706,7 @@ Supported values are described in the <a href="#table-kernel-enqueue-flags">foll
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CLK_ENQUEUE_FLAGS_WAIT_WORK_GROUP</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates that the enqueued kernels wait only for the workgroup that
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates that the enqueued kernels wait only for the work-group that
       enqueued the kernels to finish before they begin execution.
       <sup class="footnote">[<a id="_footnoteref_93" class="footnote" href="#_footnotedef_93" title="View footnote.">93</a>]</sup></p></td>
 </tr>
@@ -17668,7 +17776,9 @@ execution.</p>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">uint <strong>get_kernel_work_group_size</strong>(void (^block)(void))<br>
-  uint <strong>get_kernel_work_group_size</strong>(void (^block)(local gentype *, &#8230;&#8203;))</p></td>
+  uint <strong>get_kernel_work_group_size</strong>(void (^block)(local void <strong>, &#8230;&#8203;))</p>
+<p class="tableblock">  If the <code>cl_khr_<wbr>device_<wbr>enqueue_<wbr>local_<wbr>arg_<wbr>types</code> extension macro is supported:</p>
+<p class="tableblock">  uint *get_kernel_work_group_size</strong>(void (^block)(local gentype *, &#8230;&#8203;))</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This provides a mechanism to query the maximum work-group size that
       can be used to execute a block on a specific device given by <em>device</em>.</p>
 <p class="tableblock">      <em>block</em> specifies the block to be enqueued.</p></td>
@@ -17677,6 +17787,9 @@ execution.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">uint <strong>get_kernel_<wbr>preferred_<wbr>work_<wbr>group_<wbr>size_<wbr>multiple</strong>(
   void (^block)(void))<br>
   uint <strong>get_kernel_<wbr>preferred_<wbr>work_<wbr>group_<wbr>size_<wbr>multiple</strong>(
+  void (^block)(local void <strong>, &#8230;&#8203;))</p>
+<p class="tableblock">  If the <code>cl_khr_<wbr>device_<wbr>enqueue_<wbr>local_<wbr>arg_<wbr>types</code> extension macro is supported:</p>
+<p class="tableblock">  uint *get_kernel_<wbr>preferred_<wbr>work_<wbr>group_<wbr>size_<wbr>multiple</strong>(
   void (^block)(local gentype *, &#8230;&#8203;))</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the preferred multiple of work-group size for launch.
       This is a performance hint.
@@ -18050,7 +18163,7 @@ enqueued to a device queue.</p>
 <td class="content">
 The functionality described in this section <a href="#unified-spec">requires</a>
 support for
-the <code>cl_khr_<wbr>subgroups</code> extension macro; or for
+the <code>cl_khr_<wbr>subgroups</code> extension, or
 OpenCL C 3.0 or newer and the <code>__opencl_c_<wbr>subgroups</code> feature.
 </td>
 </tr>
@@ -18074,14 +18187,15 @@ supported built-in scalar data types <code>int</code>, <code>uint</code>, <code>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-If the <code>cl_khr_<wbr>subgroup_<wbr>extended_<wbr>types</code> extension is supported, the
-generic type name <code>gentype</code> may additionally be <code>char</code>, <code>uchar</code>, <code>short</code>, and
-<code>ushort</code>.
+If
+the <code>cl_khr_<wbr>subgroup_<wbr>extended_<wbr>types</code> extension macro or
+OpenCL C 3.1 or newer is supported, the generic type name <code>gentype</code> may
+additionally be <code>char</code>, <code>uchar</code>, <code>short</code>, and <code>ushort</code>.
 For the <code>sub_group_broadcast</code> function, <code>gentype</code> may additionally be one of
 the supported built-in vector data types <code>char<em>n</em></code>, <code>uchar<em>n</em></code>,
 <code>short<em>n</em></code>, <code>ushort<em>n</em></code>, <code>int<em>n</em></code>, <code>uint<em>n</em></code>, <code>long<em>n</em></code>,
 <code>ulong<em>n</em></code>, <code>float<em>n</em></code>, <code>half<em>n</em></code> <sup class="footnote">[<a id="_footnoteref_97" class="footnote" href="#_footnotedef_97" title="View footnote.">97</a>]</sup>, or
-<code>double<em>n</em></code> <sup class="footnote">[<a id="_footnoteref_98" class="footnote" href="#_footnotedef_98" title="View footnote.">98</a>]</sup>
+<code>double<em>n</em></code> <sup class="footnote">[<a id="_footnoteref_98" class="footnote" href="#_footnotedef_98" title="View footnote.">98</a>]</sup>.
 </td>
 </tr>
 </table>
@@ -18185,8 +18299,8 @@ The order of these floating-point operations is also non-deterministic for a giv
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The functionality described in the following table <a href="#unified-spec">requires</a> support
-the <code>cl_khr_<wbr>subgroups</code> extension macro; or for
+The functionality described in the following table <a href="#unified-spec">requires</a> support for
+the <code>cl_khr_<wbr>subgroups</code> extension, or
 OpenCL C 3.0 or newer and the <code>__opencl_c_<wbr>subgroups</code> and <code>__opencl_c_<wbr>pipes</code>
 features.
 </td>
@@ -18258,7 +18372,7 @@ groups is implementation-defined.</p>
 </td>
 <td class="content">
 The functionality described in the following table <a href="#unified-spec">requires</a> support
-the <code>cl_khr_<wbr>subgroups</code> extension macro; or for
+the <code>cl_khr_<wbr>subgroups</code> extension, or
 OpenCL C 3.0 or newer and the <code>__opencl_c_<wbr>subgroups</code> and
 <code>__opencl_c_<wbr>device_<wbr>enqueue</code> features.
 </td>
@@ -18587,10 +18701,7 @@ Work items in a sub-group are assigned to clusters such that for cluster
 size <em>n</em>, the <em>n</em> work items in the sub-group with the smallest sub-group
 local IDs are assigned to the first cluster, then the <em>n</em> remaining work
 items with the smallest sub-group local IDs are assigned to the next
-cluster, and so on.
-Behavior is undefined if the specified cluster size is not an integer
-constant expression, is not a power-of-two, or is greater than the maximum
-size of a sub-group within the dispatch.</p>
+cluster, and so on.</p>
 </div>
 <div class="sect5">
 <h6 id="_arithmetic_operations"><a class="anchor" href="#_arithmetic_operations"></a>6.15.20.2.1. Arithmetic Operations</h6>
@@ -18634,7 +18745,10 @@ supported built-in scalar data types <code>char</code>, <code>uchar</code>, <cod
 </div></div></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the summation, multiplication, minimum, or maximum of <em>value</em>
     for all active work items in the sub-group within a cluster of the
-    specified <em>clustersize</em>.</p></td>
+    specified <em>clustersize</em>.</p>
+<p class="tableblock">    Behavior is undefined if <em>clustersize</em> is not an integer constant
+    expression, is not a power-of-two, or is greater than the maximum size of a
+    sub-group within the dispatch.</p></td>
 </tr>
 </tbody>
 </table>
@@ -18682,7 +18796,10 @@ the supported built-in scalar data types <code>char</code>, <code>uchar</code>, 
 </div>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the bitwise <strong>and</strong>, <strong>or</strong>, or <strong>xor</strong> of <em>value</em> for all active work
-    items in the sub-group within a cluster of the specified <em>clustersize</em>.</p></td>
+    items in the sub-group within a cluster of the specified <em>clustersize</em>.</p>
+<p class="tableblock">    Behavior is undefined if <em>clustersize</em> is not an integer constant
+    expression, is not a power-of-two, or is greater than the maximum size of a
+    sub-group within the dispatch.</p></td>
 </tr>
 </tbody>
 </table>
@@ -18725,7 +18842,10 @@ logically <code>false</code>.</p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the logical <strong>and</strong>, <strong>or</strong>, or <strong>xor</strong> of <em>predicate</em> for all active
     work items in the sub-group within a cluster of the specified
-    <em>clustersize</em>.</p></td>
+    <em>clustersize</em>.</p>
+<p class="tableblock">    Behavior is undefined if <em>clustersize</em> is not an integer constant
+    expression, is not a power-of-two, or is greater than the maximum size of a
+    sub-group within the dispatch.</p></td>
 </tr>
 </tbody>
 </table>
@@ -19112,23 +19232,12 @@ the supported built-in scalar data types <code>char</code>, <code>uchar</code>, 
 </div>
 <div class="sect4">
 <h5 id="sub-group-rotate-functions"><a class="anchor" href="#sub-group-rotate-functions"></a>6.15.20.5. Built-in Sub-Group Rotation Functions</h5>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The functionality described in this section <a href="#unified-spec">requires</a>
-support for the <code>cl_khr_<wbr>subgroup_<wbr>rotate</code> extension.
-</td>
-</tr>
-</table>
-</div>
 <div class="paragraph">
-<p>The <a href="#table-rotate-functions">following table</a> describes a specialized
-OpenCL C programming language built-in function that allow work items in a
-sub-group to exchange data.
+<p>If
+the <code>cl_khr_<wbr>subgroup_<wbr>rotate</code> extension macro or
+OpenCL C 3.1 or newer is supported, the functions described in the
+<a href="#table-rotate-functions">Built-in Sub-Group Rotation Functions</a> table can be
+used to exchange data by rotating values through the work-items in a sub-group.
 This function need not be encountered by all work items in a sub-group
 executing the kernel.
 For the functions below, the generic type name <code>gentype</code> may be one of the
@@ -19136,6 +19245,21 @@ supported built-in scalar data types <code>char</code>, <code>uchar</code>, <cod
 <code>int</code>, <code>uint</code>, <code>long</code>, <code>ulong</code>, <code>float</code>, <code>half</code>
 <sup class="footnote">[<a id="_footnoteref_109" class="footnote" href="#_footnotedef_109" title="View footnote.">109</a>]</sup>, and <code>double</code>
 <sup class="footnote">[<a id="_footnoteref_110" class="footnote" href="#_footnotedef_110" title="View footnote.">110</a>]</sup>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The functionality described in the following table <a href="#unified-spec">requires</a>
+support for
+the <code>cl_khr_<wbr>subgroup_<wbr>rotate</code> extension macro or
+OpenCL C 3.1 or newer.
+</td>
+</tr>
+</table>
 </div>
 <table id="table-rotate-functions" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 61. Built-in Sub-Group Rotation Functions</caption>
@@ -19180,9 +19304,9 @@ supported built-in scalar data types <code>char</code>, <code>uchar</code>, <cod
     executing the function belongs.<br>
     The value of <em>delta</em> is required to be dynamically-uniform for all work
     items in the sub-group, otherwise the behavior is undefined.</p>
-<p class="tableblock">    <em>clustersize</em> must be an integer constant expression and a power of two,
-    smaller than or equal to the maximum sub-group size, otherwise the
-    behavior is undefined.</p>
+<p class="tableblock">    Behavior is undefined if <em>clustersize</em> is not an integer constant
+    expression, is not a power-of-two, or is greater than the maximum size of a
+    sub-group within the dispatch.</p>
 <p class="tableblock">    The return value is undefined if the work item with sub-group local ID
     equal to the calculated index is inactive.</p></td>
 </tr>
@@ -19191,6 +19315,21 @@ supported built-in scalar data types <code>char</code>, <code>uchar</code>, <cod
 </div>
 <div class="sect4">
 <h5 id="_built_in_sub_group_general_purpose_shuffle_functions"><a class="anchor" href="#_built_in_sub_group_general_purpose_shuffle_functions"></a>6.15.20.6. Built-in Sub-Group General Purpose Shuffle Functions</h5>
+<div class="paragraph">
+<p>If
+the <code>cl_khr_<wbr>subgroup_<wbr>shuffle</code> extension macro or
+OpenCL C 3.1 or newer is supported, the functions described in the
+<a href="#table-shuffle-functions">Built-in Sub-Group General Purpose Shuffle
+Functions</a> table can be used to flexibly exchange data among work-items in a
+sub-group.
+These functions need not be encountered by all work items in a sub-group
+executing the kernel.
+For the functions below, the generic type name <code>gentype</code> may be one of the
+supported built-in scalar data types <code>char</code>, <code>uchar</code>, <code>short</code>, <code>ushort</code>,
+<code>int</code>, <code>uint</code>, <code>long</code>, <code>ulong</code>, <code>float</code>, <code>half</code>
+<sup class="footnote">[<a id="_footnoteref_111" class="footnote" href="#_footnotedef_111" title="View footnote.">111</a>]</sup>, and <code>double</code>
+<sup class="footnote">[<a id="_footnoteref_112" class="footnote" href="#_footnotedef_112" title="View footnote.">112</a>]</sup>.</p>
+</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -19199,22 +19338,12 @@ supported built-in scalar data types <code>char</code>, <code>uchar</code>, <cod
 </td>
 <td class="content">
 The functionality described in this section <a href="#unified-spec">requires</a>
-support for the <code>cl_khr_<wbr>subgroup_<wbr>shuffle</code> extension.
+support for
+the <code>cl_khr_<wbr>subgroup_<wbr>shuffle</code> extension macro or
+OpenCL C 3.1 or newer.
 </td>
 </tr>
 </table>
-</div>
-<div class="paragraph">
-<p>The <a href="#table-shuffle-functions">following table</a> describes the OpenCL C
-programming language built-in functions that allow work items in a sub-group
-to exchange data.
-These functions need not be encountered by all work items in a sub-group
-executing the kernel.
-For the functions below, the generic type name <code>gentype</code> may be one of the
-supported built-in scalar data types <code>char</code>, <code>uchar</code>, <code>short</code>, <code>ushort</code>,
-<code>int</code>, <code>uint</code>, <code>long</code>, <code>ulong</code>, <code>float</code>, <code>half</code>
-<sup class="footnote">[<a id="_footnoteref_111" class="footnote" href="#_footnotedef_111" title="View footnote.">111</a>]</sup>, and <code>double</code>
-<sup class="footnote">[<a id="_footnoteref_112" class="footnote" href="#_footnotedef_112" title="View footnote.">112</a>]</sup>.</p>
 </div>
 <table id="table-shuffle-functions" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 62. Built-in Sub-Group General Purpose Shuffle Functions</caption>
@@ -19267,8 +19396,12 @@ supported built-in scalar data types <code>char</code>, <code>uchar</code>, <cod
 <div class="sect4">
 <h5 id="_built_in_sub_group_relative_shuffle_functions"><a class="anchor" href="#_built_in_sub_group_relative_shuffle_functions"></a>6.15.20.7. Built-in Sub-Group Relative Shuffle Functions</h5>
 <div class="paragraph">
-<p>The table below describes specialized OpenCL C programming language built-in
-functions that allow work items in a sub-group to exchange data.
+<p>If
+the <code>cl_khr_<wbr>subgroup_<wbr>shuffle_<wbr>relative</code> extension macro or
+OpenCL C 3.1 or newer is supported, the functions described in the
+<a href="#table-shuffle-relative-functionss">Built-in Sub-Group Relative Shuffle
+Functions</a> table can be used to exchange data among relative work-items in a
+sub-group.
 These functions need not be encountered by all work items in a sub-group
 executing the kernel.
 For the functions below, the generic type name <code>gentype</code> may be one of the
@@ -19276,6 +19409,21 @@ supported built-in scalar data types <code>char</code>, <code>uchar</code>, <cod
 <code>int</code>, <code>uint</code>, <code>long</code>, <code>ulong</code>, <code>float</code>, <code>half</code>
 <sup class="footnote">[<a id="_footnoteref_113" class="footnote" href="#_footnotedef_113" title="View footnote.">113</a>]</sup>, and <code>double</code>
 <sup class="footnote">[<a id="_footnoteref_114" class="footnote" href="#_footnotedef_114" title="View footnote.">114</a>]</sup>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The functionality described in this section <a href="#unified-spec">requires</a>
+support for
+the <code>cl_khr_<wbr>subgroup_<wbr>shuffle_<wbr>relative</code> extension macro or
+OpenCL C 3.1 or newer.
+</td>
+</tr>
+</table>
 </div>
 <table id="table-shuffle-relative-functions" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 63. Built-in Sub-Group Relative Shuffle Functions</caption>
@@ -19352,7 +19500,8 @@ and SPIR-V instructions and required SPIR-V capabilities.</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">For OpenCL 2.1 or <code>cl_khr_<wbr>subgroups</code>:</p></td>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">For OpenCL C 2.1, OpenCL C 3.0 and the <code>__opencl_c_<wbr>subgroups</code> feature,
+OpenCL C 3.1 or newer, or <code>cl_khr_<wbr>subgroups</code>:</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_sub_<wbr>group_<wbr>size</code></p></td>
@@ -19611,60 +19760,6 @@ and SPIR-V instructions and required SPIR-V capabilities.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformClustered</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">For <code>cl_khr_<wbr>subgroup_<wbr>extended_<wbr>types</code>:<br>
-    Note: This extension adds new types to uniform sub-group operations.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>broadcast</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupBroadcast</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>reduce_<wbr>add</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupIAdd</strong>, <strong>OpGroupFAdd</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>reduce_<wbr>min</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupSMin</strong>, <strong>OpGroupUMin</strong>, <strong>OpGroupFMin</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>reduce_<wbr>max</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupSMax</strong>, <strong>OpGroupUMax</strong>, <strong>OpGroupFMax</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>scan_<wbr>exclusive_<wbr>add</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupIAdd</strong>, <strong>OpGroupFAdd</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>scan_<wbr>exclusive_<wbr>min</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupSMin</strong>, <strong>OpGroupUMin</strong>, <strong>OpGroupFMin</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>scan_<wbr>exclusive_<wbr>max</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupSMax</strong>, <strong>OpGroupUMax</strong>, <strong>OpGroupFMax</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>scan_<wbr>inclusive_<wbr>add</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupIAdd</strong>, <strong>OpGroupFAdd</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>scan_<wbr>inclusive_<wbr>min</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupSMin</strong>, <strong>OpGroupUMin</strong>, <strong>OpGroupFMin</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>scan_<wbr>inclusive_<wbr>max</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupSMax</strong>, <strong>OpGroupUMax</strong>, <strong>OpGroupFMax</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groups</strong></p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">For <code>cl_khr_<wbr>subgroup_<wbr>non_<wbr>uniform_<wbr>arithmetic</code>:</p></td>
 </tr>
 <tr>
@@ -19841,7 +19936,22 @@ and SPIR-V instructions and required SPIR-V capabilities.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformVote</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">For <code>cl_khr_<wbr>subgroup_<wbr>shuffle</code>:</p></td>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">For OpenCL C 3.1 or newer
+or <code>cl_khr_<wbr>subgroup_<wbr>rotate</code>:</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>rotate</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformRotateKHR</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformRotateKHR</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>clustered_<wbr>rotate</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpGroupNonUniformRotateKHR</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformRotateKHR</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">For OpenCL C 3.1 or newer
+or <code>cl_khr_<wbr>subgroup_<wbr>shuffle</code>:</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>shuffle</code></p></td>
@@ -19854,7 +19964,8 @@ and SPIR-V instructions and required SPIR-V capabilities.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GroupNonUniformShuffle</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">For <code>cl_khr_<wbr>subgroup_<wbr>shuffle_<wbr>relative</code>:</p></td>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">For OpenCL C 3.1 or newer
+or <code>cl_khr_<wbr>subgroup_<wbr>shuffle_<wbr>relative</code>:</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub_group_<wbr>shuffle_<wbr>up</code></p></td>
@@ -23025,19 +23136,19 @@ as</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="opencl_c"><span class="n">s_prime</span> <span class="o">=</span> <span class="mf">2.0</span><span class="n">f</span> <span class="o">*</span> <span class="n">rint</span><span class="p">(</span><span class="mf">0.5</span><span class="n">f</span> <span class="o">*</span> <span class="n">s</span><span class="p">)</span>
+<pre class="rouge highlight"><code data-lang="opencl_c"><span class="n">s_prime</span> <span class="o">=</span> <span class="mf">2.0f</span> <span class="o">*</span> <span class="n">rint</span><span class="p">(</span><span class="mf">0.5f</span> <span class="o">*</span> <span class="n">s</span><span class="p">)</span>
 <span class="n">s_prime</span> <span class="o">=</span> <span class="n">fabs</span><span class="p">(</span><span class="n">s</span> <span class="o">-</span> <span class="n">s_prime</span><span class="p">)</span>
 <span class="n">u</span> <span class="o">=</span> <span class="n">s_prime</span> <span class="o">*</span> <span class="n">w_t</span>
 <span class="n">i</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">floor</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
 <span class="n">i</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">w_t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
 
-<span class="n">t_prime</span> <span class="o">=</span> <span class="mf">2.0</span><span class="n">f</span> <span class="o">*</span> <span class="n">rint</span><span class="p">(</span><span class="mf">0.5</span><span class="n">f</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>
+<span class="n">t_prime</span> <span class="o">=</span> <span class="mf">2.0f</span> <span class="o">*</span> <span class="n">rint</span><span class="p">(</span><span class="mf">0.5f</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>
 <span class="n">t_prime</span> <span class="o">=</span> <span class="n">fabs</span><span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="n">t_prime</span><span class="p">)</span>
 <span class="n">v</span> <span class="o">=</span> <span class="n">t_prime</span> <span class="o">*</span> <span class="n">h_t</span>
 <span class="n">j</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">floor</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
 <span class="n">j</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">h_t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
 
-<span class="n">r_prime</span> <span class="o">=</span> <span class="mf">2.0</span><span class="n">f</span> <span class="o">*</span> <span class="n">rint</span><span class="p">(</span><span class="mf">0.5</span><span class="n">f</span> <span class="o">*</span> <span class="n">r</span><span class="p">)</span>
+<span class="n">r_prime</span> <span class="o">=</span> <span class="mf">2.0f</span> <span class="o">*</span> <span class="n">rint</span><span class="p">(</span><span class="mf">0.5f</span> <span class="o">*</span> <span class="n">r</span><span class="p">)</span>
 <span class="n">r_prime</span> <span class="o">=</span> <span class="n">fabs</span><span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="n">r_prime</span><span class="p">)</span>
 <span class="n">w</span> <span class="o">=</span> <span class="n">r_prime</span> <span class="o">*</span> <span class="n">d_t</span>
 <span class="n">k</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">floor</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
@@ -23064,26 +23175,26 @@ This 2×2 square or 2×2×2 cube is obtained as follows.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="opencl_c"><span class="n">s_prime</span> <span class="o">=</span> <span class="mf">2.0</span><span class="n">f</span> <span class="o">*</span> <span class="n">rint</span><span class="p">(</span><span class="mf">0.5</span><span class="n">f</span> <span class="o">*</span> <span class="n">s</span><span class="p">)</span>
+<pre class="rouge highlight"><code data-lang="opencl_c"><span class="n">s_prime</span> <span class="o">=</span> <span class="mf">2.0f</span> <span class="o">*</span> <span class="n">rint</span><span class="p">(</span><span class="mf">0.5f</span> <span class="o">*</span> <span class="n">s</span><span class="p">)</span>
 <span class="n">s_prime</span> <span class="o">=</span> <span class="n">fabs</span><span class="p">(</span><span class="n">s</span> <span class="o">-</span> <span class="n">s_prime</span><span class="p">)</span>
 <span class="n">u</span> <span class="o">=</span> <span class="n">s_prime</span> <span class="o">*</span> <span class="n">w_t</span>
-<span class="n">i0</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">floor</span><span class="p">(</span><span class="n">u</span> <span class="o">-</span> <span class="mf">0.5</span><span class="n">f</span><span class="p">)</span>
+<span class="n">i0</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">floor</span><span class="p">(</span><span class="n">u</span> <span class="o">-</span> <span class="mf">0.5f</span><span class="p">)</span>
 <span class="n">i1</span> <span class="o">=</span> <span class="n">i0</span> <span class="o">+</span> <span class="mi">1</span>
 <span class="n">i0</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">i0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 <span class="n">i1</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">w_t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
 
-<span class="n">t_prime</span> <span class="o">=</span> <span class="mf">2.0</span><span class="n">f</span> <span class="o">*</span> <span class="n">rint</span><span class="p">(</span><span class="mf">0.5</span><span class="n">f</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>
+<span class="n">t_prime</span> <span class="o">=</span> <span class="mf">2.0f</span> <span class="o">*</span> <span class="n">rint</span><span class="p">(</span><span class="mf">0.5f</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>
 <span class="n">t_prime</span> <span class="o">=</span> <span class="n">fabs</span><span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="n">t_prime</span><span class="p">)</span>
 <span class="n">v</span> <span class="o">=</span> <span class="n">t_prime</span> <span class="o">*</span> <span class="n">h_t</span>
-<span class="n">j0</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">floor</span><span class="p">(</span><span class="n">v</span> <span class="o">-</span> <span class="mf">0.5</span><span class="n">f</span><span class="p">)</span>
+<span class="n">j0</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">floor</span><span class="p">(</span><span class="n">v</span> <span class="o">-</span> <span class="mf">0.5f</span><span class="p">)</span>
 <span class="n">j1</span> <span class="o">=</span> <span class="n">j0</span> <span class="o">+</span> <span class="mi">1</span>
 <span class="n">j0</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">j0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 <span class="n">j1</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">j1</span><span class="p">,</span> <span class="n">h_t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
 
-<span class="n">r_prime</span> <span class="o">=</span> <span class="mf">2.0</span><span class="n">f</span> <span class="o">*</span> <span class="n">rint</span><span class="p">(</span><span class="mf">0.5</span><span class="n">f</span> <span class="o">*</span> <span class="n">r</span><span class="p">)</span>
+<span class="n">r_prime</span> <span class="o">=</span> <span class="mf">2.0f</span> <span class="o">*</span> <span class="n">rint</span><span class="p">(</span><span class="mf">0.5f</span> <span class="o">*</span> <span class="n">r</span><span class="p">)</span>
 <span class="n">r_prime</span> <span class="o">=</span> <span class="n">fabs</span><span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="n">r_prime</span><span class="p">)</span>
 <span class="n">w</span> <span class="o">=</span> <span class="n">r_prime</span> <span class="o">*</span> <span class="n">d_t</span>
-<span class="n">k0</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">floor</span><span class="p">(</span><span class="n">w</span> <span class="o">-</span> <span class="mf">0.5</span><span class="n">f</span><span class="p">)</span>
+<span class="n">k0</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">floor</span><span class="p">(</span><span class="n">w</span> <span class="o">-</span> <span class="mf">0.5f</span><span class="p">)</span>
 <span class="n">k1</span> <span class="o">=</span> <span class="n">k0</span> <span class="o">+</span> <span class="mi">1</span>
 <span class="n">k0</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">k0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 <span class="n">k1</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">k1</span><span class="p">,</span> <span class="n">d_t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
@@ -24551,12 +24662,6 @@ channel data types are defined in the "`List of supported Image Channel
 Data Types" table (5.7) of that Specification.</p>
 </li>
 <li>
-<p><a id="opencl-extension-spec"></a> &#8220;The OpenCL Extension Specification, Version
-3.0, Unified&#8221;, <a href="https://www.khronos.org/registry/OpenCL/" class="bare">https://www.khronos.org/registry/OpenCL/</a> .
-References are to sections and tables of this specific version, although
-other versions exists.</p>
-</li>
-<li>
 <p><a id="sRGB-spec"></a> &#8220;IEC 61966-2-1:1999 Multimedia systems and equipment -
 Colour measurement and management - Part 2-1: Colour management -
 Default RGB colour space - sRGB&#8221;,
@@ -24581,7 +24686,7 @@ References are to sections of this specific version, referred to as the
 summarized below.</p>
 </div>
 <div class="sect2">
-<h3 id="_summary_of_changes_from_opencl_3_0"><a class="anchor" href="#_summary_of_changes_from_opencl_3_0"></a>Summary of changes from OpenCL 3.0</h3>
+<h3 id="_summary_of_changes_to_opencl_3_0"><a class="anchor" href="#_summary_of_changes_to_opencl_3_0"></a>Summary of Changes to OpenCL 3.0</h3>
 <div class="paragraph">
 <p>The first non-experimental version of the OpenCL 3.0 specifications was <strong>v3.0.5</strong>.</p>
 </div>
@@ -24748,6 +24853,62 @@ The OpenCL Extension specification will be removed in a subsequent revision.</p>
 </li>
 <li>
 <p>Updated the ULP requirements for the half-precision tangent, see <a href="https://github.com/KhronosGroup/OpenCL-Docs/pull/1387">#1387</a>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_summary_of_changes_from_opencl_3_0_to_opencl_3_1"><a class="anchor" href="#_summary_of_changes_from_opencl_3_0_to_opencl_3_1"></a>Summary of Changes from OpenCL 3.0 to OpenCL 3.1</h3>
+<div class="paragraph">
+<p>OpenCL 3.1 adds the OpenCL 3.1 C kernel language.</p>
+</div>
+<div class="paragraph">
+<p>Other changes in OpenCL 3.1:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Added support for the <strong>z</strong> and <strong>t</strong> <code>printf</code> length specifiers, see <a href="https://github.com/KhronosGroup/OpenCL-Docs/issues/654">#654</a>.</p>
+</li>
+<li>
+<p>Removed a few references to SPIR-V that do not belong in OpenCL C spec, see <a href="https://github.com/KhronosGroup/OpenCL-Docs/pull/1517">#1517</a>.</p>
+</li>
+<li>
+<p>Fixed a typo for <code>fmin</code> for the <code>half</code> type, see <a href="https://github.com/KhronosGroup/OpenCL-Docs/pull/1519">#1519</a>.</p>
+</li>
+<li>
+<p>Removed the Extending Attribute Qualifiers section, see <a href="https://github.com/KhronosGroup/OpenCL-Docs/pull/1532">#1532</a>.</p>
+</li>
+<li>
+<p>Moved the documentation of cluster size restrictions to improve readability, see <a href="https://github.com/KhronosGroup/OpenCL-Docs/pull/1535">#1535</a>.</p>
+</li>
+<li>
+<p>Clarified behavior for NaN to integer saturated conversions, see <a href="https://github.com/KhronosGroup/OpenCL-Docs/pull/1546">#1546</a>.</p>
+</li>
+<li>
+<p>Promoted the following extensions to the core API:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>cl_khr_<wbr>extended_<wbr>bit_<wbr>ops</code></p>
+</li>
+<li>
+<p><code>cl_khr_<wbr>integer_<wbr>dot_<wbr>product</code></p>
+</li>
+<li>
+<p><code>cl_khr_<wbr>subgroup_<wbr>extended_<wbr>types</code></p>
+</li>
+<li>
+<p><code>cl_khr_<wbr>subgroup_<wbr>rotate</code></p>
+</li>
+<li>
+<p><code>cl_khr_<wbr>subgroup_<wbr>shuffle</code></p>
+</li>
+<li>
+<p><code>cl_khr_<wbr>subgroup_<wbr>shuffle_<wbr>relative</code></p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>

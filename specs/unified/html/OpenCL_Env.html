@@ -891,9 +891,9 @@ pre.rouge .gs {
 <h1>The OpenCL<sup>&#8482;</sup> SPIR-V Environment Specification</h1>
 <div class="details">
 <span id="author" class="author">Khronos<sup>&#174;</sup> OpenCL Working Group</span><br>
-<span id="revnumber">version v3.0.19,</span>
-<span id="revdate">Thu, 10 Jul 2025 11:00:00 +0000</span>
-<br><span id="revremark">from git branch: main commit: 85da0d12c298ffa9eefd2adb1864f2c8193cbe3e</span>
+<span id="revnumber">version v3.1.0,</span>
+<span id="revdate">Tue, 05 May 2026 04:00:00 +0000</span>
+<br><span id="revremark">from git branch: main commit: 9fff1a87a975972517f5d878b50f6063dc1b731b</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -923,6 +923,7 @@ pre.rouge .gs {
 <li><a href="#required-capabilities-1.4">3.5. SPIR-V 1.4</a></li>
 <li><a href="#required-capabilities-1.5">3.6. SPIR-V 1.5</a></li>
 <li><a href="#required-capabilities-1.6">3.7. SPIR-V 1.6</a></li>
+<li><a href="#required-capabilities-extensions">3.8. SPIR-V Extensions</a></li>
 </ul>
 </li>
 <li><a href="#validation-rules">4. Validation Rules</a></li>
@@ -959,7 +960,8 @@ pre.rouge .gs {
 <li><a href="#references">8. Normative References</a></li>
 <li><a href="#changes_to_opencl">Appendix A: Changes to OpenCL</a>
 <ul class="sectlevel2">
-<li><a href="#_summary_of_changes_from_opencl_3_0">Summary of changes from OpenCL 3.0</a></li>
+<li><a href="#_summary_of_changes_to_opencl_3_0">Summary of changes to OpenCL 3.0</a></li>
+<li><a href="#_summary_of_changes_from_opencl_3_0_to_opencl_3_1">Summary of Changes from OpenCL 3.0 to OpenCL 3.1</a></li>
 </ul>
 </li>
 </ul>
@@ -969,7 +971,7 @@ pre.rouge .gs {
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2008-2025 The Khronos Group Inc.</p>
+<p>Copyright 2008-2026 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>This Specification is protected by copyright laws and contains material proprietary to Khronos.
@@ -1072,18 +1074,18 @@ version number, as described in the SPIR-V specification.</p>
 <div class="sect2">
 <h3 id="_supported_spir_v_versions"><a class="anchor" href="#_supported_spir_v_versions"></a>2.1. Supported SPIR-V Versions</h3>
 <div class="paragraph">
-<p>An OpenCL environment describes the versions of SPIR-V modules that it
+<p>An OpenCL device describes the versions of SPIR-V modules that it
 supports using the <code>CL_DEVICE_<wbr>IL_<wbr>VERSION</code> query in OpenCL 2.1 or newer,
 the <code>CL_DEVICE_<wbr>ILS_<wbr>WITH_<wbr>VERSION</code> query in OpenCL 3.0 or newer, or the
 <code>CL_DEVICE_<wbr>IL_<wbr>VERSION_<wbr>KHR</code> query in the <code>cl_khr_<wbr>il_<wbr>program</code> extension.</p>
 </div>
 <div class="paragraph">
-<p>OpenCL environments that support the <code>cl_khr_<wbr>il_<wbr>program</code> extension or
-OpenCL 2.1 must support SPIR-V 1.0 modules.  OpenCL environments that support
+<p>OpenCL devices that support the <code>cl_khr_<wbr>il_<wbr>program</code> extension or
+OpenCL 2.1 must support SPIR-V 1.0 modules.  OpenCL devices that support
 OpenCL 2.2 must support SPIR-V 1.0, 1.1, and 1.2 modules.
-Use the <code>CL_DEVICE_<wbr>IL_<wbr>VERSION</code> or <code>CL_DEVICE_<wbr>ILS_<wbr>WITH_<wbr>VERSION</code> query
-to determine the versions of SPIR-V modules that are supported by
-OpenCL environments that support OpenCL 3.0.</p>
+There is no requirement for an OpenCL 3.0 device to support SPIR-V.
+OpenCL devices that support OpenCL 3.1 must support SPIR-V 1.0, 1.1, 1.2,
+1.3, and 1.4 modules.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1862,6 +1864,19 @@ additional argument operands.</p>
 matches the supported operand types for the format specifier in the following
 table.</p>
 </div>
+<div class="paragraph">
+<p>In this table, <code>size_t</code> and <code>ptrdiff_t</code> are used as generic types to represent:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>OpTypeInt</strong> with <em>Width</em> equal to 32 if the <em>Addressing Model</em> declared in <strong>OpMemoryModel</strong> is <strong>Physical32</strong>.</p>
+</li>
+<li>
+<p><strong>OpTypeInt</strong> with <em>Width</em> equal to 64 if the <em>Addressing Model</em> declared in <strong>OpMemoryModel</strong> is <strong>Physical64</strong>.</p>
+</li>
+</ul>
+</div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 16.6666%;">
@@ -1940,8 +1955,54 @@ table.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>a</strong>, <strong>A</strong>, <strong>e</strong>, <strong>E</strong>, <strong>f</strong>, <strong>F</strong>, <strong>g</strong>, <strong>G</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpTypeVector</strong> with <em>n</em> components of <strong>OpTypeFloat</strong> with <em>Width</em> equal to 64</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top" colspan="4"><p class="tableblock">For devices supporting OpenCL 3.1 or newer:</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">(none)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>z</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>d</strong>, <strong>i</strong>, <strong>o</strong>, <strong>u</strong>, <strong>x</strong>, <strong>X</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>size_t</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">(none)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>t</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>d</strong>, <strong>i</strong>, <strong>o</strong>, <strong>u</strong>, <strong>x</strong>, <strong>X</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ptrdiff_t</code></p></td>
+</tr>
 </tbody>
 </table>
+<div class="paragraph">
+<p>The following additional restrictions also apply to the <strong>printf</strong> instruction in
+the <strong>OpenCL.std</strong> extended instruction set for OpenCL:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Behavior is undefined for the asterisk <strong>*</strong> field width modifier.</p>
+</li>
+<li>
+<p>Behavior is undefined when the <strong>l</strong> length modifier is followed by the <strong>c</strong>
+conversion specifier or the <strong>s</strong> conversion specifier.</p>
+</li>
+<li>
+<p>Behavior is undefined for the <strong>ll</strong>, <strong>j</strong>, and <strong>L</strong> length modifiers.
+Prior to OpenCL 3.1, behavior is additionally undefined for the <strong>z</strong> and <strong>t</strong>
+length modifiers.</p>
+</li>
+<li>
+<p>Behavior is undefined for the <strong>n</strong> conversion specifier.</p>
+</li>
+<li>
+<p>Behavior is undefined for the <strong>l</strong> length modifier when 64-bit integers are not
+supported.</p>
+</li>
+<li>
+<p>Behavior is undefined for the conversion specifier <strong>s</strong> when the operand is not
+a literal string.</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 </div>
@@ -2138,7 +2199,51 @@ modules that declare the capabilities required for SPIR-V 1.2 modules,
 above.</p>
 </div>
 <div class="paragraph">
-<p>SPIR-V 1.3 does not add any new required capabilities.</p>
+<p>Prior to OpenCL 3.1, SPIR-V 1.3 did not add any new required capabilities.</p>
+</div>
+<div class="paragraph">
+<p>An OpenCL environment supporting SPIR-V 1.3 and OpenCL 3.1 must support SPIR-V
+1.3 modules that declare the following capabilities:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>GroupNonUniformShuffle</strong></p>
+</li>
+<li>
+<p><strong>GroupNonUniformShuffleRelative</strong></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For instructions requiring these capabilities, <em>Scope</em> for <em>Execution</em> may be:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Subgroup</strong></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For the instructions <strong>OpGroupNonUniformShuffle</strong> and <strong>OpGroupNonUniformShuffleXor</strong> requiring these capabilities, valid types for <em>Value</em> are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Scalars of supported types:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>OpTypeInt</strong> (equivalent to <code>char</code>, <code>uchar</code>, <code>short</code>, <code>ushort</code>, <code>int</code>, <code>uint</code>, <code>long</code>, and <code>ulong</code>)</p>
+</li>
+<li>
+<p><strong>OpTypeFloat</strong> (equivalent to <code>half</code>, <code>float</code>, and <code>double</code>)</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
@@ -2171,7 +2276,72 @@ modules that declare the capabilities required for SPIR-V 1.5 modules,
 above.</p>
 </div>
 <div class="paragraph">
-<p>SPIR-V 1.6 does not add any new required capabilities.</p>
+<p>Prior to OpenCL 3.1, SPIR-V 1.6 did not add any new required capabilities.</p>
+</div>
+<div class="paragraph">
+<p>An OpenCL environment supporting SPIR-V 1.6 and OpenCL 3.1 must support SPIR-V
+1.6 modules that declare the following capabilities:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>DotProduct</strong></p>
+</li>
+<li>
+<p><strong>DotProductInput4x8Bit</strong> if <code>CL_DEVICE_<wbr>INTEGER_<wbr>DOT_<wbr>PRODUCT_<wbr>INPUT_<wbr>4x8BIT</code> is supported</p>
+</li>
+<li>
+<p><strong>DotProductInput4x8BitPacked</strong></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="required-capabilities-extensions"><a class="anchor" href="#required-capabilities-extensions"></a>3.8. SPIR-V Extensions</h3>
+<div class="paragraph">
+<p>An OpenCL environment supporting OpenCL 3.1 must support SPIR-V modules that
+declare the following SPIR-V extensions via <strong>OpExtension</strong> and the following
+extension capabilities:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>SPV_KHR_bit_instructions</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>BitInstructions</strong></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>SPV_KHR_integer_dot_product</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>DotProductKHR</strong></p>
+</li>
+<li>
+<p><strong>DotProductInput4x8BitKHR</strong> if <code>CL_DEVICE_<wbr>INTEGER_<wbr>DOT_<wbr>PRODUCT_<wbr>INPUT_<wbr>4x8BIT_<wbr>KHR</code> is supported</p>
+</li>
+<li>
+<p><strong>DotProductInput4x8BitPackedKHR</strong></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>SPV_KHR_subgroup_rotate</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>GroupNonUniformRotateKHR</strong></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -2241,12 +2411,8 @@ have a specified format.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>The image write instruction <strong>OpImageWrite</strong> must not include any optional
-<em>Image Operands</em>.</p>
-</div>
-<div class="paragraph">
-<p>The image read instructions <strong>OpImageRead</strong> and <strong>OpImageSampleExplicitLod</strong>
-must not include the optional <em>Image Operand</em> <strong>ConstOffset</strong>.</p>
+<p>For all image read and write instructions, if an optional <em>Image Operand</em> is
+present, then it must not include <strong>ConstOffset</strong>.</p>
 </div>
 <div class="paragraph">
 <p>For all <strong>Atomic Instructions</strong>:</p>
@@ -7879,14 +8045,14 @@ component vector type:</p>
 to the data vector component type or scalar type:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 13. <em>Image Data Types</em></caption>
+<caption class="title">Table 13. <em>Mapping Image Data Types to Data Types</em></caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top"><strong>Image Channel Order</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Image Channel Data Type</strong></th>
 <th class="tableblock halign-left valign-top"><strong>Data Type</strong></th>
 </tr>
 </thead>
@@ -7969,10 +8135,6 @@ languages - C++&#8221;, <a href="https://www.iso.org/standard/64029.html" class=
 <a href="https://www.khronos.org/registry/OpenCL/" class="bare">https://www.khronos.org/registry/OpenCL/</a> .</p>
 </li>
 <li>
-<p><a id="opencl-extension-spec"></a> &#8220;The OpenCL Extension Specification, Version
-3.0, Unified&#8221;, <a href="https://www.khronos.org/registry/OpenCL/" class="bare">https://www.khronos.org/registry/OpenCL/</a> .</p>
-</li>
-<li>
 <p><a id="spirv-spec"></a> &#8220;SPIR-V Specification, Version 1.6, Unified&#8221;,
 <a href="https://www.khronos.org/registry/spir-v/" class="bare">https://www.khronos.org/registry/spir-v/</a> .</p>
 </li>
@@ -8004,7 +8166,7 @@ Default RGB colour space - sRGB&#8221;,
 versions are summarized below.</p>
 </div>
 <div class="sect2">
-<h3 id="_summary_of_changes_from_opencl_3_0"><a class="anchor" href="#_summary_of_changes_from_opencl_3_0"></a>Summary of changes from OpenCL 3.0</h3>
+<h3 id="_summary_of_changes_to_opencl_3_0"><a class="anchor" href="#_summary_of_changes_to_opencl_3_0"></a>Summary of changes to OpenCL 3.0</h3>
 <div class="paragraph">
 <p>The first non-experimental version of the OpenCL 3.0 specifications was <strong>v3.0.5</strong>.</p>
 </div>
@@ -8183,6 +8345,54 @@ versions are summarized below.</p>
 <ul>
 <li>
 <p><code>cl_khr_<wbr>spirv_<wbr>queries</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_summary_of_changes_from_opencl_3_0_to_opencl_3_1"><a class="anchor" href="#_summary_of_changes_from_opencl_3_0_to_opencl_3_1"></a>Summary of Changes from OpenCL 3.0 to OpenCL 3.1</h3>
+<div class="paragraph">
+<p>OpenCL 3.1 requires support for the SPIR-V 1.0, SPIR-V 1.1, SPIR-V 1.2, SPIR-V
+1.3, and SPIR-V 1.4 intermediate languages.</p>
+</div>
+<div class="paragraph">
+<p>Other changes in OpenCL 3.1:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Added support for the <strong>z</strong> and <strong>t</strong> <code>printf</code> length specifiers, see <a href="https://github.com/KhronosGroup/OpenCL-Docs/issues/654">#654</a>.</p>
+</li>
+<li>
+<p>Allowed optional image operands for image write instructions, see <a href="https://github.com/KhronosGroup/OpenCL-Docs/pull/1451">#1451</a>.</p>
+</li>
+<li>
+<p>Fixed a typo in the Image Data Types table header row, see <a href="https://github.com/KhronosGroup/OpenCL-Docs/pull/1531">#1531</a>.</p>
+</li>
+<li>
+<p>Promoted the following extensions to the core API:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>cl_khr_<wbr>extended_<wbr>bit_<wbr>ops</code></p>
+</li>
+<li>
+<p><code>cl_khr_<wbr>integer_<wbr>dot_<wbr>product</code></p>
+</li>
+<li>
+<p><code>cl_khr_<wbr>subgroup_<wbr>extended_<wbr>types</code></p>
+</li>
+<li>
+<p><code>cl_khr_<wbr>subgroup_<wbr>rotate</code></p>
+</li>
+<li>
+<p><code>cl_khr_<wbr>subgroup_<wbr>shuffle</code></p>
+</li>
+<li>
+<p><code>cl_khr_<wbr>subgroup_<wbr>shuffle_<wbr>relative</code></p>
 </li>
 </ul>
 </div>

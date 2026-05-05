@@ -20,33 +20,30 @@ include_once("../../assets/static_pages/khr_page_top.php");
     </a> GitHub repository. </p>
 
 
-<h6> OpenCL 3.0 Unified Specifications </h6>
+<h6> OpenCL Unified Specifications </h6>
 
-<p> The latest version of OpenCL is OpenCL 3.0. </p>
+<p> The latest version of OpenCL is OpenCL 3.1. </p>
 
-<p> The OpenCL specifications are now unified so they describe OpenCL 3.0
-    and all previous versions of OpenCL, and include <tt>khr</tt> extensions
-    integrated into the core API and C specification language. </p>
+<p> The OpenCL specifications are now unified so they describe OpenCL 3.1
+    and all previous versions of OpenCL, and include <tt>khr</tt> and some
+    <tt>ext</tt> extensions integrated into the core API and C language
+    specifications. </p>
 
 <ul>
 <li> OpenCL API Specification
      (<a href="specs/unified/html/OpenCL_API.html">HTML</a>)
      (<a href="specs/unified/pdf/OpenCL_API.pdf">PDF</a>)
-     (July 10, 2025). </li>
+     (May 5, 2026). </li>
 <li> OpenCL C Language Specification
      (<a href="specs/unified/html/OpenCL_C.html">HTML</a>)
      (<a href="specs/unified/pdf/OpenCL_C.pdf">PDF</a>)
-     (July 10, 2025). </li>
-<li> OpenCL Extension Specification
-     (<a href="specs/unified/html/OpenCL_Ext.html">HTML</a>)
-     (<a href="specs/unified/pdf/OpenCL_Ext.pdf">PDF</a>)
-     (July 10, 2025). </li>
+     (May 5, 2026). </li>
 <li> OpenCL SPIR-V Environment Specification
      (<a href="specs/unified/html/OpenCL_Env.html">HTML</a>)
      (<a href="specs/unified/pdf/OpenCL_Env.pdf">PDF</a>)
-     (July 10, 2025). </li>
+     (May 5, 2026). </li>
 <li> <a href="specs/unified/refpages/man/html/">
-     OpenCL 3.0 Reference Pages.</a> </li>
+     OpenCL Reference Pages.</a> </li>
 <li> <a href="https://www.khronos.org/files/opencl30-reference-guide.pdf" rel="external">
      OpenCL 3.0 Reference Guide.</a> </li>
 </ul>
