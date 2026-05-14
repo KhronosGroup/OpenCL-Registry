@@ -16,3 +16,7 @@ RewriteRule ^ - [L]
 # current API version is no longer in the URL.
 RewriteRule ^specs/3.0-unified/(.*)$    https://registry.khronos.org/OpenCL/specs/unified/$1 [L,R=301]
 RewriteRule ^sdk/3.0/docs/(.*)$         https://registry.khronos.org/OpenCL/specs/unified/refpages/$1 [L,R=301]
+
+# Extension spec has been merged into API spec
+RewriteRule ^specs/unified/html/OpenCL_Ext.html https://registry.khronos.org/OpenCL/specs/unified/html/OpenCL_API.html [L,R=301]
+RewriteRule ^specs/unified/pdf/OpenCL_Ext.pdf https://registry.khronos.org/OpenCL/specs/unified/pdf/OpenCL_API.pdf [L,R=301]
