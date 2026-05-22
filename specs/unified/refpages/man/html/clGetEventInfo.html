@@ -1133,14 +1133,25 @@ event command type for <strong>clEnqueueSVMMigrateMem</strong>.</p></td>
 </tr>
 </tbody>
 </table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
 <div class="paragraph">
-<p>Prior to OpenCL 3.1, using <strong>clGetEventInfo</strong> to determine if a command identified
-by <em>event</em> has finished execution (i.e. whether
-<code>CL_EVENT_<wbr>COMMAND_<wbr>EXECUTION_<wbr>STATUS</code> returns <code>CL_COMPLETE</code>) is not a
-synchronization point.
-For OpenCL 3.1 and newer, if a call to <strong>clGetEventInfo</strong> to determine the
-execution status of a command identified by <em>event</em> returns <code>CL_COMPLETE</code>, then
-the call to <strong>clGetEventInfo</strong> is a synchronization point.</p>
+<p>Calling <strong>clGetEventInfo</strong> with <code>CL_EVENT_<wbr>COMMAND_<wbr>EXECUTION_<wbr>STATUS</code> is intended to
+be a lightweight query, therefore it is not a host synchronization point.
+This means that <em>event</em> does not global-synchronize-with the call to
+<strong>clGetEventInfo</strong>, even if the returned execution status is <code>CL_COMPLETE</code>.
+When a host synchronization point is needed, call a function that waits on the
+event instead, such as <strong>clWaitForEvents</strong>.
+Refer to the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#memory-consistency-model" target="_blank" rel="noopener">memory consistency model</a> for details.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p><strong>clGetEventInfo</strong> returns <code>CL_SUCCESS</code> if the function is executed
