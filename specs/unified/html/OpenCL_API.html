@@ -926,9 +926,9 @@ pre.rouge .gs {
 <h1>The OpenCL<sup>&#8482;</sup> Specification</h1>
 <div class="details">
 <span id="author" class="author">Khronos<sup>&#174;</sup> OpenCL Working Group</span><br>
-<span id="revnumber">version v3.1.0,</span>
-<span id="revdate">Tue, 05 May 2026 04:00:00 +0000</span>
-<br><span id="revremark">from git branch: main commit: 9fff1a87a975972517f5d878b50f6063dc1b731b</span>
+<span id="revnumber">version v3.1.1,</span>
+<span id="revdate">Fri, 22 May 2026 12:00:00 +0000</span>
+<br><span id="revremark">from git branch: main commit: 9f68efb5d80e77a4e437c5b8ee67d581666d044c</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -5398,17 +5398,6 @@ For example, if a host thread or kernel-instance calls the
 wait-for-events function on <strong>E</strong> (e.g. the <a href="#clWaitForEvents"><strong>clWaitForEvents</strong></a> function
 called from a host thread), then <strong>E</strong> global-synchronizes-with that
 wait-for-events function call.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Additionally, for OpenCL 3.1 and newer, <strong>E</strong> global-synchronizes-with an
-API call <strong>X</strong> that observes that the status of <strong>E</strong> is complete.
-For example, if a host thread queries the execution status of <strong>E</strong> using
-<a href="#clGetEventInfo"><strong>clGetEventInfo</strong></a>, and the execution status is <a href="#CL_COMPLETE"><code>CL_COMPLETE</code></a>, then <strong>E</strong>
-global-synchronizes-with that call to <a href="#clGetEventInfo"><strong>clGetEventInfo</strong></a>.</p>
-</li>
-</ul>
-</div>
 </li>
 <li>
 <p>If commands <strong>C</strong> and <strong>C1</strong> are enqueued in that sequence onto an in-order
@@ -33785,14 +33774,25 @@ event command type for <a href="#clEnqueueSVMMigrateMem"><strong>clEnqueueSVMMig
 </tr>
 </tbody>
 </table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
 <div class="paragraph">
-<p>Prior to OpenCL 3.1, using <a href="#clGetEventInfo"><strong>clGetEventInfo</strong></a> to determine if a command identified
-by <em>event</em> has finished execution (i.e. whether
-<a href="#CL_EVENT_COMMAND_EXECUTION_STATUS"><code>CL_EVENT_<wbr>COMMAND_<wbr>EXECUTION_<wbr>STATUS</code></a> returns <a href="#CL_COMPLETE"><code>CL_COMPLETE</code></a>) is not a
-synchronization point.
-For OpenCL 3.1 and newer, if a call to <a href="#clGetEventInfo"><strong>clGetEventInfo</strong></a> to determine the
-execution status of a command identified by <em>event</em> returns <a href="#CL_COMPLETE"><code>CL_COMPLETE</code></a>, then
-the call to <a href="#clGetEventInfo"><strong>clGetEventInfo</strong></a> is a synchronization point.</p>
+<p>Calling <a href="#clGetEventInfo"><strong>clGetEventInfo</strong></a> with <a href="#CL_EVENT_COMMAND_EXECUTION_STATUS"><code>CL_EVENT_<wbr>COMMAND_<wbr>EXECUTION_<wbr>STATUS</code></a> is intended to
+be a lightweight query, therefore it is not a host synchronization point.
+This means that <em>event</em> does not global-synchronize-with the call to
+<a href="#clGetEventInfo"><strong>clGetEventInfo</strong></a>, even if the returned execution status is <a href="#CL_COMPLETE"><code>CL_COMPLETE</code></a>.
+When a host synchronization point is needed, call a function that waits on the
+event instead, such as <a href="#clWaitForEvents"><strong>clWaitForEvents</strong></a>.
+Refer to the <a href="#memory-consistency-model">memory consistency model</a> for details.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p><a href="#clGetEventInfo"><strong>clGetEventInfo</strong></a> returns <a href="#CL_SUCCESS"><code>CL_SUCCESS</code></a> if the function is executed
@@ -44335,6 +44335,16 @@ See <a href="https://github.com/KhronosGroup/OpenCL-Docs/pull/1516">#1516</a>.</
 </li>
 </ul>
 </div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Changes from <strong>v3.1.0</strong> to <strong>v3.1.1</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Reverted the change where observing that an event is <a href="#CL_COMPLETE"><code>CL_COMPLETE</code></a> is a synchronization point due to possible performance regressions, see internal issue 386 and <a href="https://github.com/KhronosGroup/OpenCL-Docs/pull/1558">#1558</a>.</p>
 </li>
 </ul>
 </div>
