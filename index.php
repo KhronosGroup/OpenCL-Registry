@@ -33,15 +33,15 @@ include_once("../../assets/static_pages/khr_page_top.php");
 <li> OpenCL API Specification
      (<a href="specs/unified/html/OpenCL_API.html">HTML</a>)
      (<a href="specs/unified/pdf/OpenCL_API.pdf">PDF</a>)
-     (May 5, 2026). </li>
+     (May 22, 2026). </li>
 <li> OpenCL C Language Specification
      (<a href="specs/unified/html/OpenCL_C.html">HTML</a>)
      (<a href="specs/unified/pdf/OpenCL_C.pdf">PDF</a>)
-     (May 5, 2026). </li>
+     (May 22, 2026). </li>
 <li> OpenCL SPIR-V Environment Specification
      (<a href="specs/unified/html/OpenCL_Env.html">HTML</a>)
      (<a href="specs/unified/pdf/OpenCL_Env.pdf">PDF</a>)
-     (May 5, 2026). </li>
+     (May 22, 2026). </li>
 <li> <a href="specs/unified/refpages/man/html/">
      OpenCL Reference Pages.</a> </li>
 <li> <a href="https://www.khronos.org/files/opencl30-reference-guide.pdf" rel="external">
