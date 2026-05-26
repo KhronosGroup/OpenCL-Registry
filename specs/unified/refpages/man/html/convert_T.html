@@ -936,14 +936,14 @@ When converting from a floating-point type to integer type, the behavior is
 implementation-defined.</p>
 </div>
 <div class="paragraph">
-<p>Conversions to integer type may opt to convert using the optional saturated
+<p>Conversions to integer types may opt to convert using the optional saturated
 mode by appending the _sat modifier to the conversion function name.
 When in saturated mode, values that are outside the representable range
-shall clamp to the nearest representable value in the destination format.
-(NaN should be converted to 0).</p>
+are clamped to the nearest representable value in the destination format,
+and NaN is converted to zero.</p>
 </div>
 <div class="paragraph">
-<p>Conversions to floating-point type shall conform to IEEE-754 rounding rules.
+<p>Conversions to floating-point types conform to IEEE-754 rounding rules.
 The <code>_sat</code> modifier may not be used for conversions to floating-point
 formats.</p>
 </div>
@@ -957,7 +957,7 @@ formats.</p>
 <div class="content">
 <pre class="highlight"><code class="language-c" data-lang="c">short4 s;
 
-// negative values clamped to 0
+// negative values clamped to zero
 ushort4 u = convert_ushort4_sat( s );
 
 // values &gt; CHAR_MAX converted to CHAR_MAX
@@ -977,7 +977,7 @@ char4 c = convert_char4_sat( s );</code></pre>
 int4 i = convert_int4( f );
 
 // values &gt; INT_MAX clamp to INT_MAX, values &lt; INT_MIN clamp
-// to INT_MIN. NaN should produce 0.
+// to INT_MIN, and NaN is converted to zero
 // The _rtz_ rounding mode is used to produce the integer values.
 int4 i2 = convert_int4_sat( f );
 
@@ -1097,7 +1097,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2025 The Khronos Group Inc.</p>
+<p>Copyright 2014-2026 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>

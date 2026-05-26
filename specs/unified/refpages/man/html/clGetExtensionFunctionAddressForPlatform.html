@@ -767,34 +767,45 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <h1>clGetExtensionFunctionAddressForPlatform(3) Manual Page</h1>
 <h2 id="_name">Name</h2>
 <div class="sectionbody">
-<p>clGetExtensionFunctionAddressForPlatform - Returns the address of the extension function named by _funcname_ for a given _platform_.</p>
+<p>clGetExtensionFunctionAddressForPlatform - Gets an extension function pointer.</p>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
 <h2 id="_c_specification"><a class="anchor" href="#_c_specification"></a>C Specification</h2>
 <div class="sectionbody">
-<div class="listingblock">
+<div class="paragraph">
+<p>Extension function pointers for a given platform can be obtained with the function:</p>
+</div>
+<div id="clGetExtensionFunctionAddressForPlatform" class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">void* clGetExtensionFunctionAddressForPlatform(cl_platform_id platform,
-                                               const char *funcname)</code></pre>
+<pre class="highlight"><code class="language-opencl" data-lang="opencl">// Provided by CL_VERSION_1_2
+void* clGetExtensionFunctionAddressForPlatform(
+    cl_platform_id platform,
+    const char* func_name);</code></pre>
 </div>
 </div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<strong>clGetExtensionFunctionAddressForPlatform</strong> is <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.2.
+</td>
+</tr>
+</table>
 </div>
+<div class="paragraph">
+<p>Or, with the function:</p>
 </div>
-<div class="sect1">
-<h2 id="_parameters"><a class="anchor" href="#_parameters"></a>Parameters</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p><em>platform</em> - Refers to the platform ID returned by
-<a href="clGetPlatformIDs.html">clGetPlatformIDs</a>.</p>
-</li>
-<li>
-<p><em>funcname</em> - Name of an extension function.</p>
-</li>
-</ul>
+<div id="clGetExtensionFunctionAddress" class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-opencl" data-lang="opencl">// Provided by CL_VERSION_1_0
+void* clGetExtensionFunctionAddress(
+    const char* func_name);</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -802,94 +813,36 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The function <code>clGetExtensionFunctionAddressForPlatform</code> returns the address of the extension function named by <em>funcname</em> for a given <em>platform</em>.
-The pointer returned should be cast to a function pointer type matching the extension function&#8217;s definition defined in the appropriate extension specification and header file.</p>
+<p>The returned function pointer should be cast to a function pointer type matching
+the extension function&#8217;s definition defined in the appropriate extension
+specification and header file.</p>
 </div>
 <div class="paragraph">
-<p>A return value of NULL indicates that the specified function does not exist for the implementation or <em>platform</em> is not a valid platform.
-A non-NULL return value for <code>clGetExtensionFunctionAddressForPlatform</code> does not guarantee that an extension function is actually supported by the platform.
-The application must also make a corresponding query using <a href="clGetPlatformInfo.html">clGetPlatformInfo</a> (platform, {CL_PLATFORM_EXTENSIONS}, &#8230;&#8203; ) or
-<a href="clGetDeviceInfo.html">clGetDeviceInfo</a> (device,{CL_DEVICE_EXTENSIONS}, &#8230;&#8203; ) to determine if an extension is supported by the OpenCL implementation.</p>
+<p>A return value of <code>NULL</code> indicates that <em>platform</em> is not a valid platform or
+that the specified extension function does not exist for the platform.</p>
 </div>
 <div class="paragraph">
-<p><code>clGetExtensionFunctionAddressForPlatform</code> may not be queried for core (non-extension) functions in OpenCL.
-For functions that are queryable with <code>clGetExtensionFunctionAddressForPlatform</code>, implementations may choose to also export those functions statically from the object libraries implementing those functions.
-However, portable applications cannot rely on this behavior.</p>
+<p>A non-<code>NULL</code> return value from <strong>clGetExtensionFunctionAddressForPlatform</strong>
+does not guarantee that an extension function is actually supported by the
+platform.
+The application must also query <code>CL_PLATFORM_<wbr>EXTENSIONS</code> or
+<code>CL_DEVICE_<wbr>EXTENSIONS</code> to determine if an extension is supported by an OpenCL
+platform or device.</p>
 </div>
 <div class="paragraph">
-<p>Function pointer typedefs must be declared for all extensions that add API entrypoints.
-These typedefs are a required part of the extension interface, to be provided in an appropriate header (such as <code>cl_ext.h</code> if the extension is an OpenCL extension, or <code>cl_gl_ext.h</code> if the extension is an OpenCL/OpenGL sharing extension).</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_notes"><a class="anchor" href="#_notes"></a>Notes</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Since there is no way to qualify the query with a device, the function pointer returned must work for all implementations of that extension on different devices for a platform.
-The behavior of calling a device extension function on a device not supporting that extension is undefined.</p>
+<p>Since there is no way to qualify the <strong>clGetExtensionFunctionAddressForPlatform</strong>
+query with a device, the function pointer returned must work for all
+implementations of and extension on different devices for a platform.
+The behavior of calling a device extension function on a device not
+supporting that extension is undefined.</p>
 </div>
 <div class="paragraph">
-<p>If the <a href="cl_khr_icd.html">cl_khr_icd</a> extension is enabled, for functions supported by the ICD Loader, <code>clGetExtensionFunctionAddress</code> will return the function pointer of the ICD Loader implementation.
-For extension functions which the ICD Loader is unaware of, the function <code>clGetExtensionFunctionAddress</code> will determine the vendor implementation to return based on the string passed in.
-The ICD Loader will return the result from querying <code>clGetExtensionFunctionAddress</code> on the vendor ICD enumerated by the ICD Loader whose ICD suffix is a suffix of the function name being queried.
-If no such vendor exists or the suffix of the function is <code>KHR</code> or <code>EXT</code> then <code>clGetExtensionFunctionAddress</code> will return NULL.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The following convention must be followed for all extensions affecting the host API, where TAG can be <code>KHR</code>, <code>EXT</code> or vendor-specific:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#ifndef extension_name
-#define extension_name       1
-
-// all data typedefs, token #defines, prototypes, and
-// function pointer typedefs for this extension
-
-// function pointer typedefs must use the
-// following naming convention
-typedef return type
-      (CL_API_CALL *clextension_func_nameTAG_fn)(...);
-
-#endif // extension_name</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Consider, for example, the <a href="cl_khr_gl_sharing.html">cl_khr_gl_sharing</a> extension.
-This extension would add the following to <code>cl_gl_ext.h</code>:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#ifndef cl_khr_gl_sharing
-#define cl_khr_gl_sharing     1
-
-// all data typedefs, token #defines, prototypes, and
-// function pointer typedefs for this extension
-#define CL_INVALID_GL_SHAREGROUP_REFERENCE_KHR -1000
-#define CL_CURRENT_DEVICE_FOR_GL_CONTEXT_KHR   0x2006
-#define CL_DEVICES_FOR_GL_CONTEXT_KHR          0x2007
-#define CL_GL_CONTEXT_KHR                      0x2008
-#define CL_EGL_DISPLAY_KHR                     0x2009
-#define CL_GLX_DISPLAY_KHR                     0x200A
-#define CL_WGL_HDC_KHR                         0x200B
-#define CL_CGL_SHAREGROUP_KHR                  0x200C
-
-// function pointer typedefs must use the
-// following naming convention
-typedef cl_int
-     (CL_API_CALL *clGetGLContextInfoKHR_fn)(
-              const cl_context_properties * /* properties */,
-              cl_gl_context_info /* param_name */,
-              size_t /* param_value_size */,
-              void * /* param_value */,
-              size_t * /_param_value_size_ret_/);
-#endif // cl_khr_gl_sharing</code></pre>
-</div>
+<p><strong>clGetExtensionFunctionAddressForPlatform</strong> may not be used to query for core
+(non-extension) functions in OpenCL.
+For extension functions queried using
+<strong>clGetExtensionFunctionAddressForPlatform</strong>, implementations may also choose to
+export those functions statically from the object libraries implementing those
+functions, however, portable applications cannot rely on this behavior.</p>
 </div>
 </div>
 </div>
@@ -897,7 +850,7 @@ typedef cl_int
 <h2 id="_see_also"><a class="anchor" href="#_see_also"></a>See Also</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="EXTENSION.html">EXTENSION</a></p>
+<p><a href="CL_VERSION_1_0.html">CL_VERSION_1_0</a>, <a href="CL_VERSION_1_2.html">CL_VERSION_1_2</a>, <a href="cl_platform_id.html">cl_platform_id</a></p>
 </div>
 </div>
 </div>
@@ -905,10 +858,11 @@ typedef cl_int
 <h2 id="_document_notes"><a class="anchor" href="#_document_notes"></a>Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the OpenCL Extension Specification at URL</p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#clGetExtensionFunctionAddressForPlatform" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
-<p><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_Ext.html#clGetExtensionFunctionAddressForPlatform" class="bare">https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_Ext.html#clGetExtensionFunctionAddressForPlatform</a></p>
+<p>This page is extracted from the OpenCL Specification.
+Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 </div>
 </div>
@@ -916,7 +870,7 @@ typedef cl_int
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2025 The Khronos Group Inc.</p>
+<p>Copyright 2014-2026 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>

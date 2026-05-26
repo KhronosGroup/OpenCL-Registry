@@ -880,62 +880,113 @@ Otherwise, it returns one of the following errors in <em>errcode_ret</em>:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_INVALID_<wbr>MEM_<wbr>OBJECT</code> if <em>buffer</em> is not a valid buffer object or is a
-sub-buffer object.</p>
+<p><code>CL_INVALID_<wbr>MEM_<wbr>OBJECT</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>buffer</em> is not a valid buffer object</p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if <em>buffer</em> was created with <code>CL_MEM_<wbr>WRITE_<wbr>ONLY</code> and
-<em>flags</em> specifies <code>CL_MEM_<wbr>READ_<wbr>WRITE</code> or <code>CL_MEM_<wbr>READ_<wbr>ONLY</code>, or if <em>buffer</em>
-was created with <code>CL_MEM_<wbr>READ_<wbr>ONLY</code> and <em>flags</em> specifies
-<code>CL_MEM_<wbr>READ_<wbr>WRITE</code> or <code>CL_MEM_<wbr>WRITE_<wbr>ONLY</code>, or if <em>flags</em> specifies
-<code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code> or <code>CL_MEM_<wbr>ALLOC_<wbr>HOST_<wbr>PTR</code> or <code>CL_MEM_<wbr>COPY_<wbr>HOST_<wbr>PTR</code>.</p>
+<p>if <em>buffer</em> is a sub-buffer object</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if <em>buffer</em> was created with <code>CL_MEM_<wbr>HOST_<wbr>WRITE_<wbr>ONLY</code> and
-<em>flags</em> specify <code>CL_MEM_<wbr>HOST_<wbr>READ_<wbr>ONLY</code>, or if <em>buffer</em> was created with
-<code>CL_MEM_<wbr>HOST_<wbr>READ_<wbr>ONLY</code> and <em>flags</em> specify <code>CL_MEM_<wbr>HOST_<wbr>WRITE_<wbr>ONLY</code>, or if
-<em>buffer</em> was created with <code>CL_MEM_<wbr>HOST_<wbr>NO_<wbr>ACCESS</code> and <em>flags</em> specify
-<code>CL_MEM_<wbr>HOST_<wbr>READ_<wbr>ONLY</code> or <code>CL_MEM_<wbr>HOST_<wbr>WRITE_<wbr>ONLY</code>.</p>
+<p><code>CL_INVALID_<wbr>VALUE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>buffer</em> was created with <code>CL_MEM_<wbr>WRITE_<wbr>ONLY</code> and <em>flags</em> specifies <code>CL_MEM_<wbr>READ_<wbr>WRITE</code> or <code>CL_MEM_<wbr>READ_<wbr>ONLY</code></p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if the value specified in <em>buffer_create_type</em> is not
-valid.</p>
+<p>if <em>buffer</em> was created with <code>CL_MEM_<wbr>READ_<wbr>ONLY</code> and <em>flags</em> specifies <code>CL_MEM_<wbr>READ_<wbr>WRITE</code> or <code>CL_MEM_<wbr>WRITE_<wbr>ONLY</code></p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if value(s) specified in <em>buffer_create_info</em> (for a
-given <em>buffer_create_type</em>) is not valid or if <em>buffer_create_info</em> is
-<code>NULL</code>.</p>
+<p>if <em>buffer</em> was created with <code>CL_MEM_<wbr>HOST_<wbr>WRITE_<wbr>ONLY</code> and <em>flags</em> specify <code>CL_MEM_<wbr>HOST_<wbr>READ_<wbr>ONLY</code></p>
 </li>
 <li>
-<p><code>CL_MEM_<wbr>OBJECT_<wbr>ALLOCATION_<wbr>FAILURE</code> if there is a failure to allocate
-memory for sub-buffer object.</p>
+<p>if <em>buffer</em> was created with <code>CL_MEM_<wbr>HOST_<wbr>READ_<wbr>ONLY</code> and <em>flags</em> specify <code>CL_MEM_<wbr>HOST_<wbr>WRITE_<wbr>ONLY</code></p>
 </li>
 <li>
-<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources required
-by the OpenCL implementation on the device.</p>
+<p>if <em>buffer</em> was created with <code>CL_MEM_<wbr>HOST_<wbr>NO_<wbr>ACCESS</code> and <em>flags</em> specify <code>CL_MEM_<wbr>HOST_<wbr>READ_<wbr>ONLY</code> or <code>CL_MEM_<wbr>HOST_<wbr>WRITE_<wbr>ONLY</code></p>
 </li>
 <li>
-<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code> if there is a failure to allocate resources
-required by the OpenCL implementation on the host.</p>
+<p>if <em>buffer</em> was created with <code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code> and <em>flags</em> specifies <code>CL_MEM_<wbr>READ_<wbr>WRITE</code>, <code>CL_MEM_<wbr>WRITE_<wbr>ONLY</code>, or <code>CL_MEM_<wbr>HOST_<wbr>WRITE_<wbr>ONLY</code></p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if the region specified by the <code>cl_buffer_<wbr>region</code>
-structure passed in <em>buffer_create_info</em> is out of bounds in <em>buffer</em>.</p>
+<p>if <em>flags</em> specifies <code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code> or <code>CL_MEM_<wbr>ALLOC_<wbr>HOST_<wbr>PTR</code> or <code>CL_MEM_<wbr>COPY_<wbr>HOST_<wbr>PTR</code></p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>BUFFER_<wbr>SIZE</code> if the <em>size</em> field of the <code>cl_buffer_<wbr>region</code>
-structure passed in <em>buffer_create_info</em> is 0.</p>
+<p>if the value specified in <em>buffer_create_type</em> is not valid</p>
 </li>
 <li>
-<p><code>CL_MISALIGNED_<wbr>SUB_<wbr>BUFFER_<wbr>OFFSET</code> if there are no devices in <em>context</em>
-associated with <em>buffer</em> for which the <em>origin</em> field of the
-<code>cl_buffer_<wbr>region</code> structure passed in <em>buffer_create_info</em> is
-aligned to the <code>CL_DEVICE_<wbr>MEM_<wbr>BASE_<wbr>ADDR_<wbr>ALIGN</code> value.</p>
+<p>if <em>buffer_create_info</em> is <code>NULL</code></p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if <em>buffer</em> was created with <code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code>
-and <em>flags</em> specifies <code>CL_MEM_<wbr>READ_<wbr>WRITE</code>, <code>CL_MEM_<wbr>WRITE_<wbr>ONLY</code>, or
-<code>CL_MEM_<wbr>HOST_<wbr>WRITE_<wbr>ONLY</code>.</p>
+<p>if a value specified in <em>buffer_create_info</em> for a given <em>buffer_create_type</em> is not valid</p>
+</li>
+<li>
+<p>if the region specified by the <code>cl_buffer_<wbr>region</code> structure passed in <em>buffer_create_info</em> is out of bounds in <em>buffer</em></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>BUFFER_<wbr>SIZE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if the <em>size</em> field of the <code>cl_buffer_<wbr>region</code> structure passed in <em>buffer_create_info</em> is zero</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_MISALIGNED_<wbr>SUB_<wbr>BUFFER_<wbr>OFFSET</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if there are no devices in <em>context</em> associated with <em>buffer</em> for which
+the <em>origin</em> field of the <code>cl_buffer_<wbr>region</code> structure passed in
+<em>buffer_create_info</em> is aligned to the <code>CL_DEVICE_<wbr>MEM_<wbr>BASE_<wbr>ADDR_<wbr>ALIGN</code>
+value.
+This error code is <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.1.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_MEM_<wbr>OBJECT_<wbr>ALLOCATION_<wbr>FAILURE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if there is a failure to allocate memory for the data store associated with the sub-buffer object</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if there is a failure to allocate resources required by the OpenCL
+implementation on the device</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if there is a failure to allocate resources required by the OpenCL
+implementation on the host</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -984,7 +1035,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2025 The Khronos Group Inc.</p>
+<p>Copyright 2014-2026 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>

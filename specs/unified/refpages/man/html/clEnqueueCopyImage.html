@@ -907,82 +907,185 @@ Otherwise, it returns one of the following errors:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_INVALID_<wbr>COMMAND_<wbr>QUEUE</code> if <em>command_queue</em> is not a valid host
-command-queue.</p>
+<p><code>CL_INVALID_<wbr>COMMAND_<wbr>QUEUE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>command_queue</em> is not a valid host command-queue</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>CONTEXT</code> if the context associated with <em>command_queue</em>,
-<em>src_image</em> and <em>dst_image</em> are not the same or if the context
-associated with <em>command_queue</em> and events in <em>event_wait_list</em> are not
-the same.</p>
+<p><code>CL_INVALID_<wbr>CONTEXT</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if the context associated with <em>command_queue</em> and <em>src_image</em> are not the same</p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>MEM_<wbr>OBJECT</code> if <em>src_image</em> and <em>dst_image</em> are not valid image
-objects.</p>
+<p>if the context associated with <em>command_queue</em> and <em>dst_image</em> are not the same</p>
 </li>
 <li>
-<p><code>CL_IMAGE_<wbr>FORMAT_<wbr>MISMATCH</code> if <em>src_image</em> and <em>dst_image</em> do not use the
-same image format.</p>
+<p>if the context associated with <em>command_queue</em> and events in <em>event_wait_list</em> are not the same</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if <em>src_origin</em>, <em>dst_origin</em>, or <em>region</em> is <code>NULL</code>.</p>
+<p><code>CL_INVALID_<wbr>MEM_<wbr>OBJECT</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>src_image</em> is not a valid image object</p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if the 2D or 3D rectangular region specified by
-<em>src_origin</em> and <em>src_origin</em> +  <em>region</em> refers to a region outside
-<em>src_image</em>, or if the 2D or 3D rectangular region specified by
-<em>dst_origin</em> and <em>dst_origin</em> +  <em>region</em> refers to a region outside
-<em>dst_image</em>.</p>
+<p>if <em>dst_image</em> is not a valid image object</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if values in <em>src_origin</em>, <em>dst_origin</em> and <em>region</em> do
-not follow rules described in the argument description for <em>src_origin</em>,
-<em>dst_origin</em> and <em>region</em>.</p>
+<p><code>CL_IMAGE_<wbr>FORMAT_<wbr>MISMATCH</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>src_image</em> and <em>dst_image</em> do not use the same image format</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>EVENT_<wbr>WAIT_<wbr>LIST</code> if <em>event_wait_list</em> is <code>NULL</code> and
-<em>num_events_in_wait_list</em> &gt; 0, or <em>event_wait_list</em> is not <code>NULL</code> and
-<em>num_events_in_wait_list</em> is 0, or if event objects in <em>event_wait_list</em>
-are not valid events.</p>
+<p><code>CL_INVALID_<wbr>VALUE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>src_origin</em> is <code>NULL</code></p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>IMAGE_<wbr>SIZE</code> if image dimensions (image width, height,
-specified or compute row and/or slice pitch) for <em>src_image</em> or
-<em>dst_image</em> are not supported by device associated with <em>queue</em>.</p>
+<p>if <em>dst_origin</em> is <code>NULL</code></p>
 </li>
 <li>
-<p><code>CL_IMAGE_<wbr>FORMAT_<wbr>NOT_<wbr>SUPPORTED</code> if image format (image channel order and
-data type) for <em>src_image</em> or <em>dst_image</em> are not supported by device
-associated with <em>queue</em>.</p>
+<p>if <em>region</em> is <code>NULL</code></p>
 </li>
 <li>
-<p><code>CL_MEM_<wbr>OBJECT_<wbr>ALLOCATION_<wbr>FAILURE</code> if there is a failure to allocate
-memory for data store associated with <em>src_image</em> or <em>dst_image</em>.</p>
+<p>if the 2D or 3D rectangular region specified by <em>src_origin</em> and <em>region</em> refers to a region outside <em>src_image</em></p>
 </li>
 <li>
-<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources required
-by the OpenCL implementation on the device.</p>
+<p>if the 2D or 3D rectangular region specified by <em>dst_origin</em> and <em>region</em> refers to a region outside <em>dst_image</em></p>
 </li>
 <li>
-<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code> if there is a failure to allocate resources
-required by the OpenCL implementation on the host.</p>
+<p>if values in <em>src_origin</em>, <em>dst_origin</em>, and <em>region</em>  do not follow the rules described in the argument descriptions for <em>src_origin</em>, <em>dst_origin</em> and <em>region</em></p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>OPERATION</code> if the device associated with <em>command_queue</em> does
-not support images (i.e. <code>CL_DEVICE_<wbr>IMAGE_<wbr>SUPPORT</code> specified in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#device-queries-table" target="_blank" rel="noopener">Device Queries</a> table is <code>CL_FALSE</code>).</p>
+<p><code>CL_INVALID_<wbr>MIP_<wbr>LEVEL</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if the <code>cl_khr_<wbr>mipmap_<wbr>image</code> extension is supported and the mip level specified in <em>src_origin</em> is not a valid level for <em>src_image</em></p>
 </li>
 <li>
-<p><code>CL_MEM_<wbr>COPY_<wbr>OVERLAP</code> if <em>src_image</em> and <em>dst_image</em> are the same image
-object and the source and destination regions overlap.</p>
+<p>if the <code>cl_khr_<wbr>mipmap_<wbr>image</code> extension is supported and the mip level specified in <em>dst_origin</em> is not a valid level for <em>dst_image</em></p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>MIP_<wbr>LEVEL</code> if the <code>cl_khr_<wbr>mipmap_<wbr>image</code> extension is
-supported, and the mip level specified in <em>src_origin</em> or <em>dst_origin</em>
-is not a valid level for the corresponding <em>src_image</em> or <em>dst_image</em>,</p>
+<p><code>CL_INVALID_<wbr>EVENT_<wbr>WAIT_<wbr>LIST</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>event_wait_list</em> is <code>NULL</code> and <em>num_events_in_wait_list</em> is greater than zero</p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>OPERATION</code> if <em>dst_image</em> was created with <code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code>.</p>
+<p>if <em>event_wait_list</em> is not <code>NULL</code> and <em>num_events_in_wait_list</em> is zero</p>
+</li>
+<li>
+<p>if event objects in <em>event_wait_list</em> are not valid events</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>IMAGE_<wbr>SIZE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if the dimensions for <em>src_image</em> or <em>dst_image</em>, such as the image width or image height,
+are not supported by the device associated with <em>command_queue</em></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_IMAGE_<wbr>FORMAT_<wbr>NOT_<wbr>SUPPORTED</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if the format for <em>src_image</em> or <em>dst_image</em>, such as the image channel order or image
+channel data type, are not supported by the device associated with
+<em>command_queue</em></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_MEM_<wbr>COPY_<wbr>OVERLAP</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>src_image</em> and <em>dst_image</em> are the same image object and the source and destination regions overlap</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_MEM_<wbr>OBJECT_<wbr>ALLOCATION_<wbr>FAILURE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if there is a failure to allocate memory for the data store associated with <em>src_image</em> or <em>dst_image</em></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>OPERATION</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if the device associated with <em>command_queue</em> does not support images (the query for <code>CL_DEVICE_<wbr>IMAGE_<wbr>SUPPORT</code> returns <code>CL_FALSE</code>)</p>
+</li>
+<li>
+<p>if <em>dst_image</em> was created with <code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if there is a failure to allocate resources required by the OpenCL
+implementation on the device</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if there is a failure to allocate resources required by the OpenCL
+implementation on the host</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -1012,7 +1115,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2025 The Khronos Group Inc.</p>
+<p>Copyright 2014-2026 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>

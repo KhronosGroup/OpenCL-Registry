@@ -883,13 +883,13 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <p class="tableblock">        <code>CL_COMMAND_<wbr>BUFFER_<wbr>STATE_<wbr>RECORDING_<wbr>KHR</code> is returned when
         <em>command_buffer</em> has not been finalized.</p>
 <p class="tableblock">provided by the <code>cl_khr_command_buffer</code> extension.</p>
+<p class="tableblock">        <code>CL_COMMAND_<wbr>BUFFER_<wbr>STATE_<wbr>FINALIZED_<wbr>KHR</code> is returned when an
+        instance of <em>command_buffer</em> has been finalized, but there is at least
+        one command for which not all arguments or parameters have been set.</p>
+<p class="tableblock">provided by the <code>cl_khr_command_buffer_mutable_dispatch</code> extension.</p>
 <p class="tableblock">        <code>CL_COMMAND_<wbr>BUFFER_<wbr>STATE_<wbr>EXECUTABLE_<wbr>KHR</code> is returned when
-        <em>command_buffer</em> has been finalized and there is not a <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#pending" target="_blank" rel="noopener">Pending</a> instance of <em>command_buffer</em> awaiting completion on a
-        command_queue.</p>
-<p class="tableblock">provided by the <code>cl_khr_command_buffer</code> extension.</p>
-<p class="tableblock">        <code>CL_COMMAND_<wbr>BUFFER_<wbr>STATE_<wbr>PENDING_<wbr>KHR</code> is returned when an
-        instance of <em>command_buffer</em> has been enqueued for execution but not
-        yet completed.</p>
+        <em>command_buffer</em> has been finalized, all the arguments and parameters of
+        all commands have been set.</p>
 <p class="tableblock">provided by the <code>cl_khr_command_buffer</code> extension.</p></td>
 </tr>
 <tr>
@@ -970,7 +970,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2025 The Khronos Group Inc.</p>
+<p>Copyright 2014-2026 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>

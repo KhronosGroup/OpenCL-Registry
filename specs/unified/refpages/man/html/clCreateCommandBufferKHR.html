@@ -854,11 +854,10 @@ supported command-buffer properties will be used.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_command_<wbr>buffer_<wbr>flags_<wbr>khr</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This is a bitfield and can be set to a combination of the following values:</p>
 <p class="tableblock">        <code>CL_COMMAND_<wbr>BUFFER_<wbr>SIMULTANEOUS_<wbr>USE_<wbr>KHR</code> - Allow multiple
-        instances of the command-buffer to be submitted to the device for
-        execution.
-        If set, devices must support
+        instances of the command-buffer to be scheduled for execution on the
+        device in a usage pattern that exhibits <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#simultaneous-use" target="_blank" rel="noopener">simultaneous use</a>. If set, devices must support
         <code>CL_COMMAND_<wbr>BUFFER_<wbr>CAPABILITY_<wbr>SIMULTANEOUS_<wbr>USE_<wbr>KHR</code>.</p>
-<p class="tableblock">provided by the <code>cl_khr_command_buffer</code> extension.</p>
+<p class="tableblock">provided by the <code>cl_khr_command_buffer_mutable_dispatch</code> extension.</p>
 <p class="tableblock">      <code>CL_COMMAND_<wbr>BUFFER_<wbr>DEVICE_<wbr>SIDE_<wbr>SYNC_<wbr>KHR</code> - All commands in the
       command-buffer must use native synchronization, as reported by
       <code>CL_DEVICE_<wbr>COMMAND_<wbr>BUFFER_<wbr>SYNC_<wbr>DEVICES_<wbr>KHR</code>.
@@ -953,25 +952,6 @@ If <em>errcode_ret</em> is <code>NULL</code>, no error code is returned.</p>
 </tr>
 </tbody>
 </table>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Upon creation the command-buffer is defined as being in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#recording" target="_blank" rel="noopener">Recording</a> state, in order for the command-buffer to be enqueued
-it must first be finalized using <strong>clFinalizeCommandBufferKHR</strong> after which no
-further commands can be recorded.
-A command-buffer is submitted for execution on command-queues with a call to
-<strong>clEnqueueCommandBufferKHR</strong>.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
 <div class="paragraph">
 <p><strong>clCreateCommandBufferKHR</strong> returns a valid non-zero command-buffer and
 <em>errcode_ret</em> is set to <code>CL_SUCCESS</code> if the command-buffer is created
@@ -1069,7 +1049,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2025 The Khronos Group Inc.</p>
+<p>Copyright 2014-2026 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>

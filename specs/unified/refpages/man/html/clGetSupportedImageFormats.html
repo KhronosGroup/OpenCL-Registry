@@ -806,7 +806,7 @@ created.</p>
 information about the image formats being queried and is described in
 the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#memory-flags-table" target="_blank" rel="noopener">Memory Flags</a> table.
 <em>flags</em> may be <code>CL_MEM_<wbr>READ_<wbr>WRITE</code> to query image formats that may be read
-from and written to by different kernel instances when correctly ordered by
+from and written to by different kernel-instances when correctly ordered by
 event dependencies, or <code>CL_MEM_<wbr>READ_<wbr>ONLY</code> to query image formats that may
 be read from by a kernel, or <code>CL_MEM_<wbr>WRITE_<wbr>ONLY</code> to query image formats that
 may be written to by a kernel, or <code>CL_MEM_<wbr>KERNEL_<wbr>READ_<wbr>AND_<wbr>WRITE</code> to query
@@ -857,19 +857,52 @@ Otherwise, it returns one of the following errors:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_INVALID_<wbr>CONTEXT</code> if <em>context</em> is not a valid context.</p>
+<p><code>CL_INVALID_<wbr>CONTEXT</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>context</em> is not a valid context</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if <em>flags</em> or <em>image_type</em> are not valid, or if
-<em>num_entries</em> is 0 and <em>image_formats</em> is not <code>NULL</code>.</p>
+<p><code>CL_INVALID_<wbr>VALUE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>flags</em> is not valid</p>
 </li>
 <li>
-<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources required
-by the OpenCL implementation on the device.</p>
+<p>if <em>image_type</em> is not valid</p>
 </li>
 <li>
-<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code> if there is a failure to allocate resources
-required by the OpenCL implementation on the host.</p>
+<p>if <em>num_entries</em> is zero and <em>image_formats</em> is not <code>NULL</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if there is a failure to allocate resources required by the OpenCL
+implementation on the device</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if there is a failure to allocate resources required by the OpenCL
+implementation on the host</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -909,7 +942,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2025 The Khronos Group Inc.</p>
+<p>Copyright 2014-2026 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>

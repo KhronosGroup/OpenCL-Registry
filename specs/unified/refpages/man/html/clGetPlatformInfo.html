@@ -876,7 +876,7 @@ in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/O
 <p class="tableblock">        <em>OpenCL&lt;space&gt;&lt;major_version.minor_version&gt;&lt;space&gt;&lt;platform-specific
         information&gt;</em></p>
 <p class="tableblock">        The <em>major_version.minor_version</em> value returned will be one of 1.0,
-        1.1, 1.2, 2.0, 2.1, 2.2 or 3.0.</p></td>
+        1.1, 1.2, 2.0, 2.1, 2.2, 3.0 or 3.1.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_PLATFORM_<wbr>NUMERIC_<wbr>VERSION</code></p>
@@ -996,6 +996,12 @@ in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/O
 <td class="tableblock halign-left valign-top"><p class="tableblock">The function name suffix used to identify extension functions to be
       directed to this platform by the ICD Loader.</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_PLATFORM_<wbr>UNLOADABLE_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_icd_unloadable</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_bool</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The platform can be unloaded by the ICD Loader.</p></td>
+</tr>
 </tbody>
 </table>
 <div class="paragraph">
@@ -1007,18 +1013,40 @@ errors <sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_fo
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_INVALID_<wbr>PLATFORM</code> if <em>platform</em> is not a valid platform.</p>
+<p><code>CL_INVALID_<wbr>PLATFORM</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>platform</em> is not a valid platform</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if <em>param_name</em> is not one of the supported values, or
-if the size in bytes specified by <em>param_value_size</em> is less than size of
-the return type specified in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#platform-queries-table" target="_blank" rel="noopener">Platform Queries</a> table
-and <em>param_value</em> is not <code>NULL</code>.</p>
+<p><code>CL_INVALID_<wbr>VALUE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>param_name</em> is not one of the supported values</p>
 </li>
 <li>
-<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code> if there is a failure to allocate resources
-required by the OpenCL implementation on the host.</p>
+<p>if the size in bytes specified by <em>param_value_size</em> is less than the size of
+the return type specified in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#platform-queries-table" target="_blank" rel="noopener">Platform
+Queries</a> table and <em>param_value</em> is not <code>NULL</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if there is a failure to allocate resources required by the OpenCL
+implementation on the host</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -1048,7 +1076,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2025 The Khronos Group Inc.</p>
+<p>Copyright 2014-2026 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>

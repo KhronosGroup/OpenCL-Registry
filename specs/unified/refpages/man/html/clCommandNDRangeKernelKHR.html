@@ -844,7 +844,9 @@ in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/O
 by clCommandNDRangeKernelKHR</a> table.</p>
 </li>
 <li>
-<p><em>kernel</em> is a valid kernel object which <strong>must</strong> have its arguments set.
+<p><em>kernel</em> is a valid kernel object, which <strong>must</strong> have its arguments set
+unless the command has the <code>CL_MUTABLE_<wbr>DISPATCH_<wbr>ARGUMENTS_<wbr>KHR</code> property set
+(see description of argument <em>mutable_handle</em>).
 Any changes to <em>kernel</em> after calling <strong>clCommandNDRangeKernelKHR</strong>, such
 as with <strong>clSetKernelArg</strong> or <strong>clSetKernelExecInfo</strong>, have no effect on the
 recorded command.
@@ -1019,6 +1021,18 @@ successfully.
 Otherwise, it returns the errors defined by <strong>clEnqueueNDRangeKernel</strong> except:</p>
 </div>
 <div class="paragraph">
+<p><code>CL_INVALID_<wbr>KERNEL_<wbr>ARGS</code> is replaced with:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CL_INVALID_<wbr>KERNEL_<wbr>ARGS</code> if the kernel argument values have not been
+specified and the <code>CL_MUTABLE_<wbr>DISPATCH_<wbr>ARGUMENTS_<wbr>KHR</code> flag was not set in
+the <em>properties</em> parameter.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
 <p><code>CL_INVALID_<wbr>COMMAND_<wbr>QUEUE</code> is replaced with:</p>
 </div>
 <div class="ulist">
@@ -1147,7 +1161,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2025 The Khronos Group Inc.</p>
+<p>Copyright 2014-2026 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>

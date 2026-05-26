@@ -890,55 +890,137 @@ Otherwise, it returns one of the following errors:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_INVALID_<wbr>COMMAND_<wbr>QUEUE</code> if <em>command_queue</em> is not a valid host
-command-queue.</p>
+<p><code>CL_INVALID_<wbr>COMMAND_<wbr>QUEUE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>command_queue</em> is not a valid host command-queue</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>CONTEXT</code> if the context associated with <em>command_queue</em> and
-<em>buffer</em> are not the same or if the context associated with
-<em>command_queue</em> and events in <em>event_wait_list</em> are not the same.</p>
+<p><code>CL_INVALID_<wbr>CONTEXT</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if the context associated with <em>command_queue</em> and <em>buffer</em> are not the same</p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>MEM_<wbr>OBJECT</code> if <em>buffer</em> is not a valid buffer object.</p>
+<p>if the context associated with <em>command_queue</em> and events in <em>event_wait_list</em> are not the same</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if <em>offset</em> or <em>offset</em> + <em>size</em> require accessing
-elements outside the <em>buffer</em> buffer object respectively.</p>
+<p><code>CL_INVALID_<wbr>MEM_<wbr>OBJECT</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>buffer</em> is not a valid buffer object</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if <em>pattern</em> is <code>NULL</code> or if <em>pattern_size</em> is 0 or if
-<em>pattern_size</em> is not one of { 1, 2, 4, 8, 16, 32, 64, 128 }.</p>
+<p><code>CL_INVALID_<wbr>VALUE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if the region being filled specified by <em>offset</em> and <em>size</em> is out of bounds</p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if <em>offset</em> and <em>size</em> are not a multiple of
-<em>pattern_size</em>.</p>
+<p>if <em>pattern</em> is <code>NULL</code></p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>EVENT_<wbr>WAIT_<wbr>LIST</code> if <em>event_wait_list</em> is <code>NULL</code> and
-<em>num_events_in_wait_list</em> &gt; 0, or <em>event_wait_list</em> is not <code>NULL</code> and
-<em>num_events_in_wait_list</em> is 0, or if event objects in <em>event_wait_list</em>
-are not valid events.</p>
+<p>if <em>pattern_size</em> is zero</p>
 </li>
 <li>
-<p><code>CL_MISALIGNED_<wbr>SUB_<wbr>BUFFER_<wbr>OFFSET</code> if <em>buffer</em> is a sub-buffer object and
-offset specified when the sub-buffer object is created is not aligned to
-<code>CL_DEVICE_<wbr>MEM_<wbr>BASE_<wbr>ADDR_<wbr>ALIGN</code> value for device associated with <em>queue</em>.
+<p>if <em>pattern_size</em> is not a power of two</p>
+</li>
+<li>
+<p>if <em>pattern_size</em> is greater than 128</p>
+</li>
+<li>
+<p>if <em>offset</em> is not a multiple of <em>pattern_size</em></p>
+</li>
+<li>
+<p>if <em>size</em> is not a multiple of <em>pattern_size</em></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>EVENT_<wbr>WAIT_<wbr>LIST</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>event_wait_list</em> is <code>NULL</code> and <em>num_events_in_wait_list</em> is greater than zero</p>
+</li>
+<li>
+<p>if <em>event_wait_list</em> is not <code>NULL</code> and <em>num_events_in_wait_list</em> is zero</p>
+</li>
+<li>
+<p>if event objects in <em>event_wait_list</em> are not valid events</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_MISALIGNED_<wbr>SUB_<wbr>BUFFER_<wbr>OFFSET</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>buffer</em> is a sub-buffer object and the offset specified when the
+sub-buffer object was created is not aligned to the
+<code>CL_DEVICE_<wbr>MEM_<wbr>BASE_<wbr>ADDR_<wbr>ALIGN</code> value for the device associated with
+<em>command_queue</em>.
 This error code is <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.1.</p>
 </li>
-<li>
-<p><code>CL_MEM_<wbr>OBJECT_<wbr>ALLOCATION_<wbr>FAILURE</code> if there is a failure to allocate
-memory for data store associated with <em>buffer</em>.</p>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources required
-by the OpenCL implementation on the device.</p>
+<p><code>CL_MEM_<wbr>OBJECT_<wbr>ALLOCATION_<wbr>FAILURE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if there is a failure to allocate memory for the data store associated with <em>buffer</em></p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code> if there is a failure to allocate resources
-required by the OpenCL implementation on the host.</p>
+<p><code>CL_INVALID_<wbr>OPERATION</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>buffer</em> was created with <code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code></p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>OPERATION</code> if <em>buffer</em> was created with <code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code>.</p>
+<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if there is a failure to allocate resources required by the OpenCL
+implementation on the device</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if there is a failure to allocate resources required by the OpenCL
+implementation on the host</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -968,7 +1050,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2025 The Khronos Group Inc.</p>
+<p>Copyright 2014-2026 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>

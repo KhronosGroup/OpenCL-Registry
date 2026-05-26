@@ -910,26 +910,32 @@ device except for the following queries:</p>
         The minimum value is 3.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>MAX_<wbr>WORK_<wbr>ITEM_<wbr>SIZES</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>MAX_<wbr>WORK_<wbr>GROUP_<wbr>SIZES</code></p>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 3.1.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>size_t</code>[]</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Maximum number of work-items that can be specified in each dimension
-        of the work-group to <strong>clEnqueueNDRangeKernel</strong>.</p>
-<p class="tableblock">        Returns <em>n</em> <code>size_t</code> entries, where <em>n</em> is the value returned by the
+<td class="tableblock halign-left valign-top"><p class="tableblock">The maximum number of work-items that can be specified in each dimension
+        of a work-group to <strong>clEnqueueNDRangeKernel</strong>.</p>
+<p class="tableblock">        Returns <em>n</em> <code>size_t</code> values, where <em>n</em> is the value returned by the
         query for <code>CL_DEVICE_<wbr>MAX_<wbr>WORK_<wbr>ITEM_<wbr>DIMENSIONS</code>.</p>
 <p class="tableblock">        The minimum value is (1, 1, 1).</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>MAX_<wbr>WORK_<wbr>ITEM_<wbr>SIZES</code></p>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">deprecated by</a> version 3.1.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>size_t</code>[]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">See description of <code>CL_DEVICE_<wbr>MAX_<wbr>WORK_<wbr>GROUP_<wbr>SIZES</code>.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>MAX_<wbr>WORK_<wbr>GROUP_<wbr>SIZE</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>size_t</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Maximum number of work-items in a work-group that a device is
-        capable of executing on a single compute unit, for any given
-        kernel-instance running on the device. (Refer also to
-        <strong>clEnqueueNDRangeKernel</strong> and <code>CL_KERNEL_<wbr>WORK_<wbr>GROUP_<wbr>SIZE</code> ).
-        The minimum value is 1.
+<td class="tableblock halign-left valign-top"><p class="tableblock">The maximum total number of work-items that can be specified for a
+        work-group to <strong>clEnqueueNDRangeKernel</strong>.
         The returned value is an upper limit and will not necessarily
         maximize performance.
-        This maximum may be larger than supported by a specific kernel
-        (refer to the <code>CL_KERNEL_<wbr>WORK_<wbr>GROUP_<wbr>SIZE</code> query of <strong>clGetKernelWorkGroupInfo</strong>).</p></td>
+        Additionally, this maximum for the device may be larger than the maximum
+        supported for a specific kernel, refer to the per-kernel query
+        <code>CL_KERNEL_<wbr>WORK_<wbr>GROUP_<wbr>SIZE</code>.</p>
+<p class="tableblock">        The minimum value is 1.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>PREFERRED_<wbr>VECTOR_<wbr>WIDTH_<wbr>CHAR</code>  <br>
@@ -1036,15 +1042,20 @@ device except for the following queries:</p>
 <p class="tableblock"><code>CL_DEVICE_<wbr>IL_<wbr>VERSION_<wbr>KHR</code></p>
 <p class="tableblock">provided by the <code>cl_khr_il_program</code> extension.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>char</code>[]</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The intermediate languages that can be supported by
+<td class="tableblock halign-left valign-top"><p class="tableblock">The intermediate languages that are supported by
         <strong>clCreateProgramWithIL</strong> for this device.
-        Returns a space-separated list of IL version strings of the form</p>
+        Returns a space-separated list of intermediate language version strings
+        of the form:</p>
 <p class="tableblock">        &lt;IL_Prefix&gt;_&lt;Major_Version&gt;.&lt;Minor_Version&gt;</p>
-<p class="tableblock">        For an OpenCL 2.1 or 2.2 device, SPIR-V is a required IL prefix.</p>
+<p class="tableblock">        An OpenCL 2.1 device
+        or a device that supports the <code>cl_khr_<wbr>il_<wbr>program</code> extension
+        must support at least SPIR-V 1.0.</p>
+<p class="tableblock">        An OpenCL 2.2 device must support at least SPIR-V 1.0, SPIR-V 1.1, and
+        SPIR-V 1.2.</p>
+<p class="tableblock">        An OpenCL 3.1 device must support at least SPIR-V 1.0, SPIR-V 1.1,
+        SPIR-V 1.2, SPIR-V 1.3, and SPIR-V 1.4.</p>
 <p class="tableblock">        If the device does not support intermediate language programs, the
-        value must be <code>""</code> (an empty string).</p>
-<p class="tableblock">        A device that supports the <code>cl_khr_<wbr>il_<wbr>program</code> extension must
-        support the <code>"SPIR-V"</code> IL prefix.</p></td>
+        returned value must be <code>""</code> (an empty string).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>ILS_<wbr>WITH_<wbr>VERSION</code></p>
@@ -1060,30 +1071,7 @@ device except for the following queries:</p>
         once but each name and major/minor version combination may only be
         reported once.
         The list of intermediate languages reported must match the list
-        reported via <code>CL_DEVICE_<wbr>IL_<wbr>VERSION</code>.</p>
-<p class="tableblock">        For an OpenCL 2.1 or 2.2 device, at least one version of SPIR-V must
-        be reported.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>SPIRV_<wbr>EXTENDED_<wbr>INSTRUCTION_<wbr>SETS_<wbr>KHR</code></p>
-<p class="tableblock">provided by the <code>cl_khr_spirv_queries</code> extension.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">const <code>char</code>*[]</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Returns an array of null-terminated strings, where each string describes
-        a SPIR-V extended instruction set that is supported by the device.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>SPIRV_<wbr>EXTENSIONS_<wbr>KHR</code></p>
-<p class="tableblock">provided by the <code>cl_khr_spirv_queries</code> extension.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">const <code>char</code>*[]</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Returns an array of null-terminated strings, where each string describes
-        a SPIR-V extension that is supported by the device.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>SPIRV_<wbr>CAPABILITIES_<wbr>KHR</code></p>
-<p class="tableblock">provided by the <code>cl_khr_spirv_queries</code> extension.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_uint</code>[]</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Returns an array of SPIR-V token values, where each value describes a
-        SPIR-V capability that is supported by the device.</p></td>
+        reported via <code>CL_DEVICE_<wbr>IL_<wbr>VERSION</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>IMAGE2D_<wbr>MAX_<wbr>WIDTH</code></p></td>
@@ -1386,10 +1374,10 @@ if the <code>cl_khr_<wbr>image2d_<wbr>from_<wbr>buffer</code> extension is suppo
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>HOST_<wbr>UNIFIED_<wbr>MEMORY</code></p>
-<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.1 and <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">deprecated by</a> version 2.0.</p></td>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.1.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_bool</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Is <code>CL_TRUE</code> if the device and the host have a unified memory subsystem
-        and is <code>CL_FALSE</code> otherwise.</p></td>
+        and is <code>CL_FALSE</code> otherwise. <sup class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnotedef_4" title="View footnote.">4</a>]</sup></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>PROFILING_<wbr>TIMER_<wbr>RESOLUTION</code></p></td>
@@ -1402,7 +1390,7 @@ if the <code>cl_khr_<wbr>image2d_<wbr>from_<wbr>buffer</code> extension is suppo
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>ENDIAN_<wbr>LITTLE</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_bool</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Is <code>CL_TRUE</code> if the OpenCL device is a little endian device and
-        <code>CL_FALSE</code> otherwise</p></td>
+        <code>CL_FALSE</code> otherwise.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>AVAILABLE</code></p></td>
@@ -1414,19 +1402,21 @@ if the <code>cl_khr_<wbr>image2d_<wbr>from_<wbr>buffer</code> extension is suppo
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>COMPILER_<wbr>AVAILABLE</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_bool</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Is <code>CL_FALSE</code> if the implementation does not have a compiler available
-        to compile the program source.</p>
-<p class="tableblock">        Is <code>CL_TRUE</code> if the compiler is available.
-        This can be <code>CL_FALSE</code> for the embedded platform profile only.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Is <code>CL_TRUE</code> if a compiler is available to compile programs created from
+        source or IL, or <code>CL_FALSE</code> if the implementation does not have a
+        compiler available.</p>
+<p class="tableblock">        This must be <code>CL_TRUE</code> for devices supporting the full profile.</p>
+<p class="tableblock">        When an online compiler is not available, OpenCL programs may still be
+        created from binaries or built-in kernels supported by the device.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>LINKER_<wbr>AVAILABLE</code></p>
 <p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.2.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_bool</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Is <code>CL_FALSE</code> if the implementation does not have a linker available.
-        Is <code>CL_TRUE</code> if the linker is available.</p>
-<p class="tableblock">        This can be <code>CL_FALSE</code> for the embedded platform profile only.</p>
-<p class="tableblock">        This must be <code>CL_TRUE</code> if <code>CL_DEVICE_<wbr>COMPILER_<wbr>AVAILABLE</code> is <code>CL_TRUE</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Is <code>CL_TRUE</code> if a linker is available to link compiled programs, or
+        <code>CL_FALSE</code> if the implementation does not have a linker available.</p>
+<p class="tableblock">        This must be <code>CL_TRUE</code> for devices supporting the full profile or if
+        <code>CL_DEVICE_<wbr>COMPILER_<wbr>AVAILABLE</code> is <code>CL_TRUE</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>EXECUTION_<wbr>CAPABILITIES</code></p></td>
@@ -1578,8 +1568,8 @@ if the <code>cl_khr_<wbr>image2d_<wbr>from_<wbr>buffer</code> extension is suppo
         string has the following format:</p>
 <p class="tableblock">        <em>OpenCL&lt;space&gt;&lt;major_version.minor_version&gt;&lt;space&gt;&lt;vendor-specific
         information&gt;</em></p>
-<p class="tableblock">        The major_version.minor_version value returned will be one of 1.0,
-        1.1, 1.2, 2.0, 2.1, 2.2, or 3.0.</p></td>
+<p class="tableblock">        The <em>major_version.minor_version</em> value returned will be one of 1.0,
+        1.1, 1.2, 2.0, 2.1, 2.2, 3.0 or 3.1.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>NUMERIC_<wbr>VERSION</code></p>
@@ -1605,9 +1595,9 @@ if the <code>cl_khr_<wbr>image2d_<wbr>from_<wbr>buffer</code> extension is suppo
 <p class="tableblock">        <em>OpenCL&lt;space&gt;C&lt;space&gt;&lt;major_version.minor_version&gt;&lt;space&gt;&lt;vendor-specific
         information&gt;</em></p>
 <p class="tableblock">        For devices that support compilation from OpenCL C source:</p>
-<p class="tableblock">        Because OpenCL 3.0 is backwards compatible with OpenCL C 1.2,
-        an OpenCL 3.0 device must support at least OpenCL C 1.2.
-        An OpenCL 3.0 device may return an OpenCL C version newer
+<p class="tableblock">        Because OpenCL 3.0 and newer is backwards compatible with OpenCL 1.2,
+        an OpenCL 3.0 or newer device must support at least OpenCL C 1.2.
+        An OpenCL 3.0 or newer device may return an OpenCL C version newer
         than OpenCL C 1.2 if and only if all optional OpenCL C
         features are supported by the device for the newer version.</p>
 <p class="tableblock">        Support for OpenCL C 2.0 is required for an OpenCL 2.0, OpenCL 2.1,
@@ -1636,10 +1626,12 @@ if the <code>cl_khr_<wbr>image2d_<wbr>from_<wbr>buffer</code> extension is suppo
         The version returned by <code>CL_DEVICE_<wbr>OPENCL_<wbr>C_<wbr>VERSION</code> is required to be
         present in the list.</p>
 <p class="tableblock">        For devices that support compilation from OpenCL C source:</p>
-<p class="tableblock">        Because OpenCL 3.0 is backwards compatible with OpenCL C 1.2,
-        and OpenCL C 1.2 is backwards compatible with OpenCL C 1.1 and
-        OpenCL C 1.0, support for at least OpenCL C 3.0, OpenCL C 1.2,
+<p class="tableblock">        Because OpenCL 3.0 is backwards compatible with OpenCL 1.2,
+        and OpenCL 1.2 is backwards compatible with OpenCL 1.1 and
+        OpenCL 1.0, support for at least OpenCL C 3.0, OpenCL C 1.2,
         OpenCL C 1.1, and OpenCL C 1.0 is required for an OpenCL 3.0 device.</p>
+<p class="tableblock">        Support for at least OpenCL C 3.1, OpenCL C 3.0, OpenCL C 1.2, OpenCL C
+        1.1, and OpenCL C 1.0 is required for an OpenCL 3.1 device.</p>
 <p class="tableblock">        Support for OpenCL C 2.0, OpenCL C 1.2, OpenCL C 1.1, and OpenCL C
         1.0 is required for an OpenCL 2.0, OpenCL 2.1, or OpenCL 2.2 device.</p>
 <p class="tableblock">        Support for OpenCL C 1.2, OpenCL C 1.1, and OpenCL C 1.0 is required
@@ -1681,26 +1673,11 @@ if the <code>cl_khr_<wbr>image2d_<wbr>from_<wbr>buffer</code> extension is suppo
         names themselves do not contain any spaces) supported by the device.
         The list of extension names may include Khronos approved extension
         names and vendor specified extension names.</p>
-<p class="tableblock">        The following Khronos extension names must be returned by
-        all devices that support OpenCL 1.1:</p>
-<p class="tableblock">        <code>cl_khr_<wbr>byte_<wbr>addressable_<wbr>store</code><br>
-        <code>cl_khr_<wbr>global_<wbr>int32_<wbr>base_<wbr>atomics</code><br>
-        <code>cl_khr_<wbr>global_<wbr>int32_<wbr>extended_<wbr>atomics</code><br>
-        <code>cl_khr_<wbr>local_<wbr>int32_<wbr>base_<wbr>atomics</code><br>
-        <code>cl_khr_<wbr>local_<wbr>int32_<wbr>extended_<wbr>atomics</code></p>
-<p class="tableblock">        Additionally, the following Khronos extension names must be returned
-        by all devices that support OpenCL 1.2 when and only when the optional
-        feature is supported:</p>
-<p class="tableblock">        <code>cl_khr_<wbr>fp64</code></p>
-<p class="tableblock">        Additionally, the following Khronos extension names must be returned
-        by all devices that support OpenCL 2.0, OpenCL 2.1, or OpenCL 2.2.
-        For devices that support OpenCL 3.0, these extension names must
-        be returned when and only when the optional feature is supported:</p>
-<p class="tableblock">        <code>cl_khr_<wbr>3d_<wbr>image_<wbr>writes</code><br>
-        <code>cl_khr_<wbr>depth_<wbr>images</code><br>
-        <code>cl_khr_<wbr>image2d_<wbr>from_<wbr>buffer</code></p>
-<p class="tableblock">        Please refer to the OpenCL Extension Specification or vendor
-        provided documentation for a detailed description of these extensions.</p></td>
+<p class="tableblock">        Please refer to <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#required-opencl-extensions" target="_blank" rel="noopener">Required OpenCL
+        Extensions</a> for a list of OpenCL extensions that must be supported for
+        each OpenCL version.</p>
+<p class="tableblock">        Please refer to the OpenCL Specification or vendor-provided
+        documentation for a detailed description of these extensions.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>EXTENSIONS_<wbr>WITH_<wbr>VERSION</code></p>
@@ -1806,7 +1783,7 @@ if the <code>cl_khr_<wbr>image2d_<wbr>from_<wbr>buffer</code> extension is suppo
         <em>param_value</em> points to.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>REFERENCE_<wbr>COUNT</code> <sup class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnotedef_4" title="View footnote.">4</a>]</sup></p>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>REFERENCE_<wbr>COUNT</code> <sup class="footnote">[<a id="_footnoteref_5" class="footnote" href="#_footnotedef_5" title="View footnote.">5</a>]</sup></p>
 <p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.2.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_uint</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the <em>device</em> reference count.
@@ -1876,8 +1853,8 @@ if the <code>cl_khr_<wbr>image2d_<wbr>from_<wbr>buffer</code> extension is suppo
         kernel-instance running on the device.</p>
 <p class="tableblock">        The minimum value is 1 if the device supports sub-groups, and must be
         0 for devices that do not support sub-groups.
-        Support for sub-groups is required for an OpenCL 2.1 or 2.2 device.</p>
-<p class="tableblock">        (Refer also to <strong>clGetKernelSubGroupInfo</strong>.)</p></td>
+        Support for sub-groups is required for an OpenCL 2.1, OpenCL 2.2, or
+        OpenCL 3.1 device.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>SUB_<wbr>GROUP_<wbr>INDEPENDENT_<wbr>FORWARD_<wbr>PROGRESS</code></p>
@@ -1900,7 +1877,7 @@ if the <code>cl_khr_<wbr>image2d_<wbr>from_<wbr>buffer</code> extension is suppo
         <code>CL_DEVICE_<wbr>ATOMIC_<wbr>ORDER_<wbr>ACQ_<wbr>REL</code> - Support for the <strong>acquire</strong>, <strong>release</strong>, and <strong>acquire-release</strong> memory orders.<br>
         <code>CL_DEVICE_<wbr>ATOMIC_<wbr>ORDER_<wbr>SEQ_<wbr>CST</code> - Support for the <strong>sequentially consistent</strong> memory order.</p>
 <p class="tableblock">        Because atomic memory orders are hierarchical, a device that supports a strong memory order must also support all weaker memory orders.</p>
-<p class="tableblock">        <code>CL_DEVICE_<wbr>ATOMIC_<wbr>SCOPE_<wbr>WORK_<wbr>ITEM</code> <sup class="footnote">[<a id="_footnoteref_5" class="footnote" href="#_footnotedef_5" title="View footnote.">5</a>]</sup> - Support for memory ordering constraints that apply to a single work-item.<br>
+<p class="tableblock">        <code>CL_DEVICE_<wbr>ATOMIC_<wbr>SCOPE_<wbr>WORK_<wbr>ITEM</code> <sup class="footnote">[<a id="_footnoteref_6" class="footnote" href="#_footnotedef_6" title="View footnote.">6</a>]</sup> - Support for memory ordering constraints that apply to a single work-item.<br>
         <code>CL_DEVICE_<wbr>ATOMIC_<wbr>SCOPE_<wbr>WORK_<wbr>GROUP</code> - Support for memory ordering constraints that apply to all work-items in a work-group.<br>
         <code>CL_DEVICE_<wbr>ATOMIC_<wbr>SCOPE_<wbr>DEVICE</code> - Support for memory ordering constraints that apply to all work-items executing on the device.<br>
         <code>CL_DEVICE_<wbr>ATOMIC_<wbr>SCOPE_<wbr>ALL_<wbr>DEVICES</code> - Support for memory ordering constraints that apply to all work-items executing across all devices that can share SVM memory with each other and the host process.</p>
@@ -1976,6 +1953,181 @@ if the <code>cl_khr_<wbr>image2d_<wbr>from_<wbr>buffer</code> extension is suppo
         has fully passed in accordance with the official conformance process.</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>UUID</code></p>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 3.1.</p>
+<p class="tableblock">or</p>
+<p class="tableblock"><code>CL_DEVICE_<wbr>UUID_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_device_uuid</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_uchar</code>[<code>CL_UUID_<wbr>SIZE</code>]</p>
+<p class="tableblock">or <code>cl_uchar</code>[<code>CL_UUID_<wbr>SIZE_<wbr>KHR</code>]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns a universally unique identifier (UUID) for the device.</p>
+<p class="tableblock">        Device UUIDs must be immutable for a given device across processes,
+        driver APIs, driver versions, and system reboots.</p>
+<p class="tableblock">        <code>CL_UUID_<wbr>SIZE</code>
+or <code>CL_UUID_<wbr>SIZE_<wbr>KHR</code>
+        is the size of the UUID, in bytes.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DRIVER_<wbr>UUID</code></p>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 3.1.</p>
+<p class="tableblock">or</p>
+<p class="tableblock"><code>CL_DRIVER_<wbr>UUID_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_device_uuid</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_uchar</code>[<code>CL_UUID_<wbr>SIZE</code>]</p>
+<p class="tableblock">or <code>cl_uchar</code>[<code>CL_UUID_<wbr>SIZE_<wbr>KHR</code>]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns a universally unique identifier (UUID) for the software driver
+        for the device.</p>
+<p class="tableblock">        <code>CL_UUID_<wbr>SIZE</code>
+or <code>CL_UUID_<wbr>SIZE_<wbr>KHR</code>
+        is the size of the UUID, in bytes.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>LUID_<wbr>VALID</code></p>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 3.1.</p>
+<p class="tableblock">or</p>
+<p class="tableblock"><code>CL_DEVICE_<wbr>LUID_<wbr>VALID_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_device_uuid</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_bool</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns <code>CL_TRUE</code> if the device has a valid LUID and <code>CL_FALSE</code>
+        otherwise.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>LUID</code></p>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 3.1.</p>
+<p class="tableblock">or</p>
+<p class="tableblock"><code>CL_DEVICE_<wbr>LUID_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_device_uuid</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_uchar</code>[<code>CL_LUID_<wbr>SIZE</code>]</p>
+<p class="tableblock">or <code>cl_uchar</code>[<code>CL_LUID_<wbr>SIZE_<wbr>KHR</code>]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns a locally unique identifier (LUID) for the device.</p>
+<p class="tableblock">        It is not an error to query <code>CL_DEVICE_<wbr>LUID</code>
+or <code>CL_DEVICE_<wbr>LUID_<wbr>KHR</code>
+        when <code>CL_DEVICE_<wbr>LUID_<wbr>VALID</code>
+or <code>CL_DEVICE_<wbr>LUID_<wbr>VALID_<wbr>KHR</code>
+        returns <code>CL_FALSE</code>, but in this case the returned LUID value is
+        undefined.</p>
+<p class="tableblock">        When <code>CL_DEVICE_<wbr>LUID_<wbr>VALID_<wbr>KHR</code>
+or <code>CL_DEVICE_<wbr>LUID_<wbr>VALID_<wbr>KHR</code>
+        returns <code>CL_TRUE</code>, and the OpenCL device is running on the Windows
+        operating system, the returned LUID value can be cast to an <code>LUID</code>
+        object and must be equal to the locally unique identifier of an
+        <code>IDXGIAdapter1</code> object that corresponds to the OpenCL device.</p>
+<p class="tableblock">        <code>CL_LUID_<wbr>SIZE_<wbr>KHR</code>
+or <code>CL_LUID_<wbr>SIZE_<wbr>KHR</code>
+        is the size of the LUID, in bytes.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>NODE_<wbr>MASK</code></p>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 3.1.</p>
+<p class="tableblock">or</p>
+<p class="tableblock"><code>CL_DEVICE_<wbr>NODE_<wbr>MASK_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_device_uuid</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_uint</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns a node mask for the device.</p>
+<p class="tableblock">        It is not an error to query <code>CL_DEVICE_<wbr>NODE_<wbr>MASK</code>
+or <code>CL_DEVICE_<wbr>NODE_<wbr>MASK_<wbr>KHR</code>
+        when <code>CL_DEVICE_<wbr>LUID_<wbr>VALID</code>
+or <code>CL_DEVICE_<wbr>LUID_<wbr>VALID_<wbr>KHR</code>
+        returns <code>CL_FALSE</code>, but in this case the returned node mask is
+        undefined.</p>
+<p class="tableblock">        When <code>CL_DEVICE_<wbr>LUID_<wbr>VALID_<wbr>KHR</code>
+or <code>CL_DEVICE_<wbr>LUID_<wbr>VALID_<wbr>KHR</code>
+        returns <code>CL_TRUE</code>, the returned node mask must contain exactly one bit.
+        If the OpenCL device is running on an operating system that supports
+        the Direct3D 12 API and the OpenCL device corresponds to an individual
+        device in a linked device adapter, the returned node mask identifies
+        the Direct3D 12 node corresponding to the OpenCL device.
+        Otherwise, the returned node mask must be <code>1</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>INTEGER_<wbr>DOT_<wbr>PRODUCT_<wbr>CAPABILITIES</code></p>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 3.1.</p>
+<p class="tableblock">or</p>
+<p class="tableblock"><code>CL_DEVICE_<wbr>INTEGER_<wbr>DOT_<wbr>PRODUCT_<wbr>CAPABILITIES_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_integer_dot_product</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_device_<wbr>integer_<wbr>dot_<wbr>product_<wbr>capabilities</code></p>
+<p class="tableblock">or <code>cl_device_<wbr>integer_<wbr>dot_<wbr>product_<wbr>capabilities_<wbr>khr</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the integer dot product capabilities supported by the
+        device.</p>
+<p class="tableblock">        All implementations that support OpenCL C 3.1
+or <code>cl_khr_<wbr>integer_<wbr>dot_<wbr>product</code>
+        must support <code>CL_DEVICE_<wbr>INTEGER_<wbr>DOT_<wbr>PRODUCT_<wbr>INPUT_<wbr>4x8BIT_<wbr>PACKED</code>
+or <code>CL_DEVICE_<wbr>INTEGER_<wbr>DOT_<wbr>PRODUCT_<wbr>INPUT_<wbr>4x8BIT_<wbr>PACKED_<wbr>KHR</code>
+        to indicate support for dot product built-in functions and, when SPIR-V
+        is supported, SPIR-V instructions that take four-component vectors of
+        8-bit integers packed into 32-bit integers as input.</p>
+<p class="tableblock">        <code>CL_DEVICE_<wbr>INTEGER_<wbr>DOT_<wbr>PRODUCT_<wbr>INPUT_<wbr>4x8BIT</code>
+or <code>CL_DEVICE_<wbr>INTEGER_<wbr>DOT_<wbr>PRODUCT_<wbr>INPUT_<wbr>4x8BIT_<wbr>KHR</code>
+        may be set to indicate support for dot product built-in functions and,
+        when SPIR-V is supported, SPIR-V instructions that take four-component
+        of 8-bit elements as input are supported.
+        <code>CL_DEVICE_<wbr>INTEGER_<wbr>DOT_<wbr>PRODUCT_<wbr>INPUT_<wbr>4x8BIT_<wbr>KHR</code> must be set when
+        version 2.0 or higher of the <code>cl_khr_<wbr>integer_<wbr>dot_<wbr>product</code> extension
+        is supported.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>INTEGER_<wbr>DOT_<wbr>PRODUCT_<wbr>ACCELERATION_<wbr>PROPERTIES_<wbr>8BIT</code></p>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 3.1.</p>
+<p class="tableblock">or</p>
+<p class="tableblock"><code>CL_DEVICE_<wbr>INTEGER_<wbr>DOT_<wbr>PRODUCT_<wbr>ACCELERATION_<wbr>PROPERTIES_<wbr>8BIT_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_integer_dot_product</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_device_<wbr>integer_<wbr>dot_<wbr>product_<wbr>acceleration_<wbr>properties</code></p>
+<p class="tableblock">or <code>cl_device_<wbr>integer_<wbr>dot_<wbr>product_<wbr>acceleration_<wbr>properties_<wbr>khr</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns a structure describing the exact 8-bit dot product
+        combinations that are <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#integer-dot-product-acceleration-properties" target="_blank" rel="noopener">accelerated</a> on the device.
+        Each member is <code>CL_TRUE</code> if the combination it corresponds to is
+        accelerated, <code>CL_FALSE</code> otherwise.</p>
+<p class="tableblock">        <code>CL_DEVICE_<wbr>INTEGER_<wbr>DOT_<wbr>PRODUCT_<wbr>ACCELERATION_<wbr>PROPERTIES_<wbr>8BIT_<wbr>KHR</code> is
+        missing before version 2.0 of the <code>cl_khr_<wbr>integer_<wbr>dot_<wbr>product</code>
+        extension.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>INTEGER_<wbr>DOT_<wbr>PRODUCT_<wbr>ACCELERATION_<wbr>PROPERTIES_<wbr>4x8BIT_<wbr>PACKED</code></p>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 3.1.</p>
+<p class="tableblock">or</p>
+<p class="tableblock"><code>CL_DEVICE_<wbr>INTEGER_<wbr>DOT_<wbr>PRODUCT_<wbr>ACCELERATION_<wbr>PROPERTIES_<wbr>4x8BIT_<wbr>PACKED_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_integer_dot_product</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_device_<wbr>integer_<wbr>dot_<wbr>product_<wbr>acceleration_<wbr>properties</code></p>
+<p class="tableblock">or <code>cl_device_<wbr>integer_<wbr>dot_<wbr>product_<wbr>acceleration_<wbr>properties_<wbr>khr</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns a structure describing the exact 4x8-bit packed dot product
+        combinations that are <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#integer-dot-product-acceleration-properties" target="_blank" rel="noopener">accelerated</a> on the device.
+        Each member is <code>CL_TRUE</code> if the combination it corresponds to is
+        accelerated, <code>CL_FALSE</code> otherwise.</p>
+<p class="tableblock">        <code>CL_DEVICE_<wbr>INTEGER_<wbr>DOT_<wbr>PRODUCT_<wbr>ACCELERATION_<wbr>PROPERTIES_<wbr>4x8BIT_<wbr>PACKED_<wbr>KHR</code> is
+        missing before version 2.0 of the <code>cl_khr_<wbr>integer_<wbr>dot_<wbr>product</code>
+        extension.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>SPIRV_<wbr>EXTENDED_<wbr>INSTRUCTION_<wbr>SETS</code></p>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 3.1.</p>
+<p class="tableblock">or</p>
+<p class="tableblock"><code>CL_DEVICE_<wbr>SPIRV_<wbr>EXTENDED_<wbr>INSTRUCTION_<wbr>SETS_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_spirv_queries</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">const <code>char</code>*[]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns an array of null-terminated strings, where each string describes
+        a SPIR-V extended instruction set that is supported by the device.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>SPIRV_<wbr>EXTENSIONS</code></p>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 3.1.</p>
+<p class="tableblock">or</p>
+<p class="tableblock"><code>CL_DEVICE_<wbr>SPIRV_<wbr>EXTENSIONS_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_spirv_queries</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">const <code>char</code>*[]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns an array of null-terminated strings, where each string describes
+        a SPIR-V extension that is supported by the device.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>SPIRV_<wbr>CAPABILITIES</code></p>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 3.1.</p>
+<p class="tableblock">or</p>
+<p class="tableblock"><code>CL_DEVICE_<wbr>SPIRV_<wbr>CAPABILITIES_<wbr>KHR</code></p>
+<p class="tableblock">provided by the <code>cl_khr_spirv_queries</code> extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_uint</code>[]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns an array of SPIR-V token values, where each value describes a
+        SPIR-V capability that is supported by the device.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>COMMAND_<wbr>BUFFER_<wbr>CAPABILITIES_<wbr>KHR</code></p>
 <p class="tableblock">provided by the <code>cl_khr_command_buffer</code> extension.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_device_<wbr>command_<wbr>buffer_<wbr>capabilities_<wbr>khr</code></p></td>
@@ -1990,9 +2142,8 @@ if the <code>cl_khr_<wbr>image2d_<wbr>from_<wbr>buffer</code> extension is suppo
         contain device-side kernel-enqueue calls.</p>
 <p class="tableblock">provided by the <code>cl_khr_command_buffer</code> extension.</p>
 <p class="tableblock">        <code>CL_COMMAND_<wbr>BUFFER_<wbr>CAPABILITY_<wbr>SIMULTANEOUS_<wbr>USE_<wbr>KHR</code> Device
-        supports the command-buffers having a <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#pending_count" target="_blank" rel="noopener">Pending
-        Count</a> that exceeds 1.</p>
-<p class="tableblock">provided by the <code>cl_khr_command_buffer</code> extension.</p>
+        supports enqueueing command-buffers with a <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#simultaneous-use" target="_blank" rel="noopener">simultaneous use</a> usage pattern.</p>
+<p class="tableblock">provided by the <code>cl_khr_command_buffer_mutable_dispatch</code> extension.</p>
 <p class="tableblock">        <code>CL_COMMAND_<wbr>BUFFER_<wbr>CAPABILITY_<wbr>MULTIPLE_<wbr>QUEUE_<wbr>KHR</code> Device
         supports the ability to record commands to more than one
         command-queue associated with <em>device</em> in a single command-buffer.</p>
@@ -2067,61 +2218,6 @@ if the <code>cl_khr_<wbr>image2d_<wbr>from_<wbr>buffer</code> extension is suppo
 <p class="tableblock">provided by the <code>cl_khr_command_buffer_mutable_dispatch</code> extension.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>UUID_<wbr>KHR</code></p>
-<p class="tableblock">provided by the <code>cl_khr_device_uuid</code> extension.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_uchar</code>[<code>CL_UUID_<wbr>SIZE_<wbr>KHR</code>]</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Returns a universally unique identifier (UUID) for the device.</p>
-<p class="tableblock">        Device UUIDs must be immutable for a given device across processes,
-        driver APIs, driver versions, and system reboots.</p>
-<p class="tableblock">        <code>CL_UUID_<wbr>SIZE_<wbr>KHR</code> is the size of the UUID, in bytes.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DRIVER_<wbr>UUID_<wbr>KHR</code></p>
-<p class="tableblock">provided by the <code>cl_khr_device_uuid</code> extension.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_uchar</code>[<code>CL_UUID_<wbr>SIZE_<wbr>KHR</code>]</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Returns a universally unique identifier (UUID) for the software driver
-        for the device.</p>
-<p class="tableblock">        <code>CL_UUID_<wbr>SIZE_<wbr>KHR</code> is the size of the UUID, in bytes.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>LUID_<wbr>VALID_<wbr>KHR</code></p>
-<p class="tableblock">provided by the <code>cl_khr_device_uuid</code> extension.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_bool</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Returns <code>CL_TRUE</code> if the device has a valid LUID and <code>CL_FALSE</code>
-        otherwise.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>LUID_<wbr>KHR</code></p>
-<p class="tableblock">provided by the <code>cl_khr_device_uuid</code> extension.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_uchar</code>[<code>CL_LUID_<wbr>SIZE_<wbr>KHR</code>]</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Returns a locally unique identifier (LUID) for the device.</p>
-<p class="tableblock">        It is not an error to query <code>CL_DEVICE_<wbr>LUID_<wbr>KHR</code> when
-        <code>CL_DEVICE_<wbr>LUID_<wbr>VALID_<wbr>KHR</code> returns <code>CL_FALSE</code>, but in this case the
-        returned LUID value is undefined.</p>
-<p class="tableblock">        When <code>CL_DEVICE_<wbr>LUID_<wbr>VALID_<wbr>KHR</code> returns <code>CL_TRUE</code>, and the OpenCL
-        device is running on the Windows operating system, the returned LUID
-        value can be cast to an <code>LUID</code> object and must be equal to the locally
-        unique identifier of an <code>IDXGIAdapter1</code> object that corresponds to the
-        OpenCL device.</p>
-<p class="tableblock">        <code>CL_LUID_<wbr>SIZE_<wbr>KHR</code> is the size of the LUID, in bytes.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>NODE_<wbr>MASK_<wbr>KHR</code></p>
-<p class="tableblock">provided by the <code>cl_khr_device_uuid</code> extension.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_uint</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Returns a node mask for the device.</p>
-<p class="tableblock">        It is not an error to query <code>CL_DEVICE_<wbr>NODE_<wbr>MASK_<wbr>KHR</code> when
-        <code>CL_DEVICE_<wbr>LUID_<wbr>VALID_<wbr>KHR</code> returns <code>CL_FALSE</code>, but in this case the
-        returned node mask is undefined.</p>
-<p class="tableblock">        When <code>CL_DEVICE_<wbr>LUID_<wbr>VALID_<wbr>KHR</code> returns <code>CL_TRUE</code>, the returned node
-        mask must contain exactly one bit.
-        If the OpenCL device is running on an operating system that supports
-        the Direct3D 12 API and the OpenCL device corresponds to an individual
-        device in a linked device adapter, the returned node mask identifies
-        the Direct3D 12 node corresponding to the OpenCL device.
-        Otherwise, the returned node mask must be <code>1</code>.</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>EXTERNAL_<wbr>MEMORY_<wbr>IMPORT_<wbr>HANDLE_<wbr>TYPES_<wbr>KHR</code></p>
 <p class="tableblock">provided by the <code>cl_khr_external_memory</code> extension.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_external_<wbr>memory_<wbr>handle_<wbr>type_<wbr>khr</code>[]</p></td>
@@ -2171,49 +2267,6 @@ if the <code>cl_khr_<wbr>image2d_<wbr>from_<wbr>buffer</code> extension is suppo
 <p class="tableblock">        or</p>
 <p class="tableblock">        <code>CL_FP_<wbr>ROUND_<wbr>TO_<wbr>NEAREST</code> |<br>
         <code>CL_FP_<wbr>INF_<wbr>NAN</code>.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>INTEGER_<wbr>DOT_<wbr>PRODUCT_<wbr>CAPABILITIES_<wbr>KHR</code></p>
-<p class="tableblock">provided by the <code>cl_khr_integer_dot_product</code> extension.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_device_<wbr>integer_<wbr>dot_<wbr>product_<wbr>capabilities_<wbr>khr</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the integer dot product capabilities supported by the
-        device.</p>
-<p class="tableblock">        <code>CL_DEVICE_<wbr>INTEGER_<wbr>DOT_<wbr>PRODUCT_<wbr>INPUT_<wbr>4x8BIT_<wbr>PACKED_<wbr>KHR</code> is always
-        set, indicating that all implementations that support
-        <code>cl_khr_<wbr>integer_<wbr>dot_<wbr>product</code> must support dot product built-in
-        functions and, when SPIR-V is supported, SPIR-V instructions that
-        take four-component vectors of 8-bit integers packed into 32-bit
-        integers as input.</p>
-<p class="tableblock">        <code>CL_DEVICE_<wbr>INTEGER_<wbr>DOT_<wbr>PRODUCT_<wbr>INPUT_<wbr>4x8BIT_<wbr>KHR</code> is set when dot
-        product built-in functions and, when SPIR-V is supported, SPIR-V
-        instructions that take four-component of 8-bit elements as input are
-        supported.
-        NOTE: <code>CL_DEVICE_<wbr>INTEGER_<wbr>DOT_<wbr>PRODUCT_<wbr>INPUT_<wbr>4x8BIT_<wbr>KHR</code>
-        must be set in version 2.x of the extension.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>INTEGER_<wbr>DOT_<wbr>PRODUCT_<wbr>ACCELERATION_<wbr>PROPERTIES_<wbr>8BIT_<wbr>KHR</code></p>
-<p class="tableblock">provided by the <code>cl_khr_integer_dot_product</code> extension.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_device_<wbr>integer_<wbr>dot_<wbr>product_<wbr>acceleration_<wbr>properties_<wbr>khr</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Returns a structure describing the exact 8-bit dot product
-        combinations that are <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#integer-dot-product-acceleration-properties" target="_blank" rel="noopener">accelerated</a> on the device.
-        Each member is <code>CL_TRUE</code> if the combination it corresponds to is
-        accelerated, <code>CL_FALSE</code> otherwise.
-        NOTE:
-        <code>CL_DEVICE_<wbr>INTEGER_<wbr>DOT_<wbr>PRODUCT_<wbr>ACCELERATION_<wbr>PROPERTIES_<wbr>8BIT_<wbr>KHR</code> is
-        missing before version 2.0 of the extension.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>INTEGER_<wbr>DOT_<wbr>PRODUCT_<wbr>ACCELERATION_<wbr>PROPERTIES_<wbr>4x8BIT_<wbr>PACKED_<wbr>KHR</code></p>
-<p class="tableblock">provided by the <code>cl_khr_integer_dot_product</code> extension.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_device_<wbr>integer_<wbr>dot_<wbr>product_<wbr>acceleration_<wbr>properties_<wbr>khr</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Returns a structure describing the exact 4x8-bit packed dot product
-        combinations that are <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#integer-dot-product-acceleration-properties" target="_blank" rel="noopener">accelerated</a> on the device.
-        Each member is <code>CL_TRUE</code> if the combination it corresponds to is
-        accelerated, <code>CL_FALSE</code> otherwise.
-        NOTE:
-        <code>CL_DEVICE_<wbr>INTEGER_<wbr>DOT_<wbr>PRODUCT_<wbr>ACCELERATION_<wbr>PROPERTIES_<wbr>4x8BIT_<wbr>PACKED_<wbr>KHR</code>
-        is missing before version 2.0 of the extension.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>KERNEL_<wbr>CLOCK_<wbr>CAPABILITIES_<wbr>KHR</code></p>
@@ -2302,9 +2355,10 @@ if the <code>cl_khr_<wbr>image2d_<wbr>from_<wbr>buffer</code> extension is suppo
 </tbody>
 </table>
 <div class="paragraph">
-<p>OpenCL 3 devices must report the following feature macros via
+<p>OpenCL 3.0 or newer devices must report the following feature macros via
 <code>CL_DEVICE_<wbr>OPENCL_<wbr>C_<wbr>FEATURES</code> when the corresponding bit is set in the bitfield
-returned for <code>CL_DEVICE_<wbr>INTEGER_<wbr>DOT_<wbr>PRODUCT_<wbr>CAPABILITIES_<wbr>KHR</code>:</p>
+returned for <code>CL_DEVICE_<wbr>INTEGER_<wbr>DOT_<wbr>PRODUCT_<wbr>CAPABILITIES</code>
+or <code>CL_DEVICE_<wbr>INTEGER_<wbr>DOT_<wbr>PRODUCT_<wbr>CAPABILITIES_<wbr>KHR</code>:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -2319,17 +2373,19 @@ returned for <code>CL_DEVICE_<wbr>INTEGER_<wbr>DOT_<wbr>PRODUCT_<wbr>CAPABILITIE
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>INTEGER_<wbr>DOT_<wbr>PRODUCT_<wbr>INPUT_<wbr>4x8BIT_<wbr>PACKED_<wbr>KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>INTEGER_<wbr>DOT_<wbr>PRODUCT_<wbr>INPUT_<wbr>4x8BIT_<wbr>PACKED</code></p>
+<p class="tableblock">or <code>CL_DEVICE_<wbr>INTEGER_<wbr>DOT_<wbr>PRODUCT_<wbr>INPUT_<wbr>4x8BIT_<wbr>PACKED_<wbr>KHR</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>__opencl_c_<wbr>integer_<wbr>dot_<wbr>product_<wbr>input_<wbr>4x8bit_<wbr>packed</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>INTEGER_<wbr>DOT_<wbr>PRODUCT_<wbr>INPUT_<wbr>4x8BIT_<wbr>KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>INTEGER_<wbr>DOT_<wbr>PRODUCT_<wbr>INPUT_<wbr>4x8BIT</code></p>
+<p class="tableblock">or <code>CL_DEVICE_<wbr>INTEGER_<wbr>DOT_<wbr>PRODUCT_<wbr>INPUT_<wbr>4x8BIT_<wbr>KHR</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>__opencl_c_<wbr>integer_<wbr>dot_<wbr>product_<wbr>input_<wbr>4x8bit</code></p></td>
 </tr>
 </tbody>
 </table>
 <div class="paragraph">
-<p>OpenCL 3 devices must report the following feature macros via
+<p>OpenCL 3.0 devices must report the following feature macros via
 <code>CL_DEVICE_<wbr>OPENCL_<wbr>C_<wbr>FEATURES</code> when the corresponding bit is set in the bitfield
 returned for <code>CL_DEVICE_<wbr>KERNEL_<wbr>CLOCK_<wbr>CAPABILITIES_<wbr>KHR</code>:</p>
 </div>
@@ -2399,22 +2455,51 @@ Otherwise, it returns one of the following errors:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_INVALID_<wbr>DEVICE</code> if <em>device</em> is not a valid device.</p>
+<p><code>CL_INVALID_<wbr>DEVICE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>device</em> is not a valid device</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if <em>param_name</em> is not one of the supported values, or
-if the size in bytes specified by <em>param_value_size</em> is less than size of
-the return type specified in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#device-queries-table" target="_blank" rel="noopener">Device Queries</a> table
-and <em>param_value</em> is not <code>NULL</code>.</p>
+<p><code>CL_INVALID_<wbr>VALUE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>param_name</em> is not one of the supported values</p>
 </li>
 <li>
-<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources required
-by the OpenCL implementation on the device.</p>
+<p>if the size in bytes specified by <em>param_value_size</em> is less than the size of
+the return type specified in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#device-queries-table" target="_blank" rel="noopener">Device Queries</a>
+table and <em>param_value</em> is not <code>NULL</code></p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code> if there is a failure to allocate resources
-required by the OpenCL implementation on the host.</p>
+<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if there is a failure to allocate resources required by the OpenCL
+implementation on the device</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if there is a failure to allocate resources required by the OpenCL
+implementation on the host</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -2444,7 +2529,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2025 The Khronos Group Inc.</p>
+<p>Copyright 2014-2026 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
@@ -2464,10 +2549,13 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <a href="#_footnoteref_3">3</a>. The optional rounding modes should be included as a device capability only if it is supported natively. All explicit conversion functions with specific rounding modes must still operate correctly.
 </div>
 <div class="footnote" id="_footnotedef_4">
-<a href="#_footnoteref_4">4</a>. The reference count returned should be considered immediately stale. It is unsuitable for general use in applications. This feature is provided for identifying memory leaks.
+<a href="#_footnoteref_4">4</a>. When the query for <code>CL_DEVICE_<wbr>HOST_<wbr>UNIFIED_<wbr>MEMORY</code> is <code>CL_TRUE</code>, allocating OpenCL memory will likely reduce the amount of host memory available to the system. Likewise, allocating host memory will likely reduce the amount of memory available to OpenCL. If the memory described by <code>CL_DEVICE_<wbr>GLOBAL_<wbr>MEM_<wbr>SIZE</code> is primarily host memory, such as for CPUs, integrated GPUs, and other devices with a relatively small amount of dedicated device memory, then the device should return <code>CL_TRUE</code> for <code>CL_DEVICE_<wbr>HOST_<wbr>UNIFIED_<wbr>MEMORY</code>.
 </div>
 <div class="footnote" id="_footnotedef_5">
-<a href="#_footnoteref_5">5</a>. Note that this flag does not provide meaning for atomic memory operations, but only for atomic fence operations in certain circumstances, refer to the Memory Scope section of the OpenCL C specification.
+<a href="#_footnoteref_5">5</a>. The reference count returned should be considered immediately stale. It is unsuitable for general use in applications. This feature is provided for identifying memory leaks.
+</div>
+<div class="footnote" id="_footnotedef_6">
+<a href="#_footnoteref_6">6</a>. Note that this flag does not provide meaning for atomic memory operations, but only for atomic fence operations in certain circumstances, refer to the Memory Scope section of the OpenCL C specification.
 </div>
 </div>
 

@@ -791,14 +791,52 @@ cl_int clGetKernelSubGroupInfo(
     size_t* param_value_size_ret);</code></pre>
 </div>
 </div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<strong>clGetKernelSubGroupInfo</strong> is <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.1.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>or the equivalent</p>
+</div>
+<div id="clGetKernelSubGroupInfoKHR" class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-opencl" data-lang="opencl">// Provided by cl_khr_subgroups
+cl_int clGetKernelSubGroupInfoKHR(
+    cl_kernel in_kernel,
+    cl_device_id in_device,
+    cl_kernel_sub_group_info param_name,
+    size_t input_value_size,
+    const void* input_value,
+    size_t param_value_size,
+    void* param_value,
+    size_t* param_value_size_ret);</code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<strong>clGetKernelSubGroupInfoKHR</strong> is provided by the <code>cl_khr_subgroups</code> extension.
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
+<h2 id="_parameters"><a class="anchor" href="#_parameters"></a>Parameters</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>Also see <code>cl_khr_<wbr>subgroups</code>.</p>
-</div>
 <div class="ulist">
 <ul>
 <li>
@@ -847,6 +885,11 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </li>
 </ul>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
+<div class="sectionbody">
 <table id="kernel-sub-group-info-table" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. List of supported param_names by <strong>clGetKernelSubGroupInfo</strong></caption>
 <colgroup>
@@ -890,7 +933,7 @@ the <code>cl_khr_<wbr>subgroups</code> extension is supported.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>size_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the number of sub-groups that will be present in each
             work-group for a given local work size.
-            All workgroups, apart from the last work-group in each dimension
+            All work-groups, apart from the last work-group in each dimension
             in the presence of non-uniform work-group sizes, will have the
             same number of sub-groups.</p>
 <p class="tableblock">            The <em>input_value</em> must be an array of <code>size_t</code> values
@@ -995,7 +1038,7 @@ required by the OpenCL implementation on the host.</p>
 <h2 id="_see_also"><a class="anchor" href="#_see_also"></a>See Also</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="CL_VERSION_2_1.html">CL_VERSION_2_1</a>, <a href="cl_device_id.html">cl_device_id</a>, <a href="cl_kernel.html">cl_kernel</a>, <a href="cl_kernel_sub_group_info.html">cl_kernel_sub_group_info</a></p>
+<p><a href="CL_VERSION_2_1.html">CL_VERSION_2_1</a>, <a href="cl_device_id.html">cl_device_id</a>, <a href="cl_kernel.html">cl_kernel</a>, <a href="cl_kernel_sub_group_info.html">cl_kernel_sub_group_info</a>, <a href="cl_khr_subgroups.html">cl_khr_subgroups</a></p>
 </div>
 </div>
 </div>
@@ -1015,7 +1058,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2025 The Khronos Group Inc.</p>
+<p>Copyright 2014-2026 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>

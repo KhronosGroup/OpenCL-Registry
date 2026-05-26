@@ -1023,7 +1023,7 @@ explicitly specified as an actual type.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">gentype <strong>fmin</strong>(gentype <em>x</em>, gentype <em>y</em>)<br>
   gentypef <strong>fmin</strong>(gentypef <em>x</em>, float <em>y</em>)<br>
   gentyped <strong>fmin</strong>(gentyped <em>x</em>, double <em>y</em>)</p>
-<p class="tableblock">gentypeh <strong>fmax</strong>(gentypeh <em>x</em>, half <em>y</em>)</p></td>
+<p class="tableblock">gentypeh <strong>fmin</strong>(gentypeh <em>x</em>, half <em>y</em>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns <em>y</em> if <em>y</em> &lt; <em>x</em>, otherwise it returns <em>x</em>.
       If one argument is a NaN, <strong>fmin</strong>() returns the other argument.
       If both arguments are NaNs, <strong>fmin</strong>() returns a NaN.
@@ -1181,7 +1181,6 @@ explicitly specified as an actual type.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>mad</strong> computes <em>a</em> * <em>b</em> + <em>c</em>.
       The function may compute <em>a</em> * <em>b</em> + <em>c</em> with reduced accuracy in the
       embedded profile.
-      See the OpenCL SPIR-V Environment Specification for details.
       On some hardware the mad instruction may provide better performance
       than expanded computation of <em>a</em> * <em>b</em> + <em>c</em>.
       <sup class="footnote">[<a id="_footnoteref_7" class="footnote" href="#_footnotedef_7" title="View footnote.">7</a>]</sup></p></td>
@@ -1395,7 +1394,7 @@ explicitly specified as an actual type.</p>
 <ul>
 <li>
 <p>A subset of functions from <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#table-builtin-math" target="_blank" rel="noopener">Built-in Scalar and Vector
-Argument Math Functions</a> that are defined with the half_ prefix .
+Argument Math Functions</a> that are defined with the half_ prefix.
 These functions are implemented with a minimum of 10-bits of accuracy,
 i.e. the maximum error value &lt;= 8192 ulp.</p>
 </li>
@@ -1625,7 +1624,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2025 The Khronos Group Inc.</p>
+<p>Copyright 2014-2026 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>

@@ -775,10 +775,12 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>If the <code>cl_khr_<wbr>extended_<wbr>bit_<wbr>ops</code> extension macro is supported, the
-functions described in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#table-builtin-extended-bit-operations" target="_blank" rel="noopener">Built-in
-Scalar and Vector Extended Bit Operations</a> table can be used with built-in
-scalar or vector integer types to perform extended bit operations.
+<p>If
+the <code>cl_khr_<wbr>extended_<wbr>bit_<wbr>ops</code> extension macro or
+OpenCL C 3.1 or newer is supported, the functions described in the
+<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#table-builtin-extended-bit-operations" target="_blank" rel="noopener">Built-in Scalar and Vector Extended Bit
+Operations</a> table can be used with built-in scalar or vector integer types to
+perform extended bit operations.
 The functions that operate on vector types operate component-wise.
 The description is per-component.</p>
 </div>
@@ -794,6 +796,20 @@ The generic type name <code>ugentype</code> refers to the built-in unsigned inte
 types <code>uchar</code>, <code>uchar<em>n</em></code>, <code>ushort</code>, <code>ushort<em>n</em></code>, <code>uint</code>, <code>uint<em>n</em></code>,
 <code>ulong</code>, and <code>ulong<em>n</em></code>.
 <em>n</em> is 2, 3, 4, 8, or 16.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The functionality described in the following table <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">requires</a> support for
+the <code>cl_khr_<wbr>extended_<wbr>bit_<wbr>ops</code> extension macro or
+OpenCL C 3.1 or newer.
+</td>
+</tr>
+</table>
 </div>
 <table id="table-builtin-extended-bit-operations" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. Built-in Scalar and Vector Extended Bit Operations</caption>
@@ -828,9 +844,7 @@ types <code>uchar</code>, <code>uchar<em>n</em></code>, <code>ushort</code>, <co
       If <em>count</em> equals 0, the return value will be equal to <em>base</em>.</p>
 <p class="tableblock">      If <em>count</em> or <em>offset</em> or <em>offset</em> + <em>count</em> is greater than number of
       bits in <code>gentype</code> (for scalar types) or components of <code>gentype</code> (for
-      vector types), the result is undefined.</p>
-<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for the
-      <code>cl_khr_<wbr>extended_<wbr>bit_<wbr>ops</code> extension macro.</p></td>
+      vector types), the result is undefined.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
@@ -851,9 +865,7 @@ types <code>uchar</code>, <code>uchar<em>n</em></code>, <code>ushort</code>, <co
       If <em>count</em> equals 0, the result is 0.</p>
 <p class="tableblock">      If the <em>count</em> or <em>offset</em> or <em>offset</em> + <em>count</em> is greater than
       number of bits in <code>gentype</code> (for scalar types) or components of
-      <code>gentype</code> (for vector types), the result is undefined.</p>
-<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for the
-      <code>cl_khr_<wbr>extended_<wbr>bit_<wbr>ops</code> extension macro.</p></td>
+      <code>gentype</code> (for vector types), the result is undefined.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
@@ -873,9 +885,7 @@ types <code>uchar</code>, <code>uchar<em>n</em></code>, <code>ushort</code>, <co
       If <em>count</em> equals 0, the result is 0.</p>
 <p class="tableblock">      If the <em>count</em> or <em>offset</em> or <em>offset</em> + <em>count</em> is greater than
       number of bits in <code>gentype</code> (for scalar types) or components of
-      <code>gentype</code> (for vector types), the result is undefined.</p>
-<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for the
-      <code>cl_khr_<wbr>extended_<wbr>bit_<wbr>ops</code> extension macro.</p></td>
+      <code>gentype</code> (for vector types), the result is undefined.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
@@ -889,9 +899,7 @@ types <code>uchar</code>, <code>uchar<em>n</em></code>, <code>ushort</code>, <co
       the bit numbered <em>width</em> - <em>n</em> - 1 of <em>base</em> (for scalar types) or a
       component of <em>base</em> (for vector types), where <em>width</em> is number of
       bits of <code>gentype</code> (for scalar types) or components of <code>gentype</code> (for
-      vector types).</p>
-<p class="tableblock">      <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for the
-      <code>cl_khr_<wbr>extended_<wbr>bit_<wbr>ops</code> extension macro.</p></td>
+      vector types).</p></td>
 </tr>
 </tbody>
 </table>
@@ -921,7 +929,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2025 The Khronos Group Inc.</p>
+<p>Copyright 2014-2026 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>

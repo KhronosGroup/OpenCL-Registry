@@ -868,8 +868,11 @@ If <em>num_devices</em> is <code>NULL</code>, this argument is ignored.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>TYPE_<wbr>CUSTOM</code></p>
 <p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.2.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Specialized devices that implement some of the OpenCL runtime APIs but
-    do not support all of the required OpenCL functionality.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specialized devices that support a subset of the OpenCL runtime APIs for
+    directed tasks but are not OpenCL conformant.
+    A custom device must implement all of the OpenCL runtime APIs, but may not
+    support all of the required minimum device capabilities and may return
+    implementation-defined error codes for unsupported functionality.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEVICE_<wbr>TYPE_<wbr>DEFAULT</code></p></td>
@@ -901,26 +904,69 @@ Otherwise, it returns one of the following errors:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_INVALID_<wbr>PLATFORM</code> if <em>platform</em> is not a valid platform.</p>
+<p><code>CL_INVALID_<wbr>PLATFORM</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>platform</em> is not a valid platform</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>DEVICE_<wbr>TYPE</code> if <em>device_type</em> is not a valid value.</p>
+<p><code>CL_INVALID_<wbr>DEVICE_<wbr>TYPE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>device_type</em> is not a valid value</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if <em>num_entries</em> is equal to zero and <em>devices</em> is not
-<code>NULL</code> or if both <em>num_devices</em> and <em>devices</em> are <code>NULL</code>.</p>
+<p><code>CL_INVALID_<wbr>VALUE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>num_entries</em> is equal to zero and <em>devices</em> is not <code>NULL</code></p>
 </li>
 <li>
-<p><code>CL_DEVICE_<wbr>NOT_<wbr>FOUND</code> if no OpenCL devices that matched <em>device_type</em> were
-found.</p>
+<p>if both <em>num_devices</em> and <em>devices</em> are <code>NULL</code></p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources required
-by the OpenCL implementation on the device.</p>
+<p><code>CL_DEVICE_<wbr>NOT_<wbr>FOUND</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if no OpenCL devices that matched <em>device_type</em> were found</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code> if there is a failure to allocate resources
-required by the OpenCL implementation on the host.</p>
+<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if there is a failure to allocate resources required by the OpenCL
+implementation on the device</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if there is a failure to allocate resources required by the OpenCL
+implementation on the host</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -955,7 +1001,7 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2025 The Khronos Group Inc.</p>
+<p>Copyright 2014-2026 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>

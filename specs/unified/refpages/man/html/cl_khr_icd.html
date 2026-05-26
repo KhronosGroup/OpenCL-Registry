@@ -794,7 +794,7 @@ li > p > a[id^="VUID-"].link:hover { color: black; }
 <dl>
 <dt class="hdlist1"><strong>Last Modified Date</strong></dt>
 <dd>
-<p>2025-04-01</p>
+<p>2025-12-15</p>
 </dd>
 <dt class="hdlist1"><strong>IP Status</strong></dt>
 <dd>
@@ -877,7 +877,7 @@ can be appended.</p>
 may be inferred have been deprecated and may be ignored.</p>
 </div>
 <div class="paragraph">
-<p>New in version 2.0.0, object that are ICD 2 compatible should also contain
+<p>New in version 2.0.0, objects that are ICD 2 compatible should also contain
 a <code>dispatch_data</code> field of type <code>void *</code> that the loader is free to modify
 for a platform through the <strong>clIcdSetPlatformDispatchDataKHR</strong> new API entry
 point. In order to distinguish ICD 1 and ICD 2 objects, the pointers to
@@ -1094,7 +1094,7 @@ pointers to <strong>clGetPlatformIDs</strong> and <strong>clUnloadCompiler</stro
 structure of a platform is set to <code>CL_ICD2_TAG_KHR</code> the platform will be
 deemed ICD 2 compatible and dispatch will be managed by the ICD Loader. If the
 <code>CL_ICD2_TAG_KHR</code> tag is present but one of the two functions above is
-missing or it the tag is present in only one of the pointers, the ICD Loader
+missing or if the tag is present in only one of the pointers, the ICD Loader
 will ignore the Vendor ICD and continue on to the next.</p>
 </div>
 <div class="paragraph">
@@ -1215,6 +1215,24 @@ the <code>NULL</code> platform.</p>
 <p><strong>RESOLVED</strong>: As there is no standard mechanism for unloading a vendor
 implementation, do not add one for the ICD Loader.</p>
 </div>
+<div class="paragraph">
+<p>New in version 2.0.1, the loader now supports deinitialization and platform
+that support unloading their driver can advertise it through the
+<code>cl_khr_<wbr>icd_<wbr>unloadable</code> extension.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>How will the ICD Loader that support deinitialization enable compatibility
+with old layers.</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The ICD Loader that support deinitialization will check for the
+<code>OCL_ICD_FORCE_LEGACY_TERMINATION</code> environment variable, and revert to the
+legacy behavior if it evaluates to true.</p>
+</div>
 </div>
 </div>
 </li>
@@ -1291,6 +1309,16 @@ for propagating this information to new objects.</p>
 </ul>
 </div>
 </li>
+<li>
+<p>Revision 2.0.1, 2025-12-15</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Loader deinitialization.</p>
+</li>
+</ul>
+</div>
+</li>
 </ul>
 </div>
 </div>
@@ -1319,7 +1347,7 @@ Fixes and changes should be made to the generator scripts, not directly.</p>
 <h2 id="_copyright"><a class="anchor" href="#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright 2014-2025 The Khronos Group Inc.</p>
+<p>Copyright 2014-2026 The Khronos Group Inc.</p>
 </div>
 <div class="paragraph">
 <p>SPDX-License-Identifier: CC-BY-4.0</p>
