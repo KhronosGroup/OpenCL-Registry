@@ -780,9 +780,13 @@ formats.
 To query all image formats supported by an implementation, call the function <strong>clGetSupportedImageFormats</strong>.</p>
 </div>
 <div class="paragraph">
-<p>For full profile devices supporting OpenCL 2.0, 2.1, or 2.2, the minimum
-list of supported image formats for either reading or writing in a kernel
-is:</p>
+<p>For devices that do not support images (<code>CL_DEVICE_<wbr>IMAGE_<wbr>SUPPORT</code> returns
+<code>CL_FALSE</code>), the list of supported image formats must be empty.</p>
+</div>
+<div class="paragraph">
+<p>For full profile devices that support images and OpenCL 2.0, 2.1, or 2.2, the
+minimum list of supported image formats for either reading or writing in a
+kernel is:</p>
 </div>
 <table id="min-supported-image-formats-2.0" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. Minimum list of supported image formats for reading or writing (OpenCL 2.0, 2.1, or 2.2)</caption>
@@ -827,7 +831,7 @@ is:</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_DEPTH_<wbr>STENCIL</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_UNORM_<wbr>INT24</code><br>
         <code>CL_FLOAT</code></p>
-<p class="tableblock">        See <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#restrictions-on-depth-stencil-images" target="_blank" rel="noopener">Restrictions on
+<p class="tableblock">        See <a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#restrictions-on-depth-stencil-images" target="_blank" rel="noopener">Restrictions on
         Depth/Stencil Images</a>.</p></td>
 </tr>
 <tr>
@@ -875,9 +879,9 @@ is:</p>
 </tbody>
 </table>
 <div class="paragraph">
-<p>For full profile devices supporting other OpenCL versions, such as OpenCL 1.2,
-OpenCL 3.0, or OpenCL 3.1, the minimum list of supported image formats for
-either reading or writing in a kernel is:</p>
+<p>For full profile devices that support images and other OpenCL versions, such as
+OpenCL 1.2, OpenCL 3.0, or OpenCL 3.1, the minimum list of supported image
+formats for either reading or writing in a kernel is:</p>
 </div>
 <table id="min-supported-image-formats" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 2. Minimum list of required image formats for reading or writing</caption>
@@ -978,7 +982,7 @@ the same kernel-instance is:</p>
 <h2 id="_document_notes"><a class="anchor" href="#_document_notes"></a>Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#minimum-list-of-supported-image-formats" target="_blank" rel="noopener">OpenCL Specification</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#minimum-list-of-supported-image-formats" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the OpenCL Specification.

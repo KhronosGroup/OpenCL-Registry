@@ -796,7 +796,7 @@ void* clSVMAlloc(
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<strong>clSVMAlloc</strong> is <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.0.
+<strong>clSVMAlloc</strong> is <a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.0.
 </td>
 </tr>
 </table>
@@ -814,7 +814,7 @@ void* clSVMAlloc(
 <li>
 <p><em>flags</em> is a bit-field that is used to specify allocation and usage
 information.
-The <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#svm-flags-table" target="_blank" rel="noopener">SVM Memory Flags</a> table describes the possible values
+The <a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#svm-flags-table" target="_blank" rel="noopener">SVM Memory Flags</a> table describes the possible values
 for <em>flags</em>.</p>
 </li>
 <li>
@@ -876,13 +876,13 @@ size of largest data type supported by the OpenCL implementation.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_MEM_<wbr>SVM_<wbr>FINE_<wbr>GRAIN_<wbr>BUFFER</code></p>
-<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.0.</p></td>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.0.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This specifies that the application wants the OpenCL implementation to
     do a fine-grained allocation.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_MEM_<wbr>SVM_<wbr>ATOMICS</code></p>
-<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.0.</p></td>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.0.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This flag is valid only if <code>CL_MEM_<wbr>SVM_<wbr>FINE_<wbr>GRAIN_<wbr>BUFFER</code> is specified in
     flags.
     It is used to indicate that SVM atomic operations can control visibility
@@ -925,42 +925,45 @@ and writes in a kernel.</p>
 <p><strong>clSVMAlloc</strong> returns a valid non-<code>NULL</code> shared virtual memory address if the
 SVM buffer is successfully allocated.
 Otherwise, like <strong>malloc</strong>, it returns a <code>NULL</code> pointer value.
-<strong>clSVMAlloc</strong> will fail if</p>
+<strong>clSVMAlloc</strong> will fail if:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><em>context</em> is not a valid context, or no devices in <em>context</em> support SVM.</p>
+<p><em>context</em> is not a valid context</p>
 </li>
 <li>
-<p><em>flags</em> does not contain <code>CL_MEM_<wbr>SVM_<wbr>FINE_<wbr>GRAIN_<wbr>BUFFER</code> but does contain
-<code>CL_MEM_<wbr>SVM_<wbr>ATOMICS</code>.</p>
+<p>no devices in <em>context</em> support SVM</p>
 </li>
 <li>
-<p><em>flags</em> contains <code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code>.</p>
+<p>values specified in <em>flags</em> do not match those defined in the <a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#svm-flags-table" target="_blank" rel="noopener">SVM Memory Flags</a> table</p>
 </li>
 <li>
-<p>Values specified in <em>flags</em> do not follow rules described for supported
-values in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#svm-flags-table" target="_blank" rel="noopener">SVM Memory Flags</a> table.</p>
+<p>values specified in <em>flags</em> do not follow rules described for supported values in the <a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#svm-flags-table" target="_blank" rel="noopener">SVM Memory Flags</a> table</p>
 </li>
 <li>
-<p><code>CL_MEM_<wbr>SVM_<wbr>FINE_<wbr>GRAIN_<wbr>BUFFER</code> or <code>CL_MEM_<wbr>SVM_<wbr>ATOMICS</code> is specified in
-<em>flags</em> and these are not supported by at least one device in <em>context</em>.</p>
+<p><em>flags</em> contains <code>CL_MEM_<wbr>SVM_<wbr>ATOMICS</code> and does not contain <code>CL_MEM_<wbr>SVM_<wbr>FINE_<wbr>GRAIN_<wbr>BUFFER</code></p>
 </li>
 <li>
-<p>The values specified in <em>flags</em> are not valid, i.e. do not match those
-defined in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#svm-flags-table" target="_blank" rel="noopener">SVM Memory Flags</a> table.</p>
+<p><em>flags</em> contains <code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code></p>
 </li>
 <li>
-<p><em>size</em> is 0 or &gt; <code>CL_DEVICE_<wbr>MAX_<wbr>MEM_<wbr>ALLOC_<wbr>SIZE</code> value for any device in
-<em>context</em>.</p>
+<p><em>flags</em> contains <code>CL_MEM_<wbr>SVM_<wbr>FINE_<wbr>GRAIN_<wbr>BUFFER</code> or <code>CL_MEM_<wbr>SVM_<wbr>ATOMICS</code> and these flags are not supported by at least one device in <em>context</em></p>
 </li>
 <li>
-<p><em>alignment</em> is not a power of two or the OpenCL implementation cannot
-support the specified alignment for at least one device in <em>context</em>.</p>
+<p><em>size</em> is 0 or greater than or equal to <code>CL_DEVICE_<wbr>MAX_<wbr>MEM_<wbr>ALLOC_<wbr>SIZE</code> value for any device in <em>context</em></p>
 </li>
 <li>
-<p>There was a failure to allocate resources.</p>
+<p><em>alignment</em> is not a power of two</p>
+</li>
+<li>
+<p><em>alignment</em> is not supported for at least one device in <em>context</em></p>
+</li>
+<li>
+<p>there was a failure to allocate resources on the device</p>
+</li>
+<li>
+<p>there was a failure to allocate resources on the host</p>
 </li>
 </ul>
 </div>
@@ -978,7 +981,7 @@ support the specified alignment for at least one device in <em>context</em>.</p>
 <h2 id="_document_notes"><a class="anchor" href="#_document_notes"></a>Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#clSVMAlloc" target="_blank" rel="noopener">OpenCL Specification</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#clSVMAlloc" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the OpenCL Specification.

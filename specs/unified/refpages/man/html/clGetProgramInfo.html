@@ -802,7 +802,7 @@ cl_int clGetProgramInfo(
 <p><em>param_name</em> specifies the information to query.
 The list of supported <em>param_name</em> types and the information returned in
 <em>param_value</em> by <strong>clGetProgramInfo</strong> is described in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#program-info-table" target="_blank" rel="noopener">Program Object Queries</a> table.</p>
+<a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#program-info-table" target="_blank" rel="noopener">Program Object Queries</a> table.</p>
 </li>
 <li>
 <p><em>param_value</em> is a pointer to memory where the appropriate result being
@@ -813,7 +813,7 @@ If <em>param_value</em> is <code>NULL</code>, it is ignored.</p>
 <p><em>param_value_size</em> specifies the size in bytes of memory pointed to by
 <em>param_value</em>.
 This size must be greater than or equal to the size of the return type
-specified in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#program-info-table" target="_blank" rel="noopener">Program Object Queries</a> table.
+specified in the <a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#program-info-table" target="_blank" rel="noopener">Program Object Queries</a> table.
 If <em>param_value</em> is <code>NULL</code>, it is ignored.</p>
 </li>
 <li>
@@ -878,16 +878,16 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 <p class="tableblock">        If <em>program</em> is created using <strong>clCreateProgramWithBinary</strong>,
         <strong>clCreateProgramWithIL</strong>,
 <strong>clCreateProgramWithILKHR</strong>,
-        or <strong>clCreateProgramWithBuiltInKernels</strong>, a null string or the
-        appropriate program source code is returned depending on whether or
-        not the program source code is stored in the binary.</p>
-<p class="tableblock">        The actual number of characters that represents the program source
-        code including the null terminator is returned in
+        or <strong>clCreateProgramWithBuiltInKernels</strong>, and no program source code is
+        stored in the binary, then the returned value may be a null string (zero
+        characters) or an empty string (a string with just the null terminator).</p>
+<p class="tableblock">        The total number of characters that represents the program source
+        code, including the null terminator, is returned in
         <em>param_value_size_ret</em>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_PROGRAM_<wbr>IL</code></p>
-<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.1.</p>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.1.</p>
 <p class="tableblock"><code>CL_PROGRAM_<wbr>IL_<wbr>KHR</code></p>
 <p class="tableblock">provided by the <code>cl_khr_il_program</code> extension.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>char</code>[]</p></td>
@@ -946,7 +946,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_PROGRAM_<wbr>NUM_<wbr>KERNELS</code></p>
-<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.2.</p></td>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.2.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>size_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the number of kernels declared in <em>program</em> that can be
         created with <strong>clCreateKernel</strong>.
@@ -956,7 +956,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_PROGRAM_<wbr>KERNEL_<wbr>NAMES</code></p>
-<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.2.</p></td>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.2.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>char</code>[]</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns a semi-colon separated list of kernel names in <em>program</em>
         that can be created with <strong>clCreateKernel</strong>.
@@ -966,7 +966,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_PROGRAM_<wbr>SCOPE_<wbr>GLOBAL_<wbr>CTORS_<wbr>PRESENT</code></p>
-<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.2 and <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">deprecated by</a> version 3.0.</p></td>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.2 and <a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">deprecated by</a> version 3.0.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_bool</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This indicates that the <em>program</em> object contains non-trivial
         constructor(s) that will be executed by runtime before any kernel
@@ -982,7 +982,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_PROGRAM_<wbr>SCOPE_<wbr>GLOBAL_<wbr>DTORS_<wbr>PRESENT</code></p>
-<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.2 and <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">deprecated by</a> version 3.0.</p></td>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.2 and <a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">deprecated by</a> version 3.0.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_bool</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This indicates that the program object contains non-trivial
         destructor(s) that will be executed by runtime when <em>program</em> is
@@ -1012,7 +1012,7 @@ Otherwise, it returns one of the following errors:</p>
 <p><code>CL_INVALID_<wbr>VALUE</code> if <em>param_name</em> is not one of the supported values, or
 if the size in bytes specified by <em>param_value_size</em> is less than size of
 the return type specified in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#program-info-table" target="_blank" rel="noopener">Program Object Queries</a> table
+<a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#program-info-table" target="_blank" rel="noopener">Program Object Queries</a> table
 and <em>param_value</em> is not <code>NULL</code>.</p>
 </li>
 <li>
@@ -1047,7 +1047,7 @@ required by the OpenCL implementation on the host.</p>
 <h2 id="_document_notes"><a class="anchor" href="#_document_notes"></a>Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#clGetProgramInfo" target="_blank" rel="noopener">OpenCL Specification</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#clGetProgramInfo" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the OpenCL Specification.

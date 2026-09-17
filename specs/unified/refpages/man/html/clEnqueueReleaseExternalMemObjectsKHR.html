@@ -877,7 +877,7 @@ will be released for all devices in the context.</p>
 </div>
 <div class="paragraph">
 <p>See &#8220;Example with Acquire / Release&#8221; provided in
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#cl_khr_external_memory-Sample-Code" class="bare" target="_blank" rel="noopener">https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#cl_khr_external_memory-Sample-Code</a> for more details on how to use this
+<a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#cl_khr_external_memory-Sample-Code" class="bare" target="_blank" rel="noopener">https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#cl_khr_external_memory-Sample-Code</a> for more details on how to use this
 API.</p>
 </div>
 <div class="paragraph">
@@ -893,30 +893,43 @@ Otherwise, it returns one of the following errors:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if <em>num_mem_objects</em> is zero and <em>mem_objects</em> is not
-a <code>NULL</code> value, or if <em>num_mem_objects</em> is greater than 0 and
-<em>mem_objects</em> is <code>NULL</code>.</p>
-</li>
-<li>
-<p><code>CL_INVALID_<wbr>MEM_<wbr>OBJECT</code> if any of the memory objects in <em>mem_objects</em> is
-not a valid OpenCL memory object created using an external memory
-handle.</p>
-</li>
-<li>
 <p><code>CL_INVALID_<wbr>COMMAND_<wbr>QUEUE</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p>if <em>command_queue</em> is not a valid command-queue, or</p>
+<p>if <em>command_queue</em> is not a valid host command-queue</p>
 </li>
 <li>
 <p>if device associated with <em>command_queue</em> is not one of the devices
 specified by <code>CL_MEM_<wbr>DEVICE_<wbr>HANDLE_<wbr>LIST_<wbr>KHR</code> at the time of creating
-one or more of <em>mem_objects</em>, or</p>
+one or more of <em>mem_objects</em></p>
 </li>
 <li>
 <p>if one or more of <em>mem_objects</em> belong to a context that does not
-contain a device associated with <em>command_queue</em>.</p>
+contain a device associated with <em>command_queue</em></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>VALUE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>num_mem_objects</em> is zero and <em>mem_objects</em> is not <code>NULL</code></p>
+</li>
+<li>
+<p>if <em>num_mem_objects</em> is greater than zero and <em>mem_objects</em> is <code>NULL</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>MEM_<wbr>OBJECT</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if any of the memory objects in <em>mem_objects</em> is not a valid OpenCL memory object created using an external memory handle</p>
 </li>
 </ul>
 </div>
@@ -926,30 +939,49 @@ contain a device associated with <em>command_queue</em>.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>if <em>event_wait_list</em> is <code>NULL</code> and <em>num_events_in_wait_list</em> is not 0,
-or</p>
+<p>if <em>event_wait_list</em> is <code>NULL</code> and <em>num_events_in_wait_list</em> is greater than zero</p>
 </li>
 <li>
-<p>if <em>event_wait_list</em> is not <code>NULL</code> and <em>num_events_in_wait_list</em> is 0,
-or</p>
+<p>if <em>event_wait_list</em> is not <code>NULL</code> and <em>num_events_in_wait_list</em> is zero</p>
 </li>
 <li>
-<p>if event objects in <em>event_wait_list</em> are not valid events.</p>
+<p>if event objects in <em>event_wait_list</em> are not valid events</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><code>CL_EXEC_<wbr>STATUS_<wbr>ERROR_<wbr>FOR_<wbr>EVENTS_<wbr>IN_<wbr>WAIT_<wbr>LIST</code> if the execution status
-of any of the events in <em>event_wait_list</em> is a negative integer value.</p>
+<p><code>CL_EXEC_<wbr>STATUS_<wbr>ERROR_<wbr>FOR_<wbr>EVENTS_<wbr>IN_<wbr>WAIT_<wbr>LIST</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if the execution status of any of the events in <em>event_wait_list</em> is a negative integer value indicating an error.
+This error code is <a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.1.</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources
-required by the OpenCL implementation on the device.</p>
+<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if there is a failure to allocate resources required by the OpenCL
+implementation on the device</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code> if there is a failure to allocate resources
-required by the OpenCL implementation on the host.</p>
+<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if there is a failure to allocate resources required by the OpenCL
+implementation on the host</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -967,7 +999,7 @@ required by the OpenCL implementation on the host.</p>
 <h2 id="_document_notes"><a class="anchor" href="#_document_notes"></a>Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#clEnqueueReleaseExternalMemObjectsKHR" target="_blank" rel="noopener">OpenCL Specification</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#clEnqueueReleaseExternalMemObjectsKHR" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the OpenCL Specification.

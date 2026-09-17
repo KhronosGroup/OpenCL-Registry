@@ -820,7 +820,7 @@ and work-items in the work-group.
 values that describe the offset used to calculate the global ID of a
 work-item.
 If <em>global_work_offset</em> is <code>NULL</code>, the global IDs start at offset (0, 0, 0).
-<em>global_work_offset</em> must be <code>NULL</code> <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">before</a> version 1.1.</p>
+<em>global_work_offset</em> must be <code>NULL</code> <a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">before</a> version 1.1.</p>
 </li>
 <li>
 <p><em>global_work_size</em> points to an array of <em>work_dim</em> unsigned values that
@@ -846,7 +846,7 @@ The total number of work-items in a work-group is computed as
 <em>local_work_size</em>[0] × &#8230;&#8203; × <em>local_work_size</em>[<em>work_dim</em> - 1].
 The total number of work-items in the work-group must be less than or equal
 to the <code>CL_KERNEL_<wbr>WORK_<wbr>GROUP_<wbr>SIZE</code> value specified in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#kernel-workgroup-info-table" target="_blank" rel="noopener">Kernel Object Device Queries</a> table, and the
+<a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#kernel-workgroup-info-table" target="_blank" rel="noopener">Kernel Object Device Queries</a> table, and the
 number of work-items specified in <em>local_work_size</em>[0], &#8230;&#8203;,
 <em>local_work_size</em>[<em>work_dim</em> - 1] must be less than or equal to the
 corresponding values specified by <code>CL_DEVICE_<wbr>MAX_<wbr>WORK_<wbr>GROUP_<wbr>SIZES</code>[0], &#8230;&#8203;,
@@ -893,7 +893,18 @@ To support non-uniform work-groups:</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The device associated with <em>command_queue</em> must support non-uniform work-groups.</p>
+<p>The device associated with <em>command_queue</em> must support non-uniform work-groups.
+Specifically, this means:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>The device is an OpenCL 2.0, OpenCL 2.1, or OpenCL 2.2 device.</p>
+</li>
+<li>
+<p>The device is an OpenCL 3.0 or newer device and the device returns <code>CL_TRUE</code> for <code>CL_DEVICE_<wbr>NON_<wbr>UNIFORM_<wbr>WORK_<wbr>GROUP_<wbr>SUPPORT</code>.</p>
+</li>
+</ol>
+</div>
 </li>
 <li>
 <p>The program object associated with <em>kernel</em> must support non-uniform work-groups.
@@ -1108,7 +1119,7 @@ This error condition does not apply when the device associated with
 specified when the sub-buffer object is created is not aligned to
 <code>CL_DEVICE_<wbr>MEM_<wbr>BASE_<wbr>ADDR_<wbr>ALIGN</code> for the device associated with
 <em>command_queue</em>.
-This error code is <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.1.</p>
+This error code is <a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.1.</p>
 </li>
 </ul>
 </div>
@@ -1214,7 +1225,7 @@ implementation on the host</p>
 <h2 id="_document_notes"><a class="anchor" href="#_document_notes"></a>Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#clEnqueueNDRangeKernel" target="_blank" rel="noopener">OpenCL Specification</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#clEnqueueNDRangeKernel" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the OpenCL Specification.

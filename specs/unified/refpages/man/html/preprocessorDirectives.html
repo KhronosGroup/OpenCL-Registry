@@ -814,7 +814,7 @@ following forms whose meanings are described elsewhere:</p>
 <dt class="hdlist1"><code>__FILE__</code> </dt>
 <dd>
 <p>The presumed name of the current source file (a character string
-literal).</p>
+literal).<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p>
 </dd>
 <dt class="hdlist1"><code>__LINE__</code> </dt>
 <dd>
@@ -826,56 +826,56 @@ source line (an integer constant).</p>
 <p>For OpenCL devices with OpenCL version less than or equal to OpenCL 2.0,
 substitutes an integer value reflecting the OpenCL version supported by the
 device.
-This predefined macro is <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">deprecated by</a> OpenCL 2.1.
+This predefined macro is <a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">deprecated by</a> OpenCL 2.1.
 For OpenCL devices with OpenCL version greater than OpenCL 2.0, it must be
 defined but may substitute any implementation-defined integer value greater
-than 200, reflecting OpenCL 2.0. <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p>
+than 200, reflecting OpenCL 2.0. <sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup></p>
 </dd>
 <dt class="hdlist1"><code>CL_VERSION_1_0</code> </dt>
 <dd>
 <p>Substitutes the integer 100 reflecting the OpenCL 1.0 version.
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for OpenCL C 1.1 or newer.</p>
+<a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for OpenCL C 1.1 or newer.</p>
 </dd>
 <dt class="hdlist1"><code>CL_VERSION_1_1</code> </dt>
 <dd>
 <p>Substitutes the integer 110 reflecting the OpenCL 1.1 version.
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for OpenCL C 1.1 or newer.</p>
+<a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for OpenCL C 1.1 or newer.</p>
 </dd>
 <dt class="hdlist1"><code>CL_VERSION_1_2</code> </dt>
 <dd>
 <p>Substitutes the integer 120 reflecting the OpenCL 1.2 version.
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for OpenCL C 1.2 or newer.</p>
+<a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for OpenCL C 1.2 or newer.</p>
 </dd>
 <dt class="hdlist1"><code>CL_VERSION_2_0</code> </dt>
 <dd>
 <p>Substitutes the integer 200 reflecting the OpenCL 2.0 version.
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for OpenCL C 2.0 or newer.</p>
+<a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for OpenCL C 2.0 or newer.</p>
 </dd>
 <dt class="hdlist1"><code>CL_VERSION_3_0</code> </dt>
 <dd>
 <p>Substitutes the integer 300 reflecting the OpenCL 3.0 version.
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for OpenCL C 3.0 or newer.</p>
+<a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for OpenCL C 3.0 or newer.</p>
 </dd>
 <dt class="hdlist1"><code>CL_VERSION_3_1</code> </dt>
 <dd>
-<p>Substitutes the integer 301 reflecting the OpenCL 3.1 version.
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for OpenCL C 3.1 or newer.</p>
+<p>Substitutes the integer 310 reflecting the OpenCL 3.1 version.
+<a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for OpenCL C 3.1 or newer.</p>
 </dd>
 <dt class="hdlist1"><code>__OPENCL_C_VERSION__</code> </dt>
 <dd>
 <p>Substitutes an integer reflecting the OpenCL C version specified by the
-<code>-cl-std</code> build option (see <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#opencl-spec" target="_blank" rel="noopener">OpenCL Specification</a>) to
+<code>-cl-std</code> build option (see <a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_C.html#opencl-spec" target="_blank" rel="noopener">OpenCL Specification</a>) to
 <strong>clBuildProgram</strong> or <strong>clCompileProgram</strong>.
 If the <code>-cl-std</code> build option is not specified, the highest OpenCL C 1.x
 language version supported by each device is used as the version of
 OpenCL C when compiling the program for each device.
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for OpenCL C 1.2 or newer.</p>
+<a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for OpenCL C 1.2 or newer.</p>
 </dd>
 <dt class="hdlist1"><code>__ROUNDING_MODE__</code> </dt>
 <dd>
 <p>Used to determine the current rounding mode and is set to rte.
 Only affects the rounding mode of conversions to a float type.
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Deprecated by</a> OpenCL C 1.1, along with the
+<a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Deprecated by</a> OpenCL C 1.1, along with the
 <code>cl_khr_<wbr>select_<wbr>fprounding_<wbr>mode</code> extension.</p>
 </dd>
 <dt class="hdlist1"><code>__ENDIAN_LITTLE__</code> </dt>
@@ -883,7 +883,7 @@ Only affects the rounding mode of conversions to a float type.
 <p>Used to determine if the OpenCL device is a little endian architecture
 or a big endian architecture (an integer constant of 1 if device is
 little endian and is undefined otherwise).
-Also refer to the value of the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#opencl-device-queries" target="_blank" rel="noopener"><code>CL_DEVICE_<wbr>ENDIAN_<wbr>LITTLE</code> device query</a>.</p>
+Also refer to the value of the <a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_C.html#opencl-device-queries" target="_blank" rel="noopener"><code>CL_DEVICE_<wbr>ENDIAN_<wbr>LITTLE</code> device query</a>.</p>
 </dd>
 <dt class="hdlist1"><code>__kernel_exec(X, typen)</code> (and <code>kernel_exec(X, typen)</code>) </dt>
 <dd>
@@ -904,7 +904,7 @@ Also refer to the value of the <a href="https://www.khronos.org/registry/OpenCL/
 <p>Used to determine if the OpenCL device supports images.
 This is an integer constant of 1 if images are supported and is
 undefined otherwise.
-Also refer to the value of the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#opencl-device-queries" target="_blank" rel="noopener"><code>CL_DEVICE_<wbr>IMAGE_<wbr>SUPPORT</code> device query</a> and the <code>__opencl_c_<wbr>images</code>
+Also refer to the value of the <a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_C.html#opencl-device-queries" target="_blank" rel="noopener"><code>CL_DEVICE_<wbr>IMAGE_<wbr>SUPPORT</code> device query</a> and the <code>__opencl_c_<wbr>images</code>
 feature.</p>
 </dd>
 <dt class="hdlist1"><code>__FAST_RELAXED_MATH__</code> </dt>
@@ -921,7 +921,7 @@ option is specified and is undefined otherwise.</p>
 <p>The <code>NULL</code> macro expands to a null pointer constant.
 An integer constant expression with the value 0, or such an expression cast
 to type <code>void *</code> is called a <em>null pointer constant</em>.
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for OpenCL C 2.0 or newer.</p>
+<a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for OpenCL C 2.0 or newer.</p>
 </div>
 <div class="paragraph">
 <p>The macro names defined by the C99 specification but not currently supported
@@ -929,12 +929,12 @@ by OpenCL are reserved for future use.</p>
 </div>
 <div class="paragraph">
 <p>The predefined identifier <code>__func__</code> is available.
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for OpenCL C 1.2 or newer.</p>
+<a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_C.html#unified-spec" target="_blank" rel="noopener">Requires</a> support for OpenCL C 1.2 or newer.</p>
 </div>
 <div class="paragraph">
 <p>In OpenCL C 3.0 or newer there are a number of optional predefined macros
 indicating optional language features. Such macros are listed in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#table-optional-lang-features" target="_blank" rel="noopener">optional features in OpenCL C 3.0 or newer table</a>.</p>
+<a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_C.html#table-optional-lang-features" target="_blank" rel="noopener">optional features in OpenCL C 3.0 or newer table</a>.</p>
 </div>
 </div>
 </div>
@@ -950,7 +950,7 @@ indicating optional language features. Such macros are listed in the
 <h2 id="_document_notes"><a class="anchor" href="#_document_notes"></a>Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_C.html#preprocessor-directives-and-macros" target="_blank" rel="noopener">OpenCL C Specification</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_C.html#preprocessor-directives-and-macros" target="_blank" rel="noopener">OpenCL C Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the OpenCL C Specification.
@@ -973,7 +973,10 @@ Fixes and changes should be made to the Specification, not directly.</p>
 <div id="footnotes">
 <hr>
 <div class="footnote" id="_footnotedef_1">
-<a href="#_footnoteref_1">1</a>. When OpenCL C is compiled offline, <code>__OPENCL_VERSION__</code> may be defined and may substitute any implementation-defined integer value.
+<a href="#_footnoteref_1">1</a>. The file name for an OpenCL C source string is typically set by a <code>#line</code> directive. The behavior of backslash characters in a file name set by a <code>#line</code> directives may vary and is implementation-defined.
+</div>
+<div class="footnote" id="_footnotedef_2">
+<a href="#_footnoteref_2">2</a>. When OpenCL C is compiled offline, <code>__OPENCL_VERSION__</code> may be defined and may substitute any implementation-defined integer value.
 </div>
 </div>
 
