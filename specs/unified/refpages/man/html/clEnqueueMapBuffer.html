@@ -835,7 +835,7 @@ of the mapped region using the pointer returned by <strong>clEnqueueMapBuffer</s
 <ul>
 <li>
 <p><em>map_flags</em> is a bit-field and is described in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#memory-map-flags-table" target="_blank" rel="noopener">Memory Map Flags</a> table.</p>
+<a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#memory-map-flags-table" target="_blank" rel="noopener">Memory Map Flags</a> table.</p>
 </li>
 <li>
 <p><em>buffer</em> is a valid buffer object.
@@ -877,12 +877,8 @@ If <em>errcode_ret</em> is <code>NULL</code>, no error code is returned.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p><strong>clEnqueueMapBuffer</strong> will return a pointer to the mapped region.
-The <em>errcode_ret</em> is set to <code>CL_SUCCESS</code>.</p>
-</div>
-<div class="paragraph">
-<p>A <code>NULL</code> pointer is returned otherwise with one of the following error
-values returned in <em>errcode_ret</em>:</p>
+<p><strong>clEnqueueMapBuffer</strong> returns a pointer to the mapped region and <em>errcode_ret</em> is set to <code>CL_SUCCESS</code> if the buffer is mapped successfully.
+Otherwise, it returns a <code>NULL</code> pointer with one of the following error values returned in <em>errcode_ret</em>:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -960,7 +956,7 @@ values returned in <em>errcode_ret</em>:</p>
 sub-buffer object was created is not aligned to the
 <code>CL_DEVICE_<wbr>MEM_<wbr>BASE_<wbr>ADDR_<wbr>ALIGN</code> value for the device associated with
 <em>command_queue</em>.
-This error code is <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.1.</p>
+This error code is <a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.1.</p>
 </li>
 </ul>
 </div>
@@ -985,7 +981,7 @@ This error cannot occur for buffer objects created with
 <li>
 <p>if the map operations is blocking and the execution status of
 any of the events in <em>event_wait_list</em> is a negative integer value indicating an error.
-This error code is <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.1.</p>
+This error code is <a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.1.</p>
 </li>
 </ul>
 </div>
@@ -1067,7 +1063,7 @@ the <em>host_ptr</em> specified when the buffer object is created.</p>
 </div>
 <div class="paragraph">
 <p>Mapped buffer objects are unmapped using <strong>clEnqueueUnmapMemObject</strong>.
-This is described in <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unmapping-mapped-memory" target="_blank" rel="noopener">Unmapping Mapped Memory
+This is described in <a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#unmapping-mapped-memory" target="_blank" rel="noopener">Unmapping Mapped Memory
 Objects</a>.</p>
 </div>
 <table id="memory-map-flags-table" class="tableblock frame-all grid-all stretch">
@@ -1101,7 +1097,7 @@ Objects</a>.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_MAP_<wbr>WRITE_<wbr>INVALIDATE_<wbr>REGION</code></p>
-<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.2.</p></td>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.2.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This flag specifies that the region being mapped in the memory object is
     being mapped for writing.</p>
 <p class="tableblock">    The contents of the region being mapped are to be discarded.
@@ -1130,7 +1126,7 @@ Objects</a>.</p>
 <h2 id="_document_notes"><a class="anchor" href="#_document_notes"></a>Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#clEnqueueMapBuffer" target="_blank" rel="noopener">OpenCL Specification</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#clEnqueueMapBuffer" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the OpenCL Specification.

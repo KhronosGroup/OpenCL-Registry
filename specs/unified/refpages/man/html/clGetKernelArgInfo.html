@@ -796,7 +796,7 @@ cl_int clGetKernelArgInfo(
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<strong>clGetKernelArgInfo</strong> is <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.2.
+<strong>clGetKernelArgInfo</strong> is <a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.2.
 </td>
 </tr>
 </table>
@@ -821,7 +821,7 @@ declared by a kernel.</p>
 <p><em>param_name</em> specifies the argument information to query.
 The list of supported <em>param_name</em> types and the information returned in
 <em>param_value</em> by <strong>clGetKernelArgInfo</strong> is described in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#kernel-argument-info-table" target="_blank" rel="noopener">Kernel Argument Queries</a> table.</p>
+<a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#kernel-argument-info-table" target="_blank" rel="noopener">Kernel Argument Queries</a> table.</p>
 </li>
 <li>
 <p><em>param_value</em> is a pointer to memory where the appropriate result being
@@ -832,7 +832,7 @@ If <em>param_value</em> is <code>NULL</code>, it is ignored.</p>
 <p><em>param_value_size</em> specifies the size in bytes of memory pointed to by
 <em>param_value</em>.
 This size must be greater than or equal to the size of the return type
-specified in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#kernel-argument-info-table" target="_blank" rel="noopener">Kernel Argument Queries</a> table.
+specified in the <a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#kernel-argument-info-table" target="_blank" rel="noopener">Kernel Argument Queries</a> table.
 If <em>param_value</em> is <code>NULL</code>, it is ignored.</p>
 </li>
 <li>
@@ -883,7 +883,7 @@ is built with the <code>-cl-kernel-arg-info option</code> specified in the
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_KERNEL_<wbr>ARG_<wbr>ADDRESS_<wbr>QUALIFIER</code></p>
-<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.2.</p></td>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.2.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_kernel_<wbr>arg_<wbr>address_<wbr>qualifier</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the address qualifier specified for the argument given by
         <em>arg_index</em>.
@@ -897,7 +897,7 @@ is built with the <code>-cl-kernel-arg-info option</code> specified in the
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_KERNEL_<wbr>ARG_<wbr>ACCESS_<wbr>QUALIFIER</code></p>
-<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.2.</p></td>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.2.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_kernel_<wbr>arg_<wbr>access_<wbr>qualifier</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the access qualifier specified for the argument given by
         <em>arg_index</em>.
@@ -913,21 +913,21 @@ is built with the <code>-cl-kernel-arg-info option</code> specified in the
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_KERNEL_<wbr>ARG_<wbr>TYPE_<wbr>NAME</code></p>
-<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.2.</p></td>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.2.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>char</code>[]</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the type name specified for the argument given by
         <em>arg_index</em>.
         The type name returned will be the argument type name as it was
         declared with any whitespace removed.
-        If argument type name is an unsigned scalar type (i.e. unsigned
-        char, unsigned short, unsigned int, unsigned long), uchar, ushort,
-        uint and ulong will be returned.
+        If argument type name is an unsigned scalar type (i.e. <code>unsigned char</code>,
+        <code>unsigned short</code>, <code>unsigned int</code>, <code>unsigned long</code>), <code>uchar</code>, <code>ushort</code>,
+        <code>uint</code> or <code>ulong</code> will be returned.
         The argument type name returned does not include any type
         qualifiers.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_KERNEL_<wbr>ARG_<wbr>TYPE_<wbr>QUALIFIER</code></p>
-<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.2.</p></td>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.2.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_kernel_<wbr>arg_<wbr>type_<wbr>qualifier</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns a bitfield describing one or more type qualifiers specified
         for the argument given by <em>arg_index</em>.
@@ -959,7 +959,7 @@ is built with the <code>-cl-kernel-arg-info option</code> specified in the
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_KERNEL_<wbr>ARG_<wbr>NAME</code></p>
-<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.2.</p></td>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.2.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>char</code>[]</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the name specified for the argument given by <em>arg_index</em>.</p></td>
 </tr>
@@ -982,7 +982,7 @@ Otherwise, it returns one of the following errors:</p>
 <p><code>CL_INVALID_<wbr>VALUE</code> if <em>param_name</em> is not one of the supported values, or
 if the size in bytes specified by <em>param_value_size</em> is less than size of
 the return type specified in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#kernel-argument-info-table" target="_blank" rel="noopener">Kernel Argument Queries</a> table
+<a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#kernel-argument-info-table" target="_blank" rel="noopener">Kernel Argument Queries</a> table
 and <em>param_value</em> is not <code>NULL</code>.</p>
 </li>
 <li>
@@ -1013,7 +1013,7 @@ required by the OpenCL implementation on the host.</p>
 <h2 id="_document_notes"><a class="anchor" href="#_document_notes"></a>Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#clGetKernelArgInfo" target="_blank" rel="noopener">OpenCL Specification</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#clGetKernelArgInfo" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the OpenCL Specification.

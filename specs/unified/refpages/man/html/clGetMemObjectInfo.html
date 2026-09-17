@@ -803,7 +803,7 @@ cl_int clGetMemObjectInfo(
 <p><em>param_name</em> specifies the information to query.
 The list of supported <em>param_name</em> types and the information returned in
 <em>param_value</em> by <strong>clGetMemObjectInfo</strong> is described in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#mem-info-table" target="_blank" rel="noopener">Memory Object Queries</a> table.</p>
+<a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#mem-info-table" target="_blank" rel="noopener">Memory Object Queries</a> table.</p>
 </li>
 <li>
 <p><em>param_value</em> is a pointer to memory where the appropriate result being
@@ -814,7 +814,7 @@ If <em>param_value</em> is <code>NULL</code>, it is ignored.</p>
 <p><em>param_value_size</em> specifies the size in bytes of memory pointed to by
 <em>param_value</em>.
 This size must be greater than or equal to the size of the return type
-specified in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#mem-info-table" target="_blank" rel="noopener">Memory Object Queries</a> table.
+specified in the <a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#mem-info-table" target="_blank" rel="noopener">Memory Object Queries</a> table.
 If <em>param_value</em> is <code>NULL</code>, it is ignored.</p>
 </li>
 <li>
@@ -912,7 +912,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_MEM_<wbr>ASSOCIATED_<wbr>MEMOBJECT</code></p>
-<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.1.</p></td>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.1.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_mem</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return memory object from which <em>memobj</em> is created.</p>
 <p class="tableblock">        This returns the memory object specified as buffer argument to
@@ -925,7 +925,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_MEM_<wbr>OFFSET</code></p>
-<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.1.</p></td>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.1.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>size_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return offset if <em>memobj</em> is a sub-buffer object created using
         <strong>clCreateSubBuffer</strong>.</p>
@@ -933,7 +933,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_MEM_<wbr>USES_<wbr>SVM_<wbr>POINTER</code></p>
-<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.0.</p></td>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.0.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_bool</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return <code>CL_TRUE</code> if <em>memobj</em> is a buffer object that was created with
         <code>CL_MEM_<wbr>USE_<wbr>HOST_<wbr>PTR</code> or is a sub-buffer object of a buffer object
@@ -943,7 +943,7 @@ If <em>param_value_size_ret</em> is <code>NULL</code>, it is ignored.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_MEM_<wbr>PROPERTIES</code></p>
-<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 3.0.</p></td>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 3.0.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cl_mem_<wbr>properties</code>[]</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Return the properties argument specified in
         <strong>clCreateBufferWithProperties</strong> or <strong>clCreateImageWithProperties</strong>.</p>
@@ -1012,68 +1012,102 @@ Otherwise, it returns one of the following errors:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_INVALID_<wbr>MEM_<wbr>OBJECT</code> if <em>memobj</em> is a not a valid memory object.</p>
+<p><code>CL_INVALID_<wbr>MEM_<wbr>OBJECT</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>memobj</em> is a not a valid memory object</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>OPERATION</code> is returned for the <code>CL_MEM_<wbr>DEVICE_<wbr>ADDRESS_<wbr>EXT</code> query if
-the <code>cl_ext_<wbr>buffer_<wbr>device_<wbr>address</code> is not supported or if the
-buffer was not allocated with <code>CL_MEM_<wbr>DEVICE_<wbr>PRIVATE_<wbr>ADDRESS_<wbr>EXT</code>.</p>
+<p><code>CL_INVALID_<wbr>VALUE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>param_name</em> is not one of the supported values</p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if <em>param_name</em> is not one of the supported values, or
-if the size in bytes specified by <em>param_value_size</em> is less than size of
+<p>if the size in bytes specified by <em>param_value_size</em> is less than size of
 the return type specified in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#mem-info-table" target="_blank" rel="noopener">Memory Object Queries</a> table
-and <em>param_value</em> is not <code>NULL</code>.</p>
-</li>
-<li>
-<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources required
-by the OpenCL implementation on the device.</p>
-</li>
-<li>
-<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code> if there is a failure to allocate resources
-required by the OpenCL implementation on the host.</p>
+<a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#mem-info-table" target="_blank" rel="noopener">Memory Object Queries</a> table
+and <em>param_value</em> is not <code>NULL</code></p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>The following errors may be returned if the <code>cl_khr_<wbr>dx9_<wbr>media_<wbr>sharing</code>
-extension is supported:</p>
-</div>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>OPERATION</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_INVALID_<wbr>DX9_<wbr>MEDIA_<wbr>SURFACE_<wbr>KHR</code> if <em>param_name</em> is
-<code>CL_MEM_<wbr>DX9_<wbr>MEDIA_<wbr>SURFACE_<wbr>INFO_<wbr>KHR</code> and <em>memobj</em> was not created by
-calling <strong>clCreateFromDX9MediaSurfaceKHR</strong> from a Direct3D9 surface.</p>
+<p>if the <code>cl_ext_<wbr>buffer_<wbr>device_<wbr>address</code> extension is supported, if
+<em>param_name</em> is <code>CL_MEM_<wbr>DEVICE_<wbr>ADDRESS_<wbr>EXT</code>, and if <em>memobj</em> was not created
+with the <code>CL_MEM_<wbr>DEVICE_<wbr>PRIVATE_<wbr>ADDRESS_<wbr>EXT</code> property set to <code>CL_TRUE</code></p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>The following errors may be returned if the <code>cl_khr_<wbr>d3d10_<wbr>sharing</code>
-extension is supported:</p>
-</div>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>DX9_<wbr>MEDIA_<wbr>SURFACE_<wbr>KHR</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_INVALID_<wbr>D3D10_<wbr>RESOURCE_<wbr>KHR</code> if <em>param_name</em> is
-<code>CL_MEM_<wbr>D3D10_<wbr>RESOURCE_<wbr>KHR</code> and <em>memobj</em> was not created by calling
+<p>if the <code>cl_khr_<wbr>dx9_<wbr>media_<wbr>sharing</code> extension is supported, if
+<em>param_name</em> is <code>CL_MEM_<wbr>DX9_<wbr>MEDIA_<wbr>SURFACE_<wbr>INFO_<wbr>KHR</code>, and if <em>memobj</em> was not
+created by calling <strong>clCreateFromDX9MediaSurfaceKHR</strong></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>D3D10_<wbr>RESOURCE_<wbr>KHR</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if the <code>cl_khr_<wbr>d3d10_<wbr>sharing</code> extension is supported, if <em>param_name</em>
+is <code>CL_MEM_<wbr>D3D10_<wbr>RESOURCE_<wbr>KHR</code>, and if <em>memobj</em> was not created by calling
 <strong>clCreateFromD3D10BufferKHR</strong>, <strong>clCreateFromD3D10Texture2DKHR</strong>, or
-<strong>clCreateFromD3D10Texture3DKHR</strong>.</p>
+<strong>clCreateFromD3D10Texture3DKHR</strong></p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>The following errors may be returned if the <code>cl_khr_<wbr>d3d11_<wbr>sharing</code>
-extension is supported:</p>
-</div>
+</li>
+<li>
+<p><code>CL_INVALID_<wbr>D3D11_<wbr>RESOURCE_<wbr>KHR</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_INVALID_<wbr>D3D11_<wbr>RESOURCE_<wbr>KHR</code> if <em>param_name</em> is
-<code>CL_MEM_<wbr>D3D11_<wbr>RESOURCE_<wbr>KHR</code> and <em>memobj</em> was not created by calling
+<p>if the <code>cl_khr_<wbr>d3d11_<wbr>sharing</code> extension is supported, if <em>param_name</em>
+is <code>CL_MEM_<wbr>D3D11_<wbr>RESOURCE_<wbr>KHR</code> and if <em>memobj</em> was not created by calling
 <strong>clCreateFromD3D11BufferKHR</strong>, <strong>clCreateFromD3D11Texture2DKHR</strong>, or
-<strong>clCreateFromD3D11Texture3DKHR</strong>.</p>
+<strong>clCreateFromD3D11Texture3DKHR</strong></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if there is a failure to allocate resources required by the OpenCL
+implementation on the device</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if there is a failure to allocate resources required by the OpenCL
+implementation on the host</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -1091,7 +1125,7 @@ extension is supported:</p>
 <h2 id="_document_notes"><a class="anchor" href="#_document_notes"></a>Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#clGetMemObjectInfo" target="_blank" rel="noopener">OpenCL Specification</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#clGetMemObjectInfo" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the OpenCL Specification.

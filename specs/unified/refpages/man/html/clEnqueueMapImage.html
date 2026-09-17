@@ -818,7 +818,7 @@ same.</p>
 </li>
 <li>
 <p><em>map_flags</em> is a bit-field and is described in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#memory-map-flags-table" target="_blank" rel="noopener">Memory Map Flags</a> table.</p>
+<a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#memory-map-flags-table" target="_blank" rel="noopener">Memory Map Flags</a> table.</p>
 </li>
 <li>
 <p><em>origin</em> defines the (<em>x</em>, <em>y</em>, <em>z</em>) offset in pixels in the 1D, 2D or 3D
@@ -908,12 +908,8 @@ When the map command is completed, the application can access the contents
 of the mapped region using the pointer returned by <strong>clEnqueueMapImage</strong>.</p>
 </div>
 <div class="paragraph">
-<p><strong>clEnqueueMapImage</strong> will return a pointer to the mapped region.
-The <em>errcode_ret</em> is set to <code>CL_SUCCESS</code>.</p>
-</div>
-<div class="paragraph">
-<p>A <code>NULL</code> pointer is returned otherwise with one of the following error
-values returned in <em>errcode_ret</em>:</p>
+<p><strong>clEnqueueMapImage</strong> returns a pointer to the mapped region and <em>errcode_ret</em> is set to <code>CL_SUCCESS</code> if the image is mapped successfully.
+Otherwise, it returns a <code>NULL</code> pointer with with one of the following error values returned in <em>errcode_ret</em>:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1050,7 +1046,7 @@ This error cannot occur for image objects created with
 <li>
 <p>if the map operations is blocking and the execution status of
 any of the events in <em>event_wait_list</em> is a negative integer value indicating an error.
-This error code is <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.1.</p>
+This error code is <a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.1.</p>
 </li>
 </ul>
 </div>
@@ -1139,7 +1135,7 @@ the <em>host_ptr</em> specified when the image object is created.</p>
 </div>
 <div class="paragraph">
 <p>Mapped image objects are unmapped using <strong>clEnqueueUnmapMemObject</strong>.
-This is described in <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unmapping-mapped-memory" target="_blank" rel="noopener">Unmapping Mapped Memory
+This is described in <a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#unmapping-mapped-memory" target="_blank" rel="noopener">Unmapping Mapped Memory
 Objects</a>.</p>
 </div>
 </div>
@@ -1156,7 +1152,7 @@ Objects</a>.</p>
 <h2 id="_document_notes"><a class="anchor" href="#_document_notes"></a>Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#clEnqueueMapImage" target="_blank" rel="noopener">OpenCL Specification</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#clEnqueueMapImage" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the OpenCL Specification.

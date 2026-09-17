@@ -798,7 +798,7 @@ cl_int clEnqueueMigrateMemObjects(
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<strong>clEnqueueMigrateMemObjects</strong> is <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.2.
+<strong>clEnqueueMigrateMemObjects</strong> is <a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.2.
 </td>
 </tr>
 </table>
@@ -825,7 +825,7 @@ OpenCL device associated with <em>command_queue</em> or to the host if the
 </li>
 <li>
 <p><em>flags</em> is a bit-field that is used to specify migration options.
-The <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#migration-flags-table" target="_blank" rel="noopener">Memory Migration Flags</a> describes the possible
+The <a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#migration-flags-table" target="_blank" rel="noopener">Memory Migration Flags</a> describes the possible
 values for flags.</p>
 </li>
 <li>
@@ -874,13 +874,13 @@ to an element of the <em>event_wait_list</em> array.</p>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_MIGRATE_<wbr>MEM_<wbr>OBJECT_<wbr>HOST</code></p>
-<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.2.</p></td>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.2.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This flag indicates that the specified set of memory objects are to be
     migrated to the host, regardless of the target command-queue.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CL_MIGRATE_<wbr>MEM_<wbr>OBJECT_<wbr>CONTENT_<wbr>UNDEFINED</code></p>
-<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.2.</p></td>
+<p class="tableblock"><a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 1.2.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This flag indicates that the contents of the set of memory objects are
     undefined after migration.
     The specified set of memory objects are migrated to the device
@@ -919,51 +919,109 @@ Improperly specified event dependencies passed to
 <strong>clEnqueueMigrateMemObjects</strong> could result in undefined results.</p>
 </div>
 <div class="paragraph">
-<p><strong>clEnqueueMigrateMemObjects</strong> return <code>CL_SUCCESS</code> if the function is executed
+<p><strong>clEnqueueMigrateMemObjects</strong> returns <code>CL_SUCCESS</code> if the function is executed
 successfully.
 Otherwise, it returns one of the following errors:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_INVALID_<wbr>COMMAND_<wbr>QUEUE</code> if <em>command_queue</em> is not a valid host
-command-queue.</p>
+<p><code>CL_INVALID_<wbr>COMMAND_<wbr>QUEUE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>command_queue</em> is not a valid host command-queue</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>CONTEXT</code> if the context associated with <em>command_queue</em> and
-memory objects in <em>mem_objects</em> are not the same or if the context
-associated with <em>command_queue</em> and events in <em>event_wait_list</em> are not
-the same.</p>
+<p><code>CL_INVALID_<wbr>CONTEXT</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if the context associated with <em>command_queue</em> and memory objects in <em>mem_objects</em> are not the same</p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>MEM_<wbr>OBJECT</code> if any of the memory objects in <em>mem_objects</em> is
-not a valid memory object.</p>
+<p>if the context associated with <em>command_queue</em> and events in <em>event_wait_list</em> are not the same</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if <em>num_mem_objects</em> is zero or if <em>mem_objects</em> is
-<code>NULL</code>.</p>
+<p><code>CL_INVALID_<wbr>MEM_<wbr>OBJECT</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if any of the memory objects in <em>mem_objects</em> is not a valid memory object</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if <em>flags</em> is not 0 or is not any of the values
-described in the table above.</p>
+<p><code>CL_INVALID_<wbr>VALUE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>num_mem_objects</em> is zero</p>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>EVENT_<wbr>WAIT_<wbr>LIST</code> if <em>event_wait_list</em> is <code>NULL</code> and
-<em>num_events_in_wait_list</em> &gt; 0, or <em>event_wait_list</em> is not <code>NULL</code> and
-<em>num_events_in_wait_list</em> is 0, or if event objects in <em>event_wait_list</em>
-are not valid events.</p>
+<p>if <em>mem_objects</em> is <code>NULL</code></p>
 </li>
 <li>
-<p><code>CL_MEM_<wbr>OBJECT_<wbr>ALLOCATION_<wbr>FAILURE</code> if there is a failure to allocate
-memory for the specified set of memory objects in <em>mem_objects</em>.</p>
+<p>if <em>flags</em> is not zero and is not a valid combination of the values
+described in the <a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#migration-flags-table" target="_blank" rel="noopener">Memory migration Flags</a> table</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources required
-by the OpenCL implementation on the device.</p>
+<p><code>CL_INVALID_<wbr>EVENT_<wbr>WAIT_<wbr>LIST</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>event_wait_list</em> is <code>NULL</code> and <em>num_events_in_wait_list</em> is greater than zero</p>
 </li>
 <li>
-<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code> if there is a failure to allocate resources
-required by the OpenCL implementation on the host.</p>
+<p>if <em>event_wait_list</em> is not <code>NULL</code> and <em>num_events_in_wait_list</em> is zero</p>
+</li>
+<li>
+<p>if event objects in <em>event_wait_list</em> are not valid events</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_MEM_<wbr>OBJECT_<wbr>ALLOCATION_<wbr>FAILURE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if there is a failure to allocate memory for the data store associated with a memory object in <em>mem_objects</em></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if there is a failure to allocate resources required by the OpenCL
+implementation on the device</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if there is a failure to allocate resources required by the OpenCL
+implementation on the host</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -981,7 +1039,7 @@ required by the OpenCL implementation on the host.</p>
 <h2 id="_document_notes"><a class="anchor" href="#_document_notes"></a>Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#clEnqueueMigrateMemObjects" target="_blank" rel="noopener">OpenCL Specification</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#clEnqueueMigrateMemObjects" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the OpenCL Specification.

@@ -799,7 +799,7 @@ cl_int clEnqueueSVMFree(
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<strong>clEnqueueSVMFree</strong> is <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.0.
+<strong>clEnqueueSVMFree</strong> is <a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#unified-spec" target="_blank" rel="noopener">missing before</a> version 2.0.
 </td>
 </tr>
 </table>
@@ -887,30 +887,85 @@ Otherwise, it returns one of the following errors:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CL_INVALID_<wbr>COMMAND_<wbr>QUEUE</code> if <em>command_queue</em> is not a valid host
-command-queue.</p>
+<p><code>CL_INVALID_<wbr>COMMAND_<wbr>QUEUE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>command_queue</em> is not a valid host command-queue</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>OPERATION</code> if the device associated with <em>command_queue</em> does not support SVM.</p>
+<p><code>CL_INVALID_<wbr>OPERATION</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if the device associated with <em>command_queue</em> does not support SVM</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>VALUE</code> if <em>num_svm_pointers</em> is 0 and <em>svm_pointers</em> is
-non-<code>NULL</code>, <em>or</em> if <em>svm_pointers</em> is <code>NULL</code> and <em>num_svm_pointers</em> is
-not 0.</p>
+<p><code>CL_INVALID_<wbr>CONTEXT</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if the context associated with <em>command_queue</em> and events in <em>event_wait_list</em> are not the same</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_INVALID_<wbr>EVENT_<wbr>WAIT_<wbr>LIST</code> if <em>event_wait_list</em> is <code>NULL</code> and
-<em>num_events_in_wait_list</em> &gt; 0, or <em>event_wait_list</em> is not <code>NULL</code> and
-<em>num_events_in_wait_list</em> is 0, or if event objects in <em>event_wait_list</em>
-are not valid events.</p>
+<p><code>CL_INVALID_<wbr>VALUE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>svm_pointers</em> is <code>NULL</code> and <em>num_svm_pointers</em> is greater than zero</p>
 </li>
 <li>
-<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code> if there is a failure to allocate resources required
-by the OpenCL implementation on the device.</p>
+<p>if <em>svm_pointers</em> is not <code>NULL</code> and <em>num_svm_pointers</em> is zero</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code> if there is a failure to allocate resources
-required by the OpenCL implementation on the host.</p>
+<p><code>CL_INVALID_<wbr>EVENT_<wbr>WAIT_<wbr>LIST</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if <em>event_wait_list</em> is <code>NULL</code> and <em>num_events_in_wait_list</em> is greater than zero</p>
+</li>
+<li>
+<p>if <em>event_wait_list</em> is not <code>NULL</code> and <em>num_events_in_wait_list</em> is zero</p>
+</li>
+<li>
+<p>if event objects in <em>event_wait_list</em> are not valid events</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>RESOURCES</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if there is a failure to allocate resources required by the OpenCL
+implementation on the device</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CL_OUT_<wbr>OF_<wbr>HOST_<wbr>MEMORY</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>if there is a failure to allocate resources required by the OpenCL
+implementation on the host</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -928,7 +983,7 @@ required by the OpenCL implementation on the host.</p>
 <h2 id="_document_notes"><a class="anchor" href="#_document_notes"></a>Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#clEnqueueSVMFree" target="_blank" rel="noopener">OpenCL Specification</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#clEnqueueSVMFree" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the OpenCL Specification.

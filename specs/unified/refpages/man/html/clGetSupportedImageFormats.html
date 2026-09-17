@@ -804,7 +804,7 @@ created.</p>
 <li>
 <p><em>flags</em> is a bit-field that is used to specify usage
 information about the image formats being queried and is described in
-the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#memory-flags-table" target="_blank" rel="noopener">Memory Flags</a> table.
+the <a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#memory-flags-table" target="_blank" rel="noopener">Memory Flags</a> table.
 <em>flags</em> may be <code>CL_MEM_<wbr>READ_<wbr>WRITE</code> to query image formats that may be read
 from and written to by different kernel-instances when correctly ordered by
 event dependencies, or <code>CL_MEM_<wbr>READ_<wbr>ONLY</code> to query image formats that may
@@ -814,7 +814,7 @@ image formats that may be both read from and written to by the same kernel
 instance.
 <em>flags</em> may also be <code>CL_MEM_<wbr>IMMUTABLE_<wbr>EXT</code> to query image formats that
 may be used to create immutable images.
-Please see <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#image-format-mapping" target="_blank" rel="noopener">Image Format Mapping</a> for clarification.</p>
+Please see <a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#image-format-mapping" target="_blank" rel="noopener">Image Format Mapping</a> for clarification.</p>
 </li>
 <li>
 <p><em>image_type</em> describes the image type and must be either
@@ -847,7 +847,10 @@ If <em>num_image_formats</em> is <code>NULL</code>, it is ignored.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p><strong>clGetSupportedImageFormats</strong> returns a union of image formats supported by
-all devices in the context.</p>
+all devices in the context.
+If no devices in <em>context</em> support images (<code>CL_DEVICE_<wbr>IMAGE_<wbr>SUPPORT</code> returns
+<code>CL_FALSE</code> for all devices), then no image formats are supported and
+<strong>clGetSupportedImageFormats</strong> must return an empty list.</p>
 </div>
 <div class="paragraph">
 <p><strong>clGetSupportedImageFormats</strong> returns <code>CL_SUCCESS</code> if the function is executed
@@ -906,16 +909,6 @@ implementation on the host</p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>If <code>CL_DEVICE_<wbr>IMAGE_<wbr>SUPPORT</code> specified in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#device-queries-table" target="_blank" rel="noopener">Device
-Queries</a> table is <code>CL_TRUE</code>, the values assigned to
-<code>CL_DEVICE_<wbr>MAX_<wbr>READ_<wbr>IMAGE_<wbr>ARGS</code>, <code>CL_DEVICE_<wbr>MAX_<wbr>WRITE_<wbr>IMAGE_<wbr>ARGS</code>
-<code>CL_DEVICE_<wbr>IMAGE2D_<wbr>MAX_<wbr>WIDTH</code>, <code>CL_DEVICE_<wbr>IMAGE2D_<wbr>MAX_<wbr>HEIGHT</code>
-<code>CL_DEVICE_<wbr>IMAGE3D_<wbr>MAX_<wbr>WIDTH</code>, <code>CL_DEVICE_<wbr>IMAGE3D_<wbr>MAX_<wbr>HEIGHT</code>
-<code>CL_DEVICE_<wbr>IMAGE3D_<wbr>MAX_<wbr>DEPTH</code>, and <code>CL_DEVICE_<wbr>MAX_<wbr>SAMPLERS</code> by the implementation
-must be greater than or equal to the minimum values specified in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#device-queries-table" target="_blank" rel="noopener">Device Queries</a> table.</p>
-</div>
 </div>
 </div>
 <div class="sect1">
@@ -930,7 +923,7 @@ must be greater than or equal to the minimum values specified in the
 <h2 id="_document_notes"><a class="anchor" href="#_document_notes"></a>Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#clGetSupportedImageFormats" target="_blank" rel="noopener">OpenCL Specification</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#clGetSupportedImageFormats" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the OpenCL Specification.

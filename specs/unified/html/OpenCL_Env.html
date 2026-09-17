@@ -891,9 +891,9 @@ pre.rouge .gs {
 <h1>The OpenCL<sup>&#8482;</sup> SPIR-V Environment Specification</h1>
 <div class="details">
 <span id="author" class="author">Khronos<sup>&#174;</sup> OpenCL Working Group</span><br>
-<span id="revnumber">version v3.1.1,</span>
-<span id="revdate">Fri, 22 May 2026 12:00:00 +0000</span>
-<br><span id="revremark">from git branch: main commit: 9f68efb5d80e77a4e437c5b8ee67d581666d044c</span>
+<span id="revnumber">version v3.1.2,</span>
+<span id="revdate">Thu, 17 Sep 2026 12:00:00 +0000</span>
+<br><span id="revremark">from git branch: main commit: 219be24fc8947c68ee45b4d25b55a92b8f799f29</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -5542,21 +5542,16 @@ profile.</p>
 <h3 id="_edge_case_behavior"><a class="anchor" href="#_edge_case_behavior"></a>6.7. Edge Case Behavior</h3>
 <div class="paragraph">
 <p>The edge case behavior of the math functions shall conform to sections F.9
-and G.6 of ISO/IEC 9899:TC 2, except where noted below in the
+and G.6 of ISO/IEC 9899:TC2, except where noted below in the
 <em><a href="#additional-requirements-beyond-isoiec-9899tc2">Additional Requirements
 Beyond ISO/IEC 9899:TC2</a> section</em>.</p>
-</div>
-<div class="sect3">
-<h4 id="additional-requirements-beyond-isoiec-9899tc2"><a class="anchor" href="#additional-requirements-beyond-isoiec-9899tc2"></a>6.7.1. Additional Requirements Beyond ISO/IEC 9899:TC2</h4>
-<div class="paragraph">
-<p>All functions that return a NaN should return a quiet NaN.</p>
 </div>
 <div class="paragraph">
 <p>The usual allowances for rounding error (<em><a href="#relative-error-as-ulps">Relative
 Error as ULPs</a> section</em>) or flushing behavior
 (<em><a href="#edge-case-behavior-in-flush-to-zero-mode">Edge Case Behavior in Flush To
 Zero Mode</a> section</em>) shall not apply for those values for which <em>section
-F.9</em> of ISO/IEC 9899:,TC2, or
+F.9</em> of ISO/IEC 9899:TC2, or
 <em><a href="#additional-requirements-beyond-isoiec-9899tc2">Additional Requirements
 Beyond ISO/IEC 9899:TC2</a></em> and
 <em><a href="#edge-case-behavior-in-flush-to-zero-mode">Edge Case Behavior in Flush To
@@ -5567,6 +5562,635 @@ Where the ± symbol is used, the sign shall be preserved.
 For example, sin(±0) = ±0 shall be interpreted to mean sin(+0)
 is +0 and sin(-0) is -0.</p>
 </div>
+<div class="paragraph">
+<p>Some of the required edge case behavior described in sections F.9
+and G.6 of ISO/IEC 9899:TC2 is:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>OpExtInst</strong> <strong>acos</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>acos( 1 ) returns +0.</p>
+</li>
+<li>
+<p>acos( x ) returns a NaN for | x | &gt; 1.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>OpExtInst</strong> <strong>acosh</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>acosh( 1 ) returns +0.</p>
+</li>
+<li>
+<p>acosh( x ) returns a NaN for x &lt; 1.</p>
+</li>
+<li>
+<p>acosh( +∞ ) returns +∞.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>OpExtInst</strong> <strong>asin</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>asin( ±0 ) returns ±0.</p>
+</li>
+<li>
+<p>asin( x ) returns a NaN for | x | &gt; 1.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>OpExtInst</strong> <strong>asinh</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>asinh( ±0 ) returns ±0.</p>
+</li>
+<li>
+<p>asinh( ±∞ ) returns ±∞.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>OpExtInst</strong> <strong>atan</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>atan( ±0 ) returns ±0.</p>
+</li>
+<li>
+<p>atan( ±∞ ) returns ±π / 2.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>OpExtInst</strong> <strong>atanh</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>atanh( ±0 ) returns ±0.</p>
+</li>
+<li>
+<p>atanh( ±1 ) returns ±∞.</p>
+</li>
+<li>
+<p>atanh( x ) returns a NaN for | x | &gt; 1.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>OpExtInst</strong> <strong>atan2</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>atan2( ±0, -0 ) returns ±π.</p>
+</li>
+<li>
+<p>atan2( ±0, +0 ) returns ±0.</p>
+</li>
+<li>
+<p>atan2( ±0, x ) returns ±π for x &lt; 0.</p>
+</li>
+<li>
+<p>atan2( ±0, x ) returns ±0 for x &gt; 0.</p>
+</li>
+<li>
+<p>atan2( y, ±0 ) returns -π / 2 for y &lt; 0.</p>
+</li>
+<li>
+<p>atan2( y, ±0 ) returns π / 2 for y &gt; 0.</p>
+</li>
+<li>
+<p>atan2( ±y, -∞ ) returns ±π for finite y &gt; 0.</p>
+</li>
+<li>
+<p>atan2( ±y, +∞ ) returns ±0 for finite y &gt; 0.</p>
+</li>
+<li>
+<p>atan2( ±∞, x ) returns ±π / 2 for finite x.</p>
+</li>
+<li>
+<p>atan2( ±∞, -∞ ) returns ±3 times π / 4.</p>
+</li>
+<li>
+<p>atan2( ±∞, +∞ ) returns ±π / 4.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>OpExtInst</strong> <strong>cbrt</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>cbrt( ±0 ) returns ±0.</p>
+</li>
+<li>
+<p>cbrt( ±∞ ) returns ±∞.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>OpExtInst</strong> <strong>ceil</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>ceil( ±0 ) returns ±0.</p>
+</li>
+<li>
+<p>ceil( ±∞ ) returns ±∞.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>OpExtInst</strong> <strong>cos</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>cos( ±0 ) returns 1.</p>
+</li>
+<li>
+<p>cos( ±∞ ) returns a NaN.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>OpExtInst</strong> <strong>cosh</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>cosh( ±0 ) returns 1.</p>
+</li>
+<li>
+<p>cosh( ±∞ ) returns +∞.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>OpExtInst</strong> <strong>erfc</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>erfc( -∞ ) returns 2.</p>
+</li>
+<li>
+<p>erfc( +∞ ) returns +0.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>OpExtInst</strong> <strong>erf</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>erf( ±0 ) returns ±0.</p>
+</li>
+<li>
+<p>erf( ±∞ ) returns ±1.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>OpExtInst</strong> <strong>exp</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>exp( ±0 ) returns 1.</p>
+</li>
+<li>
+<p>exp( -∞ ) returns +0.</p>
+</li>
+<li>
+<p>exp( +∞ ) returns +∞.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>OpExtInst</strong> <strong>exp2</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>exp2( ±0 ) returns 1.</p>
+</li>
+<li>
+<p>exp2( -∞ ) returns +0.</p>
+</li>
+<li>
+<p>exp2( +∞ ) returns +∞.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>OpExtInst</strong> <strong>expm1</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>expm1( ±0 ) returns ±0.</p>
+</li>
+<li>
+<p>expm1( -∞ ) returns -1.</p>
+</li>
+<li>
+<p>expm1( +∞ ) returns +∞.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>OpExtInst</strong> <strong>fabs</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>fabs( ±0 ) returns +0.</p>
+</li>
+<li>
+<p>fabs( ±∞ ) returns +∞.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>OpExtInst</strong> <strong>floor</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>floor( ±0 ) returns ±0.</p>
+</li>
+<li>
+<p>floor( ±∞ ) returns ±∞.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>OpExtInst</strong> <strong>fma</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>fma(x, y, z) returns a NaN if one of x and y is infinite and the other is zero.</p>
+</li>
+<li>
+<p>fma(x, y, z) returns a NaN if x times y is an exact infinity and z is also an infinity but with the opposite sign.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>OpExtInst</strong> <strong>fmod</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>fmod( ±0, y ) returns ±0 for y not zero.</p>
+</li>
+<li>
+<p>fmod( x, y ) returns a NaN for x infinite or y zero.</p>
+</li>
+<li>
+<p>fmod( x, ±∞ ) returns x for x not infinite.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>OpExtInst</strong> <strong>frexp</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>frexp( ±0, exp ) returns ±0, and stores 0 in the object pointed to by exp.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>OpExtInst</strong> <strong>hypot</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>hypot( x, y ), hypot( y, x ), and hypot( x, -y ) are equivalent.</p>
+</li>
+<li>
+<p>hypot( x, ±0 ) is equivalent to fabs( x ).</p>
+</li>
+<li>
+<p>hypot( ±∞, y ) returns +∞, even if y is a NaN.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>OpExtInst</strong> <strong>lgamma</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>lgamma( 1 ) returns +0.</p>
+</li>
+<li>
+<p>lgamma( 2 ) returns +0.</p>
+</li>
+<li>
+<p>lgamma( x ) returns +∞ for x a negative integer or zero.</p>
+</li>
+<li>
+<p>lgamma( -∞ ) returns +∞.</p>
+</li>
+<li>
+<p>lgamma( +∞ ) returns +∞.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>OpExtInst</strong> <strong>log</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>log( ±0 ) returns -∞.</p>
+</li>
+<li>
+<p>log( 1 ) returns +0.</p>
+</li>
+<li>
+<p>log( x ) returns a NaN for x &lt; 0.</p>
+</li>
+<li>
+<p>log( +∞ ) returns +∞.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>OpExtInst</strong> <strong>log2</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>log2( ±0 ) returns -∞.</p>
+</li>
+<li>
+<p>log2( 1 ) returns +0.</p>
+</li>
+<li>
+<p>log2( x ) returns a NaN for x &lt; 0.</p>
+</li>
+<li>
+<p>log2( +∞ ) returns +∞.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>OpExtInst</strong> <strong>log10</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>log10( ±0 ) returns -∞.</p>
+</li>
+<li>
+<p>log10( 1 ) returns +0.</p>
+</li>
+<li>
+<p>log10( x ) returns a NaN for x &lt; 0.</p>
+</li>
+<li>
+<p>log10( +∞ ) returns +∞.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>OpExtInst</strong> <strong>log1p</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>log1p( ±0 ) returns ±0.</p>
+</li>
+<li>
+<p>log1p( -1 ) returns -∞.</p>
+</li>
+<li>
+<p>log1p( x ) returns a NaN for x &lt; -1.</p>
+</li>
+<li>
+<p>log1p( +∞ ) returns +∞.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>OpExtInst</strong> <strong>logb</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>logb( ±0 ) returns -∞.</p>
+</li>
+<li>
+<p>logb( ±∞ ) returns +∞.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>OpExtInst</strong> <strong>modf</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>modf( ±x, iptr ) returns a result with the same sign as x.</p>
+</li>
+<li>
+<p>modf( ±∞, iptr ) returns ±0 and stores ±∞ in the object pointed to by iptr.</p>
+</li>
+<li>
+<p>modf( NaN, iptr ) stores a NaN in the object pointed to by iptr (and returns a NaN).</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>OpExtInst</strong> <strong>pow</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>pow( ±0, y ) returns ±∞ for y an odd integer &lt; 0.</p>
+</li>
+<li>
+<p>pow( ±0, y ) returns +∞ for y &lt; 0 and not an odd integer.</p>
+</li>
+<li>
+<p>pow( ±0, y ) returns ±0 for y an odd integer &gt; 0.</p>
+</li>
+<li>
+<p>pow( ±0, y ) returns +0 for y &gt; 0 and not an odd integer.</p>
+</li>
+<li>
+<p>pow( -1, ±∞ ) returns 1.</p>
+</li>
+<li>
+<p>pow( +1, y ) returns 1 for any y, even a NaN.</p>
+</li>
+<li>
+<p>pow( x, ±0 ) returns 1 for any x, even a NaN.</p>
+</li>
+<li>
+<p>pow( x, y ) returns a NaN for finite x &lt; 0 and finite non-integer y.</p>
+</li>
+<li>
+<p>pow( x, -∞ ) returns +∞ for | x | &lt; 1.</p>
+</li>
+<li>
+<p>pow( x, -∞ ) returns +0 for | x | &gt; 1.</p>
+</li>
+<li>
+<p>pow( x, +∞ ) returns +0 for | x | &lt; 1.</p>
+</li>
+<li>
+<p>pow( x, +∞ ) returns +∞ for | x | &gt; 1.</p>
+</li>
+<li>
+<p>pow( -∞, y ) returns -0 for y an odd integer &lt; 0.</p>
+</li>
+<li>
+<p>pow( -∞, y ) returns +0 for y &lt; 0 and not an odd integer.</p>
+</li>
+<li>
+<p>pow( -∞, y ) returns -∞ for y an odd integer &gt; 0.</p>
+</li>
+<li>
+<p>pow( -∞, y ) returns +∞ for y &gt; 0 and not an odd integer.</p>
+</li>
+<li>
+<p>pow( +∞, y ) returns +0 for y &lt; 0.</p>
+</li>
+<li>
+<p>pow( +∞, y ) returns +∞ for y &gt; 0.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>OpExtInst</strong> <strong>round</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>round( ±0 ) returns ±0.</p>
+</li>
+<li>
+<p>round( ±∞ ) returns ±∞.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>OpExtInst</strong> <strong>sin</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>sin( ±0 ) returns ±0.</p>
+</li>
+<li>
+<p>sin( ±∞ ) returns a NaN.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>OpExtInst</strong> <strong>sinh</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>sinh( ±0 ) returns ±0.</p>
+</li>
+<li>
+<p>sinh( ±∞ ) returns ±∞.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>OpExtInst</strong> <strong>tan</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>tan( ±0 ) returns ±0.</p>
+</li>
+<li>
+<p>tan( ±∞ ) returns a NaN.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>OpExtInst</strong> <strong>tanh</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>tanh( ±0 ) returns ±0.</p>
+</li>
+<li>
+<p>tanh( ±∞ ) returns ±1.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>OpExtInst</strong> <strong>tgamma</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>tgamma( ±0 ) returns ±∞.</p>
+</li>
+<li>
+<p>tgamma( x ) returns a NaN for x a negative integer.</p>
+</li>
+<li>
+<p>tgamma( -∞ ) returns a NaN.</p>
+</li>
+<li>
+<p>tgamma( +∞ ) returns +∞.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>OpExtInst</strong> <strong>trunc</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>trunc( ±0 ) returns ±0.</p>
+</li>
+<li>
+<p>trunc( ±∞ ) returns ±∞.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="additional-requirements-beyond-isoiec-9899tc2"><a class="anchor" href="#additional-requirements-beyond-isoiec-9899tc2"></a>6.7.1. Additional Requirements Beyond ISO/IEC 9899:TC2</h4>
+<div class="paragraph">
+<p>All functions that return a NaN should return a quiet NaN.</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
@@ -5574,7 +6198,7 @@ is +0 and sin(-0) is -0.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>acospi( 1 ) = +0.</p>
+<p>acospi( 1 ) returns +0.</p>
 </li>
 <li>
 <p>acospi( x ) returns a NaN for | x | &gt; 1.</p>
@@ -5587,7 +6211,7 @@ is +0 and sin(-0) is -0.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>asinpi( ±0 ) = ±0.</p>
+<p>asinpi( ±0 ) returns ±0.</p>
 </li>
 <li>
 <p>asinpi( x ) returns a NaN for | x | &gt; 1.</p>
@@ -5600,10 +6224,10 @@ is +0 and sin(-0) is -0.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>atanpi( ±0 ) = ±0.</p>
+<p>atanpi( ±0 ) returns ±0.</p>
 </li>
 <li>
-<p>atanpi ( ±∞ ) = ±0.5.</p>
+<p>atanpi( ±∞ ) returns ±0.5.</p>
 </li>
 </ul>
 </div>
@@ -5613,37 +6237,37 @@ is +0 and sin(-0) is -0.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>atan2pi ( ±0, -0 ) = ±1.</p>
+<p>atan2pi( ±0, -0 ) returns ±1.</p>
 </li>
 <li>
-<p>atan2pi ( ±0, +0 ) = ± 0.</p>
+<p>atan2pi( ±0, +0 ) returns ±0.</p>
 </li>
 <li>
-<p>atan2pi ( ±0, x ) returns ± 1 for x &lt; 0.</p>
+<p>atan2pi( ±0, x ) returns ±1 for x &lt; 0.</p>
 </li>
 <li>
-<p>atan2pi ( ±0, x) returns ± 0 for x &gt; 0.</p>
+<p>atan2pi( ±0, x ) returns ±0 for x &gt; 0.</p>
 </li>
 <li>
-<p>atan2pi ( y, ±0 ) returns -0.5 for y &lt; 0.</p>
+<p>atan2pi( y, ±0 ) returns -0.5 for y &lt; 0.</p>
 </li>
 <li>
-<p>atan2pi ( y, ±0 ) returns 0.5 for y &gt; 0.</p>
+<p>atan2pi( y, ±0 ) returns 0.5 for y &gt; 0.</p>
 </li>
 <li>
-<p>atan2pi ( ±y, -∞ ) returns ± 1 for finite y &gt; 0.</p>
+<p>atan2pi( ±y, -∞ ) returns ±1 for finite y &gt; 0.</p>
 </li>
 <li>
-<p>atan2pi ( ±y, +∞ ) returns ± 0 for finite y &gt; 0.</p>
+<p>atan2pi( ±y, +∞ ) returns ±0 for finite y &gt; 0.</p>
 </li>
 <li>
-<p>atan2pi ( ±∞, x ) returns ± 0.5 for finite x.</p>
+<p>atan2pi( ±∞, x ) returns ±0.5 for finite x.</p>
 </li>
 <li>
-<p>atan2pi (±∞, -∞ ) returns ±0.75.</p>
+<p>atan2pi( ±∞, -∞ ) returns ±0.75.</p>
 </li>
 <li>
-<p>atan2pi (±∞, +∞ ) returns ±0.25.</p>
+<p>atan2pi( ±∞, +∞ ) returns ±0.25.</p>
 </li>
 </ul>
 </div>
@@ -5663,10 +6287,10 @@ is +0 and sin(-0) is -0.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>cospi( ±0 ) returns 1</p>
+<p>cospi( ±0 ) returns 1.</p>
 </li>
 <li>
-<p>cospi( n + 0.5 ) is +0 for any integer n where n + 0.5 is
+<p>cospi( n + 0.5 ) returns +0 for any integer n where n + 0.5 is
 representable.</p>
 </li>
 <li>
@@ -5696,7 +6320,7 @@ representable.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>distance(x, y) calculates the distance from x to y without overflow or
+<p>distance( x, y ) calculates the distance from x to y without overflow or
 extraordinary precision loss due to underflow.</p>
 </li>
 </ul>
@@ -5707,10 +6331,10 @@ extraordinary precision loss due to underflow.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>fdim( any, NaN ) returns NaN.</p>
+<p>fdim( any, NaN ) returns a NaN.</p>
 </li>
 <li>
-<p>fdim( NaN, any ) returns NaN.</p>
+<p>fdim( NaN, any ) returns a NaN.</p>
 </li>
 </ul>
 </div>
@@ -5720,7 +6344,7 @@ extraordinary precision loss due to underflow.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>fmod( ±0, NaN ) returns NaN.</p>
+<p>fmod( ±0, NaN ) returns a NaN.</p>
 </li>
 </ul>
 </div>
@@ -5746,7 +6370,7 @@ and shall not return a value less than 0.</p>
 <p>fract( -inf, iptr ) returns -0 and -inf in iptr.</p>
 </li>
 <li>
-<p>fract( NaN, iptr ) returns the NaN and NaN in iptr.</p>
+<p>fract( NaN, iptr ) returns a NaN and a NaN in iptr.</p>
 </li>
 </ul>
 </div>
@@ -5759,7 +6383,7 @@ and shall not return a value less than 0.</p>
 <p>frexp( ±∞, exp ) returns ±∞ and stores 0 in exp.</p>
 </li>
 <li>
-<p>frexp( NaN, exp ) returns the NaN and stores 0 in exp.</p>
+<p>frexp( NaN, exp ) returns a NaN and stores 0 in exp.</p>
 </li>
 </ul>
 </div>
@@ -5842,19 +6466,19 @@ if the elements in v were replaced as follows:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>pown( x, 0 ) is 1 for any x, even zero, NaN or infinity.</p>
+<p>pown( x, 0 ) returns 1 for any x, even zero, NaN or infinity.</p>
 </li>
 <li>
-<p>pown( ±0, n ) is ±∞ for odd n &lt; 0.</p>
+<p>pown( ±0, n ) returns ±∞ for odd n &lt; 0.</p>
 </li>
 <li>
-<p>pown( ±0, n ) is +∞ for even n &lt; 0.</p>
+<p>pown( ±0, n ) returns +∞ for even n &lt; 0.</p>
 </li>
 <li>
-<p>pown( ±0, n ) is +0 for even n &gt; 0.</p>
+<p>pown( ±0, n ) returns +0 for even n &gt; 0.</p>
 </li>
 <li>
-<p>pown( ±0, n ) is ±0 for odd n &gt; 0.</p>
+<p>pown( ±0, n ) returns ±0 for odd n &gt; 0.</p>
 </li>
 </ul>
 </div>
@@ -5864,37 +6488,37 @@ if the elements in v were replaced as follows:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>powr( x, ±0 ) is 1 for finite x &gt; 0.</p>
+<p>powr( x, ±0 ) returns 1 for finite x &gt; 0.</p>
 </li>
 <li>
-<p>powr( ±0, y ) is +∞ for finite y &lt; 0.</p>
+<p>powr( ±0, y ) returns +∞ for finite y &lt; 0.</p>
 </li>
 <li>
-<p>powr( ±0, -∞) is +∞.</p>
+<p>powr( ±0, -∞ ) returns +∞.</p>
 </li>
 <li>
-<p>powr( ±0, y ) is +0 for y &gt; 0.</p>
+<p>powr( ±0, y ) returns +0 for y &gt; 0.</p>
 </li>
 <li>
-<p>powr( +1, y ) is 1 for finite y.</p>
+<p>powr( +1, y ) returns 1 for finite y.</p>
 </li>
 <li>
-<p>powr( x, y ) returns NaN for x &lt; 0.</p>
+<p>powr( x, y ) returns a NaN for x &lt; 0.</p>
 </li>
 <li>
-<p>powr( ±0, ±0 ) returns NaN.</p>
+<p>powr( ±0, ±0 ) returns a NaN.</p>
 </li>
 <li>
-<p>powr( +∞, ±0 ) returns NaN.</p>
+<p>powr( +∞, ±0 ) returns a NaN.</p>
 </li>
 <li>
-<p>powr( +1, ±∞ ) returns NaN.</p>
+<p>powr( +1, ±∞ ) returns a NaN.</p>
 </li>
 <li>
-<p>powr( x, NaN ) returns the NaN for x &gt;= 0.</p>
+<p>powr( x, NaN ) returns a NaN for x &gt;= 0.</p>
 </li>
 <li>
-<p>powr( NaN, y ) returns the NaN.</p>
+<p>powr( NaN, y ) returns a NaN.</p>
 </li>
 </ul>
 </div>
@@ -5926,16 +6550,16 @@ NaN.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>rootn( ±0, n ) is ±∞ for odd n &lt; 0.</p>
+<p>rootn( ±0, n ) returns ±∞ for odd n &lt; 0.</p>
 </li>
 <li>
-<p>rootn( ±0, n ) is +∞ for even n &lt; 0.</p>
+<p>rootn( ±0, n ) returns +∞ for even n &lt; 0.</p>
 </li>
 <li>
-<p>rootn( ±0, n ) is +0 for even n &gt; 0.</p>
+<p>rootn( ±0, n ) returns +0 for even n &gt; 0.</p>
 </li>
 <li>
-<p>rootn( ±0, n ) is ±0 for odd n &gt; 0.</p>
+<p>rootn( ±0, n ) returns ±0 for odd n &gt; 0.</p>
 </li>
 <li>
 <p>rootn( x, n ) returns a NaN for x &lt; 0 and n is even.</p>
@@ -5964,7 +6588,7 @@ NaN.</p>
 <p>sinpi( ±0 ) returns ±0.</p>
 </li>
 <li>
-<p>sinpi( +n) returns +0 for positive integers n.</p>
+<p>sinpi( +n ) returns +0 for positive integers n.</p>
 </li>
 <li>
 <p>sinpi( -n ) returns -0 for negative integers n.</p>
@@ -5986,18 +6610,16 @@ NaN.</p>
 <p>tanpi( ±∞ ) returns a NaN.</p>
 </li>
 <li>
-<p>tanpi( n ) is copysign( 0.0, n ) for even integers n.</p>
+<p>tanpi( n ) returns copysign( 0.0, n ) for even integers n.</p>
 </li>
 <li>
-<p>tanpi( n ) is copysign( 0.0, - n) for odd integers n.</p>
+<p>tanpi( n ) returns copysign( 0.0, -n ) for odd integers n.</p>
 </li>
 <li>
-<p>tanpi( n + 0.5 ) for even integer n is +∞ where n + 0.5 is
-representable.</p>
+<p>tanpi( n + 0.5 ) returns +∞ for even integer n where n + 0.5 is representable.</p>
 </li>
 <li>
-<p>tanpi( n + 0.5 ) for odd integer n is -∞ where n + 0.5 is
-representable.</p>
+<p>tanpi( n + 0.5 ) returns -∞ for odd integer n where n + 0.5 is representable.</p>
 </li>
 </ul>
 </div>
@@ -6016,7 +6638,7 @@ representable.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="changes-to-isoiec-9899-tc2-behavior"><a class="anchor" href="#changes-to-isoiec-9899-tc2-behavior"></a>6.7.2. Changes to ISO/IEC 9899: TC2 Behavior</h4>
+<h4 id="changes-to-isoiec-9899-tc2-behavior"><a class="anchor" href="#changes-to-isoiec-9899-tc2-behavior"></a>6.7.2. Changes to ISO/IEC 9899:TC2 Behavior</h4>
 <div class="paragraph">
 <p><strong>OpExtInst</strong> <strong>modf</strong> behaves as though implemented by:</p>
 </div>
@@ -6072,16 +6694,16 @@ Beyond ISO/IEC 9899:TC2</a> section</em>:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>nextafter ( +smallest normal, y &lt; +smallest normal ) = +0.</p>
+<p>nextafter( +smallest normal, y &lt; +smallest normal ) returns +0.</p>
 </li>
 <li>
-<p>nextafter ( -smallest normal, y &gt; -smallest normal ) = -0.</p>
+<p>nextafter( -smallest normal, y &gt; -smallest normal ) returns -0.</p>
 </li>
 <li>
-<p>nextafter ( -0, y &gt; 0 ) returns smallest positive normal value.</p>
+<p>nextafter( -0, y &gt; 0 ) returns smallest positive normal value.</p>
 </li>
 <li>
-<p>nextafter ( +0, y &lt; 0 ) returns smallest negative normal value.</p>
+<p>nextafter( +0, y &lt; 0 ) returns smallest negative normal value.</p>
 </li>
 </ul>
 </div>
@@ -6425,17 +7047,17 @@ The image element location <code>(i,j,k)</code> is computed as:</p>
 <div class="content">
 \[\begin{array}{rcl}
 s' &amp;=&amp; 2.0f \times rint(0.5f \times s)\\
-s` &amp;=&amp; fabs(s - s`)\\
+s' &amp;=&amp; fabs(s - s')\\
 u  &amp;=&amp; s' \times w_t\\
 i  &amp;=&amp; (int)floor(u)\\
 i  &amp;=&amp; min(i, w_t - 1)\\
 t' &amp;=&amp; 2.0f \times rint(0.5f \times t)\\
-t` &amp;=&amp; fabs(t - t`)\\
+t' &amp;=&amp; fabs(t - t')\\
 v  &amp;=&amp; t' \times h_t\\
 j  &amp;=&amp; (int)floor(v)\\
 j  &amp;=&amp; min(j, h_t - 1)\\
 r' &amp;=&amp; 2.0f \times rint(0.5f \times r)\\
-r` &amp;=&amp; fabs(r - r`)\\
+r' &amp;=&amp; fabs(r - r')\\
 w  &amp;=&amp; r' \times d_t\\
 k  &amp;=&amp; (int)floor(w)\\
 k  &amp;=&amp; min(k, d_t - 1)
@@ -6460,21 +7082,21 @@ This 2 x 2 square or 2 x 2 x 2 cube is obtained as follows.</p>
 <div class="content">
 \[\begin{array}{rcl}
 s' &amp;=&amp; 2.0f \times rint(0.5f \times s)\\
-s` &amp;=&amp; fabs(s - s`)\\
+s' &amp;=&amp; fabs(s - s')\\
 u  &amp;=&amp; s' \times w_t\\
 i0 &amp;=&amp; (int)floor(u - 0.5f)\\
 i1 &amp;=&amp; i0 + 1\\
 i0 &amp;=&amp; max(i0, 0)\\
 i1 &amp;=&amp; min(i1, w_t - 1)\\
 t' &amp;=&amp; 2.0f \times rint(0.5f \times t)\\
-t` &amp;=&amp; fabs(t - t`)\\
+t' &amp;=&amp; fabs(t - t')\\
 v  &amp;=&amp; t' \times h_t\\
 j0 &amp;=&amp; (int)floor(v - 0.5f)\\
 j1 &amp;=&amp; j0 + 1\\
 j0 &amp;=&amp; max(j0, 0)\\
 j1 &amp;=&amp; min(j1, h_t - 1)\\
 r' &amp;=&amp; 2.0f \times rint(0.5f \times r)\\
-r` &amp;=&amp; fabs(r - r`)\\
+r' &amp;=&amp; fabs(r - r')\\
 w  &amp;=&amp; r' \times d_t\\
 k0 &amp;=&amp; (int)floor(w - 0.5f)\\
 k1 &amp;=&amp; k0 + 1\\
@@ -7787,19 +8409,15 @@ Conversion to sRGB space is automatically done by the image write instruction if
 <div class="sect2">
 <h3 id="_coordinate_format_for_reading_and_writing_images"><a class="anchor" href="#_coordinate_format_for_reading_and_writing_images"></a>7.6. Coordinate Format for Reading and Writing Images</h3>
 <div class="paragraph">
-<p>This section describes valid types for the <em>Coordinate</em> operand used by image
+<p>This section describes supported types for the <em>Coordinate</em> operand used by image
 read instructions (such as <strong>OpImageRead</strong>) or image write instructions (such as
 <strong>OpImageWrite</strong>).
-The valid operand types are determined by the <strong>OpImageType</strong> for the image and
+The supported operand types are determined by the <strong>OpImageType</strong> for the image and
 whether the image is being read from or written to.</p>
 </div>
 <div class="paragraph">
-<p>The following table describes the valid types for the <em>Coordinate</em> operand when
-reading from the specified image type.
-The integer types for the <em>Coordinate</em> operand are only valid when the image is
-read without a sampler (such as <strong>OpImageRead</strong>), or with a sampler using
-non-normalized texel coordinates, <strong>Nearest</strong> filtering, and either the <strong>None</strong>,
-<strong>ClampToEdge</strong>, or <strong>Clamp</strong> addressing mode.</p>
+<p>When reading from an image of the following image types, behavior is undefined
+unless the <em>Coordinate</em> operand is one of the supported coordinate types:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 9. <em>Mapping Image Types to Coordinate Types for Reading</em></caption>
@@ -7883,8 +8501,14 @@ non-normalized texel coordinates, <strong>Nearest</strong> filtering, and either
 </tbody>
 </table>
 <div class="paragraph">
-<p>The following table describes the valid types for the <em>Coordinate</em> operand when
-writing to the specified image type.</p>
+<p>For the integer types for the <em>Coordinate</em> operand, behavior is undefined unless
+the image is read without a sampler (such as <strong>OpImageRead</strong>), or with a sampler
+using non-normalized texel coordinates, <strong>Nearest</strong> filtering, and either the
+<strong>None</strong>, <strong>ClampToEdge</strong>, or <strong>Clamp</strong> addressing mode.</p>
+</div>
+<div class="paragraph">
+<p>When writing to an image of the following image types, behavior is undefined
+unless the <em>Coordinate</em> operand is one of the supported coordinate types:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 10. <em>Mapping Image Types to Coordinate Types for Writing</em></caption>
@@ -7968,8 +8592,11 @@ image read instruction or passed as the <em>Texel</em> data that is
 written by an image write instruction:</p>
 </div>
 <div class="paragraph">
-<p>For the following image channel orders, the data is a four
-component vector type:</p>
+<p>Whether the image element data is a vector or a scalar depends on the image
+channel order.
+For the following image channel orders, the image element data is mapped to
+components of a vector, and behavior is undefined unless the image element data
+is a four component vector type:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 11. <em>Mapping Image Data to Vector Components</em></caption>
@@ -7980,7 +8607,7 @@ component vector type:</p>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top"><strong>Image Channel Order</strong></th>
-<th class="tableblock halign-left valign-top"><strong>Components</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Vector Components</strong></th>
 </tr>
 </thead>
 <tbody>
@@ -8015,7 +8642,8 @@ component vector type:</p>
 </tbody>
 </table>
 <div class="paragraph">
-<p>For the following image channel orders, the data is a scalar type:</p>
+<p>For the following image channel orders, behavior is undefined unless the image
+element data is a scalar type:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 12. <em>Scalar Image Data</em></caption>
@@ -8041,11 +8669,13 @@ component vector type:</p>
 </tbody>
 </table>
 <div class="paragraph">
-<p>The following table describes the mapping from image channel data type
-to the data vector component type or scalar type:</p>
+<p>The vector component data type or scalar data type is dependent on the image
+channel data type.
+For the following image channel data types, behavior is undefined unless the
+image element data type is the specified data type:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 13. <em>Mapping Image Data Types to Data Types</em></caption>
+<caption class="title">Table 13. <em>Mapping Image Channel Data Types to Data Types</em></caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -8067,13 +8697,18 @@ to the data vector component type or scalar type:</p>
 <code>UnormInt101010</code>,
 <code>UnormInt101010_2</code>,<br>
 <code>UnormInt24</code>,<br>
-<code>HalfFloat</code>,<br>
-<code>Float</code>
+<code>HalfFloat</code>,
+<code>Float</code><br>
 <br>
 Additionally if the <code>cl_ext_<wbr>image_<wbr>unorm_<wbr>int_<wbr>2_<wbr>101010</code> extension is
-supported: <code>UnormInt2_101010EXT</code></p>
-<p class="tableblock">Additionally if the <code>cl_ext_<wbr>image_<wbr>unsigned_<wbr>10x6_<wbr>12x4_<wbr>14x2</code> extension is
-supported: <code>UnormInt10X6EXT</code>,<code>UnormInt12X4EXT</code>,<code>UnormInt14X2EXT</code></p></td>
+supported:<br>
+<code>UnormInt2_101010EXT</code><br>
+<br>
+Additionally if the <code>cl_ext_<wbr>image_<wbr>unsigned_<wbr>10x6_<wbr>12x4_<wbr>14x2</code> extension is
+supported:<br>
+<code>UnormInt10X6EXT</code>,
+<code>UnormInt12X4EXT</code>,
+<code>UnormInt14X2EXT</code><br></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OpTypeFloat</strong>, with <em>Width</em> equal to 16 or 32.</p></td>
 </tr>
 <tr>
@@ -8082,7 +8717,7 @@ supported: <code>UnormInt10X6EXT</code>,<code>UnormInt12X4EXT</code>,<code>Unorm
 <code>SignedInt32</code>,<br>
 <code>UnsignedInt8</code>,
 <code>UnsignedInt16</code>,
-<code>UnsignedInt32</code>
+<code>UnsignedInt32</code><br>
 <br>
 Additionally if the <code>cl_ext_<wbr>image_<wbr>unsigned_<wbr>10x6_<wbr>12x4_<wbr>14x2</code> extension is
 supported: <code>UnsignedInt10X6EXT</code>,<code>UnsignedInt12X4EXT</code>, <code>UnsignedInt14X2EXT</code></p></td>
@@ -8090,6 +8725,11 @@ supported: <code>UnsignedInt10X6EXT</code>,<code>UnsignedInt12X4EXT</code>, <cod
 </tr>
 </tbody>
 </table>
+<div class="paragraph">
+<p>For the image channel data types that return integer data, when reading from an
+image with a sampler, behavior is undefined unless the sampler is using
+<strong>Nearest</strong> filtering.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_sampled_and_sampler_less_reads"><a class="anchor" href="#_sampled_and_sampler_less_reads"></a>7.8. Sampled and Sampler-less Reads</h3>
@@ -8396,6 +9036,25 @@ versions are summarized below.</p>
 </li>
 </ul>
 </div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>There were no changes from <strong>v3.1.0</strong> to <strong>v3.1.1</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Changes from <strong>v3.1.1</strong> to <strong>v3.1.2</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Documented more edge-case behavior directly vs. referencing the C99 specification, see <a href="https://github.com/KhronosGroup/OpenCL-Docs/pull/1539">#1539</a>.</p>
+</li>
+<li>
+<p>Fixed the image addressing algorithm rendering, see <a href="https://github.com/KhronosGroup/OpenCL-Docs/pull/1570">#1570</a>.</p>
+</li>
+<li>
+<p>Added a missing restriction when reading from an integer image with a sampler, see <a href="https://github.com/KhronosGroup/OpenCL-Docs/pull/1594">#1594</a>.</p>
 </li>
 </ul>
 </div>

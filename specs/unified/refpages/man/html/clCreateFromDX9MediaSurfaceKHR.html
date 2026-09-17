@@ -813,14 +813,14 @@ cl_mem clCreateFromDX9MediaSurfaceKHR(
 </li>
 <li>
 <p><em>flags</em> is a bit-field that is used to specify usage information.
-Refer to the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#memory-flags-table" target="_blank" rel="noopener">List of supported memory flag
+Refer to the <a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#memory-flags-table" target="_blank" rel="noopener">List of supported memory flag
 values</a> table for a description of <em>flags</em>.
 Only the <code>CL_MEM_<wbr>READ_<wbr>ONLY</code>, <code>CL_MEM_<wbr>WRITE_<wbr>ONLY</code> and <code>CL_MEM_<wbr>READ_<wbr>WRITE</code>
 flags specified in that table can be used.</p>
 </li>
 <li>
 <p><em>adapter_type</em> is a value from enumeration of supported adapters
-described in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#dx9-media-adapter-types" target="_blank" rel="noopener">cl_dx9_media_adapter_type_khr values</a> table.
+described in the <a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#dx9-media-adapter-types" target="_blank" rel="noopener">cl_dx9_media_adapter_type_khr values</a> table.
 The type of <em>surface_info</em> is determined by the adapter type.
 The implementation does not need to support all adapter types.
 This approach provides flexibility to support additional adapter types
@@ -833,7 +833,7 @@ Supported adapter types are <code>CL_ADAPTER_<wbr>D3D9_<wbr>KHR</code>,
 <em>adapter_type</em> description above, passed in as a <code>void *</code>.
 If <em>adapter_type</em> is <code>CL_ADAPTER_<wbr>D3D9_<wbr>KHR</code>, <code>CL_ADAPTER_<wbr>D3D9EX_<wbr>KHR</code> and
 <code>CL_ADAPTER_<wbr>DXVA_<wbr>KHR</code>, <em>surface_info</em> points to a
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#cl_dx9_surface_info_khr" class="bare" target="_blank" rel="noopener">https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#cl_dx9_surface_info_khr</a> structure describing the surface.</p>
+<a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#cl_dx9_surface_info_khr" class="bare" target="_blank" rel="noopener">https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#cl_dx9_surface_info_khr</a> structure describing the surface.</p>
 </li>
 <li>
 <p><em>plane</em> is the plane of resource to share for planar surface formats.
@@ -858,8 +858,8 @@ by the width and height of the <em>plane</em> of the resource
 (<em>surface_info</em>&#8594;_resource_).
 The channel type and order of the returned image object is determined by the
 format and plane of the resource, and are described in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#fourcc-image-formats-table" target="_blank" rel="noopener">YUV FourCC Codes and Corresponding OpenCL
-Image Formats</a> and <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#d3d9-image-formats-table" target="_blank" rel="noopener">Direct3D 9 Formats and
+<a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#fourcc-image-formats-table" target="_blank" rel="noopener">YUV FourCC Codes and Corresponding OpenCL
+Image Formats</a> and <a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#d3d9-image-formats-table" target="_blank" rel="noopener">Direct3D 9 Formats and
 Corresponding OpenCL Image Formats</a> tables.</p>
 </div>
 <div class="paragraph">
@@ -896,8 +896,8 @@ returned in <em>errcode_ret</em>:</p>
 </li>
 <li>
 <p><code>CL_INVALID_<wbr>IMAGE_<wbr>FORMAT_<wbr>DESCRIPTOR</code> if the texture format of <em>resource</em>
-is not listed in the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#fourcc-image-formats-table" target="_blank" rel="noopener">YUV FourCC Codes and
-Corresponding OpenCL Image Formats</a> or <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#d3d9-image-formats-table" target="_blank" rel="noopener">Direct3D 9 Formats and Corresponding OpenCL Image Formats</a> tables.</p>
+is not listed in the <a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#fourcc-image-formats-table" target="_blank" rel="noopener">YUV FourCC Codes and
+Corresponding OpenCL Image Formats</a> or <a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#d3d9-image-formats-table" target="_blank" rel="noopener">Direct3D 9 Formats and Corresponding OpenCL Image Formats</a> tables.</p>
 </li>
 <li>
 <p><code>CL_INVALID_<wbr>OPERATION</code> if there are no devices in <em>context</em> that support
@@ -927,7 +927,7 @@ required by the OpenCL implementation on the host.</p>
 <h2 id="_document_notes"><a class="anchor" href="#_document_notes"></a>Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#clCreateFromDX9MediaSurfaceKHR" target="_blank" rel="noopener">OpenCL Specification</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#clCreateFromDX9MediaSurfaceKHR" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the OpenCL Specification.

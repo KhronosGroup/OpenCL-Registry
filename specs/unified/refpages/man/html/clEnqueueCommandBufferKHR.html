@@ -862,7 +862,7 @@ command-buffer.</p>
 </li>
 <li>
 <p><code>CL_INVALID_<wbr>OPERATION</code> if <em>command_buffer</em> is not in the
-<a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#executable" target="_blank" rel="noopener">Executable</a> state.</p>
+<a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#executable" target="_blank" rel="noopener">Executable</a> state.</p>
 </li>
 <li>
 <p><code>CL_INVALID_<wbr>VALUE</code> if <em>queues</em> is <code>NULL</code> and <em>num_queues</em> is &gt; 0, or
@@ -878,13 +878,16 @@ command-queue.</p>
 </li>
 <li>
 <p><code>CL_INCOMPATIBLE_<wbr>COMMAND_<wbr>QUEUE_<wbr>KHR</code> if the properties of any command-queue
-in <em>queues</em> contains a property not specified by
-<code>CL_DEVICE_<wbr>COMMAND_<wbr>BUFFER_<wbr>SUPPORTED_<wbr>QUEUE_<wbr>PROPERTIES_<wbr>KHR</code>.</p>
+in <em>queues</em>, when not <code>NULL</code>, or the properties of any command-queue
+used when creating <em>command_buffer</em> otherwise, contains a property not
+specified by <code>CL_DEVICE_<wbr>COMMAND_<wbr>BUFFER_<wbr>SUPPORTED_<wbr>QUEUE_<wbr>PROPERTIES_<wbr>KHR</code>.</p>
 </li>
 <li>
 <p><code>CL_INCOMPATIBLE_<wbr>COMMAND_<wbr>QUEUE_<wbr>KHR</code> if the properties of any
-command-queue in <em>queues</em> does not contain the minimum properties
-specified by <code>CL_DEVICE_<wbr>COMMAND_<wbr>BUFFER_<wbr>REQUIRED_<wbr>QUEUE_<wbr>PROPERTIES_<wbr>KHR</code>.</p>
+command-queue in <em>queues</em>, when not <code>NULL</code>, or the properties of any
+command-queue used when creating <em>command_buffer</em> otherwise, does not
+contain the minimum properties specified by
+<code>CL_DEVICE_<wbr>COMMAND_<wbr>BUFFER_<wbr>REQUIRED_<wbr>QUEUE_<wbr>PROPERTIES_<wbr>KHR</code>.</p>
 </li>
 <li>
 <p><code>CL_INVALID_<wbr>DEVICE</code> if any element of <em>queues</em> does not have the same
@@ -935,7 +938,7 @@ required by the OpenCL implementation on the host.</p>
 <h2 id="_document_notes"><a class="anchor" href="#_document_notes"></a>Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/3.0-unified/html/OpenCL_API.html#clEnqueueCommandBufferKHR" target="_blank" rel="noopener">OpenCL Specification</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/OpenCL/specs/unified/html/OpenCL_API.html#clEnqueueCommandBufferKHR" target="_blank" rel="noopener">OpenCL Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the OpenCL Specification.
