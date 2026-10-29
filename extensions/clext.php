@@ -27,6 +27,8 @@
 </li>
 <li><a href="extensions/arm/cl_arm_job_slot_selection.txt">cl_arm_job_slot_selection</a>
 </li>
+<li><a href="extensions/arm/cl_arm_memory_controls.html">cl_arm_memory_controls</a>
+</li>
 <li><a href="extensions/arm/cl_arm_non_uniform_work_group_size.txt">cl_arm_non_uniform_work_group_size</a>
 </li>
 <li><a href="extensions/arm/cl_arm_printf.html">cl_arm_printf</a>

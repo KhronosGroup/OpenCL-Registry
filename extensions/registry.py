@@ -61,6 +61,11 @@ registry = {
         'flags' : { 'public' },
         'url' : 'extensions/arm/cl_arm_job_slot_selection.txt',
     },
+    'cl_arm_memory_controls' : {
+        'number' : 91,
+        'flags' : { 'public' },
+        'url' : 'extensions/arm/cl_arm_memory_controls.html',
+    },
     'cl_arm_non_uniform_work_group_size' : {
         'number' : 39,
         'flags' : { 'public' },
